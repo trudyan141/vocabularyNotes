@@ -13,8 +13,17 @@
 
 ## Validation
 
-Current check: pnpm check128 tests/16files, lint/typecheck/build PASS. Full147/147 desktop/mobile/cloud-fixture/offline browser tests PASS after updating the old welcome title assertion; full docs validator223 local links/17skills351resources/25requirements19tasks16screens/27JSON PASS. Production and remote CI pending. Do not treat fixture requests as live provider/account acceptance.
+Current check: pnpm check128 tests/16files, lint/typecheck/build PASS. Full147/147 desktop/mobile/cloud-fixture/offline browser tests PASS after updating the old welcome title assertion; full docs validator223 local links/17skills351resources/25requirements19tasks16screens/27JSON PASS. Source78c791c production READY on Vercel; remote CI38045533305 SUCCESS including check, SQL, full browser and docs. Do not treat fixture requests as live provider/account acceptance.
 
 Initial regression run137 passed/6 failed: fixed unstable locale callback cancelling an in-flight review open; adjusted assertions to wait for saved question positions, scope alerts to main and select only the new lesson for missing-image fixtures. A successful earlier unit edit intentionally preserved approval, so the pending-sense fixture now explicitly seeds unapproved input. Brand image visual inspection found black contain padding; transparent padding corrected and sampled in an asset test.
 
 No additional inference, account deletion or real child review ratings used for testing. Physical-device/human acceptance and search/social crawler cache refresh remain external.
+
+## Hosted verification and handoff
+
+- Feature source20bfa3d deployed successfully through native Git; source78c791c includes brand generation in prebuild. Its initial Vercel fetch failed with `git_info_fail` before compilation. Redeploy of that same source succeeded: `dpl_4gPgg1a572P1Jwh4XuXcQKndsf5z` READY, stable https://words-for-kids.vercel.app. No code workaround or credential change needed.
+- [GitHub CI38045533305](https://github.com/trudyan141/vocabularyNotes/actions/runs/38045533305) SUCCESS: frozen install, check, SQL, full browser and full docs validation.
+- Actual hosted founder scope shows3 due words. Clicking the direct action opened a saved3-card flashcard session showing girl at1/3; paused without answering/rating. Existing13-word lesson retained. In Prepare, no remaining missing art returns explicit0/0/0 errors next to the search action without reapproval or provider inference.
+- Public HTTPS requests with Facebook crawler user agent returned200 for welcome, Today, robots, sitemap, ICO, Apple180 and social PNG1200×630. Verified welcome OG/Twitter/canonical/WebSite data, private Today noindex, private-route robots exclusions and welcome-only sitemap. The first smoke script guessed `/apple-touch-icon.png` and got404; corrected to the actual metadata path `/icons/apple-touch-icon.png`, all7 checks then passed.
+- Private visual proof remains `/tmp/wfk-today-due-live.png`, outside Git; brand preview in public/images/words-for-kids-share.png. No key/private content in assets or metadata. No uncommitted source work remains; unrelated eng.traineddata preserved.
+- Next action: founder check the live due entry and API feedback on their phone; physical-device/human acceptance and crawler cache refresh are still external. Read AGENTS, STATE/TASKS and this evidence for continuation.

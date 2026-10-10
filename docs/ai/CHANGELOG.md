@@ -2,7 +2,7 @@
 
 ## 2026-10-10 — Due review action, request feedback and public SEO (ADR037/038)
 
-Direct scoped due flashcards/resume/offline; real batch progress/download/error/Stop/retry and shared elapsed waiting UI. Original-fox favicon/1200×630 brand preview, public welcome SEO/canonical/robots/sitemap/JSON-LD; private app noindex. Check128 PASS, full147/147 browser/docs223links PASS; nativeGit deploy/CI pending. [Evidence](../evaluations/today-feedback-and-seo.md).
+Direct scoped due flashcards/resume/offline; real batch progress/download/error/Stop/retry and shared elapsed waiting UI. Original-fox favicon/1200×630 brand preview, public welcome SEO/canonical/robots/sitemap/JSON-LD; private app noindex. Check128 PASS, full147/147 browser/docs223links PASS; source78c791c production READY after transient Vercel Git fetch retry, CI38045533305 SUCCESS. Hosted3 due →3 cards, prepare completion and7 metadata/asset HTTP checks verified without child ratings. [Evidence](../evaluations/today-feedback-and-seo.md).
 
 ## 2026-10-10 — Capture drag-drop, inline key và ảnh đối chiếu, ADR-031
 

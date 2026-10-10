@@ -4,7 +4,7 @@ Cập nhật10/10/2026, Asia/Ho_Chi_Minh. Founder yêu cầu setup rõ env/nơi 
 
 ## Current steering — Today/API feedback/SEO, ADR-037/038
 
-Due count now has direct scoped review/resume/offline entry; request feedback shows real stages, counts, elapsed and partial errors; favicon/social preview/public SEO implemented. pnpm check128/16files/lint/types/build PASS. Full147/147 browser PASS, docs223links PASS; deploy/remoteCI pending in [evidence](../evaluations/today-feedback-and-seo.md). Next: deploy native Git and verify hosted due entry/SSR preview without recording child reviews.
+Due count now has direct scoped review/resume/offline entry; request feedback shows real stages, counts, elapsed and partial errors; favicon/social preview/public SEO implemented. pnpm check128/16files/lint/types/build PASS. Full147/147 browser PASS, docs223links PASS; source78c791c Vercel production READY (dpl_4gPgg1a572P1Jwh4XuXcQKndsf5z), remoteCI38045533305 SUCCESS in [evidence](../evaluations/today-feedback-and-seo.md). Hosted3 due →3-card session verified without ratings; prepare completion and all7 public metadata/assets checks PASS. Transient Git fetch failure resolved by redeploy. Next: founder physical-phone/human acceptance of the live due action and API feedback.
 
 ## Pictures / grammar / day sets — ADR-034/035
 

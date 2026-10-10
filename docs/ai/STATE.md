@@ -12,7 +12,7 @@ Gemini SSE/tiến độ bước thực/elapsed/Dừng/preview chưa lưu/strict 
 
 ## Chẩn đoán Google từ chối — ADR-033
 
-HTTP/status/model/message/field diagnostics đã redact an toàn; check111 unit/13files/lint/types/build và full121/121 E2E PASS, docs203links PASS. Đưa bản chẩn đoán lên để thử request theo founder; chưa kết luận nguyên nhân thật từ thông báo configuration cũ.
+HTTP/status/model/message/field diagnostics đã redact an toàn; check111 unit/13files/lint/types/build và full121/121 E2E PASS, docs203links PASS. Bản0ba9794 production READY; thử một POST trên founder tab thực tế: HTTP400 INVALID_ARGUMENT/Request contains an invalid argument, không field cụ thể. Request JSON tương thích responseMimeType/responseJsonSchema/pruned string constraints + metadata key/model GET đã hoàn tất/check113/full123 E2E/docs203links PASS; đang deploy và thử sau sửa, không kết luận key sai.
 
 ## Bản hiện hành
 

@@ -276,3 +276,5 @@ Streaming source7eeb25e production READY (dpl_5GuJjph4QsX362DqJb2e7E8Qe8uT/stabl
 ## 2026-10-10 — Google rejection diagnostics
 
 ADR033 giữ HTTP/status/model/message/reason/field errors đã redact, không metadata/log/persist; preconditions/non-JSON errors rõ ràng, draft còn nguyên. Check111/13files/lint/types/build và full121/121 E2E PASS; docs203links PASS; deploy/live cause đang kiểm.
+
+Live diagnostics0ba9794 READY, một user-authorized POST trả400 INVALID_ARGUMENT/Request contains an invalid argument/no fields. Chuyển stable GenerateContent JSON fields + provider-only string pruning, thêm metadata GET15s/no image/inference; check113 PASS, full123/123 E2E/docs203links PASS; bản request tương thích đang deploy/thử sau sửa. Không đọc/print key, không parent approve/save.

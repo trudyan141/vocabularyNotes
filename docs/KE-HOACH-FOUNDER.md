@@ -911,3 +911,5 @@ Theo phản hồi founder, màn đọc ảnh dùng Gemini streaming để hiện
 ### Cập nhật10/10 — Google từ chối phải hiện rõ lý do
 
 Founder yêu cầu thử/fix lỗi Google request. Bản cũ che mất message cụ thể bằng câu cấu hình chung; ADR033 cho thấy HTTP/status/model/thông báo và trường sai đã ẩn key, không log/backup. Kết quả kiểm/request thực và trạng thái deploy được ghi tại STATE/capture-review-ui; không gọi lỗi400 là key sai khi Google chưa nói vậy.
+
+Thử trên founder tab: Google400 INVALID_ARGUMENT, không field cụ thể. Request JSON được đổi dạng tương thích và phần Cài đặt thêm nút kiểm tra key/model không gửi ảnh; không tự đổi model hay bật billing. Kết quả sau sửa ghi STATE/evidence trước bàn giao.

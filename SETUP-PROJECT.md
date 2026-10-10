@@ -73,6 +73,8 @@ Bốn model chuẩn có free tier theo [bảng giá Google kiểm ngày 10/10/20
 
 **Điều kiện và dữ liệu:** [Gemini API terms](https://ai.google.dev/gemini-api/terms) hiện hạn chế API Clients hướng tới hoặc có thể được người dưới18 truy cập; key phụ huynh không miễn điều kiện đó. Code Gemini được thêm theo yêu cầu trực tiếp của founder; chưa phải xác nhận Google chấp thuận phát hành child app. T00 eligibility/account/live benchmark vẫn pending. Free tier có thể dùng nội dung gửi và response để cải thiện sản phẩm; không gửi thông tin riêng. Không mang `store:false`/ZDR của OpenAI sang Gemini hoặc quảng cáo không lưu dữ liệu. [Hướng dẫn key](https://ai.google.dev/gemini-api/docs/api-key), [model](https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite).
 
+**Kiểm tra trước khi gửi ảnh:** bấm **Kiểm tra key và model (không gửi ảnh)** trong phần AI. App chỉ gọi metadata Google, không phân tích ảnh. Thành công xác nhận key/model được Google chấp nhận, không bảo đảm quota còn hay ảnh đọc được. Lỗi hiện HTTP/status/message/field đã ẩn key.
+
 CORS OPTIONS thật200 cho originproduction, POST và `x-goog-api-key` đã kiểm. Chưa gọi inference bằng key thật hoặc dùng quota tài khoản; tests dùng fixture có nhãn, không claim accuracy/cost/free quota của project cụ thể.
 
 ## 4. Google và đồng bộ cloud — chỉ làm nếu cần
@@ -141,7 +143,7 @@ pnpm docs:check
 |---|---|
 | Không chạy app | Node 24/pnpm 11.25.0, install frozen, kiểm port 4317 |
 | Nhập key AI rồi vẫn lỗi | Key từ Google AI Studio, project/quota, model hỗ trợ ảnh; key OpenAI không dùng được |
-| AI 401/429 | 400/401: kiểm key/cấu hình; 404: đổi model được project cấp quyền. 429: kiểm quota, đợi rồi thử lại; app không gọi lặp/đổi model tự động |
+| Google từ chối request | Xem **Chi tiết lỗi từ Google**: HTTP/status/model/message và field. 400 INVALID_ARGUMENT là request không hợp lệ, không tự kết luận key sai; FAILED_PRECONDITION: project/region/free tier. 401/key invalid: sửa key. 403: quyền hoặc giới hạn referrer. 404: model. 429: quota. Dùng nút kiểm tra key/model; app không retry/đổi model tự động |
 | Từ điển tạm lỗi | Giữ phần nhập, thử lại; gợi ý catalog dùng offline |
 | Thư viện mất sau đổi URL | Mở đúng origin/profile/scope cũ; đừng xóa dữ liệu trước backup |
 | Google chưa cấu hình | Kiểm URL + publishable key, provider bật, hai callback; rebuild |

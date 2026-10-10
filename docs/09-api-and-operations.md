@@ -2,7 +2,7 @@
 
 ## Quyết định hiện hành 10/10/2026 — ADR-030
 
-Founder đã yêu cầu **Gemini thay OpenAI** trong BYOK, ưu tiên model free tier và đổi nhiều model. Browser gọi trực tiếp Google streamGenerateContent?alt=sse bằng header x-goog-api-key, ảnh inline JPEG, systemInstruction coi ảnh là data, structured responseFormat JSON/schema; parse STOP/non-thought/strict DTO/evidence, max50/90s/500KB/cancel/no retry/Web Locks. Không key/ảnh đi qua app server, không key trong URL/IDB/backup/sync/env. Session mặc định/localStorage opt-in/delete giữ theo ADR029. Cấu hình cũ OpenAI bỏ qua, không gửi key cũ sang Google. Bốn model3.5FlashLite(default)/3.1FlashLite/3.6Flash/3.8Flash và custom Gemini ID; không tự fallback model hoặc bật billing. AI_PROVIDER server vẫn none (gateway planned).
+Founder đã yêu cầu **Gemini thay OpenAI** trong BYOK, ưu tiên model free tier và đổi nhiều model. Browser gọi trực tiếp Google streamGenerateContent?alt=sse bằng header x-goog-api-key, ảnh inline JPEG, systemInstruction coi ảnh là data, structured responseMimeType + responseJsonSchema; parse STOP/non-thought/strict DTO/evidence, max50/90s/500KB/cancel/no retry/Web Locks. Không key/ảnh đi qua app server, không key trong URL/IDB/backup/sync/env. Session mặc định/localStorage opt-in/delete giữ theo ADR029. Cấu hình cũ OpenAI bỏ qua, không gửi key cũ sang Google. Bốn model3.5FlashLite(default)/3.1FlashLite/3.6Flash/3.8Flash và custom Gemini ID; không tự fallback model hoặc bật billing. AI_PROVIDER server vẫn none (gateway planned).
 
 Google pricing/model/API docs kiểm10/10 xác nhận free tier có quota cho bốn lựa chọn; project paid có thể tính phí. Current API terms vẫn hạn chế under18-directed/likely-access clients; latest user request xác nhận code/config Gemini, không thành xác nhận Google eligibility. T00 account/retention/live benchmark còn pending, free tier dữ liệu có thể dùng cải thiện sản phẩm. CORS OPTIONS thật200, chưa key/inference/quality/quota thật. Không mang store:false/ZDR OpenAI sang Gemini.
 
@@ -122,3 +122,5 @@ Nguồn: [Google streamGenerateContent](https://ai.google.dev/api/generate-conte
 ### Lỗi Google cụ thể — ADR-033
 
 Không chỉ map HTTP400 thành cấu hình: UI giữ HTTP/status/model, message/reason/fieldViolations đã redact key/token/largeblob/projectnumber, bounded/plain-text. Không full provider body/metadata/log/store. FAILED_PRECONDITION có hướng kiểm project/free-tier/region riêng; non-JSON error vẫn giữ HTTP. Nguồn [Google troubleshooting](https://ai.google.dev/gemini-api/docs/troubleshooting).
+
+Theo live400 trên founder tab, request dùng JSON fields tương thích GenerateContent: responseMimeType=application/json + responseJsonSchema; provider schema bỏ pattern/minLength/maxLength, local validation giữ nguyên nghiêm ngặt. Không tự retry hay đổi model. Cài đặt có Kiểm tra key/model bằng một metadata GET/15s/no image/no inference, xác nhận model hỗ trợ generateContent; không khẳng định quota/vision thành công chỉ từ GET.

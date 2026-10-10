@@ -151,7 +151,7 @@ export function Settings() {
         <Button asChild variant="outline"><Link href="/account">{t("Tài khoản Google của phụ huynh","Parent Google account")}</Link></Button>
         <p>
           {t(
-            "Bài học được lưu trên trình duyệt này. Google và đồng bộ cloud dùng khi đã cấu hình Supabase; AI dùng key riêng ở mục bên dưới.",
+            "Bài học được lưu trên trình duyệt này. Google và đồng bộ cloud dùng khi đã cấu hình Supabase; Gemini có key chung mặc định hoặc key riêng bố mẹ chọn ở bên dưới.",
             "Lessons are stored in this browser. Google and cloud sync work when Supabase is configured; personal AI settings are below.",
           )}
         </p>

@@ -241,3 +241,6 @@ Request feedback is adjacent to its action and accessible: operation/stage/elaps
 ## ADR-038 — Public discovery and private brand-only sharing
 
 10/10/2026 founder requests favicon, metadata/social thumbnail and SEO. Reuse original fox and Theme C; deterministic local asset generation, ICO/PNG/Apple/PWA sizes and1200×630 brand preview. Next metadata with absolute canonical/public URL, title/description/icons/OG/Twitter and minimal WebSite JSON-LD. Only public welcome enters sitemap/indexing; lesson, capture, settings/account and study screens remain noindex, preview deploys disallow. No private library contents in SSR metadata or thumbnails, no invented reviews/ratings/ranking claims. Existing skills and official Next docs suffice; no plugin/skill installed. [Evidence](../evaluations/today-feedback-and-seo.md).
+
+
+10/10/2026 ADR035 refinement per founder: make saved-set title/date editing reachable inside the selected card and from Today recent lessons, reusing existing versioned lesson update. Preserve IDs, words, sources and review schedule; do not require a new import to rename.

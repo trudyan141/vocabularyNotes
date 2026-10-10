@@ -929,3 +929,6 @@ ADR036 source0c22f0f productionREADY dpl_27FsfRqhma2o2kjekgFnA7F8z9bD, stable wo
 ### Ôn hôm nay, trạng thái API và nhận diện chia sẻ (10/10/2026)
 
 Đã triển khai nút Ôn N từ hôm nay mở thẳng thẻ đến hạn/tiếp tục phiên, trạng thái bước/thời gian/tiến độ và lỗi tải hình rõ ràng, cùng favicon/thumbnail chia sẻ1200×630/metadata SEO. Chỉ trang giới thiệu công khai cho index; bài của con không đưa vào sitemap. Check128 PASS; 147/147 browser và docs223links PASS; Bản78c791c đã lên Vercel READY và CI38045533305 SUCCESS. Kiểm trên thư viện thật: nút3 từ mở đúng3 thẻ, không ghi điểm ôn khi chỉ mở; trang tìm hình báo hoàn tất cạnh nút, favicon/ảnh chia sẻ/metadata đã trả200 đúng nội dung. Cần founder thử trên điện thoại; cache ảnh chia sẻ của mạng xã hội có thể chưa cập nhật ngay. [Bằng chứng](evaluations/today-feedback-and-seo.md).
+
+
+10/10/2026: theo yêu cầu sửa tên đã quên lúc tạo, thêm nút Đổi tên ngay tại bài gần đây trên Hôm nay; trang Bộ từ theo ngày mở ô sửa trong chính bộ đang chọn. Lưu/Hủy và thông báo rõ; giữ nguyên từ/lịch ôn. Check128 và toàn bộ147 kiểm thử browser desktop/mobile đã qua; đang deploy.

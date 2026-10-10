@@ -7,6 +7,8 @@ import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import {PracticeRepository} from "@/data/local/practice";
 import { useState } from "react";
+import {LessonEditor} from "@/components/features/lesson-editor";
+import type {Lesson} from "@/data/local/types";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useApp, useHydrated } from "@/components/app/provider";
 import { ParentGate } from "@/components/app/parent-gate";
@@ -23,6 +25,8 @@ export function Today() {
   const lessons=useLiveQuery(async()=>{if(!repository)return null;const rows=await repository.db.lessons.where("[scopeId+learnedOn]").between([repository.scope.id,""],[repository.scope.id,"\uffff"]).reverse().toArray();const values=[];for(const lesson of rows.filter(l=>!l.deletedAt).slice(0,4)){const result=await repository.search("",{lesson:lesson.id,approvedOnly:true,limit:1});if(result.total)values.push({lesson,total:result.total,art:result.words[0]?.art??null,word:result.words[0]?.word??lesson.title});}return {scope:repository.scope.id,values};},[repository]);
   const due=useLiveQuery(async()=>{if(!repository)return null;try{return {scope:repository.scope.id,count:(await new PracticeRepository(repository).dueIds()).length,error:false};}catch{return {scope:repository.scope.id,count:0,error:true};}},[repository]);
   const dueCount=due&&due.scope===repository?.scope.id?due.count:0;
+  const [editing,setEditing]=useState<Lesson|null>(null);
+  const [savedTitle,setSavedTitle]=useState("");
   const [query, setQuery] = useState("");
   const result = useLibrarySearch(query, { limit: 4 });
   const words = result?.words ?? [];
@@ -97,8 +101,9 @@ export function Today() {
             </ParentGate>
           </div>
           <Button asChild variant="link"><Link href="/library/lessons">{t("Tất cả bộ từ theo ngày","All word sets by date")}</Link></Button>
+          {savedTitle&&<p role="status">{savedTitle}</p>}
           <div className="lesson-grid">
-            {lessons&&lessons.scope===repository?.scope.id&&lessons.values.map(({lesson,total,art,word},i)=><Link key={lesson.id} prefetch={false} className={`lesson-tile ${i%2?"lilac":"mint"}`} href={`/library?lesson=${encodeURIComponent(lesson.id)}`}><Artwork art={art} word={word} size={88}/><div><h3>{lesson.id==="food"?t("Trái cây & đồ ăn","Fruit & food"):lesson.id==="school"?t("Thế giới quanh con","Your world"):lesson.title}</h3><p>{lesson.learnedOn} · {total} {lesson.sourceType==="demo"?t("từ mẫu","sample words"):t("từ","words")}</p></div><ArrowRight aria-hidden="true"/></Link>)}
+            {lessons&&lessons.scope===repository?.scope.id&&lessons.values.map(({lesson,total,art,word},i)=><article className="recent-lesson" key={lesson.id}><Link prefetch={false} className={`lesson-tile ${i%2?"lilac":"mint"}`} href={`/library?lesson=${encodeURIComponent(lesson.id)}`}><Artwork art={art} word={word} size={88}/><div><h3>{lesson.id==="food"?t("Trái cây & đồ ăn","Fruit & food"):lesson.id==="school"?t("Thế giới quanh con","Your world"):lesson.title}</h3><p>{lesson.learnedOn} · {total} {lesson.sourceType==="demo"?t("từ mẫu","sample words"):t("từ","words")}</p></div><ArrowRight aria-hidden="true"/></Link>{lesson.sourceType!=="demo"&&<Button variant="outline" onClick={()=>{setSavedTitle("");setEditing(lesson);}}>{t("Đổi tên","Rename")}<span className="sr-only">: {lesson.title}</span></Button>}{editing?.scopeId===repository?.scope.id&&editing.id===lesson.id&&<LessonEditor key={`${editing.scopeId}:${editing.id}:${editing.version}`} lesson={editing} close={()=>setEditing(null)} saved={title=>{setEditing(null);setSavedTitle(t(`Đã lưu tên bộ: ${title}`,`Saved set title: ${title}`));}}/>}</article>)}
           </div>
         </section>
       )}

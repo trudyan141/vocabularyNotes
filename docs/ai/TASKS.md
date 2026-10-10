@@ -79,3 +79,6 @@ ADR034/035 scope implemented under T07/T08/T09/T12/T14: automatic open-source il
 ADR036 source0c22f0f productionREADY dpl_27FsfRqhma2o2kjekgFnA7F8z9bD, stable words-for-kids.vercel.app. Hosted actual teacher now opens with image/meaning/example; existing13-word set Patterns/Grammar each2approved items,3-step Vietnamese teaching verified. Full local check125/137browser/docs216PASS; remoteCI38043514632 SUCCESS (all check/SQL/browser/docs steps). External/device/human gates unchanged.
 
 Checkpoint ADR037/038: T09/T14/T18 direct due entry/resume/offline, visible request progress/errors and public SEO/favicon/share assets implemented; check128 PASS, full147/147 browser/docs223links PASS; source78c791c production READY and CI38045533305 SUCCESS, actual due3 session and hosted public metadata/assets verified. No ledger status changes before acceptance. [Evidence](../evaluations/today-feedback-and-seo.md).
+
+
+10/10/2026 T09/T14 rename discoverability (ADR035 refinement): saved imported/manual sets can be renamed from Today and edited inline in the date manager; shared scoped/versioned editor, Save/Cancel, loading/errors/success. No membership/SRS/schema change. Check128/lint/types/build and full147/147 browser PASS; docs223links PASS. Deploy pending; evidence library-media-and-date-sets.

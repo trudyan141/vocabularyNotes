@@ -272,3 +272,7 @@ Concrete noun mapping/catalog hoặc appearance adjective có gloss; orange colo
 ADR031 upload drag-drop/source prepared photo/inline key/action reasons: c74a2e2 check104/full117 E2E PASS, nativeGit production READY, CI38028605020 SUCCESS. ADR032 adds real Gemini SSE/stages/elapsed/indeterminate activity/partial unsaved words/90s/stop; removes stale pending text on error and fixes REST JSON format enum. Evidence capture-review-ui; final check109/13files/lint/types/build, full119/119 E2E and docs203links PASS; actual stream CORS OPTIONS200. Live inference and physical/human gates remain pending.
 
 Streaming source7eeb25e production READY (dpl_5GuJjph4QsX362DqJb2e7E8Qe8uT/stable alias); CI38029422569 in progress at record time. No live inference or key access.
+
+## 2026-10-10 — Google rejection diagnostics
+
+ADR033 giữ HTTP/status/model/message/reason/field errors đã redact, không metadata/log/persist; preconditions/non-JSON errors rõ ràng, draft còn nguyên. Check111/13files/lint/types/build và full121/121 E2E PASS; docs203links PASS; deploy/live cause đang kiểm.

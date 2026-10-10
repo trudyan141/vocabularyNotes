@@ -202,3 +202,7 @@ Không chọn provider thay T00, không bật AI chỉ vì env: gateway/runtime 
 ## ADR-032 — Tiến độ thật và streaming khi phân tích ảnh
 
 10/10/2026 founder muốn thanh tiến độ/kết quả hiện từ từ vì dòng chờ không cho biết bao giờ xong. Dùng Gemini SSE trực tiếp cùng key/model/request bounded hiện hành. UI có bước thực tế, elapsed, indeterminate progress,90s limit và Dừng; không bịa phần trăm/ETA. Preview chỉ complete JSON text/word có schema/evidence, React plain text, ghi bản tạm. Partial không vào IndexedDB/archive/child library; final STOP/schema/evidence mới thay draft để parent review. Cancel/error/timeout/key change xóa pending UI, giữ draft cũ; sửa bug progress cũ treo khi API đã lỗi. Mock streaming chứng minh transport/UI, không live AI accuracy.
+
+## ADR-033 — Lỗi Gemini cụ thể, không mất chẩn đoán
+
+10/10/2026 founder tiếp tục bị Google từ chối request, yêu cầu test/fix hoặc lỗi rõ ràng. HTTP400 trước đây gom thành configuration và bỏ message/field violations, nên không kết luận được nguyên nhân thật. Giữ HTTP/status/model, message/reason/field violations bounded đã redact actualkey/querykey/token/largeblob/projectnumber; plain text trong UI, không console/IDB/backup/cloud và không full provider payload/metadata. FAILED_PRECONDITION tách khỏi INVALID_ARGUMENT; non-JSON lỗi vẫn giữ HTTP. Giữ draft/source/cancel/strictfinalreview. Founder cho phép thử request hiện hành để chẩn đoán; không suy một request thành benchmark OCR/account eligibility.

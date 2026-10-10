@@ -114,3 +114,7 @@ TTL xử lý app không chứng minh nhà cung cấp xóa ảnh ngay; kiểm tra
 Theo yêu cầu founder10/10/2026, SSE nhận từng chunk non-thought, ghép JSON có giới hạn500KB, UTF-8 streaming/CRLF. UI hiện preparing→waiting→receiving→validating, thanh indeterminate (không giả %/ETA), elapsed giây/nút Dừng/timeout90s. Chữ hoàn chỉnh và từ có đủ schema/evidence hiện dần dưới nhãn bản tạm; không persist hoặc cho lưu trước final STOP + strict whole-result schema/evidence. Error/abort/key-change xóa active progress; nháp cũ còn nguyên. Không retry/fallback/model đổi tự động.
 
 Nguồn: [Google streamGenerateContent](https://ai.google.dev/api/generate-content), [structured-output streaming](https://ai.google.dev/gemini-api/docs/structured-output). Streaming chỉ phản ánh dữ liệu thực nhận, không khẳng định ảnh OCR đúng hay được phép dùng provider cho child app.
+
+### Lỗi Google cụ thể — ADR-033
+
+Không chỉ map HTTP400 thành cấu hình: UI giữ HTTP/status/model, message/reason/fieldViolations đã redact key/token/largeblob/projectnumber, bounded/plain-text. Không full provider body/metadata/log/store. FAILED_PRECONDITION có hướng kiểm project/free-tier/region riêng; non-JSON error vẫn giữ HTTP. Nguồn [Google troubleshooting](https://ai.google.dev/gemini-api/docs/troubleshooting).

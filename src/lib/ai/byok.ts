@@ -18,7 +18,27 @@ export function configureParentAi(value:ParentAi|null,remember=false){if(value&&
 export const worksheetResult=z.object({text:z.string().max(10000),warnings:z.array(z.string().max(500)).max(10),words:z.array(z.object({literal:z.string().min(1).max(200),word:z.string().regex(/^[a-zA-Z][a-zA-Z '-]{0,79}$/),vi:z.string().min(1).max(1000),en:z.string().min(1).max(1000),pos:z.string().min(1).max(60),sense:z.string().min(1).max(200),example:z.string().max(1000),exampleVi:z.string().max(1000)}).strict()).max(50)}).strict();
 export function validateWorksheet(value:unknown){const result=worksheetResult.parse(value);const literalText=result.text.normalize('NFKC').toLowerCase();if(result.words.some(item=>!literalText.includes(item.literal.normalize('NFKC').toLowerCase())||item.literal.normalize('NFKC').trim().toLowerCase()!==item.word.normalize('NFKC').trim().toLowerCase()))throw new Error('evidence');return result;}
 export function aiCandidates(value:ReturnType<typeof validateWorksheet>):OcrCandidate[]{return value.words.map((item,i)=>({...item,id:`ai-${i}`,selected:true,art:dictionaryArt(item.word,item.pos,item.en),origin:'ai_generated'}));}
-export class ParentAiError extends Error{constructor(public code:string){super(code);}}
+export type AiFailure={http:number;status:string;model:string;message:string;fields:string[];reason:string};
+export class ParentAiError extends Error{constructor(public code:string,public details?:AiFailure){super(code);}}
+function diagnosticText(value:unknown,key:string,max=1800){
+ if(typeof value!=='string')return '';
+ // Never print provider payloads: allow only bounded text after redacting secrets/large blobs.
+ return value.split(key).join('[key đã ẩn]').split(encodeURIComponent(key)).join('[key đã ẩn]')
+  .replace(/(?:AIza|AQ\.|sk-)[A-Za-z0-9._-]+/g,'[key đã ẩn]')
+  .replace(/([?&](?:key|api_key|token|access_token)=)[^\s&"']+/gi,'$1[đã ẩn]')
+  .replace(/[A-Za-z0-9+/_=-]{100,}/g,'[dữ liệu dài đã ẩn]')
+  .replace(/\bprojects\/\d+\b/g,'projects/[đã ẩn]')
+  .replace(/[\u0000-\u0008\u000b-\u001f\u007f]/g,'').slice(0,max);
+}
+export function googleFailure(http:number,value:unknown,config:ParentAi){
+ const parsed=z.object({error:z.object({status:z.string().optional(),message:z.string().optional(),details:z.array(z.unknown()).optional()}).passthrough()}).safeParse(value);
+ const error=parsed.success?parsed.data.error:{};const reasons:string[]=[],fields:string[]=[];
+ for(const detail of error.details??[]){const parsed=z.object({reason:z.string().optional(),fieldViolations:z.array(z.object({field:z.string().optional(),description:z.string().optional()})).optional()}).passthrough().safeParse(detail);if(!parsed.success)continue;if(parsed.data.reason)reasons.push(diagnosticText(parsed.data.reason,config.key,100));for(const field of (parsed.data.fieldViolations??[]).slice(0,4))fields.push(diagnosticText(`${field.field??''}: ${field.description??''}`,config.key,500));}
+ const status=diagnosticText(error.status,config.key,100)||'UNKNOWN';const message=diagnosticText(error.message,config.key)||'Google không trả thông báo lỗi JSON. Hãy thử lại hoặc kiểm tra kết nối.';
+ const reason=reasons.slice(0,4).join(', ');
+ const code=http===401||reasons.includes('API_KEY_INVALID')||reasons.includes('API_KEY_EXPIRED')?'key':http===429?'quota':http===403?'access':http===404?'model':status==='FAILED_PRECONDITION'?'precondition':http===400?'configuration':'provider';
+ return new ParentAiError(code,{http,status,model:config.model,message,fields:fields.slice(0,4),reason});
+}
 async function providerJson(response:Response){
   const reader=response.body?.getReader();if(!reader)throw new ParentAiError('response');const chunks:Uint8Array[]=[];let size=0;
   try{for(;;){const {value,done}=await reader.read();if(done)break;size+=value.length;if(size>500000)throw new ParentAiError('response');chunks.push(value);}}finally{await reader.cancel().catch(()=>{});}
@@ -43,10 +63,10 @@ export function worksheetPreview(raw:string){
  words=words.filter(item=>text.normalize('NFKC').toLowerCase().includes(item.literal.normalize('NFKC').toLowerCase())&&item.literal.normalize('NFKC').trim().toLowerCase()===item.word.normalize('NFKC').trim().toLowerCase());
  return {text,words};
 }
-async function providerStream(response:Response,signal:AbortSignal,onProgress?:(value:AiProgress)=>void){
+async function providerStream(response:Response,signal:AbortSignal,config:ParentAi,onProgress?:(value:AiProgress)=>void){
  const reader=response.body?.getReader();if(!reader)throw new ParentAiError('response');const decoder=new TextDecoder();let size=0,pending='',output='',finish='';
  const abort=()=>{void reader.cancel().catch(()=>{});};signal.addEventListener('abort',abort,{once:true});
- const event=(frame:string)=>{const payload=frame.split(/\r?\n/).filter(line=>line.startsWith('data:')).map(line=>line.slice(5).trimStart()).join('\n');if(!payload)return;const data=JSON.parse(payload);if(data.error)throw new ParentAiError('provider');if(data.promptFeedback?.blockReason)throw new ParentAiError('refused');const candidate=data.candidates?.[0];if(!candidate)return;if(candidate.finishReason){finish=candidate.finishReason;if(finish!=='STOP')throw new ParentAiError(finish==='SAFETY'?'refused':'response');}const parts=candidate.content?.parts??[];if(!Array.isArray(parts))throw new ParentAiError('response');output+=parts.filter((item:{text?:string;thought?:boolean})=>typeof item.text==='string'&&!item.thought).map((item:{text:string})=>item.text).join('');onProgress?.({stage:'receiving',...worksheetPreview(output)});};
+ const event=(frame:string)=>{const payload=frame.split(/\r?\n/).filter(line=>line.startsWith('data:')).map(line=>line.slice(5).trimStart()).join('\n');if(!payload)return;const data=JSON.parse(payload);if(data.error)throw googleFailure(typeof data.error.code==='number'?data.error.code:response.status,data,config);if(data.promptFeedback?.blockReason)throw new ParentAiError('refused');const candidate=data.candidates?.[0];if(!candidate)return;if(candidate.finishReason){finish=candidate.finishReason;if(finish!=='STOP')throw new ParentAiError(finish==='SAFETY'?'refused':'response');}const parts=candidate.content?.parts??[];if(!Array.isArray(parts))throw new ParentAiError('response');output+=parts.filter((item:{text?:string;thought?:boolean})=>typeof item.text==='string'&&!item.thought).map((item:{text:string})=>item.text).join('');onProgress?.({stage:'receiving',...worksheetPreview(output)});};
  try{for(;;){if(signal.aborted)throw new DOMException('Cancelled','AbortError');const {value,done}=await reader.read();if(signal.aborted)throw new DOMException('Cancelled','AbortError');if(done){pending+=decoder.decode();break;}size+=value.length;if(size>500000)throw new ParentAiError('response');pending+=decoder.decode(value,{stream:true});for(;;){const boundary=/\r?\n\r?\n/.exec(pending);if(!boundary)break;event(pending.slice(0,boundary.index));pending=pending.slice(boundary.index+boundary[0].length);}}if(pending.trim())event(pending);if(finish!=='STOP')throw new ParentAiError('response');onProgress?.({stage:'validating',...worksheetPreview(output)});return validateWorksheet(JSON.parse(output));
  }finally{signal.removeEventListener('abort',abort);await reader.cancel().catch(()=>{});}
 }
@@ -65,9 +85,9 @@ export async function analyseWorksheet(blob:Blob,mode:'listed'|'all',signal:Abor
       contents:[{role:'user',parts:[{text:'Read this worksheet and prepare suggestions for parent review.'},{inlineData:{mimeType:'image/jpeg',data:btoa(binary)}}]}],
       generationConfig:{maxOutputTokens:10000,responseFormat:{text:{mimeType:'APPLICATION_JSON',schema}}}
     })});
-    if(response.ok&&response.headers.get('content-type')?.includes('text/event-stream'))return providerStream(response,signal,onProgress);
-    const data=await providerJson(response);
-    if(!response.ok){const invalidKey=Array.isArray(data.error?.details)&&data.error.details.some((detail:{reason?:string})=>detail.reason==='API_KEY_INVALID');throw new ParentAiError(response.status===401||invalidKey?'key':response.status===429?'quota':response.status===403?'access':response.status===404?'model':response.status===400?'configuration':'provider');}
+    if(response.ok&&response.headers.get('content-type')?.includes('text/event-stream'))return providerStream(response,signal,config,onProgress);
+    let data;try{data=await providerJson(response);}catch(e){if(signal.aborted||response.ok)throw e;throw googleFailure(response.status,null,config);}
+    if(!response.ok)throw googleFailure(response.status,data,config);
     if(data.promptFeedback?.blockReason)throw new ParentAiError('refused');
     const candidate=data.candidates?.[0];if(!candidate||candidate.finishReason!=='STOP')throw new ParentAiError(candidate?.finishReason==='SAFETY'?'refused':'response');
     const parts=candidate.content?.parts;if(!Array.isArray(parts))throw new ParentAiError('response');

@@ -65,3 +65,13 @@ test('streaming shows elapsed time and provisional words, then validates; stop a
  await analyse.click();await expect.poll(()=>page.evaluate(()=>(window as typeof window & {fixtureCalls:number}).fixtureCalls)).toBe(2);await page.getByRole('button',{name:'Dừng',exact:true}).click();await expect(progress).toHaveCount(0);await expect(page.getByRole('status')).toContainText('Đã dừng');await expect(page.locator('fieldset')).toHaveCount(1);
  await analyse.click();await expect.poll(()=>page.evaluate(()=>(window as typeof window & {fixtureCalls:number}).fixtureCalls)).toBe(3);await page.evaluate(()=>(window as typeof window & {fixtureChunk:(text:string,finish:boolean)=>void}).fixtureChunk('{}',true));await expect(page.locator('#main [role=alert]')).toContainText('Chưa phân tích được');await expect(progress).toHaveCount(0);await expect(page.locator('fieldset')).toHaveCount(1);await expect(analyse).toBeEnabled();
 });
+
+test('Google rejection displays exact HTTP/status/field, redacts keys and retains source/draft',async({page},testInfo)=>{
+ await setup(page);await photo(page);
+ await page.route('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:streamGenerateContent?alt=sse',r=>r.fulfill({status:400,json:{error:{status:'INVALID_ARGUMENT',message:`Invalid JSON payload received. Unknown name responseFormat. ${key}`,details:[{fieldViolations:[{field:'generationConfig.responseFormat',description:'Unknown field.'}]}]}}}));
+ await page.getByRole('button',{name:'Phân tích ảnh bằng AI',exact:true}).click();await expect(page.locator('#main [role=alert]')).toContainText('Google từ chối yêu cầu');
+ const details=page.locator('.ai-error-details');await expect(details).toContainText('HTTP 400 · INVALID_ARGUMENT');await expect(details).toContainText('generationConfig.responseFormat');await expect(details).toContainText('Unknown field');await expect(details).not.toContainText(key);await expect(page.getByRole('region',{name:'Tiến độ phân tích ảnh'})).toHaveCount(0);await expect(page.getByRole('img',{name:'Ảnh đã chỉnh để đối chiếu với kết quả AI',exact:true})).toBeVisible();
+ await page.getByLabel('Chữ đọc được — sửa hoặc chép thêm nếu cần').fill('apple');await page.getByRole('button',{name:'Tạo danh sách để duyệt'}).click();await expect(page.locator('fieldset')).toHaveCount(1);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+ await details.scrollIntoViewIfNeeded();await page.screenshot({path:`docs/evaluations/founder-fixes/gemini-error-${testInfo.project.name}.png`});
+ await page.waitForTimeout(650);await page.reload();await expect(page.locator('fieldset')).toHaveCount(1);await expect(details).toHaveCount(0);
+});

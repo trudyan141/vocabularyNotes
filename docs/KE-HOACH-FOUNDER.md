@@ -907,3 +907,7 @@ Bản production local đang mở ở [Words for Kids](http://127.0.0.1:4317/tod
 ### Cập nhật10/10 — chờ phân tích ảnh rõ ràng
 
 Theo phản hồi founder, màn đọc ảnh dùng Gemini streaming để hiện dần từ/nghĩa, elapsed và trạng thái từng bước, thanh chờ/nút Dừng/tối đa90giây. Bản tạm chưa lưu; nhận xong/kiểm hợp lệ rồi mới bố mẹ duyệt. Giữ ảnh đối chiếu và drag-drop/camera đã deploy; sửa dòng chờ treo khi lỗi và định dạng JSON REST. Test dùng fixture có nhãn, chưa là AI đọc ảnh thật. Tiến độ/check/deploy ở STATE và capture-review-ui.
+
+### Cập nhật10/10 — Google từ chối phải hiện rõ lý do
+
+Founder yêu cầu thử/fix lỗi Google request. Bản cũ che mất message cụ thể bằng câu cấu hình chung; ADR033 cho thấy HTTP/status/model/thông báo và trường sai đã ẩn key, không log/backup. Kết quả kiểm/request thực và trạng thái deploy được ghi tại STATE/capture-review-ui; không gọi lỗi400 là key sai khi Google chưa nói vậy.

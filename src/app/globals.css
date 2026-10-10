@@ -1058,3 +1058,5 @@ main { min-height:calc(100svh - 140px); }
 .ai-stream-words li { display: flex; align-items: baseline; flex-wrap: wrap; gap: .25rem 1rem; padding-block: .4rem; }
 .ai-stream-words li span { overflow-wrap: anywhere; }
 @media (prefers-reduced-motion: reduce) { .ai-activity-bar span { animation: none; transform: translateX(90%); } }
+.ai-error-details { min-width: 0; padding-block: .5rem; }
+.ai-error-details pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: .875rem; line-height: 1.6; max-height: 20rem; overflow: auto; }

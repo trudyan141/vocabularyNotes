@@ -10,6 +10,10 @@ Upload/camera đã refine Theme C: vùng drag-drop một ảnh/nút tiếng Vi�
 
 Gemini SSE/tiến độ bước thực/elapsed/Dừng/preview chưa lưu/strict final validation đã xong; sửa stale chờ khi lỗi và REST enum APPLICATION_JSON. Check109 unit/13files/lint/types/build PASS, full119/119 E2E PASS, docs203links PASS. Real stream CORS OPTIONS200; inference chưa gọi. Evidence capture-review-ui; Source7eeb25e nativeGit production dpl_5GuJjph4QsX362DqJb2e7E8Qe8uT READY, stable words-for-kids.vercel.app; CI38029422569 đang chạy tại mốc ghi này (không claim pass).
 
+## Chẩn đoán Google từ chối — ADR-033
+
+HTTP/status/model/message/field diagnostics đã redact an toàn; check111 unit/13files/lint/types/build và full121/121 E2E PASS, docs203links PASS. Đưa bản chẩn đoán lên để thử request theo founder; chưa kết luận nguyên nhân thật từ thông báo configuration cũ.
+
 ## Bản hiện hành
 
 Thêm từ: Datamuse debounce350ms sửa chính tả → Wiktionary nghĩa song ngữ theo gloss/POS/IPA + Wiktionary/Tatoeba ví dụ có nguồn → tự điền/chọn nghĩa → catalog21/174 OpenMoji có license/credit → parent review/save. Live `handsom` → `handsome` → “đẹp trai” đã kiểm cả local và Vercel. Thiếu dữ liệu/hình báo rõ; không bịa hoặc ép hình cho nghĩa trừu tượng. Notes/decks/SRS/4games/backup/scopes vẫn hoạt động.

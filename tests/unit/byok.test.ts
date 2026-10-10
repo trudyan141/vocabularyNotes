@@ -48,3 +48,15 @@ it.each(['truncated','refused','oversized','cancelled'])('discards %s streams an
  if(kind==='cancelled'){await new Promise(resolve=>setTimeout(resolve,5));abort.abort();}
  await expect(run).rejects.toThrow();if(kind==='cancelled'||kind==='oversized')expect(cancelled).toBe(true);
 });
+
+it('retains Google HTTP/status/field diagnostics but never credentials, metadata or long image payloads',async()=>{
+ configureParentAi({key,model:'gemini-3.5-flash-lite'});
+ const mock=vi.fn(async()=>Response.json({error:{status:'INVALID_ARGUMENT',message:`Unknown name responseFormat; credential ${key}; data ${'a'.repeat(500)}; consumer projects/1234567890`,details:[{reason:'INVALID_ARGUMENT',metadata:{credential:key},fieldViolations:[{field:'generation_config.responseFormat',description:`Unknown field; credential ${key}`}]}]}},{status:400}));
+ const error=await analyseWorksheet(new Blob(['image'],{type:'image/jpeg'}),'listed',new AbortController().signal,mock as typeof fetch).catch(e=>e);
+ expect(error.code).toBe('configuration');expect(error.details).toMatchObject({http:400,status:'INVALID_ARGUMENT',model:'gemini-3.5-flash-lite'});expect(error.details.fields[0]).toContain('Unknown field');const displayed=JSON.stringify(error);expect(displayed).not.toContain(key);expect(displayed).not.toContain('1234567890');expect(displayed).not.toContain('a'.repeat(500));expect(displayed).not.toContain('metadata');expect(displayed).toContain('responseFormat');
+});
+it('distinguishes free-tier preconditions and preserves HTTP status even for non-JSON errors',async()=>{
+ configureParentAi({key,model:'gemini-3.5-flash-lite'});
+ const first=await analyseWorksheet(new Blob(['image'],{type:'image/jpeg'}),'listed',new AbortController().signal,vi.fn(async()=>Response.json({error:{status:'FAILED_PRECONDITION',message:'Free tier not available in your country.'}},{status:400})) as typeof fetch).catch(e=>e);expect(first.code).toBe('precondition');expect(first.details.message).toContain('Free tier');
+ const second=await analyseWorksheet(new Blob(['image'],{type:'image/jpeg'}),'listed',new AbortController().signal,vi.fn(async()=>new Response(`<html>${key}</html>`,{status:502})) as typeof fetch).catch(e=>e);expect(second.details.http).toBe(502);expect(JSON.stringify(second)).not.toContain(key);
+});

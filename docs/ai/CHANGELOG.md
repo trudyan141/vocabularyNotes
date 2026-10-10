@@ -258,3 +258,7 @@ SETUP-PROJECT/README/envexample/Vercel/Supabaseconfig/CI đã chuẩn bị: intr
 ## 2026-10-10 — Gemini hosted READY
 
 f460e1f pushmain nativeGit→dpl_EMHjqzXRtXHRZXm3qE3ZPPPfBGmr READY, stable https://words-for-kids.vercel.app. Browserhosted verified Geminikey/default/presets/custom/localStorage/delete; screenshot/evidence parent-dictionary-byok-deploy. Full Gemini check104unit/build +113browser PASS; docs193links PASS. CI7b1e997 SUCCESS, CIf460e1f SUCCESS. Providerinference/key/quality/eligibility/accountbudget/livecloud/phone/human chưaclaim.
+
+## 2026-10-10 — Final illustration POS/sense guard
+
+Concrete noun mapping/catalog hoặc appearance adjective có gloss; orange color/pretty adverb không tự nhận fruit/person. Check104/lint/types/build + targeted parent-ai8/8 PASS; full113/remoteCI f460e1f SUCCESS giữ provenance mốc trước. Source/evidence/STATE updated; follow-up Git deploy/CI tự chạy.

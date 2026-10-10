@@ -18,6 +18,8 @@ Cloud lifecycle/account deletion/CAS/conflicts/transfer/SQL0001–0006 và optio
 
 NativeGit Vercel project words-for-kids,3productionenv, Node24/Next/pnpm/sin1. Pushmain7b1e997 và Gemini f460e1f đã tựdeploy READY, alias https://words-for-kids.vercel.app. DeploymentGemini dpl_EMHjqzXRtXHRZXm3qE3ZPPPfBGmr; browserhosted xác nhận key/4presets/custom/localStorage/delete, screenshot gemini-hosted.jpg. Hosted dictionary livePASS; Supabase/cloud disabled đúng config. CI7b1e997 SUCCESS; CIf460e1f SUCCESS; toàn bộ steps qua.
 
+Final art rule không gắn noun hình cho orange adjective/pretty adverb; check104 và targeted8/8 browser PASS sau thay rule. Full113 E2E và remoteCI f460e1f SUCCESS là mốc Gemini trước thay rule nhỏ; pushfollow-up tự chạy CI/deploy, không claim tương lai đã pass.
+
 Localproduction4317 đã restart sau build cuối, temporarytestservers/SQLfixtures cleanup. Node24.14.1/pnpm11.25.0 path /Users/trunglk/.nvm/versions/node/v24.14.1/bin. Không reset changes/đụng eng.traineddata chưa rõ nguồn; envlocal/.vercel/credentials không commit. Ledger **4done/2pending_external/10in_progress/3planned**: BYOKcode/deploy đãcó, servergateway/AIbenchmark, hostedcloud, physicalcamera/voice/install/update, human/field/release gates còn pending. Library2.92s/searchp95≈151ms là labbuildtrước, chưa rebaseline.
 
 Next action: founder thử một lượt trên hostedURL, thêm Gemini key trong app nếu muốn AI (không gửikey qua chat). Khi có Supabase chạy hosted smoke theoSetup; đánh giá account/eligibility/retention và realAIbenchmark trước public child pilot. Không tự gọi paid API hoặc coi fixtures là quality evidence.

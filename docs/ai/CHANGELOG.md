@@ -2,7 +2,7 @@
 
 ## 2026-10-10 — Capture drag-drop, inline key và ảnh đối chiếu, ADR-031
 
-Theo hai steering founder: giải thích thiếu key/consent/privacy và thiếu review data/approval; nhập key ngay tại extract giữ draft/checks, source prepared Blob sticky cạnh nội dung desktop/thumbnail mobile/mở zoom. Upload một ảnh bằng kéo thả/nút tiếng Việt/Enter, cùng normalize/validation/camera cleanup/draft; bỏ stale disconnected banner. Check104/lint/types/build PASS; full117/117 browser PASS. Sửa assertions nhãn cũ/Next announcer ambiguity và input hidden để không trùng role button, không bỏ coverage. Screenshot CUA1280/360 synthetic/manual, không liveAI/physical phone. Source03/ADR/state/tasks/founder updated. [Evidence](../evaluations/capture-review-ui.md). Deployment/CI mới pending sau push.
+Theo hai steering founder: giải thích thiếu key/consent/privacy và thiếu review data/approval; nhập key ngay tại extract giữ draft/checks, source prepared Blob sticky cạnh nội dung desktop/thumbnail mobile/mở zoom. Upload một ảnh bằng kéo thả/nút tiếng Việt/Enter, cùng normalize/validation/camera cleanup/draft; bỏ stale disconnected banner. Check104/lint/types/build PASS; full117/117 browser PASS. Sửa assertions nhãn cũ/Next announcer ambiguity và input hidden để không trùng role button, không bỏ coverage. Screenshot CUA1280/360 synthetic/manual, không liveAI/physical phone. Source03/ADR/state/tasks/founder updated. [Evidence](../evaluations/capture-review-ui.md). Code c74a2e2 production READY/nativeGit; CI38028605020 SUCCESS toàn bộsteps; hosted capture/sourcephoto verified, không call AI hoặc publish ảnh/key riêng.
 
 ## 2026-10-10 — Gemini thay OpenAI theo steering, ADR-030
 

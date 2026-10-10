@@ -68,4 +68,4 @@ Source lifecycle, account deletion, merge UI, optional Commons adapter, đủ ha
 
 ## Capture/review UI steering — 10/10/2026
 
-ADR031 hoàn tất local104/117: drag-drop một ảnh, picker tiếng Việt/bàn phím, camera riêng, inline Gemini key, blocked action reasons và ảnh nguồn sticky/zoom đối chiếu. [Evidence](../evaluations/capture-review-ui.md). Không tăng count done vì phone/liveAI/human gates vẫn pending; deployment/remoteCI sẽ quan sát sau push.
+ADR031 hoàn tất local104/117: drag-drop một ảnh, picker tiếng Việt/bàn phím, camera riêng, inline Gemini key, blocked action reasons và ảnh nguồn sticky/zoom đối chiếu. [Evidence](../evaluations/capture-review-ui.md). Không tăng count done vì phone/liveAI/human gates vẫn pending; code c74a2e2 nativeGit production READY và CI38028605020 SUCCESS, hosted UI/sourceimage verified.

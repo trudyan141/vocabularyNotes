@@ -44,7 +44,7 @@ Vào **Settings → Environment Variables**, chọn Production, thêm từng dò
 | `APP_DEMO_MODE` | `false` | Gõ trực tiếp; muốn bài mẫu ở preview thì dùng `true`. |
 | `AI_PROVIDER` | `none` | Gõ trực tiếp; key AI phụ huynh không điền vào Vercel. |
 
-Ba giá trị production trên đã được thêm. Push commit `7b1e997` đã tạo deployment production READY tự động; [mở app](https://words-for-kids.vercel.app). Không cần secret Vercel/GitHub Actions để native Git deployment chạy. `vercel.json` có framework Next.js, Node 24.x theo `package.json`, lệnh pnpm cố định và region Singapore. Build Next có API/auth, không static export.
+Ba giá trị production trên đã được thêm. Push `main` đã tạo deployment production READY tự động, gồm bản Gemini `f460e1f`; [mở app](https://words-for-kids.vercel.app). Không cần secret Vercel/GitHub Actions để native Git deployment chạy. `vercel.json` có framework Next.js, Node 24.x theo `package.json`, lệnh pnpm cố định và region Singapore. Build Next có API/auth, không static export.
 
 Khi thay env, chọn deployment → **Redeploy** để build dùng giá trị mới. Vercel không tự chạy migration Supabase. Lần đầu muốn tạo project khác: Vercel → Add New → Project → Import repo → root `.` → Next.js → Node 24.x → nhập ba dòng → Deploy. Hướng dẫn chính thức: [Git integration](https://vercel.com/docs/git), [environment variables](https://vercel.com/docs/environment-variables).
 

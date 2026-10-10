@@ -36,3 +36,9 @@ Screenshots đã lưu và xem: [desktop](founder-fixes/add-word-desktop.jpg), [m
 ## Git deployment đầu tiên đã xác nhận
 
 Commit `7b1e997` pushmain trigger Vercel nativeGit (không CLI manual deploy), deployment `dpl_8BynDkHqp723LwyRV3FhcDvrx3sC` READY, alias [words-for-kids.vercel.app](https://words-for-kids.vercel.app), project/Next/Node24/sin1/3env. Remote [CI38022181410](https://github.com/trudyan141/vocabularyNotes/actions/runs/38022181410) SUCCESS, tất cảsteps/no failures. Hosted health200/demo:false/cloud:false/serverliveAi:false; dictionary suggest handsom→handsome và detail đẹp trai/IPA/native+Tatoeba bilingual examples PASS thật từ deployedserver. LượtGemini sẽ push và ghi deploymentREADY khi quan sát.
+
+## Gemini production đã xác nhận
+
+Commit `f460e1fef700f103b26fa1938b1eb362b568b081` pushmain tạo nativeGit production `dpl_EMHjqzXRtXHRZXm3qE3ZPPPfBGmr` READY, [deployment](https://words-for-kids-k8tx88rez-trudyan141s-projects.vercel.app), [stablealias](https://words-for-kids.vercel.app). Browserhosted thấy Gemini key/default3.5FlashLite/4presets/custom và localStorage/delete; [proof screenshot](founder-fixes/gemini-hosted.jpg). Check104unit/lint/types/build và113E2E PASS; full docs validator193links PASS. CIcode [38022925074](https://github.com/trudyan141/vocabularyNotes/actions/runs/38022925074) SUCCESS, tất cả steps pass/no failures. Không realkey/inference/AIquality/cost/account approval; cloud optional/hostedpending.
+
+Bàn giao chỉ cập nhật tài liệu/screenshot sau runtime f460e1f đã READY và CI SUCCESS; không đổi code sau các checks104/113. Docs full validation cuối PASS195links (sau thêm hostedlink founder), owned whitespace PASS. Next founder test hosted và cấu hình Gemini key trongapp, không gửi key qua chat.

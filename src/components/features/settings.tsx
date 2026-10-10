@@ -3,6 +3,7 @@ import {ParentAiSettings} from "./parent-ai";
 import {ArchiveTools} from "@/components/features/archive-tools";
 import Link from "next/link";
 import {useState} from "react";
+import { Mail, UserRound } from "lucide-react";
 import { LibraryTools } from "./library-tools";
 import { Button } from "@/components/ui/button";
 import {
@@ -165,6 +166,11 @@ export function Settings() {
       </section>
       <section className="page-flow"><h2>{t("Thư viện đang mở","Current library")}</h2><p>{demo?t("Đang dùng bài mẫu để thử. Bài của con thật được lưu riêng, chuyển qua lại không xóa hay gộp dữ liệu.","Using sample lessons. Your own library is stored separately; switching does not delete or merge content."):t("Đang dùng thư viện của con trên máy này. Bài mẫu là một thư viện riêng.","Using your own local library. Sample lessons are stored separately.")}</p><Button variant="outline" disabled={switching||!repository} onClick={async()=>{setSwitching(true);try{await selectLocalLibrary(!demo);setScopeStatus(t("Đã chuyển thư viện; dữ liệu thư viện trước vẫn còn.","Library switched; previous content is preserved."));}catch{setScopeStatus(t("Chưa chuyển được. Thử lại; dữ liệu vẫn còn.","Could not switch. Retry; your content is preserved."));}finally{setSwitching(false);}}}>{demo?t("Dùng thư viện riêng của con","Use my child's library"):t("Mở bài mẫu để thử","Open sample lessons")}</Button><p role="status">{scopeStatus}</p></section>
       <ParentAiSettings/><LibraryTools/><ArchiveTools/>
+      <section className="settings-author" aria-labelledby="settings-author-title">
+        <h2 id="settings-author-title">{t("Về ứng dụng", "About the app")}</h2>
+        <p><UserRound aria-hidden="true"/><span>{t("Tác giả", "Author")}: <strong>Ly Kien Trung</strong></span></p>
+        <Button asChild variant="outline"><a href="mailto:trudyan141@gmail.com"><Mail aria-hidden="true"/>trudyan141@gmail.com</a></Button>
+      </section>
       <Back href="/today" label={t("Về Hôm nay", "Back to Today")}/>
     </div>
   );

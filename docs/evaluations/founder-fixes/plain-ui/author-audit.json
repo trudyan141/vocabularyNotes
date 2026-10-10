@@ -1,0 +1,34 @@
+[
+  {
+    "locale": "vi",
+    "width": 360,
+    "name": "Ly Kien Trung",
+    "href": "mailto:trudyan141@gmail.com",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "en",
+    "width": 360,
+    "name": "Ly Kien Trung",
+    "href": "mailto:trudyan141@gmail.com",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "vi",
+    "width": 1280,
+    "name": "Ly Kien Trung",
+    "href": "mailto:trudyan141@gmail.com",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "locale": "en",
+    "width": 1280,
+    "name": "Ly Kien Trung",
+    "href": "mailto:trudyan141@gmail.com",
+    "overflow": false,
+    "errors": []
+  }
+]

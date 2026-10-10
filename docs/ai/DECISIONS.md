@@ -288,6 +288,8 @@ All-page selection covers every approved scoped result matching the current sear
 
 ## ADR-046 — Settings and direct self-managed use (11/10/2026)
 
+Founder continuation adds supplied author Ly Kien Trung and contact trudyan141@gmail.com in a localized About section at the end of Settings; email opens a mailto link.
+
 Founder explicitly replaces Parents with Settings and removes meaningless parent warnings across the project. Everyone navigates directly to add/edit/prepare/groups/decks/notes and settings; family decides who prepares and who plays. Replaced ParentGate dialog with shared styled real links, gear Settings entry, neutral VI/EN/metadata/offline copy. Preserve actual content review/approved revisions, photo consent, irreversible deletion confirmation, auth/library ownership and conflict checks. No fake gate/PIN/age gate added.
 
 This supersedes parent-only UI rules in older ADR/specs/skills, including044/045; child-friendly design/brand/assets and provider eligibility constraints remain. Source03/04/02/AGENTS; current TASKS/STATE govern evidence. [Evidence](../evaluations/plain-language-and-select-all.md) covers045+046.

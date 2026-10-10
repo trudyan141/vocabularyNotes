@@ -1,5 +1,7 @@
 # Words for Kids — kế hoạch sản phẩm dành cho founder
 
+**11/10 — Thông tin tác giả:** cuối Cài đặt có Ly Kien Trung và email trudyan141@gmail.com để liên hệ.
+
 **Mới nhất11/10 — Cài đặt, tự thêm và học (ADR046):** đổi nút Phụ huynh thành Cài đặt và bỏ mọi cảnh báo “Bố mẹ tiếp tục”. Ai vào cũng tự thêm/sửa/học; bố mẹ thêm và bé chỉ chơi do gia đình tự chọn. Các xác nhận gửi ảnh/lưu/xóa thực tế vẫn giữ. Quyết định này thay mọi hướng dẫn phân vai UI trước đó; style Words for Kids vẫn dễ thương, dễ dùng. [Kết quả045+046](evaluations/plain-language-and-select-all.md).
 
 **11/10 — Dễ hiểu và chọn tất cả (ADR045):** bỏ đoạn giải thích kỹ thuật ở chân trang, sửa lời cài đặt/tài khoản/ảnh/lỗi cho bố mẹ dễ hiểu. Chọn tất cả lấy cả các trang còn lại theo kết quả tìm kiếm, vẫn giữ lựa chọn trước và phải bấm Lưu. Quy tắc lâu dài đã ghi04/AGENTS; [kiểm và bản thật](evaluations/plain-language-and-select-all.md) cập nhật sau kiểm.

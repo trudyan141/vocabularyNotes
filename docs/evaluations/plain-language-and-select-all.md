@@ -22,3 +22,15 @@ Visual inspection:88 views/44 states at360/1280, no horizontal overflow or page 
 No real founder group/deck/lesson save, AI inference, cloud transfer or photo upload during this UI verification.
 
 Final offline/English audit found an existing native-select overflow in the expanded offline editor at360px. Fixed select/input sizing, labelled48px checkbox target and berry submit; added an expanded-offline regression assertion. Rechecked4extra views/2states at360/1280: no overflow/JS errors. [Report](founder-fixes/plain-ui/copy-audit.json), [offline](founder-fixes/plain-ui/offline-direct-360.png), [English settings](founder-fixes/plain-ui/settings-english-360.png). Final lint/typecheck/build and142unit/integration tests PASS after this CSS/submit fix; targeted4offline browser cases PASS, including the expanded mobile editor, save/reconnect and exact duplicate rejection. Full remote CI follows.
+
+Hosted source26991c4 is READY at production deploymentdpl_GpvSqE8bsfVDXaBWTzgKfykHAG51. Native Chrome verified direct Settings, closed optional configuration and unsaved Select all13 retaining checks on page2. These native captures are desktop1440px; mobile evidence is the360px responsive audit above. No real library data was saved.
+
+- [Hosted welcome desktop](founder-fixes/plain-ui/live-welcome-desktop.png)
+- [Hosted Settings desktop](founder-fixes/plain-ui/live-settings-desktop.png)
+- [Hosted selection on page2 desktop](founder-fixes/plain-ui/live-select-all-page2-desktop.png)
+
+Remote CI38091762670 passed check142, real SQL and172 independent browser cases, but failed the cloud route test at an obsolete media approval message. The deletion disclosure assertion also still used old wording. Both exact copy assertions updated; ownership, receipts, sync, cross-account isolation and destructive-action checks preserved. Fresh complete CI pending.
+
+Founder continuation adds an About the app section at the end of Settings: supplied author Ly Kien Trung and mailto contact trudyan141@gmail.com, localized VI/EN labels. No role gate or extra configuration.
+
+Author continuation verified with pnpm check: lint/typecheck/build and142tests PASS. Four additional VI/EN Settings views at360/1280 confirm supplied name, exact mailto, no overflow/page errors; native local Settings also verified. [Report](founder-fixes/plain-ui/author-audit.json), [mobile](founder-fixes/plain-ui/settings-author-vi-360.png).

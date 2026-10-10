@@ -1,3 +1,4 @@
+import type {Deck} from '@/data/local/decks';
 import type {LocalRepository} from '@/data/local/repository';
 import type {ScopedDocument} from '@/data/local/types';
 import {cloudTables,parseCloudRow,type PullTable} from '@/lib/cloud/contracts';
@@ -24,7 +25,7 @@ export async function reconcileIdentity(repo:LocalRepository,entity:PullTable,re
     if(['examples','lessonItems','reviewEvents'].includes(name))replace('senseId');
     if(name==='notes'&&row.targetType==='sense')replace('targetId');
     const payload=row.payload as Record<string,unknown>|undefined;
-    if(name==='decks'&&payload){const deck=payload.deck as {senseIds:string[]};if(deck.senseIds.includes(oldId)){deck.senseIds=[...new Set(deck.senseIds.map(id=>id===oldId?newId:id))];changed=true;}}
+    if(name==='decks'&&payload){const deck=payload.deck as Deck;if(deck.senseIds.includes(oldId)){deck.senseIds=[...new Set(deck.senseIds.map(id=>id===oldId?newId:id))];if(deck.group){deck.group.wordIds=[...new Set(deck.group.wordIds.map(id=>id===oldId?newId:id))];deck.group.sentences=deck.group.sentences.map(s=>({...s,senseId:s.senseId===oldId?newId:s.senseId}));}changed=true;}}
     if(name==='mediaAssets'&&payload){const asset=payload.asset as {senseId:string};if(asset.senseId===oldId){asset.senseId=newId;changed=true;}}
     if(name==='sentences'&&payload){const content=payload.content as {senseId:string};if(content.senseId===oldId){content.senseId=newId;changed=true;}}
     if(name==='gameAttempts'&&payload?.senseId===oldId){payload.senseId=newId;changed=true;}

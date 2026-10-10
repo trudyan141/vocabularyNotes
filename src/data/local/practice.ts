@@ -36,7 +36,7 @@ export class PracticeRepository{
     if(mode==="picture-word"||mode==="word-picture")candidates=candidates.filter(row=>!!safeArt(row.art));
     const picture=(word:LibraryWord)=>!(["intelligent","smart","clever"].includes(word.word.toLowerCase())&&word.pos==="adjective");
     const distractorWords=(await this.repository.words(candidates.slice(0,100).map(row=>row.id))).filter(word=>!(mode==="picture-word"||mode==="word-picture")||picture(word));
-    if(filter.deck){const row=await this.repository.db.table<ScopedDocument>("decks").get([scope,filter.deck]);if(!row||row.deletedAt)throw new RepositoryError("not-ready");const ids=(row.payload.deck as {senseIds:string[]}).senseIds;candidates=candidates.filter(row=>ids.includes(row.id));}
+    if(filter.deck){const row=await this.repository.db.table<ScopedDocument>("decks").get([scope,filter.deck]);if(!row||row.deletedAt)throw new RepositoryError("not-ready");const deck=row.payload.deck as {senseIds:string[];group?:{wordIds:string[]}};const ids=deck.group?.wordIds??deck.senseIds;candidates=candidates.filter(row=>ids.includes(row.id));}
     if(filter.word)candidates=candidates.filter(row=>row.id===filter.word);
     if(filter.due){const ids=new Set(await this.dueIds());candidates=candidates.filter(row=>ids.has(row.id));}
     if(filter.weak){const attempts=await this.repository.db.table<ScopedDocument>("gameAttempts").where("[scopeId+id]").between([scope,""],[scope,"\uffff"]).toArray();const latest=new Map<string,ScopedDocument>();for(const attempt of attempts.sort((a,b)=>a.updatedAt.localeCompare(b.updatedAt)))latest.set(attempt.payload.senseId as string,attempt);candidates=candidates.filter(row=>{const attempt=latest.get(row.id);return attempt&&(!attempt.payload.correct||attempt.payload.hint);});}

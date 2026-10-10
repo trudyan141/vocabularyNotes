@@ -1,4 +1,5 @@
 import {Dexie} from 'dexie';
+import type {Deck} from '@/data/local/decks';
 import {cloudTables,parseCloudRow,type CloudTable} from '@/lib/cloud/contracts';
 import {contentHash,stableJson} from '@/domain/identity';
 import {LocalRepository,RepositoryError} from '@/data/local/repository';
@@ -24,7 +25,7 @@ export async function commitTransfer(target:LocalRepository,plan:TransferPlan){i
   if(entity==='evidence')row.lessonId=mapped('lessons',row.lessonId);
   if(entity==='lessonItems'){row.entryId=mapped('entries',row.entryId);row.senseId=mapped('senses',row.senseId);row.lessonId=mapped('lessons',row.lessonId);row.evidenceId=mapped('evidence',row.evidenceId);}
   if(entity==='notes')row.targetId=mapped(row.targetType==='sense'?'senses':'lessons',row.targetId);
-  if(entity==='decks'){const payload=row.payload as {deck:{senseIds:string[]}};row.payload={deck:{...payload.deck,senseIds:[...new Set(payload.deck.senseIds.map(id=>mapped('senses',id)))]}};}
+  if(entity==='decks'){const payload=row.payload as {deck:Deck};const mapSense=(id:string)=>String(mapped('senses',id));row.payload={deck:{...payload.deck,senseIds:[...new Set(payload.deck.senseIds.map(mapSense))],...(payload.deck.group?{group:{wordIds:[...new Set(payload.deck.group.wordIds.map(mapSense))],sentences:payload.deck.group.sentences.map(s=>({...s,senseId:mapSense(s.senseId)}))}}:{})}};}
   if(entity==='mediaAssets'){const payload=row.payload as {asset:{senseId:string}};row.payload={asset:{...payload.asset,senseId:mapped('senses',payload.asset.senseId)}};}
   if(entity==='sentences'){const payload=row.payload as {content:{senseId:string}};row.id=`extra-${mapped('senses',payload.content.senseId)}`;row.payload={content:{...payload.content,senseId:mapped('senses',payload.content.senseId)}};}
   if(entity==='practiceSessions'){const payload=row.payload as {session:{questions:{word:Record<string,unknown>;choices:Record<string,unknown>[]}[]}};row.payload={session:{...payload.session,id:row.id,scopeId:target.scope.id,questions:payload.session.questions.map(q=>({...q,word:remapWord(q.word),choices:q.choices.map(remapWord)}))}};}

@@ -88,3 +88,7 @@ ADR036: supported source question/answer excerpts are retained in learning conte
 ## Today due entry — ADR-037
 
 Today count and direct flashcard start share scoped approved due selection. Link `/practice?review=due` creates at most10 questions and then includes the saved session ID for refresh; larger counts show remaining-session guidance. New unreviewed approved words count as due. Only explicit ratings alter review events/state. Empty/stale session recovery is visible; offline fallback exposes due review after choosing a local scope.
+
+## Topic groups — ADR044
+
+Parents create groups of approved words and sentences, add individuals or all approved members of one imported/manual lesson or learning date, and edit/rename/remove membership with explicit Save. Duplicate senses/sentence text+translation skip deterministically; never merge different meaning/POS.12-item search/page selection and12-item read views, no total membership cap. Words can start existing short flashcard/games via group deck filter; sentence-only groups use sentence reading/audio/context, never pretend sentence practice or game scores update SRS. Groups preserve underlying source lessons, approvals, examples and review history.

@@ -24,6 +24,8 @@ Bốn model có sẵn và ô nhập model ID khác; không tự chuyển model k
 
 **Button11/10 (ADR043):** nút lưu/duyệt/thêm dùng hồng primary rõ, nút phụ nhẹ hơn; gõ từ và bổ sung hình/mẫu câu có hình minh họa và mũi tên, giữ cửa phụ huynh. Rà56giao diện mobile/desktop không tràn ngang/lỗi JS;137test và163browser PASS. [Bằng chứng](evaluations/button-hierarchy.md); nghiệm thu thẩm mỹ trên điện thoại thật vẫn mở.
 
+**Nhóm học và Home11/10 (ADR044):** thêm nhóm từ/câu như Anh văn Family, Anh văn tiểu học; chọn từng mục hoặc cả bài/cả ngày, tự bỏ trùng, có phân trang và sửa nhóm. Bộ từ theo ngày có hình minh họa/tên dễ đọc thay mã tự động. Home có màu vàng/mint, thẻ hình và cáo chào ngắn. Đang hoàn tất kiểm thử/triển khai; [bằng chứng](evaluations/groups-and-lesson-ui.md) cập nhật kết quả thật.
+
 ## 1. Sản phẩm cần giải quyết điều gì?
 
 Người học đã gặp một từ hoặc cấu trúc câu, nhưng sau vài ngày không nhớ đã học ở đâu. Giấy ghi chú nằm rải rác; chụp ảnh vào điện thoại thì khó tìm kiếm; nhập từng từ vào một ứng dụng ôn tập mất công. Words for Kids nối ba việc thành một luồng: **lưu lại kiến thức đã học → tìm lại đúng ngữ cảnh → ôn để nhớ lâu hơn**.

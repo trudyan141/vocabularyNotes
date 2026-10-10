@@ -118,3 +118,11 @@ ADR039 S15/account: show verified Google display name/email/avatar (initial/icon
 
 
 11/10/2026 ADR043 — S03 typed-word entry and S07 picture/pattern preparation become illustrated, labelled feature actions with a short explanation/arrow and unchanged parent gates. S07 Add word is primary plus icon; Filter is quieter; content modes are a grouped icon/text segment with visible selected state. Save/approve/submit CTAs across parent/editor/game flows use the shared berry primitive; destructive confirmations stay distinct, Google brand stays intact. All buttons preserve labels, wrapping,48px/focus/disabled/loading/reduced-motion states. See04 and [button evidence](evaluations/button-hierarchy.md).
+
+## Groups and readable day sets — ADR044,11/10/2026
+
+S09 date manager displays recognizable approved member artwork, localized calendar dates and readable automatic titles; raw UUIDs remain storage IDs, never the visible heading. One Learn CTA; View, pencil edit and Add to group are secondary.12sets/page, search supports ISO/readable dates/title/words, clear search/empty/loading/error, versioned inline Save/Cancel. Detailed new/review definition is collapsed. Today/filtered Library/editor share title presentation without automatic writes.
+
+S09 `/library/groups` is a Library sub-route, no fourth nav. Create/Edit have parent gates, named groups show counts and12-item words/sentences reading tabs, EN/VI search, approved artwork, sentence audio/context and word-only practice. `/library/groups/edit` chooses individual words/cases, sentences or lessons/dates on12-item pages; retains selections and offers whole-page selection. Date manager supplies `lesson` or `day`; parent chooses an existing group or creates one, then reviews and explicitly saves. Report additions and exact duplicates skipped; conflict/name/read/write failures preserve current choices, unapproved/deleted items stay out of child reading. Empty/sentence-only groups work. Rename/unselect members preserves source library and SRS. Existing cloud scope/CAS/archive apply.
+
+S01 welcome retains Start/guest/demo/parent truth, replaces centered empty space with fox/catalog-word illustration stage and warm Theme C surfaces. One finite session greeting, replay through labelled fox button, reduced-motion static. No automatic sound. See04 and [evidence](evaluations/groups-and-lesson-ui.md).

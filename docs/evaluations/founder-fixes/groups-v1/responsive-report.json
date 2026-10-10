@@ -1,0 +1,604 @@
+[
+  {
+    "name": "welcome",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/welcome",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "today",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/today",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "library",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/library",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "lessons",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/library/lessons",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "detail",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/library/words/grapes",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "edit",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/library/words/grapes/edit",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "notes",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/library/words/grapes/notes",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "add",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/add",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "capture",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/capture",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "review",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/capture/demo/review",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "settings",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/settings",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "account",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/account",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "practice",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/practice",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "decks",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/practice/decks",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "prepare",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/library/prepare",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "photo-edit",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/capture/4246b58c-57ba-4d68-99ea-9f3e5b312bcc/edit",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "extract",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/capture/4246b58c-57ba-4d68-99ea-9f3e5b312bcc/extract",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "today-draft",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/today",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "parent-gate",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/today",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "settings-advanced",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/settings",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "practice-options",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/practice",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "picture",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/practice",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "picture-feedback",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/practice",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "listening",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/practice",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "letters",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/practice",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "spelling",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/practice",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "flashcard",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/practice",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "flashcard-revealed",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/practice",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "legacy-lessons",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/library/lessons",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "lesson-rename",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/library/lessons",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "lesson-search-empty",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/library/lessons",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "groups-empty",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/library/groups",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "group-edit-words",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/library/groups/edit",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "group-edit-page2",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/library/groups/edit",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "group-edit-sentences",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/library/groups/edit",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "group-edit-lessons",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/library/groups/edit",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "group-saved",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/library/groups/edit",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "group-words",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/library/groups?group=cde8a849-6e7a-4c8a-b8b0-ce21ad4137ec",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "group-sentences",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/library/groups?group=cde8a849-6e7a-4c8a-b8b0-ce21ad4137ec",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "groups-list",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/library/groups",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "group-destination",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/library/groups/edit?day=2026-10-09",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "welcome-greeting",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/welcome",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "welcome-reduced-motion",
+    "width": 360,
+    "url": "http://127.0.0.1:4330/welcome",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "welcome",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/welcome",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "today",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/today",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "library",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/library",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "lessons",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/library/lessons",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "detail",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/library/words/grapes",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "edit",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/library/words/grapes/edit",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "notes",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/library/words/grapes/notes",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "add",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/add",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "capture",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/capture",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "review",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/capture/demo/review",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "settings",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/settings",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "account",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/account",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "practice",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/practice",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "decks",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/practice/decks",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "prepare",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/library/prepare",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "photo-edit",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/capture/69a9be9d-560a-4c5c-a64e-f8626926facf/edit",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "extract",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/capture/69a9be9d-560a-4c5c-a64e-f8626926facf/extract",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "today-draft",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/today",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "parent-gate",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/today",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "settings-advanced",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/settings",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "practice-options",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/practice",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "picture",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/practice",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "picture-feedback",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/practice",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "listening",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/practice",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "letters",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/practice",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "spelling",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/practice",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "flashcard",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/practice",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "flashcard-revealed",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/practice",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "legacy-lessons",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/library/lessons",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "lesson-rename",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/library/lessons",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "lesson-search-empty",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/library/lessons",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "groups-empty",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/library/groups",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "group-edit-words",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/library/groups/edit",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "group-edit-page2",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/library/groups/edit",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "group-edit-sentences",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/library/groups/edit",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "group-edit-lessons",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/library/groups/edit",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "group-saved",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/library/groups/edit",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "group-words",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/library/groups?group=2b89b16a-9c5f-46a2-b44a-506f2349fbcb",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "group-sentences",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/library/groups?group=2b89b16a-9c5f-46a2-b44a-506f2349fbcb",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "groups-list",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/library/groups",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "group-destination",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/library/groups/edit?day=2026-10-09",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "welcome-greeting",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/welcome",
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "welcome-reduced-motion",
+    "width": 1280,
+    "url": "http://127.0.0.1:4330/welcome",
+    "overflow": false,
+    "errors": []
+  }
+]

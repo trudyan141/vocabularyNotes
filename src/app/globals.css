@@ -1320,3 +1320,137 @@ html[data-motion="reduced"] .game-progress > div > span,html[data-motion="reduce
  [data-slot="button"], [data-slot="button"]:hover:not(:disabled), [data-slot="button"]:active:not(:disabled) { transform:none; transition:none; }
 }
 html[data-motion="reduced"] [data-slot="button"],html[data-motion="reduced"] [data-slot="button"]:hover:not(:disabled),html[data-motion="reduced"] [data-slot="button"]:active:not(:disabled) { transform:none; transition:none; }
+
+/* Date sets: recognizable lesson content, one clear learn action. */
+.lesson-library { gap:1.5rem; }
+.lesson-library-heading { display:flex; align-items:center; justify-content:space-between; gap:1.5rem; }
+.lesson-library-heading h1 { margin:0; }
+.lesson-library-heading p { margin:.5rem 0 0; color:var(--muted-foreground); }
+.lesson-library-heading>div { min-width:0; }
+.lesson-library-heading>button { max-width:18rem; flex-shrink:0; }
+.lesson-search { display:flex; flex-direction:column; gap:.5rem; }
+.lesson-search>label { font-weight:800; font-size:.95rem; }
+.lesson-search-field { position:relative; display:flex; align-items:center; }
+.lesson-search-field>svg { position:absolute; left:1rem; width:1.25rem; height:1.25rem; color:var(--muted-foreground); pointer-events:none; }
+.lesson-search-field input { background:var(--card); padding-left:3rem; padding-right:3.5rem; }
+.lesson-search-field>button { position:absolute; right:.25rem; }
+.lesson-search-field input::-webkit-search-cancel-button { display:none; }
+.lesson-day-group { display:flex; flex-direction:column; gap:.75rem; }
+.lesson-date { display:flex; align-items:center; gap:.5rem; margin:0; font-size:1rem; color:var(--muted-foreground); font-variant-numeric:tabular-nums; }
+.lesson-date svg { width:1.1rem; height:1.1rem; }
+.lesson-set-list { display:flex; flex-direction:column; gap:1rem; }
+.lesson-set { display:grid; grid-template-columns:12rem minmax(0,1fr); gap:1.5rem; padding:1.25rem; border-radius:1rem; }
+.lesson-set-art { display:flex; align-items:center; justify-content:center; gap:0; padding:1rem .5rem; border-radius:.75rem; min-height:11rem; }
+.lesson-set-art.mint { background:var(--mint); }
+.lesson-set-art.lilac { background:var(--lilac); }
+.lesson-preview-art { flex:1; min-width:0; }
+.lesson-set-art .word-art { width:100%; height:auto; max-height:6rem; object-fit:contain; }
+.lesson-set-art .missing-art { font-size:.75rem; min-height:0; padding:0; }
+.lesson-set-art>svg { width:4rem; height:4rem; color:var(--foreground); }
+.lesson-set-content { display:flex; flex-direction:column; gap:.65rem; min-width:0; }
+.lesson-set-title { display:flex; align-items:flex-start; justify-content:space-between; gap:.75rem; }
+.lesson-set-title>div { min-width:0; }
+.lesson-set h3 { font-size:1.25rem; line-height:1.3; text-wrap:balance; }
+.lesson-source { display:flex; align-items:center; gap:.35rem; margin:0 0 .35rem; font-size:.8rem; color:var(--muted-foreground); }
+.lesson-source svg { width:1rem; height:1rem; }
+.lesson-word-preview { margin:0; font-size:.9rem; color:var(--muted-foreground); overflow-wrap:anywhere; }
+.lesson-set-counts { display:flex; align-items:center; flex-wrap:wrap; gap:.5rem 1rem; font-size:.85rem; }
+.lesson-set-counts strong { color:var(--foreground); }
+.lesson-set-counts span { color:var(--muted-foreground); }
+.lesson-set-actions { display:flex; align-items:center; flex-wrap:wrap; gap:.5rem; margin-top:.25rem; }
+.lesson-set>.lesson-editor { grid-column:1/-1; box-shadow:none; background:var(--muted); }
+.lesson-help { font-size:.85rem; color:var(--muted-foreground); }
+.lesson-help summary { min-height:48px; display:flex; align-items:center; font-weight:700; }
+.lesson-help p { max-width:65ch; margin:.5rem 0; }
+.lesson-pagination { justify-content:center; }
+.lesson-pagination span { font-variant-numeric:tabular-nums; }
+.lesson-save-status { margin:0; font-weight:700; color:var(--foreground); }
+@media(max-width:600px) {
+  .lesson-library-heading { flex-direction:column; align-items:stretch; gap:1rem; }
+  .lesson-library-heading>button { max-width:none; }
+  .lesson-set { grid-template-columns:minmax(0,1fr); gap:1rem; padding:1rem; }
+  .lesson-set-art { min-height:7rem; padding:.75rem 1rem; }
+  .lesson-set-art .word-art { max-height:5.5rem; }
+  .lesson-set-actions { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
+  .lesson-set-actions>a { padding-left:.5rem; padding-right:.5rem; }
+  .lesson-set h3 { font-size:1.15rem; }
+}
+/* Groups share the same saved, approved library as words and lessons. */
+.study-groups .section-heading { align-items:flex-start; }
+.study-groups h1 { margin:0; overflow-wrap:anywhere; }
+.study-groups header p { margin:.5rem 0 0; }
+.group-overview { color:var(--muted-foreground); font-size:.95rem; }
+.group-overview>svg { color:var(--primary); }
+.group-tabs { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.study-groups .group-tabs { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.group-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
+.group-link { display:flex; align-items:center; gap:1rem; padding:1.25rem; border-radius:1rem; min-height:112px; text-decoration:none; color:var(--foreground); }
+.group-link.mint { background:var(--mint); }
+.group-link.lilac { background:var(--secondary); }
+.group-link>svg:first-child { width:2.5rem; height:2.5rem; flex:none; }
+.group-link>span { flex:1; display:flex; flex-direction:column; gap:.35rem; min-width:0; overflow-wrap:anywhere; }
+.group-link strong { font-size:1.2rem; }
+.group-link small { color:var(--muted-foreground); }
+.group-word-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; padding:0; list-style:none; }
+.group-word-list a { display:flex; align-items:center; gap:1rem; text-decoration:none; color:var(--foreground); background:var(--card); border-radius:.75rem; padding:1rem; }
+.group-word-list a>span { display:flex; flex-direction:column; min-width:0; overflow-wrap:anywhere; }
+.group-word-list small { color:var(--muted-foreground); }
+.group-word-list .word-art { flex:none; }
+.group-word-list .missing-art { width:64px; min-height:64px; flex:none; font-size:.75rem; padding:.25rem; }
+.group-sentences { display:flex; flex-direction:column; gap:1rem; }
+.group-sentence { background:var(--card); border-radius:1rem; padding:1.25rem; }
+.group-sentence p { margin:0 0 .5rem; overflow-wrap:anywhere; }
+.group-sentence p[lang=en] { font-weight:800; font-size:1.15rem; }
+.group-sentence p:nth-child(2) { color:var(--muted-foreground); }
+.group-option-full { grid-template-columns:1fr; }
+.group-option-list label>span { min-width:0; overflow-wrap:anywhere; }
+.group-option-list .word-art { flex:none; }
+.group-picker { display:flex; flex-direction:column; gap:1rem; }
+.group-picker .selection-count { margin:0; }
+.group-destination { display:flex; flex-direction:column; gap:.5rem; margin-bottom:1.5rem; }
+.lesson-source { margin:.35rem 0 0; }
+.lesson-set-art.lilac { background:var(--secondary); }
+/* A warm, illustrated welcome, with one finite fox greeting. */
+.welcome-world { max-width:1120px; display:grid; grid-template-columns:1fr 1fr; align-items:center; text-align:left; gap:2rem; padding:2rem 0; }
+.welcome-copy { display:flex; flex-direction:column; align-items:flex-start; gap:1rem; }
+.welcome-world h1 { font-size:2.75rem; line-height:1.15; margin:0; text-wrap:balance; }
+.welcome-world p { margin:0; font-size:1.1rem; line-height:1.6; color:var(--muted-foreground); max-width:40ch; }
+.welcome-world small { color:var(--muted-foreground); font-size:.85rem; }
+.welcome-copy>[data-slot=button] { margin-top:.5rem; min-width:11rem; }
+.welcome-copy>[data-slot=button][data-variant=link] { margin-top:0; padding-left:0; }
+.welcome-playground { position:relative; min-height:460px; background:var(--accent); border-radius:1rem; display:flex; align-items:center; justify-content:center; padding:3.5rem 0 1rem; }
+.welcome-greeting { position:absolute; top:1.5rem; left:1.5rem; right:1.5rem; text-align:center; font-size:1.1rem; font-weight:800; }
+.welcome-fox { border:0; background:transparent; padding:0; cursor:pointer; width:58%; z-index:1; touch-action:manipulation; }
+.welcome-fox img { width:100%; height:auto; }
+.welcome-fox:focus-visible { outline:3px solid var(--primary); outline-offset:4px; border-radius:1rem; }
+.welcome-word { position:absolute; width:112px; padding:.75rem; border-radius:.75rem; display:flex; flex-direction:column; align-items:center; background:var(--card); box-shadow:var(--surface-depth); font-size:.85rem; }
+.welcome-word span { color:var(--muted-foreground); font-size:.75rem; }
+.welcome-word img { width:64px; height:64px; }
+.welcome-apple { left:1rem; top:5.5rem; transform:rotate(-7deg); }
+.welcome-book { right:1rem; top:7rem; transform:rotate(7deg); }
+.welcome-cat { right:2rem; bottom:1rem; transform:rotate(-5deg); }
+.welcome-learning { grid-column:1/-1; display:flex; justify-content:center; flex-wrap:wrap; gap:1rem 3rem; padding:1.25rem; background:var(--mint); border-radius:1rem; font-weight:800; }
+.welcome-learning span { display:flex; align-items:center; gap:.5rem; }
+.welcome-learning svg { width:1.25rem; height:1.25rem; }
+@media(prefers-reduced-motion:no-preference) {
+ html:not([data-motion="reduced"]) .fox-greeting-motion { animation:fox-welcome-wave 700ms cubic-bezier(.16,1,.3,1) both; transform-origin:50% 90%; }
+ @keyframes fox-welcome-wave { 0% { transform:rotate(0); } 20% { transform:rotate(-8deg) translateY(-6px); } 45% { transform:rotate(6deg); } 70% { transform:rotate(-3deg); } 100% { transform:rotate(0); } }
+}
+@media(max-width:700px) {
+ .welcome-world { grid-template-columns:1fr; padding:.5rem 0 1.5rem; gap:1.25rem; }
+ .welcome-world h1 { font-size:2rem; }
+ .welcome-copy { order:2; }
+ .welcome-playground { order:1; min-height:280px; padding:3rem 0 0; }
+ .welcome-fox { width:52%; }
+ .welcome-word { width:84px; padding:.5rem; font-size:.8rem; }
+ .welcome-word img { width:44px; height:44px; }
+ .welcome-apple { left:.65rem; top:4.5rem; }
+ .welcome-book { right:.65rem; top:4.5rem; }
+ .welcome-cat { right:1rem; bottom:.75rem; }
+ .welcome-learning { order:3; gap:1rem; font-size:.85rem; }
+ .welcome-world .welcome-copy>[data-slot=button] { width:100%; }
+ .welcome-greeting { font-size:.95rem; top:1rem; }
+ .group-list,.group-word-list { grid-template-columns:1fr; }
+ .study-groups .section-heading { flex-wrap:wrap; }
+ .lesson-set-actions>button { grid-column:1/-1; }
+}

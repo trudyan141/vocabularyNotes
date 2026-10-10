@@ -1,14 +1,15 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { Camera, ArrowRight, Play, FileImage } from "lucide-react";
+import { Camera, ArrowRight, Play, FileImage, Volume2, BookOpen } from "lucide-react";
 import { FeatureAction } from "@/components/app/feature-action";
 import { Button } from "@/components/ui/button";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import {PracticeRepository} from "@/data/local/practice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {LessonEditor} from "@/components/features/lesson-editor";
+import {lessonTitle,learningDate} from "@/lib/learning/lesson-presentation";
 import type {Lesson} from "@/data/local/types";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useApp, useHydrated } from "@/components/app/provider";
@@ -104,7 +105,7 @@ export function Today() {
           <Button asChild variant="link"><Link href="/library/lessons">{t("Tất cả bộ từ theo ngày","All word sets by date")}</Link></Button>
           {savedTitle&&<p role="status">{savedTitle}</p>}
           <div className="lesson-grid">
-            {lessons&&lessons.scope===repository?.scope.id&&lessons.values.map(({lesson,total,art,word},i)=><article className="recent-lesson" key={lesson.id}><Link prefetch={false} className={`lesson-tile ${i%2?"lilac":"mint"}`} href={`/library?lesson=${encodeURIComponent(lesson.id)}`}><Artwork art={art} word={word} size={88}/><div><h3>{lesson.id==="food"?t("Trái cây & đồ ăn","Fruit & food"):lesson.id==="school"?t("Thế giới quanh con","Your world"):lesson.title}</h3><p>{lesson.learnedOn} · {total} {lesson.sourceType==="demo"?t("từ mẫu","sample words"):t("từ","words")}</p></div><ArrowRight aria-hidden="true"/></Link>{lesson.sourceType!=="demo"&&<Button variant="outline" onClick={()=>{setSavedTitle("");setEditing(lesson);}}>{t("Đổi tên","Rename")}<span className="sr-only">: {lesson.title}</span></Button>}{editing?.scopeId===repository?.scope.id&&editing.id===lesson.id&&<LessonEditor key={`${editing.scopeId}:${editing.id}:${editing.version}`} lesson={editing} close={()=>setEditing(null)} saved={title=>{setEditing(null);setSavedTitle(t(`Đã lưu tên bộ: ${title}`,`Saved set title: ${title}`));}}/>}</article>)}
+            {lessons&&lessons.scope===repository?.scope.id&&lessons.values.map(({lesson,total,art,word},i)=><article className="recent-lesson" key={lesson.id}><Link prefetch={false} className={`lesson-tile ${i%2?"lilac":"mint"}`} href={`/library?lesson=${encodeURIComponent(lesson.id)}`}><Artwork art={art} word={word} size={88}/><div><h3>{lesson.id==="food"?t("Trái cây & đồ ăn","Fruit & food"):lesson.id==="school"?t("Thế giới quanh con","Your world"):lessonTitle(lesson,t)}</h3><p>{learningDate(lesson.learnedOn,t)} · {total} {lesson.sourceType==="demo"?t("từ mẫu","sample words"):t("từ","words")}</p></div><ArrowRight aria-hidden="true"/></Link>{lesson.sourceType!=="demo"&&<Button variant="outline" onClick={()=>{setSavedTitle("");setEditing(lesson);}}>{t("Đổi tên","Rename")}<span className="sr-only">: {lessonTitle(lesson,t)}</span></Button>}{editing?.scopeId===repository?.scope.id&&editing.id===lesson.id&&<LessonEditor key={`${editing.scopeId}:${editing.id}:${editing.version}`} lesson={editing} close={()=>setEditing(null)} saved={title=>{setEditing(null);setSavedTitle(t(`Đã lưu tên bộ: ${title}`,`Saved set title: ${title}`));}}/>}</article>)}
           </div>
         </section>
       )}
@@ -188,43 +189,30 @@ export function Today() {
 }
 export function Welcome() {
   const { t, demo } = useApp();
-  return (
-    <section className="welcome">
-      <Image
-        src="/illustrations/fox.svg"
-        width={220}
-        height={230}
-        priority
-        alt=""
-      />
-      <h1>
-        {t("Cùng con nhớ những từ đã học", "Remember the words you learn")}
-      </h1>
-      <p>
-        {t(
-          "Bố mẹ chuẩn bị bài. Con nghe, xem và ôn lại mỗi ngày.",
-          "Parents prepare the lesson. Children listen, explore and review.",
-        )}
-      </p>
-      <Button asChild size="lg">
-        <Link prefetch={false} href="/today">
-          {t("Bắt đầu", "Get started")}
-          <ArrowRight data-icon="inline-end" />
-        </Link>
-      </Button>
-      <small>
-        {demo
-          ? t(
-              "Bắt đầu với bài mẫu để thử giao diện.",
-              "Start with sample lessons to explore the interface.",
-            )
-          : t("Bắt đầu không cần tài khoản.", "Start without an account.")}
-      </small>
-      <ParentGate href="/settings">
-        <Button variant="link">
-          {t("Tùy chọn của phụ huynh", "Parent options")}
-        </Button>
-      </ParentGate>
-    </section>
-  );
+  const [wave,setWave]=useState(0);
+  useEffect(()=>{
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    let seen=true;
+    try{seen=sessionStorage.getItem('wfk-welcome-seen')==='1';sessionStorage.setItem('wfk-welcome-seen','1');}catch{/* Storage may be unavailable; keep the static greeting. */}
+    if(seen)return;
+    const frame=requestAnimationFrame(()=>setWave(1));
+    return()=>cancelAnimationFrame(frame);
+  },[]);
+  return <section className="welcome welcome-world">
+    <div className="welcome-copy">
+      <h1>{t("Cùng con nhớ những từ đã học", "Remember the words you learn")}</h1>
+      <p>{t("Bố mẹ chuẩn bị bài. Con nghe, xem và ôn lại mỗi ngày.", "Parents prepare the lesson. Children listen, explore and review.")}</p>
+      <Button asChild size="lg"><Link prefetch={false} href="/today">{t("Bắt đầu", "Get started")}<ArrowRight data-icon="inline-end"/></Link></Button>
+      <small>{demo?t("Bắt đầu với bài mẫu để thử giao diện.","Start with sample lessons to explore the interface."):t("Bắt đầu không cần tài khoản.","Start without an account.")}</small>
+      <ParentGate href="/settings"><Button variant="link">{t("Tùy chọn của phụ huynh", "Parent options")}</Button></ParentGate>
+    </div>
+    <div className="welcome-playground">
+      <span className="welcome-greeting">{t("Chào con! Cùng học nhé!", "Hello! Let’s learn together!")}</span>
+      <button type="button" className="welcome-fox" aria-label={t("Chào cáo", "Say hello to the fox")} onClick={()=>setWave(value=>value+1)}><Image key={wave} className={wave?'fox-greeting-motion':''} src="/illustrations/fox.svg" width={280} height={293} priority alt=""/></button>
+      <div className="welcome-word welcome-apple"><Image src="/illustrations/apple.svg" width={76} height={76} alt=""/><strong lang="en">apple</strong><span>{t("quả táo","apple")}</span></div>
+      <div className="welcome-word welcome-book"><Image src="/illustrations/book.svg" width={76} height={76} alt=""/><strong lang="en">book</strong><span>{t("quyển sách","book")}</span></div>
+      <div className="welcome-word welcome-cat"><Image src="/illustrations/cat.svg" width={76} height={76} alt=""/><strong lang="en">cat</strong><span>{t("con mèo","cat")}</span></div>
+    </div>
+    <div className="welcome-learning"><span><Volume2 aria-hidden="true"/>{t("Nghe từ","Hear a word")}</span><span><BookOpen aria-hidden="true"/>{t("Nhìn hình","See a picture")}</span><span><Play aria-hidden="true"/>{t("Chơi và nhớ","Play and remember")}</span></div>
+  </section>;
 }

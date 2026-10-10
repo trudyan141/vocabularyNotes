@@ -5,7 +5,8 @@ import {useLiveQuery} from "dexie-react-hooks";
 import { useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ArrowRight, Filter, Plus, CalendarDays, BookOpen, MessageCircle, Layers, Shapes } from "lucide-react";
+import { ArrowRight, Filter, Plus, FolderHeart, CalendarDays, BookOpen, MessageCircle, Layers, Shapes } from "lucide-react";
+import {lessonTitle} from "@/lib/learning/lesson-presentation";
 import { FeatureAction } from "@/components/app/feature-action";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -95,7 +96,7 @@ export function Library() {
           <Badge variant="secondary">
             {lesson === "food"
               ? t("Trái cây & đồ ăn", "Fruit & food")
-              : lesson==="school"?t("Thế giới quanh con", "Your world"):lessonRecord?.title??t("Bài học đã lưu","Saved lesson")}
+              : lesson==="school"?t("Thế giới quanh con", "Your world"):lessonRecord?lessonTitle(lessonRecord,t):t("Bài học đã lưu","Saved lesson")}
           </Badge>
           <Button asChild variant="link">
             <Link prefetch={false} href="/library">
@@ -104,7 +105,7 @@ export function Library() {
           </Button>
         </div>
       )}
-      <div className="row-wrap"><Button asChild variant="secondary"><Link href="/library/lessons"><CalendarDays data-icon="inline-start" aria-hidden="true"/>{t("Bộ từ theo ngày","Word sets by date")}</Link></Button>{lesson&&<Button asChild><Link href={`/practice?lesson=${encodeURIComponent(lesson)}`}>{t("Học bộ này","Learn this set")}<ArrowRight data-icon="inline-end" aria-hidden="true"/></Link></Button>}</div>
+      <div className="row-wrap"><Button asChild variant="secondary"><Link href="/library/lessons"><CalendarDays data-icon="inline-start" aria-hidden="true"/>{t("Bộ từ theo ngày","Word sets by date")}</Link></Button><Button asChild variant="secondary"><Link href="/library/groups"><FolderHeart aria-hidden="true"/>{t("Nhóm học","Learning groups")}</Link></Button>{lesson&&<Button asChild><Link href={`/practice?lesson=${encodeURIComponent(lesson)}`}>{t("Học bộ này","Learn this set")}<ArrowRight data-icon="inline-end" aria-hidden="true"/></Link></Button>}</div>
       <ParentGate href={`/library/prepare${lesson?`?lesson=${encodeURIComponent(lesson)}`:""}`}><Button variant="feature" aria-label={t("Bổ sung hình và mẫu câu","Prepare pictures and patterns")}><FeatureAction image="/illustrations/book.svg" title={t("Bổ sung hình và mẫu câu","Prepare pictures and patterns")} description={t("Thêm hình, thêm câu để con học vui hơn","Add pictures and examples for learning")}/></Button></ParentGate>
       <div className="content-modes" aria-label={t("Loại nội dung","Content type")}>{([["words","Từ","Words",BookOpen],["sentences","Câu","Sentences",MessageCircle],["patterns","Mẫu câu","Patterns",Layers],["grammar","Ngữ pháp","Grammar",Shapes]] as const).map(([value,vi,en,Icon])=><Button key={value} variant="segment" aria-pressed={mode===value} onClick={()=>{setMode(value);setOffset(0);}}><Icon aria-hidden="true"/>{t(vi,en)}</Button>)}</div>
       <FieldGroup>

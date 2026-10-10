@@ -1,5 +1,9 @@
 # Nhật ký bàn giao
 
+## 11/10/2026 — Topic groups / date manager / welcome, ADR044 (in progress)
+
+Date sets become art-led/readable, automatic titles are presentation-only. Parent-created word/sentence topic groups support individual/lesson/day membership with deterministic deduplication, CAS/archive/cloud remap and12-item paging; welcome uses existing fox/catalog illustration and finite/static greeting.86responsive views no overflow/page errors; final check/browser/hosted results pending in [evidence](../evaluations/groups-and-lesson-ui.md). Local PG fixture startup is blocked by host shared-memory allocation, independent browser/remote full CI follow. No founder data/credentials modified.
+
 ## 10/10/2026 — Founder UI and hosted schema repair, ADR040/041
 
 - Google G before/after sign-in; shared ArrowLeft back controls, upload/refresh/save icons, stronger Theme C button/card styles and responsive wrapping/reduced motion across app.

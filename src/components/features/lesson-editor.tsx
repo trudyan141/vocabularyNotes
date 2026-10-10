@@ -5,11 +5,12 @@ import {useApp} from "@/components/app/provider";
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
 import {OperationStatus} from "@/components/ui/operation-status";
+import {lessonTitle} from "@/lib/learning/lesson-presentation";
 import type {Lesson} from "@/data/local/types";
 
 export function LessonEditor({lesson,close,saved}:{lesson:Lesson;close:()=>void;saved:(title:string)=>void}) {
   const {repository,t}=useApp();
-  const [title,setTitle]=useState(lesson.title),[day,setDay]=useState(lesson.learnedOn);
+  const [title,setTitle]=useState(lessonTitle(lesson,t)),[day,setDay]=useState(lesson.learnedOn);
   const [busy,setBusy]=useState(false),[error,setError]=useState("");
   const saving=useRef(false);
   return <form className="lesson-editor panel page-flow parent-page" onSubmit={async event=>{

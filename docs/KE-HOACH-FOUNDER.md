@@ -917,3 +917,5 @@ Thử trên founder tab: Google400 INVALID_ARGUMENT, không field cụ thể. Re
 Kiểm tiếp ADR033: Google chấp nhận metadata key/model nhưng request ảnh sau đổi JSON vẫn400/no fields. Thêm nút câu mẫu không gửi ảnh để phân biệt lỗi gọi AI với lỗi ảnh/schema; quota/cost được ghi rõ, không tự đổi model hoặc bật billing. Không báo sửa thành công khi live request còn bị từ chối.
 
 Câu mẫu thật đã thành công cùng key/model3.5FlashLite. Lỗi được thu hẹp về request worksheet, không quy key sai. Đang kiểm JSON mode/schema trong prompt thay schema compiler của Google; kết quả vẫn phải đúng DTO/evidence và phụ huynh duyệt trước lưu.
+
+Đã sửa và kiểm thật trên Vercel581ef67: cùng ảnh/key/model3.5FlashLite nay stream và hoàn tất13 từ, tự điền nghĩa/POS/ví dụ ở màn duyệt. Lỗi400 nằm ở cấu hình request schema; Google không chỉ field sai. Thay backend schema compiler bằng JSON mode + cấu trúc trong prompt, app vẫn kiểm DTO/evidence trước nhận kết quả. Nháp chờ founder kiểm/duyệt, chưa lưu cho con. Check114/full125 browser/docs203links PASS; một ảnh thật không thay benchmark T00.

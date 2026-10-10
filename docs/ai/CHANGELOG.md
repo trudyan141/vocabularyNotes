@@ -1,5 +1,9 @@
 # Nhật ký bàn giao
 
+## 2026-10-10 — Capture drag-drop, inline key và ảnh đối chiếu, ADR-031
+
+Theo hai steering founder: giải thích thiếu key/consent/privacy và thiếu review data/approval; nhập key ngay tại extract giữ draft/checks, source prepared Blob sticky cạnh nội dung desktop/thumbnail mobile/mở zoom. Upload một ảnh bằng kéo thả/nút tiếng Việt/Enter, cùng normalize/validation/camera cleanup/draft; bỏ stale disconnected banner. Check104/lint/types/build PASS; full117/117 browser PASS. Sửa assertions nhãn cũ/Next announcer ambiguity và input hidden để không trùng role button, không bỏ coverage. Screenshot CUA1280/360 synthetic/manual, không liveAI/physical phone. Source03/ADR/state/tasks/founder updated. [Evidence](../evaluations/capture-review-ui.md). Deployment/CI mới pending sau push.
+
 ## 2026-10-10 — Gemini thay OpenAI theo steering, ADR-030
 
 Founder yêu cầu Gemini free tier/nhiềumodel. Browser directGoogle generateContent/headerkey/inlineJPEG/responseFormatstrict/no tools; default3.5FlashLite/preset3.1FlashLite/3.6Flash/3.8Flash/custom. OldOpenAIconfigignored/no keyforward; standard/authkey formats, session/localStorage opt-in/delete/backupnotkey giữ nguyên. CORSOPTIONS200, official docs/pricing/models/terms checked; freequota perproject/paidprojectcharged, eligibilityunder18restriction/liveinference cònpending. PreviewhìnhAImỗi candidate trước review. Linksettings#parent-ai scroll sauhydrate đã sửa.

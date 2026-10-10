@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/field";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { useApp } from "@/components/app/provider";
+import {LocalPreview} from "@/components/ui/local-preview";
 import { Back, EmptyState } from "@/components/app/shared";
 import {
   CaptureRepository,
@@ -90,25 +91,6 @@ function useFailureText() {
     [t],
   );
 }
-function LocalPreview({ blob, label }: { blob: Blob; label: string }) {
-  const { t } = useApp();
-  const image = useRef<HTMLImageElement | null>(null);
-  const link = useRef<HTMLAnchorElement | null>(null);
-  useEffect(() => {
-    const url = URL.createObjectURL(blob);
-    if (image.current) image.current.src = url;
-    if (link.current) link.current.href = url;
-    return () => URL.revokeObjectURL(url);
-  }, [blob]);
-  // Only validated local blobs; the effect owns their URL lifecycle.
-  return (
-    <a ref={link} target="_blank" rel="noreferrer" aria-label={label}>
-      {/* eslint-disable-next-line @next/next/no-img-element -- validated local Blob; no remote optimizer */}
-      <img ref={image} className="capture-image" alt={label} />
-      <span>{t("Mở ảnh để phóng to", "Open image to zoom")}</span>
-    </a>
-  );
-}
 export function Capture() {
   const { t, demo } = useApp();
   const repo = useCaptureRepository();
@@ -120,6 +102,9 @@ export function Capture() {
   );
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [dragging,setDragging]=useState(false);
+  const dragDepth=useRef(0);
+  const fileInput=useRef<HTMLInputElement|null>(null);
   const [cameraState, setCameraState] = useState<
     "closed" | "requesting" | "ready"
   >("closed");
@@ -290,45 +275,32 @@ export function Capture() {
     }
   }
   return (
-    <div className="reading-page page-flow parent-page">
+    <div className="reading-page page-flow parent-page capture-page">
       <Back />
       <h1>{t("Thêm bài cho con", "Add a lesson")}</h1>
       <p>
         {t(
-          "Chụp rõ cả trang, tránh bóng và giữ chữ đủ lớn. Ảnh chỉ được lưu trên trình duyệt này.",
-          "Capture the whole page clearly, without shadows. Images stay in this browser.",
+          "Chọn hoặc chụp một trang bài học. Xem và chỉnh ảnh trước, rồi mới gửi AI để đọc chữ.",
+          "Choose or photograph one worksheet page. Review and crop it before sending it to AI.",
         )}
       </p>
       {error && <Failure message={error} />}
-      <div className="capture-actions">
-        <Button
-          onClick={() => void startCamera()}
-          disabled={busy || cameraState !== "closed"}
-        >
-          <Camera data-icon="inline-start" />
-          {t("Mở camera", "Open camera")}
-        </Button>
-        <Field>
-          <FieldLabel htmlFor="worksheet-file">
-            <Upload aria-hidden="true" />
-            {t("Chọn ảnh từ máy", "Choose an image")}
-          </FieldLabel>
-          <Input
-            id="worksheet-file"
-            type="file"
-            accept="image/jpeg,image/png,image/webp,.heic,.heif"
-            disabled={busy}
-            onChange={(event) => {
-              const file = event.target.files?.[0];
-              event.target.value = "";
-              if (file) void intake(file);
-            }}
-          />
-          <FieldDescription>
-            JPEG, PNG, WebP · ≤10 MB · ≤20 megapixel
-          </FieldDescription>
-        </Field>
-      </div>
+      <section className="capture-intake" aria-label={t('Chụp hoặc chọn ảnh bài học','Capture or choose a worksheet photo')}>
+        <div className={`capture-dropzone${dragging?' is-dragging':''}${busy?' is-busy':''}`} data-testid="worksheet-dropzone"
+          onDragEnter={event=>{event.preventDefault();if(busy)return;dragDepth.current++;setDragging(true);}}
+          onDragOver={event=>{event.preventDefault();event.dataTransfer.dropEffect=busy?'none':'copy';}}
+          onDragLeave={event=>{event.preventDefault();dragDepth.current=Math.max(0,dragDepth.current-1);if(!dragDepth.current)setDragging(false);}}
+          onDrop={event=>{event.preventDefault();dragDepth.current=0;setDragging(false);if(busy||intakeLock.current)return;const files=event.dataTransfer.files;if(files.length!==1){setError(t('Chọn một ảnh mỗi lần để xem và chỉnh rõ từng trang.','Choose one photo at a time so each page can be reviewed and cropped.'));return;}void intake(files[0]);}}>
+          <Upload size={32} aria-hidden="true"/>
+          <h2>{dragging?t('Thả ảnh vào đây','Drop your photo here'):t('Kéo thả ảnh bài học vào đây','Drag your worksheet photo here')}</h2>
+          <p>{t('Hoặc chọn một ảnh trong máy của bạn','Or choose a photo from your device')}</p>
+          <Button variant="outline" disabled={busy} onClick={()=>fileInput.current?.click()}>{t('Chọn ảnh từ máy','Choose an image')}</Button>
+          <input ref={fileInput} id="worksheet-file" type="file" hidden aria-label={t('Chọn ảnh từ máy','Choose an image')} accept="image/jpeg,image/png,image/webp,.heic,.heif" disabled={busy} onChange={event=>{const file=event.target.files?.[0];event.target.value='';if(file)void intake(file);}}/>
+          <small>JPEG, PNG, WebP · {t('Tối đa 10 MB · Một ảnh mỗi lần','Up to 10 MB · One photo at a time')}</small>
+        </div>
+        <div className="capture-camera-choice"><div><h2>{t('Bài học đang ở trước mặt?','Have the worksheet in front of you?')}</h2><p>{t('Chụp cả trang, đủ sáng và tránh bóng tay.','Capture the whole page in good light, without shadows.')}</p></div><Button onClick={()=>void startCamera()} disabled={busy||cameraState!=='closed'}><Camera data-icon="inline-start"/>{t('Mở camera','Open camera')}</Button></div>
+        <p className="capture-local-note">{t('Ảnh giữ trên trình duyệt này. Chọn ảnh hoặc mở camera chưa gửi gì đến AI.','Photos stay in this browser. Choosing a photo or opening the camera sends nothing to AI.')}</p>
+      </section>
       <div hidden={cameraState === "closed"} className="camera-surface">
         <video
           ref={video}
@@ -418,20 +390,6 @@ export function Capture() {
           </ul>
         </section>
       )}
-      <Alert>
-        <AlertTitle>
-          {t(
-            "Nhận dạng ảnh chưa được kết nối",
-            "Image extraction is not connected",
-          )}
-        </AlertTitle>
-        <AlertDescription>
-          {t(
-            "Bạn có thể chụp, chỉnh và giữ nháp ngay. Phân tích ảnh sẽ mở khi dịch vụ phù hợp đã được kết nối.",
-            "You can capture, edit and keep drafts now. Analysis will open when an eligible service is connected.",
-          )}
-        </AlertDescription>
-      </Alert>
       {demo && (
         <Button asChild variant="outline">
           <Link prefetch={false} href="/capture/demo/review">
@@ -823,7 +781,7 @@ function Editor({
               )}
             </FieldDescription>
           </FieldGroup>
-          <p>{t("Phân tích bằng AI với API key riêng của bố mẹ. Nếu chưa thêm key, mở Cài đặt → AI riêng của phụ huynh.","Analyse with your own API key. Add a key under Settings → Parent’s own AI.")}</p>
+          <p>{t("Phân tích bằng AI với API key riêng của bố mẹ. Bạn có thể thêm key ngay tại màn phân tích tiếp theo.","Analyse with your own API key. You can add your key on the next analysis screen.")}</p>
           <Button disabled={processing||saving} onClick={async()=>{try{await persist();router.push(`/capture/${initial.draft.id}/extract`);}catch{}}}>{t("Phân tích ảnh bằng AI", "Analyse photo with AI")}</Button>
           <Button asChild variant="outline"><Link prefetch={false} href={`/add?capture=${initial.draft.id}`}>{t("Chép và thêm từ từ ảnh", "Transcribe words from image")}</Link></Button>
           <Button

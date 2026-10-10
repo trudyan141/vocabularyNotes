@@ -27,3 +27,25 @@ test('Gemini model selection survives reload, custom IDs work and old OpenAI set
  await page.getByLabel('Model đọc ảnh',{exact:true}).selectOption('custom');await page.getByLabel('Model ID Gemini',{exact:true}).fill('gemini-custom-vision');await page.getByRole('button',{name:'Lưu cấu hình AI',exact:true}).click();await page.reload();await expect(page.getByLabel('Model ID Gemini',{exact:true})).toHaveValue('gemini-custom-vision');
  await photo(page);let calls=0;await page.route('https://generativelanguage.googleapis.com/v1beta/models/gemini-custom-vision:generateContent',r=>{calls++;return r.fulfill({status:404,json:{error:{message:'not available'}}});});await page.getByRole('button',{name:'Phân tích ảnh bằng AI',exact:true}).click();await expect(page.locator('#main [role=alert]')).toContainText('Model này chưa có');expect(calls).toBe(1);await expect(page.getByRole('button',{name:'Phân tích ảnh bằng AI',exact:true})).toBeEnabled();
 });
+
+test('missing key explains the blocked action, inline session setup preserves checks and source photo stays available during review',async({page})=>{
+ await photo(page);
+ const analyse=page.getByRole('button',{name:'Phân tích ảnh bằng AI',exact:true});
+ const source=page.getByRole('img',{name:'Ảnh đã chỉnh để đối chiếu với kết quả AI',exact:true});
+ await expect(source).toBeVisible();await expect.poll(()=>source.evaluate(image=>(image as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+ await expect(analyse).toBeDisabled();await expect(page.locator('#analyse-help')).toContainText('Chưa có Gemini API key');
+ await page.getByRole('checkbox',{name:'Tôi đã kiểm chữ, nghĩa và các từ được chọn trước khi cho con học.'}).check();
+ await expect(page.getByRole('button',{name:'Duyệt và lưu các từ đã chọn'})).toBeDisabled();await expect(page.locator('#save-help')).toContainText('Chưa có từ được chọn');
+ await page.getByRole('button',{name:'Thêm Gemini API key tại đây'}).click();await page.getByLabel('Gemini API key',{exact:true}).fill(key);
+ await page.getByRole('button',{name:'Lưu cấu hình AI',exact:true}).click();
+ await expect(page.locator('#extract-ai-settings')).toHaveCount(0);await expect(analyse).toBeEnabled();
+ await expect(page.getByLabel(/Tôi đồng ý gửi ảnh đã chỉnh/)).toBeChecked();await expect(page.getByLabel(/Ảnh chỉ có nội dung học/)).toBeChecked();
+ expect(await page.evaluate(()=>localStorage.getItem('wfk-parent-ai-v1'))).toBeNull();
+ let calls=0;await page.route('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent',r=>{calls++;return r.fulfill({json:{candidates:[{finishReason:'STOP',content:{parts:[{text:JSON.stringify(worksheet)}]}}]}});});
+ await analyse.click();await expect(page.locator('fieldset')).toHaveCount(1);expect(calls).toBe(1);
+ await page.getByLabel('Nghĩa tiếng Việt',{exact:true}).fill('quả lê');await expect(source).toBeVisible();
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+ await expect(page.getByRole('button',{name:'Duyệt và lưu các từ đã chọn'})).toBeDisabled();await expect(page.locator('#save-help')).toContainText('tick xác nhận');
+ await page.waitForTimeout(650);await page.reload();await expect(source).toBeVisible();await expect(page.locator('fieldset')).toHaveCount(1);
+ await expect(analyse).toBeDisabled();await expect(page.locator('#analyse-help')).toContainText('Chưa có Gemini API key');
+});

@@ -52,7 +52,7 @@ test("parent gate restores focus on cancel and continues the intended add-lesson
   await page.getByRole("button", { name: "Bố mẹ tiếp tục" }).click();
   await expect(page).toHaveURL("/capture");
   await expect(
-    page.getByText("Nhận dạng ảnh chưa được kết nối", { exact: true }),
+    page.getByTestId("worksheet-dropzone"),
   ).toBeVisible();
   await page.getByRole("link", { name: "Duyệt bài mẫu" }).click();
   await expect(page).toHaveURL("/capture/demo/review");

@@ -2,6 +2,8 @@
 
 **Cập nhật: 10/10/2026.** Mục tiêu: biến bài học trên giấy thành thư viện tiếng Anh cho trẻ 5–8 tuổi, bố mẹ chuẩn bị và kiểm trước khi con học.
 
+**Chụp/upload và duyệt ảnh:** đã làm lại vùng kéo thả một ảnh, nút chọn ảnh tiếng Việt và camera riêng. Màn đọc/duyệt hiển thị đúng ảnh đã chỉnh để đối chiếu (cạnh kết quả trên máy tính, giữ phía trên trên điện thoại; bấm ảnh để xem lớn). Nếu thiếu key, thêm ngay tại màn; nút giải thích điều kiện còn thiếu thay vì chỉ mờ. Tick xác nhận không tự gửi ảnh. [Kiểm UI104/117](evaluations/capture-review-ui.md), chưa phải kiểm độ đúng của AI thật.
+
 **Thêm từ:** đã có autocomplete từ điển thật khi gõ sai hoặc thiếu. `handsom` gợi `handsome`; chọn từ sẽ tự điền “đẹp trai”, nghĩa Anh, loại từ, IPA, cách đọc gần đúng, ví dụ song ngữ và hình người từ OpenMoji. Có chọn nghĩa khác và thay hình. Kho 174 hình vector có giấy phép đi kèm catalog. Nếu nguồn thiếu dữ liệu, app nêu rõ để bố mẹ kiểm và bổ sung.
 
 **Ảnh bài học:** đã bỏ OCR chạy trên điện thoại. Bố mẹ vào **Cài đặt → AI riêng của phụ huynh**, gắn Gemini API key và chọn model (mặc định Gemini 3.5 Flash-Lite). Key chỉ ở phiên trang đang mở hoặc nhớ trong localStorage nếu chọn; có nút xóa, không gửi qua server app, cloud hay backup. Cắt bỏ tên, khuôn mặt và thông tin riêng → chọn chế độ tách từ → xác nhận gửi Google → sửa, duyệt và lưu. Có free tier theo quota của project; project bật billing có thể tính phí. Chưa gọi AI thật vì chưa có key; đã kiểm luồng bằng response fixture và CORS endpoint thật. Nhập tay và học offline vẫn dùng được; AI cần mạng.

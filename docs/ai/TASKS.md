@@ -8,7 +8,7 @@ Status: `ready`, `planned`, `in_progress`, `pending_external`, `done`. Chỉ chu
 | T01 | P0 | Scaffold, versions, scripts, env, CI | None | done | Scaffold evidence lịch sử; setup viết lại, Vercel nativeGit project/env đã config theo ADR029; remoteCI SUCCESS/nativeGitVercelREADY7b1e997 trong parent-dictionary-byok-deploy |
 | T02 | P0 | Design system, shell, high-fidelity 3 màn | T01,T18 | done | S03/S07/S09 + primitives/preferences UI/demo; check/22 unit/27 browser + baseline15 cold/50 input; evaluations/t02-ui-shell.md/ux-performance.md; device/human/field pending |
 | T03 | P1 | Local DB/migrations/dedup/search | T01 | done | QA01/02/09/10 + rollback/scopes; 49 unit-integration/42 browser; 5.000 search p95≈166 ms/CPU4×; evaluations/t03-local-repository.md |
-| T04 | P1 | Camera/upload/crop/drafts | T02,T03 | pending_external | S04/S05 implemented; check57 + browser58 PASS, EXIF/crop/quota/reload; evaluations/t04-capture.md; còn QA07 smoke iPhone/Android thật |
+| T04 | P1 | Camera/upload/crop/drafts | T02,T03 | pending_external | ADR031 capture drag-drop/inline-key/source-photo comparison checked104/117; evidence capture-review-ui; S04/S05 implemented; check57 + browser58 PASS, EXIF/crop/quota/reload; evaluations/t04-capture.md; còn QA07 smoke iPhone/Android thật |
 | T05 | P1 | AI BYOK trực tiếp + gateway/contracts/quota/idempotency | T00,T01 | in_progress | ADR030 parentGemini/session/localStorage opt-in/direct generateContent/schema/evidence/consent/cancel/errors/review đã kiểm fixture/CORS thật; inference/retention/benchmark pending; servergateway/sharedledger planned |
 | T06 | P1 | Review/save/source links | T03,T04,T05 | in_progress | Manual/AI candidate review/source/origin/save/reload kiểm local; inference thật pending; parent-dictionary-byok-deploy |
 | T07 | P1 | Real autocomplete/bilingual lookup/autofill + IPA/examples/licensed illustrations/enrichment | T02,T06 | in_progress | Datamuse spelling/Wiktionary senses/IPA/Tatoeba examples livehandsome smoke; auto-fill/sense/image174 OpenMoji/review/save/source checked; liveAI/hostedCommons/human content pending |
@@ -65,3 +65,7 @@ Source lifecycle, account deletion, merge UI, optional Commons adapter, đủ ha
 ## Founder fixes10/10/2026 — ADR-030
 
 4done/2pending_external/10in_progress/3planned giữ tổng: T05 directBYOK in_progress, T15 nativeGitdeploy in_progress, T16localOCRretired planned. [Evidence](../evaluations/parent-dictionary-byok-deploy.md). Các mốc trước có OCR/prohibition localStorage/no-deploy là lịch sử đã supersede. Không dùng testsfixture thay liveAIbenchmark; người dùng đã cho phép localStoragekey và deploy, không hỏi lại approval cũ.
+
+## Capture/review UI steering — 10/10/2026
+
+ADR031 hoàn tất local104/117: drag-drop một ảnh, picker tiếng Việt/bàn phím, camera riêng, inline Gemini key, blocked action reasons và ảnh nguồn sticky/zoom đối chiếu. [Evidence](../evaluations/capture-review-ui.md). Không tăng count done vì phone/liveAI/human gates vẫn pending; deployment/remoteCI sẽ quan sát sau push.

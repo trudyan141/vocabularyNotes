@@ -1,5 +1,9 @@
 # Quyết định và giả định
 
+## ADR-031 — Upload kéo thả, trạng thái hành động và ảnh đối chiếu
+
+Confirmed by user, 10/10/2026. Founder yêu cầu sửa nút phân tích/lưu bị khóa sau tick, hiển thị ảnh để đối chiếu AI và làm lại UI chụp/upload với drag-drop. S04 có vùng thả một ảnh, nút chọn ảnh tiếng Việt/bàn phím và camera riêng; cùng intake/validation/local draft, không tự gửi AI. S06/S07 dùng route extract: ảnh prepared chính xác sticky cạnh kết quả desktop, thumbnail sticky trên mobile và mở blob ảnh lớn. Nêu rõ thiếu key/consent/privacy hoặc chưa có từ/chưa đủ nghĩa/chưa duyệt; key/model cấu hình tại chỗ, không rời nháp, lưu key mở nút khi đủ xác nhận. Giữ session/localStorage opt-in, quota, privacy/parent review và model ADR030. Không gọi kiểm UI/response fixture là real AI accuracy. [Evidence](../evaluations/capture-review-ui.md).
+
 ## ADR-030 — Gemini free-tier BYOK và chọn nhiều model theo yêu cầu mới nhất
 
 Status **confirmed by user; implemented**,10/10/2026. Founder bác OpenAI default/billing, trực tiếp yêu cầu Gemini API và nhiều model như3.5FlashLite. Supersede lựa chọn OpenAI runtime ADR029, không thay directbrowser/session/localStorage opt-in/key-delete/no server or backup/parent review. Không tự coi user request là Google cho phép child API Client; current terms under18/consumer restrictions vẫn ghi rõ, T00 eligibility/account/retention/live benchmark pending.

@@ -1,4 +1,5 @@
 import { test, expect, type Page } from "@playwright/test";
+import {readFile} from "node:fs/promises";
 async function fixture(
   page: Page,
   type = "image/png",
@@ -425,4 +426,16 @@ test("quota rollback preserves the image for retry and confirmed delete removes 
   await expect(
     page.getByRole("link", { name: "Keep me", exact: true }),
   ).toBeVisible();
+});
+
+test('drop zone rejects multiple files, accepts one worksheet and keyboard file choice uses the same safe intake', async ({page}) => {
+ await page.goto('/capture');
+ const drop=page.getByTestId('worksheet-dropzone');
+ const bytes=Array.from(await readFile('docs/evaluations/t00/images/01-fruit.png'));
+ const multiple=await page.evaluateHandle(bytes=>{const data=new DataTransfer();for(const name of ['one.png','two.png'])data.items.add(new File([new Uint8Array(bytes)],name,{type:'image/png'}));return data;},bytes);
+ await drop.dispatchEvent('drop',{dataTransfer:multiple});await expect(page.locator('#main [role=alert]')).toContainText('Chọn một ảnh mỗi lần');expect((await records(page)).drafts).toHaveLength(0);
+ const single=await page.evaluateHandle(bytes=>{const data=new DataTransfer();data.items.add(new File([new Uint8Array(bytes)],'worksheet.png',{type:'image/png'}));return data;},bytes);
+ await drop.dispatchEvent('dragenter',{dataTransfer:single});await expect(drop).toHaveClass(/is-dragging/);await drop.dispatchEvent('drop',{dataTransfer:single});await expect(page).toHaveURL(/\/edit$/);await expect(page.getByRole('link',{name:'Ảnh đã xử lý để nhận dạng'})).toBeVisible();
+ await page.goto('/capture');const chooser=page.waitForEvent('filechooser');await page.getByRole('button',{name:'Chọn ảnh từ máy',exact:true}).focus();await page.keyboard.press('Enter');await(await chooser).setFiles('docs/evaluations/t00/images/01-fruit.png');await expect(page).toHaveURL(/\/edit$/);
+ expect((await records(page)).drafts).toHaveLength(2);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });

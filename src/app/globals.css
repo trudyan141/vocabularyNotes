@@ -1014,3 +1014,34 @@ main { min-height:calc(100svh - 140px); }
 .art-choices span { overflow-wrap:anywhere; }
 .dictionary-source { white-space:pre-line; overflow-wrap:anywhere; font-size:0.875rem; }
 @media(max-width:480px) { .word-preview { gap:12px; } .word-preview > figure { max-width:96px; } .word-preview .word-art { width:96px; height:96px; } }
+
+/* Keep the exact local photo beside AI text throughout parent review. */
+.extract-page { max-width:1200px; margin-inline:auto; }
+.extract-layout { display:grid; grid-template-columns:minmax(260px, .85fr) minmax(0, 1.15fr); gap:32px; align-items:start; }
+.extract-content { min-width:0; }
+.extract-photo { position:sticky; top:24px; display:flex; flex-direction:column; gap:12px; min-width:0; }
+.extract-photo h2 { font-size:1.25rem; }
+.extract-photo .capture-image { max-height:60vh; background:var(--background); }
+.extract-ai-controls { gap:16px; }
+.extract-content [data-slot="button"] { white-space:normal; height:auto; min-height:48px; }
+@media(max-width:800px) {
+ .extract-layout { grid-template-columns:minmax(0, 1fr); gap:24px; }
+ .extract-photo { top:0; z-index:5; padding-block:8px; background:var(--background); gap:6px; }
+ .extract-photo .capture-image { max-height:160px; }
+ .extract-photo small { display:none; }
+ .extract-photo h2 { font-size:1rem; }
+ .extract-photo a { font-size:.875rem; }
+}
+
+.capture-intake { display:flex; flex-direction:column; gap:20px; }
+.capture-dropzone { display:flex; flex-direction:column; align-items:center; gap:12px; text-align:center; padding:40px 24px; border:2px dashed var(--border); border-radius:16px; background:var(--secondary); transition:border-color .15s, background-color .15s; }
+.capture-dropzone > svg { color:var(--primary); }
+.capture-dropzone h2, .capture-camera-choice h2 { font-size:1.25rem; }
+.capture-dropzone p { margin:0; }
+.capture-dropzone.is-dragging { border-color:var(--primary); background:var(--accent); }
+.capture-dropzone:focus-within { border-color:var(--primary); }
+.capture-dropzone.is-busy { opacity:.65; }
+.capture-camera-choice { display:flex; align-items:center; justify-content:space-between; gap:24px; padding-block:8px; }
+.capture-camera-choice p { margin-block:8px 0; color:var(--muted-foreground); }
+.capture-local-note { font-size:.875rem; color:var(--muted-foreground); margin:0; }
+@media(max-width:480px) { .capture-dropzone { padding:28px 16px; } .capture-camera-choice { align-items:flex-start; flex-direction:column; gap:16px; } .capture-camera-choice [data-slot="button"] { width:100%; } }

@@ -4,7 +4,7 @@ Cập nhật10/10/2026, Asia/Ho_Chi_Minh. Founder yêu cầu setup rõ env/nơi 
 
 ## Current steering — Rename saved word sets
 
-Founder asks to edit a forgotten imported set name after creation. Existing ADR035 versioned rename is now accessible inside its selected set card, shared with a Rename action on Today recent imported/manual lessons. Save/Cancel, focused title, progress/conflict error and success are inline. No schema or membership/SRS changes. Check128/lint/types/build PASS, full147/147 browser PASS including persisted rename/cancel/search/member count on desktop/mobile; docs223links PASS. Deployment pending; next verify hosted rename editor without choosing a founder title.
+Founder asks to edit a forgotten imported set name after creation. Existing ADR035 versioned rename is now accessible inside its selected set card, shared with a Rename action on Today recent imported/manual lessons. Save/Cancel, focused title, progress/conflict error and success are inline. No schema or membership/SRS changes. Check128/lint/types/build PASS, full147/147 browser PASS including persisted rename/cancel/search/member count on desktop/mobile; docs223links PASS. Source9c81821 production READY dpl_AuJKpVMj4ab6is1qAF5JfDdt3Zvw; hosted date manager/Today inline form verified, original13 members/name retained. RemoteCI38048148513 check passed, remaining stages pending at handoff. Next: founder choose and save the intended title. Evidence library-media-and-date-sets.
 
 ## Today/API feedback/SEO, ADR-037/038
 

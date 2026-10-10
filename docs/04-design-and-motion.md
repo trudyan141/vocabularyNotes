@@ -1,5 +1,9 @@
 # UI, UX và animation — Words for Kids
 
+## Theme C refinement — ADR-041, 10/10/2026
+
+Shared controls use berry primary with soft depth, lavender secondary, white outlined controls and icons indicating back/refresh/upload/save. Labels wrap without horizontal overflow; minimum48px default/small and56px large targets. Back has ArrowLeft plus text; Google sign-in/connected state retains original four-colour G, distinct from mascot. Device/account panels use lavender/mint, transfer a white surface and berry CTA; lesson/word cards use white surfaces,16px radius and soft elevation. Reduced-motion disables button movement; loading/error/disabled/focus remain. [Evidence](evaluations/ui-and-hosted-cloud-fixes.md).
+
 ## Hướng mỹ thuật tạm chốt: cartoon 2D — Theme C
 
 Ưu tiên trẻ 5–8 tuổi, phụ huynh chuẩn bị bài. Mascot bé cáo san hô riêng, vật/hành động dễ nhận ra, mảng màu sạch và nét mềm; không hình tả thực hoặc mascot/copy/đường học của Duolingo. A xanh bị từ chối, B giấy sổ superseded. Founder đã nói tạm chốt C ngày 09/10/2026: không giữ approval gate cũ. Tên app **Words for Kids** áp dụng từ mockup tiếp theo và code; ảnh/prompt gốc C giữ tên cũ như lịch sử, chưa phải brand cuối đã render.

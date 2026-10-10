@@ -1,5 +1,12 @@
 # Nhật ký bàn giao
 
+## 10/10/2026 — Founder UI and hosted schema repair, ADR040/041
+
+- Google G before/after sign-in; shared ArrowLeft back controls, upload/refresh/save icons, stronger Theme C button/card styles and responsive wrapping/reduced motion across app.
+- Founder explicitly authorized supplied Gemini key as public shared default. Private override/persisted off/restore and per-photo consent retained; private key never enters IDB/archive/cloud/server.
+- Diagnosed real founder schema-not-ready as missing tables. Applied existing0001–0006 atomically; verified24forcedRLS tables,0anon grants/private bucket/syncRPC. Founder authenticated13word preview now succeeds; no final lesson/source-photo upload performed. Guarded first-time SQL builder added.
+- Frozen install, Chromium install,check134/lint/types/build and SQL PASS;38responsive views/19screens no overflow or page errors. Full157/157browser PASS; deployment update in [evidence](../evaluations/ui-and-hosted-cloud-fixes.md). Existing.env.example and unrelated eng.traineddata preserved.
+
 ## 2026-10-10 — Due review action, request feedback and public SEO (ADR037/038)
 
 Direct scoped due flashcards/resume/offline; real batch progress/download/error/Stop/retry and shared elapsed waiting UI. Original-fox favicon/1200×630 brand preview, public welcome SEO/canonical/robots/sitemap/JSON-LD; private app noindex. Check128 PASS, full147/147 browser/docs223links PASS; source78c791c production READY after transient Vercel Git fetch retry, CI38045533305 SUCCESS. Hosted3 due →3 cards, prepare completion and7 metadata/asset HTTP checks verified without child ratings. [Evidence](../evaluations/today-feedback-and-seo.md).

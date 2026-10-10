@@ -1,5 +1,8 @@
 # Words for Kids — hướng dẫn cho coding agent
 
+Steering trực tiếp10/10 tiếp theo (ADR040): founder cho phép một key Gemini cụ thể làm public shared default trong browser. Private parent override vẫn session/localStorage opt-in; Xóa key tắt AI bền qua reload, nút restore bật lại default. Không đưa private/operator/service-role key vào source public.
+
+
 P1 media/concurrency theo `docs/14-media-and-concurrency.md`: ưu tiên catalog rồi tìm nguồn mở, kiểm nguồn/license và phụ huynh duyệt; trẻ chỉ thấy asset ready. Bounded I/O và shared quota, không spam provider bằng nhiều key. Theme C tạm chốt, không còn chờ approval theme; ảnh concept giữ tên cũ như lịch sử, mockup tiếp theo/code dùng Words for Kids.
 
 ## Đọc lúc bắt đầu hoặc khôi phục context

@@ -99,8 +99,10 @@ SUPABASE_SECRET_KEY=sb_secret_THAY_BANG_KEY_THAT
 
 Các đoạn `THAY_BANG_KEY_THAT` là placeholder, phải thay bằng key project của bạn. Secret key không được thêm prefix `NEXT_PUBLIC_`; không commit `.env.local`. Để `SUPABASE_SERVICE_ROLE_KEY` trống nếu đã dùng secret mới.
 
-6. **SQL Editor → New query**: chạy lần lượt nội dung các file trong `supabase/migrations/`, từ **0001 tới 0006**. Không chạy `tests/sql/bootstrap.sql`; nó chỉ dành cho tests. Không tắt RLS.
+6. **SQL Editor → New query**: chạy lần lượt nội dung các file trong `supabase/migrations/`, từ **0001 tới 0006**. Hoặc tạo file atomic cho project mới bằng `python3 scripts/prepare-cloud-setup.py /tmp/words-for-kids-setup.sql`, dán file đó vào SQL Editor và Run; guard chặn chạy lại khi đã có libraries. Migration đã định nghĩa RLS cho bảng public và revoke quyền helper private. Không chạy `tests/sql/bootstrap.sql`; nó chỉ dành cho tests. Không tắt RLS.
 7. Sau migration, kiểm Table Editor có `libraries`, `lessons`, `entry_senses`; Storage có bucket **private** `learning-sources`. Chưa có hàng dữ liệu trước lần đồng bộ đầu là bình thường.
+
+**Project founder hiện hành10/10/2026 đã apply0001–0006 qua SQL Editor; không chạy lại hoặc db push khi chưa reconcile lịch sử migration.** Shared Gemini key mặc định do founder cho phép; vẫn đổi key riêng hoặc tắt/restore AI tại Cài đặt. Không sao chép key vào docs/env server.
 
 Nếu quản lý migration bằng CLI thay SQL Editor, repo đã có config; dùng `npx supabase login`, `npx supabase link --project-ref PROJECT_REF`, `npx supabase db push --dry-run`, rồi `npx supabase db push`. Ref nằm trong URL Dashboard `/project/PROJECT_REF`; CLI sẽ hỏi database password. Không chạy lại trên database đã migrate bằng SQL Editor khi chưa reconcile history. [Supabase API keys](https://supabase.com/docs/guides/getting-started/api-keys), [migrations](https://supabase.com/docs/guides/deployment/database-migrations).
 

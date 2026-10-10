@@ -1,5 +1,9 @@
 # Đặc tả màn hình và điều hướng
 
+## Google/account and AI refinement — ADR-040/041
+
+S14: Google G hiện ở cả đăng nhập và trạng thái connected; back có mũi tên. Library readiness tách với auth. Device lavender/account mint, xem trước→confirm upload, local được giữ và ảnh gốc opt-in. S16/S06: key chung sẵn dùng theo founder, private override và AI-off/restore bền qua reload; không tự gửi ảnh khi mở màn. Shared action/card styles áp dụng các routes mà không thêm nav. [Evidence](evaluations/ui-and-hosted-cloud-fixes.md).
+
 S01/S02/S04–S08/S15/S16 là flow phụ huynh; S03/S09–S14 ưu tiên bé học. S09/S10 phần Sửa/Thêm tay/Chọn hình/duyệt AI đi qua parent gate, không thêm screen ID thứ 17. Gate giữ thao tác đang định làm, hủy về trang cũ; gate tránh bấm nhầm, server auth vẫn kiểm quyền và secret. S16 chỉ mở cấu hình key khi provider đủ điều kiện và secret store có thật. Bé không thấy API/provider/quota jargon. Nhãn ngắn kèm icon và voice cues khi chủ động bấm.
 
 **Hiện hành 10/10/2026, ADR-031:** S04 có vùng kéo thả **một ảnh**, nút chọn tiếng Việt/bàn phím và camera riêng. JPEG/PNG/WebP ≤10 MB/20MP, HEIC có hướng dẫn đổi; cùng pipeline metadata-stripped/local draft/crop/rotation/zoom/conflict/quota. Không gửi ảnh khi upload/chụp/mở nháp. S05 → `/capture/:draftId/extract` nối S06/S07: ảnh prepared cạnh kết quả desktop, sticky thumbnail mobile/mở ảnh lớn, cấu hình Gemini key/model ngay tại màn, lý do khóa từng nút, consent trước gửi và parent review trước lưu. Thiếu key không còn bị mô tả là dịch vụ chưa kết nối; thiếu từ hoặc nghĩa không được lưu. Key/session/localStorage theo ADR030; human/device/liveAI pending. [Evidence](evaluations/capture-review-ui.md).

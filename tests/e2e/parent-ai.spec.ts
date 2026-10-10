@@ -22,14 +22,14 @@ test('typing a misspelling suggests a real headword then fills bilingual content
 });
 
 test('Gemini model selection survives reload, custom IDs work and old OpenAI settings are not sent to Google',async({page})=>{
- await page.goto('/settings');await page.evaluate(()=>localStorage.setItem('wfk-parent-ai-v1',JSON.stringify({key:'sk-old-provider-key',model:'gpt-4.1-mini'})));await page.reload();await expect(page.getByLabel('Gemini API key',{exact:true})).toHaveValue('');await expect(page.getByLabel('Model đọc ảnh',{exact:true})).toHaveValue('gemini-3.5-flash-lite');
+ await page.goto('/settings');await page.evaluate(()=>localStorage.setItem('wfk-parent-ai-v1',JSON.stringify({key:'sk-old-provider-key',model:'gpt-4.1-mini'})));await page.reload();await expect(page.getByLabel('Gemini API key',{exact:true})).not.toHaveValue('sk-old-provider-key');await expect(page.locator('.ai-default-note')).toContainText('Key Gemini dùng chung đã có sẵn');await expect(page.getByLabel('Model đọc ảnh',{exact:true})).toHaveValue('gemini-3.5-flash-lite');
  await setup(page);await page.getByLabel('Model đọc ảnh',{exact:true}).selectOption('gemini-3.8-flash');await page.getByRole('button',{name:'Lưu cấu hình AI',exact:true}).click();await page.reload();await expect(page.getByLabel('Model đọc ảnh',{exact:true})).toHaveValue('gemini-3.8-flash');
  await page.getByLabel('Model đọc ảnh',{exact:true}).selectOption('custom');await page.getByLabel('Model ID Gemini',{exact:true}).fill('gemini-custom-vision');await page.getByRole('button',{name:'Lưu cấu hình AI',exact:true}).click();await page.reload();await expect(page.getByLabel('Model ID Gemini',{exact:true})).toHaveValue('gemini-custom-vision');
  await photo(page);let calls=0;await page.route('https://generativelanguage.googleapis.com/v1beta/models/gemini-custom-vision:streamGenerateContent?alt=sse',r=>{calls++;return r.fulfill({status:404,json:{error:{message:'not available'}}});});await page.getByRole('button',{name:'Phân tích ảnh bằng AI',exact:true}).click();await expect(page.locator('#main [role=alert]')).toContainText('Model này chưa có');expect(calls).toBe(1);await expect(page.getByRole('button',{name:'Phân tích ảnh bằng AI',exact:true})).toBeEnabled();
 });
 
 test('missing key explains the blocked action, inline session setup preserves checks and source photo stays available during review',async({page})=>{
- await photo(page);
+ await page.goto('/settings');await page.getByRole('button',{name:'Xóa key khỏi máy này',exact:true}).click();await photo(page);
  const analyse=page.getByRole('button',{name:'Phân tích ảnh bằng AI',exact:true});
  const source=page.getByRole('img',{name:'Ảnh đã chỉnh để đối chiếu với kết quả AI',exact:true});
  await expect(source).toBeVisible();await expect.poll(()=>source.evaluate(image=>(image as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
@@ -47,7 +47,7 @@ test('missing key explains the blocked action, inline session setup preserves ch
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
  await expect(page.getByRole('button',{name:'Duyệt và lưu các từ đã chọn'})).toBeDisabled();await expect(page.locator('#save-help')).toContainText('tick xác nhận');
  await page.waitForTimeout(650);await page.reload();await expect(source).toBeVisible();await expect(page.locator('fieldset')).toHaveCount(1);
- await expect(analyse).toBeDisabled();await expect(page.locator('#analyse-help')).toContainText('Chưa có Gemini API key');
+ await expect(analyse).toBeDisabled();await expect(page.locator('#analyse-help')).toContainText('xác nhận đồng ý gửi ảnh');
 });
 
 test('streaming shows elapsed time and provisional words, then validates; stop and failure clear pending status',async({page},testInfo)=>{
@@ -108,4 +108,10 @@ test('submitting a new photo automatically finds and saves licensed art, then im
  await page.goto(detail+'/edit');await expect(page.getByLabel('Từ tiếng Anh',{exact:true})).toHaveValue('compass');await page.goto(detail+'/notes');await expect(page.getByRole('heading',{name:/Ghi chú/})).toBeVisible();
 });
 
+});
+
+test('shared Gemini default is ready without saved credentials and can be disabled or restored across reloads',async({page})=>{
+ await page.goto('/settings');await expect(page.locator('.ai-default-note')).toContainText('Key Gemini dùng chung đã có sẵn');const original=await page.getByLabel('Gemini API key',{exact:true}).inputValue();expect(original.length).toBeGreaterThan(20);expect(await page.evaluate(()=>localStorage.getItem('wfk-parent-ai-v1'))).toBeNull();
+ await page.getByRole('button',{name:'Xóa key khỏi máy này',exact:true}).click();await page.reload();await expect(page.getByLabel('Gemini API key',{exact:true})).toHaveValue('');await expect(page.locator('.ai-default-note')).toContainText('AI đang tắt');
+ await page.getByRole('button',{name:'Dùng key chung mặc định',exact:true}).click();await page.reload();await expect(page.getByLabel('Gemini API key',{exact:true})).toHaveValue(original);await expect(page.getByLabel('Model đọc ảnh',{exact:true})).toHaveValue('gemini-3.5-flash-lite');expect(await page.evaluate(()=>localStorage.getItem('wfk-parent-ai-v1'))).toBeNull();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });

@@ -2,7 +2,7 @@
 import { useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Check, Pencil, Save, AlertCircle } from "lucide-react";
+import { Check, Pencil, Save, AlertCircle, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -233,7 +233,7 @@ export function Review({ draftId }: { draftId: string }) {
         >
           <Button asChild>
             <Link prefetch={false} href="/capture">
-              {t("Về phần thêm bài", "Back to add lesson")}
+              <ArrowLeft data-icon="inline-start" aria-hidden="true"/>{t("Về phần thêm bài", "Back to add lesson")}
             </Link>
           </Button>
         </EmptyState>

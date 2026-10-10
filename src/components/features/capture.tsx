@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Camera, RotateCw, Upload, Save, Trash2 } from "lucide-react";
+import { Camera, RotateCw, Upload, Save, Trash2, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -611,10 +611,11 @@ function Editor({
     <div className="capture-editor page-flow parent-page">
       <Button
         variant="ghost"
+        className="back-link"
         onClick={() => void leave()}
         disabled={processing || saving}
       >
-        {t("Quay lại và giữ nháp", "Go back and keep draft")}
+        <ArrowLeft data-icon="inline-start" aria-hidden="true"/>{t("Quay lại và giữ nháp", "Go back and keep draft")}
       </Button>
       <h1>{t("Xem và chỉnh ảnh", "Check and edit image")}</h1>
       <p>

@@ -26,9 +26,9 @@ export function Back({
 }) {
   const { t } = useApp();
   return (
-    <Button asChild variant="ghost">
+    <Button asChild variant="ghost" className="back-link">
       <Link prefetch={false} href={href}>
-        <ArrowLeft data-icon="inline-start" />
+        <ArrowLeft data-icon="inline-start" aria-hidden="true" />
         {label ?? t("Quay lại", "Go back")}
       </Link>
     </Button>

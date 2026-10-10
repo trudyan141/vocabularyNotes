@@ -1,5 +1,9 @@
 # Kiến trúc đề xuất
 
+## Current override — ADR-040/041
+
+Founder explicitly authorizes a public shared Gemini browser default. Private parent override and persistent AI-off/restore remain; private keys stay out of server/IDB/cloud/backup. Hosted Supabase initial migrations0001–0006 applied atomically; future CLI use must reconcile manual migration history. [Evidence](evaluations/ui-and-hosted-cloud-fixes.md).
+
 ## Quyết định hiện hành 10/10/2026 — ADR-030
 
 Founder đã yêu cầu **Gemini thay OpenAI** trong BYOK, ưu tiên model free tier và đổi nhiều model. Browser gọi trực tiếp Google generateContent bằng header x-goog-api-key, ảnh inline JPEG, systemInstruction coi ảnh là data, structured responseFormat JSON/schema; parse STOP/non-thought/strict DTO/evidence, max50/90s/500KB/cancel/no retry/Web Locks. Không key/ảnh đi qua app server, không key trong URL/IDB/backup/sync/env. Session mặc định/localStorage opt-in/delete giữ theo ADR029. Cấu hình cũ OpenAI bỏ qua, không gửi key cũ sang Google. Bốn model3.5FlashLite(default)/3.1FlashLite/3.6Flash/3.8Flash và custom Gemini ID; không tự fallback model hoặc bật billing. AI_PROVIDER server vẫn none (gateway planned).

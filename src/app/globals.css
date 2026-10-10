@@ -40,6 +40,8 @@
   --mint: #def3e6;
   --border: #dacbdf;
   --input: #9d869f;
+  --button-depth: 0 3px 8px rgb(92 32 66 / 16%);
+  --surface-depth: 0 5px 18px rgb(74 40 81 / 7%);
   --radius: 1rem;
 }
 
@@ -1084,3 +1086,58 @@ main { min-height:calc(100svh - 140px); }
 .account-identity{display:flex;align-items:center;flex-wrap:wrap;gap:1rem;padding:1.25rem;background:var(--mint);border-radius:1rem}.account-identity>div:nth-child(2){flex:1;min-width:180px}.account-identity h2{font-size:1.4rem;margin:0}.account-email{overflow-wrap:anywhere}.account-connected{display:flex;align-items:center;gap:.4rem;font-size:.95rem}.account-connected svg{width:1.1rem;height:1.1rem}.account-avatar{width:72px;height:72px;flex:none;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:var(--background);font-size:1.7rem;font-weight:800}.account-avatar img{width:100%;height:100%;object-fit:cover}.account-avatar svg{width:32px;height:32px}.account-storage{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.account-storage-location{padding:1rem;border:1px solid var(--border);border-radius:1rem;min-width:0}.account-storage-location h3{display:flex;align-items:center;gap:.5rem;font-size:1.15rem}.account-storage-location h3 svg{width:22px;height:22px;flex:none}.account-storage-location p{font-size:1rem;line-height:1.6;overflow-wrap:anywhere}.account-storage-location [data-slot=button]{max-width:100%;white-space:normal;height:auto;min-height:48px}.account-current{font-weight:700}.account-more>summary{font-weight:700;cursor:pointer}.account-more[open]>section{margin-top:1rem}@media(max-width:700px){.account-storage{grid-template-columns:1fr}.account-identity>[data-slot=button]{width:100%}}
 
 .account-identity h2{overflow-wrap:anywhere}
+
+/* Theme C action hierarchy, shared by learning and parent screens. */
+[data-slot="button"] { min-width:0; overflow-wrap:anywhere; }
+[data-slot="button"][data-variant="default"],
+[data-slot="button"][data-variant="destructive"] { box-shadow:var(--button-depth); }
+[data-slot="button"][data-variant="secondary"] { border:1px solid var(--input); }
+[data-slot="button"][data-variant="outline"] { background:var(--card); }
+[data-slot="button"]:disabled { box-shadow:none; }
+[data-slot="card"] { border:0; box-shadow:var(--surface-depth); }
+.back-link { align-self:flex-start; background:var(--secondary); padding-inline:16px; color:var(--foreground); }
+.back-link:hover { background:var(--accent); }
+.icon-heading { display:flex; align-items:center; gap:12px; }
+.icon-heading > svg { width:26px; height:26px; flex:none; color:var(--primary); }
+.google-mark { width:20px; height:20px; flex:none; }
+.account-connected .google-mark { background:var(--card); border-radius:50%; padding:3px; width:26px; height:26px; }
+.account-page { max-width:920px; gap:24px; }
+.account-page > p { max-width:65ch; }
+.account-page .page-flow { gap:16px; }
+.account-signin { align-items:flex-start; padding:24px; background:var(--card); border-radius:16px; box-shadow:var(--surface-depth); }
+.account-storage { align-items:start; }
+.account-storage-location { border:0; padding:24px; display:grid; gap:12px; box-shadow:var(--surface-depth); }
+.account-storage-device { background:var(--secondary); }
+.account-storage-cloud { background:var(--mint); }
+.account-storage-location h3 > svg { width:40px; height:40px; padding:9px; border-radius:12px; background:var(--card); }
+.account-storage-location [data-slot="button"] { justify-self:start; }
+.account-identity > [data-slot="button"] { background:var(--card); }
+.account-identity p { margin-block:6px 0; }
+.account-transfer { padding:24px; border-radius:16px; background:var(--card); box-shadow:var(--surface-depth); }
+.account-transfer > [data-slot="button"], .account-refresh { align-self:flex-start; }
+.account-more { border:1px solid var(--border); border-radius:16px; background:var(--card); padding:4px 20px; }
+.account-more > summary { padding-block:12px; }
+.account-more[open] { padding-bottom:20px; }
+.account-page .operation-status[data-error] { border:0; background:var(--card); }
+.account-page .operation-status[data-error] > p { color:var(--destructive); }
+.ai-default-note { padding:16px; border-radius:12px; background:var(--mint); color:var(--foreground); font-weight:700; }
+.lesson-set { background:var(--card); border:0; box-shadow:var(--surface-depth); }
+.lesson-tile { border-radius:16px; }
+.word-list { border:0; display:grid; gap:12px; }
+.word-list li { border:0; }
+.word-list a { background:var(--card); padding:16px; border-radius:16px; box-shadow:var(--surface-depth); }
+.word-list a:hover { background:var(--secondary); }
+@media (hover:hover) {
+ [data-slot="button"][data-variant="default"]:hover:not(:disabled),
+ [data-slot="button"][data-variant="secondary"]:hover:not(:disabled),
+ [data-slot="button"][data-variant="outline"]:hover:not(:disabled) { transform:translateY(-1px); }
+}
+@media(max-width:700px) {
+ .account-storage-location, .account-transfer, .account-signin { padding:20px; }
+ .account-transfer > [data-slot="button"] { align-self:stretch; }
+ .account-more { padding-inline:16px; }
+}
+@media(prefers-reduced-motion:reduce) {
+ [data-slot="button"], [data-slot="button"]:active:not(:disabled), [data-slot="button"]:hover:not(:disabled) { transition:none; transform:none; }
+}
+html[data-motion="reduced"] [data-slot="button"] { transition:none; transform:none; }

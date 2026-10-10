@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import {Pencil,Play} from "lucide-react";
+import {Pencil,Play,ArrowLeft} from "lucide-react";
 import {useLiveQuery} from "dexie-react-hooks";
 import {useApp} from "@/components/app/provider";
 import {Button} from "@/components/ui/button";
@@ -34,7 +34,7 @@ export function WordDetail({ id }: { id: string }) {
         >
           <Button asChild>
             <Link prefetch={false} href="/library">
-              {t("Về thư viện", "Back to library")}
+              <ArrowLeft data-icon="inline-start" aria-hidden="true"/>{t("Về thư viện", "Back to library")}
             </Link>
           </Button>
         </EmptyState>

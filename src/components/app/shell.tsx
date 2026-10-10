@@ -79,12 +79,12 @@ export function AppShell({ children }: { children: ReactNode }) {
           <p>
             {demo
               ? t(
-                  "Bài mẫu lưu riêng trên máy. Nhập từ và tra từ điển dùng ngay; phân tích ảnh bằng key riêng trong Cài đặt phụ huynh.",
-                  "Sample lessons stay in a separate local library. Add words and use the dictionary now; configure your own key in parent settings to analyse photos.",
+                  "Bài mẫu lưu riêng trên máy. Nhập từ và tra từ điển dùng ngay; phân tích ảnh bằng Gemini trong phần phụ huynh.",
+                  "Sample lessons stay in a separate local library. Add words and use the dictionary now; use Gemini in parent settings to analyse photos.",
                 )
               : repository?.scope.kind === "account" ? t("Thư viện cloud có bản lưu trên máy. Kiểm trạng thái đồng bộ trong tài khoản phụ huynh trước khi xóa bộ nhớ trình duyệt.", "Your cloud library has a local cache. Check sync status in the parent account before clearing browser storage.") : t(
-                  "Thư viện lưu trên trình duyệt này. Chưa bật đồng bộ cloud; dữ liệu có thể mất nếu bạn xóa bộ nhớ trình duyệt.",
-                  "Your library is saved in this browser. Cloud sync is not connected; clearing browser storage can remove your data.",
+                  "Bài đang lưu riêng trên trình duyệt này. Vào Tài khoản phụ huynh để lưu thêm bản cloud; xóa bộ nhớ trình duyệt có thể làm mất bài trên máy.",
+                  "Lessons are stored separately in this browser. Open Parent account to save a cloud copy; clearing browser storage can remove device lessons.",
                 )}
           </p>
         </footer>

@@ -1,5 +1,5 @@
 import {it,expect,vi,afterEach,beforeEach} from 'vitest';
-import {validateWorksheet,aiCandidates,configureParentAi,analyseWorksheet,parentKeyStorage,parentModels,parentAi,refreshParentAi,checkParentModel,testParentApi,worksheetProviderSchema} from '@/lib/ai/byok';
+import {validateWorksheet,aiCandidates,configureParentAi,analyseWorksheet,parentKeyStorage,parentModels,parentAi,refreshParentAi,checkParentModel,testParentApi,worksheetProviderSchema,defaultParentKey,defaultParentModel,parentAiDisabledStorage} from '@/lib/ai/byok';
 const key='AIza'+'test-parent-browser-canary-123456';
 const result={text:'pear',warnings:[],words:[{literal:'pear',word:'pear',vi:'quả lê',en:'A sweet fruit.',pos:'noun',sense:'fruit',example:'I eat a pear.',exampleVi:'Con ăn một quả lê.'}]};
 const response=()=>({candidates:[{finishReason:'STOP',content:{parts:[{thought:true,text:'private reasoning'},{text:JSON.stringify(result)}]}}]});
@@ -18,7 +18,7 @@ it.each(parentModels)('calls exactly the selected model $id without a fallback',
  configureParentAi({key,model:model.id});expect(values.size).toBe(0);const mock=vi.fn(async()=>Response.json(response()));await analyseWorksheet(new Blob(['image'],{type:'image/jpeg'}),'all',new AbortController().signal,mock as typeof fetch);expect(mock.mock.calls).toHaveLength(1);expect((mock.mock.calls[0] as unknown[])[0]).toBe(`https://generativelanguage.googleapis.com/v1beta/models/${model.id}:streamGenerateContent?alt=sse`);
 });
 it('rejects old OpenAI keys and model path injection while preserving stored data until explicitly replaced',()=>{
- values.set(parentKeyStorage,JSON.stringify({key:'sk-old-parent-key',model:'gpt-4.1-mini'}));refreshParentAi();expect(parentAi()).toBeNull();expect(values.has(parentKeyStorage)).toBe(true);expect(()=>configureParentAi({key:'sk-old-parent-key',model:'gemini-3.5-flash-lite'})).toThrow();expect(()=>configureParentAi({key,model:'gemini-test/../../secret'})).toThrow();configureParentAi({key,model:'gemini-3.5-flash-lite'},true);expect(parentAi()?.model).toBe('gemini-3.5-flash-lite');
+ values.clear();values.set(parentKeyStorage,JSON.stringify({key:'sk-old-parent-key',model:'gpt-4.1-mini'}));refreshParentAi();expect(parentAi()?.key).toBe(defaultParentKey);expect(values.has(parentKeyStorage)).toBe(true);expect(()=>configureParentAi({key:'sk-old-parent-key',model:'gemini-3.5-flash-lite'})).toThrow();expect(()=>configureParentAi({key,model:'gemini-test/../../secret'})).toThrow();configureParentAi({key,model:'gemini-3.5-flash-lite'},true);expect(parentAi()?.model).toBe('gemini-3.5-flash-lite');
 });
 it.each([{data:{promptFeedback:{blockReason:'SAFETY'}},code:'refused'},{data:{candidates:[{finishReason:'MAX_TOKENS',content:{parts:[{text:'{}'}]}}]},code:'response'},{data:{candidates:[{finishReason:'STOP',content:{parts:[{text:JSON.stringify({...result,text:'apple'})}]}}]},code:'evidence'}])('handles blocked, truncated or invented results without success',async({data,code})=>{
  configureParentAi({key,model:'gemini-3.5-flash-lite'});const mock=vi.fn(async()=>Response.json(data));await expect(analyseWorksheet(new Blob(['image'],{type:'image/jpeg'}),'listed',new AbortController().signal,mock as typeof fetch)).rejects.toThrow(code);expect(mock.mock.calls).toHaveLength(1);
@@ -68,3 +68,13 @@ it('checks selected key/model with one metadata GET and no image or inference',a
 it('sends a compatible provider schema while keeping strict local text limits and patterns',()=>{const provider=JSON.stringify(worksheetProviderSchema());expect(provider).not.toContain('pattern');expect(provider).not.toContain('minLength');expect(provider).not.toContain('maxLength');expect(provider).toContain('maxItems');expect(()=>validateWorksheet({...result,text:'a'.repeat(10001)})).toThrow();expect(()=>validateWorksheet({...result,text:'pear1',words:[{...result.words[0],word:'pear1',literal:'pear1'}]})).toThrow();});
 
 it('isolates inference access with one minimal text request and redacts rejection',async()=>{const config={key,model:'gemini-3.5-flash-lite'};const mock=vi.fn(async()=>Response.json({candidates:[{content:{parts:[{text:'OK'}]}}]}));await expect(testParentApi(config,new AbortController().signal,mock as typeof fetch)).resolves.toEqual({model:config.model});const [url,init]=mock.mock.calls[0] as unknown as [string,RequestInit];expect(url).toBe(`https://generativelanguage.googleapis.com/v1beta/models/${config.model}:generateContent`);expect(url).not.toContain(key);expect(JSON.parse(init.body as string)).toEqual({contents:[{role:'user',parts:[{text:'Reply with the word OK.'}]}],generationConfig:{maxOutputTokens:64}});expect(mock).toHaveBeenCalledTimes(1);const error=await testParentApi(config,new AbortController().signal,vi.fn(async()=>Response.json({error:{status:'INVALID_ARGUMENT',message:`Invalid argument ${key}`}},{status:400})) as typeof fetch).catch(e=>e);expect(error.details.http).toBe(400);expect(JSON.stringify(error)).not.toContain(key);});
+
+it('offers the shared default without persisting it, respects private overrides and keeps AI disabled after reload',()=>{
+ values.clear();refreshParentAi();expect(parentAi()).toEqual({key:defaultParentKey,model:defaultParentModel});expect(values.size).toBe(0);
+ configureParentAi({key,model:'gemini-3.6-flash'},true);refreshParentAi();expect(parentAi()).toEqual({key,model:'gemini-3.6-flash'});
+ configureParentAi(null);refreshParentAi();expect(parentAi()).toBeNull();expect(values.get(parentAiDisabledStorage)).toBe('1');expect(values.has(parentKeyStorage)).toBe(false);
+ configureParentAi({key:defaultParentKey,model:defaultParentModel});refreshParentAi();expect(parentAi()?.key).toBe(defaultParentKey);expect(values.size).toBe(0);
+});
+it('still supplies the shared default when browser storage is blocked',()=>{
+ refreshParentAi();vi.stubGlobal('localStorage',{getItem:()=>{throw new Error('blocked');}});expect(parentAi()?.key).toBe(defaultParentKey);
+});

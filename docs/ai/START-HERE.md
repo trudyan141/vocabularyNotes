@@ -1,5 +1,8 @@
 # Bắt đầu / khôi phục / chuyển AI
 
+Steering ADR040/041 hiện hành: Gemini shared public default theo founder, private override/off/restore; logo Google/back icons và shared Theme C button/card refinement. Hosted Supabase đã apply0001–0006,24 bảng; authenticated13-word preview PASS, chưa xác nhận chuyển bài thật. Xem [evidence](../evaluations/ui-and-hosted-cloud-fixes.md) và STATE.
+
+
 ## Context tối thiểu cần giữ
 
 Người dùng chốt tên **Words for Kids**, web/PWA ưu tiên con founder và trẻ 5–8 tuổi; phụ huynh chụp A4/duyệt nội dung/chọn hình/quản lý cloud và key. Default VI/Beginner/child-friendly on, cartoon 2D, original coral fox/berry Theme C tạm chốt. Người lớn mở rộng sau. Ảnh → OCR/vision có bằng chứng → parent review → deterministic dedup → local IndexedDB hoặc cloud Google của phụ huynh. Nội dung EN–EN/EN–VI, ví dụ, grammar, audio, notes templates, SRS/flashcard và bốn game; non-reader ưu tiên nghe→chọn 2–3 hình.

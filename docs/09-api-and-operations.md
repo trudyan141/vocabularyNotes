@@ -1,5 +1,9 @@
 # API và vận hành
 
+## Shared Gemini default — ADR-040
+
+Theo steering mới nhất: key dùng chung cụ thể do founder cho phép là public browser configuration, không auto lưu localStorage. Key riêng ưu tiên khi đã cấu hình; Xóa key tắt AI qua reload, restore explicit. Quota chung/consent mỗi ảnh/không retry hoặc rotate vẫn giữ. Đây là ngoại lệ scoped với cấm public AI key lịch sử; service-role/operator/private parent key vẫn không public. [Evidence](evaluations/ui-and-hosted-cloud-fixes.md).
+
 ## Quyết định hiện hành 10/10/2026 — ADR-030
 
 Founder đã yêu cầu **Gemini thay OpenAI** trong BYOK, ưu tiên model free tier và đổi nhiều model. Browser gọi trực tiếp Google streamGenerateContent?alt=sse bằng header x-goog-api-key, ảnh inline JPEG, systemInstruction coi ảnh là data, structured responseMimeType + responseJsonSchema; parse STOP/non-thought/strict DTO/evidence, max50/90s/500KB/cancel/no retry/Web Locks. Không key/ảnh đi qua app server, không key trong URL/IDB/backup/sync/env. Session mặc định/localStorage opt-in/delete giữ theo ADR029. Cấu hình cũ OpenAI bỏ qua, không gửi key cũ sang Google. Bốn model3.5FlashLite(default)/3.1FlashLite/3.6Flash/3.8Flash và custom Gemini ID; không tự fallback model hoặc bật billing. AI_PROVIDER server vẫn none (gateway planned).

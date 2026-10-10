@@ -1,3 +1,4 @@
+import {pathId} from '@/lib/path-id';
 import { WordEditor } from "@/components/features/word-editor";
 export default async function Page({
   params,
@@ -5,5 +6,5 @@ export default async function Page({
   params: Promise<{ entryId: string }>;
 }) {
   const { entryId } = await params;
-  return <WordEditor id={entryId} />;
+  return <WordEditor id={pathId(entryId)} />;
 }

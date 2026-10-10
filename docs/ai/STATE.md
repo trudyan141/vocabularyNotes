@@ -4,7 +4,11 @@ Cập nhật10/10/2026, Asia/Ho_Chi_Minh. Founder yêu cầu setup rõ env/nơi 
 
 ## Pictures / grammar / day sets — ADR-034/035
 
-Founder13 words were saved after live Gemini success. Current code adds catalog177 +1493 licensed online auto-picture lookup/download, removes nested credit links from cards, adds complete project question templates with parent approval, and exposes /library/lessons day grouping/search/rename/new-versus-review/set practice. Manual words share a daily local-date set; each imported photo keeps its own title/date/ID. check121unit14files/lint/types/build PASS; full133/133browserPASS; deploy pending in [evidence](../evaluations/library-media-and-date-sets.md). Next: nativeGit deploy and verify founder’s existing13-word library without another AI call.
+Founder13 words were saved after live Gemini success. Current code adds catalog177 +1493 licensed online auto-picture lookup/download, removes nested credit links from cards, adds complete project question templates with parent approval, and exposes /library/lessons day grouping/search/rename/new-versus-review/set practice. Manual words share a daily local-date set; each imported photo keeps its own title/date/ID. check121unit14files/lint/types/build PASS; full133/133browserPASS; 7e4dbfc nativeGit production READY/CI38042119163 SUCCESS in [evidence](../evaluations/library-media-and-date-sets.md). Hosted founder13 checked;6 missing art +2 question patterns saved through parent UI.
+
+## Submit / duplicate / imported detail — ADR-036
+
+Latest founder requests automatic handling on every submit, visible dedup, original source grammar/Vietnamese explanations/animation, and reports teacher detail missing. Implemented review badges/duplicate removal, automatic bounded photo-image lookup/download, atomic reviewed learning content, missing-art-only reimport with preserved parent wording,3-step reduced-motion grammar, and one route-param decode for imported colon IDs. pnpm check125/15/lint/types/build PASS; full137/137desktop/mobile/cloud-fixture browser PASS, docs216links PASS; deploy/live follow in [evidence](../evaluations/library-media-and-date-sets.md). Next: finish browser regression and nativeGit deployment; verify actual teacher and existing patterns on stable alias.
 
 ## Sửa capture/review theo founder — ADR-031
 
@@ -38,7 +42,7 @@ Final art rule không gắn noun hình cho orange adjective/pretty adverb; check
 
 Localproduction4317 đã restart sau build cuối, temporarytestservers/SQLfixtures cleanup. Node24.14.1/pnpm11.25.0 path /Users/trunglk/.nvm/versions/node/v24.14.1/bin. Không reset changes/đụng eng.traineddata chưa rõ nguồn; envlocal/.vercel/credentials không commit. Ledger **4done/2pending_external/10in_progress/3planned**: BYOKcode/deploy đãcó, servergateway/AIbenchmark, hostedcloud, physicalcamera/voice/install/update, human/field/release gates còn pending. Library2.92s/searchp95≈151ms là labbuildtrước, chưa rebaseline.
 
-Next action: founder đối chiếu13 từ đã phân tích trong nháp hosted rồi sửa/duyệt/lưu. Key/model hiện hành đã chạy được, không yêu cầu gửi key qua chat. Khi có Supabase chạy hosted smoke theoSetup; đánh giá account/eligibility/retention và realAIbenchmark trước public child pilot. Không tự gọi paid API hoặc coi fixtures là quality evidence.
+Mốc13 từ đã được founder lưu;6 hình thiếu và2 mẫu học thêm đã duyệt qua UI. Next action: nghiệm thu sửa submit/chi tiết hiện hành theo phần ADR036 ở đầu file. Key/model hiện hành đã chạy được, không yêu cầu gửi key qua chat. Khi có Supabase chạy hosted smoke theoSetup; đánh giá account/eligibility/retention và realAIbenchmark trước public child pilot. Không tự gọi paid API hoặc coi fixtures là quality evidence.
 
 Câu mẫu diagnostic: pnpm check PASS114 unit/13files/lint/types/build; full pnpm test:e2e PASS125/125 (1.5min), docs validator full PASS203links. Live result/deploy chưa ghi tại mốc này.
 

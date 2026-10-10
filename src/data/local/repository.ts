@@ -390,7 +390,11 @@ export class LocalRepository {
           .equals([this.scope.id, entry.id, identity])
           .first();
         if (sense?.deletedAt) throw new RepositoryError("conflict"); // Never silently restore archived content.
-        if (sense) result.linked++;
+        if (sense) {
+          // A reviewed re-import can fill missing art, while preserving all parent text.
+          if(!sense.art&&word.art&&safeArt(word.art)&&!word.art.startsWith('media-')){const current=await this.word(sense.id);if(current){await this.prepareLearning([{id:sense.id,revision:current.revision,art:word.art}],null);sense=(await this.db.senses.get([this.scope.id,sense.id]))!;}}
+          result.linked++;
+        }
         else {
           const idTaken = await this.db.senses.get([this.scope.id, word.id]);
           if (idTaken) throw new RepositoryError("conflict");

@@ -93,3 +93,5 @@ Sau Phân tích, giữ ảnh đối chiếu, disable chỉnh/saving trong reques
 ## Founder date sets — ADR-035
 
 S10 links to /library/lessons: date headings, searchable date/title/English/Vietnamese words, set counts (new/review), title/date edits with version conflict handling, View set and Learn this set. S02 recent lessons display dates and link to all sets. One image/file keeps its own lesson; manual entry shares local learning-day set and lets parent choose date. S04 defaults filename/date; S05 save opens that set. Practice respects lesson query. No fourth main navigation.
+
+S05 ADR036: show exact existing-sense badges and optional “Loại từ trùng trong danh sách”; never delete library data or merge other meanings. Automatically search/download selected missing illustrations before the parent approval checkbox, with Stop/retry and text-only fallback. Review original sentence excerpts and Vietnamese supplementary grammar together, then one submit saves approved words/art/grammar/dated lesson atomically. Imported detail/edit/notes paths decode encoded IDs exactly once.

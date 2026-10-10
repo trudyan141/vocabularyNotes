@@ -1067,3 +1067,9 @@ main { min-height:calc(100svh - 140px); }
 .library-list > li > a { min-height:108px; }
 
 .preparation-images{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:1rem}.preparation-images article{display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:1rem;background:var(--muted);border-radius:1rem}.lesson-set{padding:1.2rem;border:1px solid var(--border);border-radius:1rem}.lesson-date{font-size:1.15rem}.lesson-set h3{margin:0;font-size:1.3rem}.lesson-set .row-wrap{gap:.5rem}
+
+.grammar-steps{padding:var(--space-4,1rem);border-radius:1rem;background:var(--color-lavender,#eee4fa);color:var(--color-ink,#38213d)}
+.grammar-tokens{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+.grammar-tokens span{background:#fff;padding:.55rem .8rem;border-radius:.7rem;font-weight:700;animation:grammar-token-in 220ms cubic-bezier(.2,0,0,1) both}
+@keyframes grammar-token-in{from{opacity:.3;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.grammar-tokens span{animation:none}}

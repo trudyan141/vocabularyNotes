@@ -4,7 +4,7 @@ Cập nhật10/10/2026, Asia/Ho_Chi_Minh. Founder yêu cầu setup rõ env/nơi 
 
 ## Current steering — Parent profile and sync clarity
 
-Founder screenshot reports successful Google sign-in but transfer preview failure. Implemented authenticated name/email/avatar, distinct device/account data counts and scope, clear transfer/sync actions/stages and safe specific HTTP causes; last successful sync persists across failures. No automatic guest upload or new profile schema. Check132/lint/types/build PASS; full153/153 browser and docs225links PASS; deploy pending. Agent IAB is signed out, so founder live failure cause unverified. Next verify hosted UI; evidence account-profile-and-sync.
+Founder screenshot reports successful Google sign-in but transfer preview failure. Implemented authenticated name/email/avatar, distinct device/account data counts and scope, clear transfer/sync actions/stages and safe specific HTTP causes; last successful sync persists across failures. No automatic guest upload or new profile schema. Check132/lint/types/build PASS; full153/153 browser and full docs225links PASS; source4ba88ad production READY dpl_4Pkgq3eQuSyLVLEVK45jHQxNGUPq. Hosted signed-out account shows device13words/1set and enabled Google sign-in; remoteCI38050668437 check passed, rest pending at checkpoint. Agent IAB is signed out, so founder live failure cause unverified. Next founder verify signed-in profile and any transfer failure; evidence account-profile-and-sync.
 
 ## Rename saved word sets
 

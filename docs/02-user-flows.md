@@ -1,5 +1,15 @@
 # Các luồng sử dụng
 
+## Người dùng tự thêm và học — ADR046, 11/10/2026
+
+Steering trực tiếp mới nhất: app mở cho người dùng tự thêm bài, sửa và học. Header dùng **Cài đặt** với icon bánh răng, mở trực tiếp `/settings`. Bỏ toàn bộ hộp thoại “Nhờ bố mẹ / Bố mẹ tiếp tục” và gate giả ở thêm ảnh/từ, sửa từ/ghi chú, tạo bộ thẻ/nhóm, bổ sung hình/câu và các entry trên Home/Today/Library. Navigation là link thực, giữ shared berry/secondary/feature styles, bàn phím và ba nav.
+
+Bố mẹ chuẩn bị bài và bé chỉ chơi là cách gia đình tự sử dụng, không phải vai trò app áp đặt hoặc permission boundary. Không thêm PIN/age gate/parent confirmation thay thế. Copy mặc định VI/EN và offline dùng “bạn”, “thêm bài”, “kiểm nội dung”; giao diện vẫn dễ thương/dễ dùng cho trẻ. Review trước Save, approval revision cho bài học, consent gửi ảnh/chi phí, xác nhận xóa thật, auth/ownership/RLS/CAS/scope vẫn giữ: chúng bảo vệ thao tác/dữ liệu thực, không xác minh người dùng là bố mẹ.
+
+ADR046 supersede mọi requirement/gate UI dành riêng bố mẹ trong đặc tả/skills trước đó, kể cả ADR044/045 và kế hoạch child-first; không supersede hình/thương hiệu/approval/dedup hay điều kiện provider. AI credential input nâng cao ở Cài đặt, đóng mặc định; không có hộp thoại vai trò. Tên nội bộ parent/BYOK cũ và fixture account là implementation/history, không là role mới cho sản phẩm.
+
+
+
 ## Luồng hiện hành 10/10/2026 (ADR-030)
 
 Phụ huynh → Cài đặt → AI riêng → Gemini/Google key/model → chọn nhớ localStorage nếu muốn. Thêm ảnh → cắt/xoay/bỏ thông tin riêng → Phân tích bằng AI → chọn listed/all + consent → gửi trực tiếp Gemini/Google → sửa/duyệt/lưu. Thiếu key có liên kết cài đặt; 401/quota/timeout/hủy giữ nháp. Không có nút OCR trên máy hoặc tải reader. Nhập tay vẫn dùng offline.
@@ -81,7 +91,7 @@ Mỗi flow có acceptance scenarios trong `10-quality-and-acceptance.md`; không
 
 ## F07 — gõ tay, tra và thêm từ mới
 
-1. Từ Hôm nay hoặc Từ của con, chọn `Thêm từ` qua parent gate, mở editor mới S09; không cần ảnh, quyền camera hoặc hoàn thành OCR.
+1. Từ Hôm nay hoặc Từ của con, chọn `Thêm từ` mở trực tiếp editor mới S09; không cần ảnh, quyền camera hoặc hoàn thành OCR.
 2. Gõ từ/cụm từ tiếng Anh: autocomplete đưa gợi ý khớp chữ đang gõ và từ liên quan có dữ liệu; phân biệt `Đã có trong thư viện` với `Từ gợi ý để thêm`. Search thư viện và tra từ mới là hai thao tác khác nhau.
 3. Chọn gợi ý hoặc tra nguyên văn input; xem nghĩa EN/VI, POS, IPA/cách đọc chữ Việt, audio và ví dụ khi nguồn có. Nếu nhiều nghĩa thì phụ huynh chọn nghĩa/POS cần học; nguồn từ điển và phần AI bổ sung được gắn nhãn riêng.
 4. Sửa/duyệt nội dung → kiểm trùng xác định → lưu guest local hoặc cloud scope hiện tại. Từ/đúng nghĩa đã có thì mở/link mục hiện có; nghĩa/POS mới giữ riêng. Không auto lưu khi chỉ chọn gợi ý.
@@ -89,6 +99,6 @@ Mỗi flow có acceptance scenarios trong `10-quality-and-acceptance.md`; không
 
 Flow là yêu cầu T07, storage/dedup theo T03/06; hiện chưa có tra từ/autocomplete/provider thật. Graph nguồn của editor tại founder S09.
 
-## F06 — phụ huynh chuẩn bị, bé học
+## F06 — tự chuẩn bị bài và học
 
-Parent gate tại S03/S09/S10/S16 giữ intended action; trẻ nghe/chơi/xem nội dung approved, phụ huynh chụp/duyệt/đổi key/chọn hình/merge/delete. S09 Chọn hình→catalog trước→search nguồn mở→shortlist có nguồn/credit→parent approve→import→ready→hai game hình; từ vẫn lưu khi media pending/error. S16 danh sách ảnh chờ và AI config có eligibility, secret store và server auth gate. Flow/concurrency graph ở 14, founder tự chứa ở mục 15; không thêm màn thứ 17.
+S03/S09/S10/S16 mở trực tiếp, không có parent gate theo ADR046. Người dùng tự chụp/thêm/duyệt/chọn hình và học nội dung approved; gia đình tự chọn người chuẩn bị hoặc chơi. S09 Chọn hình→catalog trước→search nguồn mở→shortlist có nguồn/credit→user review→import→ready→hai game hình; từ vẫn lưu khi media pending/error. S16 danh sách ảnh chờ và AI config có eligibility, secret store và server auth gate. Flow/concurrency graph ở 14, founder tự chứa ở mục 15; không thêm màn thứ 17.

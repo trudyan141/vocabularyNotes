@@ -1,7 +1,7 @@
 import type {Metadata} from 'next';
 export const siteUrl='https://words-for-kids.vercel.app';
-export const siteDescription='Bố mẹ chuẩn bị bài từ ảnh và từ điển. Con học từ vựng, mẫu câu và ôn tiếng Anh mỗi ngày cùng cáo nhỏ.';
-const shareImage={url:'/images/words-for-kids-share.png',width:1200,height:630,alt:'Words for Kids – Bố mẹ chuẩn bị bài, con vui học tiếng Anh cùng cáo nhỏ.'};
+export const siteDescription='Thêm bài từ ảnh và từ điển. Học từ vựng, mẫu câu và ôn tiếng Anh mỗi ngày cùng cáo nhỏ.';
+const shareImage={url:'/images/words-for-kids-share.png',width:1200,height:630,alt:'Words for Kids – Vui học tiếng Anh mỗi ngày cùng cáo nhỏ.'};
 export const brandMetadata:Metadata={
   metadataBase:new URL(siteUrl),
   applicationName:'Words for Kids',

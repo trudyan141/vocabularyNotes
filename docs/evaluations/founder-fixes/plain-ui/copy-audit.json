@@ -1,0 +1,26 @@
+[
+  {
+    "name": "offline-direct",
+    "width": 360,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "settings-english",
+    "width": 360,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "offline-direct",
+    "width": 1280,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "name": "settings-english",
+    "width": 1280,
+    "overflow": false,
+    "errors": []
+  }
+]

@@ -1,8 +1,16 @@
 # Trạng thái dự án — Words for Kids
 
+## Current steering — Settings and self-managed use, ADR046 (11/10/2026)
+
+Founder removes parent warning/gate and replaces header Parents with Settings. All add/edit/group/deck/notes entries use real styled links directly; no fake role restriction, neutral VI/EN/offline copy. Family decides who adds versus plays. Actual review/consent/delete/auth/ownership retained. ADR045 plain-copy/all-page selection remains implemented. Initial045 browser run interrupted for046; old copy assertions and new bulk-test navigation/reload wait repaired, not reported as pass. Local check142/lint/types/build, independent172browser and88views/44states visual no overflow/JS errors PASS. Final metadata/provenance neutral copy checked. Next: native Git push, full remote SQL/cloud CI and hosted045+046 proof. [Evidence](../evaluations/plain-language-and-select-all.md).
+
+## Current steering — Plain language / select all, ADR045 (11/10/2026)
+
+Founder asks to remove technical default UI copy and add all-page selection. Global storage paragraph removed, parent/child/error/offline copy simplified with meaningful consent/recovery retained. Group/deck all filtered results selection implemented; more-than10-page/save/reload and locale tests PASS in172localbrowser. [Evidence](../evaluations/plain-language-and-select-all.md). Next: complete checks/360–1280 audit/nativeGit hosted verification. Existing key/env/data changes stay excluded; human/device ledger unchanged.
+
 ## Current steering — Groups / readable day sets / illustrated welcome, ADR044 (11/10/2026)
 
-Latest founder extends button task with remaining dated-set UUID/text-heavy UI, topic groups of words/sentences and whole lesson/day additions with exact deduplication, and brighter animated welcome. Implementation and86-view initial inspection complete; final runtime/browser/docs/hosted checks in progress. Groups reuse versioned scoped decks/cloud/archive, preserve source/SRS and approvals; display-only UUID fallback never renames founder data. [Evidence](../evaluations/groups-and-lesson-ui.md). Local PostgreSQL fixture fails shmget allocation even after orphan temporary fixture cleanup; independent local browser and remote complete CI to follow. Pre-existing env/key/data changes preserved. Next: finish validation/hosted proof for ADR044. Ledger unchanged until human/device acceptance.
+Latest founder extends button task with remaining dated-set UUID/text-heavy UI, topic groups of words/sentences and whole lesson/day additions with exact deduplication, and brighter animated welcome. Implementation,86-view confirmation inspection, check142/full remote169browser/SQL/docs complete. Source68b0c11 production READY dpl_149w58Xk2ekHTwujHHyWLCojTmNU; CI38089592015 SUCCESS. Groups reuse versioned scoped decks/cloud/archive, preserve source/SRS and approvals; display-only UUID fallback never renames founder data. [Evidence](../evaluations/groups-and-lesson-ui.md). Local PostgreSQL fixture fails shmget allocation even after orphan temporary fixture cleanup; independent local browser and remote complete CI to follow. Pre-existing env/key/data changes preserved. Next: latest ADR045 language/bulk-selection validation. Ledger unchanged until human/device acceptance.
 
 ## Current steering — Project button hierarchy, ADR043 (11/10/2026)
 

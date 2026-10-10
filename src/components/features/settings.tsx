@@ -24,11 +24,11 @@ export function Settings() {
   return (
     <div className="reading-page page-flow parent-page">
       <Back />
-      <h1>{t("Tùy chọn của phụ huynh", "Parent options")}</h1>
+      <h1>{t("Cài đặt", "Settings")}</h1>
       <p>
         {t(
-          "Thiết lập nhỏ lưu trên thiết bị. Thư viện và bài mẫu được lưu riêng trong trình duyệt, vẫn còn sau khi tải lại.",
-          "Small settings stay on this device. Your library and sample lessons are saved separately in this browser and survive reloads.",
+          "Chọn cách hiển thị và âm thanh phù hợp với con.",
+          "Choose the display and sound that suit your child.",
         )}
       </p>
       {storageError && (
@@ -38,8 +38,8 @@ export function Settings() {
           </AlertTitle>
           <AlertDescription>
             {t(
-              "Thiết lập vẫn dùng trong phiên này. Cho phép lưu trữ trình duyệt rồi thử lại.",
-              "Settings still apply for this session. Allow browser storage and try again.",
+              "Lựa chọn vẫn dùng được lúc này. Bấm thử lưu lại nhé.",
+              "Your choices still work for now. Try saving them again.",
             )}
             <Button variant="outline" onClick={() => setPreferences({})}>
               {t("Thử lưu lại", "Try saving again")}
@@ -148,11 +148,11 @@ export function Settings() {
       </FieldGroup>
       <section>
         <h2>{t("Bài học và tài khoản", "Lessons and account")}</h2>
-        <Button asChild variant="outline"><Link href="/account">{t("Tài khoản Google của phụ huynh","Parent Google account")}</Link></Button>
+        <Button asChild variant="outline"><Link href="/account">{t("Tài khoản Google","Google account")}</Link></Button>
         <p>
           {t(
-            "Bài học được lưu trên trình duyệt này. Google và đồng bộ cloud dùng khi đã cấu hình Supabase; Gemini có key chung mặc định hoặc key riêng bố mẹ chọn ở bên dưới.",
-            "Lessons are stored in this browser. Google and cloud sync work when Supabase is configured; personal AI settings are below.",
+            "Đăng nhập Google để dùng cùng bài học trên nhiều thiết bị.",
+            "Sign in with Google to use the same lessons on multiple devices.",
           )}
         </p>
         {demo && (
@@ -163,7 +163,7 @@ export function Settings() {
           </Button>
         )}
       </section>
-      <section className="page-flow"><h2>{t("Thư viện đang mở","Current local library")}</h2><p>{demo?t("Đang dùng bài mẫu để thử. Bài của con thật được lưu riêng, chuyển qua lại không xóa hay gộp dữ liệu.","Using sample lessons. Your own library is stored separately; switching does not delete or merge content."):t("Đang dùng thư viện của con trên máy này. Bài mẫu là một thư viện riêng.","Using your own local library. Sample lessons are stored separately.")}</p><Button variant="outline" disabled={switching||!repository} onClick={async()=>{setSwitching(true);try{await selectLocalLibrary(!demo);setScopeStatus(t("Đã chuyển thư viện; dữ liệu thư viện trước vẫn còn.","Library switched; previous content is preserved."));}catch{setScopeStatus(t("Chưa chuyển được. Thử lại; dữ liệu vẫn còn.","Could not switch. Retry; your content is preserved."));}finally{setSwitching(false);}}}>{demo?t("Dùng thư viện riêng của con","Use my child's library"):t("Mở bài mẫu để thử","Open sample lessons")}</Button><p role="status">{scopeStatus}</p></section>
+      <section className="page-flow"><h2>{t("Thư viện đang mở","Current library")}</h2><p>{demo?t("Đang dùng bài mẫu để thử. Bài của con thật được lưu riêng, chuyển qua lại không xóa hay gộp dữ liệu.","Using sample lessons. Your own library is stored separately; switching does not delete or merge content."):t("Đang dùng thư viện của con trên máy này. Bài mẫu là một thư viện riêng.","Using your own local library. Sample lessons are stored separately.")}</p><Button variant="outline" disabled={switching||!repository} onClick={async()=>{setSwitching(true);try{await selectLocalLibrary(!demo);setScopeStatus(t("Đã chuyển thư viện; dữ liệu thư viện trước vẫn còn.","Library switched; previous content is preserved."));}catch{setScopeStatus(t("Chưa chuyển được. Thử lại; dữ liệu vẫn còn.","Could not switch. Retry; your content is preserved."));}finally{setSwitching(false);}}}>{demo?t("Dùng thư viện riêng của con","Use my child's library"):t("Mở bài mẫu để thử","Open sample lessons")}</Button><p role="status">{scopeStatus}</p></section>
       <ParentAiSettings/><LibraryTools/><ArchiveTools/>
       <Back href="/today" label={t("Về Hôm nay", "Back to Today")}/>
     </div>

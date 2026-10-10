@@ -147,8 +147,8 @@ export function Capture() {
     if (!navigator.mediaDevices?.getUserMedia || !window.isSecureContext) {
       setError(
         t(
-          "Trình duyệt này chưa dùng được camera. Chọn ảnh từ máy, hoặc mở app bằng HTTPS để thử lại.",
-          "Camera is unavailable. Choose an image, or reopen the app over HTTPS.",
+          "Chưa mở được camera. Chọn ảnh từ máy để tiếp tục nhé.",
+          "Camera is unavailable. Choose an image to continue.",
         ),
       );
       return;
@@ -190,8 +190,8 @@ export function Capture() {
       setError(
         denied
           ? t(
-              "Camera bị từ chối. Bạn có thể cấp quyền trong trình duyệt hoặc chọn ảnh từ máy.",
-              "Camera permission was denied. Enable it in your browser or choose an image.",
+              "Chưa được phép dùng camera. Cho phép dùng camera hoặc chọn ảnh từ máy.",
+              "Camera permission was denied. Allow camera access or choose an image.",
             )
           : t(
               "Không mở được camera. Đóng app đang dùng camera rồi thử lại, hoặc chọn ảnh từ máy.",
@@ -302,7 +302,7 @@ export function Capture() {
           <small>JPEG, PNG, WebP · {t('Tối đa 10 MB · Một ảnh mỗi lần','Up to 10 MB · One photo at a time')}</small>
         </div>
         <div className="capture-camera-choice"><div><h2>{t('Bài học đang ở trước mặt?','Have the worksheet in front of you?')}</h2><p>{t('Chụp cả trang, đủ sáng và tránh bóng tay.','Capture the whole page in good light, without shadows.')}</p></div><Button onClick={()=>void startCamera()} disabled={busy||cameraState!=='closed'}><Camera data-icon="inline-start"/>{t('Mở camera','Open camera')}</Button></div>
-        <p className="capture-local-note">{t('Ảnh giữ trên trình duyệt này. Chọn ảnh hoặc mở camera chưa gửi gì đến AI.','Photos stay in this browser. Choosing a photo or opening the camera sends nothing to AI.')}</p>
+        <p className="capture-local-note">{t('Chọn ảnh hoặc mở camera chưa gửi ảnh đến Google.','Choosing a photo or opening the camera does not send it to Google.')}</p>
       </section>
       <div hidden={cameraState === "closed"} className="camera-surface">
         <video
@@ -620,8 +620,8 @@ function Editor({
       <h1>{t("Xem và chỉnh ảnh", "Check and edit image")}</h1>
       <p>
         {t(
-          "Ảnh bên dưới đã bỏ metadata và là ảnh sẽ dùng để nhận dạng. Phóng to để kiểm tra chữ trước khi gửi.",
-          "The image below has its metadata removed and will be used for analysis. Enlarge it to check the text before sending.",
+          "Đây là ảnh sẽ gửi để đọc bài. Phóng to để kiểm tra chữ trước nhé.",
+          "This is the photo that will be sent for analysis. Enlarge it to check the text first.",
         )}
       </p>
       {error && <Failure message={error} />}
@@ -780,12 +780,12 @@ function Editor({
             </Field>
             <FieldDescription>
               {t(
-                "Đánh dấu chưa gửi ảnh. Lưu trên máy và gửi ảnh AI là hai lựa chọn riêng; không tự gửi sau khi mở lại nháp.",
-                "Checking this does not upload anything. Local storage and AI upload are separate; reopening never sends the draft.",
+                "Chỉ gửi ảnh khi bạn bấm phân tích. Mở lại nháp chưa gửi ảnh.",
+                "Photos are sent only when you choose to analyse them. Reopening a draft does not send it.",
               )}
             </FieldDescription>
           </FieldGroup>
-          <p>{t("Phân tích bằng AI với API key riêng của bố mẹ. Bạn có thể thêm key ngay tại màn phân tích tiếp theo.","Analyse with your own API key. You can add your key on the next analysis screen.")}</p>
+          <p>{t("AI giúp đọc chữ và gợi ý nghĩa. Bạn kiểm lại kết quả trước khi lưu.","AI reads text and suggests meanings. Review the results before saving.")}</p>
           <Button disabled={processing||saving} onClick={async()=>{try{await persist();router.push(`/capture/${initial.draft.id}/extract`);}catch{}}}>{t("Phân tích ảnh bằng AI", "Analyse photo with AI")}</Button>
           <Button asChild variant="outline"><Link prefetch={false} href={`/add?capture=${initial.draft.id}`}>{t("Chép và thêm từ từ ảnh", "Transcribe words from image")}</Link></Button>
           <Button

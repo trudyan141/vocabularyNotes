@@ -13,7 +13,7 @@ export function LearningNotes({word,editable=false}:{word:LibraryWord;editable?:
   const result=useLiveQuery(async()=>repository?{scope:repository.scope.id,note:await repository.db.notes.where("[scopeId+targetType+targetId]").equals([repository.scope.id,"sense",word.id]).first()}:null,[repository,word.id]);
   if(!result||result.scope!==repository?.scope.id)return null;
   if(editable)return <NoteEditor key={word.id} word={word} note={result.note}/>;
-  if(!result.note)return <p>{t("Chưa có ghi chú của bố mẹ.","No parent notes yet.")}</p>;
+  if(!result.note)return <p>{t("Chưa có ghi chú của bạn.","No notes yet.")}</p>;
   return <><p className="saved-note">{result.note.text}</p>{result.note.mnemonicData&&<Mnemonic word={word} template={result.note.mnemonicData.template}/>}</>;
 }
 function NoteEditor({word,note}:{word:LibraryWord;note?:Note}){
@@ -39,4 +39,4 @@ function Mnemonic({word,template}:{word:LibraryWord;template:NonNullable<Note["m
     <div className="row-wrap"><Button variant="outline" onClick={()=>{setPlaying(false);setStep(i=>Math.max(0,i-1));}} disabled={step===0}>{t("Bước trước","Previous step")}</Button><Button onClick={()=>{setPlaying(false);setStep(i=>(i+1)%Math.max(1,scenes.length));}}>{step===scenes.length-1?t("Xem lại","Replay"):t("Bước tiếp","Next step")}</Button><Button variant="outline" disabled={preferences.reduceMotion} onClick={()=>{if(step===scenes.length-1)setStep(0);setPlaying(v=>!v);}}>{playing?t("Tạm dừng minh hoạ","Pause illustration"):t("Phát minh hoạ","Play illustration")}</Button><Button variant="ghost" onClick={()=>{setStep(0);setPlaying(!preferences.reduceMotion);}}>{t("Phát lại","Replay")}</Button></div>{preferences.reduceMotion&&<p>{t("Đang dùng bản tĩnh; con xem đủ các bước ở trên.","Static mode; all steps are shown above.")}</p>}</section>;
 }
 export function WordNotes({id}:{id:string}){const {t}=useApp();const result=useLibraryWord(id);if(!result)return <DatabaseLoading/>;if(result.error||!result.word)return <ReadFailure/>;
- return <div className="reading-page page-flow parent-page"><Back href={`/library/words/${id}`}/><h1>{t("Ghi chú của bố mẹ","Parent notes")}: {result.word.word}</h1><LearningNotes word={result.word} editable/></div>;}
+ return <div className="reading-page page-flow parent-page"><Back href={`/library/words/${id}`}/><h1>{t("Ghi chú của bạn","User notes")}: {result.word.word}</h1><LearningNotes word={result.word} editable/></div>;}

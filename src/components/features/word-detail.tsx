@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import {lessonTitle,learningDate} from "@/lib/learning/lesson-presentation";
 import {Pencil,Play,ArrowLeft} from "lucide-react";
 import {useLiveQuery} from "dexie-react-hooks";
 import {useApp} from "@/components/app/provider";
@@ -8,7 +9,7 @@ import {Badge} from "@/components/ui/badge";
 import {Alert,AlertDescription,AlertTitle} from "@/components/ui/alert";
 import {Artwork,Back,EmptyState} from "@/components/app/shared";
 import {AudioControl} from "@/components/app/audio-control";
-import {ParentGate} from "@/components/app/parent-gate";
+import {ActionLink} from "@/components/app/action-link";
 import {DatabaseLoading,ReadFailure} from "@/components/app/database-boundary";
 import {useLibraryWord} from "@/data/local/hooks";
 import {WordLearningContent} from "./learning-content";
@@ -46,17 +47,17 @@ export function WordDetail({ id }: { id: string }) {
         <Back href="/library" />
         <EmptyState
           title={t(
-            "Từ này chờ phụ huynh kiểm tra",
-            "This word needs parent review",
+            "Từ này cần kiểm tra lại",
+            "This word needs review",
           )}
           description={t(
             "Bản nội dung mới chưa được duyệt để bé học.",
             "The new content has not been approved for learning.",
           )}
         >
-          <ParentGate href={`/library/words/${id}/edit`}>
-            <Button>{t("Bố mẹ kiểm tra", "Parent review")}</Button>
-          </ParentGate>
+          <ActionLink href={`/library/words/${id}/edit`}>
+            <Button>{t("Kiểm tra nội dung", "Review content")}</Button>
+          </ActionLink>
         </EmptyState>
       </div>
     );
@@ -64,12 +65,12 @@ export function WordDetail({ id }: { id: string }) {
     <article className="reading-page page-flow">
       <div className="section-heading">
         <Back href="/library" label={t("Từ của con", "My words")} />
-        <ParentGate href={`/library/words/${entry.id}/edit`}>
+        <ActionLink href={`/library/words/${entry.id}/edit`}>
           <Button variant="ghost">
             <Pencil data-icon="inline-start" />
             {t("Sửa", "Edit")}
           </Button>
-        </ParentGate>
+        </ActionLink>
       </div>
       <div className="word-detail-hero">
         <Artwork art={entry.art} word={entry.word} size={210} showCredit />
@@ -106,8 +107,8 @@ export function WordDetail({ id }: { id: string }) {
           </AlertTitle>
           <AlertDescription>
             {t(
-              "Con vẫn có thể nghe và đọc ví dụ. Bố mẹ sẽ chọn hình đúng nghĩa sau.",
-              "You can still listen and read the example. A parent can choose a picture later.",
+              "Con vẫn có thể nghe và đọc ví dụ. Bạn sẽ chọn hình đúng nghĩa sau.",
+              "You can still listen and read the example. You can choose a picture later.",
             )}
           </AlertDescription>
         </Alert>
@@ -123,21 +124,22 @@ export function WordDetail({ id }: { id: string }) {
         <p>
           {entry.origin === "demo"
             ? t(
-                "Nghĩa và ví dụ là nội dung minh họa chuẩn bị sẵn, chưa do AI trích hay bổ sung.",
-                "Meanings and examples are prepared demo content, not AI extraction or enrichment.",
+                "Nghĩa và ví dụ thuộc bài mẫu.",
+                "Meanings and examples belong to sample lessons.",
               )
             : entry.origin === "user"
               ? t(
-                  "Nghĩa do phụ huynh nhập hoặc sửa. Ví dụ giữ nguồn đã lưu.",
-                  "Meanings were entered or edited by a parent. Examples retain their saved source.",
+                  "Nghĩa do người dùng nhập hoặc sửa. Ví dụ giữ nguồn đã lưu.",
+                  "Meanings were entered or edited by you. Examples retain their saved source.",
                 )
-              : entry.source}
+              : entry.origin === 'source' ? t('Nội dung từ nguồn tham khảo; bạn đã kiểm tra.','Content from reference sources, reviewed before saving.') : t('AI gợi ý nghĩa và ví dụ; bạn đã kiểm tra. Chữ trong ảnh gốc được giữ bên dưới.','AI suggested meanings and examples, reviewed before saving. Original photo text is kept below.')}
         </p>
-        <p>{entry.source}</p>
-        {sources&&sources.scope===repository?.scope.id&&sources.values.map((source,i)=><div key={i}><p>{t("Bài học","Lesson")}: {source.lesson?.title??entry.lesson} · {source.lesson?.learnedOn}</p>{source.evidence&&<p>{t("Chữ nguồn được giữ lại","Original source text")}: <span lang="en">{source.evidence.literalText}</span></p>}</div>)}
+
+        {entry.origin==='source'&&<p>{entry.source}</p>}
+        {sources&&sources.scope===repository?.scope.id&&sources.values.map((source,i)=><div key={i}><p>{t("Bài học","Lesson")}: {source.lesson?lessonTitle(source.lesson,t):t("Bài đã lưu","Saved lesson")} · {source.lesson?learningDate(source.lesson.learnedOn,t):null}</p>{source.evidence&&<p>{t("Chữ nguồn được giữ lại","Original source text")}: <span lang="en">{source.evidence.literalText}</span></p>}</div>)}
         {entry.pronunciations.filter(p=>p.verified&&p.sourceUrl?.startsWith("https://")).map((p,i)=><p key={i}><a href={p.sourceUrl!} target="_blank" rel="noreferrer">{t("Nguồn phiên âm IPA","IPA source")}</a></p>)}
         <LearningNotes word={entry}/>
-        <ParentGate href={`/library/words/${entry.id}/notes`}><Button variant="outline">{t("Viết ghi chú cho con", "Write a memory note")}</Button></ParentGate>
+        <ActionLink href={`/library/words/${entry.id}/notes`}><Button variant="outline">{t("Viết ghi chú cho con", "Write a memory note")}</Button></ActionLink>
       </details>
     </article>
   );

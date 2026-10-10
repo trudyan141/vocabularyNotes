@@ -19,8 +19,8 @@ export function DatabaseBoundary({ children,progressive=false }: { children: Rea
         <AlertDescription>
           <p>
             {t(
-              "Kiểm tra quyền lưu trữ hoặc đóng tab cũ đang mở app rồi thử lại. Dữ liệu cũ không bị xóa để sửa lỗi.",
-              "Check browser storage permissions or close older app tabs, then retry. Existing data is not deleted to fix errors.",
+              "Bấm mở lại để thử nhé. Bài đã lưu sẽ được giữ.",
+              "Try opening it again. Your saved lessons are kept.",
             )}
           </p>
           <Button variant="outline" onClick={retryDatabase}>
@@ -48,7 +48,7 @@ export function ReadFailure() {
   return (
     <Alert variant="destructive">
       <AlertTitle>
-        {t("Chưa đọc được dữ liệu", "Data could not be read")}
+        {t("Chưa mở được bài học", "Lessons could not open")}
       </AlertTitle>
       <AlertDescription>
         <Button onClick={retryDatabase}>

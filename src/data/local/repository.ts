@@ -231,6 +231,13 @@ export class LocalRepository {
       () => this.readSearch(query, options),
     );
   }
+  async matchingApprovedWordIds(query: string): Promise<string[]> {
+    const needle = searchTerms(query);
+    return this.db.searchIndex.where("[scopeId+ordinal]")
+      .between([this.scope.id, Dexie.minKey], [this.scope.id, Dexie.maxKey])
+      .filter(row => row.approval && (!needle || row.terms.includes(needle)))
+      .primaryKeys().then(keys => keys.map(key => key[1] as string));
+  }
   private async readSearch(
     query: string,
     options: {

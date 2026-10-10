@@ -57,8 +57,8 @@ export function AudioControl({
     if (!voice) {
       setMessage(
         t(
-          "Chưa có giọng tiếng Anh trên máy. Bố mẹ có thể thêm giọng trong cài đặt thiết bị.",
-          "No English voice is installed. A parent can add one in device settings.",
+          "Chưa có giọng tiếng Anh trên máy. Bạn có thể thêm giọng trong cài đặt thiết bị.",
+          "No English voice is installed. You can add one in device settings.",
         ),
       );
       return;

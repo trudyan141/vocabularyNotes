@@ -5,14 +5,14 @@ test("demo off shows empty Today and library without silently activating fixture
 }) => {
   await page.goto("/today");
   await expect(
-    page.getByRole("button", { name: "Nhờ bố mẹ thêm bài", exact: true }),
+    page.getByRole("link", { name: "Thêm bài mới", exact: true }),
   ).toBeVisible();
   await expect(page.getByText("apple", { exact: true })).toHaveCount(0);
-  await expect(page.getByText("Dữ liệu demo", { exact: true })).toHaveCount(0);
+  await expect(page.locator(".demo-note")).toHaveCount(0);
   await page
-    .getByRole("button", { name: "Nhờ bố mẹ thêm bài", exact: true })
+    .getByRole("link", { name: "Thêm bài mới", exact: true })
     .click();
-  await page.getByRole("button", { name: "Bố mẹ tiếp tục" }).click();
+
   await expect(page.getByRole("link", { name: "Duyệt bài mẫu" })).toHaveCount(
     0,
   );
@@ -127,10 +127,8 @@ test("guest IndexedDB records can be edited and reloaded while foreign-scope rec
     page.getByText("Không có từ phù hợp", { exact: true }),
   ).toBeVisible();
   await page.goto("/library/words/manual-test");
-  await page.getByRole("button", { name: "Sửa", exact: true }).click();
-  await page
-    .getByRole("button", { name: "Bố mẹ tiếp tục", exact: true })
-    .click();
+  await page.getByRole("link", { name: "Sửa", exact: true }).click();
+
   await page
     .getByLabel("Nghĩa tiếng Việt", { exact: true })
     .fill("quả lê đã lưu thật");

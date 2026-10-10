@@ -148,7 +148,7 @@ function Worksheet() {
     <div className="worksheet">
       <h2 lang="en">School objects</h2>
       <p>
-        {t("Bài mẫu dựng trong repo", "Worksheet fixture from this repository")}
+        {t("Ảnh bài mẫu", "Sample worksheet")}
       </p>
       <div className="worksheet-grid">
         {[
@@ -244,13 +244,13 @@ export function Review({ draftId }: { draftId: string }) {
       <div className="section-heading">
         <Back href="/capture" />
         <Badge variant="secondary">
-          {t("Dành cho phụ huynh", "For parents")}
+          {t("Chuẩn bị bài học", "Prepare lessons")}
         </Badge>
       </div>
       <h1>{t("Duyệt bài School objects", "Review School objects")}</h1>
       <p>
         {t(
-          "Kiểm tra chữ chưa rõ, sửa nghĩa và chọn mục muốn lưu trên trình duyệt này.",
+          "Kiểm tra chữ chưa rõ, sửa nghĩa và chọn mục muốn lưu cho con.",
           "Check unclear text, edit meanings and choose items to save in this browser.",
         )}
       </p>
@@ -427,8 +427,8 @@ export function Review({ draftId }: { draftId: string }) {
                     <p>{p.vi}</p>
                     <small>
                       {t(
-                        "Chuẩn bị sẵn · chưa có giao dịch lưu câu",
-                        "Prepared fixture · sentence saving is not connected",
+                        "Câu mẫu để tham khảo · chưa lưu được",
+                        "Sample sentence for reference · cannot be saved yet",
                       )}
                     </small>
                   </div>
@@ -460,8 +460,8 @@ export function Review({ draftId }: { draftId: string }) {
         <p>
           {selected.length
             ? t(
-                "Bài mẫu và lựa chọn lưu riêng trên trình duyệt, vẫn còn sau khi tải lại.",
-                "Sample lesson and choices are saved separately in this browser and survive reloads.",
+                "Đang duyệt bài mẫu. Bài của con vẫn được giữ riêng.",
+                "You are reviewing sample lessons. Your child’s lessons are kept separately.",
               )
             : t(
                 "Chọn ít nhất một mục hợp lệ để tiếp tục.",
@@ -509,8 +509,8 @@ export function LessonPreview() {
             </AlertTitle>
             <AlertDescription>
               {t(
-                "Đã lưu bài mẫu vào vùng demo của IndexedDB trên trình duyệt này. Chưa đồng bộ cloud hoặc nhận dạng ảnh AI.",
-                "The sample lesson is saved in a separate demo area of IndexedDB in this browser. Cloud sync and AI extraction are not connected.",
+                "Đã lưu bài mẫu. Mở Thư viện để xem và cho con ôn nhé.",
+                "Sample lesson saved. Open the library to view it and practise.",
               )}
             </AlertDescription>
           </Alert>

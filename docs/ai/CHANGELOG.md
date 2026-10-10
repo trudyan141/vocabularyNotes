@@ -1,8 +1,16 @@
 # Nhật ký bàn giao
 
-## 11/10/2026 — Topic groups / date manager / welcome, ADR044 (in progress)
+## 11/10/2026 — Settings and self-managed use, ADR046 (in progress)
 
-Date sets become art-led/readable, automatic titles are presentation-only. Parent-created word/sentence topic groups support individual/lesson/day membership with deterministic deduplication, CAS/archive/cloud remap and12-item paging; welcome uses existing fox/catalog illustration and finite/static greeting.86responsive views no overflow/page errors; final check/browser/hosted results pending in [evidence](../evaluations/groups-and-lesson-ui.md). Local PG fixture startup is blocked by host shared-memory allocation, independent browser/remote full CI follow. No founder data/credentials modified.
+Header Settings gear/direct navigation; removed ParentGate dialog and replaced every add/edit/notes/prepare/group/deck entry with real shared styled links. Neutral default VI/EN/offline copy. Family decides preparation/play roles; actual review/consent/delete/auth boundaries retained. Latest source03/04/02/AGENTS/ADR046 supersedes earlier parent-only UI. Local142check/172browser/88responsive views PASS; expanded-offline overflow fixed and rechecked4additional views. Full remote SQL/cloud and deployment in [evidence](../evaluations/plain-language-and-select-all.md).
+
+## 11/10/2026 — Plain language / all-page selection, ADR045 (in progress)
+
+Removed global storage explanations and technical default parent/child/provider error copy. Kept meaningful consent/cost/delete/recovery/source notices. Group and custom-deck selectors offer all filtered results across pages, preserve previous selections and explicit save. Source rule recorded04/03/AGENTS/ADR045; validation in [evidence](../evaluations/plain-language-and-select-all.md).
+
+## 11/10/2026 — Topic groups / date manager / welcome, ADR044
+
+Date sets become art-led/readable, automatic titles are presentation-only. Parent-created word/sentence topic groups support individual/lesson/day membership with deterministic deduplication, CAS/archive/cloud remap and12-item paging; welcome uses existing fox/catalog illustration and finite/static greeting.86responsive views no overflow/page errors; check142/full remote169browser/SQL/docs SUCCESS,68b0c11 production READY/native hosted proof in [evidence](../evaluations/groups-and-lesson-ui.md). Local PG fixture startup is blocked by host shared-memory allocation, independent browser/remote full CI follow. No founder data/credentials modified.
 
 ## 10/10/2026 — Founder UI and hosted schema repair, ADR040/041
 

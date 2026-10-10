@@ -56,9 +56,9 @@ function Preparation({words,lesson}:{words:LibraryWord[];lesson:string|null}){
             if(signal.aborted)break;
             if(mounted.current)setImages(old=>[...old,{word,art}]);current.found++;
           }
-        }catch(error){
+        }catch{
           if(signal.aborted)break;
-          const reason=requestSignal.aborted?t('hết thời gian 10 giây','10-second timeout'):error instanceof Error&&/^HTTP \d{3}$/.test(error.message)?error.message:t('lỗi kết nối hoặc phản hồi không hợp lệ','connection or response error');
+          const reason=requestSignal.aborted?t('hết thời gian 10 giây','10-second timeout'):t('chưa tải được hình, thử lại sau nhé','picture unavailable, please retry later');
           current.failures.push(`${word.word}: ${reason}`);
         }
         current.completed++;update();
@@ -80,7 +80,7 @@ function Preparation({words,lesson}:{words:LibraryWord[];lesson:string|null}){
   }
   return <div className="reading-page page-flow parent-page">
     <Back href={lesson?`/library?lesson=${encodeURIComponent(lesson)}`:'/library'}/><h1>{t('Bổ sung hình và mẫu câu','Prepare pictures and patterns')}</h1>
-    <p>{t('Chỉ điền hình còn thiếu; giữ nghĩa, ví dụ và hình bố mẹ đã chọn. Mẫu câu bên dưới là nội dung dự án bổ sung, cần kiểm trước khi con học.','Fill missing illustrations while preserving existing content. The patterns below are project additions for parent review.')}</p>
+    <p>{t('Chỉ điền hình còn thiếu; giữ nghĩa, ví dụ và hình bạn đã chọn. Mẫu câu bên dưới là nội dung dự án bổ sung, cần kiểm trước khi con học.','Fill missing illustrations while preserving existing content. The patterns below are suggestions to review.')}</p>
     <div className="page-flow">
       <div className="row-wrap"><Button variant="secondary" disabled={busy||saved} onClick={()=>void search()}><ImagePlus data-icon="inline-start" aria-hidden="true"/>{busy&&!saving?t('Đang tìm hình…','Finding illustrations…'):searched?t('Tìm hình lại','Search again'):t('Tự tìm thêm hình còn thiếu','Find remaining illustrations')}</Button>
       {busy&&!saving&&<Button variant="outline" onClick={()=>controller.current?.abort()}>{t('Dừng tìm hình','Stop image search')}</Button>}</div>

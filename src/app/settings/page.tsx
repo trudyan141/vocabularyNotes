@@ -1,4 +1,4 @@
-export const metadata={title:"Cài đặt phụ huynh"};
+export const metadata={title:"Cài đặt"};
 import { Suspense } from "react";
 import { Settings } from "@/components/features/settings";
 import Loading from "@/app/loading";

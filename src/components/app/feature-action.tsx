@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
-/** Content for a Button: keeps parent gates and link/button semantics at the call site. */
+/** Content for a Button: keeps link/button semantics at the call site. */
 export function FeatureAction({ image, title, description }: {
   image: string;
   title: string;

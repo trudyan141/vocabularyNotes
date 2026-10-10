@@ -28,7 +28,7 @@ test("welcome, keyboard skip and Today shell use three clear navigation items", 
   await page.getByRole("link", { name: "Bắt đầu", exact: true }).click();
   await expect(page.getByRole("navigation").getByRole("link")).toHaveCount(3);
   await expect(page.getByRole("link", { name: "Chơi 5 phút" })).toBeVisible();
-  await expect(page.getByText("Dữ liệu demo", { exact: true })).toBeVisible();
+  await expect(page.locator(".demo-note").getByText("Bài mẫu", { exact: true })).toBeVisible();
   await noOverflow(page);
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({
@@ -38,27 +38,14 @@ test("welcome, keyboard skip and Today shell use three clear navigation items", 
   expect(errors).toEqual([]);
 });
 
-test("parent gate restores focus on cancel and continues the intended add-lesson action", async ({
-  page,
-}) => {
+test("settings and lesson actions navigate directly without an adult warning", async ({ page }) => {
   await page.goto("/today");
-  const trigger = page.getByRole("button", { name: "Thêm bài", exact: true });
-  await trigger.click();
-  await expect(page.getByRole("dialog")).toBeVisible();
-  await page.keyboard.press("Escape");
-  await expect(trigger).toBeFocused();
-  await expect(page).toHaveURL("/today");
-  await trigger.click();
-  await page.getByRole("button", { name: "Bố mẹ tiếp tục" }).click();
-  await expect(page).toHaveURL("/capture");
-  await expect(
-    page.getByTestId("worksheet-dropzone"),
-  ).toBeVisible();
-  await page.getByRole("link", { name: "Duyệt bài mẫu" }).click();
-  await expect(page).toHaveURL("/capture/demo/review");
-  await expect(page.getByRole("navigation")).toHaveCount(0);
+  await page.getByRole("link", {name:"Cài đặt",exact:true}).click();
+  await expect(page).toHaveURL("/settings");await expect(page.getByRole("heading",{name:"Cài đặt",exact:true})).toBeVisible();await expect(page.getByRole("dialog")).toHaveCount(0);
+  await page.goto("/today");await page.getByRole("link", {name:"Thêm bài",exact:true}).click();
+  await expect(page).toHaveURL("/capture");await expect(page.getByRole("dialog")).toHaveCount(0);await expect(page.getByTestId("worksheet-dropzone")).toBeVisible();
+  await page.getByRole("link",{name:"Duyệt bài mẫu",exact:true}).click();await expect(page).toHaveURL("/capture/demo/review");await expect(page.getByRole("navigation")).toHaveCount(0);
 });
-
 test("library searches Vietnamese without accents, keeps senses and handles no results and filters", async ({
   page,
 }) => {
@@ -166,7 +153,7 @@ test("detail hides navigation, discloses source, handles missing art and support
   await page.getByText("Nguồn và ghi chú", { exact: true }).click();
   await expect(
     page.getByText(
-      "Nghĩa và ví dụ là nội dung minh họa chuẩn bị sẵn, chưa do AI trích hay bổ sung.",
+      "Nghĩa và ví dụ thuộc bài mẫu.",
       { exact: true },
     ),
   ).toBeVisible();
@@ -176,8 +163,8 @@ test("detail hides navigation, discloses source, handles missing art and support
     path: `test-results/t02-detail-${test.info().project.name}.png`,
     fullPage: false,
   });
-  await page.getByRole("button", { name: "Sửa", exact: true }).click();
-  await page.getByRole("button", { name: "Bố mẹ tiếp tục" }).click();
+  await page.getByRole("link", { name: "Sửa", exact: true }).click();
+
   await page
     .getByLabel("Nghĩa tiếng Việt", { exact: true })
     .fill("bờ của dòng sông");

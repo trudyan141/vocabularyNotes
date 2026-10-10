@@ -1,5 +1,8 @@
 # Dữ liệu, chống trùng và đồng bộ
 
+**Hiện hành ADR046 (11/10/2026):** Cài đặt và mọi luồng thêm/sửa/học mở trực tiếp; người dùng tự chuẩn bị và chơi, gia đình tự phân vai. Không có parent gate. Review/approval là kiểm nội dung đúng phiên bản; auth/ownership/scope/CAS vẫn bảo vệ dữ liệu thực. Mô tả phân vai bố mẹ/bé cũ bên dưới được thay bởi quy tắc này; xem03/04.
+
+
 ## Cloud runtime và sync local — 10/10/2026
 
 Auth routes dùng PKCE/cookie HttpOnly và server getUser; secret không vào thư viện hoặc backup. Account cache mang scope `account:owner:library`; đăng nhập chưa kích hoạt upload hoặc chuyển guest. Migrations0001–0004 giữ owner RLS/FK/unique cùng typed records, client IDs và strict payload. API giới hạn100 thay đổi/2MB, kiểm scope/canonical/pronunciation source, RPC atomic CAS/receipt và change cursor. State ôn do server reducer theo accepted order. Hàng chờ durable giữ operation qua retry; xung đột lưu cả hai bản; exact unpublished IDs remap references trong transaction, không đổi accepted event. Guest transfer xem trước, backup, explicit confirm và giữ bản gốc.
@@ -62,7 +65,7 @@ UUID tạo ở client, thời gian lưu UTC ISO; ngày học và hạn ôn hiể
 
 **Phát âm bổ sung theo R07/R08 (09/10/2026):** T03/T07 cần dự trù dữ liệu IPA và `readingHintVi` cho sense/từ, sentence và example; đây là đặc tả dự kiến, chưa là schema DB đã triển khai. Mỗi bản phát âm giữ text/contentVersion đích, accent (UK/US hoặc loại được xác định), IPA cùng nguồn/trạng thái xác minh, gợi ý chữ Việt cùng origin và phiên bản duyệt. Null là chưa có, không dùng chuỗi rỗng hoặc lấy translationVi thay readingHintVi. Dữ liệu gợi ý không dùng làm canonical key, đáp án chấm hay nguồn cho TTS. Parent approval không tự biến IPA thành verified. Edit text/accent khiến phiên bản phát âm cũ cần kiểm lại; giữ bản user edit qua enrichment, migration, sync và backup. Contract v1.0 hiện chưa mang các trường bổ sung; T07 phải version contract/fixtures, T03/T11 phải kiểm migration/roundtrip khi triển khai.
 
-Child learning approval là trạng thái do phụ huynh xác nhận, tách khỏi AI `contentStatus`. Sense/sentence/pattern/grammar có `contentVersion`, `learningApprovalStatus` (pending/approved/rejected), `approvedContentVersion` và reviewer theo scope. AI không được tự đặt approved. Edit/enrich proposal làm thay đổi version phải được xem lại; bản mới chưa duyệt không đè bản approved đang học. Entity chỉ vào deck/child detail khi approval khớp version và đủ điều kiện mode. Media còn cần approvalVersion + readyStatus theo 14. Guest giữ approval local; cloud ownership/auth vẫn do server/RLS kiểm, parent gate không là security boundary.
+Child learning approval là trạng thái do phụ huynh xác nhận, tách khỏi AI `contentStatus`. Sense/sentence/pattern/grammar có `contentVersion`, `learningApprovalStatus` (pending/approved/rejected), `approvedContentVersion` và reviewer theo scope. AI không được tự đặt approved. Edit/enrich proposal làm thay đổi version phải được xem lại; bản mới chưa duyệt không đè bản approved đang học. Entity chỉ vào deck/child detail khi approval khớp version và đủ điều kiện mode. Media còn cần approvalVersion + readyStatus theo 14. Guest giữ approval local; cloud ownership/auth vẫn do server/RLS kiểm; không có parent gate theo ADR046.
 
 1. Unicode NFKC; trim; collapse whitespace.
 2. Chuẩn hóa apostrophe cong → `'`, dash typographic → `-` theo quy tắc versioned.

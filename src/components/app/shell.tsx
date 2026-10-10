@@ -2,17 +2,17 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { BookOpen, House, Layers, ShieldCheck } from "lucide-react";
+import { BookOpen, House, Layers, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { useApp } from "./provider";
 import { DatabaseBoundary } from "./database-boundary";
-import { ParentGate } from "./parent-gate";
+import { ActionLink } from "./action-link";
 import type { ReactNode } from "react";
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const { t, demo, repository } = useApp();
+  const { t, demo } = useApp();
   const showNav = ["/today", "/library", "/practice"].includes(pathname);
   const nav = [
     { href: "/today", label: t("Hôm nay", "Today"), icon: House },
@@ -39,12 +39,12 @@ export function AppShell({ children }: { children: ReactNode }) {
           />
           <span>Words for Kids</span>
         </Link>
-        <ParentGate href="/settings">
+        <ActionLink href="/settings">
           <Button variant="outline">
-            <ShieldCheck data-icon="inline-start" />
-            <span>{t("Phụ huynh", "Parents")}</span>
+            <Settings data-icon="inline-start" />
+            <span>{t("Cài đặt", "Settings")}</span>
           </Button>
-        </ParentGate>
+        </ActionLink>
       </header>
       {showNav && (
         <nav
@@ -72,22 +72,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <DatabaseBoundary progressive={showNav}>{children}</DatabaseBoundary>
           )}
         </main>
-        <footer className="demo-note">
-          {demo && (
-            <Badge variant="secondary">{t("Dữ liệu demo", "Demo data")}</Badge>
-          )}
-          <p>
-            {demo
-              ? t(
-                  "Bài mẫu lưu riêng trên máy. Nhập từ và tra từ điển dùng ngay; phân tích ảnh bằng Gemini trong phần phụ huynh.",
-                  "Sample lessons stay in a separate local library. Add words and use the dictionary now; use Gemini in parent settings to analyse photos.",
-                )
-              : repository?.scope.kind === "account" ? t("Thư viện cloud có bản lưu trên máy. Kiểm trạng thái đồng bộ trong tài khoản phụ huynh trước khi xóa bộ nhớ trình duyệt.", "Your cloud library has a local cache. Check sync status in the parent account before clearing browser storage.") : t(
-                  "Bài đang lưu riêng trên trình duyệt này. Vào Tài khoản phụ huynh để lưu thêm bản cloud; xóa bộ nhớ trình duyệt có thể làm mất bài trên máy.",
-                  "Lessons are stored separately in this browser. Open Parent account to save a cloud copy; clearing browser storage can remove device lessons.",
-                )}
-          </p>
-        </footer>
+        {demo && <footer className="demo-note"><Badge variant="secondary">{t("Bài mẫu", "Sample lessons")}</Badge></footer>}
       </div>
     </div>
   );

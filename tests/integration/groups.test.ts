@@ -54,6 +54,12 @@ it('loads and saves all approved words beyond the search page limit',async()=>{
   await r.db.senses.bulkPut(Array.from({length:151},(_,i)=>({...sense,id:`sense-${i}`,entryId:`entry-${i}`})));
   await r.db.searchIndex.bulkPut(Array.from({length:151},(_,i)=>({...index,id:`sense-${i}`,ordinal:`word${i}`,terms:`word${i}`})));
  });
+ expect(await r.matchingApprovedWordIds('word')).toHaveLength(151);
+ expect(await r.matchingApprovedWordIds('word150')).toEqual(['sense-150']);
+ expect(await repo('guest:other',r.db).matchingApprovedWordIds('')).toEqual([]);
+ await r.db.searchIndex.update([scope,'sense-150'],{approval:false});
+ expect(await r.matchingApprovedWordIds('word')).toHaveLength(150);
+ await r.db.searchIndex.update([scope,'sense-150'],{approval:true});
  const c=await groupCatalog(r);expect(c.words).toHaveLength(153);
  const result=await saveStudyGroup(r,{id:'large',version:null,name:'Large group',members:{wordIds:c.words.map(word=>word.id),sentences:[]}});expect((await groupContents(r,result.row)).words).toHaveLength(153);
 });

@@ -1,5 +1,9 @@
 # Words for Kids — kế hoạch sản phẩm dành cho founder
 
+**Mới nhất11/10 — Cài đặt, tự thêm và học (ADR046):** đổi nút Phụ huynh thành Cài đặt và bỏ mọi cảnh báo “Bố mẹ tiếp tục”. Ai vào cũng tự thêm/sửa/học; bố mẹ thêm và bé chỉ chơi do gia đình tự chọn. Các xác nhận gửi ảnh/lưu/xóa thực tế vẫn giữ. Quyết định này thay mọi hướng dẫn phân vai UI trước đó; style Words for Kids vẫn dễ thương, dễ dùng. [Kết quả045+046](evaluations/plain-language-and-select-all.md).
+
+**11/10 — Dễ hiểu và chọn tất cả (ADR045):** bỏ đoạn giải thích kỹ thuật ở chân trang, sửa lời cài đặt/tài khoản/ảnh/lỗi cho bố mẹ dễ hiểu. Chọn tất cả lấy cả các trang còn lại theo kết quả tìm kiếm, vẫn giữ lựa chọn trước và phải bấm Lưu. Quy tắc lâu dài đã ghi04/AGENTS; [kiểm và bản thật](evaluations/plain-language-and-select-all.md) cập nhật sau kiểm.
+
 **11/10/2026 — Giao diện phụ huynh và game:** cài đặt AI được thu gọn; không cần nhập key/model để dùng mặc định. Chọn từ chia12 từ/trang và giữ tick khi tìm/chuyển trang; bỏ giới hạn500 từ mỗi bộ. Chơi & học/game dùng hình dễ nhận ra, Cáo, phản hồi đúng/sai có chuyển động và âm báo nhẹ; có tắt tiếng/bản tĩnh, không tự phát âm khi mở màn. Yêu cầu rà toàn bộ UI điện thoại đã ghi vào03/04/ADR042; kiểm tự động và ảnh trong [evidence](evaluations/child-play-and-parent-simplicity.md), không coi đó là bé/phụ huynh thật đã nghiệm thu.
 
 **Cập nhật mới nhất10/10 — sửa screenshot account và UI (ADR040/041):** Gemini có key chung mặc định theo yêu cầu trực tiếp của founder; bố mẹ vẫn đổi key riêng hoặc tắt/restore AI, quota dùng chung không bảo đảm miễn phí vô hạn. Logo Google hiện lúc login và sau login; quay lại có icon. Shared button/card đã refine Theme C trên app. Lỗi không lưu ở ảnh3 do Supabase thiếu bảng; đã apply0001–0006 trên project thật,24bảng. Phiên Google founder đọc được cloud và xem trước13nghĩa/0trùng. Chưa bấm xác nhận upload và chưa gửi ảnh gốc. Kiểm code/browser và deployment tại [evidence](evaluations/ui-and-hosted-cloud-fixes.md); human/physical phone vẫn pending.
@@ -22,9 +26,9 @@ Bốn model có sẵn và ô nhập model ID khác; không tự chuyển model k
 
 **Cập nhật bộ từ/ngày và hình10/10:** app tự tìm hình nguồn mở khi tra từ, dọn credit khỏi thẻ thư viện, bổ sung mẫu câu/ngữ pháp What is it?/It’s… để phụ huynh duyệt. Thêm màn Bộ từ theo ngày: mỗi ảnh/file giữ bài riêng, từ gõ tay gom cùng ngày, tìm tên/ngày/từ, đếm từ mới/ôn lại, sửa tên/ngày và học từng bộ. check121/14PASS; 133/133 browser PASS; deploy đang hoàn tất, [evidence](evaluations/library-media-and-date-sets.md) ghi kết quả cuối.
 
-**Button11/10 (ADR043):** nút lưu/duyệt/thêm dùng hồng primary rõ, nút phụ nhẹ hơn; gõ từ và bổ sung hình/mẫu câu có hình minh họa và mũi tên, giữ cửa phụ huynh. Rà56giao diện mobile/desktop không tràn ngang/lỗi JS;137test và163browser PASS. [Bằng chứng](evaluations/button-hierarchy.md); nghiệm thu thẩm mỹ trên điện thoại thật vẫn mở.
+**Button11/10 (ADR043):** nút lưu/duyệt/thêm dùng hồng primary rõ, nút phụ nhẹ hơn; gõ từ và bổ sung hình/mẫu câu có hình minh họa và mũi tên, mở trực tiếp theo ADR046. Rà56giao diện mobile/desktop không tràn ngang/lỗi JS;137test và163browser PASS. [Bằng chứng](evaluations/button-hierarchy.md); nghiệm thu thẩm mỹ trên điện thoại thật vẫn mở.
 
-**Nhóm học và Home11/10 (ADR044):** thêm nhóm từ/câu như Anh văn Family, Anh văn tiểu học; chọn từng mục hoặc cả bài/cả ngày, tự bỏ trùng, có phân trang và sửa nhóm. Bộ từ theo ngày có hình minh họa/tên dễ đọc thay mã tự động. Home có màu vàng/mint, thẻ hình và cáo chào ngắn. Đang hoàn tất kiểm thử/triển khai; [bằng chứng](evaluations/groups-and-lesson-ui.md) cập nhật kết quả thật.
+**Nhóm học và Home11/10 (ADR044):** thêm nhóm từ/câu như Anh văn Family, Anh văn tiểu học; chọn từng mục hoặc cả bài/cả ngày, tự bỏ trùng, có phân trang và sửa nhóm. Bộ từ theo ngày có hình minh họa/tên dễ đọc thay mã tự động. Home có màu vàng/mint, thẻ hình và cáo chào ngắn. Đã lên bản thật; CI169kiểm browser/SQL thành công; [bằng chứng](evaluations/groups-and-lesson-ui.md) cập nhật kết quả thật.
 
 ## 1. Sản phẩm cần giải quyết điều gì?
 
@@ -32,7 +36,7 @@ Người học đã gặp một từ hoặc cấu trúc câu, nhưng sau vài ng
 
 Bản đầu dành cho **con founder và trẻ 5–8 tuổi**: phụ huynh chụp tờ A4 trường gửi về, duyệt nội dung; trẻ nghe, học và chơi. Người lớn là hướng mở rộng sau. Mặc định tiếng Việt, Beginner và chế độ trẻ em; vẫn có nghĩa Anh–Anh/Anh–Việt. Tuổi và trình độ là hai thuộc tính riêng, không tự suy từ ảnh.
 
-Trải nghiệm mong muốn: trẻ nhận ra hành động từ hình hoạt họa, icon/nút lớn và lời hướng dẫn ngắn; trẻ chưa đọc tốt vẫn nghe/chọn hình. Phụ huynh xử lý chụp/duyệt/cài đặt, không bắt trẻ hiểu cloud, grammar thuật ngữ hay API key. Các chức năng cho người lớn giữ khả năng mở rộng, không chi phối UI bản đầu.
+Trải nghiệm mong muốn: trẻ nhận ra hành động từ hình hoạt họa, icon/nút lớn và lời hướng dẫn ngắn; trẻ chưa đọc tốt vẫn nghe/chọn hình. Người dùng tự thêm/duyệt/cài đặt; gia đình tự phân chia người chuẩn bị và chơi, không bắt người dùng hiểu thuật ngữ kỹ thuật. Các chức năng cho người lớn giữ khả năng mở rộng, không chi phối UI bản đầu.
 
 ## 2. Quyết định về trải nghiệm
 
@@ -48,9 +52,9 @@ Chỉ có **ba mục điều hướng chính**:
 
 Tài khoản và cài đặt nằm ở góc trên. Chụp ảnh là một hành động trong Hôm nay, không cần một tab riêng. Những tính năng ít dùng như sao lưu, gộp thư viện và chọn giọng đọc chỉ xuất hiện khi người dùng cần.
 
-Mỗi màn có một hành động nổi bật. Lúc bé chưa có dữ liệu, đó là **“Nhờ bố mẹ thêm bài”**, mở cổng phụ huynh rồi tới chụp/chọn ảnh; trong khu phụ huynh dùng “Thêm ảnh bài học”. Khi đã có dữ liệu, đó là **“Chơi 5 phút”**, còn thêm ảnh là nút phụ. Không dồn mọi tính năng vào trang đầu.
+Mỗi màn có một hành động nổi bật. Khi chưa có dữ liệu, đó là **“Thêm bài mới”**, mở trực tiếp chụp/chọn ảnh; không có cổng phụ huynh. Khi đã có dữ liệu, đó là **“Chơi 5 phút”**, còn thêm ảnh là nút phụ. Không dồn mọi tính năng vào trang đầu.
 
-Màn chào có nút chính **“Bắt đầu”**, vào local với VI/Beginner/chế độ trẻ em bật. Google và thiết lập nằm trong khu phụ huynh. Chỉ ba khu vực với nhãn trẻ em ở bảng trên; icon rõ và voice cue ngắn khi bấm trợ giúp. Chụp/duyệt/cài key/gộp/xóa do phụ huynh; cổng phụ huynh là một dialog trong S16/flow hiện tại, không thêm màn thứ 17. Cổng này tránh mở nhầm, không thay xác thực server.
+Màn chào có nút chính **“Bắt đầu”**, vào local với VI/Beginner/chế độ trẻ em bật. Google và thiết lập nằm trong Cài đặt. Chỉ ba khu vực với nhãn trẻ em ở bảng trên; icon rõ và voice cue ngắn khi bấm trợ giúp. Người dùng tự chụp/thêm/duyệt/gộp và học; không có cổng hay cảnh báo bố mẹ, không thêm màn thứ 17. Xác thực server và xác nhận thao tác dữ liệu thực vẫn áp dụng.
 
 ## 3. Hành trình phụ huynh thêm một tờ bài học
 
@@ -87,12 +91,10 @@ Mũi tên ghi tên hành động hoặc điều kiện. Hộp chữ nhật là t
 ```mermaid
 flowchart TB
   S01["S01 Chào và bắt đầu"] -->|Bắt đầu trên máy| S03["S03 Hôm nay"]
-  S01 -->|Phụ huynh chọn Google| S02["S02 Đăng nhập"]
+  S01 -->|Đăng nhập Google| S02["S02 Đăng nhập"]
   S02 -->|Không có dữ liệu khách cần gộp| S03
   S02 -->|Có thư viện khách| S15["S15 Đồng bộ và gộp"]
-  S03 -->|Nhờ bố mẹ thêm bài| PG["Cổng phụ huynh, giữ thao tác đang định làm"]
-  PG -->|Qua cổng để thêm bài| S04["S04 Camera hoặc tải ảnh"]
-  PG -->|Hủy| BACK["Trở về đúng trang mở cổng"]
+  S03 -->|Thêm bài mới| S04["S04 Camera hoặc tải ảnh"]
   S04 -->|Đã có ảnh| S05["S05 Xem và chỉnh ảnh"]
   S05 -->|Cho phép gửi và phân tích| S06["S06 Đang phân tích"]
   S06 -->|Có kết quả hợp lệ| S07["S07 Duyệt kết quả"]
@@ -110,10 +112,9 @@ flowchart TB
   S13 -->|Hoàn tất phiên| S14
   S14 -->|Ôn lại từ khó| S11
   S14 -->|Về Hôm nay| S03
-  S03 -->|Phụ huynh và cài đặt| PG
-  S09 -->|Phụ huynh và cài đặt| PG
-  PG -->|Qua cổng để quản lý| S16["S16 Cài đặt và sao lưu"]
-  S11 -->|Phụ huynh và cài đặt| PG
+  S03 -->|Cài đặt| S16["S16 Cài đặt và sao lưu"]
+  S09 -->|Cài đặt| S16
+  S11 -->|Cài đặt| S16
   S16 -->|Đăng nhập Google| S02
   S16 -->|Quản lý đồng bộ| S15
   S15 -->|Xong hoặc giữ riêng| S03
@@ -191,24 +192,21 @@ flowchart TD
 
 **Mục đích:** có một hành động học rõ ngay khi mở. Đi vào sau Bắt đầu/đăng nhập hoặc tab Hôm nay. Trang này quyết định cảm giác thị giác chung của app.
 
-**Bố cục từ trên xuống:** header tên app và nút tài khoản; tiêu đề “Hôm nay”, câu “Cùng ôn lại từ đã học”; vùng ôn vàng sáng, “Cùng ôn 8 từ nhé!”, bé cáo san hô hoạt họa và nút chính **Chơi 5 phút** màu berry; ô “Tìm từ của con...” ; hai bài học với hình hoạt họa cạnh nhau; một từ gần đây với nút Nghe; hàng phụ **Thêm bài cho con** qua cổng phụ huynh; thanh **Hôm nay / Từ của con / Chơi & học** ở dưới.
+**Bố cục từ trên xuống:** header tên app và nút tài khoản; tiêu đề “Hôm nay”, câu “Cùng ôn lại từ đã học”; vùng ôn vàng sáng, “Cùng ôn 8 từ nhé!”, bé cáo san hô hoạt họa và nút chính **Chơi 5 phút** màu berry; ô “Tìm từ của con...” ; hai bài học với hình hoạt họa cạnh nhau; một từ gần đây với nút Nghe; hàng phụ **Thêm bài** mở trực tiếp; thanh **Hôm nay / Từ của con / Chơi & học** ở dưới.
 
 ```mermaid
 flowchart TD
   A["S03 Đọc thư viện trên máy"] --> C{"Thư viện có nội dung?"}
-  C -->|Chưa có| E["Màn rỗng, nút chính Nhờ bố mẹ thêm bài"]
+  C -->|Chưa có| E["Màn rỗng, nút chính Thêm bài mới"]
   C -->|Có| P["Gợi ý ôn hoặc tiếp tục phiên"]
-  E -->|Nhờ phụ huynh thêm bài| M["Cổng phụ huynh, giữ thao tác dự định"]
+  E -->|Thêm bài mới| K["S04 Chụp hoặc chọn ảnh"]
   P -->|Chơi 5 phút| T["S11 Buổi ôn đã chọn mặc định"]
   P -->|Tiếp tục phiên dang dở| R["S12 hoặc S13 tại câu đang học"]
-  P -->|Thêm bài cho con| M
+  P -->|Thêm bài| K
   P -->|Chọn bài vừa học| L["S08 Chi tiết bài"]
   A -->|Tìm hoặc tab Từ của con| W["S09 Thư viện, giữ từ tìm kiếm"]
   A -->|Tab Chơi & học| T
-  A -->|Phụ huynh| M
-  M -->|Qua cổng để thêm bài| K["S04 Chụp hoặc chọn ảnh"]
-  M -->|Qua cổng để quản lý| S["S16 Cài đặt"]
-  M -->|Hủy hoặc chưa qua cổng| A
+  A -->|Cài đặt| S["S16 Cài đặt"]
   P -->|Nghe từ gần đây| V["Phát âm tại chỗ, vẫn ở S03"]
 ```
 
@@ -220,7 +218,7 @@ flowchart TD
 
 **Theme C tạm chốt — bé cáo san hô học từ:** hình 2D, mảng lớn, nét rõ, mascot có khuôn mặt thân thiện; đồ vật/trái cây giữ hình dạng tự nhiên và không có mặt; nền hồng rất nhạt `#FFF8F8`, chữ `#38213D`, nút berry `#B52F60`, vàng `#FFE49A`, mint `#DEF3E6`, lilac `#ECE3FB`; mascot san hô `#FF925C`. Không dùng cú xanh/nhân vật/đường học/streak của Duolingo. Font tròn có đủ dấu Việt, body trẻ khoảng 18 px; vùng chạm ít nhất 48 px, primary khoảng 56 px. Hình minh họa học là cartoon, ảnh giấy nguồn của phụ huynh vẫn giữ nguyên để kiểm chữ.
 
-**Đối chiếu ảnh với graph:** Chơi 5 phút→S11 (gợi G02 nghe/nhìn từ chọn hình khi đủ asset, nếu thiếu thì thẻ phù hợp); ô tìm/apple→S09; dòng bài→S08; Nghe ở tại chỗ; Phụ huynh→cổng rồi S16; Thêm bài cho con→cổng rồi S04. Không yêu cầu trẻ thêm API key hoặc đăng nhập Google.
+**Đối chiếu ảnh với graph:** Chơi 5 phút→S11 (gợi G02 nghe/nhìn từ chọn hình khi đủ asset, nếu thiếu thì thẻ phù hợp); ô tìm/apple→S09; dòng bài→S08; Nghe ở tại chỗ; Cài đặt→S16; Thêm bài→S04, mở trực tiếp theo ADR046. Không yêu cầu trẻ thêm API key hoặc đăng nhập Google.
 
 **Ảnh hiện tại — Words for Kids, Theme C v2 đã sửa minh họa:**
 
@@ -285,7 +283,7 @@ flowchart TD
 
 **Trạng thái:** chưa chỉnh, sau chỉnh, ảnh mờ, HEIC cần chuyển đổi/hướng dẫn, ảnh quá lớn, offline, chưa cho phép gửi, bộ nhớ đầy. Giới hạn bản đầu: một ảnh/lượt, tối đa 10 MB và 20 megapixel trước xử lý. Tên/ngày/tags không bắt buộc; các giá trị đã nhập không mất khi lỗi.
 
-**Đã triển khai T04 local:** rotate90°, reset, crop bốn mép theo % với keyboard, mở ảnh để zoom; title/date/tags tùy chọn, consent local không gửi ảnh. Autosave500ms/manual/back, nháp + prepared pixels atomic/versioned scoped, quota/conflict giữ phần đang làm, reload giữ ảnh và fields. Chỉ giữ source JPEG đã normalize/bỏ EXIF≤2200 + prepared đúng preview, không giữ raw/GPS/file name. Today có `Tiếp tục nháp ảnh` qua parent gate. `Phân tích ảnh bằng AI` hiện mở màn BYOK theo ADR029; thiếu key có link cài đặt, lỗi/hủy giữnháp; không tự gửi sau restore. Nhập tay/autocomplete thật đã nối.
+**Đã triển khai T04 local:** rotate90°, reset, crop bốn mép theo % với keyboard, mở ảnh để zoom; title/date/tags tùy chọn, consent local không gửi ảnh. Autosave500ms/manual/back, nháp + prepared pixels atomic/versioned scoped, quota/conflict giữ phần đang làm, reload giữ ảnh và fields. Chỉ giữ source JPEG đã normalize/bỏ EXIF≤2200 + prepared đúng preview, không giữ raw/GPS/file name. Today có `Tiếp tục nháp ảnh` mở trực tiếp. `Phân tích ảnh bằng AI` hiện mở màn BYOK theo ADR029; thiếu key có link cài đặt, lỗi/hủy giữnháp; không tự gửi sau restore. Nhập tay/autocomplete thật đã nối.
 
 **Ảnh S05:** A4 đã cắt gọn, preview sắc nét, trạng thái đã cho phép gửi ảnh, nút Phân tích ảnh sẵn sàng. Nhập tay là editor trong nhóm S09, không thêm một màn thứ 17.
 
@@ -384,11 +382,9 @@ flowchart TD
   L -->|Chọn từ| D["Chi tiết, chọn nghĩa khi có nhiều nghĩa"]
   D -->|Nghe hoặc mở ví dụ, note| D
   D -->|Ôn từ này| P["S11 Bộ ôn nghĩa đang chọn"]
-  D -->|Sửa, note hoặc chọn hình| PG["Cổng phụ huynh, giữ thao tác dự định"]
-  PG -->|Hủy| D
-  PG -->|Qua cổng để sửa hoặc note| S["Phụ huynh lưu bản sửa đã duyệt"]
+  D -->|Sửa hoặc ghi chú| S["Kiểm nội dung và lưu bản sửa"]
   S -->|Thành công hoặc lỗi giữ nhập| D
-  PG -->|Qua cổng để chọn hình| IM["Catalog hoặc shortlist nguồn mở đúng nghĩa"]
+  D -->|Chọn hình| IM["Catalog hoặc shortlist nguồn mở đúng nghĩa"]
   IM -->|Phụ huynh chọn ảnh hợp lệ| DL["Import được phép, lưu credit, trạng thái đang tải"]
   DL -->|Đã tải và kiểm xong| READY["Ảnh approved và ready, dùng được trong game"]
   READY --> D
@@ -597,7 +593,7 @@ flowchart TD
 
 ### 4.16. S16 — Cài đặt, tài khoản và sao lưu
 
-**Mục đích:** phụ huynh chỉnh cách học và quản lý nội dung/dữ liệu. Đi vào qua cổng Phụ huynh giữ thao tác dự định; không là tab thứ tư hoặc màn thứ 17. Hủy về trang mở cổng. Gate tránh bé mở nhầm, server xác thực quyền cloud; BYOK trực tiếp dùng key phụ huynh tại trình duyệt theo ADR029.
+**Mục đích:** người dùng chỉnh cách học và quản lý nội dung/dữ liệu. Nút Cài đặt ở header mở trực tiếp, không là tab thứ tư hoặc màn thứ 17, không có cảnh báo phân vai theo ADR046. Quay lại giữ công việc. Server vẫn xác thực quyền tài khoản; Gemini trực tiếp theo ADR030/040.
 
 **Bố cục:** Quay lại; tài khoản và nơi lưu; nhóm Học tập (VI/EN, trình độ, chế độ đơn giản); Âm thanh/chuyển động; Dữ liệu (đồng bộ, xuất/nhập sao lưu); AI và hình minh họa (provider đủ điều kiện, quota/key được che, ảnh đang chờ chọn); mục xóa nằm cuối, có tên scope rõ. Đổi thiết lập nhẹ có hiệu lực và được lưu tại chỗ, không thêm một nút Lưu lớn cho toàn trang.
 
@@ -605,11 +601,9 @@ flowchart TD
 flowchart TD
   A["S16 Cài đặt, đúng thư viện"] -->|Đổi thiết lập học hoặc nghe| P["Áp dụng và lưu preference tại chỗ"]
   P -->|Thành công hoặc lỗi giữ giá trị trước| A
-  A -->|AI hoặc quản lý key| K{"Phụ huynh có OpenAI API key?"}
-  K -->|Có| KE["Thêm đổi hoặc xóa key: phiên trang/localStorage opt-in"]
-  KE -->|Thành công hoặc lỗi đã che secret| A
-  K -->|Chưa| KN["Nêu chưa cấu hình hoặc không phù hợp, không tự bật paid"]
-  KN --> A
+  A -->|AI| K["Sẵn sàng hoặc tắt, không tự gửi ảnh"]
+  K -->|Tùy chọn nâng cao nếu cần| KE["Cấu hình Gemini riêng hoặc khôi phục mặc định"]
+  KE -->|Thành công hoặc lỗi dễ hiểu| A
   A -->|Ảnh chờ chọn| MP["S09 Shortlist, chọn đúng nghĩa và license"]
   MP --> A
   A -->|Đăng nhập Google| G["S02"]

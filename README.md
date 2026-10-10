@@ -1,6 +1,10 @@
 # Words for Kids
 
-Web/PWA học tiếng Anh cho trẻ 5–8 tuổi, phụ huynh chuẩn bị và duyệt bài. Có nhập tay/autocomplete/tra từ, chụp ảnh/AI với key riêng, nghĩa song ngữ, IPA/gợi ý đọc, ví dụ, ghi chú, bộ thẻ/SRS, bốn game, backup và offline. Google/cloud/tìm hình có license là lựa chọn cấu hình riêng; AI đọc ảnh gọi trực tiếp Google Gemini bằng key phụ huynh; key không qua app server.
+Người dùng tự thêm, sửa bài và học; nút **Cài đặt** mở trực tiếp. Không có hộp thoại vai trò bố mẹ. Gia đình tự quyết định ai chuẩn bị bài và ai chơi. Chọn tất cả trong nhóm/bộ thẻ lấy toàn bộ kết quả tìm kiếm ở mọi trang; vẫn cần bấm Lưu. Xem [quy tắc UI và kiểm thử](docs/evaluations/plain-language-and-select-all.md).
+
+Web/PWA học tiếng Anh cho trẻ 5–8 tuổi, phụ huynh chuẩn bị và duyệt bài. Có nhập tay/autocomplete/tra từ, chụp ảnh/AI với key riêng, nghĩa song ngữ, IPA/gợi ý đọc, ví dụ, ghi chú, nhóm từ/câu theo chủ đề, bộ thẻ/SRS, bốn game, backup và offline. Google/cloud/tìm hình có license là lựa chọn cấu hình riêng; AI đọc ảnh gọi trực tiếp Google Gemini bằng key phụ huynh; key không qua app server.
+
+Trong app, mở **Thư viện → Nhóm học → Tạo nhóm** để gom từ và câu đã duyệt. Chọn từng mục, một bài hoặc cả ngày; khi lưu, app tự bỏ mục trùng và báo số lượng. Danh sách có tìm kiếm và phân trang 12 mục, giữ lựa chọn giữa các trang. Nhóm có từ có thể mở vào học trực tiếp. [Giao diện và kiểm chứng](docs/evaluations/groups-and-lesson-ui.md).
 
 ## Chạy nhanh
 

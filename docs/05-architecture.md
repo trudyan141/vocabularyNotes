@@ -1,5 +1,8 @@
 # Kiến trúc đề xuất
 
+**Hiện hành ADR046 (11/10/2026):** Cài đặt và mọi luồng thêm/sửa/học mở trực tiếp; người dùng tự chuẩn bị và chơi, gia đình tự phân vai. Không có parent gate. Review/approval là kiểm nội dung đúng phiên bản; auth/ownership/scope/CAS vẫn bảo vệ dữ liệu thực. Mô tả phân vai bố mẹ/bé cũ bên dưới được thay bởi quy tắc này; xem03/04.
+
+
 ## Current override — ADR-040/041
 
 Founder explicitly authorizes a public shared Gemini browser default. Private parent override and persistent AI-off/restore remain; private keys stay out of server/IDB/cloud/backup. Hosted Supabase initial migrations0001–0006 applied atomically; future CLI use must reconcile manual migration history. [Evidence](evaluations/ui-and-hosted-cloud-fixes.md).

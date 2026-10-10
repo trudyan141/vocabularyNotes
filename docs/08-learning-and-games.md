@@ -1,5 +1,8 @@
 # Ôn tập, flashcard và minigame
 
+**Hiện hành ADR046 (11/10/2026):** Cài đặt và mọi luồng thêm/sửa/học mở trực tiếp; người dùng tự chuẩn bị và chơi, gia đình tự phân vai. Không có parent gate. Review/approval là kiểm nội dung đúng phiên bản; auth/ownership/scope/CAS vẫn bảo vệ dữ liệu thực. Mô tả phân vai bố mẹ/bé cũ bên dưới được thay bởi quy tắc này; xem03/04.
+
+
 ## Bổ sung hiện hành — 10/10/2026
 
 S10 thư viện có Từ/Câu/Mẫu câu/Ngữ pháp trong ba nav chính, search/lesson filter/page50 và links về đúng sense. Sentences lấy primary/second examples approved đúng content version; patterns/grammar lấy supplementary approved khớp entry:sense revision. Có IPA verified/hints câu khi dữ liệu tồn tại; không tự ghép IPA từng từ thành phiên âm câu. Catalog21 đủ hai ví dụ, parent edit không đảo thứ tự. Form fallback offline chỉ thêm/sửa trường cơ bản, headword cũ read-only; extra/grammar/media đầy đủ chỉnh online và duyệt lại. [Milestone](evaluations/completion-local.md).

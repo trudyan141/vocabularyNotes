@@ -49,12 +49,12 @@ export function AccountTools(){
  const accountActive=repository?.scope.kind==='account'&&repository.scope.ownerId===status?.user?.id;
  return <div className="reading-page page-flow account-page">
   <Back href="/settings" label={t('Quay lại tùy chọn','Back to settings')}/>
-  <h1>{t('Tài khoản phụ huynh','Parent account')}</h1>
+  <h1>{t('Tài khoản Google','Google account')}</h1>
   <p>{t('Dùng tài khoản Google để mở cùng bài học trên nhiều thiết bị. Bạn vẫn học được khi không đăng nhập.','Use your Google account to open the same lessons on multiple devices. You can also study without signing in.')}</p>
   <OperationStatus busy={checking} title={t('Đang kiểm đăng nhập','Checking sign-in')}/>
   {status?.user?<section className="account-identity" aria-label={t('Tài khoản đã đăng nhập','Signed-in account')}>
    <ProfileAvatar key={status.user.id} user={status.user}/>
-   <div><h2>{status.user.name??t('Phụ huynh','Parent')}</h2><p className="account-email">{status.user.email??t('Tài khoản Google','Google account')}</p><p className="account-connected"><GoogleMark/>{t('Đã đăng nhập bằng Google','Signed in with Google')}</p></div>
+   <div><h2>{status.user.name??t('Người dùng','User')}</h2><p className="account-email">{status.user.email??t('Tài khoản Google','Google account')}</p><p className="account-connected"><GoogleMark/>{t('Đã đăng nhập bằng Google','Signed in with Google')}</p></div>
    <Button variant="outline" disabled={busy} onClick={()=>void logout()}><LogOut data-icon="inline-start" aria-hidden="true"/>{t('Đăng xuất / đổi tài khoản','Sign out / change account')}</Button>
   </section>:!checking&&status&&<section className="page-flow account-signin"><h2>{t('Chưa đăng nhập','Not signed in')}</h2><p>{status&&!status.configured?t('Đăng nhập chưa được bật trên bản website này. Bài trên máy vẫn dùng được.','Sign-in is not enabled for this website. Local lessons still work.'):t('Bài hiện tại ở trên máy này. Đăng nhập Google để lưu thêm một bản trên tài khoản.','Your current lessons are on this device. Sign in with Google to save an account copy.')}</p><Button variant="google" disabled={busy||!status?.configured} onClick={()=>void login()}><GoogleMark/>{t('Đăng nhập bằng Google','Sign in with Google')}</Button></section>}
   <section className="page-flow"><h2>{t('Bài của con đang ở đâu?','Where are your child’s lessons?')}</h2>

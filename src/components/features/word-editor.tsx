@@ -104,8 +104,8 @@ function EditorForm({ entry,extra }: { entry: LibraryWord;extra:import("@/data/l
       </h1>
       <p>
         {t(
-          "Chỉnh sửa được lưu trên máy. Nếu đang dùng thư viện cloud, thay đổi được gửi khi có mạng. Đổi chữ tiếng Anh làm ví dụ và phát âm cần kiểm lại trước khi bé học.",
-          "Edits are saved locally. In a cloud library, changes are sent when online. Changing the English word requires reviewing its examples and pronunciation before learning.",
+          "Sửa nội dung rồi bấm lưu. Khi đổi từ tiếng Anh, kiểm lại ví dụ và cách đọc trước khi con học.",
+          "Edit the content and save. When changing the English word, review its examples and pronunciation before your child learns.",
         )}
       </p>
       {proposed && (

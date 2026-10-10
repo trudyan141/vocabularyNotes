@@ -133,8 +133,8 @@ test("upload, rotate, crop, optional fields and consent survive reload without a
     page.getByRole("link", { name: "Bài của bé", exact: true }),
   ).toBeVisible();
   await page.goto("/today");
-  await page.getByRole("button", { name: "Tiếp tục nháp ảnh" }).click();
-  await page.getByRole("button", { name: "Bố mẹ tiếp tục" }).click();
+  await page.getByRole("link", { name: "Tiếp tục nháp ảnh" }).click();
+
   await expect(page.getByLabel("Tên bài (tùy chọn)")).toHaveValue("Bài của bé");
   expect(remote).toEqual([]);
   expect(
@@ -191,7 +191,7 @@ test("camera denied and unsupported retain file upload; permission is asked only
     ),
   ).toBe(0);
   await page.getByRole("button", { name: "Mở camera" }).click();
-  await expect(page.getByText(/Camera bị từ chối/)).toBeVisible();
+  await expect(page.getByText(/Chưa được phép dùng camera/)).toBeVisible();
   await upload(page, await fixture(page));
   await expect(page).toHaveURL(/\/edit$/);
   await page.goto("/capture");
@@ -203,7 +203,7 @@ test("camera denied and unsupported retain file upload; permission is asked only
   );
   await page.getByRole("button", { name: "Mở camera" }).click();
   await expect(
-    page.getByText(/Trình duyệt này chưa dùng được camera/),
+    page.getByText(/Chưa mở được camera/),
   ).toBeVisible();
   await expect(
     page.getByLabel("Chọn ảnh từ máy", { exact: true }),

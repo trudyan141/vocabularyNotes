@@ -13,7 +13,7 @@ import {lessonTitle,learningDate} from "@/lib/learning/lesson-presentation";
 import type {Lesson} from "@/data/local/types";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useApp, useHydrated } from "@/components/app/provider";
-import { ParentGate } from "@/components/app/parent-gate";
+import { ActionLink } from "@/components/app/action-link";
 import { Artwork, EmptyState } from "@/components/app/shared";
 import { useLibrarySearch } from "@/data/local/hooks";
 
@@ -49,8 +49,8 @@ export function Today() {
                   "Hear a word, see a picture. Learn with our fox!",
                 )
               : t(
-                  "Nhờ bố mẹ thêm bài để cùng học nhé.",
-                  "Ask a parent to add a lesson so you can learn together.",
+                  "Thêm bài mới để cùng học nhé.",
+                  "Add a lesson so you can learn together.",
                 )}
           </p>
           {hasLessons ? (
@@ -61,12 +61,12 @@ export function Today() {
               </Link>
             </Button>
           ) : (
-            <ParentGate href="/capture">
+            <ActionLink href="/capture">
               <Button size="lg" disabled={databaseStatus!=="ready"}>
                 <Camera data-icon="inline-start" />
-                {t("Nhờ bố mẹ thêm bài", "Ask a parent to add a lesson")}
+                {t("Thêm bài mới", "Add a lesson")}
               </Button>
-            </ParentGate>
+            </ActionLink>
           )}
         </div>
         <Image
@@ -82,25 +82,25 @@ export function Today() {
         {dueCount>0&&<><p>{dueCount} {t("từ đến hạn ôn hôm nay.","words due for review today.")}</p><Button asChild size="lg"><Link prefetch={false} href="/practice?review=due"><Play aria-hidden="true"/>{t(`Ôn ${dueCount} từ hôm nay`,`Review ${dueCount} words today`)}</Link></Button>{dueCount>10&&<small>{t("Mỗi lượt tối đa 10 từ; quay lại đây để ôn các từ còn lại.","Up to 10 words per session; return here to review the rest.")}</small>}</>}
         {due&&due.scope===repository?.scope.id&&due.error&&<p role="alert">{t("Chưa đọc được lịch ôn. Mở Chơi & học hoặc tải lại để thử lại.","Could not read review dates. Open Play & learn or reload to retry.")}</p>}
       </div>
-      <ParentGate href="/add"><Button variant="feature" aria-label={t("Gõ từ mới cho con", "Type a new word")}><FeatureAction image="/illustrations/pencil.svg" title={t("Gõ từ mới cho con", "Type a new word")} description={t("Gõ một từ, chọn nghĩa rồi lưu bài","Type a word, choose its meaning and save")}/></Button></ParentGate>
+      <ActionLink href="/add"><Button variant="feature" aria-label={t("Gõ từ mới", "Type a new word")}><FeatureAction image="/illustrations/pencil.svg" title={t("Gõ từ mới", "Type a new word")} description={t("Gõ một từ, chọn nghĩa rồi lưu bài","Type a word, choose its meaning and save")}/></Button></ActionLink>
       {draft?.scopeId === repository?.scope.id && draft?.value && (
         <section className="draft-resume">
-          <p>{t("Bố mẹ còn một bài đang chuẩn bị.", "A parent has a lesson in progress.")}</p>
-          <ParentGate href={`/capture/${draft.value.id}/edit`}>
+          <p>{t("Bạn còn một bài đang chuẩn bị.", "You have an unfinished lesson.")}</p>
+          <ActionLink href={`/capture/${draft.value.id}/edit`}>
             <Button variant="secondary"><FileImage data-icon="inline-start" aria-hidden="true"/>{t("Tiếp tục nháp ảnh", "Resume image draft")}<ArrowRight data-icon="inline-end" aria-hidden="true"/></Button>
-          </ParentGate>
+          </ActionLink>
         </section>
       )}
       {hasLessons && (
         <section className="lesson-section">
           <div className="section-heading">
             <h2>{t("Bài gần đây", "Recent lessons")}</h2>
-            <ParentGate href="/capture">
+            <ActionLink href="/capture">
               <Button variant="ghost">
                 <Camera data-icon="inline-start" />
                 {t("Thêm bài", "Add lesson")}
               </Button>
-            </ParentGate>
+            </ActionLink>
           </div>
           <Button asChild variant="link"><Link href="/library/lessons">{t("Tất cả bộ từ theo ngày","All word sets by date")}</Link></Button>
           {savedTitle&&<p role="status">{savedTitle}</p>}
@@ -201,10 +201,10 @@ export function Welcome() {
   return <section className="welcome welcome-world">
     <div className="welcome-copy">
       <h1>{t("Cùng con nhớ những từ đã học", "Remember the words you learn")}</h1>
-      <p>{t("Bố mẹ chuẩn bị bài. Con nghe, xem và ôn lại mỗi ngày.", "Parents prepare the lesson. Children listen, explore and review.")}</p>
+      <p>{t("Thêm bài, nghe từ và chơi để nhớ mỗi ngày.", "Add lessons, hear words and play to remember every day.")}</p>
       <Button asChild size="lg"><Link prefetch={false} href="/today">{t("Bắt đầu", "Get started")}<ArrowRight data-icon="inline-end"/></Link></Button>
       <small>{demo?t("Bắt đầu với bài mẫu để thử giao diện.","Start with sample lessons to explore the interface."):t("Bắt đầu không cần tài khoản.","Start without an account.")}</small>
-      <ParentGate href="/settings"><Button variant="link">{t("Tùy chọn của phụ huynh", "Parent options")}</Button></ParentGate>
+      <ActionLink href="/settings"><Button variant="link">{t("Cài đặt", "Settings")}</Button></ActionLink>
     </div>
     <div className="welcome-playground">
       <span className="welcome-greeting">{t("Chào con! Cùng học nhé!", "Hello! Let’s learn together!")}</span>

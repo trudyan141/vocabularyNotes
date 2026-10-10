@@ -1,8 +1,12 @@
 # Bắt đầu / khôi phục / chuyển AI
 
+Latest11/10 ADR046: **Cài đặt**, direct add/edit/study with no parent warning gate. Family self-manages parent/child usage. Neutral copy includes offline; content review, actual consent/deletion/auth/ownership still apply. Supersedes older parent-only UI instructions. Source03/04/02/AGENTS and [evidence](../evaluations/plain-language-and-select-all.md).
+
+Latest11/10 ADR045: plain-language default UI/no technical storage or provider diagnostics, Select all across filtered pages for groups/decks. Source04/AGENTS and [evidence](../evaluations/plain-language-and-select-all.md). ADR044 remote CI169/browser+SQL SUCCESS, hosted READY.
+
 Latest11/10 ADR044: readable dated sets/UUID display fallback, topic groups with individual word/sentence or lesson/day addition and deterministic deduplication, illustrated warm welcome/finite fox greeting. [Evidence](../evaluations/groups-and-lesson-ui.md), current STATE govern checkpoint. No automatic founder rename, new nav or SQL migration.
 
-Latest11/10 steering ADR043: stronger shared berry primary/secondary/outline buttons, recognizable gated feature entries and icon/text segments. [Evidence](../evaluations/button-hierarchy.md). ADR042: simplify parent config,12-word paging without500-member deck cap, illustrated child games/fox/finite motion and original muted/gesture-only sound. Full UI mobile/desktop audit and human/phone acceptance separated in03/04 and [evidence](../evaluations/child-play-and-parent-simplicity.md).
+Latest11/10 steering ADR043: stronger shared berry primary/secondary/outline buttons, recognizable feature entries (direct under ADR046) and icon/text segments. [Evidence](../evaluations/button-hierarchy.md). ADR042: simplify parent config,12-word paging without500-member deck cap, illustrated child games/fox/finite motion and original muted/gesture-only sound. Full UI mobile/desktop audit and human/phone acceptance separated in03/04 and [evidence](../evaluations/child-play-and-parent-simplicity.md).
 
 Steering ADR040/041 hiện hành: Gemini shared public default theo founder, private override/off/restore; logo Google/back icons và shared Theme C button/card refinement. Hosted Supabase đã apply0001–0006,24 bảng; authenticated13-word preview PASS, chưa xác nhận chuyển bài thật. Xem [evidence](../evaluations/ui-and-hosted-cloud-fixes.md) và STATE.
 
@@ -52,7 +56,7 @@ Các số 00–14 là file `docs/NN-*.md`, tra tên trong `docs/README.md`. T16/
 Tiếp tục dự án Words for Kids trong repo này.
 Đọc AGENTS.md và docs/ai/START-HERE.md, STATE.md, TASKS.md.
 Thực hiện task ready tiếp theo, dùng skill phù hợp trong .agents/skills/.
-Giữ tên Words for Kids, trẻ 5–8/parent-first flow, web/PWA và R01–R21/R24–R25; adult expansion ở sau. Theme C tạm chốt, không hỏi lại approval cũ.
+Giữ tên Words for Kids, giao diện thân thiện trẻ 5–8, tự thêm/học trực tiếp và Cài đặt theo ADR046, web/PWA và R01–R21/R24–R25; adult expansion ở sau. Theme C tạm chốt, không hỏi lại approval cũ.
 Hoàn tất cả behavior, lỗi/fallback và acceptance của task; không gọi mock là tính năng thật.
 Cập nhật TASKS/STATE/CHANGELOG, ghi lệnh kiểm tra và một next action rõ ràng.
 ```

@@ -2,8 +2,8 @@ import { expect, test } from "@playwright/test";
 import { schemaV1 } from "../../src/data/local/database";
 async function editor(page: import("@playwright/test").Page) {
   await page.goto("/library/words/apple");
-  await page.getByRole("button", { name: "Sửa", exact: true }).click();
-  await page.getByRole("button", { name: "Bố mẹ tiếp tục" }).click();
+  await page.getByRole("link", { name: "Sửa", exact: true }).click();
+
   await expect(
     page.getByLabel("Nghĩa tiếng Việt", { exact: true }),
   ).toHaveValue("quả táo");

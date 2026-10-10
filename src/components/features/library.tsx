@@ -5,7 +5,8 @@ import {useLiveQuery} from "dexie-react-hooks";
 import { useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ArrowRight, Filter } from "lucide-react";
+import { ArrowRight, Filter, Plus, CalendarDays, BookOpen, MessageCircle, Layers, Shapes } from "lucide-react";
+import { FeatureAction } from "@/components/app/feature-action";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
@@ -49,7 +50,8 @@ export function Library() {
     <div className="page-flow">
       <div className="section-heading library-header">
         <h1>{t("Từ của con", "My words")}</h1>
-        <ParentGate href="/add"><Button variant="outline">{t("Thêm từ", "Add word")}</Button></ParentGate>
+        <div className="library-header-actions">
+        <ParentGate href="/add"><Button><Plus data-icon="inline-start" aria-hidden="true"/>{t("Thêm từ", "Add word")}</Button></ParentGate>
         <Sheet>
           <SheetTrigger asChild>
             <Button variant="outline" aria-label={t("Lọc từ", "Filter words")}>
@@ -86,6 +88,7 @@ export function Library() {
             </div>
           </SheetContent>
         </Sheet>
+        </div>
       </div>
       {lesson && (
         <div className="row-wrap">
@@ -101,8 +104,9 @@ export function Library() {
           </Button>
         </div>
       )}
-      <div className="row-wrap"><Button asChild variant="outline"><Link href="/library/lessons">{t("Bộ từ theo ngày","Word sets by date")}</Link></Button><ParentGate href={`/library/prepare${lesson?`?lesson=${encodeURIComponent(lesson)}`:""}`}><Button variant="outline">{t("Bổ sung hình và mẫu câu","Prepare pictures and patterns")}</Button></ParentGate>{lesson&&<Button asChild><Link href={`/practice?lesson=${encodeURIComponent(lesson)}`}>{t("Học bộ này","Learn this set")}</Link></Button>}</div>
-      <div className="content-modes" aria-label={t("Loại nội dung","Content type")}>{([["words","Từ","Words"],["sentences","Câu","Sentences"],["patterns","Mẫu câu","Patterns"],["grammar","Ngữ pháp","Grammar"]] as const).map(([value,vi,en])=><Button key={value} variant={mode===value?"secondary":"outline"} aria-pressed={mode===value} onClick={()=>{setMode(value);setOffset(0);}}>{t(vi,en)}</Button>)}</div>
+      <div className="row-wrap"><Button asChild variant="secondary"><Link href="/library/lessons"><CalendarDays data-icon="inline-start" aria-hidden="true"/>{t("Bộ từ theo ngày","Word sets by date")}</Link></Button>{lesson&&<Button asChild><Link href={`/practice?lesson=${encodeURIComponent(lesson)}`}>{t("Học bộ này","Learn this set")}<ArrowRight data-icon="inline-end" aria-hidden="true"/></Link></Button>}</div>
+      <ParentGate href={`/library/prepare${lesson?`?lesson=${encodeURIComponent(lesson)}`:""}`}><Button variant="feature" aria-label={t("Bổ sung hình và mẫu câu","Prepare pictures and patterns")}><FeatureAction image="/illustrations/book.svg" title={t("Bổ sung hình và mẫu câu","Prepare pictures and patterns")} description={t("Thêm hình, thêm câu để con học vui hơn","Add pictures and examples for learning")}/></Button></ParentGate>
+      <div className="content-modes" aria-label={t("Loại nội dung","Content type")}>{([["words","Từ","Words",BookOpen],["sentences","Câu","Sentences",MessageCircle],["patterns","Mẫu câu","Patterns",Layers],["grammar","Ngữ pháp","Grammar",Shapes]] as const).map(([value,vi,en,Icon])=><Button key={value} variant="segment" aria-pressed={mode===value} onClick={()=>{setMode(value);setOffset(0);}}><Icon aria-hidden="true"/>{t(vi,en)}</Button>)}</div>
       <FieldGroup>
         <Field>
           <FieldLabel htmlFor="library-search">

@@ -1,4 +1,5 @@
 "use client";
+import {Check, BookOpen} from "lucide-react";
 import {OperationStatus} from "@/components/ui/operation-status";
 import { useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -167,6 +168,6 @@ function WordForm({initial,capture,initialVersion}:{initial:Form;capture:string|
     <p><small>{t("Cách đọc chữ Việt chỉ gần đúng, không thay giọng tiếng Anh. IPA nhập tay cần đối chiếu nguồn; duyệt nội dung không tự xác minh IPA.","Vietnamese hints are approximate. Check manually entered IPA against a source; approval alone does not verify it.")}</small></p>
     <Field orientation="horizontal"><Checkbox id="parent-approved" disabled={busy||looking||findingArt} checked={approved} onCheckedChange={v=>setApproved(v===true)}/><FieldLabel htmlFor="parent-approved">{t("Tôi đã kiểm tra nội dung và đồng ý cho con học","I reviewed this content and approve it for learning")}</FieldLabel></Field>
     {error&&<FieldError role="alert">{error}</FieldError>}<p role="status">{status}</p>
-    <Button type="submit" size="lg" disabled={busy||looking||findingArt}>{busy?t("Đang lưu…","Saving…"):t("Duyệt và lưu từ","Approve and save word")}</Button>
-    <Button asChild variant="outline"><Link prefetch={false} href="/library">{t("Xem thư viện","View library")}</Link></Button></form></div>;
+    <Button type="submit" size="lg" disabled={busy||looking||findingArt}><Check data-icon="inline-start" aria-hidden="true"/>{busy?t("Đang lưu…","Saving…"):t("Duyệt và lưu từ","Approve and save word")}</Button>
+    <Button asChild variant="outline"><Link prefetch={false} href="/library"><BookOpen data-icon="inline-start" aria-hidden="true"/>{t("Xem thư viện","View library")}</Link></Button></form></div>;
 }

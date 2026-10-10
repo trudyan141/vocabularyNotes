@@ -1,7 +1,8 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { Camera, ArrowRight, Play } from "lucide-react";
+import { Camera, ArrowRight, Play, FileImage } from "lucide-react";
+import { FeatureAction } from "@/components/app/feature-action";
 import { Button } from "@/components/ui/button";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -80,12 +81,12 @@ export function Today() {
         {dueCount>0&&<><p>{dueCount} {t("từ đến hạn ôn hôm nay.","words due for review today.")}</p><Button asChild size="lg"><Link prefetch={false} href="/practice?review=due"><Play aria-hidden="true"/>{t(`Ôn ${dueCount} từ hôm nay`,`Review ${dueCount} words today`)}</Link></Button>{dueCount>10&&<small>{t("Mỗi lượt tối đa 10 từ; quay lại đây để ôn các từ còn lại.","Up to 10 words per session; return here to review the rest.")}</small>}</>}
         {due&&due.scope===repository?.scope.id&&due.error&&<p role="alert">{t("Chưa đọc được lịch ôn. Mở Chơi & học hoặc tải lại để thử lại.","Could not read review dates. Open Play & learn or reload to retry.")}</p>}
       </div>
-      <ParentGate href="/add"><Button variant="outline">{t("Gõ từ mới cho con", "Type a new word")}</Button></ParentGate>
+      <ParentGate href="/add"><Button variant="feature" aria-label={t("Gõ từ mới cho con", "Type a new word")}><FeatureAction image="/illustrations/pencil.svg" title={t("Gõ từ mới cho con", "Type a new word")} description={t("Gõ một từ, chọn nghĩa rồi lưu bài","Type a word, choose its meaning and save")}/></Button></ParentGate>
       {draft?.scopeId === repository?.scope.id && draft?.value && (
-        <section className="section-heading">
+        <section className="draft-resume">
           <p>{t("Bố mẹ còn một bài đang chuẩn bị.", "A parent has a lesson in progress.")}</p>
           <ParentGate href={`/capture/${draft.value.id}/edit`}>
-            <Button variant="outline">{t("Tiếp tục nháp ảnh", "Resume image draft")}</Button>
+            <Button variant="secondary"><FileImage data-icon="inline-start" aria-hidden="true"/>{t("Tiếp tục nháp ảnh", "Resume image draft")}<ArrowRight data-icon="inline-end" aria-hidden="true"/></Button>
           </ParentGate>
         </section>
       )}

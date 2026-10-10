@@ -9,6 +9,12 @@ Chơi & học có mascot cáo riêng và minh họa catalog cho từng mode. Gam
 Founder yêu cầu kiểm toàn bộ UI mobile để thật đẹp/dễ thương/dễ dùng: mọi lượt UI phải kiểm đủ route/state liên quan và rà toàn bộ16screen-family ở360/1280, empty/loading/error/disabled/focus/reduced-motion/sound-off; ghi screenshots và lỗi đã xử lý. Giữ Theme C, 3nav, child5–8/parent review/license truth. Automated pass không thay physical-phone hay quan sát bé/bố mẹ thật. [Evidence](evaluations/child-play-and-parent-simplicity.md).
 
 
+## Action hierarchy refinement — ADR-043, 11/10/2026
+
+Founder asks for stronger, cuter buttons across the project. Shared Button uses solid berry `#B52F60` for save/submit/approve/continue, deeper berry hover, rounded16px corners and soft offset depth with a restrained top highlight. Lavender secondary and berry-text outlined actions retain a quieter role; cancel/back/link/ghost stay light, deletion confirmation uses destructive. Google preserves its brand variant. Press feedback,48px targets, labelled icons, loading text, disabled and visible keyboard focus are required; reduced-motion removes movement. Filled buttons remain flat-colour, no decorative glow or automatic button sound.
+
+Library Add word is berry plus Plus; Filter remains secondary in hierarchy. Content modes are one grouped segmented selection with icon/text and a berry selected state; practice filters share the segment primitive. Whole-function parent entries (Today typed-word route and Library picture/pattern preparation) use an illustrated horizontal action with title, one short explanation and arrow, reusing existing pencil/book art. Existing parent gates still control navigation; these are entry affordances, not automatic lookup/download/upload actions. In-progress image draft gets a compact resume group with FileImage/arrow. [Evidence](evaluations/button-hierarchy.md).
+
 ## Theme C refinement — ADR-041, 10/10/2026
 
 Shared controls use berry primary with soft depth, lavender secondary, white outlined controls and icons indicating back/refresh/upload/save. Labels wrap without horizontal overflow; minimum48px default/small and56px large targets. Back has ArrowLeft plus text; Google sign-in/connected state retains original four-colour G, distinct from mascot. Device/account panels use lavender/mint, transfer a white surface and berry CTA; lesson/word cards use white surfaces,16px radius and soft elevation. Reduced-motion disables button movement; loading/error/disabled/focus remain. [Evidence](evaluations/ui-and-hosted-cloud-fixes.md).

@@ -165,3 +165,18 @@ test('child game feedback has static meaning, sound toggle persists and reduced 
  await page.goto('/practice');await expect(page.locator('.play-tile .word-art')).toHaveCount(5);await page.getByRole('button',{name:'Tắt âm thanh',exact:true}).click();await page.reload();await expect(page.getByRole('button',{name:'Bật âm thanh',exact:true})).toHaveAttribute('aria-pressed','false');await page.getByRole('button',{name:'Bật âm thanh',exact:true}).click();await page.getByRole('button',{name:'Nhìn hình chọn từ',exact:true}).click();await expect(page.getByRole('progressbar')).toHaveAttribute('aria-valuenow','0');await page.locator('.game-answers button').first().click();await expect(page.locator('.game-feedback [role=status]')).toBeVisible();await expect(page.locator('.game-answers button[data-result=correct]')).toHaveCount(1);await expect(page.locator('.game-feedback img')).toBeVisible();await noOverflow(page);
  await page.emulateMedia({reducedMotion:'reduce'});expect(await page.locator('.game-board').evaluate(el=>getComputedStyle(el).animationName)).toBe('none');await page.getByRole('button',{name:'Tắt âm thanh',exact:true}).click();await expect(page.getByRole('button',{name:'Bật âm thanh',exact:true})).toBeVisible();
 });
+
+
+test('feature entries keep parent gates and primary actions distinct from filters',async({page})=>{
+ await page.goto('/library');
+ const add=page.getByRole('button',{name:'Thêm từ',exact:true});
+ await expect(add).toHaveCSS('background-color','rgb(181, 47, 96)');
+ await expect(page.getByRole('button',{name:'Lọc từ',exact:true})).not.toHaveCSS('background-color','rgb(181, 47, 96)');
+ const prepare=page.getByRole('button',{name:'Bổ sung hình và mẫu câu',exact:true});
+ await expect(prepare.locator('img')).toBeVisible();await prepare.click();
+ await expect(page.getByRole('dialog')).toBeVisible();await expect(page).toHaveURL(/\/library$/);
+ await page.getByRole('button',{name:'Bố mẹ tiếp tục',exact:true}).click();await expect(page).toHaveURL(/\/library\/prepare$/);
+ await page.goto('/today');await page.getByRole('button',{name:'Gõ từ mới cho con',exact:true}).click();
+ await expect(page.getByRole('dialog')).toBeVisible();await page.getByRole('button',{name:'Bố mẹ tiếp tục',exact:true}).click();
+ await expect(page).toHaveURL(/\/add$/);await expect(page.locator('button[type="submit"]')).toHaveCSS('background-color','rgb(181, 47, 96)');await noOverflow(page);
+});

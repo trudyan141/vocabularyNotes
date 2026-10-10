@@ -1,4 +1,5 @@
 "use client";
+import {Save} from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useApp } from "@/components/app/provider";
@@ -24,7 +25,7 @@ function NoteEditor({word,note}:{word:LibraryWord;note?:Note}){
       <option value="none">{t("Chỉ ghi chú","Text only")}</option><option value="word-association">{t("Từ → nghĩa → ví dụ","Word association")}</option><option value="sentence-chunks">{t("Đọc câu từng cụm","Sentence chunks")}</option><option value="grammar-transform">{t("She likes → They like","Grammar transformation")}</option></select>
     {template!=="none"&&<Mnemonic word={word} template={template}/>}
     <Button disabled={busy} onClick={async()=>{if(!repository||busy)return;setBusy(true);try{const saved=await repository.saveNote({id:note?.id??`note-${word.id}`,targetType:"sense",targetId:word.id,text,expectedVersion:version,
-      mnemonicData:template==="none"?null:{template}});setVersion(saved.version);setStatus(t("Đã lưu và duyệt ghi chú cho con.","Note saved and approved."));}catch{setStatus(t("Chưa lưu được hoặc ghi chú đã đổi ở tab khác; phần nhập còn nguyên.","Could not save or another tab changed the note; your input is intact."));}finally{setBusy(false);}}}>{t("Lưu và duyệt ghi chú","Save and approve note")}</Button><p role="status">{status}</p></div>;
+      mnemonicData:template==="none"?null:{template}});setVersion(saved.version);setStatus(t("Đã lưu và duyệt ghi chú cho con.","Note saved and approved."));}catch{setStatus(t("Chưa lưu được hoặc ghi chú đã đổi ở tab khác; phần nhập còn nguyên.","Could not save or another tab changed the note; your input is intact."));}finally{setBusy(false);}}}><Save data-icon="inline-start" aria-hidden="true"/>{t("Lưu và duyệt ghi chú","Save and approve note")}</Button><p role="status">{status}</p></div>;
 }
 function Mnemonic({word,template}:{word:LibraryWord;template:NonNullable<Note["mnemonicData"]>["template"]}){
   const {t,preferences}=useApp();const [step,setStep]=useState(0);const [playing,setPlaying]=useState(false);

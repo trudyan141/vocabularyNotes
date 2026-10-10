@@ -1,4 +1,5 @@
 "use client";
+import {Save, X} from "lucide-react";
 import {useRef,useState} from "react";
 import {useApp} from "@/components/app/provider";
 import {Button} from "@/components/ui/button";
@@ -24,7 +25,7 @@ export function LessonEditor({lesson,close,saved}:{lesson:Lesson;close:()=>void;
     <label>{t("Tên bộ","Set title")}<Input autoFocus required maxLength={200} disabled={busy} value={title} onChange={event=>setTitle(event.target.value)}/></label>
     <label>{t("Ngày học","Learning date")}<Input required type="date" disabled={busy} value={day} onChange={event=>setDay(event.target.value)}/></label>
     <p>{t("Đổi tên/ngày không thay từ hay lịch ôn.","Changing the title/date preserves words and review schedules.")}</p>
-    <div className="row-wrap"><Button type="submit" disabled={busy}>{t("Lưu bộ từ","Save set")}</Button><Button type="button" variant="outline" disabled={busy} onClick={close}>{t("Hủy","Cancel")}</Button></div>
+    <div className="row-wrap"><Button type="submit" disabled={busy}><Save data-icon="inline-start" aria-hidden="true"/>{t("Lưu bộ từ","Save set")}</Button><Button type="button" variant="ghost" disabled={busy} onClick={close}><X data-icon="inline-start" aria-hidden="true"/>{t("Hủy","Cancel")}</Button></div>
     <OperationStatus busy={busy} title={t("Đang lưu bộ từ","Saving word set")} message={error} error={!!error}/>
   </form>;
 }

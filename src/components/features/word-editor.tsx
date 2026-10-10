@@ -1,4 +1,5 @@
 "use client";
+import {Save, Trash2} from "lucide-react";
 import {MediaEditor} from "./media-editor";
 import {WordLearningContent} from "./learning-content";
 import {useLiveQuery} from "dexie-react-hooks";
@@ -167,7 +168,7 @@ function EditorForm({ entry,extra }: { entry: LibraryWord;extra:import("@/data/l
             </FieldError>
           )}
           {error && <FieldError role="alert">{error}</FieldError>}
-          <Button type="submit" size="lg" disabled={saving}>
+          <Button type="submit" size="lg" disabled={saving}><Save data-icon="inline-start" aria-hidden="true"/>
             {saving
               ? t("Đang lưu…", "Saving…")
               : t("Lưu chỉnh sửa trên máy", "Save edits on this device")}
@@ -180,7 +181,7 @@ function EditorForm({ entry,extra }: { entry: LibraryWord;extra:import("@/data/l
         <label><input type="checkbox" checked={checked} onChange={e=>setChecked(e.target.checked)}/>{t("Tôi đã kiểm nghĩa, ví dụ, cách đọc và hình đúng nghĩa này.","I reviewed meanings, examples, pronunciation and the illustration for this sense.")}</label>
         <Button disabled={saving||!checked} onClick={async()=>{if(!repository||saving)return;setSaving(true);setError("");try{const {revision: ignoredRevision,pendingEdit:ignoredProposal,...content}=entry;void ignoredRevision;void ignoredProposal;const old=entry.pronunciations[0];const same=word===entry.word&&ipa===(old?.ipa??"");await repository.reviewWord(entry.id,revision,{...content,word:word.trim(),vi:vi.trim(),en:en.trim(),pos,sense,example,exampleVi,art,source:entry.source,origin:"user",approved:true,
           pronunciations:[pronunciation(word,hint||null,ipa||null,same?old?.sourceUrl??null:null,same&&!!old?.verified)],examplePronunciations:[pronunciation(example,exampleHint||null,exampleIpa||null)],additionalExamples:secondExample.trim()?[{textEn:secondExample.trim(),translationVi:secondVi.trim(),pronunciations:[pronunciation(secondExample.trim(),secondHint||null)]}]:[]} as unknown as import("@/data/local/types").WordInput);router.push(`/library/words/${entry.id}`);}catch{setError(t("Chưa duyệt được. Điền đủ ví dụ và hai nghĩa; nếu từ đã đổi ở tab khác, mở lại bản mới. Phần nhập vẫn còn.","Approval failed. Complete meanings and examples; reopen if another tab changed the word. Your input is intact."));}finally{setSaving(false);}}}>{t("Duyệt toàn bộ nội dung","Approve complete content")}</Button>
-        <Button variant="outline" onClick={()=>setDeleting(true)}>{t("Xóa từ khỏi thư viện","Remove word from library")}</Button>{deleting&&<div role="alert"><p>{t("Xóa từ này khỏi các bài và trò chơi? Lịch sử đã lưu được giữ lại.","Remove this word from lessons and games? Saved history is retained.")}</p><Button disabled={saving} onClick={async()=>{if(!repository)return;setSaving(true);try{await deleteWord(repository,{...entry,revision});router.push('/library');}catch{setError(t("Chưa xóa được; từ có thể đã đổi. Mở lại bản mới.","Removal failed; reopen the latest word."));}finally{setSaving(false);}}}>{t("Xác nhận xóa từ","Confirm removal")}</Button><Button variant="ghost" onClick={()=>setDeleting(false)}>{t("Hủy","Cancel")}</Button></div>}
+        <Button variant="ghost" onClick={()=>setDeleting(true)}><Trash2 data-icon="inline-start" aria-hidden="true"/>{t("Xóa từ khỏi thư viện","Remove word from library")}</Button>{deleting&&<div role="alert"><p>{t("Xóa từ này khỏi các bài và trò chơi? Lịch sử đã lưu được giữ lại.","Remove this word from lessons and games? Saved history is retained.")}</p><Button variant="destructive" disabled={saving} onClick={async()=>{if(!repository)return;setSaving(true);try{await deleteWord(repository,{...entry,revision});router.push('/library');}catch{setError(t("Chưa xóa được; từ có thể đã đổi. Mở lại bản mới.","Removal failed; reopen the latest word."));}finally{setSaving(false);}}}>{t("Xác nhận xóa từ","Confirm removal")}</Button><Button variant="ghost" onClick={()=>setDeleting(false)}>{t("Hủy","Cancel")}</Button></div>}
       </section>
       <MediaEditor word={entry}/><WordLearningContent word={entry} editable/>
     </div>

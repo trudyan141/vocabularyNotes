@@ -115,3 +115,6 @@ S03 shows Ôn N từ hôm nay beside the count and opens due flashcards directly
 
 
 ADR039 S15/account: show verified Google display name/email/avatar (initial/icon fallback), sign-out/account selection; separate device-only versus account saved counts and current learning source. Use readable Open account library, Preview device lessons, Back up/save account copy, Sync now. Storage failure and sign-in are independent; safe HTTP details/retry, last success time and pending upload. Source photos/deletion under additional options, no implicit guest upload.
+
+
+11/10/2026 ADR043 — S03 typed-word entry and S07 picture/pattern preparation become illustrated, labelled feature actions with a short explanation/arrow and unchanged parent gates. S07 Add word is primary plus icon; Filter is quieter; content modes are a grouped icon/text segment with visible selected state. Save/approve/submit CTAs across parent/editor/game flows use the shared berry primitive; destructive confirmations stay distinct, Google brand stays intact. All buttons preserve labels, wrapping,48px/focus/disabled/loading/reduced-motion states. See04 and [button evidence](evaluations/button-hierarchy.md).

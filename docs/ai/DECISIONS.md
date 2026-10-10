@@ -1,5 +1,13 @@
 # Quyết định và giả định
 
+## ADR-030 — Gemini free-tier BYOK và chọn nhiều model theo yêu cầu mới nhất
+
+Status **confirmed by user; implemented**,10/10/2026. Founder bác OpenAI default/billing, trực tiếp yêu cầu Gemini API và nhiều model như3.5FlashLite. Supersede lựa chọn OpenAI runtime ADR029, không thay directbrowser/session/localStorage opt-in/key-delete/no server or backup/parent review. Không tự coi user request là Google cho phép child API Client; current terms under18/consumer restrictions vẫn ghi rõ, T00 eligibility/account/retention/live benchmark pending.
+
+Default gemini-3.5-flash-lite; dropdown3.1flashlite/3.6flash/3.8flash + custom Gemini ID. Officialpricing/modeldocs10/10 xác nhận bốn preset có free tier; quota theo project, paidproject có phí. Không tự fallback/retry/modelchange/billing. Standard/authkeys từ AIStudio nhận qua headerx-goog-api-key, fixedGooglehost/modelIDregex khôngURLkey; cấu hìnhOpenAIcũ bị bỏqua, không truyềnsecret providerkhác.
+
+REST generateContent systemInstruction/inlineJPEG/responseFormattextschema; bounded500KB parseSTOP/nonthought/safety/refusal/truncation/malformed/evidence; no tools, max50/90s/cancel/WebLocks. Chưa realkey/inference, CORSOPTIONS200 verified, tests fixture labeled. HistoricalOpenAI drafts giữ sourceprovider theo model ID, không đổi provenance. Source02/05/07/09/14/AGENTS/founder/setup/state/task/changelog updated. [Evidence](../evaluations/parent-dictionary-byok-deploy.md); [Google pricing](https://ai.google.dev/gemini-api/docs/pricing), [model](https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite), [structured output](https://ai.google.dev/gemini-api/docs/generate-content/structured-output), [terms](https://ai.google.dev/gemini-api/terms).
+
 ## ADR-029 — Founder sửa setup, deploy, tra từ tự điền và BYOK trực tiếp
 
 Status **confirmed by user; implemented**,10/10/2026. Founder trực tiếp yêu cầu setup rõ từng biến/nơi lấy, tự deploy Vercel, autocomplete từ điển thật có sửa chính tả và tự điền/hình. Sau đó yêu cầu bỏ OCR thiết bị, cho key AI riêng trong khu cha mẹ/localStorage và không qua cloud server. Yêu cầu này supersede phần key browser forbidden ở ADR015/019 và local OCR ADR026/028; không supersede bảo vệ quyền cloud, parent review hoặc Gemini restriction.

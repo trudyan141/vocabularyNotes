@@ -1,16 +1,38 @@
 'use client';
-import {useSyncExternalStore,useState} from 'react';
+import {useSyncExternalStore,useState,useEffect} from 'react';
 import {useApp} from '@/components/app/provider';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
-import {parentAi,configureParentAi,parentKeyStorage} from '@/lib/ai/byok';
+import {parentAi,configureParentAi,parentKeyStorage,parentModels,defaultParentModel} from '@/lib/ai/byok';
 export function ParentAiSettings(){const hydrated=useSyncExternalStore(()=>()=>{},()=>true,()=>false);return hydrated?<ParentAiForm/>:null;}
 function ParentAiForm(){
-  const {t}=useApp();const [key,setKey]=useState(()=>parentAi()?.key??''),[model,setModel]=useState(()=>parentAi()?.model??'gpt-4.1-mini'),[remember,setRemember]=useState(()=>{try{return !!localStorage.getItem(parentKeyStorage);}catch{return false;}}),[message,setMessage]=useState('');
-
-  return <section id="parent-ai" className="page-flow"><h2>{t('AI riêng của phụ huynh','Parent’s own AI')}</h2><p>{t('Dùng OpenAI API key của bố mẹ để phân tích ảnh. Trình duyệt gửi trực tiếp đến OpenAI; key không gửi qua server app, cloud sync hay backup.','Use your own OpenAI API key to analyse photos. Your browser calls OpenAI directly; the key never enters the app server, cloud sync or backups.')}</p><p><a href="https://platform.openai.com/api-keys" target="_blank" rel="noreferrer">{t('Lấy API key tại OpenAI → API keys → Create new secret key','Get a key at OpenAI → API keys → Create new secret key')}</a>. {t('Tài khoản API cần billing riêng; gói ChatGPT không kèm API.','API billing is separate from a ChatGPT subscription.')}</p>
-    <label htmlFor="parent-api-key">OpenAI API key</label><Input id="parent-api-key" type="password" autoComplete="off" spellCheck={false} maxLength={300} value={key} onChange={e=>setKey(e.target.value)} placeholder="sk-…"/>
-    <label htmlFor="parent-ai-model">{t('Model đọc ảnh','Vision model')}</label><Input id="parent-ai-model" maxLength={100} value={model} onChange={e=>setModel(e.target.value)} spellCheck={false}/><small>{t('Mặc định gpt-4.1-mini; có thể đổi sang model đọc ảnh được cấp quyền trong tài khoản.','Defaults to gpt-4.1-mini; choose a vision model available to your account.')}</small>
-    <label><input type="checkbox" checked={remember} onChange={e=>setRemember(e.target.checked)}/> {t('Nhớ key trên trình duyệt này (localStorage)','Remember the key in this browser (localStorage)')}</label><small>{t('Nếu không chọn, key chỉ dùng trong phiên đang mở. localStorage không mã hóa; người dùng chung trình duyệt hoặc mã chạy trên trang có thể đọc key. Có thể xóa ngay bên dưới.','Otherwise the key stays in this open session. localStorage is unencrypted and accessible to people sharing the browser or code running on this page. Delete it below.')}</small>
-    <div className="row-wrap"><Button onClick={()=>{try{configureParentAi({key:key.trim(),model:model.trim()},remember);setMessage(t('Đã lưu cấu hình AI riêng. Chọn ảnh rồi bấm Phân tích ảnh bằng AI.','Personal AI configured. Choose a photo and press Analyse photo with AI.'));}catch{setMessage(t('Chưa lưu được. Kiểm tra key bắt đầu sk-, tên model và quyền lưu của trình duyệt.','Could not save. Check the sk- key, model name and browser storage access.'));}}}>{t('Lưu cấu hình AI','Save AI settings')}</Button><Button variant="outline" onClick={()=>{try{configureParentAi(null);setKey('');setMessage(t('Đã xóa key khỏi phiên và localStorage.','Key removed from this session and localStorage.'));}catch{setMessage(t('Trình duyệt chặn thao tác xóa key.','Browser blocked key deletion.'));}}}>{t('Xóa key khỏi máy này','Delete key from this browser')}</Button></div><p role="status">{message}</p></section>;
+  useEffect(()=>{if(window.location.hash==='#parent-ai')document.getElementById('parent-ai')?.scrollIntoView({block:'start'});},[]);
+  const {t}=useApp();
+  const [key,setKey]=useState(()=>parentAi()?.key??'');
+  const [model,setModel]=useState(()=>parentAi()?.model??defaultParentModel);
+  const [custom,setCustom]=useState(()=>!parentModels.some(item=>item.id===(parentAi()?.model??defaultParentModel)));
+  const [remember,setRemember]=useState(()=>{try{return !!localStorage.getItem(parentKeyStorage);}catch{return false;}});
+  const [message,setMessage]=useState('');
+  return <section id="parent-ai" className="page-flow">
+    <h2>{t('AI riêng của phụ huynh','Parent’s own AI')}</h2>
+    <p>{t('Dùng Gemini API key của bố mẹ để phân tích ảnh. Trình duyệt gửi trực tiếp đến Google; key không gửi qua server app, cloud sync hay backup.','Use your Gemini API key to analyse photos. The browser calls Google directly; the key never enters the app server, cloud sync or backups.')}</p>
+    <p><a href="https://aistudio.google.com/api-keys" target="_blank" rel="noreferrer">{t('Lấy key: Google AI Studio → API keys → Create API key','Get a key: Google AI Studio → API keys → Create API key')}</a>. {t('Chọn project ở Free Tier để dùng quota miễn phí; không cần key OpenAI.','Choose a Free Tier project for the free quota; no OpenAI key is needed.')}</p>
+    <label htmlFor="parent-api-key">Gemini API key</label>
+    <Input id="parent-api-key" type="password" autoComplete="off" spellCheck={false} maxLength={300} value={key} onChange={e=>setKey(e.target.value)} placeholder="AIza…"/>
+    <label htmlFor="parent-ai-model">{t('Model đọc ảnh','Vision model')}</label>
+    <select id="parent-ai-model" value={custom?'custom':model} onChange={e=>{const isCustom=e.target.value==='custom';setCustom(isCustom);if(!isCustom)setModel(e.target.value);}}>
+      {parentModels.map(item=><option key={item.id} value={item.id}>{item.name}{item.id===defaultParentModel?t(' — mặc định, quota miễn phí',' — default, free quota'):t(' — có free tier',' — free tier available')}</option>)}
+      <option value="custom">{t('Nhập model Gemini khác…','Enter another Gemini model…')}</option>
+    </select>
+    {custom&&<><label htmlFor="parent-ai-custom-model">{t('Model ID Gemini','Gemini model ID')}</label><Input id="parent-ai-custom-model" value={model} maxLength={100} spellCheck={false} onChange={e=>setModel(e.target.value)} placeholder="gemini-…"/></>}
+    <small>{t('Ưu tiên Gemini 3.5 Flash-Lite để đọc bài. Free tier có giới hạn theo project; nếu project đã bật billing, API có thể tính phí. App không tự đổi model hoặc bật billing.','Gemini 3.5 Flash-Lite is recommended for worksheets. Free quotas depend on your project; a billing-enabled project may incur charges. The app never switches models or enables billing automatically.')} <a href="https://ai.google.dev/gemini-api/docs/pricing" target="_blank" rel="noreferrer">{t('Giá và free tier','Pricing and free tiers')}</a></small>
+    <label><input type="checkbox" checked={remember} onChange={e=>setRemember(e.target.checked)}/> {t('Nhớ key trên trình duyệt này (localStorage)','Remember the key in this browser (localStorage)')}</label>
+    <small>{t('Nếu không chọn, key chỉ dùng trong phiên đang mở. localStorage không mã hóa; người dùng chung trình duyệt hoặc mã chạy trên trang có thể đọc key. Có thể xóa ngay bên dưới.','Otherwise the key stays in this open session. localStorage is unencrypted and accessible to people sharing the browser or code running on this page. Delete it below.')}</small>
+    <div className="row-wrap">
+      <Button onClick={()=>{try{configureParentAi({key:key.trim(),model:model.trim()},remember);setMessage(t('Đã lưu cấu hình Gemini. Chọn ảnh rồi bấm Phân tích ảnh bằng AI.','Gemini configured. Choose a photo and press Analyse photo with AI.'));}catch{setMessage(t('Chưa lưu được. Dùng key từ Google AI Studio, model ID bắt đầu gemini- và kiểm quyền lưu của trình duyệt.','Could not save. Use a Google AI Studio key and a gemini- model ID; check browser storage access.'));}}}>{t('Lưu cấu hình AI','Save AI settings')}</Button>
+      <Button variant="outline" onClick={()=>{try{configureParentAi(null);setKey('');setMessage(t('Đã xóa key khỏi phiên và localStorage.','Key removed from this session and localStorage.'));}catch{setMessage(t('Trình duyệt chặn thao tác xóa key.','Browser blocked key deletion.'));}}}>{t('Xóa key khỏi máy này','Delete key from this browser')}</Button>
+    </div>
+    <p role="status">{message}</p>
+    <details><summary>{t('Dữ liệu gửi Google và điều kiện sử dụng','Google data use and eligibility')}</summary><p>{t('Free tier có thể dùng nội dung gửi để cải thiện sản phẩm. Chỉ gửi bài đã cắt bỏ thông tin riêng. Điều khoản Gemini API hiện hạn chế ứng dụng hướng tới hoặc có thể được người dưới 18 tuổi truy cập; key phụ huynh không tự miễn điều kiện này.','Free tier content may be used to improve products. Crop private details before sending. Gemini API terms currently restrict apps directed toward or likely accessed by under-18s; a parent key does not exempt this requirement.')} <a href="https://ai.google.dev/gemini-api/terms" target="_blank" rel="noreferrer">{t('Điều khoản Google','Google terms')}</a></p></details>
+  </section>;
 }

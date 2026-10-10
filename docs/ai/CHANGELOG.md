@@ -1,5 +1,11 @@
 # Nhật ký bàn giao
 
+## 2026-10-10 — Gemini thay OpenAI theo steering, ADR-030
+
+Founder yêu cầu Gemini free tier/nhiềumodel. Browser directGoogle generateContent/headerkey/inlineJPEG/responseFormatstrict/no tools; default3.5FlashLite/preset3.1FlashLite/3.6Flash/3.8Flash/custom. OldOpenAIconfigignored/no keyforward; standard/authkey formats, session/localStorage opt-in/delete/backupnotkey giữ nguyên. CORSOPTIONS200, official docs/pricing/models/terms checked; freequota perproject/paidprojectcharged, eligibilityunder18restriction/liveinference cònpending. PreviewhìnhAImỗi candidate trước review. Linksettings#parent-ai scroll sauhydrate đã sửa.
+
+Gemini check104units/lint/types/build PASS; browser113/113 PASS. SQL/initial111 browser PASS và remoteCI38022181410 SUCCESS/Vercel7b1e997 READY đã xác nhận. Setup/source02/05/07/09/14/AGENTS/founder/ledger/ADR updated. [Evidence](../evaluations/parent-dictionary-byok-deploy.md). Không có key thật, quota/account/inference/benchmark/liveSupabase/physicalphone/human chưa kiểm.
+
 ## 2026-10-10 — Founder setup/deploy/dictionary/BYOK fixes, ADR-029
 
 Thực hiện yêu cầu trực tiếp: setup env/nơi lấy rõràng; Vercel nativeGit/main env; Datamuse/Wiktionary/Tatoeba real suggestions/bilingual senses/IPA/examples/autofill và174licensed OpenMoji; bỏlocalOCR, parentOpenAI BYOK direct/session/localStorage opt-in/delete. Không key vàoappserver/IDB/archive/sync. FixedURL/strict/evidence/consent/90s/cancel/review/error; store:false khôngZDR/livebenchmark. Update source02/05/07/09/14, AGENTS/founder/setup/README/ledger và ADR029.

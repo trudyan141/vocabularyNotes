@@ -1,8 +1,8 @@
 # Các luồng sử dụng
 
-## Luồng hiện hành 10/10/2026 (ADR-029)
+## Luồng hiện hành 10/10/2026 (ADR-030)
 
-Phụ huynh → Cài đặt → AI riêng → OpenAI key/model → chọn nhớ localStorage nếu muốn. Thêm ảnh → cắt/xoay/bỏ thông tin riêng → Phân tích bằng AI → chọn listed/all + consent → gửi trực tiếp OpenAI → sửa/duyệt/lưu. Thiếu key có liên kết cài đặt; 401/quota/timeout/hủy giữ nháp. Không có nút OCR trên máy hoặc tải reader. Nhập tay vẫn dùng offline.
+Phụ huynh → Cài đặt → AI riêng → Gemini/Google key/model → chọn nhớ localStorage nếu muốn. Thêm ảnh → cắt/xoay/bỏ thông tin riêng → Phân tích bằng AI → chọn listed/all + consent → gửi trực tiếp Gemini/Google → sửa/duyệt/lưu. Thiếu key có liên kết cài đặt; 401/quota/timeout/hủy giữ nháp. Không có nút OCR trên máy hoặc tải reader. Nhập tay vẫn dùng offline.
 
 Thêm từ → gõ thiếu/sai → gợi ý Datamuse sau350ms → chọn từ → tự điền nghĩa song ngữ/POS/sense/IPA/ví dụ có nguồn và hình catalog/OpenMoji → chọn nghĩa/hình nếu cần → phụ huynh kiểm và lưu. Nguồn chưa đủ hiện thiếu dữ liệu, không bắt gõ lại mọi trường đã tra. Kết quả cũ không ghi đè khi query thay đổi. [Evidence](evaluations/parent-dictionary-byok-deploy.md).
 

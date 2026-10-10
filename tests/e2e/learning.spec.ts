@@ -1,6 +1,6 @@
 import {test,expect,type Page} from '@playwright/test';
 import {readFile} from 'node:fs/promises';
-test.beforeEach(async({page})=>{await page.route('**/api/dictionary?mode=suggest&**',route=>route.fulfill({json:{results:[]}}));await page.route('https://api.openai.com/**',route=>route.fulfill({status:503,json:{error:'test-no-live-provider'}}));});
+test.beforeEach(async({page})=>{await page.route('**/api/dictionary?mode=suggest&**',route=>route.fulfill({json:{results:[]}}));await page.route('https://generativelanguage.googleapis.com/**',route=>route.fulfill({status:503,json:{error:'test-no-live-provider'}}));});
 async function photoReview(page:Page){await page.goto('/capture');await page.getByLabel('Chọn ảnh từ máy',{exact:true}).setInputFiles({name:'worksheet.png',mimeType:'image/png',buffer:await readFile('docs/evaluations/t00/images/01-fruit.png')});await page.getByRole('button',{name:'Phân tích ảnh bằng AI',exact:true}).click();}
 async function reviewManually(page:Page){await photoReview(page);await page.getByLabel('Chữ đọc được — sửa hoặc chép thêm nếu cần').fill('apple\nbanana\nbook');await page.getByRole('button',{name:'Tạo danh sách để duyệt'}).click();}
 async function noOverflow(page:Page){expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);}

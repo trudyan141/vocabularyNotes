@@ -44,24 +44,36 @@ Vào **Settings → Environment Variables**, chọn Production, thêm từng dò
 | `APP_DEMO_MODE` | `false` | Gõ trực tiếp; muốn bài mẫu ở preview thì dùng `true`. |
 | `AI_PROVIDER` | `none` | Gõ trực tiếp; key AI phụ huynh không điền vào Vercel. |
 
-Ba giá trị production trên đã được thêm. Không cần secret Vercel/GitHub Actions để native Git deployment chạy. `vercel.json` có framework Next.js, Node 24.x theo `package.json`, lệnh pnpm cố định và region Singapore. Build Next có API/auth, không static export.
+Ba giá trị production trên đã được thêm. Push commit `7b1e997` đã tạo deployment production READY tự động; [mở app](https://words-for-kids.vercel.app). Không cần secret Vercel/GitHub Actions để native Git deployment chạy. `vercel.json` có framework Next.js, Node 24.x theo `package.json`, lệnh pnpm cố định và region Singapore. Build Next có API/auth, không static export.
 
 Khi thay env, chọn deployment → **Redeploy** để build dùng giá trị mới. Vercel không tự chạy migration Supabase. Lần đầu muốn tạo project khác: Vercel → Add New → Project → Import repo → root `.` → Next.js → Node 24.x → nhập ba dòng → Deploy. Hướng dẫn chính thức: [Git integration](https://vercel.com/docs/git), [environment variables](https://vercel.com/docs/environment-variables).
 
-## 3. AI phân tích ảnh bằng key riêng của bố mẹ
+## 3. AI phân tích ảnh bằng Gemini key riêng của bố mẹ
 
-Không còn OCR/Tesseract chạy trên điện thoại. AI cần mạng; khi offline vẫn thêm/sửa từ và học dữ liệu đã lưu.
+Không còn OCR/Tesseract chạy trên điện thoại. AI cần mạng; offline vẫn thêm/sửa từ và học bài đã lưu. Theo yêu cầu mới nhất, Gemini thay OpenAI hoàn toàn trong cấu hình và API đọc ảnh.
 
-1. Mở [OpenAI Platform → API keys](https://platform.openai.com/api-keys). Dùng tài khoản API của bố mẹ, chọn project, **Create new secret key**, copy key bắt đầu `sk-`. Không dùng Google key hoặc key ChatGPT. API tính phí riêng; kiểm **Billing** và **Usage** của project. Gói ChatGPT không tự cấp quota API.
-2. Trong Words for Kids: **Phụ huynh → Cài đặt → AI riêng của phụ huynh**. Dán vào **OpenAI API key**. **Model đọc ảnh** mặc định `gpt-4.1-mini`; có thể đổi sang model vision được tài khoản cho phép.
-3. Nếu muốn nhớ qua lần mở sau, chọn **Nhớ key trên trình duyệt này (localStorage)** rồi **Lưu cấu hình AI**. Nếu không chọn, key chỉ nằm trong phiên trang đang mở; reload cần nhập lại. Key không ghi vào IndexedDB, bài học, backup, cloud sync, env hay server app. localStorage không mã hóa; người dùng chung trình duyệt hoặc mã chạy trên trang có thể đọc key. Nút **Xóa key khỏi máy này** xóa cả key lưu và key trong phiên.
-4. **Thêm bài → Chọn/chụp ảnh → Cắt/xoay**. Cắt bỏ tên, khuôn mặt và thông tin riêng của trẻ. Bấm **Phân tích ảnh bằng AI** để mở màn phân tích.
-5. Chọn **Cách tách từ**: từ/cụm được liệt kê/nhấn mạnh hoặc tất cả từ trong đoạn. Xác nhận ảnh chỉ có nội dung học và đồng ý gửi OpenAI; sau đó bấm **Phân tích ảnh bằng AI**. Không gửi khi chỉ mở nháp hoặc tick checkbox.
-6. Bố mẹ sửa chữ nếu AI đọc sai, kiểm nghĩa/ví dụ, chọn từ cần lưu, tick **Tôi đã kiểm…** rồi **Duyệt và lưu các từ đã chọn**. Chữ trích từ ảnh được lưu làm bằng chứng; nghĩa/ví dụ AI bổ sung có nhãn nguồn riêng. Mỗi lượt tối đa 50 từ, timeout 90 giây, không tự retry. **Dừng** giữ nháp; hủy không đảm bảo hoàn lại phí provider.
+1. Mở [Google AI Studio → API keys](https://aistudio.google.com/api-keys), đăng nhập tài khoản của bố mẹ. Chọn **Create API key**, chọn/tạo project, copy key. Nếu chưa thấy project: **Dashboard → Projects → Import projects**, chọn project rồi quay lại **API keys**. Key mới ở AI Studio là authorization key; app nhận cả key standard và auth từ Google, không bắt buộc mọi key có cùng prefix. Không dùng key OpenAI.
+2. Trong **Projects/API keys**, kiểm project ở **Free Tier**. Không bật billing nếu muốn chỉ dùng quota miễn phí. Nếu project đã nối billing, cùng model có thể tính phí; app không thể kiểm billing từ chuỗi key. Xem **Usage/Rate limits** khi hết quota. Free tier có hạn mức theo project, không miễn phí vô hạn và không nhân quota bằng nhiều key.
+3. Trong Words for Kids: **Phụ huynh → Cài đặt → AI riêng của phụ huynh**. Dán vào **Gemini API key**. Chọn **Model đọc ảnh**; mặc định **Gemini 3.5 Flash-Lite** (`gemini-3.5-flash-lite`).
 
-Ảnh đã xử lý gửi **trực tiếp từ trình duyệt → `api.openai.com`** bằng Authorization header; không proxy qua app. Request có `store:false`; điều này **không đồng nghĩa Zero Data Retention**. Nếu cần xử lý dữ liệu riêng của trẻ dưới 13 tuổi, phải thiết lập ZDR được OpenAI chấp thuận trước; luồng hiện tại yêu cầu ảnh chỉ có nội dung học đã cắt thông tin riêng. [OpenAI under-18 guidance](https://developers.openai.com/api/docs/guides/safety-checks/under-18-api-guidance), [data controls](https://developers.openai.com/api/docs/guides/your-data). Gemini không được tích hợp trong child app này.
+| Lựa chọn | Model ID | Dùng khi nào |
+|---|---|---|
+| Gemini 3.5 Flash-Lite — mặc định | `gemini-3.5-flash-lite` | Đọc worksheet, ưu tiên nhanh và quota miễn phí |
+| Gemini 3.1 Flash-Lite | `gemini-3.1-flash-lite` | Lựa chọn Flash-Lite khác khi project cấp quyền |
+| Gemini 3.6 Flash | `gemini-3.6-flash` | So chất lượng nếu project có quota |
+| Gemini 3.8 Flash | `gemini-3.8-flash` | Model Flash mới hơn khi cần |
+| Nhập model Gemini khác | Model ID bắt đầu `gemini-` trong AI Studio | Phải hỗ trợ ảnh + structured output; quota/pricing tự kiểm |
 
-API key thật/live AI accuracy chưa được thử; tests dùng response fixture có nhãn, không gọi API trả phí. CORS của endpoint đã kiểm bằng OPTIONS thật. Thiếu key/billing/quyền model báo ngay trong luồng và giữ nháp.
+Bốn model chuẩn có free tier theo [bảng giá Google kiểm ngày 10/10/2026](https://ai.google.dev/gemini-api/docs/pricing). Đây là free tier của **API project**, khác quyền model trong ứng dụng Gemini hoặc Google AI subscription. App gọi đúng model đã chọn, không tự chuyển model khi quota/404 và không tự bật billing.
+
+4. Chọn **Nhớ key trên trình duyệt này (localStorage)** nếu muốn dùng qua lần mở sau; rồi **Lưu cấu hình AI**. Nếu không chọn, key chỉ ở phiên trang đang mở. Không ghi vào IndexedDB, bài học, backup, cloud sync, env hoặc server app. localStorage không mã hóa; người dùng chung trình duyệt hoặc mã chạy trên trang có thể đọc key. **Xóa key khỏi máy này** xóa cả phiên và localStorage. Key OpenAI cũ được bỏ qua, không tự gửi sang Google; lưu Gemini sẽ thay cấu hình cũ.
+5. **Thêm bài → Chọn/chụp ảnh → Cắt/xoay**. Cắt bỏ tên, khuôn mặt và thông tin riêng của trẻ. **Phân tích ảnh bằng AI** mở màn nhận dạng.
+6. Chọn **Cách tách từ** (listed/all), xác nhận ảnh chỉ có nội dung học và đồng ý gửi Google; bấm **Phân tích ảnh bằng AI**. Không gửi khi chỉ mở nháp hoặc tick checkbox. Ảnh gửi trực tiếp browser → `generativelanguage.googleapis.com`, key trong header `x-goog-api-key`, không ở URL hoặc proxy server.
+7. Kiểm/sửa chữ, nghĩa và ví dụ; chọn từ cần lưu; tick **Tôi đã kiểm…** và **Duyệt và lưu các từ đã chọn**. Evidence từ ảnh tách khỏi nghĩa/ví dụ AI bổ sung. Tối đa 50 từ, timeout90s; **Dừng** giữ nháp, không tự retry. Quota429/không có model404 có hướng sửa ngay tại màn này.
+
+**Điều kiện và dữ liệu:** [Gemini API terms](https://ai.google.dev/gemini-api/terms) hiện hạn chế API Clients hướng tới hoặc có thể được người dưới18 truy cập; key phụ huynh không miễn điều kiện đó. Code Gemini được thêm theo yêu cầu trực tiếp của founder; chưa phải xác nhận Google chấp thuận phát hành child app. T00 eligibility/account/live benchmark vẫn pending. Free tier có thể dùng nội dung gửi và response để cải thiện sản phẩm; không gửi thông tin riêng. Không mang `store:false`/ZDR của OpenAI sang Gemini hoặc quảng cáo không lưu dữ liệu. [Hướng dẫn key](https://ai.google.dev/gemini-api/docs/api-key), [model](https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite).
+
+CORS OPTIONS thật200 cho originproduction, POST và `x-goog-api-key` đã kiểm. Chưa gọi inference bằng key thật hoặc dùng quota tài khoản; tests dùng fixture có nhãn, không claim accuracy/cost/free quota của project cụ thể.
 
 ## 4. Google và đồng bộ cloud — chỉ làm nếu cần
 
@@ -123,13 +135,13 @@ pnpm test:sql
 pnpm docs:check
 ```
 
-`check` chạy lint, typecheck, unit/integration và build. E2E dùng production servers tạm 4320/4322/4328 và fixture identity; không gọi Google/OpenAI thật. SQL tests cần PostgreSQL 15+ (`initdb`, `pg_ctl`, `psql`); Mac có thể dùng Homebrew postgresql@15. Nếu khác path: `TASK_PG_BIN=/duong-dan/postgresql/bin pnpm test:sql`.
+`check` chạy lint, typecheck, unit/integration và build. E2E dùng production servers tạm 4320/4322/4328 và fixture identity; không gọi AI hoặc Google OAuth thật. SQL tests cần PostgreSQL 15+ (`initdb`, `pg_ctl`, `psql`); Mac có thể dùng Homebrew postgresql@15. Nếu khác path: `TASK_PG_BIN=/duong-dan/postgresql/bin pnpm test:sql`.
 
 | Lỗi | Làm gì |
 |---|---|
 | Không chạy app | Node 24/pnpm 11.25.0, install frozen, kiểm port 4317 |
-| Nhập key AI rồi vẫn lỗi | Key OpenAI API, Billing/Usage, quyền model; key ChatGPT/Google không dùng được |
-| AI 401/429 | 401: sửa/đổi key. 429: kiểm billing/quota, đợi rồi thử lại; app không tự gọi lặp |
+| Nhập key AI rồi vẫn lỗi | Key từ Google AI Studio, project/quota, model hỗ trợ ảnh; key OpenAI không dùng được |
+| AI 401/429 | 400/401: kiểm key/cấu hình; 404: đổi model được project cấp quyền. 429: kiểm quota, đợi rồi thử lại; app không gọi lặp/đổi model tự động |
 | Từ điển tạm lỗi | Giữ phần nhập, thử lại; gợi ý catalog dùng offline |
 | Thư viện mất sau đổi URL | Mở đúng origin/profile/scope cũ; đừng xóa dữ liệu trước backup |
 | Google chưa cấu hình | Kiểm URL + publishable key, provider bật, hai callback; rebuild |

@@ -1,14 +1,12 @@
 # Kiến trúc đề xuất
 
-## Quyết định hiện hành 10/10/2026 — ADR-029
+## Quyết định hiện hành 10/10/2026 — ADR-030
 
-Yêu cầu mới nhất của founder thay OCR trên máy bằng **OpenAI BYOK của phụ huynh**, gọi trực tiếp từ trình duyệt. Key ở bộ nhớ phiên; phụ huynh có thể chọn nhớ trong localStorage, xóa bất cứ lúc nào. Không ghi key vào IndexedDB, backup, cloud sync hoặc server app. Đây là ngoại lệ được người dùng xác nhận cho quy tắc key server-only cũ. `AI_PROVIDER=none` chỉ áp dụng gateway server chưa triển khai, không tắt BYOK.
+Founder đã yêu cầu **Gemini thay OpenAI** trong BYOK, ưu tiên model free tier và đổi nhiều model. Browser gọi trực tiếp Google generateContent bằng header x-goog-api-key, ảnh inline JPEG, systemInstruction coi ảnh là data, structured responseFormat JSON/schema; parse STOP/non-thought/strict DTO/evidence, max50/90s/500KB/cancel/no retry/Web Locks. Không key/ảnh đi qua app server, không key trong URL/IDB/backup/sync/env. Session mặc định/localStorage opt-in/delete giữ theo ADR029. Cấu hình cũ OpenAI bỏ qua, không gửi key cũ sang Google. Bốn model3.5FlashLite(default)/3.1FlashLite/3.6Flash/3.8Flash và custom Gemini ID; không tự fallback model hoặc bật billing. API_PROVIDER server vẫn none (gateway planned).
 
-Ảnh JPEG đã cắt thông tin riêng được gửi sau hành động và consent rõ ràng, endpoint cố định OpenAI Responses, `store:false`, schema strict, tối đa50 mục/90s/một request giữa các tab hỗ trợ Web Locks. Không tự retry; lỗi/quota/hủy giữ nháp. Chữ trích từ ảnh là evidence; nghĩa/ví dụ AI bổ sung cần phụ huynh duyệt. Không coi `store:false` là ZDR hoặc tests fixture là benchmark accuracy. Không gửi dữ liệu riêng trẻ dưới13 khi chưa có ZDR được duyệt. Không tích hợp Gemini. T00 account/retention/live benchmark còn pending.
+Google pricing/model/API docs kiểm10/10 xác nhận free tier có quota cho bốn lựa chọn; project paid có thể tính phí. Current API terms vẫn hạn chế under18-directed/likely-access clients; latest user request xác nhận code/config Gemini, không thành xác nhận Google eligibility. T00 account/retention/live benchmark còn pending, free tier dữ liệu có thể dùng cải thiện sản phẩm. CORS OPTIONS thật200, chưa key/inference/quality/quota thật. Không mang store:false/ZDR OpenAI sang Gemini.
 
-Autocomplete dùng Datamuse sau350ms, hỗ trợ chính tả; chọn từ tải Wiktionary bilingual gloss/POS/IPA và ví dụ Wiktionary/Tatoeba. Không gọi AI mỗi phím. Tự điền dữ liệu có nguồn, chọn nghĩa riêng và ghép catalog/174 OpenMoji đã bundle với license/credit. Thiếu nguồn báo rõ, không bịa nội dung/hình. `handsom` → `handsome` → “đẹp trai” đã kiểm bằng API thật. Chỉ ảnh/từ đã duyệt mới đến phần học của bé.
-
-Vercel project words-for-kids đã nối GitHub; push main tự deploy production. [Setup chi tiết](../SETUP-PROJECT.md) và [evidence hiện hành](evaluations/parent-dictionary-byok-deploy.md). Các mô tả OCR local/server secret store/provider chưa chọn bên dưới là quyết định/roadmap trước ADR-029 nếu xung đột.
+Datamuse350ms/Wiktionary bilingual gloss/POS/IPA/Tatoeba sourced examples tự điền; catalog21→174licensed OpenMoji, parent sense/image review, thiếu dữ liệu báo rõ. Live handsom→handsome/đẹp trai đã kiểm. Native Vercel Git pushmain đã deploy READY app; Supabase optional/live pending. [Setup](../SETUP-PROJECT.md), [evidence](evaluations/parent-dictionary-byok-deploy.md). OCR/key/provider/OpenAI gateway mô tả cũ bên dưới là lịch sử/roadmap nếu xung đột ADR030.
 
 ## Runtime lịch sử — ADR-026, OCR superseded bởi ADR-029
 

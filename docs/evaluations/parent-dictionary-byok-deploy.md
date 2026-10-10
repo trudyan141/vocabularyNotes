@@ -2,7 +2,18 @@
 
 Ngày10/10/2026. Thực hiện bốn yêu cầu trực tiếp: setup có nơi lấy từng env; Vercel Git deploy; autocomplete sửa chính tả/tự điền/hình; thay OCR thiết bị bằng AI key phụ huynh browser/localStorage opt-in. ADR-029 supersede quyết định cũ. Skill vocabulary-delivery, impeccable scoped harden/clarify/craft-floor, bilingual-learning-content, React best practices, worksheet-extraction, openai-docs.
 
-## Implementation và kiểm thật
+## Provider hiện hành — Gemini, ADR-030
+
+Steering mới nhất cùng lượt yêu cầu Gemini thay OpenAI, free tier và chọn nhiều model. Runtime hiện Gemini 3.5 Flash-Lite default; presets 3.1 Flash-Lite/3.6 Flash/3.8 Flash + custom ID. Giá/model/API docs chính thức kiểm10/10 xác nhận free tier theo quota project; không claim project cụ thể miễn phí khi bật billing. Không fallback model/billing/retry tự động. Terms hiện vẫn hạn chế child-directed/likely-under18 clients; code/config được user trực tiếp yêu cầu, không claim Google eligibility; T00 vẫn pending.
+
+Direct Google generateContent, key standard/auth trong x-goog-api-key, không URL/app server. inlineJPEG/responseFormat JSON schema/systemInstruction/no tools/strict evidence parse/non-thought STOP; block/refusal/truncation/malformed/400invalidkey/404model/429quota có phục hồi. Old OpenAI settings ignored, không gửi key cũ sang Google. Saved draft provider phân biệt theo model giữ lịch sử. Candidate ảnh có preview/credit trước parent approve. Consent, crop private data, localStorage opt-in/delete/session/backup exclusions giữ nguyên; không mang OpenAI store:false/ZDR sang Google. CORS OPTIONS thật200 cho originproduction/POST/x-goog-api-key; chưa inference/key thật/quality/account retention.
+
+[Model](https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite), [pricing](https://ai.google.dev/gemini-api/docs/pricing), [keys](https://ai.google.dev/gemini-api/docs/api-key), [structured output](https://ai.google.dev/gemini-api/docs/generate-content/structured-output), [terms](https://ai.google.dev/gemini-api/terms). [Screenshot Gemini](founder-fixes/gemini-settings.jpg); screenshot OpenAI cũ giữ lịch sử trước steering.
+
+`pnpm check` sau Gemini PASS104 unit-integration/13files/lint/typecheck/build. Tests thêm các model URLs, no auto fallback, standard/authkeyformats/oldprovider rejection, strict malformed/injection/evidence/refusal/truncation và sanitized errors; browser full suite **113/113 PASS** desktop/mobile trước push.
+
+## Implementation trước steering Gemini (OpenAI đã superseded)
+
 
 - Datamuse live `handsom` trả `handsome`; lookup Wiktionary/Tatoeba live trả “đẹp trai”, adjective, `/ˈhæn.səm/`, ví dụ `a handsome man`/`người đẹp trai` và `How handsome!`/`Đẹp trai quá!`, có nguồn/credit. Chọn sense giữ source/IPA trust; response cũ/abort không đè input. Các corpus example có thể khác sense, phụ huynh phải kiểm. EN-only fallback rõ VI còn thiếu.
 -174 OpenMoji17 SVG bundle curated, SHA-safe static IDs, không script/foreignObject/remote references, giữ nguyên asset/licenseCCBYSA4/source/author. Catalog trước, rồi exact mapping; handsome→man chỉ appearance sense. Credit hiện trong chi tiết/offline và lưu source; no imagegen/runtime arbitrary URL. Abstract/missing image cho chọn hoặc bỏ qua, không giả mapping đúng nghĩa.
@@ -21,3 +32,7 @@ Impeccable context một lần, detector một lần; duy nhất capture blob `<
 Vercel project words-for-kids trong team trudyan141s-projects đã tạo và link GitHub trudyan141/vocabularyNotes. Native main production / branches previews; Node24, Next, pnpm frozen/region sin1. Ba production env NEXT_PUBLIC_APP_URL, APP_DEMO_MODE=false, AI_PROVIDER=none đã thêm. Chưa Supabase hoặc media secrets, học local/BYOK không cần cloud. Commit/push và kết quả deployment sẽ ghi khi quan sát READY.
 
 Screenshots đã lưu và xem: [desktop](founder-fixes/add-word-desktop.jpg), [mobile](founder-fixes/add-word-mobile.jpg). Mobile DOM: viewport360, document345 (scrollbar15), form313px với lề16px; không overflow ngang. `scripts/validate_docs.py --full` PASS188links/17skills351resources/25requirements19tasks16screens/27JSON. Credential scan979staged files PASS; eng.traineddata và envlocal excluded. Whitespace check sourceowned PASS; upstream skills/OFL giữ nguyên với whitespace lịch sử để không đổi checksum/license.
+
+## Git deployment đầu tiên đã xác nhận
+
+Commit `7b1e997` pushmain trigger Vercel nativeGit (không CLI manual deploy), deployment `dpl_8BynDkHqp723LwyRV3FhcDvrx3sC` READY, alias [words-for-kids.vercel.app](https://words-for-kids.vercel.app), project/Next/Node24/sin1/3env. Remote [CI38022181410](https://github.com/trudyan141/vocabularyNotes/actions/runs/38022181410) SUCCESS, tất cảsteps/no failures. Hosted health200/demo:false/cloud:false/serverliveAi:false; dictionary suggest handsom→handsome và detail đẹp trai/IPA/native+Tatoeba bilingual examples PASS thật từ deployedserver. LượtGemini sẽ push và ghi deploymentREADY khi quan sát.

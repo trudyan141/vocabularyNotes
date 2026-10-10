@@ -1,6 +1,6 @@
 # Words for Kids
 
-Web/PWA học tiếng Anh cho trẻ 5–8 tuổi, phụ huynh chuẩn bị và duyệt bài. Có nhập tay/autocomplete/tra từ, chụp ảnh/AI với key riêng, nghĩa song ngữ, IPA/gợi ý đọc, ví dụ, ghi chú, bộ thẻ/SRS, bốn game, backup và offline. Google/cloud/tìm hình có license là lựa chọn cấu hình riêng; AI đọc ảnh gọi trực tiếp OpenAI bằng key phụ huynh; key không qua app server.
+Web/PWA học tiếng Anh cho trẻ 5–8 tuổi, phụ huynh chuẩn bị và duyệt bài. Có nhập tay/autocomplete/tra từ, chụp ảnh/AI với key riêng, nghĩa song ngữ, IPA/gợi ý đọc, ví dụ, ghi chú, bộ thẻ/SRS, bốn game, backup và offline. Google/cloud/tìm hình có license là lựa chọn cấu hình riêng; AI đọc ảnh gọi trực tiếp Google Gemini bằng key phụ huynh; key không qua app server.
 
 ## Chạy nhanh
 
@@ -17,7 +17,7 @@ Mở [app local](http://127.0.0.1:4317/today). Không cần key để học loca
 
 - [SETUP-PROJECT.md](SETUP-PROJECT.md): giới thiệu, install/run, từng biến môi trường và nơi lấy, Supabase/Google, Vercel, tests và xử lý lỗi.
 - [Plan founder và tiến độ](docs/KE-HOACH-FOUNDER.md): phạm vi, tình hình và phần chưa nghiệm thu.
-- [Evidence local](docs/evaluations/completion-local.md), [cloud local](docs/evaluations/cloud-local.md): phân biệt API/SQL thật với identity/network fixture và phần live chưa kiểm.
+- [Evidence hiện hành](docs/evaluations/parent-dictionary-byok-deploy.md), [cloud local](docs/evaluations/cloud-local.md): phân biệt API/SQL thật với identity/network fixture và phần live chưa kiểm.
 - [Docs](docs/README.md), [AGENTS.md](AGENTS.md), [START-HERE](docs/ai/START-HERE.md): đặc tả, ledger và cách tiếp tục.
 
 ```sh
@@ -27,4 +27,6 @@ pnpm test:sql
 pnpm docs:check
 ```
 
-SQL/E2E cloud cần PostgreSQL; chi tiết setup ở hướng dẫn. `vercel.json`, env example, Supabase config/migrations và GitHub CI đã chuẩn bị; chưa deploy hoặc chạy GitHub CI. Camera/voice/PWA thiết bị thật, provider/Google/Supabase hosted và human pilot vẫn cần nghiệm thu.
+SQL/E2E cloud cần PostgreSQL; chi tiết setup ở hướng dẫn. `vercel.json`, env example, Supabase config/migrations và GitHub CI đã chuẩn bị; đã deploy tự động Vercel qua push main; CI remote ghi trong evidence. Camera/voice/PWA thiết bị thật, provider/Google/Supabase hosted và human pilot vẫn cần nghiệm thu.
+
+[Mở app hosted](https://words-for-kids.vercel.app), [gắn Gemini key/chọn model](https://words-for-kids.vercel.app/settings#parent-ai).

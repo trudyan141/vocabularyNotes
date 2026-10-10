@@ -5,11 +5,11 @@ Status: `ready`, `planned`, `in_progress`, `pending_external`, `done`. Chỉ chu
 | ID | Phase | Công việc | Dependencies | Status | Acceptance / evidence |
 |---|---|---|---|---|---|
 | T00 | P0 | Kiểm child eligibility + benchmark/chọn AI provider/model | None | pending_external | 20 synthetic PNG/40 mode references, scorer15 tests PASS; evaluations/ai-benchmark.md; human GT/account eligibility/live benchmark/model selection pending |
-| T01 | P0 | Scaffold, versions, scripts, env, CI | None | done | Scaffold evidence lịch sử; setup viết lại, Vercel nativeGit project/env đã config theo ADR029; remoteCI/deployment xác nhận trong parent-dictionary-byok-deploy |
+| T01 | P0 | Scaffold, versions, scripts, env, CI | None | done | Scaffold evidence lịch sử; setup viết lại, Vercel nativeGit project/env đã config theo ADR029; remoteCI SUCCESS/nativeGitVercelREADY7b1e997 trong parent-dictionary-byok-deploy |
 | T02 | P0 | Design system, shell, high-fidelity 3 màn | T01,T18 | done | S03/S07/S09 + primitives/preferences UI/demo; check/22 unit/27 browser + baseline15 cold/50 input; evaluations/t02-ui-shell.md/ux-performance.md; device/human/field pending |
 | T03 | P1 | Local DB/migrations/dedup/search | T01 | done | QA01/02/09/10 + rollback/scopes; 49 unit-integration/42 browser; 5.000 search p95≈166 ms/CPU4×; evaluations/t03-local-repository.md |
 | T04 | P1 | Camera/upload/crop/drafts | T02,T03 | pending_external | S04/S05 implemented; check57 + browser58 PASS, EXIF/crop/quota/reload; evaluations/t04-capture.md; còn QA07 smoke iPhone/Android thật |
-| T05 | P1 | AI BYOK trực tiếp + gateway/contracts/quota/idempotency | T00,T01 | in_progress | ADR029 parentOpenAI/session/localStorage opt-in/direct Responses/schema/evidence/consent/cancel/errors/review đã kiểm fixture/CORS thật; inference/retention/benchmark pending; servergateway/sharedledger planned |
+| T05 | P1 | AI BYOK trực tiếp + gateway/contracts/quota/idempotency | T00,T01 | in_progress | ADR029 parentGemini/session/localStorage opt-in/direct Responses/schema/evidence/consent/cancel/errors/review đã kiểm fixture/CORS thật; inference/retention/benchmark pending; servergateway/sharedledger planned |
 | T06 | P1 | Review/save/source links | T03,T04,T05 | in_progress | Manual/AI candidate review/source/origin/save/reload kiểm local; inference thật pending; parent-dictionary-byok-deploy |
 | T07 | P1 | Real autocomplete/bilingual lookup/autofill + IPA/examples/licensed illustrations/enrichment | T02,T06 | in_progress | Datamuse spelling/Wiktionary senses/IPA/Tatoeba examples livehandsome smoke; auto-fill/sense/image174 OpenMoji/review/save/source checked; liveAI/hostedCommons/human content pending |
 | T08 | P1 | Notes + 3 animation templates | T07 | in_progress | Notes3 templates persistence/play/pause/static local; human/device QA11/12 pending |
@@ -18,7 +18,7 @@ Status: `ready`, `planned`, `in_progress`, `pending_external`, `done`. Chỉ chu
 | T11 | P1 | Sync/merge/conflicts/backup/deletion | T06,T10 | in_progress | Local backup/restore; sync/CAS/retry/conflict/guest transfer và server SRS đã kiểm local; source photo consent/idempotent retry/delete, account deletion/freeze/storage cleanup, notes keep-both/per-field meanings đã kiểm local; hosted cleanup và accepted-history merge ngoài whitelist chưa nghiệm thu |
 | T12 | P1 | 4 games/assets/grading/hints | T07,T09 | in_progress | 4 games approved words/ready catalog/grading/hints/feedback/resume local; human/device/media external pending |
 | T13 | P1 | PWA/offline/scope-safe cache | T08,T11,T12 | in_progress | Offline library/card/4games/resume/SRS/basicparententry and OpenMoji staticpath/cache checked; device install/update/fullparentediting pending; localOCR removed ADR029 |
-| T14 | P1 | Cross-cutting QA + quality gate | T08,T13 | in_progress | check91unit/E2E111/SQL PASS; evidence parent-dictionary-byok-deploy; human/device/liveAI/cloud/field/performance currentbuild pending |
+| T14 | P1 | Cross-cutting QA + quality gate | T08,T13 | in_progress | Gemini check104unit/Gemini E2E113/113 PASS/SQL PASS; evidence parent-dictionary-byok-deploy; human/device/liveAI/cloud/field/performance currentbuild pending |
 | T15 | P1 | Pilot, operations, release | T14 | in_progress | Founder authorized Vercel nativeGit deploy/current setup; readiness recorded in evidence; QA25human/physicalphone/pilot gates remain pending |
 | T16 | P2 | Local OCR workflow — removed by founder ADR029 | T15 | planned | Tesseract/deviceOCR removed, old ADR026 evidence historical; do not reimplement unless founder explicitly requests scope again |
 | T17 | P2 | Chọn expansion: profiles/batch/TTS/FSRS | T15 | planned | ADR + subtasks/acceptance trước triển khai |
@@ -62,6 +62,6 @@ Các ô trống là đúng ở giai đoạn hiện tại. Người tiếp theo k
 
 Source lifecycle, account deletion, merge UI, optional Commons adapter, đủ hai ví dụ catalog/contract1.1, S10 và prepared offline OCR/basic edits đã nối. Cấu hình Vercel/Supabase/CI và setup đầy đủ; [completion-local](../evaluations/completion-local.md) ghi checks/budgets thực tế. Giữ count vì live/device/human gates chưa đạt; T05 phụ thuộc T00, T15 pilot và T17 expansion chưa tự triển khai/deploy.
 
-## Founder fixes10/10/2026 — ADR-029
+## Founder fixes10/10/2026 — ADR-030
 
 4done/2pending_external/10in_progress/3planned giữ tổng: T05 directBYOK in_progress, T15 nativeGitdeploy in_progress, T16localOCRretired planned. [Evidence](../evaluations/parent-dictionary-byok-deploy.md). Các mốc trước có OCR/prohibition localStorage/no-deploy là lịch sử đã supersede. Không dùng testsfixture thay liveAIbenchmark; người dùng đã cho phép localStoragekey và deploy, không hỏi lại approval cũ.

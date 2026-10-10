@@ -17,8 +17,15 @@ async function seed(repository:LocalRepository,count=4){return repository.saveLe
 afterEach(async()=>{for(const db of databases.splice(0)){db.close();await Dexie.delete(db.name);}});
 describe("complete local learning flows",()=>{
   it("saves and archives a deck beyond 500 words without changing short practice sessions",async()=>{
-    const repository=repo();const senses=Array.from({length:501},(_,i)=>({...catalog[0],id:`large-${i}`,word:`word${i}`,vi:`từ ${i}`,approved:true}));
-    await repository.saveLesson({operationId:crypto.randomUUID(),title:"Large fixture",learnedOn:"2026-10-11",sourceType:"manual",items:senses});
+    const repository=repo();await seed(repository,1);const scope=repository.scope.id;
+    const sense=(await repository.db.senses.get([scope,"word-0"]))!,entry=(await repository.db.entries.get([scope,sense.entryId]))!,index=(await repository.db.searchIndex.get([scope,"word-0"]))!;
+    const senses=Array.from({length:501},(_,i)=>({...sense,id:`large-${i}`,entryId:`large-${i}`}));
+    // Prepare the approved library in bulk; this test exercises decks, not 501 lesson submissions.
+    await repository.db.transaction("rw",[repository.db.entries,repository.db.senses,repository.db.searchIndex],async()=>{
+      await repository.db.entries.bulkPut(senses.map((s,i)=>({...entry,id:s.entryId,displayText:`word${i}`,canonicalKey:`word${i}`,activeKey:`word${i}`})));
+      await repository.db.senses.bulkPut(senses);
+      await repository.db.searchIndex.bulkPut(senses.map((s,i)=>({...index,id:s.id,terms:`word${i}`,ordinal:`word${i}`})));
+    });
     const saved=await saveDeck(repository,"large-deck",null,{name:"501 words",senseIds:senses.map(s=>s.id),direction:"en-vi"});
     expect((saved.payload.deck as {senseIds:string[]}).senseIds).toHaveLength(501);
     const archive=await parseArchive(JSON.stringify(await exportArchive(repository)));expect(archive.records.decks[0].payload.deck.senseIds).toHaveLength(501);

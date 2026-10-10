@@ -16,3 +16,7 @@ Representative synthetic screenshots (the whole52-view report is retained; no pe
 - [Responsive report](founder-fixes/child-play-v1/responsive-report.json)
 
 Shelf licence verified on11/10/2026 from [SVG Repo's source page](https://www.svgrepo.com/svg/251672/bookshelf), labelled CC0. Other art retains its existing licensed catalog entries. No new downloaded asset or generated image is introduced. Complete archive test includes501members; browser test reachesword100 beyond the original20demo words and preserves25selections through search/page/save/reload/edit. Original tones tested for gesture unlock, mute/hidden suppression, finite cues and cleanup; real-device audibility/voice and child/parent human preference remain open, not inferred from screenshots.
+
+## Hosted checkpoint and CI fixture correction
+
+Source583bb79 production READY on nativeGit Vercel dpl_4ixRdMzBqNqKeTcpiNcG34yCStJb; stable alias words-for-kids.vercel.app. Hosted hub shows the new illustrations/fox and short prompts. GitHub run38071320855 failed only the new501-word integration fixture at its normal5000ms timeout (136 tests passed): setup repeated full lesson submission501 times. Fixture now bulk-prepares approved scoped entries/senses/index and retains the real saveDeck/archive/short-session assertions. Isolated17tests PASS in1.04s; full137tests/lint/typecheck PASS after the change. No global timeout increase and no app behavior change. CI retry on the follow-up source remains pending until its actual result is read.

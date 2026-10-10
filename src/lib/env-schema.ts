@@ -15,6 +15,7 @@ export const appEnvSchema = z.object({
   AI_PROVIDER: z.literal("none").default("none"),
   NEXT_PUBLIC_SUPABASE_URL: z.url().optional(),
   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: optionalText,
+  NEXT_PUBLIC_GEMINI_DEFAULT_KEY: optionalText,
   SUPABASE_SERVICE_ROLE_KEY: optionalText,
   SUPABASE_SECRET_KEY: optionalText,
   MEDIA_IMPORT_SIGNING_SECRET: z.string().min(32).optional(),

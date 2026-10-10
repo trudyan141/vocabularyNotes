@@ -1,5 +1,13 @@
 # Bắt đầu / khôi phục / chuyển AI
 
+Latest11/10 ADR052/053: Welcome only mascot/short copy/CTA; no global sample footer or word-detail Source and notes disclosure. Provenance/notes preserved in DB. New generated map-fox404 with HTTP404/VI-EN/Home; scoped14browserPASS17,7s. [Evidence](../evaluations/welcome-footer-and-404.md). Local only, permissions/test rules049/050 remain.
+
+Latest11/10 ADR051: S04 Chọn ảnh / Chụp ảnh tabs, only selected panel, camera permission only after Open camera; leave tab stops tracks/late permission. Picker/drop/paste retained. Unused local eng.traineddata removed and *.traineddata ignored at founder request. [Scoped evidence](../evaluations/capture-tabs.md); local only under ADR049/050.
+
+**Ưu tiên mới nhất11/10 — ADR049/050:** Founder làm browser thật/GitHub/Vercel/env/deploy; agent cần xin phép cho hành động cụ thể, không dùng quyền triển khai cũ. Chỉ code/docs + kiểm thử local cô lập. Founder đã chọn **Gọn**: lint/typecheck, tests phần đổi, vài trạng thái mobile/desktop; full suite ở mốc bàn giao lớn. Đọc rule AGENTS/10 trước lệnh thao tác. IPA/paste047/048 còn local, chưa push/hosted mới.
+
+Latest11/10 ADR047/048: whole-English-sentence IPA beneath examples (unverified suggestions labelled Tham khảo), future generation includes every clause; edits clear stale IPA. Capture supports Ctrl+V / ⌘V image paste → immediate local preview, no automatic AI. [Evidence](../evaluations/sentence-ipa-and-image-paste.md).045/046/author runtimeca3626d hosted READY/remote CI173+SQL SUCCESS.
+
 Latest11/10 ADR046: **Cài đặt**, direct add/edit/study with no parent warning gate. Family self-manages parent/child usage. Neutral copy includes offline; content review, actual consent/deletion/auth/ownership still apply. Supersedes older parent-only UI instructions. Source03/04/02/AGENTS and [evidence](../evaluations/plain-language-and-select-all.md).
 
 Latest11/10 ADR045: plain-language default UI/no technical storage or provider diagnostics, Select all across filtered pages for groups/decks. Source04/AGENTS and [evidence](../evaluations/plain-language-and-select-all.md). ADR044 remote CI169/browser+SQL SUCCESS, hosted READY.

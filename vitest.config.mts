@@ -7,5 +7,8 @@ export default defineConfig({
     environment: "node",
     include: ["tests/unit/**/*.test.ts", "tests/integration/**/*.test.ts"],
     clearMocks: true,
+    env: {
+      NEXT_PUBLIC_GEMINI_DEFAULT_KEY: "AQ." + "test-default-parent-key-canary-123456",
+    },
   },
 });

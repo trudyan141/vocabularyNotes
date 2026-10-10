@@ -1,6 +1,6 @@
 import {canonicalKey,exactSenseKey} from '@/domain/identity';
 import { catalog, type LookupWord } from '@/lib/learning/catalog';
-export type OcrCandidate={id:string;literal:string;word:string;vi:string;en:string;pos:string;sense:string;example:string;exampleVi:string;selected:boolean;art:string|null;origin?:'ai_generated'|'user'|'source'};
+export type OcrCandidate={id:string;literal:string;word:string;vi:string;en:string;pos:string;sense:string;example:string;exampleVi:string;exampleIpa?:string|null;selected:boolean;art:string|null;origin?:'ai_generated'|'user'|'source'};
 export function candidates(text:string,mode:'listed'|'all'):OcrCandidate[]{
  const parts=mode==='listed'?text.split(/\r?\n/).map(s=>s.trim()).filter(s=>/^[A-Za-z][A-Za-z '\-]{0,79}$/.test(s)):text.match(/[A-Za-z]+(?:['’-][A-Za-z]+)*/g)??[];
  const seen=new Set<string>();const result:OcrCandidate[]=[];

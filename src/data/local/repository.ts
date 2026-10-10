@@ -31,7 +31,7 @@ import type {
 const text = (max: number) => z.string().trim().min(1).max(max);
 const pronunciationSchema = z.object({
   text: text(2000), contentVersion: z.number().int().positive(),
-  accent: z.enum(["UK", "US", "other"]), ipa: z.string().max(300).nullable(),
+  accent: z.enum(["UK", "US", "other"]), ipa: z.string().max(2000).nullable(),
   sourceUrl: z.string().max(2000).nullable(), verified: z.boolean(),
   readingHintVi: z.string().max(2000).nullable(), origin: z.enum(["source", "user", "ai_generated"]),
   approvedContentVersion: z.number().int().positive().nullable(),

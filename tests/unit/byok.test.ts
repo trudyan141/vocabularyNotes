@@ -78,3 +78,11 @@ it('offers the shared default without persisting it, respects private overrides 
 it('still supplies the shared default when browser storage is blocked',()=>{
  refreshParentAi();vi.stubGlobal('localStorage',{getItem:()=>{throw new Error('blocked');}});expect(parentAi()?.key).toBe(defaultParentKey);
 });
+
+it('requests and retains full-example IPA without accepting headword-only or executable output',()=>{
+ const example={...result.words[0],exampleIpa:'/aɪ it ə pɛɹ/'};
+ expect(validateWorksheet({...result,words:[example]}).words[0].exampleIpa).toBe(example.exampleIpa);
+ expect(()=>validateWorksheet({...result,words:[{...example,exampleIpa:'/pɛɹ/'}]})).toThrow('sentence-ipa');
+ expect(()=>validateWorksheet({...result,words:[{...example,exampleIpa:'/<script>/'}]})).toThrow();
+ expect(JSON.stringify(worksheetProviderSchema())).toContain('exampleIpa');
+});

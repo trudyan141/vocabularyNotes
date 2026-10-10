@@ -1,3 +1,4 @@
+import {preparedSentenceIpa} from "@/lib/pronunciation/prepared";
 import {catalogAdditions} from "./additional";
 import { demoEntries } from "@/lib/demo/model";
 import type { WordInput, Pronunciation } from "@/data/local/types";
@@ -10,8 +11,9 @@ const hints: Record<string, [string, string]> = {
 };
 export function pronunciation(text: string, hint: string | null, ipa: string | null = null,
   sourceUrl: string | null = null, verified = false): Pronunciation {
-  return { text, contentVersion: 1, accent: "other", ipa, sourceUrl, verified,
-    readingHintVi: hint, origin: sourceUrl ? "source" : "user", approvedContentVersion: 1 };
+  const guide=!ipa?preparedSentenceIpa[text]:undefined;
+  return { text, contentVersion: 1, accent: guide?"US":"other", ipa:ipa??guide??null, sourceUrl:sourceUrl??(guide?"https://github.com/cmusphinx/cmudict":null), verified,
+    readingHintVi: hint, origin: sourceUrl||guide ? "source" : "user", approvedContentVersion: 1 };
 }
 const checkedIpa: Record<string, [string, string]> = {
   apple: ["/ˈæp.əl/", "https://dictionary.cambridge.org/pronunciation/english/apple"],

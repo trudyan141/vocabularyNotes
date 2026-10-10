@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Camera, RotateCw, Upload, Save, Trash2, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Field,
@@ -102,9 +103,11 @@ export function Capture() {
   );
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [captureMode, setCaptureMode] = useState<"upload" | "camera">("upload");
   const [dragging,setDragging]=useState(false);
   const dragDepth=useRef(0);
   const pendingTitle=useRef("");
+  const pendingPaste=useRef<File|null>(null);
   const fileInput=useRef<HTMLInputElement|null>(null);
   const [cameraState, setCameraState] = useState<
     "closed" | "requesting" | "ready"
@@ -126,6 +129,14 @@ export function Capture() {
     if (video.current) video.current.srcObject = null;
     if (mounted.current) setCameraState("closed");
   }, []);
+  function changeCaptureMode(value: string) {
+    if (busy || intakeLock.current || (value !== "upload" && value !== "camera")) return;
+    stopCamera();
+    setCaptureMode(value);
+    setError("");
+    dragDepth.current = 0;
+    setDragging(false);
+  }
   useEffect(() => {
     mounted.current = true;
     const hide = () => {
@@ -209,6 +220,7 @@ export function Capture() {
   }
   async function intake(blob: Blob) {
     if (intakeLock.current) return;
+    setCaptureMode("upload");
     pendingTitle.current=blob instanceof File?blob.name.replace(/\.[^.]+$/, "").slice(0,200):`Ảnh chụp · ${new Date().toLocaleDateString("en-CA")}`;
     intakeLock.current = true;
     stopCamera();
@@ -224,6 +236,22 @@ export function Capture() {
       if (mounted.current) setBusy(false);
     }
   }
+  useEffect(() => {
+    if(repo&&pendingPaste.current&&!intakeLock.current){const file=pendingPaste.current;pendingPaste.current=null;void intake(file);}
+    const paste = (event: ClipboardEvent) => {
+      const files = Array.from(event.clipboardData?.files ?? []).filter(file => file.type.startsWith("image/"));
+      if (!files.length) return;
+      event.preventDefault();
+      if (busy || intakeLock.current || pendingPaste.current) return;
+      if (files.length !== 1) { setError(t("Dán một ảnh mỗi lần để xem và chỉnh từng trang.", "Paste one photo at a time to review each page.")); return; }
+      const file=files[0];
+      const copied=new File([file], t('Ảnh đã dán','Pasted photo')+`.${file.type.split('/')[1]}`, {type:file.type});
+      if(!repo){pendingPaste.current=copied;return;}
+      void intake(copied);
+    };
+    document.addEventListener("paste", paste);
+    return () => document.removeEventListener("paste", paste);
+  });
   async function takePhoto() {
     pendingTitle.current=`Ảnh chụp · ${new Date().toLocaleDateString("en-CA")}`;
     const node = video.current;
@@ -283,27 +311,39 @@ export function Capture() {
       <h1>{t("Thêm bài cho con", "Add a lesson")}</h1>
       <p>
         {t(
-          "Chọn hoặc chụp một trang bài học. Xem và chỉnh ảnh trước, rồi mới gửi AI để đọc chữ.",
-          "Choose or photograph one worksheet page. Review and crop it before sending it to AI.",
+          "Thêm ảnh bài học, rồi xem và chỉnh ảnh trước khi đọc chữ.",
+          "Add a worksheet photo, then review and crop it before reading the text.",
         )}
       </p>
       {error && <Failure message={error} />}
-      <section className="capture-intake" aria-label={t('Chụp hoặc chọn ảnh bài học','Capture or choose a worksheet photo')}>
-        <div className={`capture-dropzone${dragging?' is-dragging':''}${busy?' is-busy':''}`} data-testid="worksheet-dropzone"
+      <section className="capture-intake" aria-label={t('Chụp, chọn hoặc dán ảnh bài học','Capture, choose or paste a worksheet photo')}>
+        <Tabs value={captureMode} onValueChange={changeCaptureMode} className="capture-tabs">
+          <TabsList className="capture-tabs-list" aria-label={t("Cách thêm ảnh", "How to add a photo")}>
+            <TabsTrigger value="upload" disabled={busy}><Upload aria-hidden="true" />{t("Chọn ảnh", "Upload photo")}</TabsTrigger>
+            <TabsTrigger value="camera" disabled={busy}><Camera aria-hidden="true" />{t("Chụp ảnh", "Camera")}</TabsTrigger>
+          </TabsList>
+          <TabsContent value="upload">
+        <div className={`capture-dropzone${dragging?' is-dragging':''}${busy?' is-busy':''}`} data-testid="worksheet-dropzone" tabIndex={0}
           onDragEnter={event=>{event.preventDefault();if(busy)return;dragDepth.current++;setDragging(true);}}
           onDragOver={event=>{event.preventDefault();event.dataTransfer.dropEffect=busy?'none':'copy';}}
           onDragLeave={event=>{event.preventDefault();dragDepth.current=Math.max(0,dragDepth.current-1);if(!dragDepth.current)setDragging(false);}}
           onDrop={event=>{event.preventDefault();dragDepth.current=0;setDragging(false);if(busy||intakeLock.current)return;const files=event.dataTransfer.files;if(files.length!==1){setError(t('Chọn một ảnh mỗi lần để xem và chỉnh rõ từng trang.','Choose one photo at a time so each page can be reviewed and cropped.'));return;}void intake(files[0]);}}>
           <Upload size={32} aria-hidden="true"/>
           <h2>{dragging?t('Thả ảnh vào đây','Drop your photo here'):t('Kéo thả ảnh bài học vào đây','Drag your worksheet photo here')}</h2>
-          <p>{t('Hoặc chọn một ảnh trong máy của bạn','Or choose a photo from your device')}</p>
-          <Button variant="outline" disabled={busy} onClick={()=>fileInput.current?.click()}>{t('Chọn ảnh từ máy','Choose an image')}</Button>
+          <p>{t('Chọn ảnh từ máy hoặc dán ảnh đã sao chép (Ctrl+V / ⌘V)','Choose a photo or paste a copied image (Ctrl+V / ⌘V)')}</p>
+          <Button disabled={busy} onClick={()=>fileInput.current?.click()}>{t('Chọn ảnh từ máy','Choose an image')}</Button>
           <input ref={fileInput} id="worksheet-file" type="file" hidden aria-label={t('Chọn ảnh từ máy','Choose an image')} accept="image/jpeg,image/png,image/webp,.heic,.heif" disabled={busy} onChange={event=>{const file=event.target.files?.[0];event.target.value='';if(file)void intake(file);}}/>
           <small>JPEG, PNG, WebP · {t('Tối đa 10 MB · Một ảnh mỗi lần','Up to 10 MB · One photo at a time')}</small>
         </div>
-        <div className="capture-camera-choice"><div><h2>{t('Bài học đang ở trước mặt?','Have the worksheet in front of you?')}</h2><p>{t('Chụp cả trang, đủ sáng và tránh bóng tay.','Capture the whole page in good light, without shadows.')}</p></div><Button onClick={()=>void startCamera()} disabled={busy||cameraState!=='closed'}><Camera data-icon="inline-start"/>{t('Mở camera','Open camera')}</Button></div>
-        <p className="capture-local-note">{t('Chọn ảnh hoặc mở camera chưa gửi ảnh đến Google.','Choosing a photo or opening the camera does not send it to Google.')}</p>
-      </section>
+          </TabsContent>
+          <TabsContent value="camera">
+        <div hidden={cameraState !== "closed"} className="capture-camera-choice">
+          <Camera size={40} aria-hidden="true" />
+          <h2>{t("Chụp trang bài học", "Photograph your worksheet")}</h2>
+          <p>{t("Chụp cả trang, đủ sáng và tránh bóng tay.", "Capture the whole page in good light, without shadows.")}</p>
+          <Button onClick={()=>void startCamera()} disabled={busy}><Camera data-icon="inline-start"/>{t('Mở camera','Open camera')}</Button>
+          {error && <Button variant="ghost" onClick={() => changeCaptureMode("upload")}><Upload data-icon="inline-start"/>{t("Chọn ảnh thay thế", "Choose a photo instead")}</Button>}
+        </div>
       <div hidden={cameraState === "closed"} className="camera-surface">
         <video
           ref={video}
@@ -343,6 +383,10 @@ export function Capture() {
           </Button>
         </div>
       </div>
+          </TabsContent>
+        </Tabs>
+        <p className="capture-local-note">{t('Ảnh chỉ được gửi khi bạn chọn phân tích.','Your photo is sent only when you choose to analyze it.')}</p>
+      </section>
       {busy && (
         <p role="status">
           {t(

@@ -1,4 +1,12 @@
 # UI, UX và animation — Words for Kids
+## Welcome, footer và metadata học — ADR052/053, 11/10/2026
+
+Founder yêu cầu bỏ phần giải thích khó hiểu cuối Welcome, link Cài đặt lặp lại và strip Nghe từ/Nhìn hình/Chơi và nhớ. Welcome chỉ giữ minh họa Cáo/táo/sách/mèo, lời chào ngắn và primary Bắt đầu; bố cục co giãn theo viewport, không chèn nội dung thừa để lấp chiều cao. Header Cài đặt vẫn truy cập được. Bỏ footer Bài mẫu trên mọi route; nguồn mẫu vẫn phân biệt tại chính bài học và trong dữ liệu, không đổi APP_DEMO_MODE/scope/content.
+
+S09 không render mục Nguồn và ghi chú, provenance/literal evidence/IPA-source links/saved notes phía dưới từ. Chỉ bỏ presentation/query không cần thiết; source/evidence/notes/pronunciations vẫn ở database và giữ qua save/reload/backup/sync. Ghi nguồn/giấy phép hình cần thiết vẫn giữ, không coi việc giấu metadata học là quyền bỏ attribution/license.
+
+404 dùng minh họa bitmap gốc Cáo tìm đường bằng bản đồ, 404 bằng text HTML, lời dễ hiểu và primary Về trang đầu. Thực sự trả HTTP404, VI/EN theo settings, không tự redirect/hỏi quyền/call AI. Asset mới tối ưu WebP50538bytes có alpha; không thay mascot gốc. [Evidence](evaluations/welcome-footer-and-404.md). Chỉ local theo ADR049/050.
+
 ## Người dùng tự thêm và học — ADR046, 11/10/2026
 
 Steering trực tiếp mới nhất: app mở cho người dùng tự thêm bài, sửa và học. Header dùng **Cài đặt** với icon bánh răng, mở trực tiếp `/settings`. Bỏ toàn bộ hộp thoại “Nhờ bố mẹ / Bố mẹ tiếp tục” và gate giả ở thêm ảnh/từ, sửa từ/ghi chú, tạo bộ thẻ/nhóm, bổ sung hình/câu và các entry trên Home/Today/Library. Navigation là link thực, giữ shared berry/secondary/feature styles, bàn phím và ba nav.
@@ -14,7 +22,7 @@ Người dùng thấy AI ready/off và thao tác bật/tắt; key/model/test API
 
 Chơi & học có mascot cáo riêng và minh họa catalog cho từng mode. Game có stage hình rõ, 3 đáp án bằng nhau cùng hàng ở360px, progress, đáp án đúng/sai có chữ/màu/mascot; animation finite và âm báo gốc nhẹ sau thao tác, nút sound chung/persist, không autoplay/network audio. Pause/route/hide/mute dừng tiếng; reduced motion giữ bản tĩnh và tắt SFX tùy chọn. Điểm game không đổi SRS.
 
-Founder yêu cầu kiểm toàn bộ UI mobile để thật đẹp/dễ thương/dễ dùng: mọi lượt UI phải kiểm đủ route/state liên quan và rà toàn bộ16screen-family ở360/1280, empty/loading/error/disabled/focus/reduced-motion/sound-off; ghi screenshots và lỗi đã xử lý. Giữ Theme C, 3nav, child5–8/parent review/license truth. Automated pass không thay physical-phone hay quan sát bé/bố mẹ thật. [Evidence](evaluations/child-play-and-parent-simplicity.md).
+Founder yêu cầu kiểm toàn bộ UI mobile để thật đẹp/dễ thương/dễ dùng: mỗi lượt kiểm vài route/state vừa đổi ở360/1280 theo ADR050; chỉ rà toàn bộ16screen-family ở mốc bàn giao lớn, gồm empty/loading/error/disabled/focus/reduced-motion/sound-off; ghi screenshots và lỗi đã xử lý. Giữ Theme C, 3nav, child5–8/parent review/license truth. Automated pass không thay physical-phone hay quan sát bé/bố mẹ thật. [Evidence](evaluations/child-play-and-parent-simplicity.md).
 
 
 ## Action hierarchy refinement — ADR-043, 11/10/2026

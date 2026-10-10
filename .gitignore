@@ -48,3 +48,6 @@ next-env.d.ts
 # Supabase CLI linked-project state and credentials
 /supabase/.temp/
 /supabase/.branches/
+
+# Obsolete local OCR model downloads; worksheet reading uses Gemini.
+*.traineddata

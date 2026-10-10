@@ -5,7 +5,7 @@
 
 ## Bổ sung hiện hành — 10/10/2026
 
-S10 thư viện có Từ/Câu/Mẫu câu/Ngữ pháp trong ba nav chính, search/lesson filter/page50 và links về đúng sense. Sentences lấy primary/second examples approved đúng content version; patterns/grammar lấy supplementary approved khớp entry:sense revision. Có IPA verified/hints câu khi dữ liệu tồn tại; không tự ghép IPA từng từ thành phiên âm câu. Catalog21 đủ hai ví dụ, parent edit không đảo thứ tự. Form fallback offline chỉ thêm/sửa trường cơ bản, headword cũ read-only; extra/grammar/media đầy đủ chỉnh online và duyệt lại. [Milestone](evaluations/completion-local.md).
+S10 thư viện có Từ/Câu/Mẫu câu/Ngữ pháp trong ba nav chính, search/lesson filter/page50 và links về đúng sense. Sentences lấy primary/second examples approved đúng content version; patterns/grammar lấy supplementary approved khớp entry:sense revision. Có IPA cả câu/hints theo ADR047: verified có bằng chứng; hướng dẫn đọc lexicon/AI mang nhãn Tham khảo. Không gọi bản ghép IPA từng từ là câu đã xác minh. Catalog21 đủ hai ví dụ, parent edit không đảo thứ tự. Form fallback offline chỉ thêm/sửa trường cơ bản, headword cũ read-only; extra/grammar/media đầy đủ chỉnh online và duyệt lại. [Milestone](evaluations/completion-local.md).
 
 
 ## Triển khai local đã nối — 10/10/2026
@@ -95,3 +95,7 @@ Today count and direct flashcard start share scoped approved due selection. Link
 ## Topic groups — ADR044
 
 Parents create groups of approved words and sentences, add individuals or all approved members of one imported/manual lesson or learning date, and edit/rename/remove membership with explicit Save. Duplicate senses/sentence text+translation skip deterministically; never merge different meaning/POS.12-item search/page selection and12-item read views, no total membership cap. Words can start existing short flashcard/games via group deck filter; sentence-only groups use sentence reading/audio/context, never pretend sentence practice or game scores update SRS. Groups preserve underlying source lessons, approvals, examples and review history.
+
+**11/10/2026 — ADR047/048:** Mọi câu ví dụ tiếng Anh, kể cả ví dụ bổ sung và mẫu hỏi–đáp, đặt IPA của **toàn bộ đúng câu** ngay dưới English, trước bản dịch. Khi generate phải yêu cầu IPA cả câu (`exampleIpa` trong worksheet adapter; `examples[].pronunciations` trong enrichment), gồm mọi mệnh đề; không lấy IPA headword thay thế. Không chắc dùng null; không tự gắn verified. Sửa câu phải xóa IPA và gợi ý đọc chữ Việt cũ, rồi duyệt lại. Nội dung cũ ưu tiên IPA đã lưu; hướng dẫn đọc US từ CMUdict chỉ là **Tham khảo**, không chứng minh connected speech; từ chưa biết/đa cách đọc không đoán. Lưu/backup/cloud giữ optional IPA cùng đúng text/version, không đổi dữ liệu người dùng tự động.
+
+Capture cho dán ảnh bằng Ctrl+V / ⌘V khi ở trang thêm bài: một ảnh JPEG/PNG/WebP qua cùng kiểm tra10MB/20MP, bỏ metadata, lưu nháp và mở preview/crop ngay; không tự gửi AI. Dán chữ giữ hành vi bình thường. [Bằng chứng](evaluations/sentence-ipa-and-image-paste.md).

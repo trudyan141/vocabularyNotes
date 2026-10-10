@@ -1,5 +1,17 @@
 # Ledger triển khai
 
+## 11/10 — ADR052/053: Welcome gọn, bỏ footer/source notes và minh họa404
+
+Founder liên tiếp yêu cầu bỏ đoạn cuối Welcome, footer Bài mẫu mọi trang và Nguồn và ghi chú trong chi tiết từ; giữ metadata/notes trong database. Đã bỏ UI/query/CSS thừa, giữ nguồn/notes/scope/archive/sync và illustration credit cần thiết. Welcome co giãn theo viewport với Cáo, hình quen thuộc, lời ngắn và một CTA. Theo yêu cầu generate,404 có Cáo mới cầm bản đồ/50KBalphaWebP/số404HTML/VI-EN/Home, giữHTTP404. Affected lint/types/build PASS;14scopedbrowserPASS17,7s,4Welcome/404views đã xem. Không fullsuite/livecloud/worksheetAI/physicalphone; built-in imagegen chỉ tạo asset mới được yêu cầu. [Evidence](../evaluations/welcome-footer-and-404.md). ADR05114ca riêng biệt đã PASS trước; local chưa commit/push/deploy. Ledger không đổi, founder review local diff và device/human acceptance tiếp theo.
+
+## 11/10 — ADR051: hai tab thêm ảnh + dọn model OCR cũ
+
+S04 mặc định Chọn ảnh, tab Chụp ảnh riêng; chỉ hiện panel chọn, picker/drop/paste giữ nguyên. Chọn tab không hỏi quyền; rời camera dừng tracks/hủy late acquisition, nháp không mất. Theme C berry/mint, keyboard/focus và lời ngắn gọn. Founder yêu cầu xóa file lớn: eng.traineddata local untracked23.466.654bytes không còn được runtime dùng, đã xóa và ignore *.traineddata. Affected lint/types/build PASS; scoped12browser16,4s + confirmation4browser16,5s (14 ca riêng biệt), 4 ảnh360/1280 đã xem; không full suite/real device/AI. [Evidence](../evaluations/capture-tabs.md). Local chưa commit/push/deploy theo ADR049; ledger không đổi. Next: founder review local diff; phone/human gates vẫn pending.
+
+## 11/10 — ADR049/050: founder permission and Gọn testing
+
+Founder withdraws old native browser/GitHub/Vercel/environment/deploy authorization. No further real browser/account operations, main commits/push/remote writes or deploy without concrete approval. Local code/docs/isolated fixture tests permitted. Founder explicitly chose scoped lint/types/tests/few mobile-desktop states; full QA only major milestone. Broad178browser run stopped after53passing cases at new steering; incomplete visual audit not claimed.047/048 source remains **uncommitted/unpushed/local**; final source148check/lint/types/build PASS, scoped10/10browserPASS46.3s, final stale-hint fix with affected-file ESLint/types/build and2/2browserPASS9.2s. Old045/046/author ca3626d hosted READY/CI173+SQL SUCCESS is historical completed evidence, not permission to deploy next task. Keep pre-existing env/key/eng.traineddata untouched; human/device ledger unchanged. Next: founder reviews local047/048 diff; founder owns commit/push/deployment, no automatic agent publishing.
+
 Status: `ready`, `planned`, `in_progress`, `pending_external`, `done`. Chỉ chuyển done khi có evidence trong CHANGELOG/artifact. Không đánh dấu task app done vì đã viết docs cho task đó.
 
 | ID | Phase | Công việc | Dependencies | Status | Acceptance / evidence |
@@ -99,3 +111,9 @@ Checkpoint ADR040/041: source30129b7 nativeGit production READY dpl_6P6SXrqLUuPY
 11/10/2026 T02/T09/T14/T18 ADR045 in progress: plain-language product UI and Select all across filtered pages, group/deck scopes/approval/CAS/dedup unchanged. [Evidence](../evaluations/plain-language-and-select-all.md); check142/172localbrowser/88views PASS; hosted/full remote SQL follows. Ledger unchanged.
 
 11/10/2026 T02/T09/T14/T18 ADR046 in progress: Settings gear/direct-use links replace all fake parent gates; neutral UI and offline wording; real review/consent/auth boundaries retained. Latest supersedes older parent-only UX acceptance. Local142check/172browser/88views PASS; hosted/full remote045+046checks/deploy in [evidence](../evaluations/plain-language-and-select-all.md); ledger unchanged.
+
+11/10 checkpoint045/046/author complete: ca3626d Vercel READY dpl_4TLqCK8qUJNHAGAYq3bcCa8fkh5o; CI38092449770 SUCCESS (142 check, real SQL,173 browser/full docs). Native Settings author/mailto verified. Ledger4done/2pending_external/10in_progress/3planned unchanged.
+
+11/10 latest task047/048 in progress under T07/T08/T09/T14: whole-sentence IPA under English examples, generation/edit/storage rules, copied-image paste→local draft preview. Local implementation and check in progress; hosted/complete CI not yet claimed. [Evidence](../evaluations/sentence-ipa-and-image-paste.md). Next: finish local checks/responsive visual evidence, then reviewable local handoff; publishing requires current founder approval per ADR049.
+
+Final047/048 local implementation checked under Gọn:10focuseddesktop/mobilePASS46.3s, then stale-hint bug fix +affectedESLint/types/build/2focusedcasesPASS9.2s;148unitcheck earlier pre-hint checkpoint. IPA/clipboard docs/rules ready; source remains uncommitted/unpushed/not hosted. New browser/GitHub/Vercel permission gate049 respected. Evidence sentence-ipa-and-image-paste. Ledger unchanged; founder review/publishing next.

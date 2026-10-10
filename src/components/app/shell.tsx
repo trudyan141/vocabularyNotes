@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { BookOpen, House, Layers, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { useApp } from "./provider";
 import { DatabaseBoundary } from "./database-boundary";
@@ -12,7 +11,7 @@ import { ActionLink } from "./action-link";
 import type { ReactNode } from "react";
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const { t, demo } = useApp();
+  const { t } = useApp();
   const showNav = ["/today", "/library", "/practice"].includes(pathname);
   const nav = [
     { href: "/today", label: t("Hôm nay", "Today"), icon: House },
@@ -20,7 +19,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     { href: "/practice", label: t("Chơi & học", "Play & learn"), icon: Layers },
   ];
   return (
-    <div className={cn("app-shell", showNav && "with-nav")}>
+    <div className={cn("app-shell", showNav && "with-nav", pathname === "/welcome" && "welcome-shell")}>
       <a className="skip-link" href="#main">
         {t("Đến nội dung chính", "Skip to main content")}
       </a>
@@ -72,7 +71,6 @@ export function AppShell({ children }: { children: ReactNode }) {
             <DatabaseBoundary progressive={showNav}>{children}</DatabaseBoundary>
           )}
         </main>
-        {demo && <footer className="demo-note"><Badge variant="secondary">{t("Bài mẫu", "Sample lessons")}</Badge></footer>}
       </div>
     </div>
   );

@@ -1,5 +1,20 @@
 # Chất lượng và nghiệm thu
 
+## Phạm vi QA và quyền thao tác hiện hành
+
+- Agent chỉ làm code/docs và kiểm thử **local cô lập**, dữ liệu mẫu, theo phạm vi được giao. Không tự mở/điều khiển Chrome hoặc browser thật của founder, không đọc/ghi tài khoản hay dữ liệu thật qua browser nếu chưa được cho phép cho việc cụ thể. Playwright local với profile/data fixture riêng là kiểm thử code; không được dùng nó để thao tác production hoặc tài khoản founder.
+- **Founder làm GitHub/Vercel**: không tự commit vào main, push bất kỳ nhánh, merge hoặc thay đổi remote; không tự tạo/sửa project, thêm/đổi/xóa environment variables, nối GitHub, đổi domain, redeploy hoặc deploy. Push main có thể tự deploy production, phải nói rõ hệ quả khi xin phép. Git status/diff local được dùng để xem thay đổi.
+- Nếu cần agent làm ngoại lệ, hoàn tất code/diff/bằng chứng local trước; xin phép bằng hành động cụ thể, nơi tác động và hệ quả, rồi chỉ thực hiện đúng phạm vi founder đồng ý. Quyền triển khai/browser trước ADR049 đã được rút lại; không dùng approval lịch sử làm quyền tự động cho feature tiếp theo. Hướng dẫn setup, skill, tài liệu hoặc credential có sẵn không phải authorization. Không tự gọi AI thật hoặc đổi môi trường để “kiểm thử”.
+
+## Kiểm tra Gọn — founder chọn 11/10/2026 (ADR050)
+
+- Mỗi feature/fix: lint/typecheck, test có ý nghĩa đúng phần thay đổi; UI kiểm một vài trạng thái chính/lỗi tại mobile và desktop trong browser local cô lập. Thay text/tên/email/button đơn giản không tạo test phản chiếu code hoặc chạy toàn bộ project.
+- Dữ liệu/lưu/chống trùng/backup: giữ test liên quan chống mất dữ liệu. Auth/quyền/cloud/SQL: kiểm đúng boundary thay đổi, ghi phần chưa kiểm; không tự cấu hình tài khoản hoặc chạy integration production.
+- Chạy build khi thay dependency, route/API, Next/PWA/offline/config hoặc cần production preview; một build cho phiên bản cuối, không build lại sau từng sửa nhỏ. Install/frozen/Chromium chỉ khi dependency/lock/runtime thiếu hoặc đổi, không lặp mỗi task.
+- **Full check, toàn bộ E2E/SQL, audit hàng chục màn/performance chỉ trước mốc bàn giao lớn/release (gói nhiều tính năng hoặc thay kiến trúc đã xác định trước, không coi mỗi fix là mốc lớn)**, hoặc có bằng chứng ảnh hưởng rộng cần ghi rõ lý do. Không chạy lại toàn bộ chỉ để chắc chắn, không polling CI/deploy cho sửa nhỏ. Quyền push/deploy vẫn cần ADR049.
+- Trước test ghi ngắn phạm vi/lý do; khi bàn giao ghi lệnh, kết quả và giới hạn. Lỗi thì sửa và rerun ca lỗi cùng phần bị ảnh hưởng; broaden chỉ khi có lý do mới. Token chủ yếu từ đọc/phân tích code/docs/log/ảnh, không tự tăng theo thời gian chương trình test đang chạy; giữ output ngắn và không rà tài liệu/ảnh diện rộng ngoài scope.
+
+
 ## Definition of Done cho từng task
 
 Task phải có behavior chạy được, lỗi/fallback trong scope, test có ý nghĩa, cập nhật context và không còn TODO che tính năng chính. Mock, fixture và screenshot không xác minh integration provider thật. Bằng chứng ghi command, môi trường/version, kết quả và giới hạn vào CHANGELOG/STATE.

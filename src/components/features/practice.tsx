@@ -1,4 +1,5 @@
 "use client";
+import {SentencePronunciation} from "@/components/app/sentence-pronunciation";
 import {ActionLink} from "@/components/app/action-link";
 import type {ScopedDocument} from "@/data/local/types";
 import type {Deck} from "@/data/local/decks";
@@ -92,7 +93,7 @@ function QuestionView({session,busy,action}:{session:Session;busy:boolean;action
   function check(value:string){if(busy||feedback!==null)return;pending.current=value;void action("check",{answer:value});}
   return <section className={`practice-question page-flow game-board ${feedback?(session.checkedCorrect?"is-correct":"try-again"):""}`} data-revealed={session.revealed}>
     {session.mode==="flashcard"?<><Artwork art={word.art} word={word.word} size={180}/><h2 ref={prompt} tabIndex={-1} lang={session.direction==="vi-en"?"vi":"en"}>{session.direction==="vi-en"?word.vi:word.word}</h2>{session.direction!=="vi-en"&&<AudioControl text={word.word}/>}
-      {session.revealed?<><h3>{session.direction==="vi-en"?word.word:word.vi}</h3>{session.direction==="vi-en"&&<AudioControl text={word.word}/>}<p lang="en">{word.en}</p><p lang="en">{word.example}</p>{word.pronunciations.map((p,i)=><p key={i}>{p.verified?p.ipa:null} {p.readingHintVi&&`· ${p.readingHintVi}`}</p>)}
+      {session.revealed?<><h3>{session.direction==="vi-en"?word.word:word.vi}</h3>{session.direction==="vi-en"&&<AudioControl text={word.word}/>}<p lang="en">{word.en}</p><p lang="en">{word.example}</p><SentencePronunciation text={word.example} pronunciations={word.examplePronunciations}/>{word.pronunciations.map((p,i)=><p key={i}>{p.verified?p.ipa:null} {p.readingHintVi&&`· ${p.readingHintVi}`}</p>)}
       <div className="row-wrap">{(["Again","Good",...(detailed||!preferences.childFriendly?["Hard","Easy"]:[])] as Rating[]).map(rating=><Button key={rating} disabled={busy} onClick={()=>void action("answer",{rating})}>{t({Again:"Chưa nhớ",Good:"Nhớ rồi",Hard:"Nhớ khó",Easy:"Rất dễ"}[rating],rating)}</Button>)}</div><Button variant="link" onClick={()=>setDetailed(v=>!v)}>{t("Đánh giá chi tiết","Detailed ratings")}</Button></>:<Button size="lg" disabled={busy} onClick={()=>void action("reveal")}>{t("Xem đáp án","Show answer")}</Button>}</>:
       <><h2 ref={prompt} tabIndex={-1} className="game-prompt">{session.mode==="picture-word"?t("Từ nào đúng với hình?","Which word matches?"):session.mode==="word-picture"?word.word:word.vi}</h2>
       {session.mode==="picture-word"&&<div className="game-picture-stage"><Artwork art={word.art} word="" size={180}/></div>}

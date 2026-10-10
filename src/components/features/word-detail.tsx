@@ -1,6 +1,6 @@
 "use client";
+import {SentencePronunciation} from "@/components/app/sentence-pronunciation";
 import Link from "next/link";
-import {lessonTitle,learningDate} from "@/lib/learning/lesson-presentation";
 import {Pencil,Play,ArrowLeft} from "lucide-react";
 import {useLiveQuery} from "dexie-react-hooks";
 import {useApp} from "@/components/app/provider";
@@ -13,10 +13,8 @@ import {ActionLink} from "@/components/app/action-link";
 import {DatabaseLoading,ReadFailure} from "@/components/app/database-boundary";
 import {useLibraryWord} from "@/data/local/hooks";
 import {WordLearningContent} from "./learning-content";
-import {LearningNotes} from "./notes";
 export function WordDetail({ id }: { id: string }) {
   const { t,repository } = useApp();
-  const sources=useLiveQuery(async()=>{if(!repository)return null;const links=await repository.db.lessonItems.where("[scopeId+senseId]").equals([repository.scope.id,id]).toArray();const values=await Promise.all(links.filter(l=>!l.deletedAt).map(async link=>({lesson:await repository.db.lessons.get([repository.scope.id,link.lessonId]),evidence:link.evidenceId?await repository.db.evidence.get([repository.scope.id,link.evidenceId]):null})));return {scope:repository.scope.id,values};},[repository,id]);
   const senses=useLiveQuery(async()=>{if(!repository)return null;const sense=await repository.db.senses.get([repository.scope.id,id]);if(!sense)return null;const rows=await repository.db.senses.where("[scopeId+entryId]").equals([repository.scope.id,sense.entryId]).toArray();return {scope:repository.scope.id,id,words:(await repository.words(rows.filter(row=>!row.deletedAt).map(row=>row.id))).filter(word=>word.approved)};},[repository,id]);
   const result = useLibraryWord(id);
   if (!result) return <DatabaseLoading />;
@@ -95,8 +93,9 @@ export function WordDetail({ id }: { id: string }) {
       <section className="example-block">
         <h2>{t("Một câu ví dụ", "An example")}</h2>
         <p lang="en">{entry.example}</p>
+        <SentencePronunciation text={entry.example} pronunciations={entry.examplePronunciations}/>
         <p className="muted">{entry.exampleVi}</p>
-        {entry.examplePronunciations.filter(p=>p.verified&&p.ipa).map((p,i)=><p key={`ipa-${i}`} className="ipa" lang="en">{p.ipa}</p>)}{entry.examplePronunciations.map((p,i)=>p.readingHintVi?<p key={i} className="reading-hint">{t("Cách đọc gần đúng: ","Reading hint: ")}{p.readingHintVi}</p>:null)}
+        {entry.examplePronunciations.map((p,i)=>p.readingHintVi?<p key={i} className="reading-hint">{t("Cách đọc gần đúng: ","Reading hint: ")}{p.readingHintVi}</p>:null)}
         <AudioControl text={entry.example} />
       </section>
       <WordLearningContent word={entry}/>
@@ -119,28 +118,7 @@ export function WordDetail({ id }: { id: string }) {
           {t("Ôn từ này", "Review this word")}
         </Link>
       </Button>
-      <details>
-        <summary>{t("Nguồn và ghi chú", "Source and notes")}</summary>
-        <p>
-          {entry.origin === "demo"
-            ? t(
-                "Nghĩa và ví dụ thuộc bài mẫu.",
-                "Meanings and examples belong to sample lessons.",
-              )
-            : entry.origin === "user"
-              ? t(
-                  "Nghĩa do người dùng nhập hoặc sửa. Ví dụ giữ nguồn đã lưu.",
-                  "Meanings were entered or edited by you. Examples retain their saved source.",
-                )
-              : entry.origin === 'source' ? t('Nội dung từ nguồn tham khảo; bạn đã kiểm tra.','Content from reference sources, reviewed before saving.') : t('AI gợi ý nghĩa và ví dụ; bạn đã kiểm tra. Chữ trong ảnh gốc được giữ bên dưới.','AI suggested meanings and examples, reviewed before saving. Original photo text is kept below.')}
-        </p>
 
-        {entry.origin==='source'&&<p>{entry.source}</p>}
-        {sources&&sources.scope===repository?.scope.id&&sources.values.map((source,i)=><div key={i}><p>{t("Bài học","Lesson")}: {source.lesson?lessonTitle(source.lesson,t):t("Bài đã lưu","Saved lesson")} · {source.lesson?learningDate(source.lesson.learnedOn,t):null}</p>{source.evidence&&<p>{t("Chữ nguồn được giữ lại","Original source text")}: <span lang="en">{source.evidence.literalText}</span></p>}</div>)}
-        {entry.pronunciations.filter(p=>p.verified&&p.sourceUrl?.startsWith("https://")).map((p,i)=><p key={i}><a href={p.sourceUrl!} target="_blank" rel="noreferrer">{t("Nguồn phiên âm IPA","IPA source")}</a></p>)}
-        <LearningNotes word={entry}/>
-        <ActionLink href={`/library/words/${entry.id}/notes`}><Button variant="outline">{t("Viết ghi chú cho con", "Write a memory note")}</Button></ActionLink>
-      </details>
     </article>
   );
 }

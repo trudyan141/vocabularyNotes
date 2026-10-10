@@ -1,5 +1,7 @@
 # Words for Kids
 
+**Quyền hiện hành11/10 (ADR049):** các bước browser/GitHub/Vercel/environment/deploy bên dưới là hướng dẫn **founder thực hiện**. Agent không tự làm; cần founder cho phép hành động cụ thể trước, kể cả push main sẽ tự deploy. Quyền triển khai/browser cũ đã được rút lại. Kiểm thử dùng mức **Gọn** theo [quy tắc QA](docs/10-quality-and-acceptance.md): lint/typecheck + test liên quan, vài trạng thái UI mobile/desktop local; bộ lệnh full dành mốc lớn.
+
 Người dùng tự thêm, sửa bài và học; nút **Cài đặt** mở trực tiếp. Không có hộp thoại vai trò bố mẹ. Gia đình tự quyết định ai chuẩn bị bài và ai chơi. Chọn tất cả trong nhóm/bộ thẻ lấy toàn bộ kết quả tìm kiếm ở mọi trang; vẫn cần bấm Lưu. Xem [quy tắc UI và kiểm thử](docs/evaluations/plain-language-and-select-all.md).
 
 Web/PWA học tiếng Anh cho trẻ 5–8 tuổi, phụ huynh chuẩn bị và duyệt bài. Có nhập tay/autocomplete/tra từ, chụp ảnh/AI với key riêng, nghĩa song ngữ, IPA/gợi ý đọc, ví dụ, ghi chú, nhóm từ/câu theo chủ đề, bộ thẻ/SRS, bốn game, backup và offline. Google/cloud/tìm hình có license là lựa chọn cấu hình riêng; AI đọc ảnh gọi trực tiếp Google Gemini bằng key phụ huynh; key không qua app server.

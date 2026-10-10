@@ -1,5 +1,5 @@
 import { test, expect, type Page } from "@playwright/test";
-import {readFile} from "node:fs/promises";
+import {readFile, mkdir} from "node:fs/promises";
 async function fixture(
   page: Page,
   type = "image/png",
@@ -190,8 +190,10 @@ test("camera denied and unsupported retain file upload; permission is asked only
       () => (window as unknown as { cameraCalls: number }).cameraCalls,
     ),
   ).toBe(0);
+  await page.getByRole("tab", { name: "Chụp ảnh", exact: true }).click();
   await page.getByRole("button", { name: "Mở camera" }).click();
   await expect(page.getByText(/Chưa được phép dùng camera/)).toBeVisible();
+  await page.getByRole("button", { name: "Chọn ảnh thay thế" }).click();
   await upload(page, await fixture(page));
   await expect(page).toHaveURL(/\/edit$/);
   await page.goto("/capture");
@@ -201,10 +203,12 @@ test("camera denied and unsupported retain file upload; permission is asked only
       configurable: true,
     }),
   );
+  await page.getByRole("tab", { name: "Chụp ảnh", exact: true }).click();
   await page.getByRole("button", { name: "Mở camera" }).click();
   await expect(
     page.getByText(/Chưa mở được camera/),
   ).toBeVisible();
+  await page.getByRole("tab", { name: "Chọn ảnh", exact: true }).click();
   await expect(
     page.getByLabel("Chọn ảnh từ máy", { exact: true }),
   ).toBeEnabled();
@@ -216,6 +220,7 @@ test("live browser camera capture and switching stop old tracks, close and navig
   await context.grantPermissions(["camera"]);
   await cameraFixture(page);
   await page.goto("/capture");
+  await page.getByRole("tab", { name: "Chụp ảnh", exact: true }).click();
   await page.getByRole("button", { name: "Mở camera" }).click();
   await expect(
     page.getByRole("button", { name: "Chụp ảnh", exact: true }),
@@ -241,6 +246,7 @@ test("live browser camera capture and switching stop old tracks, close and navig
     ),
   ).toBe(true);
   await page.getByRole("button", { name: "Quay lại và giữ nháp" }).click();
+  await page.getByRole("tab", { name: "Chụp ảnh", exact: true }).click();
   await page.getByRole("button", { name: "Mở camera" }).click();
   await expect(
     page.getByRole("button", { name: "Chụp ảnh", exact: true }),
@@ -253,6 +259,7 @@ test("live browser camera capture and switching stop old tracks, close and navig
       ).capturedTracks.every((track) => track.readyState === "ended"),
     ),
   ).toBe(true);
+  await page.getByRole("tab", { name: "Chụp ảnh", exact: true }).click();
   await page.getByRole("button", { name: "Mở camera" }).click();
   await expect(
     page.getByRole("button", { name: "Chụp ảnh", exact: true }),
@@ -274,6 +281,7 @@ test("late camera permission after cancellation cannot resurrect the preview or 
   await context.grantPermissions(["camera"]);
   await cameraFixture(page,true);
   await page.goto("/capture");
+  await page.getByRole("tab", { name: "Chụp ảnh", exact: true }).click();
   await page.getByRole("button", { name: "Mở camera" }).click();
   await expect
     .poll(() =>
@@ -284,7 +292,7 @@ test("late camera permission after cancellation cannot resurrect the preview or 
       ),
     )
     .toBe("function");
-  await page.getByRole("button", { name: "Đóng camera" }).click();
+  await page.getByRole("tab", { name: "Chọn ảnh", exact: true }).click();
   await page.evaluate(() =>
     (
       window as unknown as { releasePermission: () => void }
@@ -299,6 +307,9 @@ test("late camera permission after cancellation cannot resurrect the preview or 
       ),
     )
     .toBe(true);
+  await expect(page.getByTestId("worksheet-dropzone")).toBeVisible();
+  await expect(page.getByLabel("Hình trực tiếp từ camera")).toHaveCount(0);
+  await page.getByRole("tab", { name: "Chụp ảnh", exact: true }).click();
   await expect(page.getByRole("button", { name: "Mở camera" })).toBeEnabled();
 });
 test("HEIC, MIME mismatch, oversized and corrupt images never create a draft", async ({
@@ -438,4 +449,62 @@ test('drop zone rejects multiple files, accepts one worksheet and keyboard file 
  await drop.dispatchEvent('dragenter',{dataTransfer:single});await expect(drop).toHaveClass(/is-dragging/);await drop.dispatchEvent('drop',{dataTransfer:single});await expect(page).toHaveURL(/\/edit$/);await expect(page.getByRole('link',{name:'Ảnh đã xử lý để nhận dạng'})).toBeVisible();
  await page.goto('/capture');const chooser=page.waitForEvent('filechooser');await page.getByRole('button',{name:'Chọn ảnh từ máy',exact:true}).focus();await page.keyboard.press('Enter');await(await chooser).setFiles('docs/evaluations/t00/images/01-fruit.png');await expect(page).toHaveURL(/\/edit$/);
  expect((await records(page)).drafts).toHaveLength(2);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+});
+
+test('pasting an image opens a local preview and text paste stays normal',async({page})=>{
+ const remote:string[]=[];page.on('request',r=>{if(r.method()==='POST')remote.push(r.url());});
+ await page.goto('/capture');await expect(page.getByTestId('worksheet-dropzone')).toContainText('Ctrl+V / ⌘V');
+ const buffer=await fixture(page);await page.getByTestId('worksheet-dropzone').focus();
+ await page.evaluate(base64=>{const bytes=Uint8Array.from(atob(base64),c=>c.charCodeAt(0));const data=new DataTransfer();data.items.add(new File([bytes],'clipboard.png',{type:'image/png'}));document.activeElement!.dispatchEvent(new ClipboardEvent('paste',{clipboardData:data,bubbles:true,cancelable:true}));},buffer.toString('base64'));
+ await expect(page).toHaveURL(/\/capture\/[^/]+\/edit$/);await expect(page.getByText('600 × 400 px',{exact:false})).toBeVisible();await expect(page.getByRole('img',{name:'Ảnh đã xử lý để nhận dạng',exact:true})).toBeVisible();expect(await page.getByRole('img',{name:'Ảnh đã xử lý để nhận dạng',exact:true}).evaluate(image=>(image as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);await expect(page.getByLabel('Tên bài (tùy chọn)')).toHaveValue('Ảnh đã dán');expect(remote).toEqual([]);
+ await page.reload();await expect(page.getByText('600 × 400 px',{exact:false})).toBeVisible();
+ await page.goto('/capture');const textPaste=await page.evaluate(()=>{const data=new DataTransfer();data.setData('text/plain','hello');return document.dispatchEvent(new ClipboardEvent('paste',{clipboardData:data,bubbles:true,cancelable:true}));});expect(textPaste).toBe(true);await expect(page).toHaveURL('/capture');
+});
+test('corrupt pasted pictures and multi-image pastes cannot create drafts',async({page})=>{
+ await page.goto('/capture');await page.getByTestId('worksheet-dropzone').waitFor();
+ await page.evaluate(()=>{const data=new DataTransfer();data.items.add(new File(['not-an-image'],'bad.png',{type:'image/png'}));document.dispatchEvent(new ClipboardEvent('paste',{clipboardData:data,bubbles:true,cancelable:true}));});await expect(page.locator('#main [role=alert]')).toContainText('Không đọc được ảnh này');expect((await records(page)).drafts).toHaveLength(0);
+ await page.evaluate(()=>{const data=new DataTransfer();for(const name of ['one.png','two.png'])data.items.add(new File(['x'],name,{type:'image/png'}));document.dispatchEvent(new ClipboardEvent('paste',{clipboardData:data,bubbles:true,cancelable:true}));});await expect(page.locator('#main [role=alert]')).toContainText('Dán một ảnh mỗi lần');expect((await records(page)).drafts).toHaveLength(0);
+});
+
+// Isolated local fixture: choosing the tab must never acquire a camera device.
+test("capture tabs show one method, support keyboard navigation and stop active camera", async ({page, context}, testInfo) => {
+  await context.grantPermissions(["camera"]);
+  await cameraFixture(page);
+  await page.goto("/capture");
+  const uploadTab = page.getByRole("tab", {name: "Chọn ảnh", exact: true});
+  const cameraTab = page.getByRole("tab", {name: "Chụp ảnh", exact: true});
+  const panels = page.getByRole("tabpanel");
+  await expect(uploadTab).toHaveAttribute("aria-selected", "true");
+  await expect(panels).toHaveCount(1);
+  await expect(page.getByTestId("worksheet-dropzone")).toBeVisible();
+  await expect(page.getByRole("button", {name: "Mở camera"})).toHaveCount(0);
+  const directory = "docs/evaluations/founder-fixes/capture-tabs";
+  await mkdir(directory, {recursive: true});
+  const width = testInfo.project.use.viewport!.width;
+  await page.screenshot({path: `${directory}/upload-${width}.png`, fullPage: true, animations: "disabled"});
+  await uploadTab.focus();
+  await page.keyboard.press("ArrowRight");
+  await expect(cameraTab).toBeFocused();
+  await expect(cameraTab).toHaveAttribute("aria-selected", "true");
+  await expect(cameraTab).toHaveCSS("background-color", "rgb(181, 47, 96)");
+  await expect(cameraTab).toHaveCSS("color", "rgb(255, 255, 255)");
+  await expect(uploadTab).toHaveCSS("color", "rgb(56, 33, 61)");
+  await expect(panels).toHaveCount(1);
+  await expect(page.getByTestId("worksheet-dropzone")).toHaveCount(0);
+  await expect(page.getByRole("button", {name: "Mở camera"})).toBeEnabled();
+  expect(await page.evaluate(() => (window as unknown as {capturedTracks: MediaStreamTrack[]}).capturedTracks.length)).toBe(0);
+  await page.screenshot({path: `${directory}/camera-${width}.png`, fullPage: true, animations: "disabled"});
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.keyboard.press("ArrowLeft");
+  await expect(uploadTab).toBeFocused();
+  await expect(uploadTab).toHaveAttribute("aria-selected", "true");
+  await cameraTab.click();
+  await page.getByRole("button", {name: "Mở camera"}).click();
+  await expect(page.getByRole("button", {name: "Chụp ảnh", exact: true})).toBeEnabled();
+  await uploadTab.click();
+  await expect(page.getByTestId("worksheet-dropzone")).toBeVisible();
+  expect(await page.evaluate(() => (window as unknown as {capturedTracks: MediaStreamTrack[]}).capturedTracks.every(track => track.readyState === "ended"))).toBe(true);
+  await cameraTab.click();
+  await expect(page.getByRole("button", {name: "Mở camera"})).toBeEnabled();
+  await expect(page.getByLabel("Hình trực tiếp từ camera")).toBeHidden();
 });

@@ -1,5 +1,13 @@
 # Words for Kids — kế hoạch sản phẩm dành cho founder
 
+**Mới nhất11/10 — Welcome/footers/404 (ADR052/053):** Welcome chỉ Cáo, hình học, lời ngắn và Bắt đầu; bỏ strip/giải thích/Cài đặt lặp. Bỏ footer Bài mẫu mọi trang và mục Nguồn và ghi chú; dữ liệu nguồn/notes còn nguyên.404 có Cáo cầm bản đồ mới, màu vàng/berry và nút Về trang đầu.14ca scoped mobile/desktop PASS17,7s, ảnh đã xem; chưa push/deploy. [Kết quả](evaluations/welcome-footer-and-404.md).
+
+**Mới nhất11/10 — Thêm ảnh gọn hơn (ADR051):** hai tab Chọn ảnh / Chụp ảnh, chỉ hiện phần đang chọn; vẫn dán/kéo thả ảnh được. Mở camera mới hỏi quyền, chuyển tab tắt camera. Giữ màu berry/mint/lavender. File OCR cũ eng.traineddata không dùng, đã xóa và ignore theo yêu cầu. Kiểm gọn local lint/types/build và14 ca browser riêng biệt mobile/desktop PASS; chưa push/deploy. [Kết quả](evaluations/capture-tabs.md).
+
+**Chốt11/10 — quyền thao tác và test Gọn (ADR049/050):** browser thật/GitHub/push/Vercel/env/deploy do founder làm; agent chỉ thực hiện khi xin phép cụ thể trước. Không dùng approval triển khai cũ. Founder chọn lint/typecheck + test phần thay đổi, vài trạng thái mobile/desktop local; full suite chỉ mốc lớn. Agent phải báo đã kiểm gì, vì sao và phần chưa kiểm; tránh lặp build/full test/audit gây lâu và tốn token. [Rule QA](10-quality-and-acceptance.md).
+
+**Mới nhất11/10 — IPA cả câu và dán ảnh (ADR047/048):** dưới mỗi câu ví dụ có phiên âm cả câu, kể cả câu bổ sung và hỏi–đáp; khi tạo nội dung phải lấy IPA, không dùng phiên âm của riêng từ. Đổi câu sẽ xóa IPA cũ. Gợi ý chưa kiểm chứng có nhãn Tham khảo. Trang thêm bài cho dán ảnh Ctrl+V / ⌘V và xem trước ngay, không tự phân tích AI. [Kết quả](evaluations/sentence-ipa-and-image-paste.md). Cài đặt/tự dùng/tác giả đã hosted READY, CI173/SQL PASS.
+
 **11/10 — Thông tin tác giả:** cuối Cài đặt có Ly Kien Trung và email trudyan141@gmail.com để liên hệ.
 
 **Mới nhất11/10 — Cài đặt, tự thêm và học (ADR046):** đổi nút Phụ huynh thành Cài đặt và bỏ mọi cảnh báo “Bố mẹ tiếp tục”. Ai vào cũng tự thêm/sửa/học; bố mẹ thêm và bé chỉ chơi do gia đình tự chọn. Các xác nhận gửi ảnh/lưu/xóa thực tế vẫn giữ. Quyết định này thay mọi hướng dẫn phân vai UI trước đó; style Words for Kids vẫn dễ thương, dễ dùng. [Kết quả045+046](evaluations/plain-language-and-select-all.md).
@@ -150,7 +158,7 @@ S16 quay lại đúng nơi đã mở nó; mũi tên về S03 ở graph tổng l�
 
 **Mục đích:** hiểu công dụng và dùng ngay. Đi vào khi mở app lần đầu; lần sau có thư viện/phiên hợp lệ thì vào Hôm nay.
 
-**Bố cục từ trên xuống:** tên sản phẩm Words for Kids; minh họa tờ bài học thành thẻ từ; câu “Lưu từ đã học, ôn lại mỗi ngày”; nút chính **Bắt đầu**; lựa chọn phụ “Đăng nhập Google”; dòng nhỏ giải thích dữ liệu được lưu trên trình duyệt này.
+**Bố cục hiện hành ADR052:** header Words for Kids và một nút Cài đặt; khu minh họa Cáo/táo/sách/mèo, lời chào ngắn và nút chính **Bắt đầu**. Không strip Nghe từ/Nhìn hình/Chơi và nhớ, link Cài đặt lặp, dòng giải thích demo/storage hay footer Bài mẫu. Bố cục theo chiều cao màn hình, nội dung dài vẫn cuộn bình thường; đăng nhập Google trong Cài đặt/tài khoản.
 
 ```mermaid
 flowchart TD
@@ -161,7 +169,8 @@ flowchart TD
   L -->|Thành công| H
   L -->|Không ghi được bộ nhớ| E["Giải thích lỗi, giữ màn chào"]
   E -->|Thử lại| L
-  W -->|Đăng nhập Google| G["S02 Đăng nhập"]
+  W -->|Cài đặt ở header| S["S16 Cài đặt"]
+  S -->|Tài khoản Google| G["S02 Đăng nhập"]
 ```
 
 **Trạng thái:** lần đầu, đang chuẩn bị thư viện, trình duyệt không cho lưu, trở lại. Không hỏi ngày sinh/trình độ trước khi dùng; không tự bật camera. Nếu không có bộ nhớ local, không báo đã lưu và không hứa cloud sẽ tự khắc phục.
@@ -238,16 +247,20 @@ flowchart TD
 
 **Mục đích:** lấy ảnh bài học rõ, có đường thay thế khi camera lỗi. Đi vào từ Thêm ảnh ở Hôm nay hoặc Thêm ảnh khác ở một bài.
 
-**Bố cục:** Quay lại, “Thêm ảnh bài học”; lựa chọn Chụp ảnh/Chọn ảnh từ máy; khi mở camera có khung hướng dẫn tờ giấy, đổi camera nếu thiết bị hỗ trợ, nút chụp lớn, nút chọn ảnh. Không mở camera ngay khi vào route.
+**Bố cục hiện hành ADR051:** Quay lại, “Thêm ảnh bài học”; hai tab Chọn ảnh / Chụp ảnh, mặc định Chọn ảnh và chỉ hiện panel chọn. Chọn ảnh có picker/kéo thả/dán; Chụp ảnh có nút Mở camera rồi preview/đổi camera/chụp/đóng. Chọn tab không hỏi quyền, rời tab camera dừng tracks và hủy permission đến muộn; danh sách nháp nằm ngoài tab.
 
 ```mermaid
 flowchart TD
-  A["S04 Chọn cách thêm ảnh"] -->|Chụp ảnh| P{"Camera có thể dùng?"}
+  A["S04 Tab Chọn ảnh mặc định"] -->|Tab Chụp ảnh| K["Chỉ hiện phần camera, chưa hỏi quyền"]
+  K -->|Mở camera| P{"Camera có thể dùng?"}
+  K -->|Tab Chọn ảnh| A
+  C -->|Tab Chọn ảnh, dừng camera| A
   P -->|Cho phép| C["Preview camera"]
   P -->|Từ chối hoặc không hỗ trợ| E["Giải thích và giữ nút chọn ảnh"]
   C -->|Chụp| V["Kiểm ảnh và dừng camera"]
   A -->|Chọn ảnh từ máy| F["Mở chọn file"]
-  E -->|Chọn ảnh từ máy| F
+  E -->|Chọn ảnh thay thế| A
+  A -->|Dán hoặc kéo thả ảnh| V
   F -->|Chọn ảnh| V
   F -->|Hủy| A
   V -->|Ảnh dùng được| N["S05 Xem và chỉnh"]
@@ -257,7 +270,7 @@ flowchart TD
   C -->|Quay lại| B
 ```
 
-**Trạng thái:** chưa hỏi quyền, quyền được cấp, bị từ chối, thiếu camera, file picker bị hủy, ảnh không phù hợp. Camera dừng khi sang S05 hoặc rời trang. Quyền camera chỉ được hỏi khi bấm Chụp ảnh.
+**Trạng thái:** chưa hỏi quyền, quyền được cấp, bị từ chối, thiếu camera, file picker bị hủy, ảnh không phù hợp. Camera dừng khi đổi tab, sang S05, ẩn hoặc rời trang. Quyền camera chỉ được hỏi khi bấm Mở camera, không hỏi khi chọn tab Chụp ảnh.
 
 **Đã triển khai T04 local:** nút `Mở camera` mới hỏi quyền; `Chụp ảnh` trong preview, `Đổi camera`, `Đóng camera` và upload fallback. Dừng tracks khi switch/hidden/leave/capture; late permission không mở lại camera sau hủy. JPEG/PNG/WebP ≤10 MB/20MP, HEIC hướng dẫn chuyển JPEG/chụp mới. Danh sách nháp đúng scope, xác nhận xóa chỉ dọn ảnh nháp đó, nhắc nháp hơn7ngày. QA07 phone thật chưa chạy.
 
@@ -373,7 +386,7 @@ flowchart TD
 
 **Mục đích:** tìm được một từ đã học và hiểu đúng nghĩa. Đi vào từ tab Từ của con, tìm ở Hôm nay, một bài hoặc kết quả buổi học; giữ nội dung tìm kiếm/vị trí danh sách khi quay lại.
 
-**Bố cục danh sách:** tiêu đề Từ của con, ô tìm, bộ lọc mở khi cần; từng dòng có từ/nghĩa ngắn/nút Nghe; chuyển sang Câu hoặc Ngữ pháp; tab dưới. **Bố cục chi tiết:** Quay lại; từ lớn và Nghe/Nghe chậm; từ loại và nghĩa đang chọn; nghĩa Anh–Việt/Anh–Anh; một ví dụ; **Ôn từ này**; mở thêm ví dụ, mẹo nhớ, ghi chú, đã học ở đâu. Desktop dùng danh sách/chi tiết hai cột.
+**Bố cục danh sách:** tiêu đề Từ của con, ô tìm, bộ lọc mở khi cần; từng dòng có từ/nghĩa ngắn/nút Nghe; chuyển sang Câu hoặc Ngữ pháp; tab dưới. **Bố cục chi tiết:** Quay lại; từ lớn và Nghe/Nghe chậm; từ loại và nghĩa đang chọn; nghĩa Anh–Việt/Anh–Anh; một ví dụ; **Ôn từ này**; ví dụ và nội dung học bổ sung. Theo ADR052, không render mục Nguồn và ghi chú/đã học ở đâu; provenance/evidence/notes giữ trong database, attribution hình cần thiết giữ riêng. Desktop dùng danh sách/chi tiết hai cột.
 
 ```mermaid
 flowchart TD
@@ -382,9 +395,9 @@ flowchart TD
   Q -->|Không| E["Không tìm thấy, xóa hoặc đổi bộ lọc"]
   E --> A
   L -->|Chọn từ| D["Chi tiết, chọn nghĩa khi có nhiều nghĩa"]
-  D -->|Nghe hoặc mở ví dụ, note| D
+  D -->|Nghe hoặc mở ví dụ| D
   D -->|Ôn từ này| P["S11 Bộ ôn nghĩa đang chọn"]
-  D -->|Sửa hoặc ghi chú| S["Kiểm nội dung và lưu bản sửa"]
+  D -->|Sửa| S["Kiểm nội dung và lưu bản sửa"]
   S -->|Thành công hoặc lỗi giữ nhập| D
   D -->|Chọn hình| IM["Catalog hoặc shortlist nguồn mở đúng nghĩa"]
   IM -->|Phụ huynh chọn ảnh hợp lệ| DL["Import được phép, lưu credit, trạng thái đang tải"]
@@ -394,7 +407,6 @@ flowchart TD
   IE -->|Thử lại| DL
   IE -->|Bỏ qua| D
   IM -->|Không có hoặc bỏ qua| D
-  D -->|Xem nguồn đã học| B["S08 Đúng bài nguồn"]
   A -->|Xem câu hoặc ngữ pháp| G["S10 Danh sách tương ứng"]
   A -->|Nhờ phụ huynh thêm từ thủ công| PM["Cổng phụ huynh cho thao tác thêm"]
   PM -->|Qua cổng| M["S09 Gõ từ mới, autocomplete"]

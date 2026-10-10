@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { Camera, ArrowRight, Play, FileImage, Volume2, BookOpen } from "lucide-react";
+import { Camera, ArrowRight, Play, FileImage } from "lucide-react";
 import { FeatureAction } from "@/components/app/feature-action";
 import { Button } from "@/components/ui/button";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
@@ -188,7 +188,7 @@ export function Today() {
   );
 }
 export function Welcome() {
-  const { t, demo } = useApp();
+  const { t } = useApp();
   const [wave,setWave]=useState(0);
   useEffect(()=>{
     if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
@@ -200,11 +200,9 @@ export function Welcome() {
   },[]);
   return <section className="welcome welcome-world">
     <div className="welcome-copy">
-      <h1>{t("Cùng con nhớ những từ đã học", "Remember the words you learn")}</h1>
-      <p>{t("Thêm bài, nghe từ và chơi để nhớ mỗi ngày.", "Add lessons, hear words and play to remember every day.")}</p>
+      <h1>{t("Cùng Cáo học tiếng Anh!", "Learn English with Fox!")}</h1>
+      <p>{t("Thêm bài của bạn, rồi cùng học và chơi.", "Add your lessons, then learn and play together.")}</p>
       <Button asChild size="lg"><Link prefetch={false} href="/today">{t("Bắt đầu", "Get started")}<ArrowRight data-icon="inline-end"/></Link></Button>
-      <small>{demo?t("Bắt đầu với bài mẫu để thử giao diện.","Start with sample lessons to explore the interface."):t("Bắt đầu không cần tài khoản.","Start without an account.")}</small>
-      <ActionLink href="/settings"><Button variant="link">{t("Cài đặt", "Settings")}</Button></ActionLink>
     </div>
     <div className="welcome-playground">
       <span className="welcome-greeting">{t("Chào con! Cùng học nhé!", "Hello! Let’s learn together!")}</span>
@@ -213,6 +211,5 @@ export function Welcome() {
       <div className="welcome-word welcome-book"><Image src="/illustrations/book.svg" width={76} height={76} alt=""/><strong lang="en">book</strong><span>{t("quyển sách","book")}</span></div>
       <div className="welcome-word welcome-cat"><Image src="/illustrations/cat.svg" width={76} height={76} alt=""/><strong lang="en">cat</strong><span>{t("con mèo","cat")}</span></div>
     </div>
-    <div className="welcome-learning"><span><Volume2 aria-hidden="true"/>{t("Nghe từ","Hear a word")}</span><span><BookOpen aria-hidden="true"/>{t("Nhìn hình","See a picture")}</span><span><Play aria-hidden="true"/>{t("Chơi và nhớ","Play and remember")}</span></div>
   </section>;
 }

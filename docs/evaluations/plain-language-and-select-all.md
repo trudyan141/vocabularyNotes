@@ -34,3 +34,7 @@ Remote CI38091762670 passed check142, real SQL and172 independent browser cases,
 Founder continuation adds an About the app section at the end of Settings: supplied author Ly Kien Trung and mailto contact trudyan141@gmail.com, localized VI/EN labels. No role gate or extra configuration.
 
 Author continuation verified with pnpm check: lint/typecheck/build and142tests PASS. Four additional VI/EN Settings views at360/1280 confirm supplied name, exact mailto, no overflow/page errors; native local Settings also verified. [Report](founder-fixes/plain-ui/author-audit.json), [mobile](founder-fixes/plain-ui/settings-author-vi-360.png).
+
+Author runtimeca3626d production deploymentdpl_4TLqCK8qUJNHAGAYq3bcCa8fkh5o READY; stable alias words-for-kids.vercel.app points to this build. Native hosted Settings confirms supplied name and mailto, default optional settings remain closed. [Hosted author screenshot](founder-fixes/plain-ui/live-author-desktop.png). Complete CI38092449770 is running; earlier failure was not called a pass.
+
+Complete CI38092449770 **SUCCESS** for runtimeca3626d: check142, real SQL,173 desktop/mobile/cloud/demo-off browser cases and full docs validation.045/046/author implementation and hosted verification are complete; human/physical-device gates remain open.

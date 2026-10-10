@@ -1,5 +1,7 @@
 # Cài và cấu hình Words for Kids
 
+**Quyền hiện hành11/10 (ADR049):** các bước browser/GitHub/Vercel/environment/deploy bên dưới là hướng dẫn **founder thực hiện**. Agent không tự làm; cần founder cho phép hành động cụ thể trước, kể cả push main sẽ tự deploy. Quyền triển khai/browser cũ đã được rút lại. Kiểm thử dùng mức **Gọn** theo [quy tắc QA](docs/10-quality-and-acceptance.md): lint/typecheck + test liên quan, vài trạng thái UI mobile/desktop local; bộ lệnh full dành mốc lớn.
+
 Cập nhật 10/10/2026. App chạy được **không cần Supabase hoặc API key** để thêm từ, tra từ điển, học và lưu bài trên trình duyệt. Muốn AI đọc ảnh thì thêm key trong app ở mục 3. Muốn đăng nhập Google/đồng bộ thì làm thêm mục 4–5.
 
 ## 1. Chạy trên máy

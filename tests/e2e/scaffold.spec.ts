@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { mkdir } from "node:fs/promises";
 
 const noOverflow = async (page: import("@playwright/test").Page) =>
   expect
@@ -28,7 +29,7 @@ test("welcome, keyboard skip and Today shell use three clear navigation items", 
   await page.getByRole("link", { name: "Bắt đầu", exact: true }).click();
   await expect(page.getByRole("navigation").getByRole("link")).toHaveCount(3);
   await expect(page.getByRole("link", { name: "Chơi 5 phút" })).toBeVisible();
-  await expect(page.locator(".demo-note").getByText("Bài mẫu", { exact: true })).toBeVisible();
+  await expect(page.locator("footer")).toHaveCount(0);
   await noOverflow(page);
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({
@@ -142,7 +143,7 @@ test("all-duplicate review adds no copies; tab changes and Back preserve draft",
   ).toBeVisible();
 });
 
-test("detail hides navigation, discloses source, handles missing art and supports parent preview edits", async ({
+test("detail hides navigation and metadata, handles missing art and supports preview edits", async ({
   page,
 }) => {
   await page.goto("/library/words/bank-river");
@@ -150,13 +151,8 @@ test("detail hides navigation, discloses source, handles missing art and support
   await expect(
     page.getByText("Từ này chưa có hình", { exact: true }),
   ).toBeVisible();
-  await page.getByText("Nguồn và ghi chú", { exact: true }).click();
-  await expect(
-    page.getByText(
-      "Nghĩa và ví dụ thuộc bài mẫu.",
-      { exact: true },
-    ),
-  ).toBeVisible();
+  await expect(page.getByText("Nguồn và ghi chú", {exact: true})).toHaveCount(0);
+  await expect(page.locator("footer")).toHaveCount(0);
   await noOverflow(page);
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({
@@ -410,4 +406,60 @@ test("shared controls retain 48px targets and an opaque keyboard focus cue", asy
     .boundingBox();
   expect(toggle?.width).toBeGreaterThanOrEqual(48);
   expect(toggle?.height).toBeGreaterThanOrEqual(48);
+});
+
+test("welcome stays simple and fills the viewport; every page has no sample footer", async ({page}, testInfo) => {
+  const directory="docs/evaluations/founder-fixes/welcome-cleanup";
+  await mkdir(directory,{recursive:true});
+  const width=testInfo.project.use.viewport!.width;
+  await page.goto('/welcome');
+  await expect(page.getByRole('heading',{name:'Cùng Cáo học tiếng Anh!',exact:true})).toBeVisible();
+  await expect(page.getByRole('link',{name:'Bắt đầu',exact:true})).toBeVisible();
+  await expect(page.getByRole('link',{name:'Cài đặt',exact:true})).toHaveCount(1);
+  await expect(page.locator('.welcome-learning, .welcome-copy small, footer')).toHaveCount(0);
+  await expect(page.locator('main')).not.toContainText('Bắt đầu với bài mẫu');
+  await noOverflow(page);
+  const bounds=await page.locator('.welcome-world').boundingBox();
+  expect(bounds!.y+bounds!.height).toBeGreaterThanOrEqual(testInfo.project.use.viewport!.height-24);
+  await page.screenshot({path:`${directory}/welcome-${width}.png`,fullPage:true,animations:'disabled'});
+  for (const route of ['/today','/library','/practice','/settings','/capture','/library/groups','/library/words/grapes']) {
+    await page.goto(route);
+    await expect(page.locator('main')).toBeVisible();
+    await expect(page.locator('footer, .demo-note')).toHaveCount(0);
+  }
+  await expect(page.getByRole('heading',{name:'grapes',exact:true})).toBeVisible();
+  await expect(page.getByText('Nguồn và ghi chú',{exact:true})).toHaveCount(0);
+  await noOverflow(page);
+  await page.screenshot({path:`${directory}/detail-${width}.png`,fullPage:true,animations:'disabled'});
+  await page.goto('/settings');
+  await page.getByRole('radio',{name:'English',exact:true}).click();
+  await page.goto('/welcome');
+  await expect(page.getByRole('heading',{name:'Learn English with Fox!',exact:true})).toBeVisible();
+  await expect(page.getByRole('link',{name:'Settings',exact:true})).toHaveCount(1);
+  await page.getByRole('link',{name:'Get started',exact:true}).click();
+  await expect(page).toHaveURL('/today');
+});
+
+test("friendly 404 has the map fox, stays a 404 and returns home in both languages", async ({page}, testInfo) => {
+  const response=await page.goto('/missing-page');
+  expect(response?.status()).toBe(404);
+  await expect(page.getByRole('heading',{name:/Úi, Cáo đi lạc rồi!/})).toBeVisible();
+  await expect(page.locator('.not-found-code')).toHaveText('404');
+  const fox=page.getByRole('img',{name:'Cáo đang xem bản đồ để tìm đường.',exact:true});
+  await expect(fox).toBeVisible();
+  await expect.poll(()=>fox.evaluate(node=>(node as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+  await expect(page.locator('footer, .demo-note')).toHaveCount(0);
+  await noOverflow(page);
+  const directory='docs/evaluations/founder-fixes/welcome-cleanup';
+  await mkdir(directory,{recursive:true});
+  await page.screenshot({path:`${directory}/404-${testInfo.project.use.viewport!.width}.png`,fullPage:true,animations:'disabled'});
+  await page.getByRole('link',{name:'Về trang đầu',exact:true}).click();
+  await expect(page).toHaveURL('/welcome');
+  await page.goto('/settings');
+  await page.getByRole('radio',{name:'English',exact:true}).click();
+  const english=await page.goto('/another-missing-page');
+  expect(english?.status()).toBe(404);
+  await expect(page.getByRole('heading',{name:/Oops, Fox took a wrong turn!/})).toBeVisible();
+  await page.getByRole('link',{name:'Go home',exact:true}).click();
+  await expect(page).toHaveURL('/welcome');
 });

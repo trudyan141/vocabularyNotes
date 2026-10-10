@@ -12,7 +12,7 @@ Gemini SSE/tiến độ bước thực/elapsed/Dừng/preview chưa lưu/strict 
 
 ## Chẩn đoán Google từ chối — ADR-033
 
-HTTP/status/model/message/field diagnostics đã redact an toàn; check111 unit/13files/lint/types/build và full121/121 E2E PASS, docs203links PASS. Bản0ba9794 production READY; thử một POST trên founder tab thực tế: HTTP400 INVALID_ARGUMENT/Request contains an invalid argument, không field cụ thể. Request JSON tương thích responseMimeType/responseJsonSchema/pruned string constraints + metadata key/model GET đã hoàn tất/check113/full123 E2E/docs203links PASS; source2ec2725 production READY, CI38037820735 SUCCESS. Metadata GET thật chấp nhận key/model; image POST thứ hai vẫn400/no fields. Không kết luận key sai hoặc request JSON đã sửa nguyên nhân. Đang kiểm câu mẫu không ảnh/schema để tách quyền inference.
+HTTP/status/model/message/field diagnostics đã redact an toàn; check111 unit/13files/lint/types/build và full121/121 E2E PASS, docs203links PASS. Bản0ba9794 production READY; thử một POST trên founder tab thực tế: HTTP400 INVALID_ARGUMENT/Request contains an invalid argument, không field cụ thể. Request JSON tương thích responseMimeType/responseJsonSchema/pruned string constraints + metadata key/model GET đã hoàn tất/check113/full123 E2E/docs203links PASS; source2ec2725 production READY, CI38037820735 SUCCESS. Metadata GET thật chấp nhận key/model; image POST thứ hai vẫn400/no fields. Không kết luận key sai hoặc request JSON đã sửa nguyên nhân. Câu mẫu không ảnh/schema thành công trên837c50f productionREADY dpl_4KAsqShNDN6wzTfdW3BK2c9eQHZy; runtime114unit/full125browserPASS. Thử JSON mode với schema trong prompt, vẫn strict local DTO/evidence/STOP, để tránh backend schema compiler; kiểm live ảnh tiếp.
 
 ## Bản hiện hành
 
@@ -20,7 +20,7 @@ Thêm từ: Datamuse debounce350ms sửa chính tả → Wiktionary nghĩa song 
 
 Ảnh: capture/crop/nháp → Gemini BYOK trực tiếp browser → strict JSON/evidence → phụ huynh sửa/duyệt/lưu. Default3.5FlashLite; presets3.1FlashLite/3.6Flash/3.8Flash + custom Gemini ID. Key standard/auth từ AIStudio chỉ session hoặc localStorage opt-in/delete, không IDB/archive/cloud/sync/server/env/URL. Key OpenAI cũ bỏ qua, không gửi sang Google; nguồn bản AI cũ giữ lịch sử. Chỉ prepare ảnh trên máy, không OCR/WASM/reader assets.
 
-Google streamGenerateContent SSE fixedhost/headerkey/inlineJPEG/responseMimeType+responseJsonSchema/systemInstruction/no tools;50 mục/90s/500KB/cancel/no automatic retry/model fallback/billing/WebLocks một tab. Consent mỗi reopen/crop private data; candidate có preview hình trước parent approve. API free tier theo project; paidproject có thể tính phí. Terms hiện hạn chế app hướng tới/dễ được under18 truy cập, user request không là Google eligibility approval. T00 account/retention/live inference/quality/cost benchmark còn pending. CORS OPTIONS thật200; inference kiểm bằng fixture có nhãn. AI_PROVIDER=none chỉ gatewayserver planned, không tắt BYOK.
+Google streamGenerateContent SSE fixedhost/headerkey/inlineJPEG/responseMimeType+prompt schema/systemInstruction/no tools;50 mục/90s/500KB/cancel/no automatic retry/model fallback/billing/WebLocks một tab. Consent mỗi reopen/crop private data; candidate có preview hình trước parent approve. API free tier theo project; paidproject có thể tính phí. Terms hiện hạn chế app hướng tới/dễ được under18 truy cập, user request không là Google eligibility approval. T00 account/retention/live inference/quality/cost benchmark còn pending. CORS OPTIONS thật200; inference kiểm bằng fixture có nhãn. AI_PROVIDER=none chỉ gatewayserver planned, không tắt BYOK.
 
 Cloud lifecycle/account deletion/CAS/conflicts/transfer/SQL0001–0006 và optional Commons adapter đã kiểm local fixture/realSQL; Google/Supabase hosted chưaproject. PWA guest/demo library/card/4games/basicparententry vẫn offline, OpenMoji staticallowlist/cache có credit; không offline AI hoặc cache privateAPI/HTML/RSC/account.
 
@@ -37,3 +37,5 @@ Localproduction4317 đã restart sau build cuối, temporarytestservers/SQLfixtu
 Next action: founder thử một lượt trên hostedURL, thêm Gemini key trong app nếu muốn AI (không gửikey qua chat). Khi có Supabase chạy hosted smoke theoSetup; đánh giá account/eligibility/retention và realAIbenchmark trước public child pilot. Không tự gọi paid API hoặc coi fixtures là quality evidence.
 
 Câu mẫu diagnostic: pnpm check PASS114 unit/13files/lint/types/build; full pnpm test:e2e PASS125/125 (1.5min), docs validator full PASS203links. Live result/deploy chưa ghi tại mốc này.
+
+JSON mode verification: pnpm check PASS114unit/13files/lint/types/build, full pnpm test:e2e PASS125/125 (1.5min), full docs PASS203links. Deployment/live image result follow.

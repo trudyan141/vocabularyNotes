@@ -915,3 +915,5 @@ Founder yêu cầu thử/fix lỗi Google request. Bản cũ che mất message c
 Thử trên founder tab: Google400 INVALID_ARGUMENT, không field cụ thể. Request JSON được đổi dạng tương thích và phần Cài đặt thêm nút kiểm tra key/model không gửi ảnh; không tự đổi model hay bật billing. Kết quả sau sửa ghi STATE/evidence trước bàn giao.
 
 Kiểm tiếp ADR033: Google chấp nhận metadata key/model nhưng request ảnh sau đổi JSON vẫn400/no fields. Thêm nút câu mẫu không gửi ảnh để phân biệt lỗi gọi AI với lỗi ảnh/schema; quota/cost được ghi rõ, không tự đổi model hoặc bật billing. Không báo sửa thành công khi live request còn bị từ chối.
+
+Câu mẫu thật đã thành công cùng key/model3.5FlashLite. Lỗi được thu hẹp về request worksheet, không quy key sai. Đang kiểm JSON mode/schema trong prompt thay schema compiler của Google; kết quả vẫn phải đúng DTO/evidence và phụ huynh duyệt trước lưu.

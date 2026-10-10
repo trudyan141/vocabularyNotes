@@ -282,3 +282,7 @@ Live diagnostics0ba9794 READY, một user-authorized POST trả400 INVALID_ARGUM
 10/10/2026 ADR033 follow-up: source2ec2725 productionREADY/CI38037820735 SUCCESS; metadata GET thật accepted key/model nhưng compatible image POST vẫn400 INVALID_ARGUMENT/no fields. Thêm nút câu mẫu cố định không ảnh/schema (explicit click/64output/15s/no retries/no persistence) để cô lập inference; check114 unit/13files/lint/types/build PASS, browser/live follow.
 
 Câu mẫu diagnostic: pnpm check PASS114 unit/13files/lint/types/build; full pnpm test:e2e PASS125/125 (1.5min), docs validator full PASS203links. Live result/deploy chưa ghi tại mốc này.
+
+837c50f productionREADY dpl_4KAsqShNDN6wzTfdW3BK2c9eQHZy; actual minimaltext POST thành công samekey/model. No image/worksheet/schema in control; did not display/persist model control output. Next request uses JSON mode and explicit prompt schema while strict local validation remains; live after pending.
+
+JSON mode verification: pnpm check PASS114unit/13files/lint/types/build, full pnpm test:e2e PASS125/125 (1.5min), full docs PASS203links. Deployment/live image result follow.

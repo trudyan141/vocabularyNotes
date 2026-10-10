@@ -37,3 +37,7 @@ Next diagnostic change: stable GenerateContent responseMimeType/responseJsonSche
 Compatible request source2ec2725 nativeGit production READY dpl_81CYpz4K6H8sB64biUZ3US3Qr5po. Actual same founder key/model metadata GET succeeded; second image POST still400 INVALID_ARGUMENT with identical generic message/no fields. The prepared source decodes1920×1080 in the browser. This disproves a claim that switching structured-output fields alone fixed this failure. Next explicit diagnostic: one text-only generateContent with fixed “Reply with the word OK.”/64output tokens, no image/schema/system instruction. UI explains quota/cost and sends only after click; generated control text is not displayed/persisted. Live control result follows.
 
 Câu mẫu diagnostic: pnpm check PASS114 unit/13files/lint/types/build; full pnpm test:e2e PASS125/125 (1.5min), docs validator full PASS203links. Live result/deploy chưa ghi tại mốc này.
+
+ADR033 next isolation: actual minimal text generateContent on837c50f succeeds with the same key/model. Metadata success plus text inference success narrows400 to the worksheet request. Use JSON mode/explicit schema in prompt instead of backend responseJsonSchema compilation; strict local DTO/evidence/STOP/size validation unchanged, no auto retry. Before/after photo test follows; do not claim schema compiler proven until it succeeds.
+
+JSON mode verification: pnpm check PASS114unit/13files/lint/types/build, full pnpm test:e2e PASS125/125 (1.5min), full docs PASS203links. Deployment/live image result follow.

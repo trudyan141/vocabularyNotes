@@ -6,6 +6,8 @@ Người dùng chốt tên **Words for Kids**, web/PWA ưu tiên con founder và
 
 **Hiện tại10/10/2026, ADR-030:** real Datamuse/Wiktionary/Tatoeba autocomplete→auto-fill/songngữ/IPA→catalog21+174 OpenMoji hình→parentreview. OCR thiết bị đã bỏ; parentGemini BYOK directbrowser/session hoặc localStorage opt-in/delete, không key ởserver/IDB/backup/cloud. AI_PROVIDER=none chỉ gatewayserverplanned. Review/save/notes/SRS/4games/backup/offline manual còn dùng. Vercel nativeGit project/env3: Gitpush7b1e997 và Gemini f460e1f READY; remoteCI7b1e997 SUCCESS/CIf460e1f SUCCESS. Gemini check104 PASS; Gemini E2E113/113 PASS; SQL PASS; realAIinference/key/accuracy/cost/retention, hostedSupabase/physicalphone/human/field còn pending. [Setup](../../SETUP-PROJECT.md), [evidence](../evaluations/parent-dictionary-byok-deploy.md), STATE/founderplan là current. Không đọc câu OCR/keybrowserforbidden lịch sử thành requirement hiện hành.
 
+Steering tiếp10/10/2026: ADR031 upload drag-drop/source-photo/inline key đã deploy; ADR032 Gemini SSE/elapsed/partial chưa lưu/STOP validation sửa chờ treo và REST enum APPLICATION_JSON. Evidence capture-review-ui và STATE ghi mốc kiểm hiện hành.
+
 ## Trình tự bắt đầu
 
 Steering cùng ngày thêm đường gõ tay → autocomplete → tra/chọn nghĩa → duyệt/lưu tại S03/S09, không cần ảnh/OCR; R11/F07/ADR-021, T07 local đã nối; lookup thật đã smoke `handsom`/`handsome`; availability nguồn ngoài có lỗi/fallback.

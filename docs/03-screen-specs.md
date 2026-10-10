@@ -85,3 +85,7 @@ Phần sửa/note/chọn hình hoặc duyệt enrichment mới tại S09/S10 thu
 - Storage error: `Chưa lưu được vì bộ nhớ trình duyệt đã đầy. Xuất bản sao lưu hoặc xóa ảnh nháp để tiếp tục.`
 
 Tên nút và toast phải phản ánh trạng thái thật: `Đã lưu trên máy`, `Đang chờ đồng bộ`, `Đã đồng bộ` là ba trạng thái khác nhau.
+
+### S05 — Trạng thái chờ AI theo ADR-032
+
+Sau Phân tích, giữ ảnh đối chiếu, disable chỉnh/saving trong request, hiện bước thực tế Chuẩn bị/Chờ Gemini/Nhận từ/Kiểm tra, elapsed giây, thanh indeterminate có reduced-motion và Dừng. Từ/nghĩa hoàn chỉnh nhận từ SSE hiện dần có nhãn bản tạm chưa lưu. Không %/ETA giả;90s timeout báo lỗi và giữ nháp cũ. Kết thúc STOP/schema/evidence hợp lệ mới vào review. Error/cancel/key change xóa pending UI ngay.

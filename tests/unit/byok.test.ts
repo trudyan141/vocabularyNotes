@@ -11,11 +11,11 @@ it('uses direct Google headers and JPEG structured output; session keys are remo
  configureParentAi({key,model:'gemini-3.5-flash-lite'},true);expect(values.has(parentKeyStorage)).toBe(true);
  const mock=vi.fn(async()=>Response.json(response()));
  await expect(analyseWorksheet(new Blob(['image'],{type:'image/jpeg'}),'listed',new AbortController().signal,mock as typeof fetch)).resolves.toEqual(result);
- const [url,init]=mock.mock.calls[0] as unknown as [string,RequestInit];expect(url).toBe('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent');expect(url).not.toContain(key);expect(init.headers).toMatchObject({'x-goog-api-key':key});const body=JSON.parse(init.body as string);expect(body.contents[0].parts[1].inlineData).toMatchObject({mimeType:'image/jpeg',data:btoa('image')});expect(body.generationConfig.responseFormat.text.mimeType).toBe('application/json');expect(body).not.toHaveProperty('tools');expect(init.credentials).toBe('omit');expect(mock.mock.calls).toHaveLength(1);
+ const [url,init]=mock.mock.calls[0] as unknown as [string,RequestInit];expect(url).toBe('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:streamGenerateContent?alt=sse');expect(url).not.toContain(key);expect(init.headers).toMatchObject({'x-goog-api-key':key});const body=JSON.parse(init.body as string);expect(body.contents[0].parts[1].inlineData).toMatchObject({mimeType:'image/jpeg',data:btoa('image')});expect(body.generationConfig.responseFormat.text.mimeType).toBe('APPLICATION_JSON');expect(body).not.toHaveProperty('tools');expect(init.credentials).toBe('omit');expect(mock.mock.calls).toHaveLength(1);
  configureParentAi(null);expect(values.has(parentKeyStorage)).toBe(false);await expect(analyseWorksheet(new Blob(['image'],{type:'image/jpeg'}),'listed',new AbortController().signal,mock as typeof fetch)).rejects.toThrow('missing-key');
 });
 it.each(parentModels)('calls exactly the selected model $id without a fallback',async model=>{
- configureParentAi({key,model:model.id});expect(values.size).toBe(0);const mock=vi.fn(async()=>Response.json(response()));await analyseWorksheet(new Blob(['image'],{type:'image/jpeg'}),'all',new AbortController().signal,mock as typeof fetch);expect(mock.mock.calls).toHaveLength(1);expect((mock.mock.calls[0] as unknown[])[0]).toBe(`https://generativelanguage.googleapis.com/v1beta/models/${model.id}:generateContent`);
+ configureParentAi({key,model:model.id});expect(values.size).toBe(0);const mock=vi.fn(async()=>Response.json(response()));await analyseWorksheet(new Blob(['image'],{type:'image/jpeg'}),'all',new AbortController().signal,mock as typeof fetch);expect(mock.mock.calls).toHaveLength(1);expect((mock.mock.calls[0] as unknown[])[0]).toBe(`https://generativelanguage.googleapis.com/v1beta/models/${model.id}:streamGenerateContent?alt=sse`);
 });
 it('rejects old OpenAI keys and model path injection while preserving stored data until explicitly replaced',()=>{
  values.set(parentKeyStorage,JSON.stringify({key:'sk-old-parent-key',model:'gpt-4.1-mini'}));refreshParentAi();expect(parentAi()).toBeNull();expect(values.has(parentKeyStorage)).toBe(true);expect(()=>configureParentAi({key:'sk-old-parent-key',model:'gemini-3.5-flash-lite'})).toThrow();expect(()=>configureParentAi({key,model:'gemini-test/../../secret'})).toThrow();configureParentAi({key,model:'gemini-3.5-flash-lite'},true);expect(parentAi()?.model).toBe('gemini-3.5-flash-lite');
@@ -28,3 +28,23 @@ it.each([{status:400,code:'key',error:{details:[{reason:'API_KEY_INVALID'}]}},{s
 });
 
 it('accepts Google authorization key formats without requiring the legacy AIza prefix',()=>{configureParentAi({key:'AQ.'+'authorization-test-canary-123456',model:'gemini-3.5-flash-lite'},true);refreshParentAi();expect(parentAi()?.model).toBe('gemini-3.5-flash-lite');});
+
+it('streams complete words before completion across split UTF-8/SSE frames without exposing thoughts',async()=>{
+ configureParentAi({key,model:'gemini-3.5-flash-lite'});
+ let controller!:ReadableStreamDefaultController<Uint8Array>;
+ const body=new ReadableStream<Uint8Array>({start(value){controller=value;}});
+ const encode=new TextEncoder();const updates:import('@/lib/ai/byok').AiProgress[]=[];
+ const run=analyseWorksheet(new Blob(['image'],{type:'image/jpeg'}),'listed',new AbortController().signal,vi.fn(async()=>new Response(body,{headers:{'content-type':'text/event-stream'}})) as typeof fetch,value=>updates.push(value));
+ const raw=JSON.stringify(result);const prefix=raw.slice(0,-2);
+ const frame=`: heartbeat\r\ndata: ${JSON.stringify({candidates:[{content:{parts:[{thought:true,text:'secret thought'},{text:prefix}]}}]})}\r\n\r\n`;
+ const bytes=encode.encode(frame);for(let i=0;i<bytes.length;i++)controller.enqueue(bytes.slice(i,i+1));
+ await vi.waitFor(()=>expect(updates.at(-1)?.words).toHaveLength(1));expect(updates.at(-1)?.text).toBe('pear');expect(JSON.stringify(updates)).not.toContain('secret thought');
+ controller.enqueue(encode.encode(`data: ${JSON.stringify({candidates:[{finishReason:'STOP',content:{parts:[{text:raw.slice(-2)}]}}]})}\n\n`));controller.close();await expect(run).resolves.toEqual(result);expect(updates.at(-1)?.stage).toBe('validating');
+});
+it.each(['truncated','refused','oversized','cancelled'])('discards %s streams and releases the reader',async kind=>{
+ configureParentAi({key,model:'gemini-3.5-flash-lite'});const abort=new AbortController();let cancelled=false;
+ const body=new ReadableStream<Uint8Array>({start(controller){if(kind==='cancelled')return;controller.enqueue(new TextEncoder().encode(kind==='oversized'?'x'.repeat(500001):`data: ${JSON.stringify({candidates:[{...(kind==='refused'?{finishReason:'SAFETY'}:{}),content:{parts:[{text:JSON.stringify(result)}]}}]})}\n\n`));if(kind!=='oversized')controller.close();},cancel(){cancelled=true;}});
+ const run=analyseWorksheet(new Blob(['image'],{type:'image/jpeg'}),'listed',abort.signal,vi.fn(async()=>new Response(body,{headers:{'content-type':'text/event-stream'}})) as typeof fetch);
+ if(kind==='cancelled'){await new Promise(resolve=>setTimeout(resolve,5));abort.abort();}
+ await expect(run).rejects.toThrow();if(kind==='cancelled'||kind==='oversized')expect(cancelled).toBe(true);
+});

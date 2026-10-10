@@ -903,3 +903,7 @@ Báo cáo hiện hành ở đầu tài liệu và [bằng chứng local](evaluat
 5. Quan sát con có biết bấm gì, có nghe/chọn hình được không; ghi lỗi thật để sửa sau một lượt.
 
 Bản production local đang mở ở [Words for Kids](http://127.0.0.1:4317/today). Khi cần chạy lại: `nvm use`, `pnpm install --frozen-lockfile`, `pnpm build`, `pnpm start --port 4317`. Dev dùng `pnpm dev`. Cloud code đã nối/kiểm local, chưa có project live; AI BYOK trực tiếp đã triển khai, servergatewayplanned/liveinferencepending. Vercel nativeGit đãnối theo ADR029; cấu hình tại [setup](../SETUP-PROJECT.md), trạng tháiready trongevidencehiệnhành. Prototype T18 tại `design/prototype/index.html` giữ lịch sử thiết kế, dữ liệu sessionStorage khác app IndexedDB.
+
+### Cập nhật10/10 — chờ phân tích ảnh rõ ràng
+
+Theo phản hồi founder, màn đọc ảnh dùng Gemini streaming để hiện dần từ/nghĩa, elapsed và trạng thái từng bước, thanh chờ/nút Dừng/tối đa90giây. Bản tạm chưa lưu; nhận xong/kiểm hợp lệ rồi mới bố mẹ duyệt. Giữ ảnh đối chiếu và drag-drop/camera đã deploy; sửa dòng chờ treo khi lỗi và định dạng JSON REST. Test dùng fixture có nhãn, chưa là AI đọc ảnh thật. Tiến độ/check/deploy ở STATE và capture-review-ui.

@@ -6,13 +6,17 @@ Cập nhật10/10/2026, Asia/Ho_Chi_Minh. Founder yêu cầu setup rõ env/nơi 
 
 Upload/camera đã refine Theme C: vùng drag-drop một ảnh/nút tiếng Việt/bàn phím, camera riêng, cùng validation/local draft, bỏ banner chưa kết nối. Extract có ảnh prepared sticky/zoom để đối chiếu; lý do action bị khóa; key/model Gemini cấu hình tại chỗ, không rời nháp; save chỉ mở khi đủ từ/nghĩa/approval. Check104/lint/types/build và full117/117 browser PASS. [Evidence](../evaluations/capture-review-ui.md), screenshots synthetic/manual desktop/mobile. Chưa gọi AI thật, chưa physical camera. Code c74a2e2 nativeGit production READY, alias words-for-kids.vercel.app; CI38028605020 SUCCESS toàn bộ check104/117 browser/SQL/docs. Browser hosted render đúng source prepared1920×1080, không gửi AI. Count ledger giữ nguyên.
 
+## Streaming phân tích ảnh — ADR-032
+
+Gemini SSE/tiến độ bước thực/elapsed/Dừng/preview chưa lưu/strict final validation đã xong; sửa stale chờ khi lỗi và REST enum APPLICATION_JSON. Check109 unit/13files/lint/types/build PASS, full119/119 E2E PASS, docs203links PASS. Real stream CORS OPTIONS200; inference chưa gọi. Evidence capture-review-ui; đang push nativeGit deploy, không claim READY trước khi kiểm.
+
 ## Bản hiện hành
 
 Thêm từ: Datamuse debounce350ms sửa chính tả → Wiktionary nghĩa song ngữ theo gloss/POS/IPA + Wiktionary/Tatoeba ví dụ có nguồn → tự điền/chọn nghĩa → catalog21/174 OpenMoji có license/credit → parent review/save. Live `handsom` → `handsome` → “đẹp trai” đã kiểm cả local và Vercel. Thiếu dữ liệu/hình báo rõ; không bịa hoặc ép hình cho nghĩa trừu tượng. Notes/decks/SRS/4games/backup/scopes vẫn hoạt động.
 
 Ảnh: capture/crop/nháp → Gemini BYOK trực tiếp browser → strict JSON/evidence → phụ huynh sửa/duyệt/lưu. Default3.5FlashLite; presets3.1FlashLite/3.6Flash/3.8Flash + custom Gemini ID. Key standard/auth từ AIStudio chỉ session hoặc localStorage opt-in/delete, không IDB/archive/cloud/sync/server/env/URL. Key OpenAI cũ bỏ qua, không gửi sang Google; nguồn bản AI cũ giữ lịch sử. Chỉ prepare ảnh trên máy, không OCR/WASM/reader assets.
 
-Google generateContent fixedhost/headerkey/inlineJPEG/responseFormat/systemInstruction/no tools;50 mục/90s/500KB/cancel/no automatic retry/model fallback/billing/WebLocks một tab. Consent mỗi reopen/crop private data; candidate có preview hình trước parent approve. API free tier theo project; paidproject có thể tính phí. Terms hiện hạn chế app hướng tới/dễ được under18 truy cập, user request không là Google eligibility approval. T00 account/retention/live inference/quality/cost benchmark còn pending. CORS OPTIONS thật200; inference kiểm bằng fixture có nhãn. AI_PROVIDER=none chỉ gatewayserver planned, không tắt BYOK.
+Google streamGenerateContent SSE fixedhost/headerkey/inlineJPEG/responseFormat/systemInstruction/no tools;50 mục/90s/500KB/cancel/no automatic retry/model fallback/billing/WebLocks một tab. Consent mỗi reopen/crop private data; candidate có preview hình trước parent approve. API free tier theo project; paidproject có thể tính phí. Terms hiện hạn chế app hướng tới/dễ được under18 truy cập, user request không là Google eligibility approval. T00 account/retention/live inference/quality/cost benchmark còn pending. CORS OPTIONS thật200; inference kiểm bằng fixture có nhãn. AI_PROVIDER=none chỉ gatewayserver planned, không tắt BYOK.
 
 Cloud lifecycle/account deletion/CAS/conflicts/transfer/SQL0001–0006 và optional Commons adapter đã kiểm local fixture/realSQL; Google/Supabase hosted chưaproject. PWA guest/demo library/card/4games/basicparententry vẫn offline, OpenMoji staticallowlist/cache có credit; không offline AI hoặc cache privateAPI/HTML/RSC/account.
 

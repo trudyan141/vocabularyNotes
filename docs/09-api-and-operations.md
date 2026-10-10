@@ -2,7 +2,7 @@
 
 ## Quyết định hiện hành 10/10/2026 — ADR-030
 
-Founder đã yêu cầu **Gemini thay OpenAI** trong BYOK, ưu tiên model free tier và đổi nhiều model. Browser gọi trực tiếp Google generateContent bằng header x-goog-api-key, ảnh inline JPEG, systemInstruction coi ảnh là data, structured responseFormat JSON/schema; parse STOP/non-thought/strict DTO/evidence, max50/90s/500KB/cancel/no retry/Web Locks. Không key/ảnh đi qua app server, không key trong URL/IDB/backup/sync/env. Session mặc định/localStorage opt-in/delete giữ theo ADR029. Cấu hình cũ OpenAI bỏ qua, không gửi key cũ sang Google. Bốn model3.5FlashLite(default)/3.1FlashLite/3.6Flash/3.8Flash và custom Gemini ID; không tự fallback model hoặc bật billing. AI_PROVIDER server vẫn none (gateway planned).
+Founder đã yêu cầu **Gemini thay OpenAI** trong BYOK, ưu tiên model free tier và đổi nhiều model. Browser gọi trực tiếp Google streamGenerateContent?alt=sse bằng header x-goog-api-key, ảnh inline JPEG, systemInstruction coi ảnh là data, structured responseFormat JSON/schema; parse STOP/non-thought/strict DTO/evidence, max50/90s/500KB/cancel/no retry/Web Locks. Không key/ảnh đi qua app server, không key trong URL/IDB/backup/sync/env. Session mặc định/localStorage opt-in/delete giữ theo ADR029. Cấu hình cũ OpenAI bỏ qua, không gửi key cũ sang Google. Bốn model3.5FlashLite(default)/3.1FlashLite/3.6Flash/3.8Flash và custom Gemini ID; không tự fallback model hoặc bật billing. AI_PROVIDER server vẫn none (gateway planned).
 
 Google pricing/model/API docs kiểm10/10 xác nhận free tier có quota cho bốn lựa chọn; project paid có thể tính phí. Current API terms vẫn hạn chế under18-directed/likely-access clients; latest user request xác nhận code/config Gemini, không thành xác nhận Google eligibility. T00 account/retention/live benchmark còn pending, free tier dữ liệu có thể dùng cải thiện sản phẩm. CORS OPTIONS thật200, chưa key/inference/quality/quota thật. Không mang store:false/ZDR OpenAI sang Gemini.
 
@@ -112,3 +112,9 @@ Cache shell/static assets theo build ID; IndexedDB chứa content. Service worke
 Log requestId, operation, stage, latency, status, usage, scope type; không ghi ảnh/evidence/definition/answer/names. Errors có redaction và sampling. Nếu thêm analytics, không tự gửi content hoặc account email; tuân theo lựa chọn người dùng.
 
 P1 local/dev → staging HTTPS → pilot → public. Kiểm camera trên điện thoại thật, Google authorized origins/redirect URIs, RLS bằng 2 tài khoản, storage private, migrations/backup/rollback và cost cap. Deploy provider chưa được chốt, không provision tài khoản hoặc publish trong lượt planning. Rollback app không rollback destructive DB migration mù; migration expand/contract và backup trước thay đổi lớn.
+
+## Streaming BYOK — ADR-032
+
+Theo yêu cầu founder10/10/2026, SSE nhận từng chunk non-thought, ghép JSON có giới hạn500KB, UTF-8 streaming/CRLF. UI hiện preparing→waiting→receiving→validating, thanh indeterminate (không giả %/ETA), elapsed giây/nút Dừng/timeout90s. Chữ hoàn chỉnh và từ có đủ schema/evidence hiện dần dưới nhãn bản tạm; không persist hoặc cho lưu trước final STOP + strict whole-result schema/evidence. Error/abort/key-change xóa active progress; nháp cũ còn nguyên. Không retry/fallback/model đổi tự động.
+
+Nguồn: [Google streamGenerateContent](https://ai.google.dev/api/generate-content), [structured-output streaming](https://ai.google.dev/gemini-api/docs/structured-output). Streaming chỉ phản ánh dữ liệu thực nhận, không khẳng định ảnh OCR đúng hay được phép dùng provider cho child app.

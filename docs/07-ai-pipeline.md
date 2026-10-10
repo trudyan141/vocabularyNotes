@@ -120,3 +120,5 @@ Nguồn: [Google streamGenerateContent](https://ai.google.dev/api/generate-conte
 Không chỉ map HTTP400 thành cấu hình: UI giữ HTTP/status/model, message/reason/fieldViolations đã redact key/token/largeblob/projectnumber, bounded/plain-text. Không full provider body/metadata/log/store. FAILED_PRECONDITION có hướng kiểm project/free-tier/region riêng; non-JSON error vẫn giữ HTTP. Nguồn [Google troubleshooting](https://ai.google.dev/gemini-api/docs/troubleshooting).
 
 Theo live400 trên founder tab, request dùng JSON fields tương thích GenerateContent: responseMimeType=application/json + responseJsonSchema; provider schema bỏ pattern/minLength/maxLength, local validation giữ nguyên nghiêm ngặt. Không tự retry hay đổi model. Cài đặt có Kiểm tra key/model bằng một metadata GET/15s/no image/no inference, xác nhận model hỗ trợ generateContent; không khẳng định quota/vision thành công chỉ từ GET.
+
+ADR033: phụ huynh có thể bấm thử một câu mẫu cố định không ảnh/JSON schema để tách lỗi quyền inference khỏi lỗi request worksheet. Một POST generateContent/64 output tokens/15s, quota/cost được ghi trước nút; không tự retry/đổi model, không lưu kết quả mẫu.

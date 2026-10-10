@@ -278,3 +278,7 @@ Streaming source7eeb25e production READY (dpl_5GuJjph4QsX362DqJb2e7E8Qe8uT/stabl
 ADR033 giữ HTTP/status/model/message/reason/field errors đã redact, không metadata/log/persist; preconditions/non-JSON errors rõ ràng, draft còn nguyên. Check111/13files/lint/types/build và full121/121 E2E PASS; docs203links PASS; deploy/live cause đang kiểm.
 
 Live diagnostics0ba9794 READY, một user-authorized POST trả400 INVALID_ARGUMENT/Request contains an invalid argument/no fields. Chuyển stable GenerateContent JSON fields + provider-only string pruning, thêm metadata GET15s/no image/inference; check113 PASS, full123/123 E2E/docs203links PASS; bản request tương thích đang deploy/thử sau sửa. Không đọc/print key, không parent approve/save.
+
+10/10/2026 ADR033 follow-up: source2ec2725 productionREADY/CI38037820735 SUCCESS; metadata GET thật accepted key/model nhưng compatible image POST vẫn400 INVALID_ARGUMENT/no fields. Thêm nút câu mẫu cố định không ảnh/schema (explicit click/64output/15s/no retries/no persistence) để cô lập inference; check114 unit/13files/lint/types/build PASS, browser/live follow.
+
+Câu mẫu diagnostic: pnpm check PASS114 unit/13files/lint/types/build; full pnpm test:e2e PASS125/125 (1.5min), docs validator full PASS203links. Live result/deploy chưa ghi tại mốc này.

@@ -54,6 +54,16 @@ export async function checkParentModel(config:ParentAi,signal:AbortSignal,fetche
  if(model.name!==`models/${config.model}`||!model.supportedGenerationMethods.includes('generateContent'))throw new ParentAiError('model',{http:200,status:'UNSUPPORTED_MODEL',model:config.model,message:'Model này không hỗ trợ generateContent để đọc ảnh. Chọn một model đọc ảnh trong AI Studio.',fields:[],reason:''});
  return {model:config.model};
 }
+// Explicit diagnostic control: one small text-only inference, no worksheet or JSON schema.
+export async function testParentApi(config:ParentAi,signal:AbortSignal,fetcher:typeof fetch=fetch){
+ if(!validConfig(config))throw new ParentAiError('configuration');
+ const response=await fetcher(`https://generativelanguage.googleapis.com/v1beta/models/${config.model}:generateContent`,{method:'POST',credentials:'omit',redirect:'error',cache:'no-store',signal,headers:{'Content-Type':'application/json','x-goog-api-key':config.key},body:JSON.stringify({contents:[{role:'user',parts:[{text:'Reply with the word OK.'}]}],generationConfig:{maxOutputTokens:64}})});
+ let data;try{data=await providerJson(response);}catch(e){if(response.ok||signal.aborted)throw e;throw googleFailure(response.status,null,config);}
+ if(!response.ok)throw googleFailure(response.status,data,config);
+ // Do not display or store generated diagnostic content.
+ if(!z.object({candidates:z.array(z.unknown()).min(1)}).safeParse(data).success)throw new ParentAiError('response');
+ return {model:config.model};
+}
 // Use the stable GenerateContent JSON fields across Gemini model generations.
 // String length/pattern rules stay authoritative in local validation, not the provider schema.
 export function worksheetProviderSchema(){

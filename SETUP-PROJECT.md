@@ -73,6 +73,8 @@ Bốn model chuẩn có free tier theo [bảng giá Google kiểm ngày 10/10/20
 
 **Điều kiện và dữ liệu:** [Gemini API terms](https://ai.google.dev/gemini-api/terms) hiện hạn chế API Clients hướng tới hoặc có thể được người dưới18 truy cập; key phụ huynh không miễn điều kiện đó. Code Gemini được thêm theo yêu cầu trực tiếp của founder; chưa phải xác nhận Google chấp thuận phát hành child app. T00 eligibility/account/live benchmark vẫn pending. Free tier có thể dùng nội dung gửi và response để cải thiện sản phẩm; không gửi thông tin riêng. Không mang `store:false`/ZDR của OpenAI sang Gemini hoặc quảng cáo không lưu dữ liệu. [Hướng dẫn key](https://ai.google.dev/gemini-api/docs/api-key), [model](https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite).
 
+**Khoanh vùng lỗi:** **Thử API với câu mẫu (không gửi ảnh)** chỉ gửi câu mẫu cố định/64 output tokens. Nếu câu mẫu cũng bị Google từ chối, lỗi không phụ thuộc ảnh hoặc schema bài học. Nút này dùng quota API (có thể tính phí khi project bật billing), chỉ chạy khi bấm, không tự retry.
+
 **Kiểm tra trước khi gửi ảnh:** bấm **Kiểm tra key và model (không gửi ảnh)** trong phần AI. App chỉ gọi metadata Google, không phân tích ảnh. Thành công xác nhận key/model được Google chấp nhận, không bảo đảm quota còn hay ảnh đọc được. Lỗi hiện HTTP/status/message/field đã ẩn key.
 
 CORS OPTIONS thật200 cho originproduction, POST và `x-goog-api-key` đã kiểm. Chưa gọi inference bằng key thật hoặc dùng quota tài khoản; tests dùng fixture có nhãn, không claim accuracy/cost/free quota của project cụ thể.

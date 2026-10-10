@@ -1,4 +1,5 @@
 'use client';
+import {OperationStatus} from '@/components/ui/operation-status';
 import {useSyncExternalStore,useState,useEffect} from 'react';
 import {useApp} from '@/components/app/provider';
 import {Button} from '@/components/ui/button';
@@ -36,7 +37,7 @@ function ParentAiForm(){
       <Button variant="outline" disabled={checking||!key.trim()} onClick={()=>void check(true)}>{t('Thử API với câu mẫu (không gửi ảnh)','Test API with sample prompt (no photo)')}</Button>
     </div>
     <small>{t('Câu mẫu chỉ gửi “Reply with the word OK.” để kiểm quyền gọi API; dùng một ít quota và có thể tính phí nếu project bật billing. Không tự thử lại.','The sample only sends “Reply with the word OK.” to check inference access; it uses a small API quota and may incur charges on a billed project. No automatic retries.')}</small>
-    <p role="status">{message}</p>{failure&&<AiFailureDetails details={failure}/>}
+    <OperationStatus busy={checking} title={checking?t('Đang chờ Google kiểm tra key và model…','Waiting for Google to check the key and model…'):t('Kết quả kiểm tra AI','AI check result')} message={message} error={!!failure}/>{failure&&<AiFailureDetails details={failure}/>}
     <details><summary>{t('Dữ liệu gửi Google và điều kiện sử dụng','Google data use and eligibility')}</summary><p>{t('Free tier có thể dùng nội dung gửi để cải thiện sản phẩm. Chỉ gửi bài đã cắt bỏ thông tin riêng. Điều khoản Gemini API hiện hạn chế ứng dụng hướng tới hoặc có thể được người dưới 18 tuổi truy cập; key phụ huynh không tự miễn điều kiện này.','Free tier content may be used to improve products. Crop private details before sending. Gemini API terms currently restrict apps directed toward or likely accessed by under-18s; a parent key does not exempt this requirement.')} <a href="https://ai.google.dev/gemini-api/terms" target="_blank" rel="noreferrer">{t('Điều khoản Google','Google terms')}</a></p></details>
   </section>;
 }

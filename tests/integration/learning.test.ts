@@ -16,6 +16,15 @@ function repo(scope="guest:learning",name=`learning-${crypto.randomUUID()}`){con
 async function seed(repository:LocalRepository,count=4){return repository.saveLesson({operationId:crypto.randomUUID(),title:"My words",learnedOn:"2026-10-09",sourceType:"manual",items:catalog.slice(0,count).map((w,i)=>({...w,id:`word-${i}`,approved:true}))});}
 afterEach(async()=>{for(const db of databases.splice(0)){db.close();await Dexie.delete(db.name);}});
 describe("complete local learning flows",()=>{
+  it("uses the same scoped due selection for Today and a capped review session",async()=>{
+    const repository=repo();await seed(repository,4);await repository.saveLesson({operationId:crypto.randomUUID(),title:"Pending",learnedOn:"2026-10-09",sourceType:"manual",items:[{...catalog[4],id:"word-4",approved:false}]});const practice=new PracticeRepository(repository);
+    const now=new Date().toISOString(),future=new Date(Date.now()+86400000).toISOString(),past=new Date(Date.now()-86400000).toISOString();
+    for(const [id,dueAt,deletedAt] of [["word-0",future,null],["word-1",past,null],["word-2",future,now]] as const){await repository.db.table("reviewStates").put({scopeId:repository.scope.id,id,version:1,createdAt:now,updatedAt:now,deletedAt,payload:{state:{dueAt,intervalDays:1,ease:2.5,streak:1,algorithmVersion:1}}});}
+    const foreign=repo("guest:foreign",repository.db.name);await foreign.db.table("reviewStates").put({scopeId:foreign.scope.id,id:"word-3",version:1,createdAt:now,updatedAt:now,deletedAt:null,payload:{state:{dueAt:future}}});
+    const ids=await practice.dueIds();expect(ids.sort()).toEqual(["word-1","word-2","word-3"]);
+    const session=await practice.start("flashcard",{due:true});expect(session.questions.map(q=>q.word.id).sort()).toEqual(ids);
+    expect(await repository.db.reviewEvents.count()).toBe(0);expect(await new PracticeRepository(foreign).dueIds()).toEqual([]);
+  });
   it("persists pronunciation, notes and templates without entering another scope",async()=>{
     const repository=repo();await seed(repository);const grape=(await repository.word("word-2"))!;
     expect(grape.pronunciations[0].ipa).toBe("/ɡɹeɪps/");expect(grape.examplePronunciations[0].readingHintVi).toBeTruthy();

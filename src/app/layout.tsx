@@ -1,3 +1,4 @@
+import {brandMetadata,siteUrl,siteDescription} from "@/lib/site-metadata";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import type { ReactNode } from "react";
@@ -16,13 +17,7 @@ const nunito = localFont({
   weight: "200 1000",
 });
 
-export const metadata: Metadata = {
-  title: "Words for Kids",
-  appleWebApp:{capable:true,title:"Words for Kids",statusBarStyle:"default"},
-  icons:{apple:"/icons/app-192.png"},
-  description: "Học và ôn tiếng Anh từ bài học của con, cùng phụ huynh.",
-  robots: { index: false, follow: false },
-};
+export const metadata: Metadata = brandMetadata;
 
 export const viewport: Viewport = { themeColor: "#fff8f8" };
 
@@ -30,6 +25,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="vi" className={nunito.variable}>
       <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify({'@context':'https://schema.org','@type':'WebSite',name:'Words for Kids',url:siteUrl,description:siteDescription,inLanguage:'vi'}).replace(/</g,'\\u003c')}}/>
         <AppProvider demo={getServerEnv().APP_DEMO_MODE}>
           <OfflineRegistration/><CloudBackground/><AppShell>{children}</AppShell>
         </AppProvider>

@@ -992,7 +992,12 @@ html[data-motion="reduced"] *::after {
 /* Reserve the viewport while IndexedDB opens: its footer must not jump through
    the visible learning area. Public headings render before local data loads. */
 main { min-height:calc(100svh - 140px); }
-.due-summary { min-height:29px; }
+.due-summary { min-height:29px; display:grid; gap:12px; justify-items:start; }
+.due-summary p { margin:0; }
+.operation-status { padding:16px; border:1px solid var(--border); border-radius:16px; display:grid; gap:8px; min-width:0; overflow-wrap:anywhere; }
+.operation-status[data-error] { border-color:var(--primary); }
+.operation-status p { margin:6px 0 0; }
+.operation-status progress { width:100%; height:10px; accent-color:var(--primary); }
 .library-loading-space { min-height:320px; }
 .media-credit { font-size:.7rem; line-height:1.4; overflow-wrap:anywhere; max-width:24rem; }
 

@@ -1,3 +1,4 @@
+export const metadata={title:"Thêm từ cho con"};
 import { Suspense } from "react";
 import { AddWord } from "@/components/features/add-word";
 import Loading from "@/app/loading";

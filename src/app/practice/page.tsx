@@ -1,3 +1,4 @@
+export const metadata={title:"Chơi & học"};
 import { Suspense } from "react";
 import { PracticePreview } from "@/components/features/practice";
 import Loading from "@/app/loading";

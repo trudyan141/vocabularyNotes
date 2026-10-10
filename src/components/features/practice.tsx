@@ -4,8 +4,9 @@ import type {ScopedDocument} from "@/data/local/types";
 import type {Deck} from "@/data/local/decks";
 import Link from "next/link";
 import {BookOpen, Image, Volume2, Pencil, Keyboard} from "lucide-react";
-import { useMemo, useRef, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import {OperationStatus} from "@/components/ui/operation-status";
 import { useLiveQuery } from "dexie-react-hooks";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,15 +18,30 @@ import { type Rating } from "@/lib/learning/srs";
 const modes:[Mode,string,string][]=[["flashcard","Thẻ ôn","Flashcards"],["picture-word","Nhìn hình chọn từ","Picture to word"],["word-picture","Nghe từ chọn hình","Word to picture"],["letters","Điền chữ thiếu","Missing letters"],["spelling","Gõ cả từ","Spell the word"]];
 const modeIcons={flashcard:BookOpen,"picture-word":Image,"word-picture":Volume2,letters:Pencil,spelling:Keyboard};
 export function PracticePreview(){
-  const {repository,t}=useApp();const params=useSearchParams();
+  const {repository,t,preferences}=useApp();const params=useSearchParams(),router=useRouter();
   const practice=useMemo(()=>repository?new PracticeRepository(repository):null,[repository]);
   const snapshot=useLiveQuery(async()=>practice?{scope:practice.repository.scope.id,sessions:await practice.sessions()}:null,[practice]);
   const [session,setSession]=useState<Session|null>(null);const [busy,setBusy]=useState(false);const [error,setError]=useState("");const lock=useRef(false);
   const [deck,setDeck]=useState("");
   const decks=useLiveQuery(async()=>repository?{scope:repository.scope.id,rows:await repository.db.table<ScopedDocument>("decks").where("[scopeId+id]").between([repository.scope.id,""],[repository.scope.id,"\uffff"]).toArray()}:null,[repository]);
-  const [due,setDue]=useState(false);const [weak,setWeak]=useState(false);const [lesson,setLesson]=useState(params.get("lesson")??"");const [direction,setDirection]=useState<"en-vi"|"vi-en">("en-vi");
+  const reviewText=useMemo(()=>(vi:string,en:string)=>preferences.locale==="vi"?vi:en,[preferences.locale]);
+  const review=params.get("review"),savedSession=params.get("session");const opened=useRef("");
+  const [due,setDue]=useState(review==="due");const [weak,setWeak]=useState(false);const [lesson,setLesson]=useState(params.get("lesson")??"");const [direction,setDirection]=useState<"en-vi"|"vi-en">("en-vi");
   const lessons=useLiveQuery(async()=>repository?{scope:repository.scope.id,rows:await repository.db.lessons.where("[scopeId+learnedOn]").between([repository.scope.id,""],[repository.scope.id,"\uffff"]).toArray()}:null,[repository]);
-  async function start(mode:Mode){if(!practice||lock.current)return;lock.current=true;setBusy(true);setError("");try{setSession(await practice.start(mode,{word:params.get("word")??undefined,due,weak,lesson:lesson||undefined,deck:deck||undefined,direction}));}
+  useEffect(()=>{
+    if(!practice||review!=="due")return;let active=true;
+    const key=`${practice.repository.scope.id}:${savedSession??"new"}`;
+    void Promise.resolve().then(async()=>{
+      if(!active||opened.current===key)return;opened.current=key;lock.current=true;setBusy(true);setError("");
+      try{
+        const next=savedSession?(await practice.sessions()).find(s=>s.id===savedSession):await practice.start("flashcard",{due:true});
+        if(!next)throw new Error("missing");
+        if(active){setSession(next);opened.current=`${practice.repository.scope.id}:${next.id}`;if(!savedSession)router.replace(`/practice?review=due&session=${encodeURIComponent(next.id)}`,{scroll:false});}
+      }catch{if(active)setError(reviewText(savedSession?"Buổi ôn này không còn dùng được. Về Hôm nay để mở các từ đến hạn mới nhất.":"Hiện chưa có từ đến hạn để ôn, hoặc chưa mở được thư viện. Về Hôm nay kiểm tra lại; có thể chọn Thẻ ôn để thử lại.","No eligible review session could be opened. Return to Today to check the latest due words or retry flashcards."));}
+      finally{lock.current=false;if(active)setBusy(false);}
+    });return()=>{active=false;};
+  },[practice,review,savedSession,router,reviewText]);
+  async function start(mode:Mode){if(!practice||lock.current)return;lock.current=true;setBusy(true);setError("");try{const next=await practice.start(mode,{word:params.get("word")??undefined,due,weak,lesson:lesson||undefined,deck:deck||undefined,direction});setSession(next);if(review==="due"){opened.current=`${practice!.repository.scope.id}:${next.id}`;router.replace(`/practice?review=due&session=${encodeURIComponent(next.id)}`,{scroll:false});}}
     catch{setError(t("Chưa đủ từ phù hợp cho kiểu học này. Thêm/duyệt từ hoặc chọn Thẻ ôn; game hình cần 3 hình khác nhau.","Not enough eligible words. Add approved words or choose flashcards; picture games need three distinct pictures."));}finally{lock.current=false;setBusy(false);}}
   async function change(action:"reveal"|"hint"|"answer"|"check",input:{answer?:string;rating?:Rating;skipped?:boolean}={}){
     if(!practice||!session||lock.current)return;lock.current=true;setBusy(true);setError("");
@@ -46,6 +62,7 @@ export function PracticePreview(){
     </div>;
   }
   return <div className="reading-page page-flow"><h1>{t("Chơi & học","Play & learn")}</h1><p>{t("Chọn cách học từ đã được bố mẹ duyệt. Không có đồng hồ đếm ngược.","Learn words approved by a parent. No countdown.")}</p>
+    <OperationStatus key="open-review" busy={busy} title={t("Đang mở buổi học…","Opening your session…")}/>
     <div className="practice-modes">{modes.map(([mode,vi,en])=>{const Icon=modeIcons[mode];return <Button key={mode} size="lg" variant={mode==="flashcard"?"default":"secondary"} disabled={busy||!repository} onClick={()=>void start(mode)}><Icon aria-hidden="true"/>{t(vi,en)}</Button>;})}</div>
     <details className="practice-options"><summary>{t("Chọn nhóm từ và chiều ôn","Choose words and direction")}</summary><div className="page-flow">
     <div className="row-wrap"><Button variant={!due&&!weak?"secondary":"outline"} onClick={()=>{setDue(false);setWeak(false);}}>{t("Tất cả từ","All words")}</Button><Button variant={due?"secondary":"outline"} onClick={()=>{setDue(true);setWeak(false);}}>{t("Từ đến hạn ôn","Due for review")}</Button><Button variant={weak?"secondary":"outline"} onClick={()=>{setWeak(true);setDue(false);}}>{t("Từ cần luyện thêm","Words to practise")}</Button></div>
@@ -53,7 +70,7 @@ export function PracticePreview(){
     <label htmlFor="card-direction">{t("Chiều ôn thẻ","Flashcard direction")}</label><select id="card-direction" value={direction} onChange={e=>setDirection(e.target.value as typeof direction)}><option value="en-vi">English → tiếng Việt</option><option value="vi-en">Tiếng Việt → English</option></select>
     <label htmlFor="practice-deck">{t("Bộ thẻ riêng","Custom deck")}</label><select id="practice-deck" value={deck} onChange={e=>{setDeck(e.target.value);const row=decks?.rows.find(r=>r.id===e.target.value);if(row)setDirection((row.payload.deck as Deck).direction);}}><option value="">{t("Không lọc bộ thẻ","Any deck")}</option>{decks&&decks.scope===repository?.scope.id&&decks.rows.filter(r=>!r.deletedAt).map(row=><option key={row.id} value={row.id}>{(row.payload.deck as Deck).name}</option>)}</select><ParentGate href="/practice/decks"><Button variant="link">{t("Bố mẹ tạo bộ thẻ","Parent creates a deck")}</Button></ParentGate>
     </div></details>
-    {error&&<p role="alert">{error}</p>}
+    {error&&<><p role="alert">{error}</p><Button asChild variant="outline"><Link href="/today">{t("Về Hôm nay","Back to Today")}</Link></Button></>}
     {sessions.filter(s=>!s.completedAt).length>0&&<section><h2>{t("Buổi học đang dở","Resume learning")}</h2>{sessions.filter(s=>!s.completedAt).slice(0,5).map(s=><Button key={s.id} variant="outline" onClick={()=>setSession(s)}>{t("Tiếp tục","Resume")} · {t(modes.find(m=>m[0]===s.mode)![1],modes.find(m=>m[0]===s.mode)![2])} · {s.position}/{s.questions.length}</Button>)}</section>}
     {!repository&&<EmptyState title={t("Đang mở thư viện","Opening library")} description={t("Đợi một chút nhé.","Just a moment.")}/>}
     {sessions.some(s=>s.completedAt)&&<section><h2>{t("Buổi học gần đây","Recent sessions")}</h2>{sessions.filter(s=>s.completedAt).slice(0,5).map(s=><Button key={s.id} variant="ghost" onClick={()=>setSession(s)}>{new Date(s.completedAt!).toLocaleDateString()} · {s.questions.length} {t("câu","questions")}</Button>)}</section>}

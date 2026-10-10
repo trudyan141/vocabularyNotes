@@ -2,6 +2,10 @@
 
 Cập nhật10/10/2026, Asia/Ho_Chi_Minh. Founder yêu cầu setup rõ env/nơi lấy, Vercel tự deploy, autocomplete từ điển/tự điền/hình và bỏ OCR thiết bị. Steering mới nhất yêu cầu **Gemini thay OpenAI**, nhiều model và ưu tiên quota free tier. ADR-029/030 thay quyết định cũ về key browser/OCR/provider; giữ Theme C, trẻ5–8/parent-first, ba nav và approved revision.
 
+## Current steering — Today/API feedback/SEO, ADR-037/038
+
+Due count now has direct scoped review/resume/offline entry; request feedback shows real stages, counts, elapsed and partial errors; favicon/social preview/public SEO implemented. pnpm check128/16files/lint/types/build PASS. Full147/147 browser PASS, docs223links PASS; deploy/remoteCI pending in [evidence](../evaluations/today-feedback-and-seo.md). Next: deploy native Git and verify hosted due entry/SSR preview without recording child reviews.
+
 ## Pictures / grammar / day sets — ADR-034/035
 
 Founder13 words were saved after live Gemini success. Current code adds catalog177 +1493 licensed online auto-picture lookup/download, removes nested credit links from cards, adds complete project question templates with parent approval, and exposes /library/lessons day grouping/search/rename/new-versus-review/set practice. Manual words share a daily local-date set; each imported photo keeps its own title/date/ID. check121unit14files/lint/types/build PASS; full133/133browserPASS; 7e4dbfc nativeGit production READY/CI38042119163 SUCCESS in [evidence](../evaluations/library-media-and-date-sets.md). Hosted founder13 checked;6 missing art +2 question patterns saved through parent UI.

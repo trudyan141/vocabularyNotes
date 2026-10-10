@@ -17,7 +17,7 @@ test("welcome, keyboard skip and Today shell use three clear navigation items", 
   });
   await page.goto("/");
   await expect(page).toHaveURL("/welcome");
-  await expect(page).toHaveTitle("Words for Kids");
+  await expect(page).toHaveTitle("Words for Kids – Cùng con học tiếng Anh");
   await expect(page.locator("html")).toHaveAttribute("lang", "vi");
   const skip = page.getByRole("link", { name: "Đến nội dung chính" });
   expect((await skip.boundingBox())?.y).toBeLessThan(0);

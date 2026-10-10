@@ -925,3 +925,7 @@ Câu mẫu thật đã thành công cùng key/model3.5FlashLite. Lỗi được 
 10/10/2026 ADR036: every future photo submit integrates exact dedup, automatically downloaded/reviewed missing art and original source-pattern excerpts + Vietnamese grammar/3-step reduced-motion teaching. Imported colon-ID detail/edit/notes route fixed after real founder reproduction. Old13-word set completed via hosted parent UI once (6art/2patterns); future imports need no source changes. check125/15/lint/types/build PASS; full137/137browser and full216links docs PASS; deploy evidence to follow in [library evidence](evaluations/library-media-and-date-sets.md). Ledger unchanged; external/device/human gates open.
 
 ADR036 source0c22f0f productionREADY dpl_27FsfRqhma2o2kjekgFnA7F8z9bD, stable words-for-kids.vercel.app. Hosted actual teacher now opens with image/meaning/example; existing13-word set Patterns/Grammar each2approved items,3-step Vietnamese teaching verified. Full local check125/137browser/docs216PASS; remoteCI38043514632 SUCCESS (all check/SQL/browser/docs steps). External/device/human gates unchanged.
+
+### Ôn hôm nay, trạng thái API và nhận diện chia sẻ (10/10/2026)
+
+Đang hoàn tất nút Ôn N từ hôm nay mở thẳng thẻ đến hạn/tiếp tục phiên, trạng thái bước/thời gian/tiến độ và lỗi tải hình rõ ràng, cùng favicon/thumbnail chia sẻ1200×630/metadata SEO. Chỉ trang giới thiệu công khai cho index; bài của con không đưa vào sitemap. Check128 PASS; 147/147 browser và docs223links PASS; deploy/CI hiện chờ kết quả. [Bằng chứng](evaluations/today-feedback-and-seo.md).

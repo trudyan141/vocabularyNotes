@@ -1,3 +1,4 @@
+export const metadata={title:"Hôm nay"};
 import { Suspense } from "react";
 import { Today } from "@/components/features/today";
 import Loading from "@/app/loading";

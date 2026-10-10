@@ -1,3 +1,4 @@
+export const metadata={title:"Chụp hoặc tải ảnh bài học"};
 import { Suspense } from "react";
 import { Capture } from "@/components/features/capture";
 import Loading from "@/app/loading";

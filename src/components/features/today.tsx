@@ -5,8 +5,7 @@ import { Camera, ArrowRight, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import type {ScopedDocument} from "@/data/local/types";
-import type {ReviewState} from "@/lib/learning/srs";
+import {PracticeRepository} from "@/data/local/practice";
 import { useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useApp, useHydrated } from "@/components/app/provider";
@@ -22,7 +21,8 @@ export function Today() {
     value: await repository.db.captureDrafts.where("[scopeId+updatedAt]").between([repository.scope.id,""],[repository.scope.id,"\uffff"]).reverse().first(),
   } : null, [repository]);
   const lessons=useLiveQuery(async()=>{if(!repository)return null;const rows=await repository.db.lessons.where("[scopeId+learnedOn]").between([repository.scope.id,""],[repository.scope.id,"\uffff"]).reverse().toArray();const values=[];for(const lesson of rows.filter(l=>!l.deletedAt).slice(0,4)){const result=await repository.search("",{lesson:lesson.id,approvedOnly:true,limit:1});if(result.total)values.push({lesson,total:result.total,art:result.words[0]?.art??null,word:result.words[0]?.word??lesson.title});}return {scope:repository.scope.id,values};},[repository]);
-  const due=useLiveQuery(async()=>{if(!repository)return null;const [index,states]=await Promise.all([repository.db.searchIndex.where("[scopeId+ordinal]").between([repository.scope.id,""],[repository.scope.id,"\uffff"]).toArray(),repository.db.table<ScopedDocument>("reviewStates").where("[scopeId+id]").between([repository.scope.id,""],[repository.scope.id,"\uffff"]).toArray()]);const map=new Map(states.map(row=>[row.id,row.payload.state as ReviewState]));return {scope:repository.scope.id,count:index.filter(row=>row.approval&&(!map.has(row.id)||Date.parse(map.get(row.id)!.dueAt)<=Date.now())).length};},[repository]);
+  const due=useLiveQuery(async()=>{if(!repository)return null;try{return {scope:repository.scope.id,count:(await new PracticeRepository(repository).dueIds()).length,error:false};}catch{return {scope:repository.scope.id,count:0,error:true};}},[repository]);
+  const dueCount=due&&due.scope===repository?.scope.id?due.count:0;
   const [query, setQuery] = useState("");
   const result = useLibrarySearch(query, { limit: 4 });
   const words = result?.words ?? [];
@@ -48,7 +48,7 @@ export function Today() {
                 )}
           </p>
           {hasLessons ? (
-            <Button asChild size="lg" disabled={databaseStatus!=="ready"}>
+            <Button asChild size="lg" variant={dueCount>0?"outline":"default"} disabled={databaseStatus!=="ready"}>
               <Link prefetch={false} href="/practice">
                 <Play data-icon="inline-start" />
                 {t("Chơi 5 phút", "Play for 5 minutes")}
@@ -72,7 +72,10 @@ export function Today() {
           alt=""
         />
       </section>
-      <div className="due-summary">{due&&due.scope===repository?.scope.id&&due.count>0&&<p>{due.count} {t("từ đến hạn ôn hôm nay.","words due for review today.")}</p>}</div>
+      <div className="due-summary">
+        {dueCount>0&&<><p>{dueCount} {t("từ đến hạn ôn hôm nay.","words due for review today.")}</p><Button asChild size="lg"><Link prefetch={false} href="/practice?review=due"><Play aria-hidden="true"/>{t(`Ôn ${dueCount} từ hôm nay`,`Review ${dueCount} words today`)}</Link></Button>{dueCount>10&&<small>{t("Mỗi lượt tối đa 10 từ; quay lại đây để ôn các từ còn lại.","Up to 10 words per session; return here to review the rest.")}</small>}</>}
+        {due&&due.scope===repository?.scope.id&&due.error&&<p role="alert">{t("Chưa đọc được lịch ôn. Mở Chơi & học hoặc tải lại để thử lại.","Could not read review dates. Open Play & learn or reload to retry.")}</p>}
+      </div>
       <ParentGate href="/add"><Button variant="outline">{t("Gõ từ mới cho con", "Type a new word")}</Button></ParentGate>
       {draft?.scopeId === repository?.scope.id && draft?.value && (
         <section className="section-heading">

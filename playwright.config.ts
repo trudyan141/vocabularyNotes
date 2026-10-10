@@ -16,6 +16,7 @@ export default defineConfig({
         "local-storage.spec.ts",
         "capture.spec.ts",
         "learning.spec.ts",
+        "seo.spec.ts",
         "parent-ai.spec.ts",
       ],
       use: {
@@ -30,6 +31,7 @@ export default defineConfig({
         "local-storage.spec.ts",
         "capture.spec.ts",
         "learning.spec.ts",
+        "seo.spec.ts",
         "parent-ai.spec.ts",
       ],
       use: {

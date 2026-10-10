@@ -17,6 +17,7 @@ export default defineConfig({
         "capture.spec.ts",
         "learning.spec.ts",
         "seo.spec.ts",
+        "account.spec.ts",
         "parent-ai.spec.ts",
       ],
       use: {
@@ -32,6 +33,7 @@ export default defineConfig({
         "capture.spec.ts",
         "learning.spec.ts",
         "seo.spec.ts",
+        "account.spec.ts",
         "parent-ai.spec.ts",
       ],
       use: {

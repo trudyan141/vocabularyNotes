@@ -128,3 +128,6 @@ Theo live400 trên founder tab, request dùng JSON fields tương thích Generat
 ADR033: phụ huynh có thể bấm thử một câu mẫu cố định không ảnh/JSON schema để tách lỗi quyền inference khỏi lỗi request worksheet. Một POST generateContent/64 output tokens/15s, quota/cost được ghi trước nút; không tự retry/đổi model, không lưu kết quả mẫu.
 
 ADR033 next isolation: actual minimal text generateContent on837c50f succeeds with the same key/model. Metadata success plus text inference success narrows400 to the worksheet request. Use JSON mode/explicit schema in prompt instead of backend responseJsonSchema compilation; strict local DTO/evidence/STOP/size validation unchanged, no auto retry. Before/after photo test follows; do not claim schema compiler proven until it succeeds.
+
+
+ADR039 account status: default GET remains cheap; profile=1 returns display-only bounded name/allowlisted HTTPS Google avatar and a read-only owner/library-filtered count overview through the authenticated client/RLS. No new profile table/service-role query; no arbitrary avatar proxy. Specific allowlisted schema/permission/session/network errors replace generic connection messages, never raw SQL/provider secrets.

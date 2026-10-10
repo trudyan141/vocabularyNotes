@@ -3,7 +3,7 @@ import {afterEach,describe,expect,it} from 'vitest';
 import {Dexie} from 'dexie';
 import {LibraryDatabase} from '@/data/local/database';
 import {LocalRepository} from '@/data/local/repository';
-import {CloudSync,SyncError,type Transport} from '@/data/cloud/sync';
+import {CloudSync,SyncError,saveCloudStatus,type Transport} from '@/data/cloud/sync';
 import {cloudEntities,type SyncRequest,type Pull,type PullTable} from '@/lib/cloud/contracts';
 import {catalog} from '@/lib/learning/catalog';
 import {stableJson} from '@/domain/identity';
@@ -38,3 +38,5 @@ describe('cloud sync with deterministic local transport fixtures',()=>{
 });
 
 it('keeps both conflicting notes and makes combined meanings pending without changing review history',async()=>{const a=account(),b=account(),remote=new FakeCloud();await seed(a);await a.saveNote({id:'note',targetId:'apple',targetType:'sense',text:'bản gốc',expectedVersion:null});const first=new CloudSync(a,remote),second=new CloudSync(b,remote);await first.synchronize();await b.db.open();await second.synchronize();await a.saveNote({id:'note',targetId:'apple',targetType:'sense',text:'máy A',expectedVersion:1});await first.synchronize();await b.saveNote({id:'note',targetId:'apple',targetType:'sense',text:'máy B',expectedVersion:1});await expect(second.synchronize()).rejects.toThrow('conflict');await second.resolve((await second.conflicts())[0],'both');await second.synchronize();await first.synchronize();expect((await b.db.notes.toArray()).map(n=>n.text).sort()).toEqual(['máy A','máy B'].sort());const originalA=(await a.word('apple'))!,originalB=(await b.word('apple'))!;await a.editWord('apple',originalA.revision,{word:'apple',vi:'nghĩa A',en:'Definition A.'});await first.synchronize();await b.editWord('apple',originalB.revision,{word:'apple',vi:'nghĩa B',en:'Definition B.'});await expect(second.synchronize()).rejects.toThrow('conflict');await second.resolve((await second.conflicts())[0],'merged',{meaningVi:'local',definitionEn:'remote'});expect((await b.word('apple'))?.vi).toBe('nghĩa B');expect((await b.word('apple'))?.en).toBe('Definition A.');expect((await b.word('apple'))?.approved).toBe(false);expect(await b.db.reviewEvents.count()).toBe(0);});
+
+it('keeps the last successful sync time after a later connection failure',async()=>{const repo=account();await repo.db.open();await saveCloudStatus(repo,'saved');const saved=await repo.db.table('transferCheckpoints').get([repo.scope.id,'cloud-status']);await saveCloudStatus(repo,'unavailable');const failed=await repo.db.table('transferCheckpoints').get([repo.scope.id,'cloud-status']);expect(failed?.payload.status).toBe('unavailable');expect(failed?.payload.lastSyncedAt).toBe(saved?.payload.lastSyncedAt);});

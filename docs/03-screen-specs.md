@@ -99,3 +99,6 @@ S05 ADR036: show exact existing-sense badges and optional “Loại từ trùng 
 ## Founder follow-up: visible review and requests (ADR-037/038)
 
 S03 shows Ôn N từ hôm nay beside the count and opens due flashcards directly. Generic play is secondary when due cards exist. S11 refresh resumes the URL session; no ratings from navigation. Requests show stage/elapsed/progress/results/errors near actions. Public welcome has SEO/share metadata; private app screens stay noindex. See [evidence](evaluations/today-feedback-and-seo.md).
+
+
+ADR039 S15/account: show verified Google display name/email/avatar (initial/icon fallback), sign-out/account selection; separate device-only versus account saved counts and current learning source. Use readable Open account library, Preview device lessons, Back up/save account copy, Sync now. Storage failure and sign-in are independent; safe HTTP details/retry, last success time and pending upload. Source photos/deletion under additional options, no implicit guest upload.

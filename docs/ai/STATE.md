@@ -2,7 +2,11 @@
 
 Cập nhật10/10/2026, Asia/Ho_Chi_Minh. Founder yêu cầu setup rõ env/nơi lấy, Vercel tự deploy, autocomplete từ điển/tự điền/hình và bỏ OCR thiết bị. Steering mới nhất yêu cầu **Gemini thay OpenAI**, nhiều model và ưu tiên quota free tier. ADR-029/030 thay quyết định cũ về key browser/OCR/provider; giữ Theme C, trẻ5–8/parent-first, ba nav và approved revision.
 
-## Current steering — Rename saved word sets
+## Current steering — Parent profile and sync clarity
+
+Founder screenshot reports successful Google sign-in but transfer preview failure. Implemented authenticated name/email/avatar, distinct device/account data counts and scope, clear transfer/sync actions/stages and safe specific HTTP causes; last successful sync persists across failures. No automatic guest upload or new profile schema. Check132/lint/types/build PASS; full153/153 browser and docs225links PASS; deploy pending. Agent IAB is signed out, so founder live failure cause unverified. Next verify hosted UI; evidence account-profile-and-sync.
+
+## Rename saved word sets
 
 Founder asks to edit a forgotten imported set name after creation. Existing ADR035 versioned rename is now accessible inside its selected set card, shared with a Rename action on Today recent imported/manual lessons. Save/Cancel, focused title, progress/conflict error and success are inline. No schema or membership/SRS changes. Check128/lint/types/build PASS, full147/147 browser PASS including persisted rename/cancel/search/member count on desktop/mobile; docs223links PASS. Source9c81821 production READY dpl_AuJKpVMj4ab6is1qAF5JfDdt3Zvw; hosted date manager/Today inline form verified, original13 members/name retained. RemoteCI38048148513 check passed, remaining stages pending at handoff. Next: founder choose and save the intended title. Evidence library-media-and-date-sets.
 

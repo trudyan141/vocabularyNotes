@@ -303,3 +303,6 @@ ADR036 source0c22f0f productionREADY dpl_27FsfRqhma2o2kjekgFnA7F8z9bD, stable wo
 
 
 10/10/2026 T09/T14 rename discoverability (ADR035 refinement): saved imported/manual sets can be renamed from Today and edited inline in the date manager; shared scoped/versioned editor, Save/Cancel, loading/errors/success. No membership/SRS/schema change. Check128/lint/types/build and full147/147 browser PASS; docs223links PASS. Source9c81821 production READY, hosted rename forms verified with original13 words retained; remoteCI38048148513 full result pending. Evidence library-media-and-date-sets.
+
+
+10/10/2026 T10/T11/T14 account clarity: authenticated Google name/email/avatar, device/account counts and current source, readable transfer/sync states, error HTTP/classification and last successful sync time. Check132/lint/types/build PASS; full153/153 browser and docs225links PASS; deploy pending. Real founder login/transfer failure not verified in signed-out agent session. [Evidence](../evaluations/account-profile-and-sync.md).

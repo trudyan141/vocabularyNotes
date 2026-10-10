@@ -1,3 +1,4 @@
+import {safeCloudCodes} from '@/lib/account-profile';
 import {Dexie} from 'dexie';
 import {z} from 'zod';
 import {LocalRepository,RepositoryError} from '@/data/local/repository';
@@ -9,10 +10,10 @@ import {reconcileIdentity} from './reconcile';
 type Baseline={entity:PullTable;id:string;hash:string;remoteVersion:number};
 export type Conflict={entity:PullTable;id:string;remote:Record<string,unknown>;remoteVersion:number;local:Record<string,unknown>|null};
 export type Transport={push:(packet:SyncRequest)=>Promise<{ownerId:string;libraryId:string;accepted:{entity:string;id:string;version:number}[]}>;pull:(library:string,cursor:number)=>Promise<Pull>};
-export class SyncError extends Error{constructor(public code:'offline'|'signed-out'|'conflict'|'duplicate'|'unavailable'){super(code);}}
+export class SyncError extends Error{constructor(public code:'offline'|'signed-out'|'conflict'|'duplicate'|'unavailable',public status?:number,public reason?:string){super(code);}}
 const acceptedSchema=z.object({ownerId:z.uuid(),libraryId:z.uuid(),accepted:z.array(z.object({entity:z.string(),id:z.string(),version:z.number().int().positive()}).strict()).max(100)}).strict();
-async function response(response:Response){if(!response.ok){const data=await response.json().catch(()=>({}));throw new SyncError(response.status===401||response.status===403?'signed-out':response.status===409?data.error==='duplicate'?'duplicate':'conflict':'unavailable');}return response.json();}
-export const httpTransport:Transport={push:async packet=>acceptedSchema.parse(await response(await fetch('/api/cloud/sync',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(packet)}))),pull:async(library,cursor)=>pullSchema.parse(await response(await fetch(`/api/cloud/sync?library=${encodeURIComponent(library)}&cursor=${cursor}`,{cache:'no-store'})))};
+async function response(response:Response){if(!response.ok){const data=await response.json().catch(()=>({}));throw new SyncError(response.status===401||response.status===403&&data.error!=='permission-denied'?'signed-out':response.status===409?data.error==='duplicate'?'duplicate':'conflict':'unavailable',response.status,safeCloudCodes.has(data.error)?data.error:undefined);}return response.json();}
+export const httpTransport:Transport={push:async packet=>acceptedSchema.parse(await response(await fetch('/api/cloud/sync',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(packet),signal:AbortSignal.timeout(15000)}))),pull:async(library,cursor)=>pullSchema.parse(await response(await fetch(`/api/cloud/sync?library=${encodeURIComponent(library)}&cursor=${cursor}`,{cache:'no-store',signal:AbortSignal.timeout(15000)})))};
 function base(repo:LocalRepository,id:string,payload:Record<string,unknown>):ScopedDocument{const at=new Date().toISOString();return {scopeId:repo.scope.id,id,version:1,createdAt:at,updatedAt:at,deletedAt:null,payload};}
 const key=(entity:PullTable,id:string)=>`baseline:${entity}:${id}`;
 export class CloudSync {
@@ -42,3 +43,5 @@ export class CloudSync {
 }
 const engines=new WeakMap<LocalRepository,CloudSync>();
 export function syncEngine(repo:LocalRepository){let engine=engines.get(repo);if(!engine){engine=new CloudSync(repo);engines.set(repo,engine);}return engine;}
+
+export async function saveCloudStatus(repo:LocalRepository,status:string){if(!repo.db.isOpen())return;const table=repo.db.table<ScopedDocument>('transferCheckpoints');return repo.db.transaction('rw',table,async()=>{const previous=await table.get([repo.scope.id,'cloud-status']);const at=new Date().toISOString();const lastSyncedAt=status==='saved'?at:previous?.payload.lastSyncedAt??(previous?.payload.status==='saved'?previous.updatedAt:null);await table.put({scopeId:repo.scope.id,id:'cloud-status',version:1,createdAt:at,updatedAt:at,deletedAt:null,payload:{status,lastSyncedAt}});});}

@@ -244,3 +244,8 @@ Request feedback is adjacent to its action and accessible: operation/stage/elaps
 
 
 10/10/2026 ADR035 refinement per founder: make saved-set title/date editing reachable inside the selected card and from Today recent lessons, reusing existing versioned lesson update. Preserve IDs, words, sources and review schedule; do not require a new import to rename.
+
+
+## ADR-039 — Parent identity and storage are separate visible states
+
+10/10/2026 founder asks to see Google name/email/avatar and understand synchronization. Extend existing authenticated status with sanitized display-only metadata and opt-in read-only overview; preserve RLS/owner filters and cheap background session checks. Show device-only and account counts/current source, explicit preview/confirmation and sync timestamps/errors. Store no new profile table/token. Login success does not imply library readiness or completed upload. Unknown auth state is distinct from signed out. Source03/09 and account evidence updated; live founder cause still requires the correct authenticated session.

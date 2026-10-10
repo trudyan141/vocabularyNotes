@@ -1,5 +1,7 @@
 # Words for Kids — kế hoạch sản phẩm dành cho founder
 
+**11/10/2026 — Giao diện phụ huynh và game:** cài đặt AI được thu gọn; không cần nhập key/model để dùng mặc định. Chọn từ chia12 từ/trang và giữ tick khi tìm/chuyển trang; bỏ giới hạn500 từ mỗi bộ. Chơi & học/game dùng hình dễ nhận ra, Cáo, phản hồi đúng/sai có chuyển động và âm báo nhẹ; có tắt tiếng/bản tĩnh, không tự phát âm khi mở màn. Yêu cầu rà toàn bộ UI điện thoại đã ghi vào03/04/ADR042; kiểm tự động và ảnh trong [evidence](evaluations/child-play-and-parent-simplicity.md), không coi đó là bé/phụ huynh thật đã nghiệm thu.
+
 **Cập nhật mới nhất10/10 — sửa screenshot account và UI (ADR040/041):** Gemini có key chung mặc định theo yêu cầu trực tiếp của founder; bố mẹ vẫn đổi key riêng hoặc tắt/restore AI, quota dùng chung không bảo đảm miễn phí vô hạn. Logo Google hiện lúc login và sau login; quay lại có icon. Shared button/card đã refine Theme C trên app. Lỗi không lưu ở ảnh3 do Supabase thiếu bảng; đã apply0001–0006 trên project thật,24bảng. Phiên Google founder đọc được cloud và xem trước13nghĩa/0trùng. Chưa bấm xác nhận upload và chưa gửi ảnh gốc. Kiểm code/browser và deployment tại [evidence](evaluations/ui-and-hosted-cloud-fixes.md); human/physical phone vẫn pending.
 
 **Cập nhật: 10/10/2026.** Mục tiêu: biến bài học trên giấy thành thư viện tiếng Anh cho trẻ 5–8 tuổi, bố mẹ chuẩn bị và kiểm trước khi con học.

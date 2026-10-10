@@ -16,6 +16,14 @@ function repo(scope="guest:learning",name=`learning-${crypto.randomUUID()}`){con
 async function seed(repository:LocalRepository,count=4){return repository.saveLesson({operationId:crypto.randomUUID(),title:"My words",learnedOn:"2026-10-09",sourceType:"manual",items:catalog.slice(0,count).map((w,i)=>({...w,id:`word-${i}`,approved:true}))});}
 afterEach(async()=>{for(const db of databases.splice(0)){db.close();await Dexie.delete(db.name);}});
 describe("complete local learning flows",()=>{
+  it("saves and archives a deck beyond 500 words without changing short practice sessions",async()=>{
+    const repository=repo();const senses=Array.from({length:501},(_,i)=>({...catalog[0],id:`large-${i}`,word:`word${i}`,vi:`từ ${i}`,approved:true}));
+    await repository.saveLesson({operationId:crypto.randomUUID(),title:"Large fixture",learnedOn:"2026-10-11",sourceType:"manual",items:senses});
+    const saved=await saveDeck(repository,"large-deck",null,{name:"501 words",senseIds:senses.map(s=>s.id),direction:"en-vi"});
+    expect((saved.payload.deck as {senseIds:string[]}).senseIds).toHaveLength(501);
+    const archive=await parseArchive(JSON.stringify(await exportArchive(repository)));expect(archive.records.decks[0].payload.deck.senseIds).toHaveLength(501);
+    const session=await new PracticeRepository(repository).start("flashcard",{deck:"large-deck"});expect(session.questions).toHaveLength(10);
+  });
   it("uses the same scoped due selection for Today and a capped review session",async()=>{
     const repository=repo();await seed(repository,4);await repository.saveLesson({operationId:crypto.randomUUID(),title:"Pending",learnedOn:"2026-10-09",sourceType:"manual",items:[{...catalog[4],id:"word-4",approved:false}]});const practice=new PracticeRepository(repository);
     const now=new Date().toISOString(),future=new Date(Date.now()+86400000).toISOString(),past=new Date(Date.now()-86400000).toISOString();

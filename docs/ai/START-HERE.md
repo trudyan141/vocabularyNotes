@@ -1,5 +1,7 @@
 # Bắt đầu / khôi phục / chuyển AI
 
+Latest11/10 steering ADR042: simplify parent config,12-word paging without500-member deck cap, illustrated child games/fox/finite motion and original muted/gesture-only sound. Full UI mobile/desktop audit and human/phone acceptance separated in03/04 and [evidence](../evaluations/child-play-and-parent-simplicity.md).
+
 Steering ADR040/041 hiện hành: Gemini shared public default theo founder, private override/off/restore; logo Google/back icons và shared Theme C button/card refinement. Hosted Supabase đã apply0001–0006,24 bảng; authenticated13-word preview PASS, chưa xác nhận chuyển bài thật. Xem [evidence](../evaluations/ui-and-hosted-cloud-fixes.md) và STATE.
 
 

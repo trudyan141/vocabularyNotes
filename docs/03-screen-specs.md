@@ -1,5 +1,14 @@
 # Đặc tả màn hình và điều hướng
 
+## Founder refinement — ADR-042, 11/10/2026
+
+Phụ huynh thấy AI ready/off và thao tác bật/tắt; key/model/test API nằm trong mục nâng cao đóng mặc định, không yêu cầu hiểu cấu hình để chuẩn bị bài. Form chọn bài/chiều ôn/bộ thẻ nhóm label-control rõ, không còn select trần. Bộ thẻ không giới hạn 500 từ; tìm EN/VI, 12 từ/trang, chọn/bỏ chọn trang và giữ lựa chọn khi đổi trang/tìm. Lưu/version conflict/backup vẫn theo scope. Mỗi buổi học vẫn ngắn tối đa10 câu, độc lập kích thước bộ thẻ.
+
+Chơi & học có mascot cáo riêng và minh họa catalog cho từng mode. Game có stage hình rõ, 3 đáp án bằng nhau cùng hàng ở360px, progress, đáp án đúng/sai có chữ/màu/mascot; animation finite và âm báo gốc nhẹ sau thao tác, nút sound chung/persist, không autoplay/network audio. Pause/route/hide/mute dừng tiếng; reduced motion giữ bản tĩnh và tắt SFX tùy chọn. Điểm game không đổi SRS.
+
+Founder yêu cầu kiểm toàn bộ UI mobile để thật đẹp/dễ thương/dễ dùng: mọi lượt UI phải kiểm đủ route/state liên quan và rà toàn bộ16screen-family ở360/1280, empty/loading/error/disabled/focus/reduced-motion/sound-off; ghi screenshots và lỗi đã xử lý. Giữ Theme C, 3nav, child5–8/parent review/license truth. Automated pass không thay physical-phone hay quan sát bé/bố mẹ thật. [Evidence](evaluations/child-play-and-parent-simplicity.md).
+
+
 ## Google/account and AI refinement — ADR-040/041
 
 S14: Google G hiện ở cả đăng nhập và trạng thái connected; back có mũi tên. Library readiness tách với auth. Device lavender/account mint, xem trước→confirm upload, local được giữ và ảnh gốc opt-in. S16/S06: key chung sẵn dùng theo founder, private override và AI-off/restore bền qua reload; không tự gửi ảnh khi mở màn. Shared action/card styles áp dụng các routes mà không thêm nav. [Evidence](evaluations/ui-and-hosted-cloud-fixes.md).

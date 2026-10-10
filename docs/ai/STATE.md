@@ -1,5 +1,9 @@
 # Trạng thái dự án — Words for Kids
 
+## Current steering — Child play and parent simplicity, ADR042 (11/10/2026)
+
+Founder requests simpler AI configuration, attractive mobile practice/game feedback and no500-word deck cap. Advanced key/model hidden by default;12-word paging/search/page selection retained through save/edit, schema cap removed,10-question sessions preserved. All five mode entries have recognizable catalog art/original fox; games use picture stages/equal choices/progress/check/static feedback, finite animation and original gesture-gated SFX/mute/cleanup. Main nav hidden during play; Pause available. Full route/state audit and child/parent human acceptance remain required in03/04. [Evidence](../evaluations/child-play-and-parent-simplicity.md) has actual checks; Final check137/18files/lint/types/build, full161browser,52responsive views and docs258links PASS. NativeGit deployment pending source push; pre-existing key/env edits excluded. Next: verify the authorized hosted build, then founder/child physical-phone and human acceptance of the live play/parent flow; these gates stay open.
+
 Cập nhật10/10/2026, Asia/Ho_Chi_Minh. Founder yêu cầu setup rõ env/nơi lấy, Vercel tự deploy, autocomplete từ điển/tự điền/hình và bỏ OCR thiết bị. Steering mới nhất yêu cầu **Gemini thay OpenAI**, nhiều model và ưu tiên quota free tier. ADR-029/030 thay quyết định cũ về key browser/OCR/provider; giữ Theme C, trẻ5–8/parent-first, ba nav và approved revision.
 
 ## Current steering — UI / shared Gemini / hosted cloud repair

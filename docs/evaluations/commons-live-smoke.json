@@ -1,0 +1,66 @@
+{
+  "timestamp": "2026-10-09T19:58:42.728Z",
+  "query": "apple fruit illustration",
+  "scope": "public adapter smoke; no auth/quota route, no parent approval or library save",
+  "sourceHash": "e352cb7fc47a751e27de2f0b5f2b029bd72113ce060e3ad72b58f169a8d16b48",
+  "candidates": [
+    {
+      "id": "36657150:253e5260ee30e7f151445dac73c3dd6e3f8958cc",
+      "title": "File:A wine apple (Malus pumila cv.); entire and sectioned fruit. Wellcome V0044449.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:A_wine_apple_(Malus_pumila_cv.);_entire_and_sectioned_fruit._Wellcome_V0044449.jpg",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/21/A_wine_apple_%28Malus_pumila_cv.%29%3B_entire_and_sectioned_fruit._Wellcome_V0044449.jpg/960px-A_wine_apple_%28Malus_pumila_cv.%29%3B_entire_and_sectioned_fruit._Wellcome_V0044449.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "creator": "https://wellcomeimages.org/indexplus/obf_images/66/80/e5b421e65037c777e3bbea420dc6.jpg\n\nGallery: https://wellcomeimages.org/indexplus/image/V0044449.html\nWellcome Collection gallery (2018-03-23): https://wellcomecollection.org/works/vcgygkw8 CC-BY-4.0",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "credit": "File:A wine apple (Malus pumila cv.); entire and sectioned fruit. Wellcome V0044449.jpg — https://wellcomeimages.org/indexplus/obf_images/66/80/e5b421e65037c777e3bbea420dc6.jpg\n\nGallery: https://wellcomeimages.org/indexplus/image/V0044449.html\nWellcome Collection gallery (2018-03-23): https://wellcomecollection.org/works/vcgygkw8 CC-BY-4.0 — CC BY 4.0"
+    },
+    {
+      "id": "109848424:75e0b3989cee3c5fd6d6d6dbcd9d0317ad991d8e",
+      "title": "File:Coa Illustration Apple.svg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Coa_Illustration_Apple.svg",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d7/Coa_Illustration_Apple.svg/960px-Coa_Illustration_Apple.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "creator": "Unknown authorUnknown author",
+      "license": "Public domain",
+      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "credit": "File:Coa Illustration Apple.svg — Unknown authorUnknown author — Public domain"
+    },
+    {
+      "id": "116852629:c59a53a623b9b6a95a1c96079574f7178296887f",
+      "title": "File:202204 Apple-yellow.svg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:202204_Apple-yellow.svg",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/202204_Apple-yellow.svg/960px-202204_Apple-yellow.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "creator": "DataBase Center for Life Science (DBCLS)",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "credit": "File:202204 Apple-yellow.svg — DataBase Center for Life Science (DBCLS) — CC BY 4.0"
+    },
+    {
+      "id": "116852631:60aa1c5fec99c7968bc0ebf482cb572dcaa6387b",
+      "title": "File:202204 Apple-red.svg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:202204_Apple-red.svg",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bb/202204_Apple-red.svg/960px-202204_Apple-red.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "creator": "DataBase Center for Life Science (DBCLS)",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "credit": "File:202204 Apple-red.svg — DataBase Center for Life Science (DBCLS) — CC BY 4.0"
+    }
+  ],
+  "imported": {
+    "candidate": {
+      "id": "109848424:75e0b3989cee3c5fd6d6d6dbcd9d0317ad991d8e",
+      "title": "File:Coa Illustration Apple.svg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Coa_Illustration_Apple.svg",
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d7/Coa_Illustration_Apple.svg/960px-Coa_Illustration_Apple.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "creator": "Unknown authorUnknown author",
+      "license": "Public domain",
+      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "credit": "File:Coa Illustration Apple.svg — Unknown authorUnknown author — Public domain"
+    },
+    "sha256": "01b79815b6baa44a654901768c0f224d3649d991664c8d8c7d378901274ae325",
+    "bytes": 23863,
+    "width": 400,
+    "height": 512,
+    "format": "jpeg"
+  },
+  "status": "completed"
+}

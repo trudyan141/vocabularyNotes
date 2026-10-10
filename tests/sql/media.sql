@@ -1,0 +1,20 @@
+begin;
+insert into auth.users(id) values('80000000-0000-4000-8000-000000000008'),('90000000-0000-4000-8000-000000000009');
+set local role authenticated;
+set local request.jwt.claim.sub='80000000-0000-4000-8000-000000000008';
+do $$ begin
+ if not public.reserve_media('search','81000000-0000-4000-8000-000000000008') or not public.reserve_media('search','82000000-0000-4000-8000-000000000008') then raise exception 'reservation missing';end if;
+ if public.reserve_media('search','83000000-0000-4000-8000-000000000008') then raise exception 'concurrency exceeded';end if;
+end $$;
+set local request.jwt.claim.sub='90000000-0000-4000-8000-000000000009';
+select public.release_media('81000000-0000-4000-8000-000000000008');
+set local request.jwt.claim.sub='80000000-0000-4000-8000-000000000008';
+do $$ begin if public.reserve_media('search','83000000-0000-4000-8000-000000000008') then raise exception 'other owner released lease';end if;end $$;
+select public.release_media('81000000-0000-4000-8000-000000000008');
+do $$ begin if not public.reserve_media('search','83000000-0000-4000-8000-000000000008') then raise exception 'release failed';end if;end $$;
+reset role;
+update private.network_usage set requests=100 where owner_id='80000000-0000-4000-8000-000000000008';
+set local role authenticated;
+set local request.jwt.claim.sub='80000000-0000-4000-8000-000000000008';
+do $$ begin if public.reserve_media('import','84000000-0000-4000-8000-000000000008') then raise exception 'daily quota bypassed';end if;end $$;
+rollback;

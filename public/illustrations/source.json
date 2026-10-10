@@ -1,0 +1,118 @@
+{
+  "source": "docs/design/prototype/assets.js",
+  "kind": "Original repository SVG; local prepared catalog. Exact sense and each selected illustration require parent approval before learning. Remote search/import remains pending.",
+  "assets": [
+    {
+      "path": "public/illustrations/apple.svg",
+      "sha256": "435525e8edef89ca555fa1116b9772b205e0d6e29f7d3a63f6f84f1deea113b8"
+    },
+    {
+      "path": "public/illustrations/bag.svg",
+      "sha256": "c4b466c5f1cc88bd08d9c997edadb01d027ca35e6b6cbff57487f17ac7cce556"
+    },
+    {
+      "path": "public/illustrations/banana.svg",
+      "sha256": "02df077b06ab4972e7eb9226864144c68ca229cbb666557d271896dc177e4e27"
+    },
+    {
+      "path": "public/illustrations/bird.svg",
+      "sha256": "11c394815945711d87d711c77dfa71275df1261e25f567ec18746556e3fd3b4f"
+    },
+    {
+      "path": "public/illustrations/book.svg",
+      "sha256": "b14e4f911f6827050f54b4637ed061636241d5ece8d5bdc1f3ea6d713e744c76"
+    },
+    {
+      "path": "public/illustrations/bread.svg",
+      "sha256": "1f282be8ec2a4ccde23f6b0d8107b5cad944006e4fa0df57d8ae0dae06a53508"
+    },
+    {
+      "path": "public/illustrations/car.svg",
+      "sha256": "69ce9a83be1266904025f73c47c4ca7f300b566aa74bcd7c3f32d740844eb737"
+    },
+    {
+      "path": "public/illustrations/cat.svg",
+      "sha256": "f3f4d401a69d2eb618566788a14529f13156ab5f3ece9637bcee82955a3d94a1"
+    },
+    {
+      "path": "public/illustrations/chair.svg",
+      "sha256": "c065e4e31bda176fc97c8708c24b2f548e0c13317546a087d32f9700444d4094"
+    },
+    {
+      "path": "public/illustrations/desk.svg",
+      "sha256": "faa2664605f05c193c0650d4668f17e9fb888030cd7efe4da8345e51ed199044"
+    },
+    {
+      "path": "public/illustrations/dog.svg",
+      "sha256": "6378d0d14ec1459abff861e0bf089f1c7a627490a9d19a65fec9bf68edb63001"
+    },
+    {
+      "path": "public/illustrations/egg.svg",
+      "sha256": "13c7e1c4731164e954e41ff4522e447605ce3e0b6125013e49188ac9ce4fca08"
+    },
+    {
+      "path": "public/illustrations/eraser.svg",
+      "sha256": "7987b278ac70921c8f2ce81469dee29e58a36c2e3e0a536509ba36d2e6779fe8"
+    },
+    {
+      "path": "public/illustrations/fish.svg",
+      "sha256": "8ba22d36a2c7790137463729abb9619591f320280f134316fbe4cee84b9fcf66"
+    },
+    {
+      "path": "public/illustrations/fox.svg",
+      "sha256": "4e713fdb612e293dc53404983c308359d5d98a8b8e50008a9b39e0f25f971c96"
+    },
+    {
+      "path": "public/illustrations/glue.svg",
+      "sha256": "080daf5834d5758936c5eeecc2d3987026488761e73a321cddfc67f46780951c"
+    },
+    {
+      "path": "public/illustrations/grapes.svg",
+      "sha256": "eae7b1312f0c58a8ba9665fd24ddb3e4b564115b7d2bcb2bcf4091f3b951fb0c"
+    },
+    {
+      "path": "public/illustrations/milk.svg",
+      "sha256": "9fd4360dedb7114e8d90d36081f8e862cd55058b54c0f9c3531d01c9fd3c9862"
+    },
+    {
+      "path": "public/illustrations/notebook.svg",
+      "sha256": "2ffd84b2108ab5e481713d6f58c00f4bb73d9ce16d7356e722601e352f390f57"
+    },
+    {
+      "path": "public/illustrations/orange.svg",
+      "sha256": "787cb31a9b36459bf4818e0c7df6ef3c5c3837c902d0430c3120c481de9b65d2"
+    },
+    {
+      "path": "public/illustrations/pen.svg",
+      "sha256": "132e202c33a2b7d1a6f5a4da44c998321354efbb8dadb49fb04c423fc171645d"
+    },
+    {
+      "path": "public/illustrations/pencil.svg",
+      "sha256": "ab57b5946e39059a3a6de6a6a890075cb80938724cc098f31f70df095d7c442d"
+    },
+    {
+      "path": "public/illustrations/ruler.svg",
+      "sha256": "04016e3f2ac7515224de726c752e2f4bf7c5d83ee3335023130d2ce755bfdcab"
+    },
+    {
+      "path": "public/illustrations/scissors.svg",
+      "sha256": "1f915202910db87b45149122ad73b9242a19e7fbd7e374945f788fecfb076df5"
+    },
+    {
+      "path": "public/illustrations/sun.svg",
+      "sha256": "e50890d85dca935372f93ffcfe4a3b765abb9c9744cb857f6d59f98509a6050b"
+    },
+    {
+      "path": "public/illustrations/tree.svg",
+      "sha256": "6554a29deedbeaed75423e0256990584990a860309a1a2610a5118e6afe6e656"
+    },
+    {
+      "path": "public/illustrations/water.svg",
+      "sha256": "bd9a29fc7a7cc20f37e7d0af030abb4b3f4e69b0020c6880ad5ef8d6e3996abb"
+    },
+    {
+      "path": "public/illustrations/wordmark.svg",
+      "sha256": "a78f535ae2d13d60138b07c195c346a0dec46d1edc664845576032389e10665c"
+    }
+  ]
+}

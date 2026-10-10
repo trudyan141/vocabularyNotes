@@ -1,0 +1,24 @@
+Use case: ui-mockup
+Asset type: one high-fidelity mobile PWA app screen, S03 Today for the VocabularyNotes project.
+Primary request: Generate exactly ONE polished portrait image of the actual mobile home interface, with a complete readable screen. This is the first theme review, not a set of screens. The screen has an existing local vocabulary library and 8 words due for review. Follow this specific product layout and exact Vietnamese copy.
+
+Composition: flat front-on app screenshot, roughly a 390 x 844 CSS-pixel mobile viewport scaled to high resolution. No physical phone, hands, perspective, device bezel, browser chrome, marketing poster, desktop version, alternate screens, or annotations outside the UI. Entire bottom navigation must be visible. All critical buttons fit comfortably; realistic generous spacing, no cropped labels or tiny text.
+
+Design direction: a bright, uncluttered modern learning notebook. Friendly for a child who can read short labels, but refined and useful for adults. Spacious, quiet hierarchy with ONE obvious study action. A small original flat illustration of an open notebook and vocabulary cards in the study panel provides personality; no mascot copied from any brand. Soft restrained pastel supporting colors. Crisp native-feeling line icons. Primary visual identity is blue and white, not purple or a dark theme. Avoid a uniform grid of large dashboard cards, dense stats, big charts, streak pressure, neon, glassmorphism, 3D clay, heavy shadows, decorative floating objects, or repeated gradients.
+
+Color palette: page background #F6F8FC; white surfaces #FFFFFF; main text #15243B; secondary text #526078; primary button and active navigation #2456C6; pale blue study surface #E9F0FF; restrained mint #E6F5ED and pale yellow #FFF2C8 for lesson icons. Hairline cool borders. Slight soft shadows only where hierarchy needs them. Rounded study panel about 20px, inputs 12px, lesson rows simpler and quieter.
+Typography: clean humanist sans in the spirit of Be Vietnam Pro, with accurate Vietnamese diacritics and readable labels. Body approximately 16 CSS px, heading about 28, targets at least 48px, primary button about 56px tall. High contrast. Sentence case, no unnecessary all caps. Text must be verbatim and sharp.
+
+Layout from top to bottom:
+1. Small header: a simple notebook symbol and "VocabularyNotes" at left; a circular neutral account button at right. No name or personal photograph.
+2. Left-aligned large heading "Hôm nay". Under it, "Cùng ôn lại từ đã học".
+3. Main study panel, pale blue, substantial but not overwhelming. Text "8 từ cần ôn" and a smaller "Một chút mỗi ngày". Small notebook-and-word-card illustration at the right, leaving text unobstructed. One prominent full-width blue button "Ôn 5 phút" with white text. It is the only filled primary CTA on this screen.
+4. Secondary full-width outlined white button with a camera line icon and text "Thêm ảnh bài học". Clearly less prominent than the primary study button.
+5. White search input with a magnifying glass and placeholder "Tìm từ đã học...".
+6. Heading "Bài vừa học". Two compact readable lesson rows: pale yellow school-book icon, "At school", subtitle "12 từ · 2 mẫu câu"; pale mint food icon, "Food & drinks", subtitle "8 từ · 1 mẫu câu". Subtle chevrons imply opening each lesson. Keep these as light rows, not large identical cards.
+7. A compact recent-word preview: heading "Từ gần đây"; "apple" in clear bold text, "quả táo" underneath, a small simple apple illustration if room permits. At the right, an outlined speaker button labeled "Nghe". A small neutral local-storage status "Đã lưu trên máy" may sit below the list; do not show any cloud sync success badge.
+8. Fixed white bottom navigation with exactly THREE evenly spaced icon-plus-text destinations, left to right: "Hôm nay", "Từ của tôi", "Luyện tập". Today is active in blue with a restrained pale blue indicator, the other two are muted. Nothing obscures the final content, and the bottom labels fit.
+
+Interaction consistency for the concept: Ôn 5 phút leads to S11 suggested practice, camera action leads to S04 capture, search/word opens S09, lesson rows open S08, Nghe is an in-place audio action, account opens S16. Do not put a separate camera or settings item in the bottom nav. Do not add login prompts, grammar tabs, flashcard ratings, game questions, or extra buttons to this screen.
+
+Final constraint: exactly one coherent screen and one image. Render all English/Vietnamese text correctly, with no invented filler, duplicate navigation labels or watermark. The UI should feel buildable and ready to prototype, not fantasy concept art.

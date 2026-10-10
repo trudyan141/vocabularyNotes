@@ -1,0 +1,1750 @@
+{
+  "formatVersion": 1,
+  "reviewedOn": "2026-10-09",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "installedSkills": [
+    {
+      "name": "frontend-design",
+      "directory": ".agents/skills/frontend-design",
+      "origin": "github",
+      "repository": "https://github.com/anthropics/skills",
+      "upstreamPath": "skills/frontend-design",
+      "commit": "683bc88e56f3e09ba94f7055977f3d3aa499f202",
+      "commitDate": "2026-10-05T13:46:42Z",
+      "pinnedSourceUrl": "https://github.com/anthropics/skills/tree/683bc88e56f3e09ba94f7055977f3d3aa499f202/skills/frontend-design",
+      "licenseDeclared": "Apache-2.0",
+      "installation": "project-local via skill-installer download helper; supporting resources retained",
+      "reviewScope": "SKILL.md, license provenance, executable inventory/imports; not a full code/security audit",
+      "files": [
+        {
+          "path": "LICENSE.txt",
+          "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "d91970639e9f5c37682ac7ab60094d35f1c7c1f38d731bd56396563aee10c1d3"
+        }
+      ]
+    },
+    {
+      "name": "motion-design",
+      "directory": ".agents/skills/motion-design",
+      "origin": "github",
+      "repository": "https://github.com/LottieFiles/motion-design-skill",
+      "upstreamPath": "skills/motion-design",
+      "commit": "f9a8a041b85185ee4881b3471d3415e939aac772",
+      "commitDate": "2026-05-18T11:30:13Z",
+      "pinnedSourceUrl": "https://github.com/LottieFiles/motion-design-skill/tree/f9a8a041b85185ee4881b3471d3415e939aac772/skills/motion-design",
+      "licenseDeclared": "MIT",
+      "installation": "project-local via skill-installer download helper; supporting resources retained",
+      "reviewScope": "SKILL.md, license provenance, executable inventory/imports; not a full code/security audit",
+      "files": [
+        {
+          "path": "LICENSE",
+          "sha256": "9fc2e8685daa09e28d54b6afa8a38f168417c5735a3cd676c80c159785e93a80"
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "8729ecbc7e5736c1295baaa8ba0384bb4b1aac9cf91b83fcdc64d9548a57bb19"
+        },
+        {
+          "path": "director/choreography.md",
+          "sha256": "c81257b56160b9b2f3d99f78d4b8172b425c22d9ca73be06d3ffaa7305a34deb"
+        },
+        {
+          "path": "director/context-adaptation.md",
+          "sha256": "550e96a1c8c369513304ee74c0e89b63168bc7287b83e9ed5685bb65609986b3"
+        },
+        {
+          "path": "director/core-philosophy.md",
+          "sha256": "7aaa8a065d9940dad0198cf9cfe74979008495e6daf87f46f9022fff1b6a85e9"
+        },
+        {
+          "path": "director/decision-framework.md",
+          "sha256": "4b6758da6742475c928b4f8be8c662f4b5ed0964468ba7760df8f7635c779358"
+        },
+        {
+          "path": "director/disney-principles.md",
+          "sha256": "39024711890c2684a3434659a4d95a52ca8231facea74e87e79503054aaca671"
+        },
+        {
+          "path": "director/emotion-mapping.md",
+          "sha256": "a279e55a3f52a9f5830d38dc54679c652d9a5c26f0dd360700c16e23766d468b"
+        },
+        {
+          "path": "director/motion-personality.md",
+          "sha256": "66a3623b6654869482c02157ca791034a614ca6dcb02a8112049e28d292ee18a"
+        },
+        {
+          "path": "director/narrative-structure.md",
+          "sha256": "d49db19db40425dec027c3012d553b50fd74ed79e27ace9dec1226796469061b"
+        },
+        {
+          "path": "patterns/ambient-continuous.md",
+          "sha256": "f9cfa00d3325dceadcb9ffd77dcb5dcbc51d34121f3b1f162979939006056773"
+        },
+        {
+          "path": "patterns/entrance-exit.md",
+          "sha256": "70b3fc3a8d58ebe58e293e643b78fd13750d9c8ef1c8fc5fe85e52f7378cbd91"
+        },
+        {
+          "path": "patterns/multi-element.md",
+          "sha256": "46c8da91843c593deb763a4a7fa32849bdaeb7a7ecd4d559e3b21bcc976f2c46"
+        },
+        {
+          "path": "patterns/state-feedback.md",
+          "sha256": "dac86388c2d8fcdfc2f194b4f8877caedcdc010df9ce29d27dfc99d08cf8c60e"
+        },
+        {
+          "path": "reference/property-selection.md",
+          "sha256": "053d830795fc824fed27618fbd18084207af6aeed55b73c0a6e1d5665de894ae"
+        },
+        {
+          "path": "reference/quality-checklist.md",
+          "sha256": "c11bf193b700d9c9ebc5d871f1d5f193bccc441c4eccc0509b53a40d6e8dc558"
+        },
+        {
+          "path": "reference/timing-easing-tables.md",
+          "sha256": "e478f3b99c4cac3f96eca008e20f8808d4cfae165f5799f260092baf9b6ebcff"
+        },
+        {
+          "path": "reference/troubleshooting.md",
+          "sha256": "69e5aaeee108231d51187143ae3fce4db7a42936f10682908ca9462a008a047a"
+        }
+      ]
+    },
+    {
+      "name": "supabase-postgres-best-practices",
+      "directory": ".agents/skills/supabase-postgres-best-practices",
+      "origin": "github",
+      "repository": "https://github.com/supabase/agent-skills",
+      "upstreamPath": "skills/supabase-postgres-best-practices",
+      "commit": "c9be0e931b7930f7d02126d04774d904c381e7d7",
+      "commitDate": "2026-10-02T12:34:48Z",
+      "pinnedSourceUrl": "https://github.com/supabase/agent-skills/tree/c9be0e931b7930f7d02126d04774d904c381e7d7/skills/supabase-postgres-best-practices",
+      "licenseDeclared": "MIT",
+      "installation": "project-local via skill-installer download helper; supporting resources retained",
+      "reviewScope": "SKILL.md, license provenance, executable inventory/imports; not a full code/security audit",
+      "files": [
+        {
+          "path": "CHANGELOG.md",
+          "sha256": "751ad110037c85d400018c9894716a04fa46357ff55c22b1169b280752e19e88"
+        },
+        {
+          "path": "LICENSE",
+          "sha256": "b65e575eb4f04a13c187d64e958321298e2ab84d67aa8428819f362056ba292c"
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "ad65e776f45e761bafc609d3f506c77c1032225aa65e0c4c02f241b8071e5855"
+        },
+        {
+          "path": "references/_contributing.md",
+          "sha256": "191e039e7d94764e6073410b513b559f9a594e0fdf0252a30c2a2986df2ab3bc"
+        },
+        {
+          "path": "references/_sections.md",
+          "sha256": "c9e992612b422c7122de0b7542ebc2450db283edaab08cfe86c6d657fcccccd5"
+        },
+        {
+          "path": "references/_template.md",
+          "sha256": "6299954250f212caabe339d752c3e5313a8e07d1a182a4e4b425baee91df1bd2"
+        },
+        {
+          "path": "references/advanced-full-text-search.md",
+          "sha256": "40c2606bbb4c4dce31308f201b24cc7f58c7df05b1d9c6856fe2b888d3b7cf28"
+        },
+        {
+          "path": "references/advanced-jsonb-indexing.md",
+          "sha256": "24cacf6a8bc35901dd566d24502ce8e57f810a5c196b897e61d52726e521d106"
+        },
+        {
+          "path": "references/conn-idle-timeout.md",
+          "sha256": "630588902c00fcec59a5988cc5d042f76dcf2c923a535abfd8c47dca205eaed5"
+        },
+        {
+          "path": "references/conn-limits.md",
+          "sha256": "11b2a67a7c7679cbbc5d807bbb17e69c98484a581d0c8b929c03408f412b81b2"
+        },
+        {
+          "path": "references/conn-pooling.md",
+          "sha256": "88cf086bf98ba865d2e9d0579974e1366b14157619d6a93e7da77be91084e4a5"
+        },
+        {
+          "path": "references/conn-prepared-statements.md",
+          "sha256": "174e9332fe3dda5c99b2b00159fb1915ae36c00bab3a7882c14e73e4344e946e"
+        },
+        {
+          "path": "references/data-batch-inserts.md",
+          "sha256": "531933b82d6a622d0fae29e0ea80be6fe5d78655adf2804c271ea84a1930de37"
+        },
+        {
+          "path": "references/data-n-plus-one.md",
+          "sha256": "21a44905e5b16a42741892ec34bb1bfef124d049b140a76934a9acd0f46f5fc2"
+        },
+        {
+          "path": "references/data-pagination.md",
+          "sha256": "73c9fa10a3d439bedea0e11b640bd25bf30dd50f0d9006cf85baf7c3151543fa"
+        },
+        {
+          "path": "references/data-upsert.md",
+          "sha256": "2612af83b20a2701dde30ef1f8d7efd26b7e9eef84717226b8f038a2d2150ff7"
+        },
+        {
+          "path": "references/lock-advisory.md",
+          "sha256": "c88d259dbf81c3771438f59a165f7eab8acd09999dd370bdf807521c73f35aab"
+        },
+        {
+          "path": "references/lock-deadlock-prevention.md",
+          "sha256": "09aee46f51d7178c8e55fe056cd5a94a64ba2c122fe418e6900cd99f297b2347"
+        },
+        {
+          "path": "references/lock-short-transactions.md",
+          "sha256": "5aa7f61095916986d39644b446cdbcd2bacca7ef698a3bb50b3f82dd60207602"
+        },
+        {
+          "path": "references/lock-skip-locked.md",
+          "sha256": "6c45077f430f29cd9cd8f448c94d578e827e7bd023fcdaf717a756acb116fa4b"
+        },
+        {
+          "path": "references/monitor-explain-analyze.md",
+          "sha256": "4cb67ffbf8e57f2e5b380b0beb4242528b513723ce314a2c2ffcf083bd4203d7"
+        },
+        {
+          "path": "references/monitor-pg-stat-statements.md",
+          "sha256": "89dca99d4e894fcbdcac136be7ad9fbc03d1342904f065c1b198dc9cf495f098"
+        },
+        {
+          "path": "references/monitor-vacuum-analyze.md",
+          "sha256": "2892272011710eb49b3f185ec12f15ce9ce4c365792c672f6e2a9c90da426a1a"
+        },
+        {
+          "path": "references/query-composite-indexes.md",
+          "sha256": "73e42424e671f0266e74fdb220db3196790f69fb43e2b19c7b9483eb4971b554"
+        },
+        {
+          "path": "references/query-covering-indexes.md",
+          "sha256": "daf2a7f0477fb7357b62b5fb5b185b1995a77a186347e45cb780e25e7a7589b6"
+        },
+        {
+          "path": "references/query-index-types.md",
+          "sha256": "472a74f22c2df203bd0154999b3a5a0187cca2ab3d9a3978e305bb7c32f1a282"
+        },
+        {
+          "path": "references/query-missing-indexes.md",
+          "sha256": "91ad8b0ff4365704b4830a7f077c6f140f7140fd5d3ce5cd0b92b160cf9e25f1"
+        },
+        {
+          "path": "references/query-partial-indexes.md",
+          "sha256": "6448982bc8558c6555284958edc331b29239c6a0130e6b4501dd6d4da607a6dd"
+        },
+        {
+          "path": "references/schema-constraints.md",
+          "sha256": "90e8efda3e9e81095e642911ad4aae2809d160f29414338fa997253238f510f8"
+        },
+        {
+          "path": "references/schema-data-types.md",
+          "sha256": "e01b58c14c7f3f65d8ead580b9a4fcf70b83baaab0f9a5f83c569c9fd113e8c8"
+        },
+        {
+          "path": "references/schema-foreign-key-indexes.md",
+          "sha256": "7587713d12a65a212365459b3d39e4717d8a79e4073b10bd62f1054d8192c0dd"
+        },
+        {
+          "path": "references/schema-lowercase-identifiers.md",
+          "sha256": "4bc80f70865f2390872591f326c8a6be6456a0aeb5a7e5a2475d7cd9d43059ab"
+        },
+        {
+          "path": "references/schema-partitioning.md",
+          "sha256": "541e13fbeaf4bb1485c9059d4c9417dbdb766cf16f4237cd63a04ada7ec45b90"
+        },
+        {
+          "path": "references/schema-primary-keys.md",
+          "sha256": "3c8beabef82066f9a0838b926da0885117fd2d9a263aaf84cb5ca9e5f0d400e9"
+        },
+        {
+          "path": "references/security-privileges.md",
+          "sha256": "095909274a4fb43df785d7144cf674eeb40284d2d45628f14af4108737b93663"
+        },
+        {
+          "path": "references/security-rls-basics.md",
+          "sha256": "e04dd1a3a382aafdaaa73fe9f7976352acdde6e90c2a2470d281b94d4f44b096"
+        },
+        {
+          "path": "references/security-rls-performance.md",
+          "sha256": "2e1faeca7d5746e246b1c78f9492fe2a9cfa41c4d7fa1e23c402d58fa18ea014"
+        }
+      ]
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "directory": ".agents/skills/react-best-practices",
+      "origin": "github",
+      "repository": "https://github.com/vercel-labs/agent-skills",
+      "upstreamPath": "skills/react-best-practices",
+      "commit": "063bee94c3f4df8453406c830b0a7df0f2860278",
+      "commitDate": "2026-08-28T13:36:07Z",
+      "pinnedSourceUrl": "https://github.com/vercel-labs/agent-skills/tree/063bee94c3f4df8453406c830b0a7df0f2860278/skills/react-best-practices",
+      "licenseDeclared": "MIT (declared in SKILL.md)",
+      "installation": "project-local via skill-installer download helper; supporting resources retained",
+      "reviewScope": "SKILL.md, license provenance, executable inventory/imports; not a full code/security audit",
+      "files": [
+        {
+          "path": "AGENTS.md",
+          "sha256": "fc93e7421177bbf869cce892bc60a6c83a4517d974bc3bf65c4e2c1e58a6ccf6"
+        },
+        {
+          "path": "README.md",
+          "sha256": "9eafb2123d3b8b2aef41fba0db2648a3f4f49996f8c7c8bb2c86263befd8b48a"
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "71ed7794962fa6e803ee83030517b5b93a9f70fbfeb431ec4535c5480a8d8355"
+        },
+        {
+          "path": "UPSTREAM-LICENSE.md",
+          "sha256": "7a68890f17911d63494002671e5cce6edbba3814082d34150418083ddb99b4d8"
+        },
+        {
+          "path": "metadata.json",
+          "sha256": "c4e18bac3290fbe1b471a605867d4df68b03144ea26b8befdbe8f9d8fd124354"
+        },
+        {
+          "path": "rules/_sections.md",
+          "sha256": "01c59969e4e867f0708c8f8ef9c6d87fab9a07d0586244f429ff84013db8a115"
+        },
+        {
+          "path": "rules/_template.md",
+          "sha256": "99df2a3ea088c6c22de2484ddc7e964d0e9923846f44c63380343ecc64455442"
+        },
+        {
+          "path": "rules/advanced-effect-event-deps.md",
+          "sha256": "55ed8f9f27a1bff803d6fa55828176207714b02123cbb97ddb8a90d88024a723"
+        },
+        {
+          "path": "rules/advanced-event-handler-refs.md",
+          "sha256": "a3097edeecfb2ff6851cd66ed8cdf0617c3c88180504bee824aa6e75a215bbbc"
+        },
+        {
+          "path": "rules/advanced-init-once.md",
+          "sha256": "3e4dc22173eb0e2b6dcf583e3babd862b8696328f8f59aee7c4d746c5bc05f6c"
+        },
+        {
+          "path": "rules/advanced-use-latest.md",
+          "sha256": "8a3f64dfe5a77d1564248faf17fe662ae75b55d497a243cb30b38eb07ccbbf9a"
+        },
+        {
+          "path": "rules/async-api-routes.md",
+          "sha256": "523338540d73427dc14c0cbb19f2741ebccdf8b105a7b2c1b33d2905cf237a42"
+        },
+        {
+          "path": "rules/async-cheap-condition-before-await.md",
+          "sha256": "03107c1f70a293cd58a8abc5474c5548e20ea4efdf01b6d45aae7ad0ac1cb32c"
+        },
+        {
+          "path": "rules/async-defer-await.md",
+          "sha256": "f3c142d090615abdcc99d31c123be37b31f0f1ed8d9ec9f7789a3bc6883ae0fb"
+        },
+        {
+          "path": "rules/async-dependencies.md",
+          "sha256": "16ef469f877e30c6b8e1e1b4bc3e527312fa3c6318cb785a4eca186ea236131a"
+        },
+        {
+          "path": "rules/async-parallel.md",
+          "sha256": "6d2f841896279e976dfcdc1ac89e70771ac188baadfd43c096b5706cb838b961"
+        },
+        {
+          "path": "rules/async-suspense-boundaries.md",
+          "sha256": "de05fedac2eb7ae563b887b5a424464ec3dfaf84e5b7797467ebe2a796ac8afc"
+        },
+        {
+          "path": "rules/bundle-analyzable-paths.md",
+          "sha256": "62090b5c815fd71bf1133dce754f51abc16a9456d0ccd025fd627de27726e92a"
+        },
+        {
+          "path": "rules/bundle-barrel-imports.md",
+          "sha256": "e648f6d54525f07a691357040ca5bff6ea3424788a91ff63812adb29622a671b"
+        },
+        {
+          "path": "rules/bundle-conditional.md",
+          "sha256": "09c8259c3efb04fc0abb8e412ccbda217c222ae8118516283e571c995fe3a7d4"
+        },
+        {
+          "path": "rules/bundle-defer-third-party.md",
+          "sha256": "3719fb47b191e8db4fe22686ec88448ad5af9e6838585425abbe103d0b642e37"
+        },
+        {
+          "path": "rules/bundle-dynamic-imports.md",
+          "sha256": "401817a7369f315fc5a68a1095742ff7d53d0461906880dc9d64a41495ee1986"
+        },
+        {
+          "path": "rules/bundle-preload.md",
+          "sha256": "d1f7cc28da7cd5ab249acd287edc5b761afcfb194e9cb62cd44c5f3543db2de2"
+        },
+        {
+          "path": "rules/client-event-listeners.md",
+          "sha256": "242a873349febc1ce685e85617994784dbab92c2eaa68aed7fed5a83e7680e93"
+        },
+        {
+          "path": "rules/client-localstorage-schema.md",
+          "sha256": "0fb7cdf9dc93fdf22f87e3669f953fb9d4ac9b0be42eec4a29fe9a2560610b88"
+        },
+        {
+          "path": "rules/client-passive-event-listeners.md",
+          "sha256": "1f35016f9053de69e884ee9be00654e37979c2ca85f5e57764dc2626ff7acb4b"
+        },
+        {
+          "path": "rules/client-swr-dedup.md",
+          "sha256": "644652c39c6cc00de8d1c77a7273612e868dc3f7edda30764164c12ec0f764a3"
+        },
+        {
+          "path": "rules/js-batch-dom-css.md",
+          "sha256": "480b891b9eaf96e929dc1e964274a4828e3a78009b7d00ccd965a0d425215959"
+        },
+        {
+          "path": "rules/js-cache-function-results.md",
+          "sha256": "3daaa11d24f4295cb6be8bc6f407f2ce83cc7b5bd1f0e68891ea8ab835721dc7"
+        },
+        {
+          "path": "rules/js-cache-property-access.md",
+          "sha256": "73e47431e74878a927061bf0ddc7cd91a7556cb35d2573f3421e82300d9ae311"
+        },
+        {
+          "path": "rules/js-cache-storage.md",
+          "sha256": "11b826b0433898c1ece2d3547010d8e77db9fb240185748c45db91493de9b6cc"
+        },
+        {
+          "path": "rules/js-combine-iterations.md",
+          "sha256": "71add08aeeb43091d4ff4c0b2842cce8b4bdef8ad3e732cc034bb5a84827e746"
+        },
+        {
+          "path": "rules/js-early-exit.md",
+          "sha256": "925ce5ce87f3347186ca62212f29cc6baa2b8c85a96d2720ad07c3d0abf781c0"
+        },
+        {
+          "path": "rules/js-flatmap-filter.md",
+          "sha256": "9e5b166a41914d975bef7635467f8fb32cd98b5c3126c0bc6f163490812fb5f0"
+        },
+        {
+          "path": "rules/js-hoist-regexp.md",
+          "sha256": "f9e9aef2f7c2307dd7310f283df85dcada45fc43e9bb941b0c3aa414dec21ec4"
+        },
+        {
+          "path": "rules/js-index-maps.md",
+          "sha256": "5df1bdc2cfabb2c98abd55d26762e5c18189535c2e686184f426082e62920391"
+        },
+        {
+          "path": "rules/js-length-check-first.md",
+          "sha256": "8b54a311c826b299272f29187fc58bc55772a04c4a72eeb29456ee96dc9fc624"
+        },
+        {
+          "path": "rules/js-min-max-loop.md",
+          "sha256": "87dfb67e2f39df6ad8bcfb5b78c5fb364d3c07554ad188a202408d99f3763421"
+        },
+        {
+          "path": "rules/js-request-idle-callback.md",
+          "sha256": "ee08f83905b4011abbc33d594033157d77561b5bbd9b36b04f0f409581ffec32"
+        },
+        {
+          "path": "rules/js-set-map-lookups.md",
+          "sha256": "a7fd781a6ba9ad49065961b6f9a90ef486bf6b648390e1a08704025f98e1642b"
+        },
+        {
+          "path": "rules/js-tosorted-immutable.md",
+          "sha256": "d0a5e1b0fec48a0a81397957e2f068e224329f7c42cb5feeed8aae6fa64025e8"
+        },
+        {
+          "path": "rules/rendering-activity.md",
+          "sha256": "1e5e7eaf3555e61d6a2e900089c676527d26259501db5594f59544b6c664f85a"
+        },
+        {
+          "path": "rules/rendering-animate-svg-wrapper.md",
+          "sha256": "9c6ae0ca7a51434e803887c64cded760956579a1452ccb80a461a03f9c937c77"
+        },
+        {
+          "path": "rules/rendering-conditional-render.md",
+          "sha256": "2ec2fa23c4148285144687050c52369adba3da2fbe3d486f8d3e0aad8f06f2bc"
+        },
+        {
+          "path": "rules/rendering-content-visibility.md",
+          "sha256": "64eee6d5b916fe74df33363994b27fc7f71bea3bcedc7ee04bda23107ca3e6e4"
+        },
+        {
+          "path": "rules/rendering-hoist-jsx.md",
+          "sha256": "93b229560fae92005ed9a2a829064607b39b2e984e92d221d05b2d41df2b7c0e"
+        },
+        {
+          "path": "rules/rendering-hydration-no-flicker.md",
+          "sha256": "dc7ab358c67c177bca6e6f360fbc935ebe4efa928c0ba3ebd3f9f3d9e2000ca3"
+        },
+        {
+          "path": "rules/rendering-hydration-suppress-warning.md",
+          "sha256": "915bacb934e2927d84b37a3f3d225a47b309ac8f9e494ed2bcb66ce07c5676a2"
+        },
+        {
+          "path": "rules/rendering-resource-hints.md",
+          "sha256": "351b1095d641717b930f1b2253282b7120af3023bc74e06c17675168d4286864"
+        },
+        {
+          "path": "rules/rendering-script-defer-async.md",
+          "sha256": "4cea07b7875ba7fc2c7465ff23b63a2bb334f90aaf2d9293d38d67b05fdb32ab"
+        },
+        {
+          "path": "rules/rendering-svg-precision.md",
+          "sha256": "ed468533f6e95f622859c884b122cf21f9f593ed6bb3d500a54de4b9f9bcb9fb"
+        },
+        {
+          "path": "rules/rendering-usetransition-loading.md",
+          "sha256": "3a1249c3f13026b6f54ab5712c388df219d6af01b12aa542749acd99a46f4bc1"
+        },
+        {
+          "path": "rules/rerender-defer-reads.md",
+          "sha256": "234050a77faf50cb306be10a9e15bd4421134ab5907e75f13e6d78e2bd262dc9"
+        },
+        {
+          "path": "rules/rerender-dependencies.md",
+          "sha256": "17eb5830956fb56486fd3cfc7431f5849d39751730c05ad9e77dd4f0c27169c5"
+        },
+        {
+          "path": "rules/rerender-derived-state-no-effect.md",
+          "sha256": "cb11ec76f50aa7b6847269f02d79b120c889a30d9ecd2c1d578f75144419c77a"
+        },
+        {
+          "path": "rules/rerender-derived-state.md",
+          "sha256": "1c326bb67b01fb084eb00c8911b0a7cff54681c2315b629f88e49b64eaa6481d"
+        },
+        {
+          "path": "rules/rerender-functional-setstate.md",
+          "sha256": "5e68df6b2ae8058e67f476ff1ac67bde159f5a9d18df439e46eabcdeb7b52e58"
+        },
+        {
+          "path": "rules/rerender-lazy-state-init.md",
+          "sha256": "4ae844740f266fc8cbf050701230286624a2440ec5be67b9a63d9edc3c580573"
+        },
+        {
+          "path": "rules/rerender-memo-with-default-value.md",
+          "sha256": "81c47476564ad8a79fc68fc442734255ca7d6829424359464503fda0a9f9a0dd"
+        },
+        {
+          "path": "rules/rerender-memo.md",
+          "sha256": "1f258990c2f27ff6256b3cc5c43300631bb3f0d81f749aed08d07fcdcc131dd1"
+        },
+        {
+          "path": "rules/rerender-move-effect-to-event.md",
+          "sha256": "abc2cbf167bee056743023351e96806a411d3398da8802093620aecf0721f029"
+        },
+        {
+          "path": "rules/rerender-no-inline-components.md",
+          "sha256": "1cc32907a770272524ba682eef9e7efdd8ad4533b6f89b718a1fcd7d1d0eb6a3"
+        },
+        {
+          "path": "rules/rerender-simple-expression-in-memo.md",
+          "sha256": "5bdcf2d1558ba5204e643c887b7b4060f89630969425651eb68e96427d97f800"
+        },
+        {
+          "path": "rules/rerender-split-combined-hooks.md",
+          "sha256": "6f45d703343484ef9acef9388397f3642966ae6a5a258899a0cf1f9977cfbf6c"
+        },
+        {
+          "path": "rules/rerender-transitions.md",
+          "sha256": "60f4033909a62df5e5b8c601494f9e50a562e2f8c1c2d81eac24f38142265f1c"
+        },
+        {
+          "path": "rules/rerender-use-deferred-value.md",
+          "sha256": "8c3579576a61a949884167745dcfaf1d5426ba305cc61fd0a79602d70fda4909"
+        },
+        {
+          "path": "rules/rerender-use-ref-transient-values.md",
+          "sha256": "f1a649af9d1d0b5c762f6c9c4c1c70c90d7df82aa10296ee87aadb78c1b76c54"
+        },
+        {
+          "path": "rules/server-after-nonblocking.md",
+          "sha256": "d0b8d24a3db9f0f65f9e2bddbf230b0e03a5f60e1229d93a4a18f5e7a991c7c2"
+        },
+        {
+          "path": "rules/server-auth-actions.md",
+          "sha256": "a2ca8aa102839251c7971ec784560fab943c20b36fe6f80365d4110c13260c23"
+        },
+        {
+          "path": "rules/server-cache-lru.md",
+          "sha256": "1924b64561841923b88a657085097a0aeba3e0ba2d5470b9f5c15cc10d6ae70f"
+        },
+        {
+          "path": "rules/server-cache-react.md",
+          "sha256": "fddeea6c870bb3da4134b61d54b7d09b83d2603f929b7547cd3dc1dc269edd5c"
+        },
+        {
+          "path": "rules/server-dedup-props.md",
+          "sha256": "c2747424cdac46be62f835f245a0aa887b0090b416d28e2ac8676702645eeb37"
+        },
+        {
+          "path": "rules/server-hoist-static-io.md",
+          "sha256": "5abea4dd882b13661bd5f7dfb93f9e547d5f08176c61c448ade91b210ed5d49f"
+        },
+        {
+          "path": "rules/server-no-shared-module-state.md",
+          "sha256": "4d869bf1cd2f1632e5ca4c0e64b1cf0e71c5f5a0f940bc8a22174d205e735ed7"
+        },
+        {
+          "path": "rules/server-parallel-fetching.md",
+          "sha256": "569a2e9fc04f9606686cd75c5894ef8781b502786a7fffe241396846c7733472"
+        },
+        {
+          "path": "rules/server-parallel-nested-fetching.md",
+          "sha256": "ad5d9656984d4a959997a2367bf59cc6632297b4634a1dd13a087939d83f30b3"
+        },
+        {
+          "path": "rules/server-serialization.md",
+          "sha256": "f4c7d68b29c82381baad059c4a7f09e868e71ec9c3115a26ad3ae7d24c0dfe1f"
+        }
+      ]
+    },
+    {
+      "name": "filesystem-context",
+      "directory": ".agents/skills/filesystem-context",
+      "origin": "github",
+      "repository": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "upstreamPath": "skills/filesystem-context",
+      "commit": "58b55a8921758d13453b440704fb1b5b208c0b0e",
+      "commitDate": "2026-10-01T05:58:33Z",
+      "pinnedSourceUrl": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/tree/58b55a8921758d13453b440704fb1b5b208c0b0e/skills/filesystem-context",
+      "licenseDeclared": "MIT",
+      "installation": "project-local via skill-installer download helper; supporting resources retained",
+      "reviewScope": "SKILL.md, license provenance, executable inventory/imports; not a full code/security audit",
+      "files": [
+        {
+          "path": "LICENSE",
+          "sha256": "65bc33b0759a48b980962833b12bcb820404da9f5256bff39c00e89471bcf209"
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "91cd7f071e38dbeee15dbebd9dd549c9116affae939702f05409ed1952355f50"
+        },
+        {
+          "path": "references/implementation-patterns.md",
+          "sha256": "78380a2f426f43bcae4658d6498e0953470c3398673e807d861c268d9b96b6b2"
+        },
+        {
+          "path": "scripts/filesystem_context.py",
+          "sha256": "daccf94285ec679ff39f28d3531dea92528a9443736009d8949e488bb21330bb"
+        }
+      ]
+    },
+    {
+      "name": "context-compression",
+      "directory": ".agents/skills/context-compression",
+      "origin": "github",
+      "repository": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "upstreamPath": "skills/context-compression",
+      "commit": "58b55a8921758d13453b440704fb1b5b208c0b0e",
+      "commitDate": "2026-10-01T05:58:33Z",
+      "pinnedSourceUrl": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/tree/58b55a8921758d13453b440704fb1b5b208c0b0e/skills/context-compression",
+      "licenseDeclared": "MIT",
+      "installation": "project-local via skill-installer download helper; supporting resources retained",
+      "reviewScope": "SKILL.md, license provenance, executable inventory/imports; not a full code/security audit",
+      "files": [
+        {
+          "path": "LICENSE",
+          "sha256": "65bc33b0759a48b980962833b12bcb820404da9f5256bff39c00e89471bcf209"
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "ab4fd1e1046db339d83ead5089d4cb9d9c487232945d4ff6be90e08a03f6cfea"
+        },
+        {
+          "path": "references/evaluation-framework.md",
+          "sha256": "2584d5ab6c1322c0df7a581a6f5354be052bae077e16f76ef7c772f750ef81d2"
+        },
+        {
+          "path": "scripts/compression_evaluator.py",
+          "sha256": "425d07d73420073304ce58c078c561cddd61420816efdb080b40778f5c1ed350"
+        },
+        {
+          "path": "tests/test_compression_evaluator.py",
+          "sha256": "8d0d4a83ac0b0eae25b2c270b54f0982e16be56a6dc935b73cd1411aa21ef829"
+        }
+      ]
+    },
+    {
+      "name": "worksheet-extraction",
+      "directory": ".agents/skills/worksheet-extraction",
+      "origin": "project-authored",
+      "repository": null,
+      "upstreamPath": null,
+      "commit": null,
+      "commitDate": null,
+      "licenseDeclared": null,
+      "installation": "created for this repository using skill-creator guidance",
+      "reviewScope": "frontmatter, references and project behavior constraints",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "c8f6f057cd3804efe91f3a42ee225b86f57469165be9d26987dcfefe9f22330d"
+        }
+      ],
+      "reviewedOn": "2026-10-09",
+      "revisionNote": "Words for Kids child-first steering and media/provider gates; skill invocation unchanged for continuity."
+    },
+    {
+      "name": "bilingual-learning-content",
+      "directory": ".agents/skills/bilingual-learning-content",
+      "origin": "project-authored",
+      "repository": null,
+      "upstreamPath": null,
+      "commit": null,
+      "commitDate": null,
+      "licenseDeclared": null,
+      "installation": "created for this repository using skill-creator guidance",
+      "reviewScope": "frontmatter, references and project behavior constraints",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "85acc21ac6b0c137170f73eef23ea984b5f11ef2041a12e12da90d08ae9cc5c8"
+        }
+      ],
+      "reviewedOn": "2026-10-09",
+      "revisionNote": "Words for Kids child-first steering and media/provider gates; skill invocation unchanged for continuity."
+    },
+    {
+      "name": "vocabulary-delivery",
+      "directory": ".agents/skills/vocabulary-delivery",
+      "origin": "project-authored",
+      "repository": null,
+      "upstreamPath": null,
+      "commit": null,
+      "commitDate": null,
+      "licenseDeclared": null,
+      "installation": "created for this repository using skill-creator guidance",
+      "reviewScope": "frontmatter, references and project behavior constraints",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "54c53c1eb68a13582f5412d34db35f4fd1fc3a7b4dbb29aa64860b0313fa1106"
+        }
+      ],
+      "reviewedOn": "2026-10-09",
+      "revisionNote": "Words for Kids child-first steering and media/provider gates; skill invocation unchanged for continuity."
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "directory": ".agents/skills/ui-ux-pro-max",
+      "origin": "github",
+      "repository": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+      "upstreamPath": ".claude/skills/ui-ux-pro-max",
+      "commit": "1a2c459b35f26116fd165b0a0f30597f252749ff",
+      "commitDate": "2026-10-08T05:06:09Z",
+      "pinnedSourceUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/tree/1a2c459b35f26116fd165b0a0f30597f252749ff/.claude/skills/ui-ux-pro-max",
+      "licenseDeclared": "MIT",
+      "installation": "project-local via skill-installer download helper; supporting resources and license retained",
+      "reviewScope": "SKILL.md, task-relevant references, license provenance, script inventory; local read-only search exercised for ui-ux-pro-max only; not a full security audit",
+      "files": [
+        {
+          "path": "LICENSE",
+          "sha256": "738f69dfa83db5c347c678fb9d90e560877059f0de93a327c39001bff92dc014"
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "ea087c341bfb5b23195c7302027268ede86da802554c18a5c4896a6017b439f9"
+        },
+        {
+          "path": "data/app-interface.csv",
+          "sha256": "331e7cf2c0b222d80c566c5f255c63cb339f65bfd02e471a720f28e4864a9f08"
+        },
+        {
+          "path": "data/catalog-summary.json",
+          "sha256": "6638da97231c07fb5cef3cd9d3ce483ca7b2f9748980f8c27490eb03968d8894"
+        },
+        {
+          "path": "data/charts.csv",
+          "sha256": "4115cf1120680f2cedef0676cb648f30c7ef4699e2a947535d4113e71ed3b12a"
+        },
+        {
+          "path": "data/colors.csv",
+          "sha256": "8162429222bce22df62b564085946a30d07cc9722c58d0a3a494bd0d1d00841c"
+        },
+        {
+          "path": "data/data-provenance.json",
+          "sha256": "e82fb33ed49375a300e93d9c11ccd1c1493c999e84ee7ee295e527634786e2e0"
+        },
+        {
+          "path": "data/google-font-licenses.json",
+          "sha256": "35688523f2955795caa1a47c53b83099e60c1708461476f9cc3a050cf3b0148a"
+        },
+        {
+          "path": "data/google-fonts.csv",
+          "sha256": "1c8c3b2ea1faf6a1012da463756def8b3889db33f2226f0343bb4daa80307d03"
+        },
+        {
+          "path": "data/icons.csv",
+          "sha256": "50816c6012030178195a16ee481ebf58b47bd985d70e8ec58886cc83f6eddafc"
+        },
+        {
+          "path": "data/landing.csv",
+          "sha256": "9a2edd3bb676c2a58f00ade7a062e285222d4297bfd847c8d5b056f0dbbf52d0"
+        },
+        {
+          "path": "data/motion.csv",
+          "sha256": "381affe8df8ea1f66fbbda2598827f9f54299107bbe6a1b4e9b68f6b62091ceb"
+        },
+        {
+          "path": "data/phosphor-icons-upstream.json",
+          "sha256": "2399325233b277b5c97a80e6a5e8941154f5d057beee4e7613db87c87d700236"
+        },
+        {
+          "path": "data/products.csv",
+          "sha256": "42473f75e8dde5987bdf89ce55d8c168091b80a356cae691dd60247d80720b70"
+        },
+        {
+          "path": "data/react-performance.csv",
+          "sha256": "3d925802539abac5afeb63ae8aa1960b7229ad271b3a47caed40ab2d97ad0734"
+        },
+        {
+          "path": "data/stacks/angular.csv",
+          "sha256": "704be83f2bad30c7e6de01afb113ffa01e0c458762f48b7102f31ba2367b5553"
+        },
+        {
+          "path": "data/stacks/astro.csv",
+          "sha256": "2c2f55fadaafc05e04cc321c8194a1a28b656e6757fe2ba316f41b16428299c6"
+        },
+        {
+          "path": "data/stacks/avalonia.csv",
+          "sha256": "442fca14675a020683473e7e49f08abb27b9df0765c80efe54aef61f1a4ac258"
+        },
+        {
+          "path": "data/stacks/flutter.csv",
+          "sha256": "64dba0ac17349f28bce517a0f5f48c54d9ed2e487ec0c0258303463b382f41a0"
+        },
+        {
+          "path": "data/stacks/html-tailwind.csv",
+          "sha256": "d05a581d20af57b8ca0104a6d31d90a07c437d500662a96c3029fc2f9a4678ee"
+        },
+        {
+          "path": "data/stacks/javafx.csv",
+          "sha256": "2e819b8d5abdd23ad4dae0991650fdb57af497aabd68b37463aa9c442944c869"
+        },
+        {
+          "path": "data/stacks/jetpack-compose.csv",
+          "sha256": "699de218b286948eaec7d15767b6e1350ee299167e49bf476d82e3ff58724e0a"
+        },
+        {
+          "path": "data/stacks/laravel.csv",
+          "sha256": "854ea4daa5fc61292d22235ad33b49ba3fe22423c3de8d3cb03758ffed3b59f9"
+        },
+        {
+          "path": "data/stacks/nextjs.csv",
+          "sha256": "ecd2c27b2ea0127d203ae726060efcdd7335b5e83f96b99e4f3befbbfeebd5a4"
+        },
+        {
+          "path": "data/stacks/nuxt-ui.csv",
+          "sha256": "fce682a338cfcdbf35d318d20e5befbe7b5d81b05abc37f87677a6d9cde84dc6"
+        },
+        {
+          "path": "data/stacks/nuxtjs.csv",
+          "sha256": "3d9b54ed2d151bd9c86e9e5609b8a6f88a00c4c52fa601a30af96c49b2c4d176"
+        },
+        {
+          "path": "data/stacks/react-native.csv",
+          "sha256": "ba31dd9c0c04da6bc02a74448bf121f9c0728ae5ba3b4d47b487778b0a1135b5"
+        },
+        {
+          "path": "data/stacks/react.csv",
+          "sha256": "4dd176a9787e5c6306b5df94158d75955adcdc6edab41ce5286641a5842303c1"
+        },
+        {
+          "path": "data/stacks/shadcn.csv",
+          "sha256": "e56cfde5b74907836ac3582a4779d5b7f3d206a702ab81b8669a1b668c3eeb51"
+        },
+        {
+          "path": "data/stacks/svelte.csv",
+          "sha256": "f6e379ba802941ba26b01d4ffbe3cd39120f2587659a1d93851c707f66bc13db"
+        },
+        {
+          "path": "data/stacks/swiftui.csv",
+          "sha256": "bdd9231ff3ad658f4e7c063e1eb49df2fd09ac8d90631a86df899b39833b9623"
+        },
+        {
+          "path": "data/stacks/threejs.csv",
+          "sha256": "155d583b9c64da0df4b6c6cb060c02eab222505e0734d6353da02c9e2b5d982b"
+        },
+        {
+          "path": "data/stacks/uno.csv",
+          "sha256": "a0474363e4225b5367214d5675fd3e075f137026f9500f0d04357882ef4f6d48"
+        },
+        {
+          "path": "data/stacks/uwp.csv",
+          "sha256": "c409f08c1fbba1f1029f1acaa554e7b4471cc85517a5751c9f2e62465badcd5c"
+        },
+        {
+          "path": "data/stacks/vue.csv",
+          "sha256": "b655f1ebb9dff2652d15981f31b1784c8a6d4759efd2815a14f3088257569f95"
+        },
+        {
+          "path": "data/stacks/winui.csv",
+          "sha256": "e676dc1c13ee6c205c40b0746f1335150a346c7a49a0616d2545bc3d2c930c85"
+        },
+        {
+          "path": "data/stacks/wpf.csv",
+          "sha256": "9781a9950b20333637b30a02e498b7efca21b618a3eeb8665836f3ac6e974da7"
+        },
+        {
+          "path": "data/styles.csv",
+          "sha256": "a93a4d9d7025856575d7b7583bda020be9043013432c5af7c58af9dbdfb206b7"
+        },
+        {
+          "path": "data/typography.csv",
+          "sha256": "321fc446e89024488ebae96dda93efc4d2307bd8bddb240857ad51364f6782c8"
+        },
+        {
+          "path": "data/ui-reasoning.csv",
+          "sha256": "f0774dd741cecdad5eec842034bd6d5e9ea50e9f220a1910069748daa0bb8e9a"
+        },
+        {
+          "path": "data/ux-guidelines.csv",
+          "sha256": "ff81ec613f70ba9fc3fcce52dbe4ae35d44b2079dbe6dc066d2d6e38c28facd5"
+        },
+        {
+          "path": "references/pro-rules.md",
+          "sha256": "d28442d61c310b49c054a4ea736f89fb3008beebdbbc38c4b3a540b8f7fadf23"
+        },
+        {
+          "path": "references/quick-reference.md",
+          "sha256": "0609bc7c89dacb40472465d8fc14257b56b2c43439660fc8d6fa3b8c022e1876"
+        },
+        {
+          "path": "scripts/core.py",
+          "sha256": "c3be4b23e7150e6b45095213158cfa3c8ad96502f01dde3f6ffff9de64a4f481"
+        },
+        {
+          "path": "scripts/design_system.py",
+          "sha256": "e7d1c94c4b2eada17c5551157668362659ccf9626d34dbd58e68142410f90103"
+        },
+        {
+          "path": "scripts/reasoning_contract.py",
+          "sha256": "b8bac1af82aa280d3e06f00aabaeac4337e632996b07fed874e2b6ee6e9c5913"
+        },
+        {
+          "path": "scripts/search.py",
+          "sha256": "d54e648fe0ec2932cac66684220cc17be4bd4b4eba1d23d3195d509d398db374"
+        },
+        {
+          "path": "scripts/tests/fixtures/catalogs/google-api.json",
+          "sha256": "22d8dc81a7d6827b7e8b64b53e7d184210fb9759e8e294e0d5133c81cc460176"
+        },
+        {
+          "path": "scripts/tests/fixtures/catalogs/google-catalog.json",
+          "sha256": "c608ad5c4084ebc50a4bbbfb69ea2456c01fd5519c457e18410fffd250ae948f"
+        },
+        {
+          "path": "scripts/tests/fixtures/catalogs/google-existing.csv",
+          "sha256": "4e0761b839dc6b2187a370e82eddc0aed8a7ff10c09e28dd814bb3656dac595b"
+        },
+        {
+          "path": "scripts/tests/fixtures/catalogs/google-metadata.json",
+          "sha256": "30bffc29ae348416a2de2f9c6c418e768e4578f136b0f4bac5d2f70124f2e9ba"
+        },
+        {
+          "path": "scripts/tests/fixtures/catalogs/google-overrides.json",
+          "sha256": "6243a48a4619986768c4628e2d0c98ff195beba71ba9be5df8f0c52fc6d90c0b"
+        },
+        {
+          "path": "scripts/tests/fixtures/catalogs/icons-curated.csv",
+          "sha256": "68362c9a700c13b96f000784a0198c1c7e117a7088a01c85744e44233038fe9d"
+        },
+        {
+          "path": "scripts/tests/fixtures/catalogs/phosphor-core.json",
+          "sha256": "ae4d0bb076240824e1b643c2270d1f8cc0952a69502ec1e622b7dedd85b930bb"
+        },
+        {
+          "path": "scripts/tests/fixtures/catalogs/phosphor-package.json",
+          "sha256": "500588c757d6de03e3d7e69b27a8b8b1f88ccf6bb0333e4c1e9b0d6a4f112475"
+        },
+        {
+          "path": "scripts/tests/fixtures/catalogs/phosphor-react-exports.json",
+          "sha256": "d79f2ee0afdbc2f87776733e145df3538a16a25d7c2fba0056bb48295dad0ded"
+        },
+        {
+          "path": "scripts/tests/fixtures/catalogs/phosphor-react-package.json",
+          "sha256": "1c57a1d76bcc0cdd3632d4c18b9c0e79576b4591df39831c9607e5d0eb4f2cec"
+        },
+        {
+          "path": "scripts/tests/fixtures/relevance-baseline.json",
+          "sha256": "0df200fc54c1cb97a52d6775e7f501509163cea8f8b73fd7268429bc1f835afe"
+        },
+        {
+          "path": "scripts/tests/fixtures/relevance-cases.json",
+          "sha256": "e77d36eebbf6ddc2860946a02cdb659351da6c09f2688f1ed30939a418099646"
+        },
+        {
+          "path": "scripts/tests/fixtures/relevance-thresholds.json",
+          "sha256": "1fbe8623fe3e49c8d828139bca9df69043746e488e8bf09d93dfb9cbc31f5cef"
+        },
+        {
+          "path": "scripts/tests/test_catalog_refresh.py",
+          "sha256": "3e2ca5d12702318f641ae62d0c14f22a3bcc84d84e79b863c0e947d475604adb"
+        },
+        {
+          "path": "scripts/tests/test_catalog_summary_line_endings.py",
+          "sha256": "fa6ff09f0ec2c99013588c77397f5082dddebe8f467e94c5f8378ec9595f4989"
+        },
+        {
+          "path": "scripts/tests/test_core.py",
+          "sha256": "3527fe2f4b852f69f07c17ddc0d615d9a6e025c924e45a33985579a94a8d2118"
+        },
+        {
+          "path": "scripts/tests/test_core_data_quality.py",
+          "sha256": "3ffc6b4905c9ea26d7ac4527ab154d153584231aee71b2ae4bd017977fa09cc5"
+        },
+        {
+          "path": "scripts/tests/test_data_contracts.py",
+          "sha256": "0360d6e10080c0bca214f2b0bbad582ba50702a542ce21013351aca54938df3a"
+        },
+        {
+          "path": "scripts/tests/test_design_system_mode.py",
+          "sha256": "95ad2c154349f7021f55a558f8dcdd71df1a24fcf531a4364a8e49526a0865ef"
+        },
+        {
+          "path": "scripts/tests/test_design_system_stack.py",
+          "sha256": "83d09ffe8cfbf7b265f362129f061dfe8e5e167ce5db43adaead197cabc9ca38"
+        },
+        {
+          "path": "scripts/tests/test_native_desktop_stack_freshness.py",
+          "sha256": "3942845712b9a829323cd3568511483135f2a8c7cd79ccf61679da4b0f624dbb"
+        },
+        {
+          "path": "scripts/tests/test_relevance_evaluator.py",
+          "sha256": "2fe56a4d6fe5fff15ff592274b0eeaba925146cefea6c0fa29d8f1b77c9aca1f"
+        },
+        {
+          "path": "scripts/tests/test_skill_script_paths.py",
+          "sha256": "7cec24b94be771bc60bc84f8993e614bb16d4047930e1dd3d3bed91628311d44"
+        },
+        {
+          "path": "scripts/tests/test_style_taxonomy.py",
+          "sha256": "cd14d0092e8a454d213aa104b53e4e70ba698491fa00fde9fdec5ca8a3d70011"
+        },
+        {
+          "path": "scripts/tests/test_text_layout_resilience.py",
+          "sha256": "b51d32ee8a15505b87cb81957fb2d1b385e041e8beb4463c311d236bfd29ebd4"
+        },
+        {
+          "path": "scripts/tests/test_web_stack_freshness.py",
+          "sha256": "74897571398585f27e2c35d09d81b0a531c8c774f4a2967e5e1b1d1b05a483d9"
+        },
+        {
+          "path": "scripts/validate_data.py",
+          "sha256": "a599aa256049cf30954d1f164721b99e453eb7e4cb8241bcab2d5573e6cf58b8"
+        }
+      ]
+    },
+    {
+      "name": "product-design",
+      "directory": ".agents/skills/product-design",
+      "origin": "github",
+      "repository": "https://github.com/mblode/agent-skills",
+      "upstreamPath": "skills/product-design",
+      "commit": "5a781a88ed60c1033767b6b6a966887cd93dd912",
+      "commitDate": "2026-10-08T20:38:02Z",
+      "pinnedSourceUrl": "https://github.com/mblode/agent-skills/tree/5a781a88ed60c1033767b6b6a966887cd93dd912/skills/product-design",
+      "licenseDeclared": "MIT",
+      "installation": "project-local via skill-installer download helper; supporting resources and license retained",
+      "reviewScope": "SKILL.md, task-relevant references, license provenance, script inventory; local read-only search exercised for ui-ux-pro-max only; not a full security audit",
+      "files": [
+        {
+          "path": "LICENSE.md",
+          "sha256": "81ac64b19ea7ae7f9a8d197705df58f48ffca02c74fca13e565dedf4f7595b46"
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "1f5b964df7a7ff4ad9243a079f254fc670dda85fd70e931c514e3f40cd1ed302"
+        },
+        {
+          "path": "evals/evals.json",
+          "sha256": "637f7a3f7f8548b5e2eeee1fd7b3cc8264f2cab929d9c0a74572d28be65f0e58"
+        },
+        {
+          "path": "references/interface-quality.md",
+          "sha256": "e92b535385469e20a25c95bf6952e5724f5739b9322d1e3f3d3092415f0c2e0f"
+        },
+        {
+          "path": "references/naming-and-copy.md",
+          "sha256": "b96e3e8072643f34a74a4674a4c3fe4159f9f0ef60fb4d364fa80141b2b74355"
+        },
+        {
+          "path": "references/product-judgment.md",
+          "sha256": "78fd864b8d171160317536eed02c910b65c371992bbf18839177441fd3682dc5"
+        },
+        {
+          "path": "references/rules.md",
+          "sha256": "27a538b79822010d59162d9b86f6810be2b92e4bbd3da5cd91ebbf1c0cf8869b"
+        },
+        {
+          "path": "references/surfaces.md",
+          "sha256": "34dc1453abbf7850e1cb6a48c43e717b4be98fecae2921a4abcf255ebc06470b"
+        }
+      ]
+    },
+    {
+      "name": "ui-animation",
+      "directory": ".agents/skills/ui-animation",
+      "origin": "github",
+      "repository": "https://github.com/mblode/agent-skills",
+      "upstreamPath": "skills/ui-animation",
+      "commit": "5a781a88ed60c1033767b6b6a966887cd93dd912",
+      "commitDate": "2026-10-08T20:38:02Z",
+      "pinnedSourceUrl": "https://github.com/mblode/agent-skills/tree/5a781a88ed60c1033767b6b6a966887cd93dd912/skills/ui-animation",
+      "licenseDeclared": "MIT",
+      "installation": "project-local via skill-installer download helper; supporting resources and license retained",
+      "reviewScope": "SKILL.md, task-relevant references, license provenance, script inventory; local read-only search exercised for ui-ux-pro-max only; not a full security audit",
+      "files": [
+        {
+          "path": "LICENSE.md",
+          "sha256": "81ac64b19ea7ae7f9a8d197705df58f48ffca02c74fca13e565dedf4f7595b46"
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "25b09d6fb5eb57af8c1b91c6b74bc63280bc4f0fe143b80a2f8c18ed18f7cee8"
+        },
+        {
+          "path": "evals/discovery-mode.json",
+          "sha256": "360d35a2989c45c291cf43cd47ff1d4979bde77d61aaead64a4363109f238ab0"
+        },
+        {
+          "path": "evals/evals.json",
+          "sha256": "c72b6eb50340b27445fba7ccb17db75c1b65d071e1f1c5ffe7e1c8ed338051bd"
+        },
+        {
+          "path": "evals/fixtures/settings-panel.tsx",
+          "sha256": "d1d76c0c26473357cb902ff0ad1e6c889e166befd53b35783ca5b9de61ff98e8"
+        },
+        {
+          "path": "references/choreography.md",
+          "sha256": "36aa77068124f009e8b44944eeef907fd617a6ab9d136d83442acea6f21bc448"
+        },
+        {
+          "path": "references/clip-path-techniques.md",
+          "sha256": "bf22399db0579a7b289c4234b4729994d72a9e859258e2c60290990f7432deb1"
+        },
+        {
+          "path": "references/code-output.md",
+          "sha256": "3bc62e3503268280c451ddf05deed9f557006771e61f0d9fa32c9b766cf6bb8c"
+        },
+        {
+          "path": "references/component-patterns.md",
+          "sha256": "b669704adae8545cb3b85132bf5b9bb45b40f1bc4fd16face3923e338f43c409"
+        },
+        {
+          "path": "references/contextual-animations.md",
+          "sha256": "7418466a2c952c29e0c329ac754837290449d4ab2cb56927ad8661bf1fa2e91e"
+        },
+        {
+          "path": "references/curve-fitting.md",
+          "sha256": "5cf650743531385643f012549042ce6378ae40416b44da2da43fffe34222906d"
+        },
+        {
+          "path": "references/debugging-symptoms.md",
+          "sha256": "bb92e08e9c04dce772e82b9a08521fcf661b706372c23839f5a570711929d68b"
+        },
+        {
+          "path": "references/decision-framework.md",
+          "sha256": "140b47e450487c86316af316dc8d18de0852943e63ac75c40fcf8696e6d951e9"
+        },
+        {
+          "path": "references/gesture-drag.md",
+          "sha256": "e40667396caa1f811b314168cc938a9c4e64ac5a53efad34c2bd41042aede55f"
+        },
+        {
+          "path": "references/interface-sfx.md",
+          "sha256": "5f6e365c32845057aae74749155b87a74f5b731b4cea901c8d9d824e25bb16a1"
+        },
+        {
+          "path": "references/measurement-guide.md",
+          "sha256": "ed53ef060cc5f20f5b44df635692c22cfb39334dd2375b9c49018deca22d15ce"
+        },
+        {
+          "path": "references/performance-deep-dive.md",
+          "sha256": "f3f43c733bac58c4e64f13c769f7a360c39c0d446c886f79d929e76ae8b5fdfc"
+        },
+        {
+          "path": "references/review-format.md",
+          "sha256": "565456c30c5c97fc788331f395a785e5822a9fff4eaf0a496bc04ea8915dbd90"
+        },
+        {
+          "path": "references/scroll-animations.md",
+          "sha256": "536a21a8c3c08db50beec1d81471cbfc1e6bc33d8be4fd0868142d988e48a5bb"
+        },
+        {
+          "path": "references/spring-animations.md",
+          "sha256": "0012d3aecb3bd47ac0eeb7d8ce6bf78b017af4ccfe9a5f89f6397355001c38ee"
+        },
+        {
+          "path": "references/svg-animation.md",
+          "sha256": "a6a8bb58720711f16ec9b79ccfd525ec66c2718ef3a8e93f55a9dc9f5dfc7266"
+        },
+        {
+          "path": "references/transition-recipes.md",
+          "sha256": "ffc6e1fc9f053259c8c12dd2fbd7495fe364e88b206eabfc9a29ce741927b432"
+        },
+        {
+          "path": "references/vocabulary.md",
+          "sha256": "edb6a64b2fdf99d59f7087b1be38f779d8b8a614b6ed1b108275ea55a9633f09"
+        },
+        {
+          "path": "scripts/extract_frames.py",
+          "sha256": "80c16f2a50e7f10050e143af9464240c18c61d58394761d672f65c869f13952f"
+        },
+        {
+          "path": "scripts/fit_curves.py",
+          "sha256": "126f944b640b395da13d20d2c2861c4fcc79254e0bce5201b2d545b7d02474f1"
+        },
+        {
+          "path": "scripts/track_motion.py",
+          "sha256": "a8b5c60c1da1cea05e6e21307021d6e9369e76388a50c16293ff18eebe35dda7"
+        }
+      ]
+    },
+    {
+      "name": "performance",
+      "directory": ".agents/skills/performance",
+      "origin": "github",
+      "repository": "https://github.com/addyosmani/web-quality-skills",
+      "upstreamPath": "skills/performance",
+      "commit": "afa8da942115f2961fdbfa80807ea0b232ff6c00",
+      "commitDate": "2026-08-24T21:07:33Z",
+      "pinnedSourceUrl": "https://github.com/addyosmani/web-quality-skills/tree/afa8da942115f2961fdbfa80807ea0b232ff6c00/skills/performance",
+      "licenseDeclared": "MIT",
+      "installation": "project-local via skill-installer download helper; supporting resources and license retained",
+      "reviewScope": "SKILL.md, task-relevant references, license provenance, script inventory; local read-only search exercised for ui-ux-pro-max only; not a full security audit",
+      "files": [
+        {
+          "path": "LICENSE",
+          "sha256": "c122223ac43e86421958e18623979942c21b642951e2e3736dcb63eff13587c3"
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "b0c220185d88c61f7770eb127d8facf86c86d2dd1fd82b86e15a4965a0137265"
+        },
+        {
+          "path": "references/MEASUREMENT.md",
+          "sha256": "128f6f20c6c8fb55fcccd8b259cf680811022cf262dc55b03e9d623bcb555a99"
+        },
+        {
+          "path": "references/RUM.md",
+          "sha256": "a2bdf660ecb23098afbadfb83254d39cef10c0da82938225f61271bad3f81b19"
+        }
+      ]
+    },
+    {
+      "name": "core-web-vitals",
+      "directory": ".agents/skills/core-web-vitals",
+      "origin": "github",
+      "repository": "https://github.com/addyosmani/web-quality-skills",
+      "upstreamPath": "skills/core-web-vitals",
+      "commit": "afa8da942115f2961fdbfa80807ea0b232ff6c00",
+      "commitDate": "2026-08-24T21:07:33Z",
+      "pinnedSourceUrl": "https://github.com/addyosmani/web-quality-skills/tree/afa8da942115f2961fdbfa80807ea0b232ff6c00/skills/core-web-vitals",
+      "licenseDeclared": "MIT",
+      "installation": "project-local via skill-installer download helper; supporting resources and license retained",
+      "reviewScope": "SKILL.md, task-relevant references, license provenance, script inventory; local read-only search exercised for ui-ux-pro-max only; not a full security audit",
+      "files": [
+        {
+          "path": "LICENSE",
+          "sha256": "c122223ac43e86421958e18623979942c21b642951e2e3736dcb63eff13587c3"
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "731aa78c0347e8b3e191b75962175bee058ce73817278e610ac0fe546e685914"
+        },
+        {
+          "path": "references/CLS.md",
+          "sha256": "c4fa0cd6311720b413018471a6ac9240e87db52af3b6e306ffb6684491f15898"
+        },
+        {
+          "path": "references/INP.md",
+          "sha256": "7d40cf6053e9bb8a8a77e02da7c6b25aa8e6c1c092b48d8f9c8f30e9b25cf3a7"
+        },
+        {
+          "path": "references/LCP.md",
+          "sha256": "522054d44b7a55409cbde511e8d365f7fa52399dd1e72b8d6b44a92ecddca81f"
+        }
+      ]
+    },
+    {
+      "name": "accessibility",
+      "directory": ".agents/skills/accessibility",
+      "origin": "github",
+      "repository": "https://github.com/addyosmani/web-quality-skills",
+      "upstreamPath": "skills/accessibility",
+      "commit": "afa8da942115f2961fdbfa80807ea0b232ff6c00",
+      "commitDate": "2026-08-24T21:07:33Z",
+      "pinnedSourceUrl": "https://github.com/addyosmani/web-quality-skills/tree/afa8da942115f2961fdbfa80807ea0b232ff6c00/skills/accessibility",
+      "licenseDeclared": "MIT",
+      "installation": "project-local via skill-installer download helper; supporting resources and license retained",
+      "reviewScope": "SKILL.md, task-relevant references, license provenance, script inventory; local read-only search exercised for ui-ux-pro-max only; not a full security audit",
+      "files": [
+        {
+          "path": "LICENSE",
+          "sha256": "c122223ac43e86421958e18623979942c21b642951e2e3736dcb63eff13587c3"
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "267fb2a0707d6142f2871f22688203a42ba21291a2aa200fb740936e41362b5d"
+        },
+        {
+          "path": "references/A11Y-PATTERNS.md",
+          "sha256": "f10e238dd4dd3c4f51134c2056bc02d3dd4f8fb6ccc9145c2c1ba7aab4d58140"
+        },
+        {
+          "path": "references/WCAG.md",
+          "sha256": "16683e025e3833d931c9d880645d98a448827f97e10189b6c8f12c832e7a2361"
+        }
+      ]
+    },
+    {
+      "name": "node",
+      "directory": ".agents/skills/node",
+      "origin": "github",
+      "repository": "https://github.com/mcollina/skills",
+      "upstreamPath": "skills/node",
+      "commit": "72b72751477157ebda36203eaffac701ac5df5ae",
+      "commitDate": "2026-10-03T10:45:06Z",
+      "pinnedSourceUrl": "https://github.com/mcollina/skills/tree/72b72751477157ebda36203eaffac701ac5df5ae/skills/node",
+      "licenseDeclared": "MIT",
+      "installation": "project-local via skill-installer --method git (Python TLS CA failed); root LICENSE retained; no hooks",
+      "reviewScope": "SKILL.md + async-patterns/performance/caching rules and LICENSE read; synthetic bounded scheduler demo; supporting asset code not executed; not full security audit",
+      "files": [
+        {
+          "path": "LICENSE",
+          "sha256": "55b21f8286eae11ad53f43c3e3ae5bc2797efbfda786087fb547b9a54655947e"
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "fa2888f4a2200985df1802469a2eea8652510276c188fa31878047bf9c63957e"
+        },
+        {
+          "path": "rules/assets/graceful-server.test.ts",
+          "sha256": "6f8b00df094c50a735f5ce8fbe8d95660e5be35c5ddc8517daaebe7f930a13bd"
+        },
+        {
+          "path": "rules/assets/graceful-server.ts",
+          "sha256": "1a5777071880d1e500d7b632a6725dd3486fb2da41610ba4e6317035d4b8b0a8"
+        },
+        {
+          "path": "rules/async-patterns.md",
+          "sha256": "2d7090311433b905e307f8ebee30e09a9d7a7472503f076950d8bc1cde28236e"
+        },
+        {
+          "path": "rules/caching.md",
+          "sha256": "2de838d89c88c76066c6fab8402c6c76237f39dfd0450db6366d24cd3104050f"
+        },
+        {
+          "path": "rules/environment.md",
+          "sha256": "93e19f5b6364abf7658283fac93fa60c0f7837964cb91095e671acef55315051"
+        },
+        {
+          "path": "rules/error-handling.md",
+          "sha256": "11a3509b3d4c0603a7432cf2005946d6c61f952b8c6ef7c6d5c22e93a4c4586c"
+        },
+        {
+          "path": "rules/flaky-tests.md",
+          "sha256": "6474eedd22c5861cfeaf985f3de56dbbc4d8d7dc9f37584a420b0446c213e970"
+        },
+        {
+          "path": "rules/graceful-shutdown.md",
+          "sha256": "1ae1ea0673e1a5591160afaec72e47dc5f234b0c1e4c566ee1541079fb364296"
+        },
+        {
+          "path": "rules/logging.md",
+          "sha256": "3ccf1285a5d6e1dbf6d9cf782ec4983b62bd2b378adbfb34407bb72831f89765"
+        },
+        {
+          "path": "rules/modules.md",
+          "sha256": "ce217cd4db681d8be3272b297e22ff6e3f50f735948b690248f6dd14aa2354ef"
+        },
+        {
+          "path": "rules/node-modules-exploration.md",
+          "sha256": "986a7d00b080ec993aa24c9555e520a6e10263ddc303f95126a54a33aa64e4a2"
+        },
+        {
+          "path": "rules/performance.md",
+          "sha256": "363b29d7042ad7bb8df54053d35336bf1748c7adab4d9f7a034a98ffed5af939"
+        },
+        {
+          "path": "rules/profiling.md",
+          "sha256": "d062f646b93dddaf4404003ce21177c9de4feae5f95e333f82d24536c223fc62"
+        },
+        {
+          "path": "rules/streams.md",
+          "sha256": "8ac9e6692519db72f762d826934ddce36d718fc9479d032d9d5e6797774b67d5"
+        },
+        {
+          "path": "rules/stuck-processes-and-tests.md",
+          "sha256": "822a38daf7ab9558bd7683c334e986a28056000bf161d5e4ac17d9174d598f38"
+        },
+        {
+          "path": "rules/testing.md",
+          "sha256": "208e888301a9117847eea1a1fbf32e52c1f556b2fcfa36ce3a0c78aab765b019"
+        },
+        {
+          "path": "rules/typescript.md",
+          "sha256": "4d31f5ee7c13ee4641c5dc588840a3ecf859c7fa77b82f35f913344aca08e4e1"
+        },
+        {
+          "path": "tile.json",
+          "sha256": "981428fab6a3f266fad731808de019bfb09626faf21b70c21d273fb2db3178a6"
+        }
+      ]
+    },
+    {
+      "name": "impeccable",
+      "directory": ".agents/skills/impeccable",
+      "origin": "github",
+      "repository": "https://github.com/pbakaus/impeccable",
+      "upstreamPath": ".agents/skills/impeccable",
+      "commit": "d631a8827f99414d2b6daba4ef08b7f8701751d7",
+      "commitDate": "2026-10-09T04:19:38Z",
+      "pinnedSourceUrl": "https://github.com/pbakaus/impeccable/tree/d631a8827f99414d2b6daba4ef08b7f8701751d7/.agents/skills/impeccable",
+      "licenseDeclared": "Apache-2.0; NOTICE attribution retained",
+      "installation": "skill-installer download helper, project-local; LICENSE + NOTICE from same commit; no hooks or global config changes",
+      "reviewScope": "SKILL, launcher, craft-floor, distill/layout/colorize/typeset and critique workflow read; context + deterministic detector run with temporary IMPECCABLE_HOME. Formal dual-agent critique not invoked. Not a full security audit",
+      "files": [
+        {
+          "path": "LICENSE",
+          "sha256": "02bb8c3b4e70190e3986c0404ad2fd8d639b4f534252d82379cc1b502b6d1812"
+        },
+        {
+          "path": "NOTICE.md",
+          "sha256": "c60a093c2845fd9fb82f9c6f742ece31f379f8190b535309d32d66c45ccffdcb"
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "58c0252bca04521de87007aeb495f7ec99dc4c7341bc890fe82b6d577573af91"
+        },
+        {
+          "path": "agents/impeccable_asset_producer.toml",
+          "sha256": "4dbdb0cfdc2466961da6b22d200f3ec7bf8bb47c27448a2e6e3c03cdbf589831"
+        },
+        {
+          "path": "agents/impeccable_documenter.toml",
+          "sha256": "2feb3768125ba6469c92a50d516727e6d42f44579165ddfd33409948e2a3803d"
+        },
+        {
+          "path": "agents/impeccable_finish_reviewer.toml",
+          "sha256": "d57c3e0453f601ad688911fca4471057c7b46b561fcd42a1e12a581101c5186c"
+        },
+        {
+          "path": "agents/impeccable_manual_edit_applier.toml",
+          "sha256": "6c9ce3e27ec4520ead001da3aad2a2ebba481c4e5cd22873db8890259ee579fe"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "cbd8bd68fa00935dd0f179adb169252629cf7ee443ea9dc7db77e7ef2cf77446"
+        },
+        {
+          "path": "reference/adapt.md",
+          "sha256": "871a8e4d749b807c693ebabd83defbd6c76e1bd2a0f53a28a460cb1308ba8634"
+        },
+        {
+          "path": "reference/adapt.native.md",
+          "sha256": "6acc0bf221a4ddc6e5c6438348920b2ca2393b29c4314dbde2cdc23f2b1a9639"
+        },
+        {
+          "path": "reference/android.md",
+          "sha256": "058f81f256134841875fd3183e06b37a023de0c877fd2b9eecd97011640791fe"
+        },
+        {
+          "path": "reference/animate.md",
+          "sha256": "d658c48ffbe0031e8e3b318996cad6ceafe29e40aa50d5bb25e4bf1d6839dc7c"
+        },
+        {
+          "path": "reference/audit.md",
+          "sha256": "41764be7bf974b95ee469f11c496714b4b3cf2ba594c0b8f838a0742680229a9"
+        },
+        {
+          "path": "reference/audit.native.md",
+          "sha256": "960cb922bc934adbf9192e9428ff6bec1f382038166f02a785939c93b7391067"
+        },
+        {
+          "path": "reference/bolder.md",
+          "sha256": "f964506c0fae87b3c2c1db7016ddc9be9ef970bbcf5548d684b997b5d5991586"
+        },
+        {
+          "path": "reference/clarify.md",
+          "sha256": "173dd66abe65633910dcb04a51f40d6ff2a793f87088f022a02fc4cad24dd133"
+        },
+        {
+          "path": "reference/colorize.md",
+          "sha256": "bc5f71f1129d0f2c310d913d07c8dc609a1d25644121bd78c308f42d52a0b9e9"
+        },
+        {
+          "path": "reference/component-review.md",
+          "sha256": "10489e5265e49a4ef2737cd0e674c149ed41e1f703efe922e53ea3c91e833427"
+        },
+        {
+          "path": "reference/craft-floor.md",
+          "sha256": "e802e4f7bdc89050a9c0f2ca506e1d493a2316e6e810c0336c57aa073717ef3e"
+        },
+        {
+          "path": "reference/craft.md",
+          "sha256": "9205e222bc6565b37fb504ceec93233c2d2a456802b69d16e6b1c44723907c4c"
+        },
+        {
+          "path": "reference/critique.md",
+          "sha256": "cb8caddbb3919e5bf7f252143b519fb16db28a244642d937b186cb89962d9201"
+        },
+        {
+          "path": "reference/degraded/asset-producer.md",
+          "sha256": "877d274f41500c780bad25b2bca7fa95eff1a32a7b95397dd388c72848e86a6c"
+        },
+        {
+          "path": "reference/degraded/documenter.md",
+          "sha256": "bcc05ea92faebb5c74037a9d4263a5ce9a56f5ab07c8ab3c59ee704d8cade745"
+        },
+        {
+          "path": "reference/degraded/finish-reviewer.md",
+          "sha256": "275dd1b6e63bbd30d2713227c4f79b880a8bc4e01cc48d392068bb86939d3afa"
+        },
+        {
+          "path": "reference/degraded/manual-edit-applier.md",
+          "sha256": "5fae7f8a2fc3ddd49ad0a413446dc44daedef5b6b7de5eb935bd2fbfad646d58"
+        },
+        {
+          "path": "reference/delight.md",
+          "sha256": "098a891028ce59c212b747d3c70468dd750aff7053a703d1336045ed31e0da7c"
+        },
+        {
+          "path": "reference/distill.md",
+          "sha256": "ea8432c90c30ecb0426662a681ead5c0941113079704e1a766cda09e85b15b4f"
+        },
+        {
+          "path": "reference/doctor.md",
+          "sha256": "3dbef3fe606de4de0f1b5cab5f19902799e05cf566eb8223e9aa1632eeb04698"
+        },
+        {
+          "path": "reference/document.md",
+          "sha256": "3673248740bcdd1122ccc610093ba2fe52f3943a61ce0b7170b74dc49e5b6098"
+        },
+        {
+          "path": "reference/extract.md",
+          "sha256": "31b90048c0b540daec46762a10c2b6b6434737a89af005054d8b848d829d003b"
+        },
+        {
+          "path": "reference/generate.md",
+          "sha256": "53628d05b7eff0d4f48b95e48fad40266452fe1b42f398bd88dd9328353e0dd8"
+        },
+        {
+          "path": "reference/harden.md",
+          "sha256": "16ba7fca1973c5faf53dd2ca523559129c0fe9e5f8d50b645f527afa78186cd2"
+        },
+        {
+          "path": "reference/hooks.md",
+          "sha256": "3e3209e6b45497c7aee8234f5be880399ed6d99db442dcf3e024f061cd2027ba"
+        },
+        {
+          "path": "reference/init.md",
+          "sha256": "da813ff325f84cefa1d01698caa093c78bca804d7e9746af14db925351266110"
+        },
+        {
+          "path": "reference/ios.md",
+          "sha256": "40c87038b5f75147a5952a96237acf312a327bf70c1bcd8e0a5f064625ae9668"
+        },
+        {
+          "path": "reference/layout.md",
+          "sha256": "0bc7d7971b3edf2acd0580e847458dc6d84129d90715b452799ace3bed815c7c"
+        },
+        {
+          "path": "reference/live-setup.md",
+          "sha256": "2b5b2fbf5f658f34ea1997fb1aeebe01604d05187f75c6a4f1f55a5bc78520a4"
+        },
+        {
+          "path": "reference/live.md",
+          "sha256": "68c5636a7858dd0b5137a9229c15e25fdc2ee40a0f8a4e9d809f78e809256262"
+        },
+        {
+          "path": "reference/mode-operate.md",
+          "sha256": "7a52dd7a94ee75f6ae89542c86a1b6e1d306812b16e0d9dbf12d4acad44d148b"
+        },
+        {
+          "path": "reference/mode-persuade.md",
+          "sha256": "21e78c8a77badb3f83290cd4577ed3b24bd4dd3b57136d7da75733d4f3ee9ac0"
+        },
+        {
+          "path": "reference/mode-read.md",
+          "sha256": "a569989e6a3d6453b4c45e9474e162a15cc54e11732ac6baa7990a6e7cccc0b5"
+        },
+        {
+          "path": "reference/new-work.md",
+          "sha256": "73f06ccc5ba8d1cd5324ed98f51d24273e5795170dc92332fe2b68c6a10ce50b"
+        },
+        {
+          "path": "reference/onboard.md",
+          "sha256": "ef2dde00030580ed2765cbf7be9b2ea4a6f64cb915b804fd6f6abcf38051c7b9"
+        },
+        {
+          "path": "reference/operate.md",
+          "sha256": "a9d2203acd45ca33a13d5c68b02b23ed512425ac15f0e8438318ed124b43729d"
+        },
+        {
+          "path": "reference/optimize.md",
+          "sha256": "f672ef8251a3ed4051a053d30819664951b17540b2899acd27d20e500c234abc"
+        },
+        {
+          "path": "reference/overdrive.md",
+          "sha256": "fce6688138d2ceb1e3d2cde5231f54b1d8dc8748b4c95a7919aa83b6f924cf96"
+        },
+        {
+          "path": "reference/polish.md",
+          "sha256": "81666fc7f783b4e3514db6554e713dc0479bd9cdedb06e93d15f8b579aae869a"
+        },
+        {
+          "path": "reference/quieter.md",
+          "sha256": "190a4e642ca362d7499f3c3ab123e21f18f75457d11f072b545a183f296e6495"
+        },
+        {
+          "path": "reference/region-map.md",
+          "sha256": "778cedc9199b407d3e23fa1041e38d548b00b1101a33517aa2a2eb299f9d0edc"
+        },
+        {
+          "path": "reference/routing.md",
+          "sha256": "77ae09542fbc10aa4e8b119d6fd19359908a47c13c30068d6a150bfdb50e3e10"
+        },
+        {
+          "path": "reference/shape.md",
+          "sha256": "a55f016c046cb6a27c55bd7f346375aeb506a755c4fbca19a5f92dbd42309c23"
+        },
+        {
+          "path": "reference/typeset.md",
+          "sha256": "442749aed338f51c1a3ccfb182c6ade9b74b90590b67984062ac94a5b100e914"
+        },
+        {
+          "path": "reference/visualize.md",
+          "sha256": "2bcec5b8d22e9f87799529a41b984d27b4379ab1b70e1dd4f63b6d6390275730"
+        },
+        {
+          "path": "scripts/VERSION",
+          "sha256": "9940d4b5219de8404015bc18af844c88d7e9e9105682a5d47b1d369d027dbd25"
+        },
+        {
+          "path": "scripts/command-metadata.json",
+          "sha256": "e8720f3aa41135211cc58cc299a39eeda86c75651f4279cc1ede8db10dcc0584"
+        },
+        {
+          "path": "scripts/data/font-index-failures.json",
+          "sha256": "835f19a0a3812f3652dd6979a2ce5597f654fd01f26e1b420b92d5f42b997ce4"
+        },
+        {
+          "path": "scripts/data/font-index.json",
+          "sha256": "47edbdfaf27073c47033d1ac7dfee881be49e2dcbda7671d1157300481dde6da"
+        },
+        {
+          "path": "scripts/impeccable",
+          "sha256": "39d9600489073e227e4f4d55c451ce4252a6632ed7ae37923efbbcbc91f16d07"
+        },
+        {
+          "path": "scripts/impeccable.cmd",
+          "sha256": "69cad1ae7355825ef320ac9638a1c9675ba9fda01c9a0fa12244cc4a1973e550"
+        },
+        {
+          "path": "scripts/live-browser-dom.js",
+          "sha256": "24f09f2597b9b55a1e2c4acd2ae5c95db5c8615cfc20aa07d1a3950538ad5c4a"
+        },
+        {
+          "path": "scripts/live-browser-ignores.js",
+          "sha256": "c1cb6877ca99a0c1b38ba0c7d59f32702d3022f6821d8045f7133f7c40b6362f"
+        },
+        {
+          "path": "scripts/live-browser-session.js",
+          "sha256": "42831c3cd874346d8e7f120808d91e6ed3cda5c3eca6eefd76b126659536bc87"
+        },
+        {
+          "path": "scripts/live-browser.js",
+          "sha256": "d7f1ee3fdfc423e90268e9c666dce61b2180b62431dbb6ecfc48bca65398a1f8"
+        },
+        {
+          "path": "scripts/modern-screenshot.umd.js",
+          "sha256": "bb36665889124a0b6e15f16045265737449c3bdcf2712cdb08af3cfa01563e2b"
+        }
+      ]
+    }
+  ],
+  "researchedRepositories": [
+    {
+      "repository": "https://github.com/anthropics/skills",
+      "commit": "683bc88e56f3e09ba94f7055977f3d3aa499f202",
+      "commitDate": "2026-10-05T13:46:42Z",
+      "licenseMetadata": null
+    },
+    {
+      "repository": "https://github.com/vercel-labs/agent-skills",
+      "commit": "063bee94c3f4df8453406c830b0a7df0f2860278",
+      "commitDate": "2026-08-28T13:36:07Z",
+      "licenseMetadata": null
+    },
+    {
+      "repository": "https://github.com/vercel-labs/next-skills",
+      "commit": "c522619e45aa3492fd2bfc916b308b275eff7798",
+      "commitDate": "2026-09-16T20:32:01Z",
+      "licenseMetadata": null
+    },
+    {
+      "repository": "https://github.com/supabase/agent-skills",
+      "commit": "c9be0e931b7930f7d02126d04774d904c381e7d7",
+      "commitDate": "2026-10-02T12:34:48Z",
+      "licenseMetadata": "MIT"
+    },
+    {
+      "repository": "https://github.com/LottieFiles/motion-design-skill",
+      "commit": "f9a8a041b85185ee4881b3471d3415e939aac772",
+      "commitDate": "2026-05-18T11:30:13Z",
+      "licenseMetadata": "MIT"
+    },
+    {
+      "repository": "https://github.com/OthmanAdi/planning-with-files",
+      "commit": "41f60aeca8bae0b145ec0e9421a7abd747ae2b69",
+      "commitDate": "2026-10-06T16:31:31Z",
+      "licenseMetadata": "MIT"
+    },
+    {
+      "repository": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "commit": "58b55a8921758d13453b440704fb1b5b208c0b0e",
+      "commitDate": "2026-10-01T05:58:33Z",
+      "licenseMetadata": "MIT"
+    },
+    {
+      "repository": "https://github.com/google-gemini/gemini-skills",
+      "commit": "832c8f94114dc343d86ff27296fe9335b45affa0",
+      "commitDate": "2026-10-06T16:53:58Z",
+      "licenseMetadata": "Apache-2.0"
+    },
+    {
+      "repository": "https://github.com/openai/skills",
+      "commit": "49f948faa9258a0c61caceaf225e179651397431",
+      "commitDate": "2026-06-24T02:36:12Z",
+      "licenseMetadata": null
+    },
+    {
+      "repository": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+      "commit": "1a2c459b35f26116fd165b0a0f30597f252749ff",
+      "commitDate": "2026-10-08T05:06:09Z",
+      "licenseMetadata": "MIT"
+    },
+    {
+      "repository": "https://github.com/zhouwei713/english-learning-coach-skill",
+      "commit": "fe84b34287fa4385d4ab69cb064b57208d2b4058",
+      "commitDate": "2026-06-06T12:00:38Z",
+      "licenseMetadata": "NOASSERTION"
+    },
+    {
+      "repository": "https://github.com/mblode/agent-skills",
+      "commit": "5a781a88ed60c1033767b6b6a966887cd93dd912",
+      "commitDate": "2026-10-08T20:38:02Z",
+      "licenseMetadata": "MIT"
+    },
+    {
+      "repository": "https://github.com/addyosmani/web-quality-skills",
+      "commit": "afa8da942115f2961fdbfa80807ea0b232ff6c00",
+      "commitDate": "2026-08-24T21:07:33Z",
+      "licenseMetadata": "MIT"
+    }
+  ],
+  "policy": "Project-local skills pinned by commit/checksum; no lifecycle hooks or automatic latest updates. Read-only UI/UX CSV search executed without persist. User explicitly authorized InspoMCP Codex configuration and research; tracked separately in docs/design/inspo-research.md. Project spec and user instructions remain authoritative."
+}

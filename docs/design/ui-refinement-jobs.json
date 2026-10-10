@@ -1,0 +1,87 @@
+{
+  "date": "2026-10-09",
+  "reason": "Founder correction: recognizable face-free objects, equal game answers, compact colored results; Impeccable distill/layout/colorize",
+  "jobs": [
+    {
+      "screenId": "S01",
+      "reference": "/Users/trunglk/Documents/trung-github/VocabularyNotes/docs/design/mockups/s01-words-for-kids-theme-c-v1.png",
+      "output": "docs/design/mockups/s01-words-for-kids-theme-c-v2.png",
+      "promptPath": "docs/design/prompts/s01-words-for-kids-theme-c-v2.txt",
+      "prompt": "Use case: ui-mockup edit. Edit this exact Words for Kids screen for children aged 5–8. Keep the original coral fox mascot, warm berry/yellow/mint/lilac palette, Vietnamese typography and product content. Learning illustrations must look like recognizable real objects drawn as simple cute flat cartoons: no eyes, mouths, smile, cheeks, faces, limbs or anthropomorphism on fruit, objects, bowls, sun or stars. Keep natural faces of the fox, cat and human children. Do not introduce new features, navigation or brand. No watermark.\n\nMake ONLY the learning-image correction across this screen, including images on flashcards, phones, laptops, brand cards and lesson tiles: erase every face/eye/mouth/cheek from all fruit, bowl, objects and sun; reconstruct natural plain surfaces and highlights. The apple stays apple-shaped with its stem and green leaf. Food bowl and fruit are recognizable ordinary objects, cute via simplified shape and color. Preserve all text, exact layout, buttons, mascot and human faces. Keep brand apple plain too.\n\nKeep the same portrait canvas as the input. Render crisp polished readable UI, not a photograph of a device.",
+      "status": "generated_self_reviewed",
+      "sha256": "250972de95050abfe4359ea48d078b0f5a7b9239bcf7aaacc709aa2f89ed9e9d"
+    },
+    {
+      "screenId": "S02",
+      "reference": "/Users/trunglk/Documents/trung-github/VocabularyNotes/docs/design/mockups/s02-words-for-kids-theme-c-v2.png",
+      "output": "docs/design/mockups/s02-words-for-kids-theme-c-v3.png",
+      "promptPath": "docs/design/prompts/s02-words-for-kids-theme-c-v3.txt",
+      "prompt": "Use case: ui-mockup edit. Edit this exact Words for Kids screen for children aged 5–8. Keep the original coral fox mascot, warm berry/yellow/mint/lilac palette, Vietnamese typography and product content. Learning illustrations must look like recognizable real objects drawn as simple cute flat cartoons: no eyes, mouths, smile, cheeks, faces, limbs or anthropomorphism on fruit, objects, bowls, sun or stars. Keep natural faces of the fox, cat and human children. Do not introduce new features, navigation or brand. No watermark.\n\nMake ONLY the learning-image correction across this screen, including images on flashcards, phones, laptops, brand cards and lesson tiles: erase every face/eye/mouth/cheek from all fruit, bowl, objects and sun; reconstruct natural plain surfaces and highlights. The apple stays apple-shaped with its stem and green leaf. Food bowl and fruit are recognizable ordinary objects, cute via simplified shape and color. Preserve all text, exact layout, buttons, mascot and human faces. Keep brand apple plain too.\n\nKeep the same portrait canvas as the input. Render crisp polished readable UI, not a photograph of a device.",
+      "status": "generated_self_reviewed",
+      "sha256": "783b8e9da9fd599a7cbed3500bf8f777ad07bb613ce0167b42b25157e6101ef3"
+    },
+    {
+      "screenId": "S03",
+      "reference": "/Users/trunglk/Documents/trung-github/VocabularyNotes/docs/design/mockups/s03-words-for-kids-theme-c-v1.png",
+      "output": "docs/design/mockups/s03-words-for-kids-theme-c-v2.png",
+      "promptPath": "docs/design/prompts/s03-words-for-kids-theme-c-v2.txt",
+      "prompt": "Use case: ui-mockup edit. Edit this exact Words for Kids screen for children aged 5–8. Keep the original coral fox mascot, warm berry/yellow/mint/lilac palette, Vietnamese typography and product content. Learning illustrations must look like recognizable real objects drawn as simple cute flat cartoons: no eyes, mouths, smile, cheeks, faces, limbs or anthropomorphism on fruit, objects, bowls, sun or stars. Keep natural faces of the fox, cat and human children. Do not introduce new features, navigation or brand. No watermark.\n\nMake ONLY the learning-image correction across this screen, including images on flashcards, phones, laptops, brand cards and lesson tiles: erase every face/eye/mouth/cheek from all fruit, bowl, objects and sun; reconstruct natural plain surfaces and highlights. The apple stays apple-shaped with its stem and green leaf. Food bowl and fruit are recognizable ordinary objects, cute via simplified shape and color. Preserve all text, exact layout, buttons, mascot and human faces. Keep brand apple plain too.\n\nKeep the same portrait canvas as the input. Render crisp polished readable UI, not a photograph of a device.",
+      "status": "generated_self_reviewed",
+      "sha256": "2055b4cec039d1f1ee5c9508c5389f5f33cb957c0e37d4d4878f42da22dc495e"
+    },
+    {
+      "screenId": "S09",
+      "reference": "/Users/trunglk/Documents/trung-github/VocabularyNotes/docs/design/mockups/s09-words-for-kids-theme-c-v1.png",
+      "output": "docs/design/mockups/s09-words-for-kids-theme-c-v2.png",
+      "promptPath": "docs/design/prompts/s09-words-for-kids-theme-c-v2.txt",
+      "prompt": "Use case: ui-mockup edit. Edit this exact Words for Kids screen for children aged 5–8. Keep the original coral fox mascot, warm berry/yellow/mint/lilac palette, Vietnamese typography and product content. Learning illustrations must look like recognizable real objects drawn as simple cute flat cartoons: no eyes, mouths, smile, cheeks, faces, limbs or anthropomorphism on fruit, objects, bowls, sun or stars. Keep natural faces of the fox, cat and human children. Do not introduce new features, navigation or brand. No watermark.\n\nMake ONLY the learning-image correction across this screen, including images on flashcards, phones, laptops, brand cards and lesson tiles: erase every face/eye/mouth/cheek from all fruit, bowl, objects and sun; reconstruct natural plain surfaces and highlights. The apple stays apple-shaped with its stem and green leaf. Food bowl and fruit are recognizable ordinary objects, cute via simplified shape and color. Preserve all text, exact layout, buttons, mascot and human faces. Keep brand apple plain too.\n\nKeep the same portrait canvas as the input. Render crisp polished readable UI, not a photograph of a device.",
+      "status": "generated_self_reviewed",
+      "sha256": "96b2f876ee6b61880b68603b3e732ecb110e008e14a3f8c9f4b00d2f6731297c"
+    },
+    {
+      "screenId": "S11",
+      "reference": "/Users/trunglk/Documents/trung-github/VocabularyNotes/docs/design/mockups/s11-words-for-kids-theme-c-v1.png",
+      "output": "docs/design/mockups/s11-words-for-kids-theme-c-v2.png",
+      "promptPath": "docs/design/prompts/s11-words-for-kids-theme-c-v2.txt",
+      "prompt": "Use case: ui-mockup edit. Edit this exact Words for Kids screen for children aged 5–8. Keep the original coral fox mascot, warm berry/yellow/mint/lilac palette, Vietnamese typography and product content. Learning illustrations must look like recognizable real objects drawn as simple cute flat cartoons: no eyes, mouths, smile, cheeks, faces, limbs or anthropomorphism on fruit, objects, bowls, sun or stars. Keep natural faces of the fox, cat and human children. Do not introduce new features, navigation or brand. No watermark.\n\nMake ONLY the learning-image correction across this screen, including images on flashcards, phones, laptops, brand cards and lesson tiles: erase every face/eye/mouth/cheek from all fruit, bowl, objects and sun; reconstruct natural plain surfaces and highlights. The apple stays apple-shaped with its stem and green leaf. Food bowl and fruit are recognizable ordinary objects, cute via simplified shape and color. Preserve all text, exact layout, buttons, mascot and human faces. Keep brand apple plain too.\n\nKeep the same portrait canvas as the input. Render crisp polished readable UI, not a photograph of a device.",
+      "status": "generated_self_reviewed",
+      "sha256": "f93db74241346273a53c4272921be0af079f12fb766d918fd0014f12d89be1d7"
+    },
+    {
+      "screenId": "S12",
+      "reference": "/Users/trunglk/Documents/trung-github/VocabularyNotes/docs/design/mockups/s12-words-for-kids-theme-c-v1.png",
+      "output": "docs/design/mockups/s12-words-for-kids-theme-c-v2.png",
+      "promptPath": "docs/design/prompts/s12-words-for-kids-theme-c-v2.txt",
+      "prompt": "Use case: ui-mockup edit. Edit this exact Words for Kids screen for children aged 5–8. Keep the original coral fox mascot, warm berry/yellow/mint/lilac palette, Vietnamese typography and product content. Learning illustrations must look like recognizable real objects drawn as simple cute flat cartoons: no eyes, mouths, smile, cheeks, faces, limbs or anthropomorphism on fruit, objects, bowls, sun or stars. Keep natural faces of the fox, cat and human children. Do not introduce new features, navigation or brand. No watermark.\n\nMake ONLY the learning-image correction across this screen, including images on flashcards, phones, laptops, brand cards and lesson tiles: erase every face/eye/mouth/cheek from all fruit, bowl, objects and sun; reconstruct natural plain surfaces and highlights. The apple stays apple-shaped with its stem and green leaf. Food bowl and fruit are recognizable ordinary objects, cute via simplified shape and color. Preserve all text, exact layout, buttons, mascot and human faces. Keep brand apple plain too.\n\nKeep the same portrait canvas as the input. Render crisp polished readable UI, not a photograph of a device.",
+      "status": "generated_self_reviewed",
+      "sha256": "5ba97d5f063cee3cfd5de9548d416177964bb068597a5208c6f4524eae6f58a1"
+    },
+    {
+      "screenId": "S13",
+      "reference": "/Users/trunglk/Documents/trung-github/VocabularyNotes/docs/design/mockups/s13-words-for-kids-theme-c-v1.png",
+      "output": "docs/design/mockups/s13-words-for-kids-theme-c-v2.png",
+      "promptPath": "docs/design/prompts/s13-words-for-kids-theme-c-v2.txt",
+      "prompt": "Use case: ui-mockup edit. Edit this exact Words for Kids screen for children aged 5–8. Keep the original coral fox mascot, warm berry/yellow/mint/lilac palette, Vietnamese typography and product content. Learning illustrations must look like recognizable real objects drawn as simple cute flat cartoons: no eyes, mouths, smile, cheeks, faces, limbs or anthropomorphism on fruit, objects, bowls, sun or stars. Keep natural faces of the fox, cat and human children. Do not introduce new features, navigation or brand. No watermark.\n\nRecompose the game for excellent child UX. Keep top close/progress 1 / 10/pause and heading Nghe và chọn hình. Under it a compact pale-yellow audio prompt with berry Nghe button and word apple. Put THREE IDENTICALLY SIZED image answer tiles on ONE horizontal row, each with same framing and scale: recognizable plain red apple, yellow banana, purple grapes. They must be equally weighted, no 2+1 arrangement, no tile bigger than another. Use mint, yellow and lilac solid backgrounds. Show apple selected with a green outline and check icon while all images stay fully saturated. Beneath tiles show one compact mint feedback row: Đúng rồi! and apple · quả táo. Then one berry primary button Câu tiếp theo. Reduce the fox to a small supportive character beside feedback or omit it if crowded. Compact balanced proportions, no diagnostic controls, no oversized blank cards, no text-only noise. Everything needed to answer and continue is clearly visible together.\n\nKeep the same portrait canvas as the input. Render crisp polished readable UI, not a photograph of a device.",
+      "status": "generated_self_reviewed",
+      "sha256": "201d0bf344737e2fa38f453494d2a968490093b3dbe96fdfab9d2d88a3f9384c"
+    },
+    {
+      "screenId": "S14",
+      "reference": "/Users/trunglk/Documents/trung-github/VocabularyNotes/docs/design/mockups/s14-words-for-kids-theme-c-v1.png",
+      "output": "docs/design/mockups/s14-words-for-kids-theme-c-v2.png",
+      "promptPath": "docs/design/prompts/s14-words-for-kids-theme-c-v2.txt",
+      "prompt": "Use case: ui-mockup edit. Edit this exact Words for Kids screen for children aged 5–8. Keep the original coral fox mascot, warm berry/yellow/mint/lilac palette, Vietnamese typography and product content. Learning illustrations must look like recognizable real objects drawn as simple cute flat cartoons: no eyes, mouths, smile, cheeks, faces, limbs or anthropomorphism on fruit, objects, bowls, sun or stars. Keep natural faces of the fox, cat and human children. Do not introduce new features, navigation or brand. No watermark.\n\nSimplify the results hierarchy. Main heading Con chơi xong rồi! Keep product header. Use one compact warm-yellow success area with 10 câu đã chơi and small original fox, never a giant mascot competing with scores. Three short equally sized score cells on one row: mint with check 7 đúng; coral pink with cross 2 sai; lilac with skip arrow 1 bỏ qua. A small inline bulb note Gợi ý ở 2 câu, no separate large white card for this note. Under Cùng xem lại show banana and grapes in compact recognizable face-free word rows with word, Vietnamese meaning and audio button. Main berry button Ôn lại từ khó, secondary Về Hôm nay. Remove repetitive supporting copy and reduce unnecessary stacked containers. Cheerful stronger color and clear space between groups; no confetti forest, no claim of mastery.\n\nKeep the same portrait canvas as the input. Render crisp polished readable UI, not a photograph of a device.",
+      "status": "generated_self_reviewed",
+      "sha256": "1255410f90206ff8fd4365a3a674125c733242d77ed954868fc414cf1bc260dd"
+    },
+    {
+      "screenId": "S15",
+      "reference": "/Users/trunglk/Documents/trung-github/VocabularyNotes/docs/design/mockups/s15-words-for-kids-theme-c-v1.png",
+      "output": "docs/design/mockups/s15-words-for-kids-theme-c-v2.png",
+      "promptPath": "docs/design/prompts/s15-words-for-kids-theme-c-v2.txt",
+      "prompt": "Use case: ui-mockup edit. Edit this exact Words for Kids screen for children aged 5–8. Keep the original coral fox mascot, warm berry/yellow/mint/lilac palette, Vietnamese typography and product content. Learning illustrations must look like recognizable real objects drawn as simple cute flat cartoons: no eyes, mouths, smile, cheeks, faces, limbs or anthropomorphism on fruit, objects, bowls, sun or stars. Keep natural faces of the fox, cat and human children. Do not introduce new features, navigation or brand. No watermark.\n\nMake ONLY the learning-image correction across this screen, including images on flashcards, phones, laptops, brand cards and lesson tiles: erase every face/eye/mouth/cheek from all fruit, bowl, objects and sun; reconstruct natural plain surfaces and highlights. The apple stays apple-shaped with its stem and green leaf. Food bowl and fruit are recognizable ordinary objects, cute via simplified shape and color. Preserve all text, exact layout, buttons, mascot and human faces. Keep brand apple plain too.\n\nKeep the same portrait canvas as the input. Render crisp polished readable UI, not a photograph of a device.",
+      "status": "generated_self_reviewed",
+      "sha256": "ecf2bd25e59a21a1e900e73cfddbcb3c54f38b3d7fcc0ea8aa91c3505d99cb3f"
+    }
+  ]
+}

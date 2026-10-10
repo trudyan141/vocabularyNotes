@@ -1,0 +1,51 @@
+name: App checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: app-checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      NEXT_TELEMETRY_DISABLED: "1"
+      AI_PROVIDER: none
+      APP_DEMO_MODE: "true"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: sudo apt-get update && sudo apt-get install -y postgresql
+      - run: echo "TASK_PG_BIN=$(pg_config --bindir)" >> "$GITHUB_ENV"
+      - run: pnpm test:sql
+      - run: pnpm test:e2e
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m venv .venv-docs
+      - run: .venv-docs/bin/pip install -r docs/requirements-validation.txt
+      - run: .venv-docs/bin/python scripts/validate_docs.py --full
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: browser-test-failure
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7

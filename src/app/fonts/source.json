@@ -1,0 +1,15 @@
+{
+  "family": "Nunito",
+  "repository": "google/fonts",
+  "commit": "8b0a1d0f5983c89bc2b93f1b5fb55f9e252744b5",
+  "upstreamPath": "ofl/nunito",
+  "license": "SIL Open Font License 1.1",
+  "file": "nunito-variable.ttf",
+  "sha256": "bb55a5ca5c2042335b3991af27c4d0705d0ef41cac6164ac737fd8f2a1e85207",
+  "bytes": 276932,
+  "use": "Self-hosted prototype; Latin + Vietnamese glyphs from upstream full font",
+  "servedFile": "nunito-variable.woff2",
+  "servedBytes": 101028,
+  "servedSha256": "9171db32ee7a119be39ebd591b859162d23c229b414dd5a51a016b2d13857cee",
+  "conversion": "fontTools WOFF2; full glyph set + variable weights retained"
+}

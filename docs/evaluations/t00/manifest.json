@@ -1,0 +1,171 @@
+{
+  "datasetVersion": "synthetic-worksheet-v1",
+  "groundTruthReview": "agent-authored; human review pending",
+  "rendererSha256": "e463e01ea974a40981509e63d8e3209c17408ce2e031d76167d8ba11eb6e70f4",
+  "casesSha256": "bedfbdfa4b5eca5026d37a39af65190e9ac6eea581c880c81faa1a57c077b69e",
+  "schemaSha256": "2a335db4767408af3c0d890dc38e9c8821f80f1d5dbe5648e226f5a48849ae57",
+  "promptSha256": "0edb5c95e4e62f9c62a836742d1995b129adf5c640d0587609b7d7ea9e678482",
+  "browserVersion": "156.0.8078.4",
+  "images": [
+    {
+      "caseId": "01-fruit",
+      "file": "images/01-fruit.png",
+      "sha256": "6854e07900b1e21e8144a370bfd622ac5e6279d5d29d9c43ed954cc1803470b5",
+      "bytes": 25284,
+      "width": 1100,
+      "height": 1556
+    },
+    {
+      "caseId": "02-school",
+      "file": "images/02-school.png",
+      "sha256": "40f2a4d67a7159ec9d017ed24517fee4416e01e2018a6d8908857bb8dd7bf89a",
+      "bytes": 22712,
+      "width": 1100,
+      "height": 1556
+    },
+    {
+      "caseId": "03-food",
+      "file": "images/03-food.png",
+      "sha256": "131606d124b16eaee283723dad6df1f0f7617b29a937a121b427eca476b7e915",
+      "bytes": 20655,
+      "width": 1100,
+      "height": 1556
+    },
+    {
+      "caseId": "04-animals",
+      "file": "images/04-animals.png",
+      "sha256": "2037196cdc38cb559f326a8421dcb4c6f376a944910a763883845bbfc7fbe506",
+      "bytes": 21313,
+      "width": 1100,
+      "height": 1556
+    },
+    {
+      "caseId": "05-mixed",
+      "file": "images/05-mixed.png",
+      "sha256": "37548667b6829b5901e7dc7dae9ea46d698a06c3a4d65cce7f685549659b922d",
+      "bytes": 29351,
+      "width": 1100,
+      "height": 1556
+    },
+    {
+      "caseId": "06-cursive",
+      "file": "images/06-cursive.png",
+      "sha256": "75963e62766da1dd6ee5d98fd53e769fe34308e4b062e05e5dcab6888e96f4d4",
+      "bytes": 28437,
+      "width": 1100,
+      "height": 1556
+    },
+    {
+      "caseId": "07-shadow",
+      "file": "images/07-shadow.png",
+      "sha256": "915f7f6751945a2dacddd1aee8d6e53b955824f30162850f8cf40da260be5d11",
+      "bytes": 135438,
+      "width": 1100,
+      "height": 1556
+    },
+    {
+      "caseId": "08-glare",
+      "file": "images/08-glare.png",
+      "sha256": "ccbcff53cb68e3be6d9cba44a5e4fd2a6e0ce7ab16934441b85cbf337c98e87f",
+      "bytes": 21382,
+      "width": 1100,
+      "height": 1556
+    },
+    {
+      "caseId": "09-skew",
+      "file": "images/09-skew.png",
+      "sha256": "7f22ff1e660d89814527cdc10184248f44a53fbddce41f6bddebc92c9ab24d2e",
+      "bytes": 31393,
+      "width": 1100,
+      "height": 1556
+    },
+    {
+      "caseId": "10-small",
+      "file": "images/10-small.png",
+      "sha256": "19616635b6508e3b5d930e2d506eb2d31975398fb7e190d0a1330b2b6fe5d933",
+      "bytes": 20280,
+      "width": 1100,
+      "height": 1556
+    },
+    {
+      "caseId": "11-repeat",
+      "file": "images/11-repeat.png",
+      "sha256": "fb19cca56c6117406fa403a3fe46869129c41c455cdcce0f142d109eea2cce24",
+      "bytes": 23723,
+      "width": 1100,
+      "height": 1556
+    },
+    {
+      "caseId": "12-senses",
+      "file": "images/12-senses.png",
+      "sha256": "ec38046b8d4e52c0d33315bd55355b4f8eaf3bd869018ec47d6504b3ec3b1c2b",
+      "bytes": 33840,
+      "width": 1100,
+      "height": 1556
+    },
+    {
+      "caseId": "13-sentence",
+      "file": "images/13-sentence.png",
+      "sha256": "6e08bea8184daf75b0c507299e15d65dcccd346f17b4c464649f8cfb944f139a",
+      "bytes": 20040,
+      "width": 1100,
+      "height": 1556
+    },
+    {
+      "caseId": "14-articles",
+      "file": "images/14-articles.png",
+      "sha256": "0ef2ee71913bac1903f1d81bbfc0de7e983c0f17de2b82f2c015a18a80957096",
+      "bytes": 25158,
+      "width": 1100,
+      "height": 1556
+    },
+    {
+      "caseId": "15-phrase",
+      "file": "images/15-phrase.png",
+      "sha256": "d5ba1cb58245ab2cce1753f87293b1105e36569fbd7e42b814c51d06d12eb0bc",
+      "bytes": 23029,
+      "width": 1100,
+      "height": 1556
+    },
+    {
+      "caseId": "16-inferred",
+      "file": "images/16-inferred.png",
+      "sha256": "8b8d51bf31519963299fef0f40b288e51c789638f0f0f5902e3e739cdd3933f3",
+      "bytes": 20704,
+      "width": 1100,
+      "height": 1556
+    },
+    {
+      "caseId": "17-vietnamese",
+      "file": "images/17-vietnamese.png",
+      "sha256": "d1cf22ac47c15ef8605735f915f22d3897778d1dfd8ee474ba4811bcc19074a5",
+      "bytes": 32311,
+      "width": 1100,
+      "height": 1556
+    },
+    {
+      "caseId": "18-injection",
+      "file": "images/18-injection.png",
+      "sha256": "c75eb7ef07a78c77d326b9ed949b6f71134c8c5d2b3f6fe73965e34f7ecd9b87",
+      "bytes": 41363,
+      "width": 1100,
+      "height": 1556
+    },
+    {
+      "caseId": "19-metadata",
+      "file": "images/19-metadata.png",
+      "sha256": "b8c1335c7063877b87e8e688564575a00793d02966878e297630fdbc4df6762c",
+      "bytes": 35851,
+      "width": 1100,
+      "height": 1556
+    },
+    {
+      "caseId": "20-blur",
+      "file": "images/20-blur.png",
+      "sha256": "c1b0011840597b3c19a632dff9c1358638b850fce4957afcc388ca0068b35038",
+      "bytes": 30936,
+      "width": 1100,
+      "height": 1556
+    }
+  ]
+}

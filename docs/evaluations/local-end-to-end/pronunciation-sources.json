@@ -1,0 +1,108 @@
+{
+  "checkedOn": "2026-10-10",
+  "scope": "Catalog headword IPA checked against source excerpts; not dictionary audio licensing or sentence IPA",
+  "entries": [
+    {
+      "word": "apple",
+      "ipa": "/ˈæp.əl/",
+      "accent": "UK",
+      "sourceUrl": "https://dictionary.cambridge.org/pronunciation/english/apple"
+    },
+    {
+      "word": "banana",
+      "ipa": "/bəˈnɑː.nə/",
+      "accent": "UK",
+      "sourceUrl": "https://dictionary.cambridge.org/pronunciation/english/banana"
+    },
+    {
+      "word": "orange",
+      "ipa": "/ˈɒr.ɪndʒ/",
+      "accent": "UK",
+      "sourceUrl": "https://dictionary.cambridge.org/pronunciation/english/orange"
+    },
+    {
+      "word": "milk",
+      "ipa": "/mɪlk/",
+      "accent": "UK",
+      "sourceUrl": "https://dictionary.cambridge.org/pronunciation/english/milk"
+    },
+    {
+      "word": "bread",
+      "ipa": "/bred/",
+      "accent": "UK",
+      "sourceUrl": "https://dictionary.cambridge.org/pronunciation/english/bread"
+    },
+    {
+      "word": "water",
+      "ipa": "/ˈwɑː.t̬ɚ/",
+      "accent": "US",
+      "sourceUrl": "https://dictionary.cambridge.org/pronunciation/english/water"
+    },
+    {
+      "word": "egg",
+      "ipa": "/eɡ/",
+      "accent": "UK",
+      "sourceUrl": "https://dictionary.cambridge.org/pronunciation/english/egg"
+    },
+    {
+      "word": "bag",
+      "ipa": "/bæɡ/",
+      "accent": "UK",
+      "sourceUrl": "https://dictionary.cambridge.org/pronunciation/english/bag"
+    },
+    {
+      "word": "pen",
+      "ipa": "/pen/",
+      "accent": "UK",
+      "sourceUrl": "https://dictionary.cambridge.org/pronunciation/english/pen"
+    },
+    {
+      "word": "cat",
+      "ipa": "/kæt/",
+      "accent": "UK",
+      "sourceUrl": "https://dictionary.cambridge.org/pronunciation/english/cat"
+    },
+    {
+      "word": "dog",
+      "ipa": "/dɒɡ/",
+      "accent": "UK",
+      "sourceUrl": "https://dictionary.cambridge.org/pronunciation/english/dog"
+    },
+    {
+      "word": "fish",
+      "ipa": "/fɪʃ/",
+      "accent": "UK",
+      "sourceUrl": "https://dictionary.cambridge.org/pronunciation/english/fish"
+    },
+    {
+      "word": "tree",
+      "ipa": "/triː/",
+      "accent": "UK",
+      "sourceUrl": "https://dictionary.cambridge.org/pronunciation/english/tree"
+    },
+    {
+      "word": "bird",
+      "ipa": "/bɜːd/",
+      "accent": "UK",
+      "sourceUrl": "https://dictionary.cambridge.org/pronunciation/english/bird"
+    },
+    {
+      "word": "sun",
+      "ipa": "/sʌn/",
+      "accent": "UK",
+      "sourceUrl": "https://dictionary.cambridge.org/pronunciation/english/sun"
+    },
+    {
+      "word": "car",
+      "ipa": "/kɑːr/",
+      "accent": "US",
+      "sourceUrl": "https://dictionary.cambridge.org/pronunciation/english/car"
+    },
+    {
+      "word": "bank",
+      "ipa": "/bæŋk/",
+      "accent": "UK",
+      "sourceUrl": "https://dictionary.cambridge.org/pronunciation/english/bank"
+    }
+  ]
+}

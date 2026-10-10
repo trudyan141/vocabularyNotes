@@ -1,0 +1,19 @@
+"use client";
+import { useRef, useState } from "react";
+import Link from "next/link";
+import { useLiveQuery } from "dexie-react-hooks";
+import { useApp } from "@/components/app/provider";
+import { Button } from "@/components/ui/button";
+import { exportBackup, importBackup, parseBackup, type Backup } from "@/data/local/backup";
+export function LibraryTools(){
+  const {repository,t}=useApp();const [status,setStatus]=useState("");const [backup,setBackup]=useState<Backup|null>(null);const [busy,setBusy]=useState(false);const input=useRef<HTMLInputElement>(null);
+  const pending=useLiveQuery(async()=>repository?{scope:repository.scope.id,words:(await repository.search("",{limit:100})).words.filter(w=>!w.approved)}:null,[repository]);
+  return <section className="page-flow"><h2>{t("Giữ bài học của con","Keep your child's words")}</h2><p>{t("Xuất bản sao từ, nghĩa, ví dụ, cách đọc và ghi chú. Ảnh nháp và lịch ôn chưa nằm trong bản sao này.","Export words, meanings, examples, pronunciation and notes. Image drafts and review schedules are not included in this text backup.")}</p>
+    <div className="row-wrap"><Button variant="outline" disabled={!repository||busy} onClick={async()=>{if(!repository)return;setBusy(true);try{const data=await exportBackup(repository);const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));const link=document.createElement("a");link.href=url;link.download=`words-for-kids-${new Date().toISOString().slice(0,10)}.json`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);setStatus(t("Đã tạo bản sao từ và ghi chú.","Text backup created."));}catch{setStatus(t("Chưa xuất được; dữ liệu trên máy còn nguyên.","Export failed; local content is intact."));}finally{setBusy(false);}}}>{t("Xuất từ và ghi chú","Export words and notes")}</Button>
+    <Button variant="outline" disabled={busy} onClick={()=>input.current?.click()}>{t("Chọn bản sao để khôi phục","Choose a text backup")}</Button>
+    <input ref={input} type="file" accept="application/json,.json" aria-label={t("File bản sao","Backup file")} hidden onChange={async e=>{const file=e.target.files?.[0];e.target.value="";if(!file)return;setBusy(true);setBackup(null);try{if(file.size>20_000_000)throw new Error("size");setBackup(await parseBackup(await file.text()));setStatus("");}catch{setStatus(t("File không hợp lệ hoặc checksum không khớp. Thư viện chưa thay đổi.","Invalid file or checksum mismatch. Library unchanged."));}finally{setBusy(false);}}}/></div>
+    {backup&&<div className="page-flow"><p>{backup.words.length} {t("từ", "words")} · {backup.notes.length} {t("ghi chú; mục trùng giữ bản đang có, mục mới chờ bố mẹ duyệt.","notes; duplicates preserve existing content, new items need parent review.")}</p><Button disabled={busy||!repository} onClick={async()=>{if(!repository||!backup)return;setBusy(true);try{const result=await importBackup(repository,backup);setBackup(null);setStatus(t(`Đã thêm ${result.added} từ, liên kết ${result.linked} từ đã có. Duyệt mục mới bên dưới.`,`Added ${result.added}, linked ${result.linked} existing words. Review new items below.`));}catch{setStatus(t("Khôi phục chưa xong; giữ file và thử lại. Từ đã lưu không bị ghi đè.","Restore incomplete; keep the file and retry. Existing words are preserved."));}finally{setBusy(false);}}}>{t("Khôi phục các từ","Restore words")}</Button><Button variant="ghost" onClick={()=>setBackup(null)}>{t("Hủy","Cancel")}</Button></div>}
+    <p role="status">{status}</p>
+    {pending&&pending.scope===repository?.scope.id&&pending.words.length>0&&<div><h3>{t("Từ chờ bố mẹ duyệt","Words awaiting review")}</h3>{pending.words.map(word=><div key={word.id} className="row-wrap"><span>{word.word} · {word.vi}</span><Button asChild variant="outline"><Link prefetch={false} href={`/library/words/${word.id}/edit`}>{t("Kiểm nghĩa, ví dụ và duyệt","Review meanings and examples")}</Link></Button></div>)}</div>}
+  </section>;
+}

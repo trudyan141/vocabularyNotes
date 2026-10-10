@@ -1,0 +1,62 @@
+[
+  {
+    "name": "today",
+    "width": 360,
+    "overflow": false,
+    "url": "http://127.0.0.1:4317/today"
+  },
+  {
+    "name": "detail",
+    "width": 360,
+    "overflow": false,
+    "url": "http://127.0.0.1:4317/library/words/grapes"
+  },
+  {
+    "name": "add",
+    "width": 360,
+    "overflow": false,
+    "url": "http://127.0.0.1:4317/add"
+  },
+  {
+    "name": "practice",
+    "width": 360,
+    "overflow": false,
+    "url": "http://127.0.0.1:4317/practice"
+  },
+  {
+    "name": "notes",
+    "width": 360,
+    "overflow": false,
+    "url": "http://127.0.0.1:4317/library/words/grapes/notes"
+  },
+  {
+    "name": "today",
+    "width": 1280,
+    "overflow": false,
+    "url": "http://127.0.0.1:4317/today"
+  },
+  {
+    "name": "detail",
+    "width": 1280,
+    "overflow": false,
+    "url": "http://127.0.0.1:4317/library/words/grapes"
+  },
+  {
+    "name": "add",
+    "width": 1280,
+    "overflow": false,
+    "url": "http://127.0.0.1:4317/add"
+  },
+  {
+    "name": "practice",
+    "width": 1280,
+    "overflow": false,
+    "url": "http://127.0.0.1:4317/practice"
+  },
+  {
+    "name": "notes",
+    "width": 1280,
+    "overflow": false,
+    "url": "http://127.0.0.1:4317/library/words/grapes/notes"
+  }
+]

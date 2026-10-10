@@ -34,3 +34,17 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# browser test artifacts
+/playwright-report/
+/test-results/
+/blob-report/
+
+# Keep only the credential-free template under version control.
+.env.*
+!.env.example
+/.venv-docs/
+
+# Supabase CLI linked-project state and credentials
+/supabase/.temp/
+/supabase/.branches/

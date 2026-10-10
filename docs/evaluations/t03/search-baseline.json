@@ -1,0 +1,390 @@
+{
+  "measuredAt": "2026-10-09T14:14:08.009Z",
+  "sourceHash": "ec429a70f463fe3b64849a2d2329213dce2afc3f6ddf7ec527fd1b8e8e7ca125",
+  "buildId": "H0FfPnnMaIcUnVYm8YOb2",
+  "runtime": {
+    "node": "v24.14.1",
+    "browser": "156.0.8078.4",
+    "os": "darwin 25.6.0",
+    "cpu": "Apple M1"
+  },
+  "profile": {
+    "emulation": "Pixel 7 / CSS360x800",
+    "physicalDevice": false,
+    "cpuSlowdown": 4,
+    "network": "local search; no provider/cloud",
+    "metric": "native input -> matching DOM -> two requestAnimationFrames (paint-opportunity upper bound, not field INP)",
+    "warmSearch": true
+  },
+  "fixture": {
+    "existingDemo": 20,
+    "synthetic": 4980,
+    "total": 5000,
+    "specification": "synthetic-word-v1",
+    "serializedBytes": 6179041
+  },
+  "samples": [
+    {
+      "query": "fixtureword01001",
+      "first": "fixtureword01001",
+      "count": 1,
+      "kind": "exact-English",
+      "durationMs": 132.20000004768372
+    },
+    {
+      "query": "nhom 2",
+      "first": "fixtureword01002",
+      "count": 498,
+      "kind": "unaccented-tag",
+      "durationMs": 149.5
+    },
+    {
+      "query": "du lieu thu",
+      "first": "fixtureword00000",
+      "count": 4980,
+      "kind": "Vietnamese-meaning",
+      "durationMs": 165.59999990463257
+    },
+    {
+      "query": "nhom 7",
+      "first": "fixtureword01007",
+      "count": 498,
+      "kind": "unaccented-tag",
+      "durationMs": 164.09999990463257
+    },
+    {
+      "query": "no-result-5",
+      "first": null,
+      "count": 0,
+      "kind": "empty-results",
+      "durationMs": 152.5
+    },
+    {
+      "query": "fixtureword0000",
+      "first": "fixtureword00000",
+      "count": 10,
+      "kind": "English-prefix",
+      "durationMs": 134.79999995231628
+    },
+    {
+      "query": "fixtureword01007",
+      "first": "fixtureword01007",
+      "count": 1,
+      "kind": "exact-English",
+      "durationMs": 122.70000004768372
+    },
+    {
+      "query": "nhom 2",
+      "first": "fixtureword01002",
+      "count": 498,
+      "kind": "unaccented-tag",
+      "durationMs": 143.70000004768372
+    },
+    {
+      "query": "du lieu thu",
+      "first": "fixtureword00000",
+      "count": 4980,
+      "kind": "Vietnamese-meaning",
+      "durationMs": 164.79999995231628
+    },
+    {
+      "query": "nhom 7",
+      "first": "fixtureword01007",
+      "count": 498,
+      "kind": "unaccented-tag",
+      "durationMs": 147.29999995231628
+    },
+    {
+      "query": "no-result-11",
+      "first": null,
+      "count": 0,
+      "kind": "empty-results",
+      "durationMs": 128.10000014305115
+    },
+    {
+      "query": "fixtureword0000",
+      "first": "fixtureword00000",
+      "count": 10,
+      "kind": "English-prefix",
+      "durationMs": 122.29999995231628
+    },
+    {
+      "query": "fixtureword01013",
+      "first": "fixtureword01013",
+      "count": 1,
+      "kind": "exact-English",
+      "durationMs": 122.60000014305115
+    },
+    {
+      "query": "nhom 2",
+      "first": "fixtureword01002",
+      "count": 498,
+      "kind": "unaccented-tag",
+      "durationMs": 183.90000009536743
+    },
+    {
+      "query": "du lieu thu",
+      "first": "fixtureword00000",
+      "count": 4980,
+      "kind": "Vietnamese-meaning",
+      "durationMs": 156.80000019073486
+    },
+    {
+      "query": "nhom 7",
+      "first": "fixtureword01007",
+      "count": 498,
+      "kind": "unaccented-tag",
+      "durationMs": 148
+    },
+    {
+      "query": "no-result-17",
+      "first": null,
+      "count": 0,
+      "kind": "empty-results",
+      "durationMs": 139
+    },
+    {
+      "query": "fixtureword0000",
+      "first": "fixtureword00000",
+      "count": 10,
+      "kind": "English-prefix",
+      "durationMs": 123.79999995231628
+    },
+    {
+      "query": "fixtureword01019",
+      "first": "fixtureword01019",
+      "count": 1,
+      "kind": "exact-English",
+      "durationMs": 138.80000019073486
+    },
+    {
+      "query": "nhom 2",
+      "first": "fixtureword01002",
+      "count": 498,
+      "kind": "unaccented-tag",
+      "durationMs": 138.5
+    },
+    {
+      "query": "du lieu thu",
+      "first": "fixtureword00000",
+      "count": 4980,
+      "kind": "Vietnamese-meaning",
+      "durationMs": 157.19999980926514
+    },
+    {
+      "query": "nhom 7",
+      "first": "fixtureword01007",
+      "count": 498,
+      "kind": "unaccented-tag",
+      "durationMs": 146.90000009536743
+    },
+    {
+      "query": "no-result-23",
+      "first": null,
+      "count": 0,
+      "kind": "empty-results",
+      "durationMs": 140.80000019073486
+    },
+    {
+      "query": "fixtureword0000",
+      "first": "fixtureword00000",
+      "count": 10,
+      "kind": "English-prefix",
+      "durationMs": 135.5
+    },
+    {
+      "query": "fixtureword01025",
+      "first": "fixtureword01025",
+      "count": 1,
+      "kind": "exact-English",
+      "durationMs": 121.60000014305115
+    },
+    {
+      "query": "nhom 2",
+      "first": "fixtureword01002",
+      "count": 498,
+      "kind": "unaccented-tag",
+      "durationMs": 152.09999990463257
+    },
+    {
+      "query": "du lieu thu",
+      "first": "fixtureword00000",
+      "count": 4980,
+      "kind": "Vietnamese-meaning",
+      "durationMs": 154.70000004768372
+    },
+    {
+      "query": "nhom 7",
+      "first": "fixtureword01007",
+      "count": 498,
+      "kind": "unaccented-tag",
+      "durationMs": 149.59999990463257
+    },
+    {
+      "query": "no-result-29",
+      "first": null,
+      "count": 0,
+      "kind": "empty-results",
+      "durationMs": 138.09999990463257
+    },
+    {
+      "query": "fixtureword0000",
+      "first": "fixtureword00000",
+      "count": 10,
+      "kind": "English-prefix",
+      "durationMs": 125.40000009536743
+    },
+    {
+      "query": "fixtureword01031",
+      "first": "fixtureword01031",
+      "count": 1,
+      "kind": "exact-English",
+      "durationMs": 138.39999985694885
+    },
+    {
+      "query": "nhom 2",
+      "first": "fixtureword01002",
+      "count": 498,
+      "kind": "unaccented-tag",
+      "durationMs": 141
+    },
+    {
+      "query": "du lieu thu",
+      "first": "fixtureword00000",
+      "count": 4980,
+      "kind": "Vietnamese-meaning",
+      "durationMs": 181.90000009536743
+    },
+    {
+      "query": "nhom 7",
+      "first": "fixtureword01007",
+      "count": 498,
+      "kind": "unaccented-tag",
+      "durationMs": 154.39999985694885
+    },
+    {
+      "query": "no-result-35",
+      "first": null,
+      "count": 0,
+      "kind": "empty-results",
+      "durationMs": 133.20000004768372
+    },
+    {
+      "query": "fixtureword0000",
+      "first": "fixtureword00000",
+      "count": 10,
+      "kind": "English-prefix",
+      "durationMs": 125.60000014305115
+    },
+    {
+      "query": "fixtureword01037",
+      "first": "fixtureword01037",
+      "count": 1,
+      "kind": "exact-English",
+      "durationMs": 126.59999990463257
+    },
+    {
+      "query": "nhom 2",
+      "first": "fixtureword01002",
+      "count": 498,
+      "kind": "unaccented-tag",
+      "durationMs": 141.59999990463257
+    },
+    {
+      "query": "du lieu thu",
+      "first": "fixtureword00000",
+      "count": 4980,
+      "kind": "Vietnamese-meaning",
+      "durationMs": 145.29999995231628
+    },
+    {
+      "query": "nhom 7",
+      "first": "fixtureword01007",
+      "count": 498,
+      "kind": "unaccented-tag",
+      "durationMs": 151.39999985694885
+    },
+    {
+      "query": "no-result-41",
+      "first": null,
+      "count": 0,
+      "kind": "empty-results",
+      "durationMs": 144.29999995231628
+    },
+    {
+      "query": "fixtureword0000",
+      "first": "fixtureword00000",
+      "count": 10,
+      "kind": "English-prefix",
+      "durationMs": 127
+    },
+    {
+      "query": "fixtureword01043",
+      "first": "fixtureword01043",
+      "count": 1,
+      "kind": "exact-English",
+      "durationMs": 123.70000004768372
+    },
+    {
+      "query": "nhom 2",
+      "first": "fixtureword01002",
+      "count": 498,
+      "kind": "unaccented-tag",
+      "durationMs": 149.20000004768372
+    },
+    {
+      "query": "du lieu thu",
+      "first": "fixtureword00000",
+      "count": 4980,
+      "kind": "Vietnamese-meaning",
+      "durationMs": 145.79999995231628
+    },
+    {
+      "query": "nhom 7",
+      "first": "fixtureword01007",
+      "count": 498,
+      "kind": "unaccented-tag",
+      "durationMs": 148.5
+    },
+    {
+      "query": "no-result-47",
+      "first": null,
+      "count": 0,
+      "kind": "empty-results",
+      "durationMs": 127.69999980926514
+    },
+    {
+      "query": "fixtureword0000",
+      "first": "fixtureword00000",
+      "count": 10,
+      "kind": "English-prefix",
+      "durationMs": 125.59999990463257
+    },
+    {
+      "query": "fixtureword01049",
+      "first": "fixtureword01049",
+      "count": 1,
+      "kind": "exact-English",
+      "durationMs": 122.90000009536743
+    },
+    {
+      "query": "nhom 2",
+      "first": "fixtureword01002",
+      "count": 498,
+      "kind": "unaccented-tag",
+      "durationMs": 141.10000014305115
+    }
+  ],
+  "medianMs": 141.05000007152557,
+  "p95Ms": 165.59999990463257,
+  "maxMs": 183.90000009536743,
+  "targetP95Ms": 200,
+  "passed": true,
+  "errors": [],
+  "limits": [
+    "Synthetic dataset; no production/user content",
+    "No physical Android/iPhone",
+    "No field INP",
+    "No OCR/provider/cloud or game/SRS measurement"
+  ]
+}

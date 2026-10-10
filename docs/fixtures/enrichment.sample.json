@@ -1,0 +1,149 @@
+{
+  "schemaVersion": "1.1",
+  "items": [
+    {
+      "candidateId": "word-apple",
+      "itemType": "vocabulary",
+      "sense": {
+        "label": "apple as a fruit",
+        "pos": "noun",
+        "definitionEn": "A round fruit with red, green or yellow skin.",
+        "meaningVi": "Quả táo.",
+        "register": null,
+        "domain": "food",
+        "pronunciationSuggestion": null,
+        "collocations": [
+          "eat an apple",
+          "apple juice"
+        ]
+      },
+      "explanationEn": null,
+      "explanationVi": null,
+      "formula": null,
+      "examples": [
+        {
+          "textEn": "I eat an apple every day.",
+          "translationVi": "Tôi ăn một quả táo mỗi ngày.",
+          "origin": "ai_generated",
+          "tokens": [
+            {
+              "id": "t1",
+              "text": "I",
+              "start": 0,
+              "end": 1
+            },
+            {
+              "id": "t2",
+              "text": "eat",
+              "start": 2,
+              "end": 5
+            },
+            {
+              "id": "t3",
+              "text": "an",
+              "start": 6,
+              "end": 8
+            },
+            {
+              "id": "t4",
+              "text": "apple",
+              "start": 9,
+              "end": 14
+            },
+            {
+              "id": "t5",
+              "text": "every",
+              "start": 15,
+              "end": 20
+            },
+            {
+              "id": "t6",
+              "text": "day",
+              "start": 21,
+              "end": 24
+            }
+          ],
+          "analysisChunks": [],
+          "pronunciations": []
+        },
+        {
+          "textEn": "There are three apples in the bag.",
+          "translationVi": "Có ba quả táo trong túi.",
+          "origin": "ai_generated",
+          "tokens": [
+            {
+              "id": "t1",
+              "text": "There",
+              "start": 0,
+              "end": 5
+            },
+            {
+              "id": "t2",
+              "text": "are",
+              "start": 6,
+              "end": 9
+            },
+            {
+              "id": "t3",
+              "text": "three",
+              "start": 10,
+              "end": 15
+            },
+            {
+              "id": "t4",
+              "text": "apples",
+              "start": 16,
+              "end": 22
+            },
+            {
+              "id": "t5",
+              "text": "in",
+              "start": 23,
+              "end": 25
+            },
+            {
+              "id": "t6",
+              "text": "the",
+              "start": 26,
+              "end": 29
+            },
+            {
+              "id": "t7",
+              "text": "bag",
+              "start": 30,
+              "end": 33
+            }
+          ],
+          "analysisChunks": [],
+          "pronunciations": []
+        }
+      ],
+      "commonMistakes": [],
+      "suggestedVariants": [],
+      "mnemonic": {
+        "template": "word-association",
+        "title": "Apple in a daily sentence",
+        "targetExampleIndex": 0,
+        "steps": [
+          {
+            "textEn": "Picture a round apple.",
+            "textVi": "Hình dung một quả táo tròn.",
+            "highlightTokenIds": [
+              "t4"
+            ]
+          },
+          {
+            "textEn": "I eat an apple every day.",
+            "textVi": "Gắn từ vào một hành động hằng ngày.",
+            "highlightTokenIds": [
+              "t2",
+              "t4"
+            ]
+          }
+        ]
+      },
+      "warnings": [],
+      "pronunciations": []
+    }
+  ]
+}

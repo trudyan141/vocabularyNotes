@@ -1,0 +1,44 @@
+{
+  "buildId": "QBizWE-bWRjjeWg_R1rQF",
+  "commands": {
+    "pnpm check": {
+      "passed": true,
+      "unitIntegrationTests": 71
+    },
+    "pnpm test:e2e": {
+      "passed": true,
+      "browserTests": 96
+    },
+    "pnpm test:sql": {
+      "passed": true,
+      "runtime": "PostgreSQL 15 isolated Unix socket; Auth/Storage bootstrap fixtures"
+    },
+    "pnpm docs:check": {
+      "passed": true,
+      "localLinks": 159,
+      "skills": 17,
+      "requirements": 25,
+      "tasks": 19,
+      "screens": 16,
+      "jsonFiles": 22
+    }
+  },
+  "sha256": {
+    "src/components/features/practice.tsx": "ac49a034829b8b2d37e6ae60b52d03f75a2584c3410855f090be6cde01907235",
+    "src/components/features/settings.tsx": "cccd6b7d1e681a0eabf11a62f7c5c03198a97ce6ad330572fe3cfe2a80bd7144",
+    "src/components/features/add-word.tsx": "025fe11257cf1d1fef068de1650029788888913bb0457e2be5ac69a755c61825",
+    "src/components/features/extract.tsx": "992081cb9d846abfe62af6753418247de321d868ab987d9e2fa892ca0b33f10f",
+    "src/data/local/practice.ts": "1aa0eff9ff1cab5ec7e99def97788669726d6c752f5cf59003c0201b5c725ea1",
+    "src/data/local/archive.ts": "037d4b3b608777d8843100215a60e83d557924c1de7f8812ddecb39b67449c18",
+    "src/lib/ocr/recognize.ts": "fd9695909d79ec175f4d53761ab2a546f69e24eb11995f4ad9f671c392155d6e",
+    "public/sw.js": "7661f9a88541df58a7be4c75d415dc29cfdc23058063608a1e306ed200401add",
+    "public/offline-games.js": "5fbda73afb3cb4b9557d882b714666036f802bb3546d2b63333f8d8c69dde48a",
+    "tests/e2e/learning.spec.ts": "48cff9ccb0f90c031adc80c2d937c3242f1ca8236b4e1040e9a6e40e4c669b5e"
+  },
+  "unverified": [
+    "Live eligible AI provider and benchmark",
+    "Google OAuth / Supabase Auth+Storage APIs / cloud sync",
+    "Physical camera, device voice, PWA install/update",
+    "Current performance and human usability/release"
+  ]
+}

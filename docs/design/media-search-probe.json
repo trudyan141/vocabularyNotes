@@ -1,0 +1,44 @@
+{
+  "productName": "Words for Kids",
+  "checkedOn": "2026-10-09",
+  "kind": "metadata-only research probe",
+  "query": "apple illustration",
+  "endpoint": "https://api.openverse.org/v1/images/?q=apple%20illustration&license=cc0,by&page_size=3",
+  "transport": "curl with normal TLS verification; browser web fetch endpoint returned 403",
+  "curlExitCode": 0,
+  "assetDownloadPerformed": false,
+  "visualReviewPerformed": false,
+  "sourcePageLicenseVerified": false,
+  "approvedAssets": 0,
+  "resultCount": 240,
+  "detail": null,
+  "candidates": [
+    {
+      "id": "c0852860-f207-4e74-8eba-d9ccd599b601",
+      "title": "Red apple illustration vector",
+      "licenseCodeFromIndex": "cc0",
+      "licenseVersionFromIndex": "1.0",
+      "creator": null,
+      "sourcePageUrl": "https://www.rawpixel.com/image/7730761/vector-plant-people-vintage",
+      "decision": "unreviewed; not eligible for child game"
+    },
+    {
+      "id": "43d418ef-bd11-42f4-8704-ecede07f39c5",
+      "title": "Vintage apple illustration. Digitally enhanced",
+      "licenseCodeFromIndex": "cc0",
+      "licenseVersionFromIndex": "1.0",
+      "creator": "U.S. Department of Agriculture",
+      "sourcePageUrl": "https://www.rawpixel.com/image/2289697/free-illustration-image-apple-green-fruit",
+      "decision": "unreviewed; not eligible for child game"
+    },
+    {
+      "id": "972c8efe-9b96-491e-8e86-6d44bf145712",
+      "title": "Red apple illustration",
+      "licenseCodeFromIndex": "cc0",
+      "licenseVersionFromIndex": "1.0",
+      "creator": null,
+      "sourcePageUrl": "https://www.rawpixel.com/image/7664146/image-people-cartoon-logo",
+      "decision": "unreviewed; not eligible for child game"
+    }
+  ]
+}

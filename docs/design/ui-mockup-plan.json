@@ -1,0 +1,467 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-09",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "scope": "16 ảnh đại diện cho 16 screen IDs; variants/states đầy đủ nằm trong graph/spec, không tự thêm menu.",
+  "theme": {
+    "id": "theme-c-kids-v1",
+    "nameVi": "Hoạt họa trẻ 5–8: cáo san hô và nút berry",
+    "status": "provisionally_approved_by_founder",
+    "approved": true,
+    "supersedes": "theme-b-v1",
+    "approvalVi": "Tạm chốt cái UI đó."
+  },
+  "generationGate": {
+    "source": "Founder đã xem một S03 Theme C và tạm chốt; gate trước sinh tiếp đã đạt.",
+    "firstScreenId": "S03",
+    "continueOnlyAfter": "Gate satisfied; all 16 screen images generated and visually inspected 2026-10-09.",
+    "remainingImageCount": 0,
+    "roundNumber": 3,
+    "satisfied": true
+  },
+  "generator": "Built-in imagegen, one call per screen/refinement; original and prior PNGs preserved in archival assets. Nine founder-requested refinements.",
+  "founderPlan": "docs/KE-HOACH-FOUNDER.md",
+  "graphSection": "4.0 tổng thể; 4.1–4.16 tương ứng S01–S16",
+  "implementationStatus": "T18 clickable core five screens + supporting flow implemented and browser self-reviewed; 16 raster mockups complete. No production camera/OCR/cloud/live AI/SRS.",
+  "fixtureContinuity": {
+    "existingLessons": [
+      "At school: 12 từ, 2 mẫu câu",
+      "Food & drinks: 8 từ, 1 mẫu câu"
+    ],
+    "existingWord": "apple — quả táo",
+    "newCaptureLesson": "School objects",
+    "savedNewLesson": "11 từ liên kết: 8 mới + 3 đã có; 2 mẫu câu riêng"
+  },
+  "screens": [
+    {
+      "screenId": "S01",
+      "titleVi": "Chào và bắt đầu",
+      "founderSection": "4.1",
+      "routeProposed": "/welcome",
+      "representativeStateVi": "Lần đầu, Bắt đầu trên máy là nút chính",
+      "status": "generated_self_reviewed",
+      "plannedOutput": "docs/design/mockups/s01-words-for-kids-theme-c-v2.png",
+      "asset": {
+        "path": "docs/design/mockups/s01-words-for-kids-theme-c-v2.png",
+        "widthPx": 853,
+        "heightPx": 1844,
+        "bytes": 1513232,
+        "sha256": "250972de95050abfe4359ea48d078b0f5a7b9239bcf7aaacc709aa2f89ed9e9d"
+      },
+      "prompt": "docs/design/prompts/s01-words-for-kids-theme-c-v2.txt",
+      "reviewVi": "Đã xem bản sửa: minh họa vật thể không nhân hóa; S13 ba đáp án một hàng, S14 kết quả gọn/màu. Human QA pending; ảnh concept không là runtime.",
+      "archivalAssets": [
+        {
+          "path": "docs/design/mockups/s01-words-for-kids-theme-c-v1.png",
+          "widthPx": 853,
+          "heightPx": 1844,
+          "bytes": 1494933,
+          "sha256": "6d298c52b1b32fb4d5d058054a2a4127415dfeccfd0c1d6236d7579154c141df"
+        }
+      ]
+    },
+    {
+      "screenId": "S02",
+      "titleVi": "Đăng nhập Google",
+      "founderSection": "4.2",
+      "routeProposed": "/auth",
+      "representativeStateVi": "Giải thích lợi ích cloud, Google và tiếp tục trên máy",
+      "status": "generated_self_reviewed",
+      "plannedOutput": "docs/design/mockups/s02-words-for-kids-theme-c-v3.png",
+      "asset": {
+        "path": "docs/design/mockups/s02-words-for-kids-theme-c-v3.png",
+        "widthPx": 853,
+        "heightPx": 1844,
+        "bytes": 1588342,
+        "sha256": "783b8e9da9fd599a7cbed3500bf8f777ad07bb613ce0167b42b25157e6101ef3"
+      },
+      "prompt": "docs/design/prompts/s02-words-for-kids-theme-c-v3.txt",
+      "reviewVi": "Đã xem bản sửa: minh họa vật thể không nhân hóa; S13 ba đáp án một hàng, S14 kết quả gọn/màu. Human QA pending; ảnh concept không là runtime.",
+      "archivalAssets": [
+        {
+          "path": "docs/design/mockups/s02-words-for-kids-theme-c-v2.png",
+          "widthPx": 853,
+          "heightPx": 1844,
+          "bytes": 1789729,
+          "sha256": "ff54f44868207cfd6c123b41b213e32ab43c5c0ffb78e3f722d7b09494288c6e"
+        }
+      ]
+    },
+    {
+      "screenId": "S03",
+      "titleVi": "Hôm nay",
+      "founderSection": "4.3",
+      "routeProposed": "/today",
+      "representativeStateVi": "Có dữ liệu, 8 từ cần ôn; At school và Food & drinks là bài cũ",
+      "status": "generated_self_reviewed",
+      "plannedOutput": "docs/design/mockups/s03-words-for-kids-theme-c-v2.png",
+      "asset": {
+        "path": "docs/design/mockups/s03-words-for-kids-theme-c-v2.png",
+        "widthPx": 853,
+        "heightPx": 1844,
+        "bytes": 1639705,
+        "sha256": "2055b4cec039d1f1ee5c9508c5389f5f33cb957c0e37d4d4878f42da22dc495e"
+      },
+      "prompt": "docs/design/prompts/s03-words-for-kids-theme-c-v2.txt",
+      "reviewVi": "Đã xem bản sửa: minh họa vật thể không nhân hóa; S13 ba đáp án một hàng, S14 kết quả gọn/màu. Human QA pending; ảnh concept không là runtime.",
+      "archivalAssets": [
+        {
+          "path": "docs/design/mockups/s03-words-for-kids-theme-c-v1.png",
+          "widthPx": 853,
+          "heightPx": 1844,
+          "bytes": 1715046,
+          "sha256": "ecf70b151a412f8a328a2097b9e9c5b4cb0705d731eed1833ed63185bdb493e0"
+        }
+      ]
+    },
+    {
+      "screenId": "S04",
+      "titleVi": "Camera hoặc tải ảnh",
+      "founderSection": "4.4",
+      "routeProposed": "/capture",
+      "representativeStateVi": "Camera đã được cho phép, tờ A4 trong khung; có chọn ảnh thay thế",
+      "status": "generated_self_reviewed",
+      "plannedOutput": "docs/design/mockups/s04-words-for-kids-theme-c-v1.png",
+      "asset": {
+        "path": "docs/design/mockups/s04-words-for-kids-theme-c-v1.png",
+        "widthPx": 853,
+        "heightPx": 1844,
+        "bytes": 1745248,
+        "sha256": "b104b71f5964ae6189f1312f220dd085f06501743ab75a04e98a4947d92f2d1f"
+      },
+      "prompt": "docs/design/prompts/s04-words-for-kids-theme-c-v1.txt",
+      "reviewVi": "Đã xem ảnh: Theme C, Words for Kids, bố cục/nội dung chính; cần kiểm usability trên UI chạy thật."
+    },
+    {
+      "screenId": "S05",
+      "titleVi": "Xem và chỉnh ảnh",
+      "founderSection": "4.5",
+      "routeProposed": "/capture/:draftId/edit",
+      "representativeStateVi": "Ảnh School objects rõ, crop/xoay và consent phân tích",
+      "status": "generated_self_reviewed",
+      "plannedOutput": "docs/design/mockups/s05-words-for-kids-theme-c-v1.png",
+      "asset": {
+        "path": "docs/design/mockups/s05-words-for-kids-theme-c-v1.png",
+        "widthPx": 853,
+        "heightPx": 1844,
+        "bytes": 1598870,
+        "sha256": "a37ac66893430c49359275530766eb3cccb5d7ca66e2d06a272d19186f0422ca"
+      },
+      "prompt": "docs/design/prompts/s05-words-for-kids-theme-c-v1.txt",
+      "reviewVi": "Đã xem ảnh: Theme C, Words for Kids, bố cục/nội dung chính; cần kiểm usability trên UI chạy thật."
+    },
+    {
+      "screenId": "S06",
+      "titleVi": "Đang phân tích",
+      "founderSection": "4.6",
+      "routeProposed": "/capture/:draftId/analyzing",
+      "representativeStateVi": "Bước thật đang nhận dạng, có Hủy; không phần trăm giả",
+      "status": "generated_self_reviewed",
+      "plannedOutput": "docs/design/mockups/s06-words-for-kids-theme-c-v1.png",
+      "asset": {
+        "path": "docs/design/mockups/s06-words-for-kids-theme-c-v1.png",
+        "widthPx": 853,
+        "heightPx": 1844,
+        "bytes": 1468191,
+        "sha256": "06d7ccf5e8d3756198539fa62cd2cc55c42b4b60b709f97261c68abc3dbddb93"
+      },
+      "prompt": "docs/design/prompts/s06-words-for-kids-theme-c-v1.txt",
+      "reviewVi": "Đã xem ảnh: Theme C, Words for Kids, bố cục/nội dung chính; cần kiểm usability trên UI chạy thật."
+    },
+    {
+      "screenId": "S07",
+      "titleVi": "Duyệt nội dung",
+      "founderSection": "4.7",
+      "routeProposed": "/capture/:draftId/review",
+      "representativeStateVi": "School objects: pencil mới, book đã có, erqser cần sửa",
+      "status": "generated_self_reviewed",
+      "plannedOutput": "docs/design/mockups/s07-words-for-kids-theme-c-v1.png",
+      "asset": {
+        "path": "docs/design/mockups/s07-words-for-kids-theme-c-v1.png",
+        "widthPx": 853,
+        "heightPx": 1844,
+        "bytes": 1385862,
+        "sha256": "6a41f9b3213900638a556a6fa788d3d40a7c9944a47ae625c139f15b8912a623"
+      },
+      "prompt": "docs/design/prompts/s07-words-for-kids-theme-c-v1.txt",
+      "reviewVi": "Đã xem ảnh: Theme C, Words for Kids, bố cục/nội dung chính; cần kiểm usability trên UI chạy thật."
+    },
+    {
+      "screenId": "S08",
+      "titleVi": "Bài vừa lưu",
+      "founderSection": "4.8",
+      "routeProposed": "/lessons/:lessonId",
+      "representativeStateVi": "School objects: 8 từ mới, 3 đã có, 2 mẫu câu",
+      "status": "generated_self_reviewed",
+      "plannedOutput": "docs/design/mockups/s08-words-for-kids-theme-c-v1.png",
+      "asset": {
+        "path": "docs/design/mockups/s08-words-for-kids-theme-c-v1.png",
+        "widthPx": 853,
+        "heightPx": 1844,
+        "bytes": 1404118,
+        "sha256": "a86472549aa2c14bd01c8e3638a05dab75c9defaedbcf56bda3e7c7bb379a2c5"
+      },
+      "prompt": "docs/design/prompts/s08-words-for-kids-theme-c-v1.txt",
+      "reviewVi": "Đã xem ảnh: Theme C, Words for Kids, bố cục/nội dung chính; cần kiểm usability trên UI chạy thật."
+    },
+    {
+      "screenId": "S09",
+      "titleVi": "Từ của con",
+      "founderSection": "4.9",
+      "routeProposed": "/library/words/:entryId",
+      "representativeStateVi": "Chi tiết apple, nghĩa EN–VI/EN–EN, ví dụ và Nghe",
+      "status": "generated_self_reviewed",
+      "plannedOutput": "docs/design/mockups/s09-words-for-kids-theme-c-v2.png",
+      "asset": {
+        "path": "docs/design/mockups/s09-words-for-kids-theme-c-v2.png",
+        "widthPx": 853,
+        "heightPx": 1844,
+        "bytes": 1396130,
+        "sha256": "96b2f876ee6b61880b68603b3e732ecb110e008e14a3f8c9f4b00d2f6731297c"
+      },
+      "prompt": "docs/design/prompts/s09-words-for-kids-theme-c-v2.txt",
+      "reviewVi": "Đã xem bản sửa: minh họa vật thể không nhân hóa; S13 ba đáp án một hàng, S14 kết quả gọn/màu. Human QA pending; ảnh concept không là runtime.",
+      "archivalAssets": [
+        {
+          "path": "docs/design/mockups/s09-words-for-kids-theme-c-v1.png",
+          "widthPx": 853,
+          "heightPx": 1844,
+          "bytes": 1394910,
+          "sha256": "107d0a6b4606a6c39b3d3d24937a3aa676daf79d37f0f93e376f0c40823eda03"
+        }
+      ]
+    },
+    {
+      "screenId": "S10",
+      "titleVi": "Câu và ngữ pháp",
+      "founderSection": "4.10",
+      "routeProposed": "/library/sentences/:id",
+      "representativeStateVi": "I / am reading / a book. với giải thích từng cụm",
+      "status": "generated_self_reviewed",
+      "plannedOutput": "docs/design/mockups/s10-words-for-kids-theme-c-v1.png",
+      "asset": {
+        "path": "docs/design/mockups/s10-words-for-kids-theme-c-v1.png",
+        "widthPx": 853,
+        "heightPx": 1844,
+        "bytes": 1560324,
+        "sha256": "70f83eb681fbef635cf0a0a68047c11ea2ea5537f7ea25287908fdca11278dc3"
+      },
+      "prompt": "docs/design/prompts/s10-words-for-kids-theme-c-v1.txt",
+      "reviewVi": "Đã xem ảnh: Theme C, Words for Kids, bố cục/nội dung chính; cần kiểm usability trên UI chạy thật."
+    },
+    {
+      "screenId": "S11",
+      "titleVi": "Chọn buổi học",
+      "founderSection": "4.11",
+      "routeProposed": "/practice",
+      "representativeStateVi": "Phiên ôn đến hạn được gợi ý, Đổi cách học là phụ",
+      "status": "generated_self_reviewed",
+      "plannedOutput": "docs/design/mockups/s11-words-for-kids-theme-c-v2.png",
+      "asset": {
+        "path": "docs/design/mockups/s11-words-for-kids-theme-c-v2.png",
+        "widthPx": 853,
+        "heightPx": 1844,
+        "bytes": 1588555,
+        "sha256": "f93db74241346273a53c4272921be0af079f12fb766d918fd0014f12d89be1d7"
+      },
+      "prompt": "docs/design/prompts/s11-words-for-kids-theme-c-v2.txt",
+      "reviewVi": "Đã xem bản sửa: minh họa vật thể không nhân hóa; S13 ba đáp án một hàng, S14 kết quả gọn/màu. Human QA pending; ảnh concept không là runtime.",
+      "archivalAssets": [
+        {
+          "path": "docs/design/mockups/s11-words-for-kids-theme-c-v1.png",
+          "widthPx": 853,
+          "heightPx": 1844,
+          "bytes": 1577690,
+          "sha256": "04b0ece1de97827df8d0ded4ec8075bdc6913ce5f8df356abcc720d265f55d74"
+        }
+      ]
+    },
+    {
+      "screenId": "S12",
+      "titleVi": "Flashcard",
+      "founderSection": "4.12",
+      "routeProposed": "/practice/flashcards/:sessionId",
+      "representativeStateVi": "Apple đã hiện đáp án, nghĩa và ví dụ; hai nút Chưa nhớ/Nhớ rồi của chế độ đơn giản",
+      "status": "generated_self_reviewed",
+      "plannedOutput": "docs/design/mockups/s12-words-for-kids-theme-c-v2.png",
+      "asset": {
+        "path": "docs/design/mockups/s12-words-for-kids-theme-c-v2.png",
+        "widthPx": 853,
+        "heightPx": 1844,
+        "bytes": 1368300,
+        "sha256": "5ba97d5f063cee3cfd5de9548d416177964bb068597a5208c6f4524eae6f58a1"
+      },
+      "prompt": "docs/design/prompts/s12-words-for-kids-theme-c-v2.txt",
+      "reviewVi": "Đã xem bản sửa: minh họa vật thể không nhân hóa; S13 ba đáp án một hàng, S14 kết quả gọn/màu. Human QA pending; ảnh concept không là runtime.",
+      "archivalAssets": [
+        {
+          "path": "docs/design/mockups/s12-words-for-kids-theme-c-v1.png",
+          "widthPx": 853,
+          "heightPx": 1844,
+          "bytes": 1260372,
+          "sha256": "62a6247794f0bcc5f4a8db2fb7f29e20148c3f97efe9d58cb3dd65f240286dfa"
+        }
+      ]
+    },
+    {
+      "screenId": "S13",
+      "titleVi": "Minigame",
+      "founderSection": "4.13",
+      "routeProposed": "/practice/games/:mode/:sessionId",
+      "representativeStateVi": "G02: apple đã chọn đúng; ba hình ngang nhau cùng hàng; feedback và CTA tiếp tục",
+      "status": "generated_self_reviewed",
+      "plannedOutput": "docs/design/mockups/s13-words-for-kids-theme-c-v2.png",
+      "asset": {
+        "path": "docs/design/mockups/s13-words-for-kids-theme-c-v2.png",
+        "widthPx": 853,
+        "heightPx": 1844,
+        "bytes": 1322294,
+        "sha256": "201d0bf344737e2fa38f453494d2a968490093b3dbe96fdfab9d2d88a3f9384c"
+      },
+      "prompt": "docs/design/prompts/s13-words-for-kids-theme-c-v2.txt",
+      "reviewVi": "Đã xem bản sửa: minh họa vật thể không nhân hóa; S13 ba đáp án một hàng, S14 kết quả gọn/màu. Human QA pending; ảnh concept không là runtime.",
+      "archivalAssets": [
+        {
+          "path": "docs/design/mockups/s13-words-for-kids-theme-c-v1.png",
+          "widthPx": 853,
+          "heightPx": 1844,
+          "bytes": 1339556,
+          "sha256": "075dcc89c0d426e223daeee417dbdfd558f75725c4dd5b81381757ca95a58894"
+        }
+      ]
+    },
+    {
+      "screenId": "S14",
+      "titleVi": "Kết quả buổi học",
+      "founderSection": "4.14",
+      "routeProposed": "/practice/results/:sessionId",
+      "representativeStateVi": "Game 10 câu: 7 đúng, 2 sai, 1 bỏ qua; gợi ý ở 2 câu",
+      "status": "generated_self_reviewed",
+      "plannedOutput": "docs/design/mockups/s14-words-for-kids-theme-c-v2.png",
+      "asset": {
+        "path": "docs/design/mockups/s14-words-for-kids-theme-c-v2.png",
+        "widthPx": 853,
+        "heightPx": 1844,
+        "bytes": 1453535,
+        "sha256": "1255410f90206ff8fd4365a3a674125c733242d77ed954868fc414cf1bc260dd"
+      },
+      "prompt": "docs/design/prompts/s14-words-for-kids-theme-c-v2.txt",
+      "reviewVi": "Đã xem bản sửa: minh họa vật thể không nhân hóa; S13 ba đáp án một hàng, S14 kết quả gọn/màu. Human QA pending; ảnh concept không là runtime.",
+      "archivalAssets": [
+        {
+          "path": "docs/design/mockups/s14-words-for-kids-theme-c-v1.png",
+          "widthPx": 853,
+          "heightPx": 1844,
+          "bytes": 1480387,
+          "sha256": "e736aecccb6c7905020e80d08e3cd164eef9015714a264c3fab1cf71e01050e5"
+        }
+      ]
+    },
+    {
+      "screenId": "S15",
+      "titleVi": "Đồng bộ thư viện",
+      "founderSection": "4.15",
+      "routeProposed": "/settings/sync",
+      "representativeStateVi": "Preview 20 từ khách: 12 mới, 8 đã có; chưa gộp",
+      "status": "generated_self_reviewed",
+      "plannedOutput": "docs/design/mockups/s15-words-for-kids-theme-c-v2.png",
+      "asset": {
+        "path": "docs/design/mockups/s15-words-for-kids-theme-c-v2.png",
+        "widthPx": 853,
+        "heightPx": 1844,
+        "bytes": 1459513,
+        "sha256": "ecf2bd25e59a21a1e900e73cfddbcb3c54f38b3d7fcc0ea8aa91c3505d99cb3f"
+      },
+      "prompt": "docs/design/prompts/s15-words-for-kids-theme-c-v2.txt",
+      "reviewVi": "Đã xem bản sửa: minh họa vật thể không nhân hóa; S13 ba đáp án một hàng, S14 kết quả gọn/màu. Human QA pending; ảnh concept không là runtime.",
+      "archivalAssets": [
+        {
+          "path": "docs/design/mockups/s15-words-for-kids-theme-c-v1.png",
+          "widthPx": 853,
+          "heightPx": 1844,
+          "bytes": 1402494,
+          "sha256": "f0e487eb752c34f45d529a238999c055028f21efe5bc572672f217188f196937"
+        }
+      ]
+    },
+    {
+      "screenId": "S16",
+      "titleVi": "Cài đặt và sao lưu",
+      "founderSection": "4.16",
+      "routeProposed": "/settings",
+      "representativeStateVi": "Khu phụ huynh, VI/Beginner/child-friendly on, nguồn local; provider chưa chọn, không có key thật",
+      "status": "generated_self_reviewed",
+      "plannedOutput": "docs/design/mockups/s16-words-for-kids-theme-c-v2.png",
+      "asset": {
+        "path": "docs/design/mockups/s16-words-for-kids-theme-c-v2.png",
+        "widthPx": 853,
+        "heightPx": 1844,
+        "bytes": 1712308,
+        "sha256": "fedafde0ecbba824b73415dcdb97b77b683cad8d318bf483b82c437506726780"
+      },
+      "prompt": "docs/design/prompts/s16-words-for-kids-theme-c-v2.txt",
+      "reviewVi": "Đã xem ảnh: Theme C, Words for Kids, bố cục/nội dung chính; cần kiểm usability trên UI chạy thật."
+    }
+  ],
+  "rejectedConcepts": [
+    {
+      "themeId": "theme-a-v1",
+      "screenId": "S03",
+      "asset": {
+        "path": "docs/design/mockups/s03-today-theme-a-v1.png",
+        "widthPx": 853,
+        "heightPx": 1844,
+        "bytes": 1244811,
+        "sha256": "9009335e8daa728d250cffd5d27080d710786f01e399f0a6f274413c56d2a091"
+      },
+      "prompt": "docs/design/prompts/s03-today-v1.txt",
+      "feedbackVi": "Founder chê màu xanh dương xấu, tầm thường và UI chưa thể hiện chất lượng/tham khảo Inspo.",
+      "status": "rejected_by_founder"
+    }
+  ],
+  "supersededConcepts": [
+    {
+      "themeId": "theme-b-v1",
+      "screenId": "S03",
+      "asset": {
+        "path": "docs/design/mockups/s03-today-theme-b-v1.png",
+        "widthPx": 853,
+        "heightPx": 1844,
+        "bytes": 1434455,
+        "sha256": "08613d97ae7702520d5331c2990dffab93e510d96aca17299857394ef056a4c7"
+      },
+      "prompt": "docs/design/prompts/s03-today-theme-b-v1.txt",
+      "status": "superseded_by_child_first_brief",
+      "feedbackVi": "Founder chưa ấn tượng B, ưu tiên con 5–8 tuổi, cần hoạt họa dễ thương, không hình tả thực; người lớn mở rộng sau."
+    }
+  ],
+  "audiencePriority": {
+    "primary": "Trẻ 5–8 tuổi, phụ huynh chuẩn bị bài",
+    "later": "Người lớn"
+  },
+  "navigationLabelsVi": [
+    "Hôm nay",
+    "Từ của con",
+    "Chơi & học"
+  ],
+  "productName": "Words for Kids",
+  "brandMigration": {
+    "currentProductName": "Words for Kids",
+    "archivalPromptAndImageBrand": "VocabularyNotes",
+    "rule": "Original A/B/C prompt+image bytes stay unchanged; future mockups/prototype/code use Words for Kids."
+  },
+  "archivalApprovedConcept": {
+    "screenId": "S03",
+    "asset": {
+      "path": "docs/design/mockups/s03-today-theme-c-kids-v1.png",
+      "widthPx": 853,
+      "heightPx": 1844,
+      "bytes": 1480731,
+      "sha256": "cc347d5f23db54977e4acc4609f26b1c2d02c3a464ae9b60e30710875d98fbbe"
+    },
+    "prompt": "docs/design/prompts/s03-today-theme-c-kids-v1.txt",
+    "status": "founder_approved_theme_reference_original_brand"
+  },
+  "gallery": "docs/design/gallery.html",
+  "refinementJobs": "docs/design/ui-refinement-jobs.json"
+}

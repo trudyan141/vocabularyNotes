@@ -1,0 +1,95 @@
+{
+  "researchedOn": "2026-10-09",
+  "provider": "InspoMCP",
+  "npmVersion": "0.1.16",
+  "hostedServerVersion": "hosted-0e1e636",
+  "queries": [
+    "Mobile-first English vocabulary learning PWA for children and adults",
+    "language learning vocabulary flashcard education playful simple",
+    "Headspace Daybridge Bear calm friendly simple app"
+  ],
+  "reviewScope": "MCP records and captured design systems (live=false); desktop captures visually inspected; mobile URLs retrieved, internal product flows not tested",
+  "references": [
+    {
+      "slug": "headspace-com",
+      "title": "Headspace",
+      "sourceUrl": "https://headspace.com",
+      "capturedAt": "2026-05-18",
+      "image": "https://0nme3pk5am3urwa9.public.blob.vercel-storage.com/captures/headspace-com/hero.1440.webp?v=1779110007",
+      "fullPage": "https://0nme3pk5am3urwa9.public.blob.vercel-storage.com/captures/headspace-com/full.1440.webp?v=1780402901",
+      "mobile": "https://0nme3pk5am3urwa9.public.blob.vercel-storage.com/captures/headspace-com/mobile.384.webp?v=1779110007",
+      "mobileFull": "https://0nme3pk5am3urwa9.public.blob.vercel-storage.com/captures/headspace-com/mobile-full.png?v=1779110007"
+    },
+    {
+      "slug": "duolingo-com",
+      "title": "Duolingo",
+      "sourceUrl": "https://duolingo.com",
+      "capturedAt": "2026-05-04",
+      "image": "https://0nme3pk5am3urwa9.public.blob.vercel-storage.com/captures/duolingo-com/hero.1440.webp?v=1777918957",
+      "fullPage": "https://0nme3pk5am3urwa9.public.blob.vercel-storage.com/captures/duolingo-com/full.1440.webp?v=1777918957",
+      "mobile": "https://0nme3pk5am3urwa9.public.blob.vercel-storage.com/captures/duolingo-com/mobile.384.webp?v=1777918957",
+      "mobileFull": "https://0nme3pk5am3urwa9.public.blob.vercel-storage.com/captures/duolingo-com/mobile-full.png?v=1777918957"
+    },
+    {
+      "slug": "daybridge-com",
+      "title": "Daybridge",
+      "sourceUrl": "https://daybridge.com",
+      "capturedAt": "2026-09-10",
+      "image": "https://0nme3pk5am3urwa9.public.blob.vercel-storage.com/captures/daybridge-com/hero.1440.webp?v=1789043657",
+      "fullPage": "https://0nme3pk5am3urwa9.public.blob.vercel-storage.com/captures/daybridge-com/full.1440.webp?v=1789043657",
+      "mobile": "https://0nme3pk5am3urwa9.public.blob.vercel-storage.com/captures/daybridge-com/mobile.384.webp?v=1789043657",
+      "mobileFull": "https://0nme3pk5am3urwa9.public.blob.vercel-storage.com/captures/daybridge-com/mobile-full.png?v=1789043657"
+    },
+    {
+      "slug": "bear-app",
+      "title": "Bear",
+      "sourceUrl": "https://bear.app",
+      "capturedAt": "2026-05-18",
+      "image": "https://0nme3pk5am3urwa9.public.blob.vercel-storage.com/captures/bear-app/hero.1440.webp?v=1779109199",
+      "fullPage": "https://0nme3pk5am3urwa9.public.blob.vercel-storage.com/captures/bear-app/full.1440.webp?v=1779109199",
+      "mobile": "https://0nme3pk5am3urwa9.public.blob.vercel-storage.com/captures/bear-app/mobile.384.webp?v=1779109199",
+      "mobileFull": "https://0nme3pk5am3urwa9.public.blob.vercel-storage.com/captures/bear-app/mobile-full.png?v=1779109199"
+    }
+  ],
+  "themeRevision": {
+    "reviewedOn": "2026-10-09",
+    "previousThemeId": "theme-a-v1",
+    "previousStatus": "rejected_by_founder",
+    "candidateThemeId": "theme-b-v1",
+    "candidateStatus": "superseded_by_child_first_theme_c",
+    "freshMcpCalls": [
+      {
+        "tool": "get_design_system",
+        "slug": "headspace-com",
+        "live": false
+      },
+      {
+        "tool": "get_design_system",
+        "slug": "daybridge-com",
+        "live": false
+      }
+    ],
+    "capturesVisuallyInspectedThisRound": [
+      {
+        "slug": "headspace-com",
+        "viewport": "mobile 375x812"
+      },
+      {
+        "slug": "daybridge-com",
+        "viewport": "desktop 1440x900"
+      }
+    ],
+    "adoptedPrinciplesVi": [
+      "Headspace: minh họa thân thiện, khối vàng và chữ tối",
+      "Daybridge: phối nhóm pastel và khoảng trống"
+    ],
+    "notClaimed": "No source app interaction, animation, usability, performance or license clearance was tested."
+  },
+  "currentDirection": {
+    "productName": "Words for Kids",
+    "theme": "theme-c-kids-v1",
+    "status": "provisionally_approved_by_founder",
+    "audience": "children 5–8, parents prepare lessons",
+    "referenceUse": "Headspace friendly shapes, Duo clear large controls/feedback; original coral fox and berry palette; no copied assets"
+  }
+}

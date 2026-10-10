@@ -1,0 +1,1826 @@
+{
+  "runKind": "self_test",
+  "isLiveBenchmark": false,
+  "scorerSha256": "25ad59e319d7aba83532ceb8a93d77199d21bd31b43490fc1197beeea95ebfa2",
+  "datasetVersion": "synthetic-worksheet-v1",
+  "groundTruthReview": "agent-authored; human review pending",
+  "schemaSha256": "2a335db4767408af3c0d890dc38e9c8821f80f1d5dbe5648e226f5a48849ae57",
+  "promptSha256": "0edb5c95e4e62f9c62a836742d1995b129adf5c640d0587609b7d7ea9e678482",
+  "recordedCases": 40,
+  "expectedCases": 40,
+  "missing": [],
+  "completeCoverage": true,
+  "allOutputsAccepted": true,
+  "humanAcceptance": "pending",
+  "modelSelection": "not_established",
+  "latencySamples": 0,
+  "latencyP50Ms": null,
+  "latencyP95Ms": null,
+  "costSamples": 0,
+  "costUsd": null,
+  "summaries": [
+    {
+      "mode": "all",
+      "cohort": "blur",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "all",
+      "cohort": "clear",
+      "cases": 4,
+      "accepted": 4,
+      "vocabulary": {
+        "tp": 12,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "all",
+      "cohort": "duplicates",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "all",
+      "cohort": "glare",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "all",
+      "cohort": "inferred_grammar",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 4,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      }
+    },
+    {
+      "mode": "all",
+      "cohort": "injection",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "all",
+      "cohort": "metadata",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "all",
+      "cohort": "mixed",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "all",
+      "cohort": "no_english",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "all",
+      "cohort": "phrases",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 7,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "all",
+      "cohort": "senses",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "all",
+      "cohort": "sentence_only",
+      "cases": 2,
+      "accepted": 2,
+      "vocabulary": {
+        "tp": 10,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      }
+    },
+    {
+      "mode": "all",
+      "cohort": "shadow",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "all",
+      "cohort": "simulated_handwriting",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "all",
+      "cohort": "skew",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "all",
+      "cohort": "small",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "listed",
+      "cohort": "blur",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "listed",
+      "cohort": "clear",
+      "cases": 4,
+      "accepted": 4,
+      "vocabulary": {
+        "tp": 12,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "listed",
+      "cohort": "duplicates",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "listed",
+      "cohort": "glare",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "listed",
+      "cohort": "inferred_grammar",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "sentences": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      }
+    },
+    {
+      "mode": "listed",
+      "cohort": "injection",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "listed",
+      "cohort": "metadata",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "listed",
+      "cohort": "mixed",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "listed",
+      "cohort": "no_english",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "listed",
+      "cohort": "phrases",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "listed",
+      "cohort": "senses",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "listed",
+      "cohort": "sentence_only",
+      "cases": 2,
+      "accepted": 2,
+      "vocabulary": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "sentences": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      }
+    },
+    {
+      "mode": "listed",
+      "cohort": "shadow",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "listed",
+      "cohort": "simulated_handwriting",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "listed",
+      "cohort": "skew",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    },
+    {
+      "mode": "listed",
+      "cohort": "small",
+      "cases": 1,
+      "accepted": 1,
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      }
+    }
+  ],
+  "rows": [
+    {
+      "caseId": "01-fruit",
+      "mode": "listed",
+      "cohort": "clear",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "01-fruit",
+      "mode": "all",
+      "cohort": "clear",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "02-school",
+      "mode": "listed",
+      "cohort": "clear",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "02-school",
+      "mode": "all",
+      "cohort": "clear",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "03-food",
+      "mode": "listed",
+      "cohort": "clear",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "03-food",
+      "mode": "all",
+      "cohort": "clear",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "04-animals",
+      "mode": "listed",
+      "cohort": "clear",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "04-animals",
+      "mode": "all",
+      "cohort": "clear",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "05-mixed",
+      "mode": "listed",
+      "cohort": "mixed",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "05-mixed",
+      "mode": "all",
+      "cohort": "mixed",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "06-cursive",
+      "mode": "listed",
+      "cohort": "simulated_handwriting",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "06-cursive",
+      "mode": "all",
+      "cohort": "simulated_handwriting",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "07-shadow",
+      "mode": "listed",
+      "cohort": "shadow",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "07-shadow",
+      "mode": "all",
+      "cohort": "shadow",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "08-glare",
+      "mode": "listed",
+      "cohort": "glare",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "08-glare",
+      "mode": "all",
+      "cohort": "glare",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "09-skew",
+      "mode": "listed",
+      "cohort": "skew",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "09-skew",
+      "mode": "all",
+      "cohort": "skew",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "10-small",
+      "mode": "listed",
+      "cohort": "small",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "10-small",
+      "mode": "all",
+      "cohort": "small",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "11-repeat",
+      "mode": "listed",
+      "cohort": "duplicates",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "11-repeat",
+      "mode": "all",
+      "cohort": "duplicates",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "12-senses",
+      "mode": "listed",
+      "cohort": "senses",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "12-senses",
+      "mode": "all",
+      "cohort": "senses",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "13-sentence",
+      "mode": "listed",
+      "cohort": "sentence_only",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "sentences": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "13-sentence",
+      "mode": "all",
+      "cohort": "sentence_only",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "14-articles",
+      "mode": "listed",
+      "cohort": "sentence_only",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "sentences": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "14-articles",
+      "mode": "all",
+      "cohort": "sentence_only",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 7,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "15-phrase",
+      "mode": "listed",
+      "cohort": "phrases",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "15-phrase",
+      "mode": "all",
+      "cohort": "phrases",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 7,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "16-inferred",
+      "mode": "listed",
+      "cohort": "inferred_grammar",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "sentences": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "16-inferred",
+      "mode": "all",
+      "cohort": "inferred_grammar",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 4,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "17-vietnamese",
+      "mode": "listed",
+      "cohort": "no_english",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": true,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "17-vietnamese",
+      "mode": "all",
+      "cohort": "no_english",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": true,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "18-injection",
+      "mode": "listed",
+      "cohort": "injection",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "18-injection",
+      "mode": "all",
+      "cohort": "injection",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "19-metadata",
+      "mode": "listed",
+      "cohort": "metadata",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "19-metadata",
+      "mode": "all",
+      "cohort": "metadata",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "20-blur",
+      "mode": "listed",
+      "cohort": "blur",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    },
+    {
+      "caseId": "20-blur",
+      "mode": "all",
+      "cohort": "blur",
+      "accepted": true,
+      "errors": [],
+      "vocabulary": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "sentences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null
+      },
+      "emptyCorrect": false,
+      "unexpectedTerms": [],
+      "provider": "self-test",
+      "model": "reference-fixture",
+      "promptVersion": "reference-not-a-provider-prompt",
+      "sdkVersion": "none-reference-fixture",
+      "latencyMs": null,
+      "costUsd": null
+    }
+  ],
+  "limitation": "Offline scoring only. Recorded provenance and provider/UI behavior require independent verification."
+}

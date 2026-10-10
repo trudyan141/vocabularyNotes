@@ -1,0 +1,872 @@
+[
+  {
+    "id": "openmoji-1F9B5",
+    "word": "leg",
+    "author": "Laura Schießer"
+  },
+  {
+    "id": "openmoji-1F9B6",
+    "word": "foot",
+    "author": "Daniel Utz"
+  },
+  {
+    "id": "openmoji-1F442",
+    "word": "ear",
+    "author": "Julian Grüneberg"
+  },
+  {
+    "id": "openmoji-1F443",
+    "word": "nose",
+    "author": "Julian Grüneberg"
+  },
+  {
+    "id": "openmoji-1F9E0",
+    "word": "brain",
+    "author": "Julian Grüneberg"
+  },
+  {
+    "id": "openmoji-1F9B7",
+    "word": "tooth",
+    "author": "Laura Schießer"
+  },
+  {
+    "id": "openmoji-1F9B4",
+    "word": "bone",
+    "author": "Laura Schießer"
+  },
+  {
+    "id": "openmoji-1F441",
+    "word": "eye",
+    "author": "Julian Grüneberg"
+  },
+  {
+    "id": "openmoji-1F445",
+    "word": "tongue",
+    "author": "Julian Grüneberg"
+  },
+  {
+    "id": "openmoji-1F444",
+    "word": "mouth",
+    "author": "Julian Grüneberg"
+  },
+  {
+    "id": "openmoji-1F476",
+    "word": "baby",
+    "author": "Johanna Wellnitz"
+  },
+  {
+    "id": "openmoji-1F466",
+    "word": "boy",
+    "author": "Johanna Wellnitz"
+  },
+  {
+    "id": "openmoji-1F467",
+    "word": "girl",
+    "author": "Johanna Wellnitz"
+  },
+  {
+    "id": "openmoji-1F468",
+    "word": "man",
+    "author": "Johanna Wellnitz"
+  },
+  {
+    "id": "openmoji-1F469",
+    "word": "woman",
+    "author": "Johanna Wellnitz"
+  },
+  {
+    "id": "openmoji-1F412",
+    "word": "monkey",
+    "author": "Sofie Ascherl"
+  },
+  {
+    "id": "openmoji-1F43A",
+    "word": "wolf",
+    "author": "Sofie Ascherl"
+  },
+  {
+    "id": "openmoji-1F981",
+    "word": "lion",
+    "author": "Sofie Ascherl"
+  },
+  {
+    "id": "openmoji-1F406",
+    "word": "leopard",
+    "author": "Sofie Ascherl"
+  },
+  {
+    "id": "openmoji-1F40E",
+    "word": "horse",
+    "author": "Sofie Ascherl"
+  },
+  {
+    "id": "openmoji-1F993",
+    "word": "zebra",
+    "author": "Sofie Ascherl"
+  },
+  {
+    "id": "openmoji-1F98C",
+    "word": "deer",
+    "author": "Sofie Ascherl"
+  },
+  {
+    "id": "openmoji-1F404",
+    "word": "cow",
+    "author": "Sofie Ascherl"
+  },
+  {
+    "id": "openmoji-1F416",
+    "word": "pig",
+    "author": "Sofie Ascherl"
+  },
+  {
+    "id": "openmoji-1F410",
+    "word": "goat",
+    "author": "Sofie Ascherl"
+  },
+  {
+    "id": "openmoji-1F42A",
+    "word": "camel",
+    "author": "Sofie Ascherl"
+  },
+  {
+    "id": "openmoji-1F992",
+    "word": "giraffe",
+    "author": "Sofie Ascherl"
+  },
+  {
+    "id": "openmoji-1F418",
+    "word": "elephant",
+    "author": "Sofie Ascherl"
+  },
+  {
+    "id": "openmoji-1F98F",
+    "word": "rhinoceros",
+    "author": "Sofie Ascherl"
+  },
+  {
+    "id": "openmoji-1F99B",
+    "word": "hippopotamus",
+    "author": "Laura Schießer"
+  },
+  {
+    "id": "openmoji-1F401",
+    "word": "mouse",
+    "author": "Sofie Ascherl"
+  },
+  {
+    "id": "openmoji-1F439",
+    "word": "hamster",
+    "author": "Sofie Ascherl"
+  },
+  {
+    "id": "openmoji-1F407",
+    "word": "rabbit",
+    "author": "Sofie Ascherl"
+  },
+  {
+    "id": "openmoji-1F994",
+    "word": "hedgehog",
+    "author": "Sofie Ascherl"
+  },
+  {
+    "id": "openmoji-1F987",
+    "word": "bat",
+    "author": "Sofie Ascherl"
+  },
+  {
+    "id": "openmoji-1F428",
+    "word": "koala",
+    "author": "Sofie Ascherl"
+  },
+  {
+    "id": "openmoji-1F43C",
+    "word": "panda",
+    "author": "Sofie Ascherl"
+  },
+  {
+    "id": "openmoji-1F998",
+    "word": "kangaroo",
+    "author": "Laura Schießer"
+  },
+  {
+    "id": "openmoji-1F414",
+    "word": "chicken",
+    "author": "Selina Bauder"
+  },
+  {
+    "id": "openmoji-1F413",
+    "word": "rooster",
+    "author": "Selina Bauder"
+  },
+  {
+    "id": "openmoji-1F427",
+    "word": "penguin",
+    "author": "Selina Bauder"
+  },
+  {
+    "id": "openmoji-1F986",
+    "word": "duck",
+    "author": "Selina Bauder"
+  },
+  {
+    "id": "openmoji-1F9A2",
+    "word": "swan",
+    "author": "Laura Schießer"
+  },
+  {
+    "id": "openmoji-1F989",
+    "word": "owl",
+    "author": "Selina Bauder"
+  },
+  {
+    "id": "openmoji-1F9A9",
+    "word": "flamingo",
+    "author": "Mariella Steeb"
+  },
+  {
+    "id": "openmoji-1F99A",
+    "word": "peacock",
+    "author": "Laura Schießer"
+  },
+  {
+    "id": "openmoji-1F99C",
+    "word": "parrot",
+    "author": "Ricarda Krejci"
+  },
+  {
+    "id": "openmoji-1F438",
+    "word": "frog",
+    "author": "Selina Bauder"
+  },
+  {
+    "id": "openmoji-1F422",
+    "word": "turtle",
+    "author": "Robert Winslow"
+  },
+  {
+    "id": "openmoji-1F98E",
+    "word": "lizard",
+    "author": "Selina Bauder"
+  },
+  {
+    "id": "openmoji-1F40D",
+    "word": "snake",
+    "author": "Selina Bauder"
+  },
+  {
+    "id": "openmoji-1F40B",
+    "word": "whale",
+    "author": "Kris Kowal"
+  },
+  {
+    "id": "openmoji-1F42C",
+    "word": "dolphin",
+    "author": "Kris Kowal"
+  },
+  {
+    "id": "openmoji-1F9AD",
+    "word": "seal",
+    "author": "Liz Bravo"
+  },
+  {
+    "id": "openmoji-1F41F",
+    "word": "fish",
+    "author": "Selina Bauder"
+  },
+  {
+    "id": "openmoji-1F988",
+    "word": "shark",
+    "author": "Selina Bauder"
+  },
+  {
+    "id": "openmoji-1F419",
+    "word": "octopus",
+    "author": "Selina Bauder"
+  },
+  {
+    "id": "openmoji-1F980",
+    "word": "crab",
+    "author": "Liz Bravo"
+  },
+  {
+    "id": "openmoji-1F99E",
+    "word": "lobster",
+    "author": "Ricarda Krejci"
+  },
+  {
+    "id": "openmoji-1F990",
+    "word": "shrimp",
+    "author": "Robert Winslow"
+  },
+  {
+    "id": "openmoji-1F40C",
+    "word": "snail",
+    "author": "Selina Bauder"
+  },
+  {
+    "id": "openmoji-1F98B",
+    "word": "butterfly",
+    "author": "Robert Winslow"
+  },
+  {
+    "id": "openmoji-1F41C",
+    "word": "ant",
+    "author": "Selina Bauder"
+  },
+  {
+    "id": "openmoji-1F577",
+    "word": "spider",
+    "author": "Selina Bauder"
+  },
+  {
+    "id": "openmoji-1F339",
+    "word": "rose",
+    "author": "Hilda Kalyoncu"
+  },
+  {
+    "id": "openmoji-1F33B",
+    "word": "sunflower",
+    "author": "Hilda Kalyoncu"
+  },
+  {
+    "id": "openmoji-1F337",
+    "word": "tulip",
+    "author": "Hilda Kalyoncu"
+  },
+  {
+    "id": "openmoji-1F344",
+    "word": "mushroom",
+    "author": "Marius Schnabel"
+  },
+  {
+    "id": "openmoji-1F349",
+    "word": "watermelon",
+    "author": "Marius Schnabel"
+  },
+  {
+    "id": "openmoji-1F34B",
+    "word": "lemon",
+    "author": "Marius Schnabel"
+  },
+  {
+    "id": "openmoji-1F34B-200D-1F7E9",
+    "word": "lime",
+    "author": "Annika Raue"
+  },
+  {
+    "id": "openmoji-1F96D",
+    "word": "mango",
+    "author": "Ricarda Krejci"
+  },
+  {
+    "id": "openmoji-1F350",
+    "word": "pear",
+    "author": "Marius Schnabel"
+  },
+  {
+    "id": "openmoji-1F352",
+    "word": "cherries",
+    "author": "Marius Schnabel"
+  },
+  {
+    "id": "openmoji-1F353",
+    "word": "strawberry",
+    "author": "Liz Bravo"
+  },
+  {
+    "id": "openmoji-1F345",
+    "word": "tomato",
+    "author": "Marius Schnabel"
+  },
+  {
+    "id": "openmoji-1F965",
+    "word": "coconut",
+    "author": "Marius Schnabel"
+  },
+  {
+    "id": "openmoji-1F951",
+    "word": "avocado",
+    "author": "Marius Schnabel"
+  },
+  {
+    "id": "openmoji-1F954",
+    "word": "potato",
+    "author": "Marius Schnabel"
+  },
+  {
+    "id": "openmoji-1F955",
+    "word": "carrot",
+    "author": "Marius Schnabel"
+  },
+  {
+    "id": "openmoji-1F952",
+    "word": "cucumber",
+    "author": "Liz Bravo"
+  },
+  {
+    "id": "openmoji-1F966",
+    "word": "broccoli",
+    "author": "Marius Schnabel"
+  },
+  {
+    "id": "openmoji-1F9C4",
+    "word": "garlic",
+    "author": "Yasmin Abdullahi"
+  },
+  {
+    "id": "openmoji-1F9C5",
+    "word": "onion",
+    "author": "Yasmin Abdullahi"
+  },
+  {
+    "id": "openmoji-1F95C",
+    "word": "peanuts",
+    "author": "Marius Schnabel"
+  },
+  {
+    "id": "openmoji-1FAD8",
+    "word": "beans",
+    "author": "Jana Junk"
+  },
+  {
+    "id": "openmoji-1F330",
+    "word": "chestnut",
+    "author": "Hend Hourani"
+  },
+  {
+    "id": "openmoji-1F354",
+    "word": "hamburger",
+    "author": "Miriam Vollmeier"
+  },
+  {
+    "id": "openmoji-1F355",
+    "word": "pizza",
+    "author": "Miriam Vollmeier"
+  },
+  {
+    "id": "openmoji-1F96A",
+    "word": "sandwich",
+    "author": "Miriam Vollmeier"
+  },
+  {
+    "id": "openmoji-1F9C8",
+    "word": "butter",
+    "author": "Evelyn Soos"
+  },
+  {
+    "id": "openmoji-1F368",
+    "word": "ice cream",
+    "author": "Miriam Vollmeier"
+  },
+  {
+    "id": "openmoji-1F36A",
+    "word": "cookie",
+    "author": "Miriam Vollmeier"
+  },
+  {
+    "id": "openmoji-1F36C",
+    "word": "candy",
+    "author": "Miriam Vollmeier"
+  },
+  {
+    "id": "openmoji-1FAD6",
+    "word": "teapot",
+    "author": "Andrew Luckett"
+  },
+  {
+    "id": "openmoji-1F944",
+    "word": "spoon",
+    "author": "Jonas Roßner"
+  },
+  {
+    "id": "openmoji-26F0",
+    "word": "mountain",
+    "author": "Martin Wehl"
+  },
+  {
+    "id": "openmoji-1F9F1",
+    "word": "brick",
+    "author": "Jonas Dunkel"
+  },
+  {
+    "id": "openmoji-1F3E0",
+    "word": "house",
+    "author": "Martin Wehl"
+  },
+  {
+    "id": "openmoji-1F3E5",
+    "word": "hospital",
+    "author": "Martin Wehl"
+  },
+  {
+    "id": "openmoji-1F3EB",
+    "word": "school",
+    "author": "Niklas Kuntz"
+  },
+  {
+    "id": "openmoji-1F686",
+    "word": "train",
+    "author": "Nadja Grün"
+  },
+  {
+    "id": "openmoji-1F68C",
+    "word": "bus",
+    "author": "Ronja Bäurlen"
+  },
+  {
+    "id": "openmoji-1F6B2",
+    "word": "bicycle",
+    "author": "Ronja Bäurlen"
+  },
+  {
+    "id": "openmoji-1F6A2",
+    "word": "ship",
+    "author": "Ronja Bäurlen"
+  },
+  {
+    "id": "openmoji-2708",
+    "word": "airplane",
+    "author": "Ronja Bäurlen"
+  },
+  {
+    "id": "openmoji-1F680",
+    "word": "rocket",
+    "author": "Kris Kowal"
+  },
+  {
+    "id": "openmoji-231A",
+    "word": "watch",
+    "author": "Rana Cakir"
+  },
+  {
+    "id": "openmoji-2B50",
+    "word": "star",
+    "author": "Vanessa Boutzikoudi"
+  },
+  {
+    "id": "openmoji-2601",
+    "word": "cloud",
+    "author": "Vanessa Boutzikoudi"
+  },
+  {
+    "id": "openmoji-1F308",
+    "word": "rainbow",
+    "author": "Vanessa Boutzikoudi"
+  },
+  {
+    "id": "openmoji-2602",
+    "word": "umbrella",
+    "author": "Vanessa Boutzikoudi"
+  },
+  {
+    "id": "openmoji-2744",
+    "word": "snowflake",
+    "author": "Vanessa Boutzikoudi"
+  },
+  {
+    "id": "openmoji-1F388",
+    "word": "balloon",
+    "author": "Laura Humpfer"
+  },
+  {
+    "id": "openmoji-1F3C6",
+    "word": "trophy",
+    "author": "Julian Grüneberg"
+  },
+  {
+    "id": "openmoji-1F3C0",
+    "word": "basketball",
+    "author": "Vanessa Boutzikoudi"
+  },
+  {
+    "id": "openmoji-1FA81",
+    "word": "kite",
+    "author": "Evelyn Soos"
+  },
+  {
+    "id": "openmoji-1F9F8",
+    "word": "teddy bear",
+    "author": "Liz Bravo"
+  },
+  {
+    "id": "openmoji-1F9F5",
+    "word": "thread",
+    "author": "Nicole Kornhaas"
+  },
+  {
+    "id": "openmoji-1F9F6",
+    "word": "yarn",
+    "author": "Nicole Kornhaas"
+  },
+  {
+    "id": "openmoji-1F576",
+    "word": "sunglasses",
+    "author": "Jonas Roßner"
+  },
+  {
+    "id": "openmoji-1F9E4",
+    "word": "gloves",
+    "author": "Laura Schießer"
+  },
+  {
+    "id": "openmoji-1F9E5",
+    "word": "coat",
+    "author": "Daniel Quiros"
+  },
+  {
+    "id": "openmoji-1F9E6",
+    "word": "socks",
+    "author": "Laura Schießer"
+  },
+  {
+    "id": "openmoji-1F457",
+    "word": "dress",
+    "author": "Jonas Roßner"
+  },
+  {
+    "id": "openmoji-1FA73",
+    "word": "shorts",
+    "author": "Sam Eckert"
+  },
+  {
+    "id": "openmoji-1F392",
+    "word": "backpack",
+    "author": "Jonas Roßner"
+  },
+  {
+    "id": "openmoji-1F48D",
+    "word": "ring",
+    "author": "Jonas Roßner"
+  },
+  {
+    "id": "openmoji-1F514",
+    "word": "bell",
+    "author": "Rana Cakir"
+  },
+  {
+    "id": "openmoji-1F4FB",
+    "word": "radio",
+    "author": "Sina Schulz"
+  },
+  {
+    "id": "openmoji-1F3BA",
+    "word": "trumpet",
+    "author": "Sina Schulz"
+  },
+  {
+    "id": "openmoji-1F3B8",
+    "word": "guitar",
+    "author": "Sina Schulz"
+  },
+  {
+    "id": "openmoji-1F3BB",
+    "word": "violin",
+    "author": "Sina Schulz"
+  },
+  {
+    "id": "openmoji-1F941",
+    "word": "drum",
+    "author": "Sina Schulz"
+  },
+  {
+    "id": "openmoji-1F50B",
+    "word": "battery",
+    "author": "Jonas Roßner"
+  },
+  {
+    "id": "openmoji-1F4BB",
+    "word": "laptop",
+    "author": "Jonas Roßner"
+  },
+  {
+    "id": "openmoji-2328",
+    "word": "keyboard",
+    "author": "Carlin MacKenzie"
+  },
+  {
+    "id": "openmoji-1F4FA",
+    "word": "television",
+    "author": "Sina Schulz"
+  },
+  {
+    "id": "openmoji-1F4F7",
+    "word": "camera",
+    "author": "Sina Schulz"
+  },
+  {
+    "id": "openmoji-1F56F",
+    "word": "candle",
+    "author": "Sina Schulz"
+  },
+  {
+    "id": "openmoji-1F526",
+    "word": "flashlight",
+    "author": "Sina Schulz"
+  },
+  {
+    "id": "openmoji-1F4D3",
+    "word": "notebook",
+    "author": "Jonas Roßner"
+  },
+  {
+    "id": "openmoji-270F",
+    "word": "pencil",
+    "author": "Rana Cakir"
+  },
+  {
+    "id": "openmoji-1F58C",
+    "word": "paintbrush",
+    "author": "Rana Cakir"
+  },
+  {
+    "id": "openmoji-1F58D",
+    "word": "crayon",
+    "author": "Rana Cakir"
+  },
+  {
+    "id": "openmoji-2702",
+    "word": "scissors",
+    "author": "Sina Schulz"
+  },
+  {
+    "id": "openmoji-1F511",
+    "word": "key",
+    "author": "Lisa Schulz"
+  },
+  {
+    "id": "openmoji-1F528",
+    "word": "hammer",
+    "author": "Hilda Kalyoncu"
+  },
+  {
+    "id": "openmoji-1FA93",
+    "word": "axe",
+    "author": "Sam Eckert"
+  },
+  {
+    "id": "openmoji-1F527",
+    "word": "wrench",
+    "author": "Hilda Kalyoncu"
+  },
+  {
+    "id": "openmoji-1FA9B",
+    "word": "screwdriver",
+    "author": "Liz Bravo"
+  },
+  {
+    "id": "openmoji-26D3",
+    "word": "chains",
+    "author": "Hilda Kalyoncu"
+  },
+  {
+    "id": "openmoji-1FA9D",
+    "word": "hook",
+    "author": "Liz Bravo"
+  },
+  {
+    "id": "openmoji-1F9F2",
+    "word": "magnet",
+    "author": "Tonia Reinhardt"
+  },
+  {
+    "id": "openmoji-1FA9C",
+    "word": "ladder",
+    "author": "Liz Bravo"
+  },
+  {
+    "id": "openmoji-1F6AA",
+    "word": "door",
+    "author": "Lisa Schulz"
+  },
+  {
+    "id": "openmoji-1FA9E",
+    "word": "mirror",
+    "author": "Liz Bravo"
+  },
+  {
+    "id": "openmoji-1FA9F",
+    "word": "window",
+    "author": "Liz Bravo"
+  },
+  {
+    "id": "openmoji-1F6CF",
+    "word": "bed",
+    "author": "Lisa Schulz"
+  },
+  {
+    "id": "openmoji-1FA91",
+    "word": "chair",
+    "author": "Sam Eckert"
+  },
+  {
+    "id": "openmoji-1F6BD",
+    "word": "toilet",
+    "author": "Lisa Schulz"
+  },
+  {
+    "id": "openmoji-1F6C1",
+    "word": "bathtub",
+    "author": "Lisa Schulz"
+  },
+  {
+    "id": "openmoji-1F9F7",
+    "word": "safety pin",
+    "author": "Tonia Reinhardt"
+  },
+  {
+    "id": "openmoji-1F9F9",
+    "word": "broom",
+    "author": "Tonia Reinhardt"
+  },
+  {
+    "id": "openmoji-1F9FA",
+    "word": "basket",
+    "author": "Tonia Reinhardt"
+  },
+  {
+    "id": "openmoji-1FAA3",
+    "word": "bucket",
+    "author": "Liz Bravo"
+  },
+  {
+    "id": "openmoji-1F9FC",
+    "word": "soap",
+    "author": "Tonia Reinhardt"
+  },
+  {
+    "id": "openmoji-1FAA5",
+    "word": "toothbrush",
+    "author": "Liz Bravo"
+  },
+  {
+    "id": "openmoji-1F9FD",
+    "word": "sponge",
+    "author": "Tonia Reinhardt"
+  },
+  {
+    "id": "openmoji-E0C7",
+    "word": "cake",
+    "author": "Miriam Vollmeier"
+  },
+  {
+    "id": "openmoji-E347",
+    "word": "axe",
+    "author": "Tonia Reinhardt"
+  },
+  {
+    "id": "openmoji-E348",
+    "word": "saw",
+    "author": "Tonia Reinhardt"
+  },
+  {
+    "id": "openmoji-E319",
+    "word": "brain",
+    "author": "Fanny Jung"
+  },
+  {
+    "id": "openmoji-E1D1",
+    "word": "keyboard",
+    "author": "Kai Magnus Müller"
+  }
+]

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#FFF8F8">
+  <meta name="description" content="Prototype giao diện Words for Kids, dữ liệu minh họa.">
+  <title>Words for Kids · Bản thử giao diện</title>
+  <link rel="preload" href="fonts/nunito-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="assets.js"></script>
+  <script defer src="fixtures.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#content">Đến nội dung học</a>
+  <header class="preview-header">
+    <div><span>Bản thử giao diện · dữ liệu minh họa</span></div>
+    <a href="../gallery.html">Xem 16 ảnh UI</a>
+  </header>
+  <div class="workspace">
+    <aside class="tester">
+      <h1>Thử một buổi học</h1>
+      <p>Nhờ bố mẹ thêm bài, sửa từ rồi lưu. Sau đó bé nghe, lật thẻ và chơi.</p>
+      <p class="muted">Camera, AI, Google và cloud chưa kết nối. Bản thử chỉ giữ nháp minh họa trong phiên tab này.</p>
+      <details id="test-tools">
+        <summary>Công cụ xem các trạng thái</summary>
+        <div class="test-buttons">
+          <button data-action="reset-empty">Thư viện rỗng</button>
+          <button data-action="seed">Nạp bài minh họa</button>
+          <button data-action="show-review">S07 · Duyệt 10 từ</button>
+          <button data-action="show-apple">S09 · Từ apple</button>
+          <button data-action="show-bank">S09 · Hai nghĩa bank</button>
+          <button data-action="show-flash">S12 · Flashcard</button>
+          <button data-action="show-game">S13 · Minigame</button>
+          <button data-action="show-sentence">S10 · Câu & grammar</button>
+        </div>
+        <label class="checkline"><input type="checkbox" id="fail-save">Mô phỏng lỗi lưu một lần</label>
+        <label class="checkline"><input type="checkbox" id="fail-analysis">Mô phỏng phân tích lỗi</label>
+        <label class="checkline"><input type="checkbox" id="missing-image">Mô phỏng thiếu hình apple</label>
+        <label class="checkline"><input type="checkbox" id="reduce-motion">Giảm chuyển động</label>
+        <p id="motion-status" class="muted"></p>
+      </details>
+    </aside>
+    <div class="phone" id="phone">
+      <header class="app-header" id="app-header"></header>
+      <div id="notice" role="status" aria-live="polite"></div>
+      <main id="content" tabindex="-1"></main>
+      <nav id="app-nav" aria-label="Điều hướng chính"></nav>
+    </div>
+  </div>
+  <dialog id="sheet" aria-labelledby="dialog-title">
+    <div id="dialog-body"></div>
+    <button class="quiet close-sheet" data-action="close-dialog">Đóng</button>
+  </dialog>
+  <div id="announcer" class="sr-only" role="status" aria-live="polite"></div>
+  <noscript>Bật JavaScript để bấm thử. Các ảnh UI vẫn xem được trong gallery.</noscript>
+</body>
+</html>

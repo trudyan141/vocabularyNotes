@@ -1,0 +1,8 @@
+import 'server-only';
+import {createHmac,createHash,timingSafeEqual} from 'node:crypto';
+import {getServerEnv} from '@/server/env';
+import {stableJson} from '@/domain/identity';
+import type {MediaAsset,MediaCandidate} from '@/lib/media/contracts';
+function signature(text:string){const key=getServerEnv().MEDIA_IMPORT_SIGNING_SECRET;if(!key)throw new Error('media-not-configured');return createHmac('sha256',key).update(text).digest();}
+export function signMedia(candidate:MediaCandidate,sha256:string,checkedAt:string){const value=Buffer.from(stableJson({candidate,sha256,checkedAt})).toString('base64url');return `${value}.${signature(value).toString('base64url')}`;}
+export function verifyMedia(asset:MediaAsset){const [value,mac,...extra]=asset.receipt.split('.');if(!value||!mac||extra.length)throw new Error('invalid-media');const expected=signature(value),received=Buffer.from(mac,'base64url');if(expected.length!==received.length||!timingSafeEqual(expected,received))throw new Error('invalid-media');if(Buffer.from(value,'base64url').toString()!==stableJson({candidate:asset.candidate,sha256:asset.sha256,checkedAt:asset.checkedAt}))throw new Error('invalid-media');const bytes=Buffer.from(asset.base64,'base64');if(bytes.length>500000||bytes[0]!==255||bytes[1]!==216||bytes[2]!==255)throw new Error('invalid-media');if(createHash('sha256').update(bytes).digest('hex')!==asset.sha256)throw new Error('invalid-media');return bytes;}

@@ -1,0 +1,96 @@
+{
+  "formatVersion": 1,
+  "normalization": [
+    {
+      "input": " Apple ",
+      "caseMode": "fold",
+      "expectedKey": "apple"
+    },
+    {
+      "input": "apple,",
+      "caseMode": "fold",
+      "expectedKey": "apple"
+    },
+    {
+      "input": "ice  cream",
+      "caseMode": "fold",
+      "expectedKey": "ice cream"
+    },
+    {
+      "input": "don’t",
+      "caseMode": "fold",
+      "expectedKey": "don't"
+    },
+    {
+      "input": "US",
+      "caseMode": "exact",
+      "expectedKey": "US"
+    },
+    {
+      "input": "C++",
+      "caseMode": "exact",
+      "expectedKey": "C++"
+    }
+  ],
+  "distinctPairs": [
+    [
+      "ice-cream",
+      "ice cream"
+    ],
+    [
+      "run",
+      "running"
+    ],
+    [
+      "went",
+      "go"
+    ],
+    [
+      "US:exact",
+      "us:fold"
+    ],
+    [
+      "I like apples.",
+      "I don't like apples."
+    ]
+  ],
+  "senseCases": [
+    {
+      "word": "bank",
+      "contexts": [
+        "I put money in the bank.",
+        "We sat on the river bank."
+      ],
+      "expectedEntries": 1,
+      "expectedSenses": 2
+    },
+    {
+      "word": "book",
+      "contexts": [
+        "This is a book.",
+        "Please book a room."
+      ],
+      "expectedEntries": 1,
+      "expectedSenses": 2
+    }
+  ],
+  "negativeContractCases": [
+    "duplicate candidateId",
+    "missing evidenceId",
+    "bbox width+x > 1",
+    "example token offset mismatch",
+    "mnemonic missing token reference",
+    "vocabulary enrichment without sense",
+    "grammar enrichment without formula/common mistake",
+    "refusal passed as empty success",
+    "executable mnemonic payload"
+  ],
+  "syncCases": [
+    "same opId twice applies once",
+    "same opId different payload rejected",
+    "partial guest transfer resumes without duplicates",
+    "account A response after switching B discarded",
+    "deleted entry not resurrected by stale outbox",
+    "review event UUID replay does not advance dueAt twice"
+  ]
+}

@@ -1,0 +1,36 @@
+import {Dexie} from 'dexie';
+import {cloudTables,parseCloudRow,type CloudTable} from '@/lib/cloud/contracts';
+import {contentHash,stableJson} from '@/domain/identity';
+import {LocalRepository,RepositoryError} from '@/data/local/repository';
+import {rebuildSearch} from '@/data/local/database';
+import type {ScopedDocument} from '@/data/local/types';
+export type Snapshot=Record<CloudTable,Record<string,unknown>[]>;
+export type TransferPlan={id:string;sourceScope:string;targetScope:string;source:Snapshot;sourceHash:string;targetHash:string;words:number;overlap:number};
+async function snapshot(repo:LocalRepository,scope=repo.scope.id){return repo.db.transaction('r',cloudTables.map(name=>repo.db.table(name)),async()=>{const output={} as Snapshot;for(const name of cloudTables)output[name]=(await repo.db.table(name).where('[scopeId+id]').between([scope,''],[scope,'\uffff']).toArray()).map(row=>parseCloudRow(name,row));return output;});}
+export async function prepareTransfer(source:LocalRepository,target:LocalRepository):Promise<TransferPlan>{if(source.scope.kind!=='guest'||target.scope.kind!=='account'||source.db.name!==target.db.name)throw new RepositoryError('scope');const [a,b]=await Promise.all([snapshot(source),snapshot(target)]);const [sourceHash,targetHash]=await Promise.all([contentHash(a),contentHash(b)]);const overlap=a.senses.filter(s=>{const entry=a.entries.find(e=>e.id===s.entryId),match=b.entries.find(e=>e.canonicalKey===entry?.canonicalKey&&e.caseMode===entry?.caseMode&&!e.deletedAt);return match&&b.senses.some(other=>other.entryId===match.id&&other.identity===s.identity&&!other.deletedAt);}).length;return {id:crypto.randomUUID(),sourceScope:source.scope.id,targetScope:target.scope.id,source:a,sourceHash,targetHash,words:a.senses.filter(s=>!s.deletedAt).length,overlap};}
+export async function commitTransfer(target:LocalRepository,plan:TransferPlan){if(target.scope.kind!=='account'||target.scope.id!==plan.targetScope||!plan.sourceScope.startsWith('guest:'))throw new RepositoryError('scope');return target.db.transaction('rw',target.db.tables,async()=>{
+ const receipts=target.db.table<ScopedDocument>('transferCheckpoints'),previous=await receipts.get([target.scope.id,`transfer:${plan.id}`]);if(previous){if(previous.payload.hash!==plan.sourceHash)throw new RepositoryError('conflict');return previous.payload.result as {added:number;linked:number};}
+ const source=await snapshot(target,plan.sourceScope),current=await snapshot(target);if(await Dexie.waitFor(contentHash(source))!==plan.sourceHash||await Dexie.waitFor(contentHash(current))!==plan.targetHash)throw new RepositoryError('conflict');
+ const maps=Object.fromEntries(cloudTables.map(name=>[name,new Map<string,string>()])) as Record<CloudTable,Map<string,string>>;const skipped=new Set<string>();
+ for(const row of source.entries){const existing=current.entries.find(e=>e.canonicalKey===row.canonicalKey&&e.caseMode===row.caseMode&&!e.deletedAt);maps.entries.set(String(row.id),existing?String(existing.id):current.entries.some(e=>e.id===row.id)?crypto.randomUUID():String(row.id));if(existing)skipped.add(`entries:${row.id}`);}
+ for(const row of source.senses){const parent=maps.entries.get(String(row.entryId));const existing=current.senses.find(s=>s.entryId===parent&&s.identity===row.identity&&!s.deletedAt);maps.senses.set(String(row.id),existing?String(existing.id):current.senses.some(s=>s.id===row.id)?crypto.randomUUID():String(row.id));if(existing)skipped.add(`senses:${row.id}`);}
+ for(const entity of cloudTables.filter(name=>name!=='entries'&&name!=='senses'))for(const row of source[entity]){const existing=current[entity].find(item=>item.id===row.id);maps[entity].set(String(row.id),existing&&!['reviewEvents','gameAttempts','practiceSessions'].includes(entity)?(entity==='mediaAssets'?`media-${crypto.randomUUID()}`:crypto.randomUUID()):String(row.id));}
+ const mapped=(entity:CloudTable,id:unknown)=>id===null?null:maps[entity].get(String(id))??String(id);
+ const remapWord=(word:Record<string,unknown>)=>({...word,id:mapped('senses',word.id)});
+ let added=0,linked=0;
+ for(const entity of cloudTables){for(const original of source[entity]){if(entity==='practiceSessions'&&current.practiceSessions.some(row=>row.id===original.id))continue;if(entity==='sentences'&&skipped.has(`senses:${(original.payload as {content:{senseId:string}}).content.senseId}`))continue;if(skipped.has(`${entity}:${original.id}`)){if(entity==='senses')linked++;continue;}if(entity==='examples'&&skipped.has(`senses:${original.senseId}`))continue;
+  const row:Record<string,unknown>={...original,id:mapped(entity,original.id),scopeId:target.scope.id};if(entity==='senses'){row.entryId=mapped('entries',row.entryId);if(typeof row.art==='string'&&row.art.startsWith('media-'))row.art=mapped('mediaAssets',row.art);added++;}
+  if(entity==='examples')row.senseId=mapped('senses',row.senseId);
+  if(entity==='evidence')row.lessonId=mapped('lessons',row.lessonId);
+  if(entity==='lessonItems'){row.entryId=mapped('entries',row.entryId);row.senseId=mapped('senses',row.senseId);row.lessonId=mapped('lessons',row.lessonId);row.evidenceId=mapped('evidence',row.evidenceId);}
+  if(entity==='notes')row.targetId=mapped(row.targetType==='sense'?'senses':'lessons',row.targetId);
+  if(entity==='decks'){const payload=row.payload as {deck:{senseIds:string[]}};row.payload={deck:{...payload.deck,senseIds:[...new Set(payload.deck.senseIds.map(id=>mapped('senses',id)))]}};}
+  if(entity==='mediaAssets'){const payload=row.payload as {asset:{senseId:string}};row.payload={asset:{...payload.asset,senseId:mapped('senses',payload.asset.senseId)}};}
+  if(entity==='sentences'){const payload=row.payload as {content:{senseId:string}};row.id=`extra-${mapped('senses',payload.content.senseId)}`;row.payload={content:{...payload.content,senseId:mapped('senses',payload.content.senseId)}};}
+  if(entity==='practiceSessions'){const payload=row.payload as {session:{questions:{word:Record<string,unknown>;choices:Record<string,unknown>[]}[]}};row.payload={session:{...payload.session,id:row.id,scopeId:target.scope.id,questions:payload.session.questions.map(q=>({...q,word:remapWord(q.word),choices:q.choices.map(remapWord)}))}};}
+  if(entity==='reviewEvents'){row.senseId=mapped('senses',row.senseId);row.sessionId=mapped('practiceSessions',row.sessionId);}
+  if(entity==='gameAttempts'){const payload=row.payload as {senseId:string;sessionId:string};row.payload={...payload,senseId:mapped('senses',payload.senseId),sessionId:mapped('practiceSessions',payload.sessionId)};}
+  const validated=parseCloudRow(entity,row);if((entity==='reviewEvents'||entity==='gameAttempts')&&current[entity].some(existing=>existing.id===row.id)){const existing=current[entity].find(item=>item.id===row.id);if(stableJson(existing)!==stableJson(validated))throw new RepositoryError('conflict');continue;}await target.db.table(entity).add(validated);
+ }}
+ await rebuildSearch(Dexie.currentTransaction!);const result={added,linked};const at=new Date().toISOString();await receipts.add({scopeId:target.scope.id,id:`transfer:${plan.id}`,version:1,createdAt:at,updatedAt:at,deletedAt:null,payload:{hash:plan.sourceHash,result,sourceScope:plan.sourceScope}});return result;
+ });}

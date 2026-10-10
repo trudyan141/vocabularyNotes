@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "1.0",
+  "document": {
+    "titleSuggestion": "Fruit and simple sentences",
+    "lessonDateSuggestion": null,
+    "detectedLanguages": [
+      "en",
+      "vi"
+    ],
+    "quality": "clear",
+    "warnings": []
+  },
+  "evidence": [
+    {
+      "id": "ev-words",
+      "text": "apple, banana, book",
+      "pageIndex": 0,
+      "bbox": null,
+      "confidenceLabel": "high"
+    },
+    {
+      "id": "ev-sentence",
+      "text": "I like apples.",
+      "pageIndex": 0,
+      "bbox": null,
+      "confidenceLabel": "high"
+    }
+  ],
+  "vocabulary": [
+    {
+      "candidateId": "word-apple",
+      "surfaceText": "apple",
+      "kind": "word",
+      "caseMode": "fold",
+      "posSuggestion": "noun",
+      "evidenceIds": [
+        "ev-words"
+      ],
+      "extractionReason": "explicit_word_list",
+      "reviewRequired": false
+    },
+    {
+      "candidateId": "word-banana",
+      "surfaceText": "banana",
+      "kind": "word",
+      "caseMode": "fold",
+      "posSuggestion": "noun",
+      "evidenceIds": [
+        "ev-words"
+      ],
+      "extractionReason": "explicit_word_list",
+      "reviewRequired": false
+    },
+    {
+      "candidateId": "word-book",
+      "surfaceText": "book",
+      "kind": "word",
+      "caseMode": "fold",
+      "posSuggestion": "noun",
+      "evidenceIds": [
+        "ev-words"
+      ],
+      "extractionReason": "explicit_word_list",
+      "reviewRequired": false
+    }
+  ],
+  "sentences": [
+    {
+      "candidateId": "sentence-like",
+      "textEn": "I like apples.",
+      "translationVi": null,
+      "origin": "source",
+      "evidenceIds": [
+        "ev-sentence"
+      ],
+      "reviewRequired": false
+    }
+  ],
+  "patterns": [
+    {
+      "candidateId": "pattern-like",
+      "displayPattern": "I like [noun/noun phrase].",
+      "slots": [
+        {
+          "name": "object",
+          "labelVi": "Danh từ hoặc cụm danh từ làm tân ngữ",
+          "constraint": "Use a grammatical noun phrase; a countable noun may need a determiner or a plural form.",
+          "exampleValue": "apples"
+        }
+      ],
+      "origin": "inferred",
+      "evidenceIds": [
+        "ev-sentence"
+      ],
+      "reviewRequired": true
+    }
+  ],
+  "grammar": [
+    {
+      "candidateId": "grammar-present",
+      "titleEn": "Present simple: likes and preferences",
+      "titleVi": "Hiện tại đơn: sở thích",
+      "ruleKeySuggestion": "present-simple.preferences",
+      "origin": "inferred",
+      "evidenceIds": [
+        "ev-sentence"
+      ],
+      "reviewRequired": true
+    }
+  ]
+}

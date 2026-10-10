@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-09",
+  "artifact": "T18 static prototype, not production performance",
+  "resources": {
+    "index.html": {
+      "bytes": 3118,
+      "gzipBytes": 1342
+    },
+    "styles.css": {
+      "bytes": 18874,
+      "gzipBytes": 4856
+    },
+    "fixtures.js": {
+      "bytes": 5127,
+      "gzipBytes": 2131
+    },
+    "app.js": {
+      "bytes": 44856,
+      "gzipBytes": 13689
+    },
+    "assets.js": {
+      "bytes": 11015,
+      "gzipBytes": 4008
+    }
+  },
+  "servedFontBytes": 101028,
+  "selectedTokenContrast": {
+    "ink": 11.57,
+    "mutedOnLilac": 5.52,
+    "whiteOnBerry": 5.93,
+    "successOnMint": 6.58,
+    "wrongOnPink": 5.88
+  },
+  "limits": [
+    "Static byte/contrast check only, no RUM/CWV/human/device benchmark",
+    "HTTP server does not gzip by default; gzipBytes are offline estimates, not measured transfer"
+  ]
+}

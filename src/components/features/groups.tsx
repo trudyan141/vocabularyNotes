@@ -13,7 +13,7 @@ import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {studyGroups,groupContents} from '@/data/local/groups';
 const pageSize=12;
-export function Groups(){const {repository}=useApp();return <ScopedGroups key={repository?.scope.id??'loading'}/>;}
+export function Groups(){const {repository}=useApp(),params=useSearchParams();return <ScopedGroups key={`${repository?.scope.id??'loading'}:${params.get('group')??'all'}`}/>;}
 function ScopedGroups(){
  const {repository,t}=useApp(),params=useSearchParams();
  const [mode,setMode]=useState<'words'|'sentences'>('words'),[query,setQuery]=useState(''),[page,setPage]=useState(0);

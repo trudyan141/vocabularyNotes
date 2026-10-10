@@ -270,3 +270,5 @@ Concrete noun mapping/catalog hoặc appearance adjective có gloss; orange colo
 ## 2026-10-10 — Capture review and streaming follow-up
 
 ADR031 upload drag-drop/source prepared photo/inline key/action reasons: c74a2e2 check104/full117 E2E PASS, nativeGit production READY, CI38028605020 SUCCESS. ADR032 adds real Gemini SSE/stages/elapsed/indeterminate activity/partial unsaved words/90s/stop; removes stale pending text on error and fixes REST JSON format enum. Evidence capture-review-ui; final check109/13files/lint/types/build, full119/119 E2E and docs203links PASS; actual stream CORS OPTIONS200. Live inference and physical/human gates remain pending.
+
+Streaming source7eeb25e production READY (dpl_5GuJjph4QsX362DqJb2e7E8Qe8uT/stable alias); CI38029422569 in progress at record time. No live inference or key access.

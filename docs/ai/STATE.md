@@ -8,7 +8,7 @@ Upload/camera đã refine Theme C: vùng drag-drop một ảnh/nút tiếng Vi�
 
 ## Streaming phân tích ảnh — ADR-032
 
-Gemini SSE/tiến độ bước thực/elapsed/Dừng/preview chưa lưu/strict final validation đã xong; sửa stale chờ khi lỗi và REST enum APPLICATION_JSON. Check109 unit/13files/lint/types/build PASS, full119/119 E2E PASS, docs203links PASS. Real stream CORS OPTIONS200; inference chưa gọi. Evidence capture-review-ui; đang push nativeGit deploy, không claim READY trước khi kiểm.
+Gemini SSE/tiến độ bước thực/elapsed/Dừng/preview chưa lưu/strict final validation đã xong; sửa stale chờ khi lỗi và REST enum APPLICATION_JSON. Check109 unit/13files/lint/types/build PASS, full119/119 E2E PASS, docs203links PASS. Real stream CORS OPTIONS200; inference chưa gọi. Evidence capture-review-ui; Source7eeb25e nativeGit production dpl_5GuJjph4QsX362DqJb2e7E8Qe8uT READY, stable words-for-kids.vercel.app; CI38029422569 đang chạy tại mốc ghi này (không claim pass).
 
 ## Bản hiện hành
 

@@ -103,8 +103,10 @@ export class CaptureRepository {
   async create(
     image: PreparedImage,
     id = crypto.randomUUID(),
+    initial?:{title:string;learnedOn:string},
   ): Promise<CaptureDraft> {
     validImage(image);
+    if(initial){metadataSchema.parse({...initial,tags:"",consent:false});}
     const now = new Date().toISOString();
     const draft: CaptureDraft = {
       scopeId: this.local.scope.id,
@@ -116,8 +118,8 @@ export class CaptureRepository {
       width: image.width,
       height: image.height,
       byteSize: image.blob.size,
-      title: "",
-      learnedOn: "",
+      title: initial?.title??"",
+      learnedOn: initial?.learnedOn??"",
       tags: "",
       consent: false,
       consentVersion: null,

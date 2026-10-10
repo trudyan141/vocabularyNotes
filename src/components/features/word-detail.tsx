@@ -72,7 +72,7 @@ export function WordDetail({ id }: { id: string }) {
         </ParentGate>
       </div>
       <div className="word-detail-hero">
-        <Artwork art={entry.art} word={entry.word} size={210} />
+        <Artwork art={entry.art} word={entry.word} size={210} showCredit />
         <div>
           <h1 lang="en">{entry.word}</h1>
           <Badge variant="secondary">{entry.pos}</Badge>

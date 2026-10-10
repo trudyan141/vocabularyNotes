@@ -69,3 +69,7 @@ Source lifecycle, account deletion, merge UI, optional Commons adapter, đủ ha
 ## Capture/review UI steering — 10/10/2026
 
 ADR031 hoàn tất local104/117: drag-drop một ảnh, picker tiếng Việt/bàn phím, camera riêng, inline Gemini key, blocked action reasons và ảnh nguồn sticky/zoom đối chiếu. [Evidence](../evaluations/capture-review-ui.md). Không tăng count done vì phone/liveAI/human gates vẫn pending; code c74a2e2 nativeGit production READY và CI38028605020 SUCCESS, hosted UI/sourceimage verified.
+
+## Founder pictures / grammar / daily sets — 10/10/2026
+
+ADR034/035 scope implemented under T07/T08/T09/T12/T14: automatic open-source illustration lookup/download + parent review, compact card credits, complete question patterns, parent fill of existing missing art, lesson/day manager and daily manual group/practice filter. pnpm check121/14PASS; full133/133browserPASS; deployment pending. [Evidence](../evaluations/library-media-and-date-sets.md). Ledger count unchanged; external/device/human gates remain pending.

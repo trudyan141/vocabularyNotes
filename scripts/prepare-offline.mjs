@@ -10,7 +10,9 @@ await copyFile("src/app/fonts/OFL.txt","public/fonts/OFL.txt");
 
 for(const [input,output] of [['src/domain/identity.ts','public/offline-identity.js']]){const source=await readFile(input,'utf8');await writeFile(output,ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext}}).outputText);}
 
+const online=JSON.parse(await readFile('src/lib/media/online-illustrations.json','utf8'));
 const illustrations=JSON.parse(await readFile('src/lib/media/open-illustrations.json','utf8'));
 await writeFile('public/open-illustrations.js',`export const openIllustrations=${JSON.stringify(illustrations)};
-export const illustrationPath=value=>openIllustrations.some(item=>item.id===value)?'/illustrations/openmoji/'+value.slice(9)+'.svg':'/illustrations/'+value+'.svg';
+const onlineIds=${JSON.stringify(online.map(item=>item.id))};
+export const illustrationPath=value=>value?.startsWith('online-openmoji-')&&onlineIds.includes(value.slice(16))?'/illustrations/online/'+value.slice(16):openIllustrations.some(item=>item.id===value)?'/illustrations/openmoji/'+value.slice(9)+'.svg':'/illustrations/'+value+'.svg';
 `);

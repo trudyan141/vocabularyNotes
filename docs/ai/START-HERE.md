@@ -8,6 +8,8 @@ Người dùng chốt tên **Words for Kids**, web/PWA ưu tiên con founder và
 
 Steering tiếp10/10/2026: ADR031 upload drag-drop/source-photo/inline key đã deploy; ADR032 Gemini SSE/elapsed/partial chưa lưu/STOP validation sửa chờ treo và REST enum APPLICATION_JSON. Evidence capture-review-ui và STATE ghi mốc kiểm hiện hành.
 
+Steering ADR034/035: automatic licensed picture download, parent question grammar and searchable learning-date sets. Current checks/deploy at [evidence](../evaluations/library-media-and-date-sets.md) and STATE; follow latest next action there.
+
 ## Trình tự bắt đầu
 
 Steering cùng ngày thêm đường gõ tay → autocomplete → tra/chọn nghĩa → duyệt/lưu tại S03/S09, không cần ảnh/OCR; R11/F07/ADR-021, T07 local đã nối; lookup thật đã smoke `handsom`/`handsome`; availability nguồn ngoài có lỗi/fallback.

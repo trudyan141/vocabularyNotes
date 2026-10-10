@@ -2,6 +2,10 @@
 
 Cập nhật10/10/2026, Asia/Ho_Chi_Minh. Founder yêu cầu setup rõ env/nơi lấy, Vercel tự deploy, autocomplete từ điển/tự điền/hình và bỏ OCR thiết bị. Steering mới nhất yêu cầu **Gemini thay OpenAI**, nhiều model và ưu tiên quota free tier. ADR-029/030 thay quyết định cũ về key browser/OCR/provider; giữ Theme C, trẻ5–8/parent-first, ba nav và approved revision.
 
+## Pictures / grammar / day sets — ADR-034/035
+
+Founder13 words were saved after live Gemini success. Current code adds catalog177 +1493 licensed online auto-picture lookup/download, removes nested credit links from cards, adds complete project question templates with parent approval, and exposes /library/lessons day grouping/search/rename/new-versus-review/set practice. Manual words share a daily local-date set; each imported photo keeps its own title/date/ID. check121unit14files/lint/types/build PASS; full133/133browserPASS; deploy pending in [evidence](../evaluations/library-media-and-date-sets.md). Next: nativeGit deploy and verify founder’s existing13-word library without another AI call.
+
 ## Sửa capture/review theo founder — ADR-031
 
 Upload/camera đã refine Theme C: vùng drag-drop một ảnh/nút tiếng Việt/bàn phím, camera riêng, cùng validation/local draft, bỏ banner chưa kết nối. Extract có ảnh prepared sticky/zoom để đối chiếu; lý do action bị khóa; key/model Gemini cấu hình tại chỗ, không rời nháp; save chỉ mở khi đủ từ/nghĩa/approval. Check104/lint/types/build và full117/117 browser PASS. [Evidence](../evaluations/capture-review-ui.md), screenshots synthetic/manual desktop/mobile. Chưa gọi AI thật, chưa physical camera. Code c74a2e2 nativeGit production READY, alias words-for-kids.vercel.app; CI38028605020 SUCCESS toàn bộ check104/117 browser/SQL/docs. Browser hosted render đúng source prepared1920×1080, không gửi AI. Count ledger giữ nguyên.

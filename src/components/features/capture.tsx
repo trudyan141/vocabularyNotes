@@ -104,6 +104,7 @@ export function Capture() {
   const [busy, setBusy] = useState(false);
   const [dragging,setDragging]=useState(false);
   const dragDepth=useRef(0);
+  const pendingTitle=useRef("");
   const fileInput=useRef<HTMLInputElement|null>(null);
   const [cameraState, setCameraState] = useState<
     "closed" | "requesting" | "ready"
@@ -202,12 +203,13 @@ export function Capture() {
   async function store(image: PreparedImage) {
     if (!repo) return;
     setPendingImage(image);
-    const draft = await repo.create(image, pendingId.current);
+    const draft = await repo.create(image, pendingId.current,{title:pendingTitle.current,learnedOn:new Date().toLocaleDateString("en-CA")});
     setPendingImage(null);
     router.push(`/capture/${draft.id}/edit`);
   }
   async function intake(blob: Blob) {
     if (intakeLock.current) return;
+    pendingTitle.current=blob instanceof File?blob.name.replace(/\.[^.]+$/, "").slice(0,200):`Ảnh chụp · ${new Date().toLocaleDateString("en-CA")}`;
     intakeLock.current = true;
     stopCamera();
     setBusy(true);
@@ -223,6 +225,7 @@ export function Capture() {
     }
   }
   async function takePhoto() {
+    pendingTitle.current=`Ảnh chụp · ${new Date().toLocaleDateString("en-CA")}`;
     const node = video.current;
     if (!node || !node.videoWidth || intakeLock.current) return;
     intakeLock.current = true;

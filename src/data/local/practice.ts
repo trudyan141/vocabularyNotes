@@ -25,12 +25,14 @@ export class PracticeRepository{
     const index=await this.repository.db.searchIndex.where("[scopeId+ordinal]").between([scope,""],[scope,"\uffff"]).toArray();
     let candidates=index.filter(row=>row.approval&&(!filter.lesson||row.lessonIds.includes(filter.lesson)));
     if(mode==="picture-word"||mode==="word-picture")candidates=candidates.filter(row=>!!safeArt(row.art));
-    const distractorWords=await this.repository.words(candidates.slice(0,100).map(row=>row.id));
+    const picture=(word:LibraryWord)=>!(["intelligent","smart","clever"].includes(word.word.toLowerCase())&&word.pos==="adjective");
+    const distractorWords=(await this.repository.words(candidates.slice(0,100).map(row=>row.id))).filter(word=>!(mode==="picture-word"||mode==="word-picture")||picture(word));
     if(filter.deck){const row=await this.repository.db.table<ScopedDocument>("decks").get([scope,filter.deck]);if(!row||row.deletedAt)throw new RepositoryError("not-ready");const ids=(row.payload.deck as {senseIds:string[]}).senseIds;candidates=candidates.filter(row=>ids.includes(row.id));}
     if(filter.word)candidates=candidates.filter(row=>row.id===filter.word);
     if(filter.due){const states=await this.repository.db.table<ScopedDocument>("reviewStates").where("[scopeId+id]").between([scope,""],[scope,"\uffff"]).toArray();const map=new Map(states.map(row=>[row.id,row.payload.state as ReviewState]));candidates=candidates.filter(row=>!map.has(row.id)||Date.parse(map.get(row.id)!.dueAt)<=Date.now());}
     if(filter.weak){const attempts=await this.repository.db.table<ScopedDocument>("gameAttempts").where("[scopeId+id]").between([scope,""],[scope,"\uffff"]).toArray();const latest=new Map<string,ScopedDocument>();for(const attempt of attempts.sort((a,b)=>a.updatedAt.localeCompare(b.updatedAt)))latest.set(attempt.payload.senseId as string,attempt);candidates=candidates.filter(row=>{const attempt=latest.get(row.id);return attempt&&(!attempt.payload.correct||attempt.payload.hint);});}
     let words=(await this.repository.words(candidates.slice(0,100).map(row=>row.id))).filter(word=>word.vi.trim()&&word.en.trim());
+    if(mode==="picture-word"||mode==="word-picture")words=words.filter(picture);
     if(mode==="letters")words=words.filter(word=>/^[a-z]{2,30}$/i.test(word.word));
     const unique=distractorWords.filter((word,i)=>distractorWords.findIndex(other=>answerKey(other.word,other.caseMode)===answerKey(word.word,word.caseMode))===i);
     const distractorPool=mode==="picture-word"||mode==="word-picture"?unique:words;

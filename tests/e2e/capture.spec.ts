@@ -415,7 +415,7 @@ test("quota rollback preserves the image for retry and confirmed delete removes 
   await upload(page, await fixture(page));
   await page.getByRole("button", { name: "Quay lại và giữ nháp" }).click();
   const remove = page.getByRole("button", {
-    name: "Xóa nháp chưa đặt tên",
+    name: "Xóa nháp worksheet",
     exact: true,
   });
   await remove.click();

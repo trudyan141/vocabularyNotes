@@ -16,6 +16,8 @@
 
 Bốn model có sẵn và ô nhập model ID khác; không tự chuyển model khi lỗi/quota. Key cũ OpenAI không được gửi sang Google. Điều khoản Google vẫn hạn chế under-18-directed/likely-access API Clients; code/config đã làm theo founder, eligibility/live account chưa được Google chấp thuận. [Nguồn](https://ai.google.dev/gemini-api/terms).
 
+**Cập nhật bộ từ/ngày và hình10/10:** app tự tìm hình nguồn mở khi tra từ, dọn credit khỏi thẻ thư viện, bổ sung mẫu câu/ngữ pháp What is it?/It’s… để phụ huynh duyệt. Thêm màn Bộ từ theo ngày: mỗi ảnh/file giữ bài riêng, từ gõ tay gom cùng ngày, tìm tên/ngày/từ, đếm từ mới/ôn lại, sửa tên/ngày và học từng bộ. check121/14PASS; 133/133 browser PASS; deploy đang hoàn tất, [evidence](evaluations/library-media-and-date-sets.md) ghi kết quả cuối.
+
 ## 1. Sản phẩm cần giải quyết điều gì?
 
 Người học đã gặp một từ hoặc cấu trúc câu, nhưng sau vài ngày không nhớ đã học ở đâu. Giấy ghi chú nằm rải rác; chụp ảnh vào điện thoại thì khó tìm kiếm; nhập từng từ vào một ứng dụng ôn tập mất công. Words for Kids nối ba việc thành một luồng: **lưu lại kiến thức đã học → tìm lại đúng ngữ cảnh → ôn để nhớ lâu hơn**.

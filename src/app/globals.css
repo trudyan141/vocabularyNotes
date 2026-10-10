@@ -1060,3 +1060,10 @@ main { min-height:calc(100svh - 140px); }
 @media (prefers-reduced-motion: reduce) { .ai-activity-bar span { animation: none; transform: translateX(90%); } }
 .ai-error-details { min-width: 0; padding-block: .5rem; }
 .ai-error-details pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: .875rem; line-height: 1.6; max-height: 20rem; overflow: auto; }
+
+.credited-art { margin:0; width:fit-content; max-width:100%; }
+.credited-art .word-art { display:block; }
+.credited-art summary { cursor:pointer; font-size:.75rem; }
+.library-list > li > a { min-height:108px; }
+
+.preparation-images{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:1rem}.preparation-images article{display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:1rem;background:var(--muted);border-radius:1rem}.lesson-set{padding:1.2rem;border:1px solid var(--border);border-radius:1rem}.lesson-date{font-size:1.15rem}.lesson-set h3{margin:0;font-size:1.3rem}.lesson-set .row-wrap{gap:.5rem}

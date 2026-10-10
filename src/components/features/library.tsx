@@ -101,6 +101,7 @@ export function Library() {
           </Button>
         </div>
       )}
+      <div className="row-wrap"><Button asChild variant="outline"><Link href="/library/lessons">{t("Bộ từ theo ngày","Word sets by date")}</Link></Button><ParentGate href={`/library/prepare${lesson?`?lesson=${encodeURIComponent(lesson)}`:""}`}><Button variant="outline">{t("Bổ sung hình và mẫu câu","Prepare pictures and patterns")}</Button></ParentGate>{lesson&&<Button asChild><Link href={`/practice?lesson=${encodeURIComponent(lesson)}`}>{t("Học bộ này","Learn this set")}</Link></Button>}</div>
       <div className="content-modes" aria-label={t("Loại nội dung","Content type")}>{([["words","Từ","Words"],["sentences","Câu","Sentences"],["patterns","Mẫu câu","Patterns"],["grammar","Ngữ pháp","Grammar"]] as const).map(([value,vi,en])=><Button key={value} variant={mode===value?"secondary":"outline"} aria-pressed={mode===value} onClick={()=>{setMode(value);setOffset(0);}}>{t(vi,en)}</Button>)}</div>
       <FieldGroup>
         <Field>

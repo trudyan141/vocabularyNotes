@@ -1,3 +1,5 @@
+import {contentSchema,saveContent,type LearningContent} from './content';
+import {safeArt} from '@/lib/media/catalog';
 import { Dexie } from "dexie";
 import { z } from "zod";
 import {
@@ -315,6 +317,7 @@ export class LocalRepository {
     items: WordInput[];
     draftId?: string;
     lessonId?: string;
+    learning?:{key:string;wordId:string;content:Omit<LearningContent,"senseId"|"targetRevision">}[];
   }) {
     const items = z.array(inputSchema).min(1).max(10000).parse(input.items);
     text(100).parse(input.operationId);
@@ -326,6 +329,8 @@ export class LocalRepository {
       throw new RepositoryError("invalid");
     if (input.sourceType === "demo" && this.scope.kind !== "demo")
       throw new RepositoryError("scope");
+    for(const item of input.learning??[]){text(40).parse(item.key);if(!items.some(word=>word.id===item.wordId))throw new RepositoryError("invalid");contentSchema.parse({...item.content,senseId:item.wordId,targetRevision:"1:1"});}
+    if((input.learning?.length??0)>20)throw new RepositoryError("invalid");
     const hash = await contentHash({ ...input, items }); // WebCrypto must finish before opening an IDB transaction.
     return this.db.transaction("rw", this.db.tables, async () => {
       const key: [string, string] = [this.scope.id, input.operationId];
@@ -334,7 +339,9 @@ export class LocalRepository {
         if (receipt.payloadHash !== hash) throw new RepositoryError("conflict");
         return receipt.result;
       }
-      const lessonId = input.lessonId ?? crypto.randomUUID();
+      let lessonId = input.lessonId ?? crypto.randomUUID();
+      if(input.sourceType==='manual'&&input.lessonId?.startsWith('manual-day-')){const daily=await this.db.lessons.where('[scopeId+learnedOn]').equals([this.scope.id,input.learnedOn]).toArray();const match=daily.find(l=>!l.deletedAt&&l.sourceType==='manual'&&l.id.startsWith('manual-day-'));if(match)lessonId=match.id;else {const moved=await this.db.lessons.get([this.scope.id,lessonId]);if(moved)lessonId=`manual-day-${input.learnedOn}-${crypto.randomUUID()}`;}}
+
       const existingLesson = await this.db.lessons.get([
         this.scope.id,
         lessonId,
@@ -355,6 +362,7 @@ export class LocalRepository {
         operationId: input.operationId,
       };
       const changed = new Set<string>();
+      const resolved=new Map<string,{id:string;revision:string}>();
       for (const word of items) {
         const caseMode = word.caseMode ?? "fold";
         const canonical = canonicalKey(word.word, caseMode);
@@ -448,8 +456,10 @@ export class LocalRepository {
             evidenceId,
           });
         }
+        resolved.set(word.id,{id:sense.id,revision:`${entry.version}:${sense.version}`});
         changed.add(sense.id);
       }
+      for (const item of input.learning??[]){const target=resolved.get(item.wordId)!;await saveContent(this,`lesson-content-${lessonId}-${item.key}`,null,{...item.content,senseId:target.id,targetRevision:target.revision,lessonId});}
       for (const id of changed) await this.reindex(id);
       await this.db.receipts.add({
         scopeId: this.scope.id,
@@ -475,6 +485,20 @@ export class LocalRepository {
       });
       return result;
     });
+  }
+  async prepareLearning(images:{id:string;revision:string;art:string}[],target:{id:string;revision:string;contents:{key:string;content:Omit<LearningContent,"senseId"|"targetRevision">}[]}|null){
+    if(images.length>50)throw new RepositoryError('invalid');
+    return this.db.transaction('rw',this.db.tables,async()=>{
+      for(const image of images){if(!safeArt(image.art)||image.art.startsWith('media-'))throw new RepositoryError('invalid');const word=await this.word(image.id);if(!word||word.revision!==image.revision||word.art)throw new RepositoryError('conflict');const sense=(await this.db.senses.get([this.scope.id,image.id]))!;const at=new Date().toISOString(),revision=`${word.revision.split(':')[0]}:${sense.version+1}`;await this.db.senses.put({...sense,art:image.art,version:sense.version+1,updatedAt:at});
+        const table=this.db.table<import('./types').ScopedDocument>('sentences');const rows=await table.where('[scopeId+id]').between([this.scope.id,''],[this.scope.id,'\uffff']).toArray();for(const row of rows){const c=row.payload.content as LearningContent;if(!row.deletedAt&&c?.senseId===word.id&&c.targetRevision===word.revision)await table.put({...row,version:row.version+1,updatedAt:at,payload:{...row.payload,content:{...c,targetRevision:revision}}});}
+        await this.reindex(image.id);await this.journal('sense',image.id,{baseVersion:sense.version,version:sense.version+1});
+      }
+      if(target){const word=await this.word(target.id);const changed=images.some(i=>i.id===target.id);const expected=changed?`${target.revision.split(':')[0]}:${Number(target.revision.split(':')[1])+1}`:target.revision;if(!word||word.revision!==expected)throw new RepositoryError('conflict');for(const item of target.contents){const id=`object-pattern-${word.id}-${item.key}`;if(await this.db.table('sentences').get([this.scope.id,id]))continue;await saveContent(this,id,null,{...item.content,senseId:word.id,targetRevision:word.revision});}}
+    });
+  }
+  async editLesson(id:string,version:number,title:string,learnedOn:string){
+    text(200).parse(title);if(!/^\d{4}-\d{2}-\d{2}$/.test(learnedOn)||new Date(learnedOn+'T12:00:00Z').toISOString().slice(0,10)!==learnedOn)throw new RepositoryError('invalid');
+    return this.db.transaction('rw',this.db.tables,async()=>{const row=await this.db.lessons.get([this.scope.id,id]);if(!row||row.deletedAt||row.version!==version)throw new RepositoryError('conflict');await this.db.lessons.put({...row,title:title.trim(),learnedOn,version:version+1,updatedAt:new Date().toISOString()});await this.journal('lesson',id,{baseVersion:version,version:version+1});});
   }
   async editWord(
     id: string,

@@ -78,3 +78,7 @@ Từ/câu được hiển thị trong phần học dùng IPA đã xác minh và 
 AudioService dùng voice EN đã load và `voiceschanged`, ưu tiên accent được chọn. `speak()` bắt đầu khi user tap; cancel lời cũ trước lời mới; cancel khi đổi card/route. Rate đề xuất 1.0 và slow 0.8, người dùng điều chỉnh. Không dùng giọng VI đọc từ EN vì không tìm được giọng phù hợp.
 
 Device voice có thể local hoặc remote; offline chỉ hứa khi `localService` phù hợp đã thử trên thiết bị hoặc audio đã cache. Nếu không có tiếng nói, UI vẫn hiển thị phần học và trạng thái `Thiết bị chưa có giọng tiếng Anh`. P2 server TTS lưu asset có model/accent/speed/contentHash để cache và không chạy lại mỗi lần tap.
+
+## Prepared question patterns — ADR-034
+
+Capture review and parent library preparation offer project-authored What is it?/It’s a/an… and Is it…?/Yes, it is./No, it isn’t. Keep the original worksheet text as evidence; label templates as additions. Whitelist concrete singular countable nouns; full usage/formula/analyzed example/common mistake/correction, bilingual example, parent approval and atomic save. Appear in Sentences/Patterns/Grammar, scoped to approved target revision/lesson. Intelligence symbols are not picture-game answers.

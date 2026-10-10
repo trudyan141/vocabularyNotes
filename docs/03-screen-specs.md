@@ -89,3 +89,7 @@ Tên nút và toast phải phản ánh trạng thái thật: `Đã lưu trên m�
 ### S05 — Trạng thái chờ AI theo ADR-032
 
 Sau Phân tích, giữ ảnh đối chiếu, disable chỉnh/saving trong request, hiện bước thực tế Chuẩn bị/Chờ Gemini/Nhận từ/Kiểm tra, elapsed giây, thanh indeterminate có reduced-motion và Dừng. Từ/nghĩa hoàn chỉnh nhận từ SSE hiện dần có nhãn bản tạm chưa lưu. Không %/ETA giả;90s timeout báo lỗi và giữ nháp cũ. Kết thúc STOP/schema/evidence hợp lệ mới vào review. Error/cancel/key change xóa pending UI ngay.
+
+## Founder date sets — ADR-035
+
+S10 links to /library/lessons: date headings, searchable date/title/English/Vietnamese words, set counts (new/review), title/date edits with version conflict handling, View set and Learn this set. S02 recent lessons display dates and link to all sets. One image/file keeps its own lesson; manual entry shares local learning-day set and lets parent choose date. S04 defaults filename/date; S05 save opens that set. Practice respects lesson query. No fourth main navigation.

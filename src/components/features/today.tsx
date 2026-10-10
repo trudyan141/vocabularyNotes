@@ -93,8 +93,9 @@ export function Today() {
               </Button>
             </ParentGate>
           </div>
+          <Button asChild variant="link"><Link href="/library/lessons">{t("Tất cả bộ từ theo ngày","All word sets by date")}</Link></Button>
           <div className="lesson-grid">
-            {lessons&&lessons.scope===repository?.scope.id&&lessons.values.map(({lesson,total,art,word},i)=><Link key={lesson.id} prefetch={false} className={`lesson-tile ${i%2?"lilac":"mint"}`} href={`/library?lesson=${encodeURIComponent(lesson.id)}`}><Artwork art={art} word={word} size={88}/><div><h3>{lesson.id==="food"?t("Trái cây & đồ ăn","Fruit & food"):lesson.id==="school"?t("Thế giới quanh con","Your world"):lesson.title}</h3><p>{total} {lesson.sourceType==="demo"?t("từ mẫu","sample words"):t("từ","words")}</p></div><ArrowRight aria-hidden="true"/></Link>)}
+            {lessons&&lessons.scope===repository?.scope.id&&lessons.values.map(({lesson,total,art,word},i)=><Link key={lesson.id} prefetch={false} className={`lesson-tile ${i%2?"lilac":"mint"}`} href={`/library?lesson=${encodeURIComponent(lesson.id)}`}><Artwork art={art} word={word} size={88}/><div><h3>{lesson.id==="food"?t("Trái cây & đồ ăn","Fruit & food"):lesson.id==="school"?t("Thế giới quanh con","Your world"):lesson.title}</h3><p>{lesson.learnedOn} · {total} {lesson.sourceType==="demo"?t("từ mẫu","sample words"):t("từ","words")}</p></div><ArrowRight aria-hidden="true"/></Link>)}
           </div>
         </section>
       )}

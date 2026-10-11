@@ -34,7 +34,7 @@ describe('server cookie login session persistence using the installed Supabase S
  });
  it('keeps a saved session during temporary network failure and restores it after reconnect',async()=>{
   seed();const persisted=fixture.jar.get(cookieName);vi.stubGlobal('fetch',vi.fn(async()=>response({message:'Temporarily unavailable'},503)));
-  expect(await authenticated()).toBeNull();expect(fixture.jar.get(cookieName)).toBe(persisted);
+  await expect(authenticated()).rejects.toThrow('auth-unavailable');expect(fixture.jar.get(cookieName)).toBe(persisted);const unavailable=await GET(new Request('https://words.example.test/api/auth/status'));expect(unavailable.status).toBe(503);
   vi.stubGlobal('fetch',vi.fn(async()=>response(user)));expect((await authenticated())?.user.id).toBe(user.id);
  });
  it('sign out clears cookies so reopening requires login, and cross-origin logout is rejected',async()=>{

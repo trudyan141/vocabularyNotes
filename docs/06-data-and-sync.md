@@ -1,5 +1,10 @@
 # Dữ liệu, chống trùng và đồng bộ
 
+**Hiện hành12/10 — ADR064, thay steering mutable guest cũ:** xác minh session trước writable scope; có user luôn mở account owner/library, không rơi về guest khi lỗi mạng/schema/auth. Logout quay lại guest selection đã giữ. Sau transaction commit, tự schedule150ms, durable outbox/CAS/receipt giữ retry; private Realtime notification chỉ báo version, authorized cursor pull lấy dữ liệu. Có reconnect/focus/catch-up và poll60s dự phòng, không cần bấm nút. Toàn bộ13 cloudTables đã lưu được quan sát, cùng7 preference fields (tên/avatar/locale/level/childFriendly/reduceMotion/sound), preference patch atomic tại RPC mới. Không cloud hóa key/mic/raw capture draft. Guest IndexedDB được giữ, hỏi một lần mỗi owner có muốn xem trước/sao chép, từ chối không đổi dữ liệu. SDK Realtime chỉ tải cho account, access token chỉ RAM, refresh token không trả cho browser. [Bằng chứng và giới hạn SQL](evaluations/speaking-refresh-and-automatic-sync.md).
+
+Migration mới [202610110007_realtime.sql](../supabase/migrations/202610110007_realtime.sql) thêm private receive policy theo owner/library, notification bounded1/library/transaction, preference RPC whitelist/ownership. **Chưa apply hosted**. SQL local mới bị lỗi kernel shared memory ở initdb, nên không báo RLS/trigger pass. Founder giữ quyền GitHub/Vercel/hosted DB theo ADR049; cần kiểm/apply migration này để nhận cập nhật tức thời trên website thật.
+
+
 **Giữ phiên — kiểm chứng11/10:** đăng nhập đã lưu bằng cookie persistent HttpOnly. Mở lại cùng browser/domain không cần OAuth lại khi phiên còn hợp lệ; server getUser refresh access token bằng refresh token và ghi cookie mới. Cookie lifetime không đồng nghĩa thời hạn phiên server. Logout/xóa cookie/phiên hết hiệu lực hoặc bị thu hồi yêu cầu login lại. Không lưu auth vào IndexedDB/backup và không mở account cache offline bằng cookie chưa kiểm. [Kiểm chứng SDK local](evaluations/auth-session-persistence.md).
 
 
@@ -149,3 +154,6 @@ Save expands approved lesson/day words, sentences and grammar, prefers that sour
 
 
 **11/10 — ADR062:** Đăng nhập không tự chuyển bài guest lên cloud. Device chưa chọn loại thư viện và có session hợp lệ mở account với owner check; lựa chọn guest/demo đã chọn giữ nguyên. Profile phân biệt bài local/cloud, dẫn tới xem trước/backup/confirmed transfer. Account sync refresh khi focus/visibility/online, giữ outbox/conflict/ownership hiện có. Không sửa/xóa hay tự đưa dữ liệu thật lên cloud trong kiểm tra này. [Evidence](evaluations/speaking-app-and-library-fixes.md).
+
+
+**Checkpoint report11/10 — ADR063 (implementation superseded by ADR064 at top):** after sign-in all new mutations must use that user's account automatically; other active devices converge without buttons. Prior guest choice cannot override sign-in; cloud/network failure cannot silently switch writes to guest. Guest lessons stay intact, ask once before copying into the authenticated user, independent of new account writes. Propose private Realtime notification + authorized cursor catch-up/outbox/ACK, not loss-prone fire-and-forget or full-table polling. Offline pending stays scoped to account; logout/change-user isolation retained. Profile/editable account preferences need scope review. Actual IndexedDB lesson storage retained during report; user's localStorage wording and recommended retention clarified in [report](BAO-CAO-PERFORMANCE-VA-DONG-BO.md). No runtime/schema change at that report checkpoint.

@@ -1,0 +1,31 @@
+insert into auth.users values('10000000-0000-4000-8000-000000000001'),('20000000-0000-4000-8000-000000000002');
+set role authenticated;
+set request.jwt.claim.sub='10000000-0000-4000-8000-000000000001';
+insert into public.libraries(id,name) values('11000000-0000-4000-8000-000000000001','A');
+select public.wfk_update_preferences('11000000-0000-4000-8000-000000000001','{"profileName":"Bé A"}');
+select public.wfk_update_preferences('11000000-0000-4000-8000-000000000001','{"profileAvatar":"fox"}');
+do $$ begin
+ if (select preferences->>'profileName' from public.libraries)<>'Bé A' then raise exception 'patch lost another field';end if;
+ begin perform public.wfk_update_preferences('11000000-0000-4000-8000-000000000001','{"privateKey":"forbidden"}');raise exception 'secret accepted';exception when invalid_parameter_value then null;end;
+ begin perform public.wfk_update_preferences('11000000-0000-4000-8000-000000000001','{"profileAvatar":"bad"}');raise exception 'enum accepted';exception when invalid_parameter_value then null;end;
+end $$;
+set realtime.topic='library:10000000-0000-4000-8000-000000000001:11000000-0000-4000-8000-000000000001';
+do $$ begin if (select count(*) from realtime.messages)<>2 then raise exception 'owner cannot receive';end if;end $$;
+set request.jwt.claim.sub='20000000-0000-4000-8000-000000000002';
+insert into public.libraries(id,name) values('21000000-0000-4000-8000-000000000002','B');
+do $$ begin
+ if (select count(*) from realtime.messages)<>0 then raise exception 'foreign notifications visible';end if;
+ begin perform public.wfk_update_preferences('11000000-0000-4000-8000-000000000001','{"profileName":"attack"}');raise exception 'foreign write accepted';exception when insufficient_privilege then null;end;
+end $$;
+reset role;
+begin;
+set request.jwt.claim.sub='10000000-0000-4000-8000-000000000001';
+set role authenticated;
+insert into public.lessons(id,library_id,title,learned_on,source_type,client_id,client_payload) values('12000000-0000-4000-8000-000000000001','11000000-0000-4000-8000-000000000001','Lesson','2026-10-11','manual','lesson-a','{"id":"lesson-a"}');
+update public.lessons set title='changed' where id='12000000-0000-4000-8000-000000000001';
+reset role;
+do $$ begin if (select count(*) from realtime.messages)<>3 then raise exception 'not bounded to one notification per transaction';end if;end $$;
+rollback;
+set role anon;
+do $$ begin begin perform public.wfk_update_preferences('11000000-0000-4000-8000-000000000001','{}');raise exception 'anon allowed';exception when insufficient_privilege then null;end;end $$;
+reset role;

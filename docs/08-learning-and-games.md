@@ -1,5 +1,8 @@
 # Ôn tập, flashcard và minigame
 
+**ADR064/06512/10:** Speaking từng từ nằm ngay chi tiết từ, giữ IPA/định nghĩa/ví dụ/listening. Hiện phần trăm không thêm nhãn “tham khảo”, tô nhóm chữ và mở bảng từng âm. Chơi & học có ô Nói cùng Cáo: vòng tối đa5 từ đã duyệt, tiếp/bỏ qua/hoàn thành/chơi lại sang các từ kế tiếp, không đổi lịch SRS. `/speaking?word=id` redirect chi tiết, `/speaking` redirect game. [Hiện hành](15-speaking-practice.md), [kiểm local](evaluations/speaking-refresh-and-automatic-sync.md).
+
+
 **Hiện hành ADR046 (11/10/2026):** Cài đặt và mọi luồng thêm/sửa/học mở trực tiếp; người dùng tự chuẩn bị và chơi, gia đình tự phân vai. Không có parent gate. Review/approval là kiểm nội dung đúng phiên bản; auth/ownership/scope/CAS vẫn bảo vệ dữ liệu thực. Mô tả phân vai bố mẹ/bé cũ bên dưới được thay bởi quy tắc này; xem03/04.
 
 

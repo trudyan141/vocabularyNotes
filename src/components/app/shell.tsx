@@ -3,6 +3,8 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { BookOpen, House, Layers, Settings } from "lucide-react";
+import dynamic from 'next/dynamic';
+const GuestCopyPrompt=dynamic(()=>import('./guest-copy-prompt').then(module=>module.GuestCopyPrompt));
 import { ProfileLink } from "@/components/features/profile";
 import { cn } from "@/lib/utils";
 import { useApp } from "./provider";
@@ -61,7 +63,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </nav>
       )}
       <div className="app-content">
-        <main id="main" tabIndex={-1}>
+        <main id="main" tabIndex={-1}><GuestCopyPrompt/>
           {["/welcome", "/settings"].includes(pathname) ? (
             children
           ) : (

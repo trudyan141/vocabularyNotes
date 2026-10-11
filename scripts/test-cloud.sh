@@ -14,6 +14,9 @@ run supabase/migrations/202610100003_keys.sql
 run supabase/migrations/202610100004_sync.sql
 run supabase/migrations/202610100005_lifecycle.sql
 run supabase/migrations/202610100006_media.sql
+run tests/sql/realtime-bootstrap.sql
+run supabase/migrations/202610110007_realtime.sql
+run tests/sql/realtime.sql
 run tests/sql/sync.sql
 run tests/sql/ownership.sql
 run tests/sql/lifecycle.sql

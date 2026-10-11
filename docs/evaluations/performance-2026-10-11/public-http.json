@@ -1,0 +1,580 @@
+{
+  "kind": "anonymous HTTP lab, not browser LCP/field metrics",
+  "routes": [
+    {
+      "path": "/",
+      "medianTtfbMs": 251.57800000000003,
+      "runs": [
+        {
+          "path": "/",
+          "status": 200,
+          "ttfbMs": 251.57800000000003,
+          "totalMs": 253.913,
+          "dnsMs": 4.911,
+          "tlsMs": 120.28899999999999,
+          "wireBytes": 4008,
+          "decodedBytes": 15162,
+          "sha256": "6249762fc07118c1d57594dab64f6be7a313e9e4b8673a9e27aa892ba0498899",
+          "headers": {
+            "age": "0",
+            "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+            "content-encoding": "gzip",
+            "content-type": "text/html; charset=utf-8",
+            "x-vercel-cache": "MISS",
+            "x-vercel-id": "hkg1::sin1::7xzjt-1791735739177-bb389ab5e246"
+          }
+        },
+        {
+          "path": "/",
+          "status": 200,
+          "ttfbMs": 590.34,
+          "totalMs": 592.395,
+          "dnsMs": 2.873,
+          "tlsMs": 423.39500000000004,
+          "wireBytes": 4008,
+          "decodedBytes": 15162,
+          "sha256": "6249762fc07118c1d57594dab64f6be7a313e9e4b8673a9e27aa892ba0498899",
+          "headers": {
+            "age": "0",
+            "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+            "content-encoding": "gzip",
+            "content-type": "text/html; charset=utf-8",
+            "x-vercel-cache": "MISS",
+            "x-vercel-id": "hkg1::sin1::t9nv6-1791735739772-d4c758aa3b56"
+          }
+        },
+        {
+          "path": "/",
+          "status": 200,
+          "ttfbMs": 243.46499999999997,
+          "totalMs": 245.278,
+          "dnsMs": 3.898,
+          "tlsMs": 119.777,
+          "wireBytes": 4008,
+          "decodedBytes": 15162,
+          "sha256": "6249762fc07118c1d57594dab64f6be7a313e9e4b8673a9e27aa892ba0498899",
+          "headers": {
+            "age": "0",
+            "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+            "content-encoding": "gzip",
+            "content-type": "text/html; charset=utf-8",
+            "x-vercel-cache": "MISS",
+            "x-vercel-id": "hkg1::sin1::t9nv6-1791735740067-883afe26bae1"
+          }
+        },
+        {
+          "path": "/",
+          "status": 200,
+          "ttfbMs": 341.735,
+          "totalMs": 343.986,
+          "dnsMs": 4.166,
+          "tlsMs": 123.89,
+          "wireBytes": 4008,
+          "decodedBytes": 15162,
+          "sha256": "6249762fc07118c1d57594dab64f6be7a313e9e4b8673a9e27aa892ba0498899",
+          "headers": {
+            "age": "0",
+            "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+            "content-encoding": "gzip",
+            "content-type": "text/html; charset=utf-8",
+            "x-vercel-cache": "MISS",
+            "x-vercel-id": "hkg1::sin1::8dxnt-1791735740421-07d387c37faf"
+          }
+        },
+        {
+          "path": "/",
+          "status": 200,
+          "ttfbMs": 246.19,
+          "totalMs": 248.034,
+          "dnsMs": 3.885,
+          "tlsMs": 123.509,
+          "wireBytes": 4008,
+          "decodedBytes": 15162,
+          "sha256": "6249762fc07118c1d57594dab64f6be7a313e9e4b8673a9e27aa892ba0498899",
+          "headers": {
+            "age": "0",
+            "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+            "content-encoding": "gzip",
+            "content-type": "text/html; charset=utf-8",
+            "x-vercel-cache": "MISS",
+            "x-vercel-id": "hkg1::sin1::dffn5-1791735740717-019524f656fd"
+          }
+        }
+      ]
+    },
+    {
+      "path": "/welcome",
+      "medianTtfbMs": 244.312,
+      "runs": [
+        {
+          "path": "/welcome",
+          "status": 200,
+          "ttfbMs": 248.95000000000002,
+          "totalMs": 250.94699999999997,
+          "dnsMs": 4.772,
+          "tlsMs": 124.44800000000001,
+          "wireBytes": 4458,
+          "decodedBytes": 18636,
+          "sha256": "2672b244954b790cf557309e60d3f5c8cb34e7ffdb61ec4b3586e98273e00e53",
+          "headers": {
+            "age": "0",
+            "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+            "content-encoding": "gzip",
+            "content-type": "text/html; charset=utf-8",
+            "x-vercel-cache": "MISS",
+            "x-vercel-id": "hkg1::sin1::ksjfp-1791735740990-e0be9ee1b571"
+          }
+        },
+        {
+          "path": "/welcome",
+          "status": 200,
+          "ttfbMs": 243.272,
+          "totalMs": 243.834,
+          "dnsMs": 2.926,
+          "tlsMs": 120.11800000000001,
+          "wireBytes": 4458,
+          "decodedBytes": 18636,
+          "sha256": "2672b244954b790cf557309e60d3f5c8cb34e7ffdb61ec4b3586e98273e00e53",
+          "headers": {
+            "age": "0",
+            "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+            "content-encoding": "gzip",
+            "content-type": "text/html; charset=utf-8",
+            "x-vercel-cache": "MISS",
+            "x-vercel-id": "hkg1::sin1::jrt4b-1791735741261-3bcf6262d010"
+          }
+        },
+        {
+          "path": "/welcome",
+          "status": 200,
+          "ttfbMs": 237.416,
+          "totalMs": 239.773,
+          "dnsMs": 3.155,
+          "tlsMs": 119.325,
+          "wireBytes": 4458,
+          "decodedBytes": 18636,
+          "sha256": "2672b244954b790cf557309e60d3f5c8cb34e7ffdb61ec4b3586e98273e00e53",
+          "headers": {
+            "age": "0",
+            "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+            "content-encoding": "gzip",
+            "content-type": "text/html; charset=utf-8",
+            "x-vercel-cache": "MISS",
+            "x-vercel-id": "hkg1::sin1::k4ngd-1791735741525-5bcf60bc4ac9"
+          }
+        },
+        {
+          "path": "/welcome",
+          "status": 200,
+          "ttfbMs": 253.49699999999999,
+          "totalMs": 255.272,
+          "dnsMs": 3.196,
+          "tlsMs": 120.50800000000001,
+          "wireBytes": 4458,
+          "decodedBytes": 18636,
+          "sha256": "2672b244954b790cf557309e60d3f5c8cb34e7ffdb61ec4b3586e98273e00e53",
+          "headers": {
+            "age": "0",
+            "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+            "content-encoding": "gzip",
+            "content-type": "text/html; charset=utf-8",
+            "x-vercel-cache": "MISS",
+            "x-vercel-id": "hkg1::sin1::x56q9-1791735741795-4c6d8604f9c1"
+          }
+        },
+        {
+          "path": "/welcome",
+          "status": 200,
+          "ttfbMs": 244.312,
+          "totalMs": 246.893,
+          "dnsMs": 2.33,
+          "tlsMs": 122.771,
+          "wireBytes": 4458,
+          "decodedBytes": 18636,
+          "sha256": "2672b244954b790cf557309e60d3f5c8cb34e7ffdb61ec4b3586e98273e00e53",
+          "headers": {
+            "age": "0",
+            "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+            "content-encoding": "gzip",
+            "content-type": "text/html; charset=utf-8",
+            "x-vercel-cache": "MISS",
+            "x-vercel-id": "hkg1::sin1::gmk26-1791735742068-655e96d490bd"
+          }
+        }
+      ]
+    },
+    {
+      "path": "/today",
+      "medianTtfbMs": 242.372,
+      "runs": [
+        {
+          "path": "/today",
+          "status": 200,
+          "ttfbMs": 254.43900000000002,
+          "totalMs": 256.111,
+          "dnsMs": 3.003,
+          "tlsMs": 119.40599999999999,
+          "wireBytes": 5784,
+          "decodedBytes": 24487,
+          "sha256": "3744ba3fd7320febf1d47b5fd5d3bad6310f3d9e0f50d24ee9a6e08c5e1d9cd3",
+          "headers": {
+            "age": "0",
+            "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+            "content-encoding": "gzip",
+            "content-type": "text/html; charset=utf-8",
+            "x-vercel-cache": "MISS",
+            "x-vercel-id": "hkg1::sin1::jrt4b-1791735742336-3231d932f4f5"
+          }
+        },
+        {
+          "path": "/today",
+          "status": 200,
+          "ttfbMs": 233.33200000000002,
+          "totalMs": 235.574,
+          "dnsMs": 2.392,
+          "tlsMs": 116.93199999999999,
+          "wireBytes": 5784,
+          "decodedBytes": 24487,
+          "sha256": "3744ba3fd7320febf1d47b5fd5d3bad6310f3d9e0f50d24ee9a6e08c5e1d9cd3",
+          "headers": {
+            "age": "0",
+            "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+            "content-encoding": "gzip",
+            "content-type": "text/html; charset=utf-8",
+            "x-vercel-cache": "MISS",
+            "x-vercel-id": "hkg1::sin1::9tghv-1791735742611-5560f420f575"
+          }
+        },
+        {
+          "path": "/today",
+          "status": 200,
+          "ttfbMs": 242.372,
+          "totalMs": 244.26500000000001,
+          "dnsMs": 2.392,
+          "tlsMs": 112.36200000000001,
+          "wireBytes": 5784,
+          "decodedBytes": 24487,
+          "sha256": "3744ba3fd7320febf1d47b5fd5d3bad6310f3d9e0f50d24ee9a6e08c5e1d9cd3",
+          "headers": {
+            "age": "0",
+            "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+            "content-encoding": "gzip",
+            "content-type": "text/html; charset=utf-8",
+            "x-vercel-cache": "MISS",
+            "x-vercel-id": "hkg1::sin1::7xzjt-1791735742866-c760368c9cbf"
+          }
+        },
+        {
+          "path": "/today",
+          "status": 200,
+          "ttfbMs": 350.09000000000003,
+          "totalMs": 352.00100000000003,
+          "dnsMs": 3.101,
+          "tlsMs": 120.791,
+          "wireBytes": 5784,
+          "decodedBytes": 24487,
+          "sha256": "3744ba3fd7320febf1d47b5fd5d3bad6310f3d9e0f50d24ee9a6e08c5e1d9cd3",
+          "headers": {
+            "age": "0",
+            "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+            "content-encoding": "gzip",
+            "content-type": "text/html; charset=utf-8",
+            "x-vercel-cache": "MISS",
+            "x-vercel-id": "hkg1::sin1::pcn24-1791735743242-ef205197b2d6"
+          }
+        },
+        {
+          "path": "/today",
+          "status": 200,
+          "ttfbMs": 240.7,
+          "totalMs": 246.84900000000002,
+          "dnsMs": 3.3,
+          "tlsMs": 121.919,
+          "wireBytes": 5784,
+          "decodedBytes": 24487,
+          "sha256": "3744ba3fd7320febf1d47b5fd5d3bad6310f3d9e0f50d24ee9a6e08c5e1d9cd3",
+          "headers": {
+            "age": "0",
+            "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+            "content-encoding": "gzip",
+            "content-type": "text/html; charset=utf-8",
+            "x-vercel-cache": "MISS",
+            "x-vercel-id": "hkg1::sin1::8dxnt-1791735743517-d9a1f9fa6880"
+          }
+        }
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "path": "/_next/static/immutable/chunks/3gsdiky1wk4g_.js",
+      "status": 200,
+      "ttfbMs": 206.245,
+      "totalMs": 231.751,
+      "dnsMs": 2.642,
+      "tlsMs": 115.738,
+      "wireBytes": 48739,
+      "decodedBytes": 178061,
+      "sha256": "1cf4f927f1317076fe17676eb1f6ec5f3d5ce48d6a8cef6b197d737f7013bdbe",
+      "headers": {
+        "age": "59372",
+        "cache-control": "public,max-age=31536000,immutable",
+        "content-encoding": "gzip",
+        "content-type": "application/javascript; charset=utf-8",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "hkg1::c6vvd-1791735743803-c50ed8c3656e"
+      }
+    },
+    {
+      "path": "/_next/static/immutable/chunks/02cr_hzsjjmmk.js",
+      "status": 200,
+      "ttfbMs": 194.585,
+      "totalMs": 223.683,
+      "dnsMs": 3.333,
+      "tlsMs": 119.771,
+      "wireBytes": 72738,
+      "decodedBytes": 230051,
+      "sha256": "10b6e7aa6db8ebc17f6145d0b8fb8d65f036685023f16869944fba66ef2a3640",
+      "headers": {
+        "age": "193",
+        "cache-control": "public,max-age=31536000,immutable",
+        "content-encoding": "gzip",
+        "content-type": "application/javascript; charset=utf-8",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "hkg1::7xzjt-1791735744053-9b1f5af390eb"
+      }
+    },
+    {
+      "path": "/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+      "status": 200,
+      "ttfbMs": 182.601,
+      "totalMs": 183.42600000000002,
+      "dnsMs": 4.043,
+      "tlsMs": 121.287,
+      "wireBytes": 4400,
+      "decodedBytes": 11255,
+      "sha256": "b5f9b5199b99ab6c141f4540f0b7d0fe803c4ecf6956849ecb6e59d3d439272e",
+      "headers": {
+        "age": "41457",
+        "cache-control": "public,max-age=31536000,immutable",
+        "content-encoding": "gzip",
+        "content-type": "application/javascript; charset=utf-8",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "hkg1::lk9jw-1791735744325-9334b71fb460"
+      }
+    },
+    {
+      "path": "/_next/static/immutable/chunks/258hz_29wufe6.js",
+      "status": 200,
+      "ttfbMs": 303.783,
+      "totalMs": 304.219,
+      "dnsMs": 2.821,
+      "tlsMs": 242.006,
+      "wireBytes": 3595,
+      "decodedBytes": 13912,
+      "sha256": "6f31530664efb5655f9347dadc67f8fae68d7ab279427b7f8f3d455a90ad1c35",
+      "headers": {
+        "age": "3266",
+        "cache-control": "public,max-age=31536000,immutable",
+        "content-encoding": "gzip",
+        "content-type": "application/javascript; charset=utf-8",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "hkg1::gmk26-1791735744658-da2e4fe2dd28"
+      }
+    },
+    {
+      "path": "/_next/static/immutable/chunks/2zke711yu4i6_.js",
+      "status": 200,
+      "ttfbMs": 184.771,
+      "totalMs": 185.761,
+      "dnsMs": 3.19,
+      "tlsMs": 118.67,
+      "wireBytes": 10890,
+      "decodedBytes": 35668,
+      "sha256": "83bf205ced50a2e630e76336ef01463cad36dd274e2bca74ce6d8fdc529535e1",
+      "headers": {
+        "age": "3267",
+        "cache-control": "public,max-age=31536000,immutable",
+        "content-encoding": "gzip",
+        "content-type": "application/javascript; charset=utf-8",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "hkg1::j8pgs-1791735744854-15997ec041f3"
+      }
+    },
+    {
+      "path": "/_next/static/immutable/chunks/043l_n0p7jnxz.js",
+      "status": 200,
+      "ttfbMs": 180.984,
+      "totalMs": 181.928,
+      "dnsMs": 3.7369999999999997,
+      "tlsMs": 119.015,
+      "wireBytes": 21303,
+      "decodedBytes": 53814,
+      "sha256": "e14174fedc00487c2935e0311539138d092bea8a243886c5d00270e12b5988c3",
+      "headers": {
+        "age": "194",
+        "cache-control": "public,max-age=31536000,immutable",
+        "content-encoding": "gzip",
+        "content-type": "application/javascript; charset=utf-8",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "hkg1::mxx5c-1791735745060-072da667d329"
+      }
+    },
+    {
+      "path": "/_next/static/immutable/chunks/2c4iodavq3wd8.js",
+      "status": 200,
+      "ttfbMs": 194.316,
+      "totalMs": 224.843,
+      "dnsMs": 6.066,
+      "tlsMs": 123.61999999999999,
+      "wireBytes": 116241,
+      "decodedBytes": 440821,
+      "sha256": "4b2bb0917b9be92debed0151dcd4db0baecb88c9d17e4cbd1a830f03257f87f4",
+      "headers": {
+        "age": "3267",
+        "cache-control": "public,max-age=31536000,immutable",
+        "content-encoding": "gzip",
+        "content-type": "application/javascript; charset=utf-8",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "hkg1::c6vvd-1791735745274-317356f98882"
+      }
+    },
+    {
+      "path": "/_next/static/immutable/chunks/2y3p9oyld-pt6.js",
+      "status": 200,
+      "ttfbMs": 185.749,
+      "totalMs": 186.32399999999998,
+      "dnsMs": 4.67,
+      "tlsMs": 121.17500000000001,
+      "wireBytes": 13075,
+      "decodedBytes": 34857,
+      "sha256": "8ca79cd1e779c52c71fe93e5d94a176a3dec7a5a7b193db4a8c509bc203574c8",
+      "headers": {
+        "age": "195",
+        "cache-control": "public,max-age=31536000,immutable",
+        "content-encoding": "gzip",
+        "content-type": "application/javascript; charset=utf-8",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "hkg1::84tzh-1791735745577-355f9f4cdd1e"
+      }
+    },
+    {
+      "path": "/_next/static/immutable/chunks/1_7bp1a3md2d3.js",
+      "status": 200,
+      "ttfbMs": 176.71,
+      "totalMs": 177.51,
+      "dnsMs": 3.18,
+      "tlsMs": 118.093,
+      "wireBytes": 488,
+      "decodedBytes": 488,
+      "sha256": "0b129ac7532d5edc9caf43ceb33344ceef466b335d198390c7156d07256456e0",
+      "headers": {
+        "age": "41458",
+        "cache-control": "public,max-age=31536000,immutable",
+        "content-type": "application/javascript; charset=utf-8",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "hkg1::pc7vb-1791735745787-15a5caf78b80"
+      }
+    },
+    {
+      "path": "/_next/static/immutable/chunks/39gxyzsqq5wwf.js",
+      "status": 200,
+      "ttfbMs": 339.178,
+      "totalMs": 339.818,
+      "dnsMs": 30.0,
+      "tlsMs": 276.902,
+      "wireBytes": 813,
+      "decodedBytes": 1416,
+      "sha256": "3ca8970de3bc70c08ae129da42b2a909ab47294f882b65b5535f5dd19ee93a33",
+      "headers": {
+        "age": "9101",
+        "cache-control": "public,max-age=31536000,immutable",
+        "content-encoding": "gzip",
+        "content-type": "application/javascript; charset=utf-8",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "hkg1::b6rlf-1791735746200-87d9daff5446"
+      }
+    },
+    {
+      "path": "/_next/static/immutable/chunks/3uvt5p5-ijamo.js",
+      "status": 200,
+      "ttfbMs": 403.6,
+      "totalMs": 405.059,
+      "dnsMs": 3.312,
+      "tlsMs": 124.22500000000001,
+      "wireBytes": 11988,
+      "decodedBytes": 35068,
+      "sha256": "a89ec965080429168605cec24e2a38991402fe2f23c65726db5269559eac2622",
+      "headers": {
+        "age": "32194",
+        "cache-control": "public,max-age=31536000,immutable",
+        "content-encoding": "gzip",
+        "content-type": "application/javascript; charset=utf-8",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "hkg1::5z94z-1791735746625-46b7f1946d28"
+      }
+    },
+    {
+      "path": "/_next/static/immutable/chunks/0c0hxoamwjsbw.js",
+      "status": 200,
+      "ttfbMs": 524.38,
+      "totalMs": 549.36,
+      "dnsMs": 4.720000000000001,
+      "tlsMs": 123.017,
+      "wireBytes": 39797,
+      "decodedBytes": 112594,
+      "sha256": "0973c1d64c88adc8e3c950410cb58b288f72118d5965b78049438deb8f2f9683",
+      "headers": {
+        "age": "0",
+        "cache-control": "public,max-age=31536000,immutable",
+        "content-encoding": "gzip",
+        "content-type": "application/javascript; charset=utf-8",
+        "x-vercel-cache": "MISS",
+        "x-vercel-id": "hkg1::8gzzh-1791735746847-73a239eff36d"
+      }
+    },
+    {
+      "path": "/_next/static/immutable/chunks/16yorxiwosz3b.js",
+      "status": 200,
+      "ttfbMs": 180.376,
+      "totalMs": 182.34300000000002,
+      "dnsMs": 5.0489999999999995,
+      "tlsMs": 119.574,
+      "wireBytes": 7530,
+      "decodedBytes": 24425,
+      "sha256": "34c75b68386d95fa556ffb9d6c16f52bc5b44d536145a5f17dd28eead335a74a",
+      "headers": {
+        "age": "59376",
+        "cache-control": "public,max-age=31536000,immutable",
+        "content-encoding": "gzip",
+        "content-type": "application/javascript; charset=utf-8",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "hkg1::k9hvq-1791735747436-122ec8a09f80"
+      }
+    },
+    {
+      "path": "/_next/static/immutable/chunks/3tq-b5ckcd-p0.css",
+      "status": 200,
+      "ttfbMs": 304.212,
+      "totalMs": 306.84099999999995,
+      "dnsMs": 3.018,
+      "tlsMs": 241.241,
+      "wireBytes": 21038,
+      "decodedBytes": 108747,
+      "sha256": "7903d282aa06b98cd03410e9ef1335260ea20e37664ba676f6ab2f88dfcf4d35",
+      "headers": {
+        "age": "197",
+        "cache-control": "public,max-age=31536000,immutable",
+        "content-encoding": "gzip",
+        "content-type": "text/css; charset=utf-8",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "hkg1::8dxnt-1791735747765-2c16e5384eaf"
+      }
+    }
+  ],
+  "rootMetaRefresh": [],
+  "nomoduleScripts": [
+    "/_next/static/immutable/chunks/0c0hxoamwjsbw.js"
+  ],
+  "modernScriptDeclaredWireBytes": 311800
+}

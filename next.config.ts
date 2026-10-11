@@ -6,6 +6,7 @@ parseAppEnv(process.env);
 
 const nextConfig: NextConfig = {
   // The repository owns AGENTS.md; dev must not append framework instructions.
+  async redirects(){return [{source:'/',destination:'/welcome',permanent:false}];},
   agentRules: false,
   poweredByHeader: false,
   reactStrictMode: true,

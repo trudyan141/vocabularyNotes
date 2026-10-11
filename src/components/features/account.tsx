@@ -20,7 +20,7 @@ import {syncEngine} from '@/data/cloud/sync';
 import {cloudDiagnostic,CloudRequestError,type AccountStatus} from '@/lib/account-profile';
 
 export function AccountTools(){
- const {t,repository,selectCloudLibrary,selectLocalLibrary}=useApp();
+ const {t,repository,selectCloudLibrary}=useApp();
  const [status,setStatus]=useState<AccountStatus|null>(null),[busy,setBusy]=useState(false),[checking,setChecking]=useState(true),[stage,setStage]=useState(''),[issue,setIssue]=useState<CloudIssue|null>(null);
  const locked=useRef(false);
  async function readStatus(signal?:AbortSignal){
@@ -28,12 +28,12 @@ export function AccountTools(){
   if(!response.ok)throw new CloudRequestError(response.status===401?'signed-out':'cloud-unavailable',response.status);
   return await response.json() as AccountStatus;
  }
- useEffect(()=>{const controller=new AbortController();let active=true,generation=0;const check=()=>{const current=++generation;void readStatus(AbortSignal.any([controller.signal,AbortSignal.timeout(15000)])).then(value=>{if(active&&current===generation){setStatus(value);setIssue(null);}}).catch(error=>{if(active&&current===generation&&!controller.signal.aborted)setIssue({...cloudDiagnostic(error),stage:'Kiểm đăng nhập'});}).finally(()=>{if(active&&current===generation)setChecking(false);});};check();window.addEventListener('wfk-auth-changed',check);return()=>{active=false;controller.abort();window.removeEventListener('wfk-auth-changed',check);};},[]);
+ useEffect(()=>{const controller=new AbortController();let active=true,generation=0;const check=()=>{const current=++generation;void readStatus(AbortSignal.any([controller.signal,AbortSignal.timeout(15000)])).then(value=>{if(active&&current===generation){setStatus(value);setIssue(null);}}).catch(error=>{if(active&&current===generation&&!controller.signal.aborted)setIssue({...cloudDiagnostic(error),stage:'Kiểm đăng nhập'});}).finally(()=>{if(active&&current===generation)setChecking(false);});};check();window.addEventListener('wfk-auth-changed',check);window.addEventListener('wfk-cloud-synced',check);return()=>{active=false;controller.abort();window.removeEventListener('wfk-auth-changed',check);window.removeEventListener('wfk-cloud-synced',check);};},[]);
  async function run(label:string,work:()=>Promise<void>){if(locked.current)return;locked.current=true;setBusy(true);setStage(label);setIssue(null);try{await work();}catch(error){setIssue({...cloudDiagnostic(error),stage:label});}finally{locked.current=false;setBusy(false);}}
  async function refresh(){await run(t('Kiểm tra tài khoản và bài đã lưu','Checking account and saved lessons'),async()=>setStatus(await readStatus()));}
  async function logout(){await run(t('Đăng xuất Google','Signing out of Google'),async()=>{
   const response=await fetch('/api/auth/logout',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}',signal:AbortSignal.timeout(15000)});if(!response.ok)throw new CloudRequestError('cloud-unavailable',response.status);
-  await selectLocalLibrary(false);window.dispatchEvent(new Event('wfk-auth-changed'));
+  window.dispatchEvent(new Event('wfk-auth-changed'));
   if('BroadcastChannel'in window){const channel=new BroadcastChannel('wfk-auth');channel.postMessage('changed');channel.close();}
   setStatus(previous=>previous?{configured:previous.configured,user:null}:previous);
  });}
@@ -63,9 +63,9 @@ export function AccountTools(){
   <section className="page-flow"><h2>{t('Bài của con đang ở đâu?','Where are your child’s lessons?')}</h2>
    <p className="account-current">{accountActive?t('Đang học từ thư viện tài khoản.','Currently studying from your account library.'):repository?.scope.kind==='demo'?t('Đang xem bài mẫu. Bài mẫu không được đưa lên tài khoản.','Currently viewing sample lessons. Samples are not transferred to your account.'):t('Đang học từ bài trên máy này.','Currently studying from lessons on this device.')}</p>
    <div className="account-storage"><DeviceSummary/><section className="account-storage-location account-storage-cloud"><h3><Cloud aria-hidden="true"/>{t('Trên tài khoản Google','In your Google account')}</h3>{status?.user?status.cloud?.state==='unavailable'?<CloudFailure issue={{code:status.cloud.error??'database-unavailable',stage:t('Kiểm nơi lưu bài','Checking lesson storage')}}/>:<><p><strong>{status.cloud?.words??0}</strong> {t('từ đã lưu','saved words')} · <strong>{status.cloud?.lessons??0}</strong> {t('bộ bài','lesson sets')}</p><p>{t('Bản lưu của Words for Kids gắn với tài khoản này. Có thể mở trên thiết bị khác sau khi đăng nhập.','Your Words for Kids copy belongs to this account. Open it on another device after signing in.')}</p>{!accountActive&&<Button disabled={busy||!repository} onClick={()=>void openCloud()}><CloudUpload data-icon="inline-start" aria-hidden="true"/>{t('Mở thư viện tài khoản','Open account library')}</Button>}</>:<p>{t('Đăng nhập để kiểm tra bài đã lưu trên tài khoản.','Sign in to check your account’s saved lessons.')}</p>}</section></div>
-   {accountActive&&<Button variant="outline" disabled={busy} onClick={()=>void run(t('Mở bài trên máy','Opening device lessons'),()=>selectLocalLibrary(false))}>{t('Dùng bài riêng trên máy này','Use this device’s separate lessons')}</Button>}
+
   </section>
-  {status?.user&&!accountActive&&repository?.scope.kind==='guest'&&<section className="panel mint page-flow"><h2>{t('Đã đăng nhập, nhưng bài này chưa lên tài khoản','Signed in, but these lessons are still local')}</h2><p>{t('Hai thiết bị chỉ có cùng bài khi mở thư viện tài khoản. Đưa bài trên máy lên tài khoản trước; bản gốc vẫn được giữ.','Both devices share lessons when using the account library. Save device lessons to your account first; the original is kept.')}</p><Button asChild><a href="#save-account-lessons">{t('Lưu bài trên máy lên tài khoản','Save device lessons to account')}</a></Button></section>}<CurrentLibrary/>
+  <CurrentLibrary/>
   <OperationStatus busy={busy} title={stage}/><CloudFailure issue={issue}/>
   <Button className="account-refresh" variant="secondary" disabled={busy||checking} onClick={()=>void refresh()}><RefreshCw data-icon="inline-start" aria-hidden="true"/>{t('Kiểm tra lại trạng thái','Refresh account status')}</Button>
   {status?.user&&<><CloudTools onSynced={()=>void refresh()}/><TransferTools key={status.user.id} owner={status.user.id}/><details className="account-more"><summary>{t('Ảnh chụp gốc và tùy chọn tài khoản','Source photos and account options')}</summary><CloudSources/><AccountDelete owner={status.user.id} onDeleted={()=>setStatus(previous=>previous?{configured:previous.configured,user:null}:previous)}/></details></>}

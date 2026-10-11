@@ -10,7 +10,8 @@ import {Button} from "@/components/ui/button";
 import {Badge} from "@/components/ui/badge";
 import {Alert,AlertDescription,AlertTitle} from "@/components/ui/alert";
 import {Artwork,Back,EmptyState} from "@/components/app/shared";
-import {AudioControl} from "@/components/app/audio-control";
+import dynamic from "next/dynamic";
+const WordSpeaking=dynamic(()=>import("./speaking").then(module=>module.WordSpeaking));
 import {ActionLink} from "@/components/app/action-link";
 import {DatabaseLoading,ReadFailure} from "@/components/app/database-boundary";
 import {useLibraryWord} from "@/data/local/hooks";
@@ -76,13 +77,10 @@ export function WordDetail({ id }: { id: string }) {
       <div className="word-detail-hero">
         <Artwork art={entry.art} word={entry.word} size={210} showCredit />
         <div>
-          <h1 lang="en">{entry.word}</h1>
+          <WordSpeaking key={`${repository?.scope.id}:${entry.id}:${entry.revision}`} word={entry} embedded>
           <Badge variant="secondary">{entry.pos}</Badge>
           {entry.pronunciations.map((p,i)=><div key={i}><p className="ipa" lang="en">{p.verified?p.ipa:null}</p>{p.readingHintVi&&<p className="reading-hint">{t("Cách đọc gần đúng: ", "Reading hint: ")}{p.readingHintVi}</p>}</div>)}
-          <div className="row-wrap audio-row">
-            <AudioControl text={entry.word} />
-            <AudioControl text={entry.word} slow />
-          </div>
+          </WordSpeaking>
         </div>
       </div>
       {senses&&senses.scope===repository?.scope.id&&senses.id===id&&senses.words.length>1&&<section className="sense-picker page-flow" aria-label={t("Các nghĩa của từ","Word meanings")}><h2>{t("Chọn nghĩa theo câu","Choose the meaning for your sentence")}</h2><p>{t("Từ này có nhiều nghĩa. Mỗi nghĩa có ví dụ riêng.","This word has several meanings, each with its own example.")}</p><div className="row-wrap">{senses.words.map(word=><Button key={word.id} asChild variant={word.id===entry.id?"secondary":"outline"}><Link prefetch={false} href={`/library/words/${word.id}`} aria-current={word.id===entry.id?"page":undefined}>{word.word} · {word.vi.split("—")[0].trim()}</Link></Button>)}</div></section>}
@@ -121,7 +119,7 @@ export function WordDetail({ id }: { id: string }) {
         </Link>
       </Button>
 
-      <Button asChild variant="secondary"><Link href={`/speaking?word=${encodeURIComponent(entry.id)}`}>{t("Tập phát âm từ này","Practise saying this word")}</Link></Button><DeleteControl target={{table:"senses",id:entry.id,version:Number(entry.revision.split(":")[1]),revision:entry.revision}} label={t("Xóa từ này","Delete this word")} description={t(`Xóa “${entry.word}” với nghĩa này khỏi thư viện và các buổi học? Các nghĩa khác vẫn giữ.`,`Delete “${entry.word}” in this sense from your library and practice? Other senses are kept.`)} onDeleted={()=>router.push("/library")}/>
+      <DeleteControl target={{table:"senses",id:entry.id,version:Number(entry.revision.split(":")[1]),revision:entry.revision}} label={t("Xóa từ này","Delete this word")} description={t(`Xóa “${entry.word}” với nghĩa này khỏi thư viện và các buổi học? Các nghĩa khác vẫn giữ.`,`Delete “${entry.word}” in this sense from your library and practice? Other senses are kept.`)} onDeleted={()=>router.push("/library")}/>
     </article>
   );
 }

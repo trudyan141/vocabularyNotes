@@ -1,0 +1,3768 @@
+{
+  "commit": "058c0c7264af0e984204f921672dd542f91aed98",
+  "build": "W8LyVVkWKB0e37putG5o4",
+  "timestamp": "2026-10-11T16:30:32.439Z",
+  "host": {
+    "os": "darwin",
+    "cpu": "Apple M1",
+    "node": "v24.14.1"
+  },
+  "profile": {
+    "viewport": "360x800 Pixel7 emulation, Chromium desktop host",
+    "cpu": 4,
+    "network": {
+      "latencyMs": 150,
+      "downloadBytesPerSecond": 200000,
+      "uploadBytesPerSecond": 93750
+    },
+    "cache": "fresh isolated context per cold run, HTTP cache disabled, SW enabled; local server warmed",
+    "auth": "mock configured signed-out, response delay100ms; API never reaches real cloud",
+    "fixture": "20 demo words; not founder lessons; no real mic or AI"
+  },
+  "runs": [],
+  "experiments": [
+    {
+      "label": "auto greeting",
+      "route": "/welcome",
+      "final": "/welcome",
+      "readyMs": 2929,
+      "vitals": {
+        "lcp": 3032,
+        "cls": 0.00035809678819444447,
+        "lcpTag": "IMG",
+        "longTasks": [
+          {
+            "at": 919.2000000476837,
+            "duration": 83
+          },
+          {
+            "at": 2160.0999999046326,
+            "duration": 85
+          },
+          {
+            "at": 2744.7999999523163,
+            "duration": 86
+          },
+          {
+            "at": 2915.7999999523163,
+            "duration": 59
+          }
+        ]
+      },
+      "navigation": [
+        {
+          "ttfb": 130.59999990463257,
+          "domContentLoaded": 919.4000000953674,
+          "load": 2696.9000000953674,
+          "transferSize": 5238,
+          "encodedBodySize": 4938
+        }
+      ],
+      "resources": [
+        {
+          "path": "/_next/static/media/nunito_variable-s.p.1en5rhrpj6net.woff2",
+          "initiator": "link",
+          "start": 194.79999995231628,
+          "duration": 2247.7999999523163,
+          "transfer": 101328,
+          "encoded": 101028,
+          "decoded": 101028
+        },
+        {
+          "path": "/illustrations/fox.svg",
+          "initiator": "link",
+          "start": 195.20000004768372,
+          "duration": 206.79999995231628,
+          "transfer": 930,
+          "encoded": 630,
+          "decoded": 1466
+        },
+        {
+          "path": "/_next/static/chunks/2qo7jqfuk-kxc.css",
+          "initiator": "link",
+          "start": 229.29999995231628,
+          "duration": 674.9000000953674,
+          "transfer": 20910,
+          "encoded": 20610,
+          "decoded": 108747
+        },
+        {
+          "path": "/_next/static/chunks/3lqiz1o6lnegy.js",
+          "initiator": "link",
+          "start": 230.20000004768372,
+          "duration": 383.09999990463257,
+          "transfer": 7858,
+          "encoded": 7558,
+          "decoded": 24425
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-2c3mg3r-05n1w.js",
+          "initiator": "script",
+          "start": 230.29999995231628,
+          "duration": 479.2000000476837,
+          "transfer": 4690,
+          "encoded": 4390,
+          "decoded": 11255
+        },
+        {
+          "path": "/_next/static/chunks/0ol0fa7fjezxj.js",
+          "initiator": "script",
+          "start": 230.29999995231628,
+          "duration": 644.4000000953674,
+          "transfer": 3868,
+          "encoded": 3568,
+          "decoded": 13902
+        },
+        {
+          "path": "/_next/static/chunks/23jfskues6r4a.js",
+          "initiator": "script",
+          "start": 230.29999995231628,
+          "duration": 1439,
+          "transfer": 48540,
+          "encoded": 48240,
+          "decoded": 178064
+        },
+        {
+          "path": "/_next/static/chunks/0z6v5uj0dyfib.js",
+          "initiator": "script",
+          "start": 230.29999995231628,
+          "duration": 1927.6000001430511,
+          "transfer": 72200,
+          "encoded": 71900,
+          "decoded": 229590
+        },
+        {
+          "path": "/_next/static/chunks/0kbbbql9z5xds.js",
+          "initiator": "script",
+          "start": 230.40000009536743,
+          "duration": 906.5,
+          "transfer": 11142,
+          "encoded": 10842,
+          "decoded": 35668
+        },
+        {
+          "path": "/_next/static/chunks/1-23_ksq-t2ei.js",
+          "initiator": "script",
+          "start": 230.40000009536743,
+          "duration": 1432.5,
+          "transfer": 21805,
+          "encoded": 21505,
+          "decoded": 53814
+        },
+        {
+          "path": "/_next/static/chunks/0w_sqvfh10zsr.js",
+          "initiator": "script",
+          "start": 231.20000004768372,
+          "duration": 2429.5,
+          "transfer": 115237,
+          "encoded": 114937,
+          "decoded": 440821
+        },
+        {
+          "path": "/_next/static/chunks/3h53fb6y_7hdy.js",
+          "initiator": "script",
+          "start": 231.29999995231628,
+          "duration": 1483,
+          "transfer": 13438,
+          "encoded": 13138,
+          "decoded": 34857
+        },
+        {
+          "path": "/_next/static/chunks/0xdrkpmm_-gl9.js",
+          "initiator": "script",
+          "start": 231.29999995231628,
+          "duration": 1610.4000000953674,
+          "transfer": 788,
+          "encoded": 488,
+          "decoded": 488
+        },
+        {
+          "path": "/_next/static/chunks/3fis03fu1hsot.js",
+          "initiator": "script",
+          "start": 231.29999995231628,
+          "duration": 1626.2000000476837,
+          "transfer": 1126,
+          "encoded": 826,
+          "decoded": 1416
+        },
+        {
+          "path": "/_next/static/chunks/17xa37-4or-3l.js",
+          "initiator": "script",
+          "start": 231.29999995231628,
+          "duration": 1919.4000000953674,
+          "transfer": 12301,
+          "encoded": 12001,
+          "decoded": 35068
+        },
+        {
+          "path": "/illustrations/wordmark.svg",
+          "initiator": "img",
+          "start": 1050.5999999046326,
+          "duration": 972.7000000476837,
+          "transfer": 829,
+          "encoded": 529,
+          "decoded": 529
+        },
+        {
+          "path": "/illustrations/apple.svg",
+          "initiator": "img",
+          "start": 1051.2000000476837,
+          "duration": 1001.5,
+          "transfer": 895,
+          "encoded": 595,
+          "decoded": 595
+        },
+        {
+          "path": "/illustrations/book.svg",
+          "initiator": "img",
+          "start": 1051.2000000476837,
+          "duration": 1143.5999999046326,
+          "transfer": 793,
+          "encoded": 493,
+          "decoded": 493
+        },
+        {
+          "path": "/illustrations/cat.svg",
+          "initiator": "img",
+          "start": 1051.2000000476837,
+          "duration": 1174.2999999523163,
+          "transfer": 1066,
+          "encoded": 766,
+          "decoded": 766
+        },
+        {
+          "path": "/api/auth/status",
+          "initiator": "fetch",
+          "start": 2924.9000000953674,
+          "duration": 153,
+          "transfer": 331,
+          "encoded": 31,
+          "decoded": 31
+        },
+        {
+          "path": "/api/auth/status",
+          "initiator": "fetch",
+          "start": 3053.7999999523163,
+          "duration": 104,
+          "transfer": 331,
+          "encoded": 31,
+          "decoded": 31
+        }
+      ],
+      "sw": true,
+      "requests": [
+        {
+          "path": "/welcome",
+          "at": 44,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/media/nunito_variable-s.p.1en5rhrpj6net.woff2",
+          "at": 271,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/fox.svg",
+          "at": 272,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/2qo7jqfuk-kxc.css",
+          "at": 272,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/3lqiz1o6lnegy.js",
+          "at": 281,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/23jfskues6r4a.js",
+          "at": 281,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0z6v5uj0dyfib.js",
+          "at": 282,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-2c3mg3r-05n1w.js",
+          "at": 282,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0ol0fa7fjezxj.js",
+          "at": 283,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0kbbbql9z5xds.js",
+          "at": 283,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/1-23_ksq-t2ei.js",
+          "at": 283,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0w_sqvfh10zsr.js",
+          "at": 283,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/3h53fb6y_7hdy.js",
+          "at": 283,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0xdrkpmm_-gl9.js",
+          "at": 284,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/3fis03fu1hsot.js",
+          "at": 284,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/17xa37-4or-3l.js",
+          "at": 284,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/wordmark.svg",
+          "at": 1090,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/apple.svg",
+          "at": 1092,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/book.svg",
+          "at": 1092,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/cat.svg",
+          "at": 1093,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/sw.js",
+          "at": 2965,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline.html",
+          "at": 2987,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/fonts/nunito.woff2",
+          "at": 3001,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline.css",
+          "at": 3006,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline.js",
+          "at": 3010,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/api/auth/status",
+          "at": 3014,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/offline-games.js",
+          "at": 3019,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-srs.js",
+          "at": 3023,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-parent.js",
+          "at": 3027,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-identity.js",
+          "at": 3031,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-prepared-ipa.js",
+          "at": 3046,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-pronunciation.js",
+          "at": 3054,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-voices.js",
+          "at": 3062,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/open-illustrations.js",
+          "at": 3068,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/fox.svg",
+          "at": 3076,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/icons/app-192.png",
+          "at": 3079,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/icons/app-512.png",
+          "at": 3088,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/api/auth/status",
+          "at": 3094,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/apple.svg",
+          "at": 3094,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/bag.svg",
+          "at": 3098,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/banana.svg",
+          "at": 3103,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/bird.svg",
+          "at": 3108,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/book.svg",
+          "at": 3112,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/bread.svg",
+          "at": 3116,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/car.svg",
+          "at": 3120,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/cat.svg",
+          "at": 3122,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/chair.svg",
+          "at": 3124,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/desk.svg",
+          "at": 3128,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/dog.svg",
+          "at": 3130,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/egg.svg",
+          "at": 3132,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/eraser.svg",
+          "at": 3135,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/fish.svg",
+          "at": 3138,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/glue.svg",
+          "at": 3140,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/grapes.svg",
+          "at": 3143,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/milk.svg",
+          "at": 3146,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/notebook.svg",
+          "at": 3148,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/orange.svg",
+          "at": 3150,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/pen.svg",
+          "at": 3154,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/pencil.svg",
+          "at": 3156,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/ruler.svg",
+          "at": 3159,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/scissors.svg",
+          "at": 3161,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/shelf.svg",
+          "at": 3163,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/sun.svg",
+          "at": 3166,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/tree.svg",
+          "at": 3170,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/water.svg",
+          "at": 3172,
+          "method": "GET",
+          "worker": true
+        }
+      ],
+      "traceTop": [
+        {
+          "name": "BackgroundJSStreamManager::RunScriptStreamingTask",
+          "totalMs": 6004.149
+        },
+        {
+          "name": "v8.parseOnBackground",
+          "totalMs": 6003.963
+        },
+        {
+          "name": "v8.parseOnBackgroundWaiting",
+          "totalMs": 5977.006
+        },
+        {
+          "name": "FunctionCall",
+          "totalMs": 344.509
+        },
+        {
+          "name": "EvaluateScript",
+          "totalMs": 135.239
+        },
+        {
+          "name": "UpdateLayoutTree",
+          "totalMs": 107.351
+        },
+        {
+          "name": "DocumentLoader::CommitNavigation",
+          "totalMs": 51.365
+        },
+        {
+          "name": "Layout",
+          "totalMs": 48.841
+        },
+        {
+          "name": "DocumentLoader::StartLoadingResponse",
+          "totalMs": 44.479
+        },
+        {
+          "name": "DocumentLoader::CreateParserPostCommit",
+          "totalMs": 43.112
+        }
+      ]
+    },
+    {
+      "label": "auto greeting",
+      "route": "/welcome",
+      "final": "/welcome",
+      "readyMs": 2797,
+      "vitals": {
+        "lcp": 2900,
+        "cls": 0.00035809678819444447,
+        "lcpTag": "IMG",
+        "longTasks": [
+          {
+            "at": 2103.2000000476837,
+            "duration": 74
+          },
+          {
+            "at": 2671.7000000476837,
+            "duration": 72
+          },
+          {
+            "at": 2817.9000000953674,
+            "duration": 50
+          }
+        ]
+      },
+      "navigation": [
+        {
+          "ttfb": 27.90000009536743,
+          "domContentLoaded": 858.7999999523163,
+          "load": 2642,
+          "transferSize": 5238,
+          "encodedBodySize": 4938
+        }
+      ],
+      "resources": [
+        {
+          "path": "/_next/static/media/nunito_variable-s.p.1en5rhrpj6net.woff2",
+          "initiator": "link",
+          "start": 178.90000009536743,
+          "duration": 2215.7000000476837,
+          "transfer": 101328,
+          "encoded": 101028,
+          "decoded": 101028
+        },
+        {
+          "path": "/illustrations/fox.svg",
+          "initiator": "link",
+          "start": 179,
+          "duration": 175.10000014305115,
+          "transfer": 930,
+          "encoded": 630,
+          "decoded": 1466
+        },
+        {
+          "path": "/_next/static/chunks/3lqiz1o6lnegy.js",
+          "initiator": "link",
+          "start": 187.40000009536743,
+          "duration": 378.2000000476837,
+          "transfer": 7858,
+          "encoded": 7558,
+          "decoded": 24425
+        },
+        {
+          "path": "/_next/static/chunks/2qo7jqfuk-kxc.css",
+          "initiator": "link",
+          "start": 187.40000009536743,
+          "duration": 663.0999999046326,
+          "transfer": 20910,
+          "encoded": 20610,
+          "decoded": 108747
+        },
+        {
+          "path": "/_next/static/chunks/23jfskues6r4a.js",
+          "initiator": "script",
+          "start": 187.5,
+          "duration": 1442.9000000953674,
+          "transfer": 48540,
+          "encoded": 48240,
+          "decoded": 178064
+        },
+        {
+          "path": "/_next/static/chunks/0z6v5uj0dyfib.js",
+          "initiator": "script",
+          "start": 187.5,
+          "duration": 1914.4000000953674,
+          "transfer": 72200,
+          "encoded": 71900,
+          "decoded": 229590
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-2c3mg3r-05n1w.js",
+          "initiator": "script",
+          "start": 187.60000014305115,
+          "duration": 482.39999985694885,
+          "transfer": 4690,
+          "encoded": 4390,
+          "decoded": 11255
+        },
+        {
+          "path": "/_next/static/chunks/0ol0fa7fjezxj.js",
+          "initiator": "script",
+          "start": 187.60000014305115,
+          "duration": 640,
+          "transfer": 3868,
+          "encoded": 3568,
+          "decoded": 13902
+        },
+        {
+          "path": "/_next/static/chunks/0kbbbql9z5xds.js",
+          "initiator": "script",
+          "start": 187.60000014305115,
+          "duration": 925.5999999046326,
+          "transfer": 11142,
+          "encoded": 10842,
+          "decoded": 35668
+        },
+        {
+          "path": "/_next/static/chunks/1-23_ksq-t2ei.js",
+          "initiator": "script",
+          "start": 188.40000009536743,
+          "duration": 1425.8999998569489,
+          "transfer": 21805,
+          "encoded": 21505,
+          "decoded": 53814
+        },
+        {
+          "path": "/_next/static/chunks/3h53fb6y_7hdy.js",
+          "initiator": "script",
+          "start": 188.40000009536743,
+          "duration": 1502,
+          "transfer": 13438,
+          "encoded": 13138,
+          "decoded": 34857
+        },
+        {
+          "path": "/_next/static/chunks/0w_sqvfh10zsr.js",
+          "initiator": "script",
+          "start": 188.40000009536743,
+          "duration": 2424.5999999046326,
+          "transfer": 115237,
+          "encoded": 114937,
+          "decoded": 440821
+        },
+        {
+          "path": "/_next/static/chunks/0xdrkpmm_-gl9.js",
+          "initiator": "script",
+          "start": 188.5,
+          "duration": 1605.7999999523163,
+          "transfer": 788,
+          "encoded": 488,
+          "decoded": 488
+        },
+        {
+          "path": "/_next/static/chunks/3fis03fu1hsot.js",
+          "initiator": "script",
+          "start": 188.5,
+          "duration": 1628.1000001430511,
+          "transfer": 1126,
+          "encoded": 826,
+          "decoded": 1416
+        },
+        {
+          "path": "/_next/static/chunks/17xa37-4or-3l.js",
+          "initiator": "script",
+          "start": 188.5,
+          "duration": 1937.2000000476837,
+          "transfer": 12301,
+          "encoded": 12001,
+          "decoded": 35068
+        },
+        {
+          "path": "/illustrations/wordmark.svg",
+          "initiator": "img",
+          "start": 970.4000000953674,
+          "duration": 1012.8999998569489,
+          "transfer": 829,
+          "encoded": 529,
+          "decoded": 529
+        },
+        {
+          "path": "/illustrations/apple.svg",
+          "initiator": "img",
+          "start": 970.7999999523163,
+          "duration": 1035.1000001430511,
+          "transfer": 895,
+          "encoded": 595,
+          "decoded": 595
+        },
+        {
+          "path": "/illustrations/book.svg",
+          "initiator": "img",
+          "start": 970.7999999523163,
+          "duration": 1184.9000000953674,
+          "transfer": 793,
+          "encoded": 493,
+          "decoded": 493
+        },
+        {
+          "path": "/illustrations/cat.svg",
+          "initiator": "img",
+          "start": 970.7999999523163,
+          "duration": 1206.8000001907349,
+          "transfer": 1066,
+          "encoded": 766,
+          "decoded": 766
+        },
+        {
+          "path": "/api/auth/status",
+          "initiator": "fetch",
+          "start": 2821.600000143051,
+          "duration": 149.89999985694885,
+          "transfer": 331,
+          "encoded": 31,
+          "decoded": 31
+        },
+        {
+          "path": "/api/auth/status",
+          "initiator": "fetch",
+          "start": 2919,
+          "duration": 104.70000004768372,
+          "transfer": 331,
+          "encoded": 31,
+          "decoded": 31
+        }
+      ],
+      "sw": true,
+      "requests": [
+        {
+          "path": "/welcome",
+          "at": 6,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/media/nunito_variable-s.p.1en5rhrpj6net.woff2",
+          "at": 192,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/fox.svg",
+          "at": 192,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/2qo7jqfuk-kxc.css",
+          "at": 193,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/3lqiz1o6lnegy.js",
+          "at": 196,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/23jfskues6r4a.js",
+          "at": 198,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0z6v5uj0dyfib.js",
+          "at": 198,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-2c3mg3r-05n1w.js",
+          "at": 199,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0ol0fa7fjezxj.js",
+          "at": 199,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0kbbbql9z5xds.js",
+          "at": 199,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/1-23_ksq-t2ei.js",
+          "at": 201,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0w_sqvfh10zsr.js",
+          "at": 202,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/3h53fb6y_7hdy.js",
+          "at": 202,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0xdrkpmm_-gl9.js",
+          "at": 202,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/3fis03fu1hsot.js",
+          "at": 203,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/17xa37-4or-3l.js",
+          "at": 203,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/wordmark.svg",
+          "at": 974,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/apple.svg",
+          "at": 975,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/book.svg",
+          "at": 975,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/cat.svg",
+          "at": 975,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/sw.js",
+          "at": 2824,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline.html",
+          "at": 2830,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/fonts/nunito.woff2",
+          "at": 2835,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline.css",
+          "at": 2841,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline.js",
+          "at": 2843,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-games.js",
+          "at": 2846,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-srs.js",
+          "at": 2850,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-parent.js",
+          "at": 2853,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-identity.js",
+          "at": 2857,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-prepared-ipa.js",
+          "at": 2860,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-pronunciation.js",
+          "at": 2862,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-voices.js",
+          "at": 2866,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/open-illustrations.js",
+          "at": 2869,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/api/auth/status",
+          "at": 2871,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/fox.svg",
+          "at": 2873,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/icons/app-192.png",
+          "at": 2876,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/icons/app-512.png",
+          "at": 2878,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/apple.svg",
+          "at": 2881,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/bag.svg",
+          "at": 2884,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/banana.svg",
+          "at": 2887,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/bird.svg",
+          "at": 2890,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/book.svg",
+          "at": 2893,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/bread.svg",
+          "at": 2895,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/car.svg",
+          "at": 2901,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/cat.svg",
+          "at": 2906,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/chair.svg",
+          "at": 2909,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/desk.svg",
+          "at": 2911,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/dog.svg",
+          "at": 2914,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/egg.svg",
+          "at": 2917,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/eraser.svg",
+          "at": 2921,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/api/auth/status",
+          "at": 2923,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/fish.svg",
+          "at": 2925,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/glue.svg",
+          "at": 2927,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/grapes.svg",
+          "at": 2930,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/milk.svg",
+          "at": 2933,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/notebook.svg",
+          "at": 2936,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/orange.svg",
+          "at": 2940,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/pen.svg",
+          "at": 2942,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/pencil.svg",
+          "at": 2945,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/ruler.svg",
+          "at": 2947,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/scissors.svg",
+          "at": 2951,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/shelf.svg",
+          "at": 2954,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/sun.svg",
+          "at": 2958,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/tree.svg",
+          "at": 2961,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/water.svg",
+          "at": 2963,
+          "method": "GET",
+          "worker": true
+        }
+      ]
+    },
+    {
+      "label": "auto greeting",
+      "route": "/welcome",
+      "final": "/welcome",
+      "readyMs": 2816,
+      "vitals": {
+        "lcp": 2932,
+        "cls": 0.00035809678819444447,
+        "lcpTag": "IMG",
+        "longTasks": [
+          {
+            "at": 2092.7000000476837,
+            "duration": 78
+          },
+          {
+            "at": 2649.899999856949,
+            "duration": 64
+          },
+          {
+            "at": 2835.2999999523163,
+            "duration": 58
+          }
+        ]
+      },
+      "navigation": [
+        {
+          "ttfb": 10.899999856948853,
+          "domContentLoaded": 846.7000000476837,
+          "load": 2636.399999856949,
+          "transferSize": 5238,
+          "encodedBodySize": 4938
+        }
+      ],
+      "resources": [
+        {
+          "path": "/_next/static/media/nunito_variable-s.p.1en5rhrpj6net.woff2",
+          "initiator": "link",
+          "start": 169.29999995231628,
+          "duration": 2213,
+          "transfer": 101328,
+          "encoded": 101028,
+          "decoded": 101028
+        },
+        {
+          "path": "/illustrations/fox.svg",
+          "initiator": "link",
+          "start": 169.39999985694885,
+          "duration": 172.40000009536743,
+          "transfer": 930,
+          "encoded": 630,
+          "decoded": 1466
+        },
+        {
+          "path": "/_next/static/chunks/2qo7jqfuk-kxc.css",
+          "initiator": "link",
+          "start": 177.09999990463257,
+          "duration": 660.5,
+          "transfer": 20910,
+          "encoded": 20610,
+          "decoded": 108747
+        },
+        {
+          "path": "/_next/static/chunks/3lqiz1o6lnegy.js",
+          "initiator": "link",
+          "start": 177.20000004768372,
+          "duration": 381.59999990463257,
+          "transfer": 7858,
+          "encoded": 7558,
+          "decoded": 24425
+        },
+        {
+          "path": "/_next/static/chunks/23jfskues6r4a.js",
+          "initiator": "script",
+          "start": 177.20000004768372,
+          "duration": 1438.5999999046326,
+          "transfer": 48540,
+          "encoded": 48240,
+          "decoded": 178064
+        },
+        {
+          "path": "/_next/static/chunks/0z6v5uj0dyfib.js",
+          "initiator": "script",
+          "start": 177.20000004768372,
+          "duration": 1912,
+          "transfer": 72200,
+          "encoded": 71900,
+          "decoded": 229590
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-2c3mg3r-05n1w.js",
+          "initiator": "script",
+          "start": 177.89999985694885,
+          "duration": 478.2000000476837,
+          "transfer": 4690,
+          "encoded": 4390,
+          "decoded": 11255
+        },
+        {
+          "path": "/_next/static/chunks/0ol0fa7fjezxj.js",
+          "initiator": "script",
+          "start": 177.89999985694885,
+          "duration": 644.6000001430511,
+          "transfer": 3868,
+          "encoded": 3568,
+          "decoded": 13902
+        },
+        {
+          "path": "/_next/static/chunks/0kbbbql9z5xds.js",
+          "initiator": "script",
+          "start": 177.89999985694885,
+          "duration": 905.5,
+          "transfer": 11142,
+          "encoded": 10842,
+          "decoded": 35668
+        },
+        {
+          "path": "/_next/static/chunks/1-23_ksq-t2ei.js",
+          "initiator": "script",
+          "start": 178,
+          "duration": 1430.8999998569489,
+          "transfer": 21805,
+          "encoded": 21505,
+          "decoded": 53814
+        },
+        {
+          "path": "/_next/static/chunks/3h53fb6y_7hdy.js",
+          "initiator": "script",
+          "start": 178,
+          "duration": 1491.7999999523163,
+          "transfer": 13438,
+          "encoded": 13138,
+          "decoded": 34857
+        },
+        {
+          "path": "/_next/static/chunks/0xdrkpmm_-gl9.js",
+          "initiator": "script",
+          "start": 178,
+          "duration": 1611.5999999046326,
+          "transfer": 788,
+          "encoded": 488,
+          "decoded": 488
+        },
+        {
+          "path": "/_next/static/chunks/0w_sqvfh10zsr.js",
+          "initiator": "script",
+          "start": 178,
+          "duration": 2421.5999999046326,
+          "transfer": 115237,
+          "encoded": 114937,
+          "decoded": 440821
+        },
+        {
+          "path": "/_next/static/chunks/3fis03fu1hsot.js",
+          "initiator": "script",
+          "start": 178.39999985694885,
+          "duration": 1626.7000000476837,
+          "transfer": 1126,
+          "encoded": 826,
+          "decoded": 1416
+        },
+        {
+          "path": "/_next/static/chunks/17xa37-4or-3l.js",
+          "initiator": "script",
+          "start": 178.39999985694885,
+          "duration": 1926.4000000953674,
+          "transfer": 12301,
+          "encoded": 12001,
+          "decoded": 35068
+        },
+        {
+          "path": "/illustrations/wordmark.svg",
+          "initiator": "img",
+          "start": 959.7000000476837,
+          "duration": 1017.6999998092651,
+          "transfer": 829,
+          "encoded": 529,
+          "decoded": 529
+        },
+        {
+          "path": "/illustrations/apple.svg",
+          "initiator": "img",
+          "start": 959.7999999523163,
+          "duration": 1039.2000000476837,
+          "transfer": 895,
+          "encoded": 595,
+          "decoded": 595
+        },
+        {
+          "path": "/illustrations/book.svg",
+          "initiator": "img",
+          "start": 960.2000000476837,
+          "duration": 1189.3999998569489,
+          "transfer": 793,
+          "encoded": 493,
+          "decoded": 493
+        },
+        {
+          "path": "/illustrations/cat.svg",
+          "initiator": "img",
+          "start": 960.2000000476837,
+          "duration": 1211.6999998092651,
+          "transfer": 1066,
+          "encoded": 766,
+          "decoded": 766
+        },
+        {
+          "path": "/api/auth/status",
+          "initiator": "fetch",
+          "start": 2840.2999999523163,
+          "duration": 158.09999990463257,
+          "transfer": 331,
+          "encoded": 31,
+          "decoded": 31
+        },
+        {
+          "path": "/api/auth/status",
+          "initiator": "fetch",
+          "start": 2989.399999856949,
+          "duration": 103.5,
+          "transfer": 331,
+          "encoded": 31,
+          "decoded": 31
+        }
+      ],
+      "sw": true,
+      "requests": [
+        {
+          "path": "/welcome",
+          "at": 2,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/media/nunito_variable-s.p.1en5rhrpj6net.woff2",
+          "at": 181,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/fox.svg",
+          "at": 181,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/2qo7jqfuk-kxc.css",
+          "at": 181,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/3lqiz1o6lnegy.js",
+          "at": 185,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/23jfskues6r4a.js",
+          "at": 186,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0z6v5uj0dyfib.js",
+          "at": 186,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-2c3mg3r-05n1w.js",
+          "at": 187,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0ol0fa7fjezxj.js",
+          "at": 187,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0kbbbql9z5xds.js",
+          "at": 187,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/1-23_ksq-t2ei.js",
+          "at": 187,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0w_sqvfh10zsr.js",
+          "at": 187,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/3h53fb6y_7hdy.js",
+          "at": 187,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0xdrkpmm_-gl9.js",
+          "at": 187,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/3fis03fu1hsot.js",
+          "at": 187,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/17xa37-4or-3l.js",
+          "at": 187,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/wordmark.svg",
+          "at": 963,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/apple.svg",
+          "at": 963,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/book.svg",
+          "at": 964,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/cat.svg",
+          "at": 964,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/sw.js",
+          "at": 2841,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline.html",
+          "at": 2858,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/fonts/nunito.woff2",
+          "at": 2870,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline.css",
+          "at": 2874,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline.js",
+          "at": 2878,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-games.js",
+          "at": 2882,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-srs.js",
+          "at": 2885,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-parent.js",
+          "at": 2890,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/api/auth/status",
+          "at": 2897,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/offline-identity.js",
+          "at": 2897,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-prepared-ipa.js",
+          "at": 2902,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-pronunciation.js",
+          "at": 2905,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-voices.js",
+          "at": 2912,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/open-illustrations.js",
+          "at": 2916,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/fox.svg",
+          "at": 2922,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/icons/app-192.png",
+          "at": 2931,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/icons/app-512.png",
+          "at": 2946,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/apple.svg",
+          "at": 2969,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/bag.svg",
+          "at": 2985,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/api/auth/status",
+          "at": 2992,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/banana.svg",
+          "at": 2993,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/bird.svg",
+          "at": 3000,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/book.svg",
+          "at": 3005,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/bread.svg",
+          "at": 3012,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/car.svg",
+          "at": 3017,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/cat.svg",
+          "at": 3020,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/chair.svg",
+          "at": 3025,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/desk.svg",
+          "at": 3033,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/dog.svg",
+          "at": 3037,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/egg.svg",
+          "at": 3043,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/eraser.svg",
+          "at": 3049,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/fish.svg",
+          "at": 3054,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/glue.svg",
+          "at": 3060,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/grapes.svg",
+          "at": 3067,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/milk.svg",
+          "at": 3070,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/notebook.svg",
+          "at": 3073,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/orange.svg",
+          "at": 3077,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/pen.svg",
+          "at": 3080,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/pencil.svg",
+          "at": 3084,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/ruler.svg",
+          "at": 3086,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/scissors.svg",
+          "at": 3088,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/shelf.svg",
+          "at": 3091,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/sun.svg",
+          "at": 3095,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/tree.svg",
+          "at": 3098,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/water.svg",
+          "at": 3102,
+          "method": "GET",
+          "worker": true
+        }
+      ]
+    },
+    {
+      "label": "greeting already seen",
+      "route": "/welcome",
+      "final": "/welcome",
+      "readyMs": 2768,
+      "vitals": {
+        "lcp": 972,
+        "cls": 0.00035809678819444447,
+        "lcpTag": "IMG",
+        "longTasks": [
+          {
+            "at": 2099.7999999523163,
+            "duration": 74
+          },
+          {
+            "at": 2667.5,
+            "duration": 61
+          }
+        ]
+      },
+      "navigation": [
+        {
+          "ttfb": 12.199999809265137,
+          "domContentLoaded": 853.3999998569489,
+          "load": 2633.399999856949,
+          "transferSize": 5238,
+          "encodedBodySize": 4938
+        }
+      ],
+      "resources": [
+        {
+          "path": "/_next/static/media/nunito_variable-s.p.1en5rhrpj6net.woff2",
+          "initiator": "link",
+          "start": 174.69999980926514,
+          "duration": 2214.100000143051,
+          "transfer": 101328,
+          "encoded": 101028,
+          "decoded": 101028
+        },
+        {
+          "path": "/illustrations/fox.svg",
+          "initiator": "link",
+          "start": 175.59999990463257,
+          "duration": 173,
+          "transfer": 930,
+          "encoded": 630,
+          "decoded": 1466
+        },
+        {
+          "path": "/_next/static/chunks/2qo7jqfuk-kxc.css",
+          "initiator": "link",
+          "start": 182.79999995231628,
+          "duration": 662,
+          "transfer": 20910,
+          "encoded": 20610,
+          "decoded": 108747
+        },
+        {
+          "path": "/_next/static/chunks/3lqiz1o6lnegy.js",
+          "initiator": "link",
+          "start": 183.39999985694885,
+          "duration": 383.10000014305115,
+          "transfer": 7858,
+          "encoded": 7558,
+          "decoded": 24425
+        },
+        {
+          "path": "/_next/static/chunks/23jfskues6r4a.js",
+          "initiator": "script",
+          "start": 183.39999985694885,
+          "duration": 1441.5,
+          "transfer": 48540,
+          "encoded": 48240,
+          "decoded": 178064
+        },
+        {
+          "path": "/_next/static/chunks/0z6v5uj0dyfib.js",
+          "initiator": "script",
+          "start": 183.39999985694885,
+          "duration": 1913.7999999523163,
+          "transfer": 72200,
+          "encoded": 71900,
+          "decoded": 229590
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-2c3mg3r-05n1w.js",
+          "initiator": "script",
+          "start": 183.5,
+          "duration": 481.19999980926514,
+          "transfer": 4690,
+          "encoded": 4390,
+          "decoded": 11255
+        },
+        {
+          "path": "/_next/static/chunks/0ol0fa7fjezxj.js",
+          "initiator": "script",
+          "start": 183.59999990463257,
+          "duration": 638,
+          "transfer": 3868,
+          "encoded": 3568,
+          "decoded": 13902
+        },
+        {
+          "path": "/_next/static/chunks/0kbbbql9z5xds.js",
+          "initiator": "script",
+          "start": 183.59999990463257,
+          "duration": 922.4000000953674,
+          "transfer": 11142,
+          "encoded": 10842,
+          "decoded": 35668
+        },
+        {
+          "path": "/_next/static/chunks/1-23_ksq-t2ei.js",
+          "initiator": "script",
+          "start": 184.5,
+          "duration": 1424.5,
+          "transfer": 21805,
+          "encoded": 21505,
+          "decoded": 53814
+        },
+        {
+          "path": "/_next/static/chunks/3h53fb6y_7hdy.js",
+          "initiator": "script",
+          "start": 184.5,
+          "duration": 1500.5,
+          "transfer": 13438,
+          "encoded": 13138,
+          "decoded": 34857
+        },
+        {
+          "path": "/_next/static/chunks/0xdrkpmm_-gl9.js",
+          "initiator": "script",
+          "start": 184.5,
+          "duration": 1605.2999999523163,
+          "transfer": 788,
+          "encoded": 488,
+          "decoded": 488
+        },
+        {
+          "path": "/_next/static/chunks/3fis03fu1hsot.js",
+          "initiator": "script",
+          "start": 184.5,
+          "duration": 1627.6999998092651,
+          "transfer": 1126,
+          "encoded": 826,
+          "decoded": 1416
+        },
+        {
+          "path": "/_next/static/chunks/17xa37-4or-3l.js",
+          "initiator": "script",
+          "start": 184.5,
+          "duration": 1935.2999999523163,
+          "transfer": 12301,
+          "encoded": 12001,
+          "decoded": 35068
+        },
+        {
+          "path": "/_next/static/chunks/0w_sqvfh10zsr.js",
+          "initiator": "script",
+          "start": 184.5,
+          "duration": 2421.2999999523163,
+          "transfer": 115237,
+          "encoded": 114937,
+          "decoded": 440821
+        },
+        {
+          "path": "/illustrations/wordmark.svg",
+          "initiator": "img",
+          "start": 965,
+          "duration": 1011.1999998092651,
+          "transfer": 829,
+          "encoded": 529,
+          "decoded": 529
+        },
+        {
+          "path": "/illustrations/apple.svg",
+          "initiator": "img",
+          "start": 965.1999998092651,
+          "duration": 1041,
+          "transfer": 895,
+          "encoded": 595,
+          "decoded": 595
+        },
+        {
+          "path": "/illustrations/book.svg",
+          "initiator": "img",
+          "start": 965.1999998092651,
+          "duration": 1177.2000000476837,
+          "transfer": 793,
+          "encoded": 493,
+          "decoded": 493
+        },
+        {
+          "path": "/illustrations/cat.svg",
+          "initiator": "img",
+          "start": 965.2999999523163,
+          "duration": 1205.8999998569489,
+          "transfer": 1066,
+          "encoded": 766,
+          "decoded": 766
+        },
+        {
+          "path": "/api/auth/status",
+          "initiator": "fetch",
+          "start": 2800.399999856949,
+          "duration": 143.79999995231628,
+          "transfer": 331,
+          "encoded": 31,
+          "decoded": 31
+        },
+        {
+          "path": "/api/auth/status",
+          "initiator": "fetch",
+          "start": 2874.399999856949,
+          "duration": 101.60000014305115,
+          "transfer": 331,
+          "encoded": 31,
+          "decoded": 31
+        }
+      ],
+      "sw": true,
+      "requests": [
+        {
+          "path": "/welcome",
+          "at": 1,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/media/nunito_variable-s.p.1en5rhrpj6net.woff2",
+          "at": 187,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/fox.svg",
+          "at": 188,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/2qo7jqfuk-kxc.css",
+          "at": 188,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/3lqiz1o6lnegy.js",
+          "at": 191,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/23jfskues6r4a.js",
+          "at": 193,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0z6v5uj0dyfib.js",
+          "at": 195,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-2c3mg3r-05n1w.js",
+          "at": 195,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0ol0fa7fjezxj.js",
+          "at": 195,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0kbbbql9z5xds.js",
+          "at": 195,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/1-23_ksq-t2ei.js",
+          "at": 195,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0w_sqvfh10zsr.js",
+          "at": 196,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/3h53fb6y_7hdy.js",
+          "at": 196,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0xdrkpmm_-gl9.js",
+          "at": 196,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/3fis03fu1hsot.js",
+          "at": 196,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/17xa37-4or-3l.js",
+          "at": 196,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/wordmark.svg",
+          "at": 968,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/apple.svg",
+          "at": 969,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/book.svg",
+          "at": 969,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/cat.svg",
+          "at": 969,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/sw.js",
+          "at": 2801,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline.html",
+          "at": 2807,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/fonts/nunito.woff2",
+          "at": 2811,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline.css",
+          "at": 2813,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline.js",
+          "at": 2816,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-games.js",
+          "at": 2819,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-srs.js",
+          "at": 2823,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-parent.js",
+          "at": 2827,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-identity.js",
+          "at": 2829,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-prepared-ipa.js",
+          "at": 2832,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-pronunciation.js",
+          "at": 2834,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-voices.js",
+          "at": 2838,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/open-illustrations.js",
+          "at": 2841,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/api/auth/status",
+          "at": 2844,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/fox.svg",
+          "at": 2844,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/icons/app-192.png",
+          "at": 2847,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/icons/app-512.png",
+          "at": 2849,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/apple.svg",
+          "at": 2853,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/bag.svg",
+          "at": 2856,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/banana.svg",
+          "at": 2858,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/bird.svg",
+          "at": 2860,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/book.svg",
+          "at": 2862,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/bread.svg",
+          "at": 2864,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/car.svg",
+          "at": 2866,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/cat.svg",
+          "at": 2869,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/chair.svg",
+          "at": 2872,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/desk.svg",
+          "at": 2874,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/api/auth/status",
+          "at": 2876,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/dog.svg",
+          "at": 2878,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/egg.svg",
+          "at": 2880,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/eraser.svg",
+          "at": 2882,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/fish.svg",
+          "at": 2885,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/glue.svg",
+          "at": 2887,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/grapes.svg",
+          "at": 2890,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/milk.svg",
+          "at": 2891,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/notebook.svg",
+          "at": 2901,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/orange.svg",
+          "at": 2904,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/pen.svg",
+          "at": 2907,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/pencil.svg",
+          "at": 2909,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/ruler.svg",
+          "at": 2911,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/scissors.svg",
+          "at": 2912,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/shelf.svg",
+          "at": 2915,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/sun.svg",
+          "at": 2918,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/tree.svg",
+          "at": 2920,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/water.svg",
+          "at": 2922,
+          "method": "GET",
+          "worker": true
+        }
+      ]
+    },
+    {
+      "label": "greeting already seen",
+      "route": "/welcome",
+      "final": "/welcome",
+      "readyMs": 2763,
+      "vitals": {
+        "lcp": 972,
+        "cls": 0.00035809678819444447,
+        "lcpTag": "IMG",
+        "longTasks": [
+          {
+            "at": 2090.2999999523163,
+            "duration": 75
+          },
+          {
+            "at": 2659.5999999046326,
+            "duration": 61
+          }
+        ]
+      },
+      "navigation": [
+        {
+          "ttfb": 10.900000095367432,
+          "domContentLoaded": 851.0999999046326,
+          "load": 2633.7000000476837,
+          "transferSize": 5238,
+          "encodedBodySize": 4938
+        }
+      ],
+      "resources": [
+        {
+          "path": "/_next/static/media/nunito_variable-s.p.1en5rhrpj6net.woff2",
+          "initiator": "link",
+          "start": 169.20000004768372,
+          "duration": 2219.2000000476837,
+          "transfer": 101328,
+          "encoded": 101028,
+          "decoded": 101028
+        },
+        {
+          "path": "/illustrations/fox.svg",
+          "initiator": "link",
+          "start": 170,
+          "duration": 178,
+          "transfer": 930,
+          "encoded": 630,
+          "decoded": 1466
+        },
+        {
+          "path": "/_next/static/chunks/2qo7jqfuk-kxc.css",
+          "initiator": "link",
+          "start": 179.29999995231628,
+          "duration": 664.1000001430511,
+          "transfer": 20910,
+          "encoded": 20610,
+          "decoded": 108747
+        },
+        {
+          "path": "/_next/static/chunks/3lqiz1o6lnegy.js",
+          "initiator": "link",
+          "start": 179.40000009536743,
+          "duration": 378.89999985694885,
+          "transfer": 7858,
+          "encoded": 7558,
+          "decoded": 24425
+        },
+        {
+          "path": "/_next/static/chunks/23jfskues6r4a.js",
+          "initiator": "script",
+          "start": 179.40000009536743,
+          "duration": 1421.7999999523163,
+          "transfer": 48540,
+          "encoded": 48240,
+          "decoded": 178064
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-2c3mg3r-05n1w.js",
+          "initiator": "script",
+          "start": 179.5,
+          "duration": 483.40000009536743,
+          "transfer": 4690,
+          "encoded": 4390,
+          "decoded": 11255
+        },
+        {
+          "path": "/_next/static/chunks/0ol0fa7fjezxj.js",
+          "initiator": "script",
+          "start": 179.5,
+          "duration": 641.7999999523163,
+          "transfer": 3868,
+          "encoded": 3568,
+          "decoded": 13902
+        },
+        {
+          "path": "/_next/static/chunks/0z6v5uj0dyfib.js",
+          "initiator": "script",
+          "start": 179.5,
+          "duration": 1909.0999999046326,
+          "transfer": 72200,
+          "encoded": 71900,
+          "decoded": 229590
+        },
+        {
+          "path": "/_next/static/chunks/0kbbbql9z5xds.js",
+          "initiator": "script",
+          "start": 179.59999990463257,
+          "duration": 925.7000000476837,
+          "transfer": 11142,
+          "encoded": 10842,
+          "decoded": 35668
+        },
+        {
+          "path": "/_next/static/chunks/1-23_ksq-t2ei.js",
+          "initiator": "script",
+          "start": 180.40000009536743,
+          "duration": 1427.5999999046326,
+          "transfer": 21805,
+          "encoded": 21505,
+          "decoded": 53814
+        },
+        {
+          "path": "/_next/static/chunks/3h53fb6y_7hdy.js",
+          "initiator": "script",
+          "start": 180.40000009536743,
+          "duration": 1495.8999998569489,
+          "transfer": 13438,
+          "encoded": 13138,
+          "decoded": 34857
+        },
+        {
+          "path": "/_next/static/chunks/0xdrkpmm_-gl9.js",
+          "initiator": "script",
+          "start": 180.40000009536743,
+          "duration": 1601.2999999523163,
+          "transfer": 788,
+          "encoded": 488,
+          "decoded": 488
+        },
+        {
+          "path": "/_next/static/chunks/0w_sqvfh10zsr.js",
+          "initiator": "script",
+          "start": 180.40000009536743,
+          "duration": 2424.699999809265,
+          "transfer": 115237,
+          "encoded": 114937,
+          "decoded": 440821
+        },
+        {
+          "path": "/_next/static/chunks/3fis03fu1hsot.js",
+          "initiator": "script",
+          "start": 180.5,
+          "duration": 1616.0999999046326,
+          "transfer": 1126,
+          "encoded": 826,
+          "decoded": 1416
+        },
+        {
+          "path": "/_next/static/chunks/17xa37-4or-3l.js",
+          "initiator": "script",
+          "start": 180.59999990463257,
+          "duration": 1931,
+          "transfer": 12301,
+          "encoded": 12001,
+          "decoded": 35068
+        },
+        {
+          "path": "/illustrations/wordmark.svg",
+          "initiator": "img",
+          "start": 964.5,
+          "duration": 1003.2999999523163,
+          "transfer": 829,
+          "encoded": 529,
+          "decoded": 529
+        },
+        {
+          "path": "/illustrations/apple.svg",
+          "initiator": "img",
+          "start": 965.2999999523163,
+          "duration": 1026.2000000476837,
+          "transfer": 895,
+          "encoded": 595,
+          "decoded": 595
+        },
+        {
+          "path": "/illustrations/book.svg",
+          "initiator": "img",
+          "start": 965.2999999523163,
+          "duration": 1167.2999999523163,
+          "transfer": 793,
+          "encoded": 493,
+          "decoded": 493
+        },
+        {
+          "path": "/illustrations/cat.svg",
+          "initiator": "img",
+          "start": 965.2999999523163,
+          "duration": 1198.5,
+          "transfer": 1066,
+          "encoded": 766,
+          "decoded": 766
+        },
+        {
+          "path": "/api/auth/status",
+          "initiator": "fetch",
+          "start": 2783.0999999046326,
+          "duration": 144.5,
+          "transfer": 331,
+          "encoded": 31,
+          "decoded": 31
+        },
+        {
+          "path": "/api/auth/status",
+          "initiator": "fetch",
+          "start": 2858.7999999523163,
+          "duration": 100.60000014305115,
+          "transfer": 331,
+          "encoded": 31,
+          "decoded": 31
+        }
+      ],
+      "sw": true,
+      "requests": [
+        {
+          "path": "/welcome",
+          "at": 2,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/media/nunito_variable-s.p.1en5rhrpj6net.woff2",
+          "at": 184,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/fox.svg",
+          "at": 184,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/2qo7jqfuk-kxc.css",
+          "at": 185,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/3lqiz1o6lnegy.js",
+          "at": 187,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/23jfskues6r4a.js",
+          "at": 188,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0z6v5uj0dyfib.js",
+          "at": 188,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-2c3mg3r-05n1w.js",
+          "at": 189,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0ol0fa7fjezxj.js",
+          "at": 189,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0kbbbql9z5xds.js",
+          "at": 189,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/1-23_ksq-t2ei.js",
+          "at": 190,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0w_sqvfh10zsr.js",
+          "at": 190,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/3h53fb6y_7hdy.js",
+          "at": 190,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0xdrkpmm_-gl9.js",
+          "at": 190,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/3fis03fu1hsot.js",
+          "at": 191,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/17xa37-4or-3l.js",
+          "at": 191,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/wordmark.svg",
+          "at": 969,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/apple.svg",
+          "at": 970,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/book.svg",
+          "at": 970,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/cat.svg",
+          "at": 970,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/sw.js",
+          "at": 2784,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline.html",
+          "at": 2790,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/fonts/nunito.woff2",
+          "at": 2793,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline.css",
+          "at": 2796,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline.js",
+          "at": 2798,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-games.js",
+          "at": 2801,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-srs.js",
+          "at": 2804,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-parent.js",
+          "at": 2806,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-identity.js",
+          "at": 2811,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-prepared-ipa.js",
+          "at": 2813,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-pronunciation.js",
+          "at": 2816,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-voices.js",
+          "at": 2819,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/open-illustrations.js",
+          "at": 2823,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/api/auth/status",
+          "at": 2828,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/fox.svg",
+          "at": 2828,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/icons/app-192.png",
+          "at": 2831,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/icons/app-512.png",
+          "at": 2834,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/apple.svg",
+          "at": 2836,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/bag.svg",
+          "at": 2838,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/banana.svg",
+          "at": 2840,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/bird.svg",
+          "at": 2842,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/book.svg",
+          "at": 2844,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/bread.svg",
+          "at": 2847,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/car.svg",
+          "at": 2849,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/cat.svg",
+          "at": 2851,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/chair.svg",
+          "at": 2854,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/desk.svg",
+          "at": 2856,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/dog.svg",
+          "at": 2858,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/egg.svg",
+          "at": 2860,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/api/auth/status",
+          "at": 2861,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/eraser.svg",
+          "at": 2862,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/fish.svg",
+          "at": 2863,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/glue.svg",
+          "at": 2865,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/grapes.svg",
+          "at": 2868,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/milk.svg",
+          "at": 2869,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/notebook.svg",
+          "at": 2871,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/orange.svg",
+          "at": 2873,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/pen.svg",
+          "at": 2875,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/pencil.svg",
+          "at": 2877,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/ruler.svg",
+          "at": 2878,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/scissors.svg",
+          "at": 2880,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/shelf.svg",
+          "at": 2882,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/sun.svg",
+          "at": 2884,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/tree.svg",
+          "at": 2886,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/water.svg",
+          "at": 2888,
+          "method": "GET",
+          "worker": true
+        }
+      ]
+    },
+    {
+      "label": "greeting already seen",
+      "route": "/welcome",
+      "final": "/welcome",
+      "readyMs": 2781,
+      "vitals": {
+        "lcp": 972,
+        "cls": 0.00035809678819444447,
+        "lcpTag": "IMG",
+        "longTasks": [
+          {
+            "at": 2099.899999856949,
+            "duration": 91
+          },
+          {
+            "at": 2675.699999809265,
+            "duration": 65
+          }
+        ]
+      },
+      "navigation": [
+        {
+          "ttfb": 8.799999952316284,
+          "domContentLoaded": 853.8999998569489,
+          "load": 2639.5,
+          "transferSize": 5238,
+          "encodedBodySize": 4938
+        }
+      ],
+      "resources": [
+        {
+          "path": "/_next/static/media/nunito_variable-s.p.1en5rhrpj6net.woff2",
+          "initiator": "link",
+          "start": 170.5,
+          "duration": 2217.899999856949,
+          "transfer": 101328,
+          "encoded": 101028,
+          "decoded": 101028
+        },
+        {
+          "path": "/illustrations/fox.svg",
+          "initiator": "link",
+          "start": 170.59999990463257,
+          "duration": 178.70000004768372,
+          "transfer": 930,
+          "encoded": 630,
+          "decoded": 1466
+        },
+        {
+          "path": "/_next/static/chunks/2qo7jqfuk-kxc.css",
+          "initiator": "link",
+          "start": 179.69999980926514,
+          "duration": 665.1000001430511,
+          "transfer": 20910,
+          "encoded": 20610,
+          "decoded": 108747
+        },
+        {
+          "path": "/_next/static/chunks/3lqiz1o6lnegy.js",
+          "initiator": "link",
+          "start": 180.39999985694885,
+          "duration": 379.60000014305115,
+          "transfer": 7858,
+          "encoded": 7558,
+          "decoded": 24425
+        },
+        {
+          "path": "/_next/static/chunks/23jfskues6r4a.js",
+          "initiator": "script",
+          "start": 180.5,
+          "duration": 1442.7999999523163,
+          "transfer": 48540,
+          "encoded": 48240,
+          "decoded": 178064
+        },
+        {
+          "path": "/_next/static/chunks/0z6v5uj0dyfib.js",
+          "initiator": "script",
+          "start": 180.5,
+          "duration": 1916.8999998569489,
+          "transfer": 72200,
+          "encoded": 71900,
+          "decoded": 229590
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-2c3mg3r-05n1w.js",
+          "initiator": "script",
+          "start": 180.89999985694885,
+          "duration": 483.40000009536743,
+          "transfer": 4690,
+          "encoded": 4390,
+          "decoded": 11255
+        },
+        {
+          "path": "/_next/static/chunks/0ol0fa7fjezxj.js",
+          "initiator": "script",
+          "start": 180.89999985694885,
+          "duration": 640.1000001430511,
+          "transfer": 3868,
+          "encoded": 3568,
+          "decoded": 13902
+        },
+        {
+          "path": "/_next/static/chunks/0kbbbql9z5xds.js",
+          "initiator": "script",
+          "start": 180.89999985694885,
+          "duration": 925.4000000953674,
+          "transfer": 11142,
+          "encoded": 10842,
+          "decoded": 35668
+        },
+        {
+          "path": "/_next/static/chunks/1-23_ksq-t2ei.js",
+          "initiator": "script",
+          "start": 181,
+          "duration": 1428.6999998092651,
+          "transfer": 21805,
+          "encoded": 21505,
+          "decoded": 53814
+        },
+        {
+          "path": "/_next/static/chunks/3h53fb6y_7hdy.js",
+          "initiator": "script",
+          "start": 181,
+          "duration": 1503.0999999046326,
+          "transfer": 13438,
+          "encoded": 13138,
+          "decoded": 34857
+        },
+        {
+          "path": "/_next/static/chunks/0w_sqvfh10zsr.js",
+          "initiator": "script",
+          "start": 181,
+          "duration": 2426.0999999046326,
+          "transfer": 115237,
+          "encoded": 114937,
+          "decoded": 440821
+        },
+        {
+          "path": "/_next/static/chunks/0xdrkpmm_-gl9.js",
+          "initiator": "script",
+          "start": 181.39999985694885,
+          "duration": 1607.4000000953674,
+          "transfer": 788,
+          "encoded": 488,
+          "decoded": 488
+        },
+        {
+          "path": "/_next/static/chunks/3fis03fu1hsot.js",
+          "initiator": "script",
+          "start": 181.39999985694885,
+          "duration": 1623.7999999523163,
+          "transfer": 1126,
+          "encoded": 826,
+          "decoded": 1416
+        },
+        {
+          "path": "/_next/static/chunks/17xa37-4or-3l.js",
+          "initiator": "script",
+          "start": 181.39999985694885,
+          "duration": 1930,
+          "transfer": 12301,
+          "encoded": 12001,
+          "decoded": 35068
+        },
+        {
+          "path": "/illustrations/wordmark.svg",
+          "initiator": "img",
+          "start": 966.2999999523163,
+          "duration": 1003.2000000476837,
+          "transfer": 829,
+          "encoded": 529,
+          "decoded": 529
+        },
+        {
+          "path": "/illustrations/apple.svg",
+          "initiator": "img",
+          "start": 966.6999998092651,
+          "duration": 1032.2000000476837,
+          "transfer": 895,
+          "encoded": 595,
+          "decoded": 595
+        },
+        {
+          "path": "/illustrations/book.svg",
+          "initiator": "img",
+          "start": 966.7999999523163,
+          "duration": 1174.0999999046326,
+          "transfer": 793,
+          "encoded": 493,
+          "decoded": 493
+        },
+        {
+          "path": "/illustrations/cat.svg",
+          "initiator": "img",
+          "start": 966.7999999523163,
+          "duration": 1197.5999999046326,
+          "transfer": 1066,
+          "encoded": 766,
+          "decoded": 766
+        },
+        {
+          "path": "/api/auth/status",
+          "initiator": "fetch",
+          "start": 2817.399999856949,
+          "duration": 145.5,
+          "transfer": 331,
+          "encoded": 31,
+          "decoded": 31
+        },
+        {
+          "path": "/api/auth/status",
+          "initiator": "fetch",
+          "start": 2893.399999856949,
+          "duration": 103.20000004768372,
+          "transfer": 331,
+          "encoded": 31,
+          "decoded": 31
+        }
+      ],
+      "sw": true,
+      "requests": [
+        {
+          "path": "/welcome",
+          "at": 2,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/media/nunito_variable-s.p.1en5rhrpj6net.woff2",
+          "at": 185,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/fox.svg",
+          "at": 185,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/2qo7jqfuk-kxc.css",
+          "at": 185,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/3lqiz1o6lnegy.js",
+          "at": 189,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/23jfskues6r4a.js",
+          "at": 193,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0z6v5uj0dyfib.js",
+          "at": 193,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-2c3mg3r-05n1w.js",
+          "at": 193,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0ol0fa7fjezxj.js",
+          "at": 194,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0kbbbql9z5xds.js",
+          "at": 194,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/1-23_ksq-t2ei.js",
+          "at": 194,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0w_sqvfh10zsr.js",
+          "at": 194,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/3h53fb6y_7hdy.js",
+          "at": 195,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/0xdrkpmm_-gl9.js",
+          "at": 195,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/3fis03fu1hsot.js",
+          "at": 195,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/_next/static/chunks/17xa37-4or-3l.js",
+          "at": 196,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/wordmark.svg",
+          "at": 971,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/apple.svg",
+          "at": 971,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/book.svg",
+          "at": 972,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/cat.svg",
+          "at": 972,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/sw.js",
+          "at": 2818,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline.html",
+          "at": 2825,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/fonts/nunito.woff2",
+          "at": 2828,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline.css",
+          "at": 2831,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline.js",
+          "at": 2834,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-games.js",
+          "at": 2836,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-srs.js",
+          "at": 2839,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-parent.js",
+          "at": 2841,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-identity.js",
+          "at": 2844,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-prepared-ipa.js",
+          "at": 2847,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-pronunciation.js",
+          "at": 2851,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/offline-voices.js",
+          "at": 2853,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/open-illustrations.js",
+          "at": 2856,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/fox.svg",
+          "at": 2860,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/icons/app-192.png",
+          "at": 2862,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/api/auth/status",
+          "at": 2863,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/icons/app-512.png",
+          "at": 2865,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/apple.svg",
+          "at": 2868,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/bag.svg",
+          "at": 2870,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/banana.svg",
+          "at": 2873,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/bird.svg",
+          "at": 2875,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/book.svg",
+          "at": 2878,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/bread.svg",
+          "at": 2881,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/car.svg",
+          "at": 2884,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/cat.svg",
+          "at": 2886,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/chair.svg",
+          "at": 2889,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/desk.svg",
+          "at": 2892,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/dog.svg",
+          "at": 2894,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/api/auth/status",
+          "at": 2896,
+          "method": "GET",
+          "worker": false
+        },
+        {
+          "path": "/illustrations/egg.svg",
+          "at": 2896,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/eraser.svg",
+          "at": 2899,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/fish.svg",
+          "at": 2902,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/glue.svg",
+          "at": 2904,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/grapes.svg",
+          "at": 2906,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/milk.svg",
+          "at": 2909,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/notebook.svg",
+          "at": 2911,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/orange.svg",
+          "at": 2915,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/pen.svg",
+          "at": 2917,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/pencil.svg",
+          "at": 2921,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/ruler.svg",
+          "at": 2924,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/scissors.svg",
+          "at": 2926,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/shelf.svg",
+          "at": 2928,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/sun.svg",
+          "at": 2931,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/tree.svg",
+          "at": 2933,
+          "method": "GET",
+          "worker": true
+        },
+        {
+          "path": "/illustrations/water.svg",
+          "at": 2935,
+          "method": "GET",
+          "worker": true
+        }
+      ]
+    }
+  ],
+  "browser": "156.0.8078.4"
+}

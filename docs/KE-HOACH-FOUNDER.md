@@ -1,5 +1,8 @@
 # Words for Kids — kế hoạch sản phẩm dành cho founder
 
+**12/10 — bản sửa local đã sẵn để review:** luyện nói nằm ngay trong chi tiết từ, có phần trăm/màu chữ/bảng sửa âm; game Nói cùng Cáo nằm trong Chơi & học. Account tự nhận thao tác thêm/sửa/xóa giữa thiết bị mẫu, tên/avatar cũng đồng bộ, bài chưa đăng nhập được giữ và chỉ sao chép khi muốn. Trang chào hiện nội dung nhanh hơn khoảng66% và tải ít mã hơn41% trong kiểm local; các trang học chưa đo được nhanh hơn. [Báo cáo cập nhật](BAO-CAO-PERFORMANCE-VA-DONG-BO.md), [ảnh và kiểm chứng](evaluations/speaking-refresh-and-automatic-sync.md). Chưa đưa lên website; SQL mới chưa chạy được ở máy local do giới hạn shared memory và chưa áp Supabase. Quyền GitHub/Vercel vẫn do bạn làm theo ADR049.
+
+
 **Mới nhất11/10 — Nhóm và âm thanh (ADR056/057):** nhóm thêm ngữ pháp, chọn tất cả từ/câu/ngữ pháp một lần, mục theo ngày và tên bài gốc, bỏ trùng toàn nhóm. Sửa lần bấm Nghe đầu bằng cách chờ giọng sẵn sàng ngay trong lần đó; có Dừng/hủy khi rời màn.46ca dữ liệu/voice và10ca browser mobile/desktop đã qua, chưa kiểm âm thanh điện thoại thật/push/deploy. [Bằng chứng](evaluations/groups-grammar-and-audio.md).
 
 **Mới nhất11/10 — Speaking không phát sinh phí, chờ review:** kế hoạch đã rút về một hướng: Wav2Vec2 chạy trong trình duyệt bằng Transformers.js, nhận xét tiếng Việt viết sẵn; không thuê máy chủ/chạy API chấm giọng. Có bước thử tốc độ và độ đúng trước khi làm đầy đủ. Chưa triển khai. Đọc [mục 17](#speaking-review); [chi tiết cho AI](15-speaking-practice.md).
@@ -971,6 +974,13 @@ Checkpoint ADR040/041: source30129b7 nativeGit production READY dpl_6P6SXrqLUuPY
 
 ## 17. Kế hoạch tập phát âm — không phát sinh phí
 
+**Cập nhật12/10 — đã làm trong code local:** mở chi tiết một từ là có nút **Nói** cạnh **Nghe**, vẫn giữ IPA, nghĩa và các ví dụ. Nói xong tự hiện phần trăm (ví dụ88%) và tô màu nhóm chữ. Chạm từ để mở khung so từng âm với cách sửa bằng tiếng Việt; có nút nghe mẫu và icon nghe giọng mình. Không thêm nhãn “điểm tham khảo” hay đoạn copy thử nghiệm vào màn học.
+
+**Nói cùng Cáo** là một ô game trong **Chơi & học**, mỗi vòng tối đa5 từ đã lưu và duyệt. Có Tiếp theo/Bỏ qua/Hoàn thành/Chơi lại; vòng mới dùng các từ tiếp theo. Tải và xóa bộ nhận âm nằm trong **Cài đặt**; trang nói chỉ dẫn tới đó khi chưa tải, tải rồi thì ẩn. Chốt công nghệ vẫn chạy nhận âm trên máy, dùng key Gemini miễn phí hiện có cho lời khuyên khi bật trong Cài đặt; không thêm dịch vụ thu phí.
+
+Các đoạn11/10 bên dưới ghi lịch sử lựa chọn. Trạng thái hiện hành và ảnh nằm ở [bằng chứng mới](evaluations/speaking-refresh-and-automatic-sync.md). Chất lượng với giọng trẻ/điện thoại thật và AI thật chưa được kiểm; số hiển thị tính từ kết quả đối chiếu âm đang chạy.
+
+
 **Chốt một hướng: điện thoại/máy tính của người dùng tự xử lý giọng nói. Không thuê máy chủ chấm giọng, không gọi API tính phí. Nhận âm/chấm tại máy không cần key; nhận xét riêng bằng AI dùng key Gemini Free Tier bạn đã xác nhận không gắn billing.** Sau yêu cầu “100% miễn phí” và “tiếp tục” ngày11/10, đã bắt đầu bước thử chạy thật trên máy local.
 
 **Đã thử được:** bộ nhận âm chạy trong trình duyệt, nhận đúng chuỗi âm của ba clip công khai “cat”, “book”, “cup”, khoảng1–1,3 giây/clip trên máy thử. Im lặng không tạo âm. Bản TTS vẫn có lỗi nhận âm, và “apple” cần kiểm biến thể cách đọc. **Chưa đưa nút mic/điểm/màu/game vào app**, chưa thử giọng trẻ hay điện thoại thật. Bước tiếp theo là tải/lưu bộ nhận âm và xử lý hủy/lỗi trên trình duyệt, rồi nối mic. [Bằng chứng ngắn](evaluations/speaking-local-feasibility.md).
@@ -984,7 +994,7 @@ Checkpoint ADR040/041: source30129b7 nativeGit production READY dpl_6P6SXrqLUuPY
 - **Đỏ:** phát âm khác hoặc bỏ thiếu từ, khi máy đủ chắc chắn.
 - **Chưa nghe rõ:** cho thu lại, không chấm 0 hay tô đỏ vì mic lỗi/tiếng ồn.
 
-Có điểm luyện nói sau khi kiểm được độ đúng của bộ chấm. Tập từ trước, rồi câu ngắn để chỉ ra từ bị thiếu. Trong **Chơi & học**, thêm **Nói cùng Cáo**, mỗi lượt 5 từ từ nhóm/bộ bài của bé. Bé được nghe lại, thử lại hoặc bỏ qua; không bị giữ lại vì điểm thấp.
+Có điểm phần trăm sau khi nhận và đối chiếu được âm; ghi âm không rõ thì mời nói lại. Tập từ trước, rồi câu ngắn để chỉ ra từ bị thiếu. Trong **Chơi & học**, thêm **Nói cùng Cáo**, mỗi lượt 5 từ từ nhóm/bộ bài của bé. Bé được nghe lại, thử lại hoặc bỏ qua; không bị giữ lại vì điểm thấp.
 
 ### Công nghệ đã chọn và việc của từng phần
 
@@ -1024,7 +1034,7 @@ AI có thể viết lời khuyên riêng hơn, nhưng **không bảo đảm nghe
 
 1. **Thử khả năng chạy miễn phí trước.** Cho bộ nhận âm chạy trong bản thử local với audio mẫu. Kiểm tốc độ, bộ nhớ và lỗi trên trình duyệt mobile/desktop. Đây là bước cần đạt trước khi làm trọn game.
 2. **Làm trải nghiệm cho bé.** Nút mic, nghe lại, nhận xét tiếng Việt, màu, điểm khi đủ tin cậy; nối vào Tập nói và game 5 từ. Thêm câu ngắn sau khi phần từ đạt, trong cùng kế hoạch.
-3. **Kiểm độ đúng trước khi đưa bé dùng.** Đối chiếu với người nghe và thử trên điện thoại bằng mẫu được phép, thiết bị sẵn có. Đặc biệt kiểm trường hợp bé đọc đúng nhưng máy báo sai. Chưa đạt thì chưa bật điểm/màu khẳng định lỗi; tiếp tục cải thiện trong giới hạn miễn phí.
+3. **Kiểm độ đúng trước khi đưa bé dùng.** Đối chiếu với người nghe và thử trên điện thoại bằng mẫu được phép, thiết bị sẵn có. Đặc biệt kiểm trường hợp bé đọc đúng nhưng máy báo sai. Đo và cải thiện chất lượng trong giới hạn miễn phí; UI phần trăm/màu theo yêu cầu12/10.
 
 **Điều đã chốt:** chỉ đi theo hướng chạy tại thiết bị, ngân sách phát sinh cho Speaking là **0 đồng phí API/dịch vụ/máy chủ mới**. **Điều cần chứng minh bằng bản thử:** máy nào chạy tốt và chấm giọng trẻ chính xác đến đâu. Chưa có bằng chứng để hứa chất lượng ngang ELSA. Chi tiết lập trình nằm trong [tài liệu cho AI](15-speaking-practice.md); bạn không cần chọn thêm công nghệ.
 
@@ -1040,3 +1050,10 @@ Kiểm tra local mobile/desktop, dữ liệu lưu/backup/xóa và generation b�
 Đã xem browser thật theo quyền bạn cấp: máy tính đang dùng13 từ/1bộ riêng trên máy; tài khoản hiện0từ/0bộ. Đăng nhập không đồng nghĩa đã đưa bài cũ lên cloud. Code mới mở thư viện tài khoản trên thiết bị đăng nhập lần đầu khi chưa chọn thư viện riêng, báo rõ nếu bài còn ở máy và có nút đi thẳng tới xem trước/lưu bài lên tài khoản. Giữ bài gốc; ảnh gốc gửi riêng. Agent chưa đưa13từ thật lên cloud.
 
 Nhóm có nút rõ **Thêm từ, câu, ngữ pháp**, chọn từ/câu/ngữ pháp mới từ toàn bộ thư viện rồi lưu; mục cũ/ngày/tên bài vẫn giữ. Ảnh lặp một từ chỉ chọn một lần mặc định; nghĩa khác vẫn hiện để bạn chọn chủ động, không gộp nghĩa bằng AI hoặc tự xóa bài cũ. [Bằng chứng](evaluations/speaking-app-and-library-fixes.md).
+
+
+## 20. Báo cáo tải chậm và yêu cầu tự đồng bộ sau đăng nhập — 11/10
+
+Theo yêu cầu “báo cáo trước khi làm”, đã tạo [báo cáo nguyên nhân/cách sửa/skill](BAO-CAO-PERFORMANCE-VA-DONG-BO.md); chưa sửa app hay database. Website trả byte đầu≈242–252ms trong5lượt/route, còn lab mobile chờ thư viện/nút≈3,6giây, auth chậm có thể kéo lên6,6–9,2giây. Ảnh Cáo tải nhỏ nhưng bị tạo lại lúc tự chào làm LCP muộn; chỉ sửa số LCP chưa giải quyết thời gian bấm.
+
+Yêu cầu mới của founder: đã đăng nhập thì mọi bài mới/thêm/sửa/xóa tự vào account, máy khác tự cập nhật; bài khách chỉ hỏi sao chép một lần. Source hiện vẫn có nhánh guest sau đăng nhập và sync3s/30s, chưa đạt yêu cầu. Chốt hướng đề xuất: sửa scope/account trước, hàng đợi chống mất bài + Supabase Realtime; tiếp đó chung request auth, welcome nhẹ/static và giữ node Cáo. Giữ stack hiện tại, không mua gói/AI/server. Chưa tối ưu/deploy hay chuyển bài thật; số đo/boundaries/kiểm tra nghiệm thu ở báo cáo.

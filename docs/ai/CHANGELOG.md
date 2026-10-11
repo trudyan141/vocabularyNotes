@@ -1,5 +1,17 @@
 # Nhật ký bàn giao
 
+## 12/10 — ADR064/065: automatic account scope/sync, performance and Speaking UI
+
+Implemented user-approved report plan plus latest screenshots: strict authenticated writable account, after-commit sync/realtime cursor pulls, durable prefs ownership/atomic patch, retained guest/optional one-time copy, auth request dedup/error distinction. Public Welcome and404 separated from learning/auth bundle, stable Fox and early307 redirect; no unchanged search rebuild or full-table live-query observer. WordDetail now directly hosts speech controls/score/letter groups/VI sound sheet and retains learning content. Nói cùng Cáo is a finite five-word game tile; downloads/deletes in Settings, auto end/assessment, replay icon; founder-rejected score/prototype label omitted.
+
+44 focused unit/integration PASS,21 distinct browser cases confirmed across scoped runs (1 intentional mobile heavy skip), actual desktop ONNX Worker/public-audio/cache test PASS; lint/typecheck/final build PASS. Fixture paths/roles corrected and only failed/affected cases rerun. SQL0007 couldn't reach execution because local initdb kernel SHMALL; hosted untouched. No live AI/founder data mutations/push/deploy/CI/physical-mobile/calibration claims. [Evidence and screenshots](../evaluations/speaking-refresh-and-automatic-sync.md), [performance after](../evaluations/performance-2026-10-12/README.md). Founder plan/specs/ledger updated; next working local SQL verification then founder-owned migration/publication.
+
+
+## 11/10 — Performance/sync investigation before implementation, ADR063
+
+User requests a report of causes/fixes/skills before optimizing, then requires every signed-in add/edit/delete to sync automatically across devices, with optional one-time guest-copy consent. Only reports/local fixture measurement/public anonymous GETs added; no feature/SQL/env/deploy/account mutations. [Readable report](../BAO-CAO-PERFORMANCE-VA-DONG-BO.md) separates15HTTP navigations/declared bytes,15cold local navigations,4initial diagnostic conditions,2routing cases and6greeting comparisons; one premature-root diagnostic explicitly superseded. Guest-pref/sign-in mismatch and3s/30s sync delays confirmed from fixture/source. Fox Image key remount confirmed by trace and greeting experiment; LCP gain alone does not improve button readiness. PageSpeed API429, no field/physical-device/production-auth/realtime claims. Performance/core-web-vitals/React/Supabase/delivery skills used; current build PASS, script syntax/docs/diff checks recorded in report.
+
+
 ## 11/10 — ADR062: Speaking app, account/local clarity, photo dedup and group append
 
 Founder explicitly allowed browser tests and requested implementation. Real desktop profile read-only:13words/1set local,0words/0sets cloud; no real transfer or production write. Fresh signed-in device defaults to owner-checked account library; explicit local choice and preview/backup/confirmed transfer retained. Account copy/focus refresh fixed. Photo POS alias/exact identity dedup and repeated-spelling default selection fixed without merging distinct meanings. Existing group primary **Thêm từ, câu, ngữ pháp** opens full live picker.

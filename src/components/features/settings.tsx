@@ -1,4 +1,5 @@
 "use client";
+import {SpeakingSettings} from './speaking-settings';
 import {ParentAiSettings} from "./parent-ai";
 import {ArchiveTools} from "@/components/features/archive-tools";
 import { Mail, UserRound } from "lucide-react";
@@ -144,7 +145,7 @@ export function Settings() {
           />
         </Field>
       </FieldGroup>
-      <ParentAiSettings/><LibraryTools/><ArchiveTools/>
+      <SpeakingSettings/><ParentAiSettings/><LibraryTools/><ArchiveTools/>
       <section className="settings-author" aria-labelledby="settings-author-title">
         <h2 id="settings-author-title">{t("Về ứng dụng", "About the app")}</h2>
         <p><UserRound aria-hidden="true"/><span>{t("Tác giả", "Author")}: <strong>Ly Kien Trung</strong></span></p>

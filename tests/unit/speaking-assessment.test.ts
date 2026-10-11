@@ -1,5 +1,5 @@
-import {it,expect,vi,afterEach} from 'vitest';
-import {assessPhones,recordingQuality} from '@/lib/speaking/assessment';
+import {it,expect,vi,afterEach,describe} from 'vitest';
+import {assessPhones,pronunciationScore,recordingQuality} from '@/lib/speaking/assessment';
 import {speakingAdvice} from '@/lib/speaking/coaching';
 import {configureParentAi} from '@/lib/ai/byok';
 import {VoiceRecorder,playbackWav} from '@/lib/speaking/client';
@@ -15,3 +15,25 @@ it('coaching sends bounded evidence only, rejects invented indices and never ret
 it('late microphone permission is stopped after cancel and cannot start recording',async()=>{let resolve:(stream:MediaStream)=>void=()=>{};const stop=vi.fn();vi.stubGlobal('navigator',{mediaDevices:{getUserMedia:()=>new Promise<MediaStream>(r=>resolve=r)}});vi.stubGlobal('MediaRecorder',class{});const recorder=new VoiceRecorder();const promise=recorder.start(vi.fn());recorder.cancel();resolve({getTracks:()=>[{stop}]} as unknown as MediaStream);await expect(promise).rejects.toThrow('cancelled');expect(stop).toHaveBeenCalledTimes(1);});
 
 it('playback WAV uses actual PCM duration and bounds invalid recordings',async()=>{const blob=playbackWav(new Float32Array(16000).fill(.5));expect(blob.type).toBe('audio/wav');const bytes=await blob.arrayBuffer();const data=new DataView(bytes);expect(bytes.byteLength).toBe(32044);expect(data.getUint32(24,true)).toBe(16000);expect(data.getUint32(40,true)).toBe(32000);expect(()=>playbackWav(new Float32Array([NaN]))).toThrow();});
+
+it('explains each expected apple sound, preserves alternate phones and abstains on weak sounds',()=>{
+ const result=assessPhones([{text:'apple',variants:[['æ','p','ə','l'],['æ','p','l']]}],phones(['ɛ','p','ə','l']))[0];
+ expect(result.status).toBe('retry');expect(result.phones?.map(p=>p.status)).toEqual(['retry','match','match','match']);expect(result.phones?.[0].advice).toContain('Mở miệng');expect(result.phones?.[1].advice).toContain('hai môi');expect(result.phones?.[3].advice).toContain('Đầu lưỡi');expect(result.advice).toContain('/æ/');expect(result.advice).not.toContain('/p/');
+ const missing=assessPhones([{text:'cat',variants:[['k','æ','t']]}],phones(['k','æ']))[0];expect(missing.phones?.[2]).toMatchObject({expected:'t',heard:null,status:'missing'});
+ const alternate=assessPhones([{text:'apple',variants:[['æ','p','ə','l'],['æ','p','l']]}],phones(['æ','p','l']))[0];expect(alternate.expected).toEqual(['æ','p','l']);expect(alternate.phones?.every(p=>p.status==='match')).toBe(true);
+ const weak=assessPhones([{text:'cat',variants:[['k','æ','t']]}],phones(['k','æ','t']).map(p=>({...p,confidence:.1})))[0];expect(weak.phones?.every(p=>p.status==='uncertain')).toBe(true);
+});
+
+
+describe('pronunciation percentage',()=>{
+ it('uses phone agreement, including omissions and additions, rather than acoustic confidence',()=>{
+  const words=[{text:'apple',variants:[['æ','p','ə','l']]}];
+  const phones=(values:string[])=>values.map((phone,i)=>({phone,confidence:.9,startMs:i*50,endMs:(i+1)*50}));
+  expect(pronunciationScore(assessPhones(words,phones(['æ','p','ə','l'])))).toBe(100);
+  expect(pronunciationScore(assessPhones(words,phones(['ɛ','p','ə','l'])))).toBe(88);
+  expect(pronunciationScore(assessPhones(words,phones(['æ','p','l'])))).toBe(75);
+  expect(pronunciationScore(assessPhones(words,phones(['æ','p','ə','l','s'])))).toBeLessThan(100);
+  expect(pronunciationScore(assessPhones(words,[]))).toBeNull();
+  const different=assessPhones(words,phones(['s','t','k','f']));expect(pronunciationScore(different)).toBe(0);expect(different[0].phones?.every(phone=>phone.status==='missing')).toBe(true);
+ });
+});

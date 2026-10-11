@@ -3,11 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { House } from "lucide-react";
-import { useApp } from "@/components/app/provider";
+import {usePublicLocale} from "@/lib/public-locale";
 import { Button } from "@/components/ui/button";
 
 export function MissingPage() {
-  const { t } = useApp();
+  const t=usePublicLocale();
   return (
     <section className="not-found-world" aria-labelledby="missing-page-title">
       <div className="not-found-scene">

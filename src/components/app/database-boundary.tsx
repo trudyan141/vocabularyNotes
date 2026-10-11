@@ -12,8 +12,8 @@ export function DatabaseBoundary({ children,progressive=false }: { children: Rea
       <Alert variant="destructive">
         <AlertTitle>
           {t(
-            "Chưa mở được thư viện trên máy",
-            "On-device library could not open",
+            "Chưa mở được thư viện",
+            "Library could not open",
           )}
         </AlertTitle>
         <AlertDescription>
@@ -38,7 +38,7 @@ export function DatabaseLoading() {
       <Skeleton className="h-10 w-3/4" />
       <Skeleton className="h-56 w-full" />
       <p>
-        {t("Đang mở thư viện trên máy…", "Opening your on-device library…")}
+        {t("Đang mở bài học…", "Opening your lessons…")}
       </p>
     </div>
   );

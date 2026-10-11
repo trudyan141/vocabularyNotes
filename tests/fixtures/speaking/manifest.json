@@ -1,0 +1,58 @@
+[
+  {
+    "id": "cat",
+    "text": "cat",
+    "file": "cat.ogg",
+    "reference": "k æ t",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-cat.ogg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/4/46/En-us-cat.ogg",
+    "creator": "Dvortygirl",
+    "license": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "bytes": 9550,
+    "sha256": "62502d6aa7d876f597101567f13a4f573a8bd32b0b57f393eb46756455a550e8",
+    "changes": "Unmodified original Ogg file; in-memory resampling/padding only during evaluation"
+  },
+  {
+    "id": "book",
+    "text": "book",
+    "file": "book.ogg",
+    "reference": "b ʊ k",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-book.ogg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/3/3d/En-us-book.ogg",
+    "creator": "Dvortygirl",
+    "license": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "bytes": 10603,
+    "sha256": "b0bbc739f90a9da7d4b5f2b20224a80fa0c7b24a2af843e0cdcaeeeae59379a8",
+    "changes": "Unmodified original Ogg file; in-memory resampling/padding only during evaluation"
+  },
+  {
+    "id": "cup",
+    "text": "cup",
+    "file": "cup.ogg",
+    "reference": "k ə p",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-cup.ogg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/5/57/En-us-cup.ogg",
+    "creator": "Dvortygirl",
+    "license": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "bytes": 15602,
+    "sha256": "dc0451d303393fda3560c50b16b4283005c75104f7e17af233371efec78aff24",
+    "changes": "Unmodified original Ogg file; in-memory resampling/padding only during evaluation"
+  },
+  {
+    "id": "apple",
+    "text": "apple",
+    "file": "apple.ogg",
+    "reference": "æ p ə l",
+    "source": "https://commons.wikimedia.org/wiki/File:En-us-apple.ogg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/9/9a/En-us-apple.ogg",
+    "creator": "Dvortygirl",
+    "license": "CC-BY-SA-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "bytes": 14420,
+    "sha256": "4b4e55408b35c8663c67b21f49a0b21016e0371fe7ba9b3e90648bfce7f5d8d0",
+    "changes": "Unmodified original Ogg file; in-memory resampling/padding only during evaluation"
+  }
+]

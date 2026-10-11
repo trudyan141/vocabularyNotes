@@ -8,7 +8,7 @@ await mkdir("public/fonts",{recursive:true});
 await copyFile("src/app/fonts/nunito-variable.woff2","public/fonts/nunito.woff2");
 await copyFile("src/app/fonts/OFL.txt","public/fonts/OFL.txt");
 
-for(const [input,output] of [['src/domain/identity.ts','public/offline-identity.js'],['src/lib/pronunciation/prepared.ts','public/offline-prepared-ipa.js']]){const source=await readFile(input,'utf8');await writeFile(output,ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext}}).outputText);}
+for(const [input,output] of [['src/domain/identity.ts','public/offline-identity.js'],['src/lib/pronunciation/prepared.ts','public/offline-prepared-ipa.js'],['src/lib/audio/voices.ts','public/offline-voices.js']]){const source=await readFile(input,'utf8');await writeFile(output,ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext}}).outputText);}
 
 const online=JSON.parse(await readFile('src/lib/media/online-illustrations.json','utf8'));
 const illustrations=JSON.parse(await readFile('src/lib/media/open-illustrations.json','utf8'));

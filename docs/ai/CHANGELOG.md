@@ -1,5 +1,37 @@
 # Nhật ký bàn giao
 
+## 11/10 — Sentence IPA/listening, model storage FAQ and optional free AI coaching design
+
+Shared sentence row adds exact whole-sentence AudioControl to examples, additional/grammar/error/correction content, libraries/groups/preparation/review/grammar steps and flashcards; offline cards/game gain Nghe câu. Unknown IPA shows a clear status while audio stays usable; asynchronous lookups guard text. Worksheet prompt/schema supports nullable optional commonErrorIpa/correctionIpa, edit/deletion invalidation and archive preservation. Fixed same-origin dictionary403 caused by Next URL localhost normalization, preserves origin/cross-site rejection. Founder plan17/spec15 updated with355MB+22MB cache/delete/no-download behavior and user-confirmed Free Tier/no billing optional Gemini Vietnamese coaching from local evidence (no audio, no AI score override, fixed fallback). No mic/coaching runtime or live API call claimed. Scoped lint/types/build,58 unit/integration cases and local desktop/mobile checks; detailed commands/results/limits and screenshots in [evidence](../evaluations/sentence-ipa-and-listening.md). No full suite/SQL/real mic/real AI/production/push/deploy.
+
+
+## 11/10 — Speaking SP1: actual free local browser/Worker inference
+
+Founder “tiếp tục” after revised0đ plan; ADR059 records local implementation authorization, without real mic/account/API/publishing permissions. Pin Transformers.js3.8.1/package lock; explicit native build scripts remain disabled. Add public file manifest/hash/revision, guarded CTC phoneme decoder and opt-in CLI using actual ephemeral Chromium/Worker/CPU-WASM model inference. Target text is not passed into model; no API inference/upload/token/paid fallback, no model/runtime in Next/SW/app bundle. Add4 unchanged licensed/attributed public pronunciation fixtures with integrity hashes.
+
+espeak318MB and separate full-precision synthetic-cat control gave the same wrong output; chose English TIMIT Wav2Vec2 q8 355MB within the same free architecture. Preserve espeak/TTS/public reports: cat/book/cup public phones matched, apple needs variants, synthetic words still fail. Model load2,37s and public clips≈1,1–1,3s on desktop host, not physical mobile/performance benchmark/child validation. [Evidence](../evaluations/speaking-local-feasibility.md), canonical founder17/spec15 updated.
+
+Scoped ESLint/typecheck PASS; final11 unit cases PASS150ms; final dependency-required build PASS. Public browser inference6runs PASS with15GET loopback requests/0console errors; final changed-decoder/CLI cleanup confirmation3runs PASS12GET/0console errors, synthetic model report7runs retained. `python3 scripts/validate_docs.py`/`git diff --check` PASS. No full suite/app UI audit/SQL/provider AI API/children data/deploy. SP1 remains in_progress: next browser download/cache/cancel/memory, then recorder/local adapter; score/calibration/child/device evidence remains pending. Existing uncommitted group/audio/auth work preserved.
+
+
+## 11/10 — Speaking plan rewritten: one browser-local stack, zero added cost
+
+Founder requests plain Vietnamese, a concrete technology choice and100% free/no incurred fees. Rewrote existing founder section17 (preserved anchor; no competing plan) with child flow, short technology-purpose table, three ordered steps and318MB/device/accuracy tradeoffs. Selected Wav2Vec2 ONNX q8 + Transformers.js/ORT Web, local alignment/calibration and Vietnamese templates; removed server-scoring/Gemini-only choices and founder technology questions. Technical spec15/tasks aligned; ADR058 confirms0đ constraint, distinguishes agent's choice from implementation approval. Primary browser/model sources verified; no models/dependencies/skills installed or real AI/mic/browser/account/deploy actions.
+
+Docs-only verification: `python3 scripts/validate_docs.py` PASS456 local links; `git diff --check` PASS. No application tests/build warranted by ADR050. Existing uncommitted runtime/evidence edits preserved. Next: founder review, then SP1 local feasibility before full UI/game.
+
+
+## 11/10 — Group grammar/date membership, first-tap TTS and Speaking review plan
+
+ADR056 implements approved grammar membership, a single all-types filtered select-all, original named/date group lesson items, exact global dedup and backwards-compatible archive/cloud remapping. Transfer keeps multiple supplemental rows/sense. ADR057 replaces premature empty-voice error with voice readiness wait/Stop/late cancellation online+offline; public shell includes shared generated helper. Local mobile summary nowrap defect caught and fixed; reading tabs expanded to3/editor4.46 affected unit/integration PASS plus6 helper final confirmation, scoped lint/types/final build and10 distinct mobile/desktop cases PASS; [evidence](../evaluations/groups-grammar-and-audio.md) separates device/live limits.
+
+Founder new Speaking request researched using official Gemini/MDN and primary GitHub Kaldi/GOP, MFA, GOPT, OpenPronounce and SpeechOcean sources. [Spec15](../15-speaking-practice.md) and existing [founder plan17](../KE-HOACH-FOUNDER.md#speaking-review) contain reviewed-source facts and explicit proposed algorithm/contracts/colors/VI tips/game/tasks/quality gates. Not implemented, no repo/model/skill install or live AI/mic/children data; founder review required by direct request. Auth verification uncommitted work retained. ADR049 publishing permissions unchanged.
+
+## 11/10 — Kiểm chứng giữ phiên đăng nhập
+
+Founder yêu cầu lưu session để lần mở sau không phải đăng nhập lại khi còn hợp lệ. Tính năng đã có: Supabase SSR persistent HttpOnly cookies, server getUser tự refresh access token và ghi cookie mới. Chỉ thêm5 test SDK/routes thật với cookie/env/network fixture: reopen, expired refresh/rotation, revoked refresh, network/reconnect, logout/origin.5/5 PASS; affected ESLint/typecheck PASS. Không sửa auth runtime/UI/DB/env hoặc kéo dài thời hạn server. [Evidence](../evaluations/auth-session-persistence.md). Không build/E2E vì chỉ test/docs; chưa liveGoogle/Supabase/physical-phone. Next: founder thử reopen cùng browser khi tự publish; quyền049/050 giữ nguyên.
+
+
 ## 11/10 — ADR055: Offline có hình và màu, dễ dùng cho bé
 
 Theo yêu cầu mới nhất: fallback offline dùng Cáo/Nunito/Theme C, lời ngắn, nút mở bài có màu/hình và reconnect kiểu nút. Thư viện đổi thành thẻ từ có artwork/fallback có nhãn, CTA ôn đến hạn và năm trò chơi có hình. Màn ôn/game có màu/tiến độ/feedback; focus/scroll khi đổi màn, ba lựa chọn ngang ở360px, empty/search/lỗi có recovery. Scope/account restrictions, duyệt/CAS/SRS/resume/dedup/IPA/credit giữ nguyên; public-shell hash cập nhật qua build.

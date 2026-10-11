@@ -99,7 +99,6 @@ export function WordDetail({ id }: { id: string }) {
         <SentencePronunciation text={entry.example} pronunciations={entry.examplePronunciations}/>
         <p className="muted">{entry.exampleVi}</p>
         {entry.examplePronunciations.map((p,i)=>p.readingHintVi?<p key={i} className="reading-hint">{t("Cách đọc gần đúng: ","Reading hint: ")}{p.readingHintVi}</p>:null)}
-        <AudioControl text={entry.example} />
       </section>
       <WordLearningContent word={entry}/>
       {!entry.art && (

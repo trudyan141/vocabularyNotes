@@ -1,0 +1,152 @@
+{
+  "date": "2026-10-11",
+  "model": {
+    "id": "robg/speako-phoneme-recognizer",
+    "revision": "ad0f63cd58fc1bb1e9c261a3b4135997a31c2e58",
+    "transformersVersion": "3.8.1",
+    "license": "Apache-2.0",
+    "file": "onnx/model_quantized.onnx",
+    "bytes": 355216594,
+    "sha256": "1e03fc69aa5be1f365a94ffa17c060feafdadb626b8a662b7ba6b36cb9f0577e",
+    "sampleRate": 16000,
+    "blankId": 41
+  },
+  "runtime": "Chromium ephemeral profile; Worker CPU/WASM, one thread; desktop host with360px viewport (not physical mobile)",
+  "source": "Permitted public pronunciation fixtures; see fixtureSources and manifest for attribution/integrity",
+  "fixtureSources": [
+    {
+      "id": "cat",
+      "source": "https://commons.wikimedia.org/wiki/File:En-us-cat.ogg",
+      "creator": "Dvortygirl",
+      "license": "CC-BY-SA-3.0",
+      "sha256": "62502d6aa7d876f597101567f13a4f573a8bd32b0b57f393eb46756455a550e8",
+      "referencePhones": "k æ t"
+    }
+  ],
+  "loadedMs": 1989.5,
+  "results": [
+    {
+      "id": "cat-raw",
+      "targetText": "cat",
+      "referencePhones": "k æ t",
+      "type": "result",
+      "phones": [
+        {
+          "phone": "k",
+          "confidence": 0.9967493400487462,
+          "startMs": 20.8975,
+          "endMs": 41.795
+        },
+        {
+          "phone": "æ",
+          "confidence": 0.9943407074658286,
+          "startMs": 188.0775,
+          "endMs": 208.975
+        },
+        {
+          "phone": "t",
+          "confidence": 0.9859663379095291,
+          "startMs": 334.36,
+          "endMs": 376.155
+        }
+      ],
+      "inferenceMs": 666.7000000476837,
+      "durationMs": 522.4375
+    },
+    {
+      "id": "cat-padded",
+      "targetText": "cat",
+      "referencePhones": "k æ t",
+      "type": "result",
+      "phones": [
+        {
+          "phone": "k",
+          "confidence": 0.996516057985938,
+          "startMs": 265.83375,
+          "endMs": 286.2825
+        },
+        {
+          "phone": "æ",
+          "confidence": 0.9938954136265225,
+          "startMs": 449.8725,
+          "endMs": 470.32125
+        },
+        {
+          "phone": "t",
+          "confidence": 0.9952753597584947,
+          "startMs": 593.01375,
+          "endMs": 613.4625
+        }
+      ],
+      "inferenceMs": 1034,
+      "durationMs": 1022.4375
+    },
+    {
+      "id": "silence",
+      "type": "result",
+      "phones": [],
+      "inferenceMs": 1058.5,
+      "durationMs": 1000
+    }
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "url": "/spike.html"
+    },
+    {
+      "method": "GET",
+      "url": "/worker.js"
+    },
+    {
+      "method": "GET",
+      "url": "/runtime/transformers.min.js"
+    },
+    {
+      "method": "GET",
+      "url": "/ctc.js"
+    },
+    {
+      "method": "GET",
+      "url": "/model/wav2vec2/preprocessor_config.json"
+    },
+    {
+      "method": "GET",
+      "url": "/model/wav2vec2/config.json"
+    },
+    {
+      "method": "GET",
+      "url": "/model/wav2vec2/onnx/model_quantized.onnx"
+    },
+    {
+      "method": "GET",
+      "url": "/runtime/ort-wasm-simd-threaded.jsep.mjs"
+    },
+    {
+      "method": "GET",
+      "url": "/runtime/ort-wasm-simd-threaded.jsep.wasm"
+    },
+    {
+      "method": "GET",
+      "url": "/model/wav2vec2/vocab.json"
+    },
+    {
+      "method": "GET",
+      "url": "/audio/cat"
+    },
+    {
+      "method": "GET",
+      "url": "/audio/cat"
+    }
+  ],
+  "consoleErrors": [],
+  "limits": {
+    "pronunciationCalibration": false,
+    "childValidation": false,
+    "physicalPhone": false,
+    "peakMemoryMeasured": false,
+    "scoreEnabled": false,
+    "childErrorColorsEnabled": false
+  },
+  "scope": "SP1 feasibility only; no mic/UI/game/provider API/billing/deployment"
+}

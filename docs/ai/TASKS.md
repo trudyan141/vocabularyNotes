@@ -1,5 +1,17 @@
 # Ledger triển khai
 
+**Latest11/10 ADR060/061:** sentence IPA + exact-example listening completed locally across shared UI and offline; generation supports full mistake/correction IPA; scoped data round-trip/deletion and origin boundaries checked. [Evidence](../evaluations/sentence-ipa-and-listening.md). Founder confirms Gemini key/project Free Tier/no billing and prefers AI Vietnamese coaching: updated founder17/spec15 with optional target+local-evidence advice, fixed fallback, no audio upload/paid fallback; no live call or coaching runtime yet. Cache/delete FAQ clarifies355MB+22MB versus old318MB; browser controls still pending. Continue SP1 cache/cancel/memory then SP2 mic/local adapter/optional mocked coaching; scoring calibration gates unchanged.
+
+11/10 — ADR056/057 local: nhóm thêm grammar, chọn tất cả ba loại qua mọi trang lọc, source-dated/name items và exact dedup toàn nhóm; backup/cloud remap giữ metadata và nhiều supplemental rows/sense. TTS first tap chờ voice readiness/cancel, offline local voice only.46 related unit/integration PASS,6 voice helper final confirmation PASS;10 distinct scoped browser cases PASS (results/evidence below), lint/types/final build PASS. [Evidence](../evaluations/groups-grammar-and-audio.md). Speaking checkpoint này là lịch sử planning; trạng thái SP1 mới nhất ở dưới. Không production/SQL/realAI/physical-phone claims.
+
+**Speaking mới nhất — SP1 local đang làm (ADR058/059):** founder “tiếp tục” sau plan0đ. Đã pin Transformers.js3.8.1, manifest English Wav2Vec2 q8/revision/SHA355MB, CTC decoder và CLI browser/Worker inference thật. Public fixtures cat/book/cup đúng phone sequence, apple cần variant handling; TTS vẫn có lỗi.11 unit cases, scoped lint/typecheck và final build PASS. [Evidence](../evaluations/speaking-local-feasibility.md), [founder plan17](../KE-HOACH-FOUNDER.md#speaking-review), [AI spec15](../15-speaking-practice.md). Không API/paid fallback/mic/score/child colors/game/real account/deploy; model/runtime không vào app bundle/SW.
+
+**Next action:** hoàn tất SP1 browser download/cache/cancel/peak-memory và device envelope, rồi SP2 mic/playback/local adapter. Không chờ founder review lại code local; quality/calibration/phone/child evidence vẫn pending, không bật score/red certainty bằng raw phone match. Founder owns publishing ADR049; ledger tổng chưa đổi.
+
+
+Checkpoint11/10 session persistence verification: already implemented HttpOnly persistent cookies/server refresh;5 SDK/auth route fixture tests PASS, ESLint/types PASS. [Evidence](../evaluations/auth-session-persistence.md). No new auth implementation or runtime/deploy changes; production/session-policy/phone not verified.
+
+
 Checkpoint11/10 ADR055: offline illustrated chooser/library/card/game/empty/error shipped locally. Lint/public JS/types/build and14 scoped browser cases PASS, final8 rerun PASS;10 views inspected. [Evidence](../evaluations/offline-child-ui.md). Existing T07/offline data review/dedup/SRS/resume retained. No full suite/SQL/liveAI/phone/production; founder owns publishing.
 
 
@@ -123,3 +135,8 @@ Checkpoint ADR040/041: source30129b7 nativeGit production READY dpl_6P6SXrqLUuPY
 11/10 latest task047/048 in progress under T07/T08/T09/T14: whole-sentence IPA under English examples, generation/edit/storage rules, copied-image paste→local draft preview. Local implementation and check in progress; hosted/complete CI not yet claimed. [Evidence](../evaluations/sentence-ipa-and-image-paste.md). Next: finish local checks/responsive visual evidence, then reviewable local handoff; publishing requires current founder approval per ADR049.
 
 Final047/048 local implementation checked under Gọn:10focuseddesktop/mobilePASS46.3s, then stale-hint bug fix +affectedESLint/types/build/2focusedcasesPASS9.2s;148unitcheck earlier pre-hint checkpoint. IPA/clipboard docs/rules ready; source remains uncommitted/unpushed/not hosted. New browser/GitHub/Vercel permission gate049 respected. Evidence sentence-ipa-and-image-paste. Ledger unchanged; founder review/publishing next.
+
+
+## Speaking expansion — local SP1 continuation (11/10)
+
+Under T17/T09/T12, separate from delivered ADR056 groups/ADR057 audio. SP0 plain-language single-stack/0đ plan complete; founder “tiếp tục” authorizes local code/fixture work. **SP1 in_progress**: pinned runtime/model, public file hash checks, CTC decoder, reproducible actual browser/Worker inference done; browser cache/download cancel/peak-memory/device envelope pending. Next SP2 recorder/playback/adapter/calibration/templates, SP3 gated word/color/game/short sentences, SP4 permitted volunteer child/physical-device evaluation. No app mic/scoring/game or paid/server/Gemini fallback. [Evidence](../evaluations/speaking-local-feasibility.md), [technical spec](../15-speaking-practice.md), [founder plan](../KE-HOACH-FOUNDER.md#speaking-review). Existing19-task totals unchanged; no device/child quality claim from four public adult recordings.

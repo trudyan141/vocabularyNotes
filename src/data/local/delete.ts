@@ -20,7 +20,7 @@ export async function deleteItem(repo:LocalRepository,target:DeleteTarget){
   } else if(target.table==='sentences'&&target.part){
    const content={...row.payload.content};
    if(target.part==='patterns'){content.pattern='';content.patternExplanation='';}
-   else for(const field of ['grammarTitle','conditions','formula','analysis','commonError','correction'])content[field]='';
+   else for(const field of ['grammarTitle','conditions','formula','analysis','commonError','commonErrorIpa','correction','correctionIpa'])content[field]='';
    await table.put({...row,updatedAt:at,version:row.version+1,payload:{...row.payload,content}});
   } else {
    await remove(target.table,row);

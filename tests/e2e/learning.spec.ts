@@ -210,3 +210,47 @@ test('offline missing library and empty search offer friendly recovery',async({p
  await page.goto('/profile');await page.getByRole('button',{name:'Dùng thư viện riêng của con',exact:true}).click();await expect(page.getByText('Đã chuyển thư viện; dữ liệu thư viện trước vẫn còn.',{exact:true})).toBeVisible();await page.waitForFunction(async()=>!!(await navigator.serviceWorker.ready).active);await expect.poll(()=>page.evaluate(()=>!!navigator.serviceWorker.controller)).toBe(true);await context.setOffline(true);await page.goto('/offline-empty-check');await page.getByRole('button',{name:'Bài của con trên máy',exact:true}).click();await expect(page.locator('.word-empty')).toContainText('Chưa có từ để học');await expect(page.locator('.word-tile')).toHaveCount(0);await noOverflow(page);await page.screenshot({path:`docs/evaluations/offline-child-ui-screens/${testInfo.project.name}-empty.png`,fullPage:true});
  await page.getByRole('button',{name:'Thẻ ôn',exact:true}).click();await expect(page.getByRole('status')).toContainText('Chưa đủ từ phù hợp');await page.getByRole('searchbox').fill('apple');await expect(page.locator('.word-empty')).toContainText('Thử gõ từ khác');await context.setOffline(false);
 });
+
+test('audio first tap waits for delayed voices and pending stop prevents late playback online and offline',async({page})=>{
+ await page.addInitScript(()=>{
+  const events=new EventTarget();let voices:SpeechSynthesisVoice[]=[];const spoken:string[]=[];
+  const synth={getVoices:()=>voices,cancel:()=>{},resume:()=>{},paused:false,speak:(utterance:SpeechSynthesisUtterance)=>{spoken.push(utterance.text);queueMicrotask(()=>utterance.onend?.({} as SpeechSynthesisEvent));},addEventListener:events.addEventListener.bind(events),removeEventListener:events.removeEventListener.bind(events)};
+  Object.defineProperty(window,'speechSynthesis',{value:synth,configurable:true});Object.defineProperty(window,'SpeechSynthesisUtterance',{value:class{constructor(public text:string){}},configurable:true});
+  Object.assign(window,{audioFixture:{spoken,set:(ready:boolean,local=true)=>{voices=ready?[{lang:'en-US',localService:local} as SpeechSynthesisVoice]:[];events.dispatchEvent(new Event('voiceschanged'));}}});
+ });
+ const setVoices=(ready:boolean,local=true)=>page.evaluate(({ready,local})=>(window as unknown as {audioFixture:{set:(ready:boolean,local:boolean)=>void}}).audioFixture.set(ready,local),{ready,local});
+ const plays=()=>page.evaluate(()=>(window as unknown as {audioFixture:{spoken:string[]}}).audioFixture.spoken.length);
+ await page.goto('/library/words/apple');const listen=page.getByRole('button',{name:'Nghe: apple',exact:true});await listen.click();await expect(page.locator('.audio-status').first()).toContainText('Đang chuẩn bị');expect(await plays()).toBe(0);await setVoices(true);await expect.poll(plays).toBe(1);await expect(page.locator('.audio-status').first()).toBeEmpty();await listen.click();await expect.poll(plays).toBe(2);
+ await setVoices(false);await listen.click();await page.getByRole('button',{name:'Dừng đọc: apple',exact:true}).click();await setVoices(true);expect(await plays()).toBe(2);
+ await setVoices(false);await listen.click();await page.getByRole('link',{name:'Từ của con',exact:true}).click();await expect(page).toHaveURL(/\/library$/);await setVoices(true);expect(await plays()).toBe(2);
+ await page.goto('/offline.html');await page.getByRole('button',{name:'Bài mẫu',exact:true}).click();await page.getByRole('searchbox').fill('apple');await page.locator('.word-tile').click();await page.getByRole('button',{name:'Nghe từ',exact:true}).click();await expect(page.getByRole('status')).toContainText('Đang chuẩn bị');await setVoices(true,false);expect(await plays()).toBe(0);await setVoices(true,true);await expect.poll(plays).toBe(1);await page.getByRole('button',{name:'Nghe từ',exact:true}).click();await expect.poll(plays).toBe(2);
+ await setVoices(false);await page.getByRole('button',{name:'Nghe từ',exact:true}).click();await page.getByRole('button',{name:'Về thư viện',exact:true}).click();await setVoices(true);expect(await plays()).toBe(2);
+});
+
+async function fixtureVoice(page:Page){await page.addInitScript(()=>{
+ const state=window as typeof window&{fixtureSpoken:string[]};state.fixtureSpoken=[];
+ Object.defineProperty(window,'SpeechSynthesisUtterance',{configurable:true,value:class {text:string;constructor(text:string){this.text=text;}}});
+ Object.defineProperty(window,'speechSynthesis',{configurable:true,value:{getVoices:()=>[{lang:'en-US',name:'Fixture local English',localService:true}],cancel:()=>{},resume:()=>{},speak:(u:{text:string;onend?:()=>void})=>{state.fixtureSpoken.push(u.text);queueMicrotask(()=>u.onend?.());},paused:false,addEventListener:()=>{},removeEventListener:()=>{}}});
+ });}
+async function saveSpeakingExample(page:Page,text:string){
+ await page.goto('/add');await page.getByRole('combobox').fill('book');await page.getByRole('option').filter({hasText:'book'}).getByRole('button').first().click();await page.getByLabel('Câu ví dụ tiếng Anh',{exact:true}).fill(text);await page.getByLabel('Tên nghĩa để phân biệt',{exact:true}).fill('sentence-listen-fixture');await page.getByRole('checkbox',{name:'Tôi đã kiểm tra nội dung và đồng ý cho con học'}).check();await page.getByRole('button',{name:'Duyệt và lưu từ',exact:true}).click();await expect(page).toHaveURL(/\/library\/words\//);
+}
+test('sentence listening reads the exact example from IPA row and revealed flashcard',async({page},testInfo)=>{
+ await fixtureVoice(page);const text='Put the book on the shelf.';await saveSpeakingExample(page,text);
+ const block=page.locator('.example-block').first();await expect(block.locator('.sentence-ipa')).toContainText('/');await expect(block.getByRole('button',{name:`Nghe: ${text}`,exact:true})).toHaveCount(1);await block.getByRole('button',{name:`Nghe: ${text}`,exact:true}).click();await expect.poll(()=>page.evaluate(()=>(window as typeof window&{fixtureSpoken:string[]}).fixtureSpoken.at(-1))).toBe(text);
+ await page.getByRole('link',{name:'Ôn từ này',exact:true}).click();await page.getByRole('button',{name:'Thẻ ôn',exact:true}).click();await page.getByRole('button',{name:'Xem đáp án',exact:true}).click();
+ await expect(page.locator('.practice-question .sentence-reading')).toBeVisible();await page.getByRole('button',{name:`Nghe: ${text}`,exact:true}).click();await expect.poll(()=>page.evaluate(()=>(window as typeof window&{fixtureSpoken:string[]}).fixtureSpoken.at(-1))).toBe(text);await noOverflow(page);await page.screenshot({path:`docs/evaluations/sentence-listen-screens/${testInfo.project.name}-flashcard.png`,fullPage:true});
+});
+test('unknown sentence IPA reports missing guide and still allows whole sentence playback',async({page})=>{
+ await fixtureVoice(page);await page.route('**/api/pronunciation',route=>route.fulfill({json:{results:[]}}));const text='I like zzunknownword.';await saveSpeakingExample(page,text);
+ const block=page.locator('.example-block').first();await expect(block.locator('.sentence-reading')).toContainText('Chưa có phiên âm chắc chắn');await expect(block.locator('.sentence-ipa')).not.toContainText('/');await block.getByRole('button',{name:`Nghe: ${text}`,exact:true}).click();await expect.poll(()=>page.evaluate(()=>(window as typeof window&{fixtureSpoken:string[]}).fixtureSpoken.at(-1))).toBe(text);await noOverflow(page);
+});
+test('prepared grammar examples include full IPA and listen controls',async({page},testInfo)=>{
+ await fixtureVoice(page);await saveSpeakingExample(page,'This is a book.');await page.goto('/library/prepare');
+ const block=page.locator('.example-block').first();await expect(block.locator('.sentence-reading').first()).toContainText('/');const text="What is it? It's a book.";await block.getByRole('button',{name:`Nghe: ${text}`,exact:true}).click();await expect.poll(()=>page.evaluate(()=>(window as typeof window&{fixtureSpoken:string[]}).fixtureSpoken.at(-1))).toBe(text);await block.scrollIntoViewIfNeeded();await noOverflow(page);await page.screenshot({path:`docs/evaluations/sentence-listen-screens/${testInfo.project.name}-grammar.png`,fullPage:true});
+});
+
+test('offline example listens to the complete sentence below its IPA',async({page,context},testInfo)=>{
+ await fixtureVoice(page);await page.goto('/today');await page.waitForFunction(async()=>!!(await navigator.serviceWorker.ready).active);await expect.poll(()=>page.evaluate(()=>!!navigator.serviceWorker.controller)).toBe(true);await context.setOffline(true);await page.goto('/offline-sentence-listen');await page.getByRole('button',{name:'Bài mẫu',exact:true}).click();await page.getByRole('searchbox').fill('grapes');await page.locator('.word-tile').click();await page.getByRole('button',{name:'Xem nghĩa và ví dụ'}).click();
+ const text=(await page.locator('#example').innerText()).trim();expect(text).not.toBe('');await expect(page.locator('#example-ipa')).toContainText('/');await page.getByRole('button',{name:'Nghe câu ví dụ',exact:true}).click();await expect.poll(()=>page.evaluate(()=>(window as typeof window&{fixtureSpoken:string[]}).fixtureSpoken.at(-1))).toBe(text);await noOverflow(page);await page.screenshot({path:`docs/evaluations/sentence-listen-screens/${testInfo.project.name}-offline.png`,fullPage:true});await context.setOffline(false);
+});

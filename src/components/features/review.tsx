@@ -1,4 +1,5 @@
 "use client";
+import {SentencePronunciation} from "@/components/app/sentence-pronunciation";
 import { useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -423,7 +424,7 @@ export function Review({ draftId }: { draftId: string }) {
                 </h2>
                 {demoPatterns.map((p) => (
                   <div className="example-block" key={p.en}>
-                    <p lang="en">{p.en}</p>
+                    <p lang="en">{p.en}</p><SentencePronunciation text={p.en}/>
                     <p>{p.vi}</p>
                     <small>
                       {t(

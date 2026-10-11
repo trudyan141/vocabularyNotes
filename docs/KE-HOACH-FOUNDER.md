@@ -1,5 +1,12 @@
 # Words for Kids — kế hoạch sản phẩm dành cho founder
 
+**Mới nhất11/10 — Nhóm và âm thanh (ADR056/057):** nhóm thêm ngữ pháp, chọn tất cả từ/câu/ngữ pháp một lần, mục theo ngày và tên bài gốc, bỏ trùng toàn nhóm. Sửa lần bấm Nghe đầu bằng cách chờ giọng sẵn sàng ngay trong lần đó; có Dừng/hủy khi rời màn.46ca dữ liệu/voice và10ca browser mobile/desktop đã qua, chưa kiểm âm thanh điện thoại thật/push/deploy. [Bằng chứng](evaluations/groups-grammar-and-audio.md).
+
+**Mới nhất11/10 — Speaking không phát sinh phí, chờ review:** kế hoạch đã rút về một hướng: Wav2Vec2 chạy trong trình duyệt bằng Transformers.js, nhận xét tiếng Việt viết sẵn; không thuê máy chủ/chạy API chấm giọng. Có bước thử tốc độ và độ đúng trước khi làm đầy đủ. Chưa triển khai. Đọc [mục 17](#speaking-review); [chi tiết cho AI](15-speaking-practice.md).
+
+**11/10 — Giữ đăng nhập khi mở lại:** tính năng đã có qua cookie an toàn và tự làm mới phiên. Mở lại cùng browser/domain khi phiên còn hợp lệ không cần login lại.5 ca kiểm local đã qua (mở lại, refresh, thu hồi, lỗi mạng, logout); không sửa cấu hình tài khoản hay thời hạn Supabase. [Bằng chứng](evaluations/auth-session-persistence.md). Google thật/điện thoại còn cần founder thử.
+
+
 **Mới nhất11/10 — Offline dễ thương hơn (ADR055):** có Cáo và hình, font tròn cùng app, nút mở bài/trò chơi có màu và thư viện từ bằng thẻ hình. Lời ngắn, nút Kết nối lại rõ, màn học có tiến độ và phản hồi; dữ liệu/lịch ôn giữ nguyên.14ca offline mobile/desktop PASS, xác nhận8ca bản cuối, ảnh đã xem; chưa push/deploy/điện thoại thật. [Kết quả và ảnh](evaluations/offline-child-ui.md).
 
 
@@ -959,3 +966,70 @@ ADR036 source0c22f0f productionREADY dpl_27FsfRqhma2o2kjekgFnA7F8z9bD, stable wo
 10/10/2026: trang Tài khoản phụ huynh được làm rõ theo yêu cầu founder: hiện tên/email/ảnh Google, số từ và bộ bài riêng trên máy so với bản đã lưu trên tài khoản, thư viện đang dùng, nút đưa bài/đồng bộ riêng. Đăng nhập Google thành công chưa đồng nghĩa bài đã tải lên; lỗi giờ có bước/HTTP/nguyên nhân an toàn và nút thử lại. Ảnh gốc và xóa tài khoản ở phần tùy chọn mở thêm. Check132 và toàn bộ153 kiểm thử browser đã qua; full docs225links PASS; source4ba88ad đã lên Vercel READY. Kiểm trang thật ở phiên đăng xuất: 13 từ/1 bộ trên máy còn nguyên, đăng nhập Google bật. Phiên agent đang đăng xuất nên chưa xác minh nguyên nhân lỗi thật trong ảnh.
 
 Checkpoint ADR040/041: source30129b7 nativeGit production READY dpl_6P6SXrqLUuPYzr5KW17MqHhkrka5, stable words-for-kids.vercel.app. RemoteCI38068615704 SUCCESS (check/SQL/full157browser/docs). Founder authenticated live profile/logo/back/newcontrols and13word preview PASS; shared default visible on settings, one metadata GET accepted key/model without photo or inference. Local134check/full157/targeted6/38responsiveviews/docs243PASS. Final settings description clarified shared-or-private AI, no runtime behavior change. Evidence ui-and-hosted-cloud-fixes.
+
+<a id="speaking-review"></a>
+
+## 17. Kế hoạch tập phát âm — không phát sinh phí
+
+**Chốt một hướng: điện thoại/máy tính của người dùng tự xử lý giọng nói. Không thuê máy chủ chấm giọng, không gọi API tính phí. Nhận âm/chấm tại máy không cần key; nhận xét riêng bằng AI dùng key Gemini Free Tier bạn đã xác nhận không gắn billing.** Sau yêu cầu “100% miễn phí” và “tiếp tục” ngày11/10, đã bắt đầu bước thử chạy thật trên máy local.
+
+**Đã thử được:** bộ nhận âm chạy trong trình duyệt, nhận đúng chuỗi âm của ba clip công khai “cat”, “book”, “cup”, khoảng1–1,3 giây/clip trên máy thử. Im lặng không tạo âm. Bản TTS vẫn có lỗi nhận âm, và “apple” cần kiểm biến thể cách đọc. **Chưa đưa nút mic/điểm/màu/game vào app**, chưa thử giọng trẻ hay điện thoại thật. Bước tiếp theo là tải/lưu bộ nhận âm và xử lý hủy/lỗi trên trình duyệt, rồi nối mic. [Bằng chứng ngắn](evaluations/speaking-local-feasibility.md).
+
+### Bé sẽ nhận được gì?
+
+Ở mỗi từ có nút **Tập nói**: nghe mẫu → bấm mic → nói → dừng → nghe lại → bấm **Xem nhận xét**. App chỉ ra chỗ cần tập bằng lời tiếng Việt ngắn, ví dụ “Con thử nói rõ âm cuối nhé”, khi thực sự nhận ra lỗi đó.
+
+- **Xanh lá:** nói rõ rồi.
+- **Cam:** cần tập thêm âm được chỉ ra.
+- **Đỏ:** phát âm khác hoặc bỏ thiếu từ, khi máy đủ chắc chắn.
+- **Chưa nghe rõ:** cho thu lại, không chấm 0 hay tô đỏ vì mic lỗi/tiếng ồn.
+
+Có điểm luyện nói sau khi kiểm được độ đúng của bộ chấm. Tập từ trước, rồi câu ngắn để chỉ ra từ bị thiếu. Trong **Chơi & học**, thêm **Nói cùng Cáo**, mỗi lượt 5 từ từ nhóm/bộ bài của bé. Bé được nghe lại, thử lại hoặc bỏ qua; không bị giữ lại vì điểm thấp.
+
+### Công nghệ đã chọn và việc của từng phần
+
+| Phần | Công nghệ dùng | Hiểu đơn giản |
+|---|---|---|
+| Thu và nghe lại | **MediaRecorder** của trình duyệt | Dùng mic có sẵn trên điện thoại |
+| Nghe từng âm | **Wav2Vec2**, bản ONNX đã nén | Bộ nhận âm nguồn mở chạy trên máy người dùng |
+| Chạy bộ nhận âm trong app | **Transformers.js + ONNX Runtime Web** | Đưa bộ nhận âm vào website, không cần máy chủ AI |
+| Điểm và ba màu | Quy tắc đối chiếu âm trong app | So âm bé nói với cách đọc của từ/câu; chưa chắc thì không kết luận sai |
+| Nhận xét tiếng Việt | **Gemini Free Tier** qua key bạn đã xác nhận; mẫu có sẵn khi không dùng được AI | AI viết lời khuyên riêng theo từng từ/lỗi đã nhận ra; hết quota, mất mạng hoặc tắt AI thì dùng mẫu, không chuyển sang dịch vụ tính phí |
+
+Dùng giao diện và hình Cáo hiện có. Nhận âm và điểm vẫn ở trên máy. Theo yêu cầu mới nhất, bước nhận xét dùng Gemini sau khi bấm **Nhận lời khuyên từ AI**: chỉ gửi câu cần đọc và kết quả từng âm/từ, không gửi bản thu, tên bé hay thư viện. AI không được tự thay điểm/màu hoặc bịa lỗi khi máy chưa nghe rõ. Key đã được bạn xác nhận Free Tier, không billing; app không tự nâng gói, đổi key hay mua quota. Đây là hướng triển khai bước Speaking sau, chưa có API nhận xét Speaking chạy trong app. Nguồn triển khai: [Transformers.js](https://huggingface.co/docs/transformers.js/v3.8.1/index) và [bản Wav2Vec2 chuyên tiếng Anh](https://huggingface.co/robg/speako-phoneme-recognizer). Đã đổi bản nhận âm trong cùng công nghệ sau khi bản đầu nghe sai nhiều từ; kết quả và lý do được ghi trong bằng chứng, bạn không phải chọn thêm.
+
+### Miễn phí có đánh đổi gì?
+
+Lần đầu cần tải khoảng **355 MB bộ nhận âm +22 MB phần chạy**, nên có nút tải riêng, báo dung lượng trước và khuyên dùng Wi-Fi sẵn có. Sau khi tải đủ và còn được lưu trên máy, hướng triển khai là xử lý giọng tại máy. Flow tải/lưu này đang là bước kế tiếp; chưa có trong app. Không tải ngầm khi bé mở trang. [Bản đã chọn](https://huggingface.co/robg/speako-phoneme-recognizer/tree/main/onnx).
+
+Máy yếu có thể chạy chậm hoặc không đủ bộ nhớ. Khi đó app giữ thu/nghe lại và báo chưa chấm được; **không chuyển sang dịch vụ trả phí**. Giọng bé ở trên máy, xóa khi thu lại/rời lượt; không tải giọng lên cloud. Không bật billing, mua quota, thuê máy chủ hay dùng gói trial rồi tự thu tiền. Nguồn tải miễn phí không hoạt động thì báo tải lại sau.
+
+### Bộ nhận âm tải về đâu, xóa được không?
+
+**Lưu trong bộ nhớ riêng của Words for Kids trên trình duyệt đang dùng**, không phải thư mục Downloads, bài học hay Google/cloud. Kỹ thuật dùng cache riêng của website; đổi máy/trình duyệt có thể phải tải lại. Dữ liệu này có thể bị trình duyệt dọn khi thiếu dung lượng, nên app sẽ kiểm trước khi chấm và báo tải lại nếu thiếu. [Cách trình duyệt lưu/dọn dữ liệu](https://developer.mozilla.org/en-US/docs/Web/API/Storage_API/Storage_quotas_and_eviction_criteria).
+
+Có nút **Xóa bộ nhận âm**: dừng xử lý rồi chỉ xóa model/phần chạy của Speaking, giữ từ/câu/nhóm và lịch học. **Xóa toàn bộ dữ liệu website trong cài đặt trình duyệt** là hành động khác, có thể xóa cả bài lưu trên máy.
+
+| Tình trạng | Nghe mẫu, thu âm, nghe lại | Nhận âm/chấm và nhận xét lỗi của lượt nói |
+|---|---|---|
+| Đã tải đủ, máy chạy được | Dùng được | Chấm tại máy; AI nhận xét riêng cần mạng/key/quota hợp lệ |
+| Chưa tải / đã xóa / cache bị dọn | Dùng được khi giọng đọc/mic của máy hỗ trợ | Cần tải lại để nhận âm; không có kết quả thì AI không được tự đoán bé sai từ nào |
+| Có bộ nhận âm nhưng AI tắt/hết quota/mất mạng | Dùng được | Nhận âm vẫn ở máy; dùng lời khuyên có sẵn thay AI |
+
+Các nút tải/xóa, thu mic và nhận xét Speaking trong bảng **đang là thiết kế để triển khai**, chưa có trong app. Lượt thử trước chỉ lưu model ở thư mục tạm của máy coding. Con số318MB trong bản plan cũ đã được thay bằng355MB + khoảng22MB phần chạy.
+
+AI có thể viết lời khuyên riêng hơn, nhưng **không bảo đảm nghe/chấm chính xác hơn** khi kết quả nhận âm đầu vào sai. Google phân biệt Free Tier và Paid Tier ở project; xác nhận key của bạn không có billing là điều kiện dùng miễn phí hiện tại, không phải app đã kiểm được tài khoản hay bảo đảm chính sách/quota không thay đổi. [Billing chính thức](https://ai.google.dev/gemini-api/docs/billing). Điều kiện dùng cho app trẻ em vẫn chưa được xác minh theo [terms](https://ai.google.dev/gemini-api/terms), nên chưa báo API Speaking đã đủ điều kiện phát hành hoặc gọi thử thật.
+
+### Làm theo ba bước, theo đúng thứ tự
+
+1. **Thử khả năng chạy miễn phí trước.** Cho bộ nhận âm chạy trong bản thử local với audio mẫu. Kiểm tốc độ, bộ nhớ và lỗi trên trình duyệt mobile/desktop. Đây là bước cần đạt trước khi làm trọn game.
+2. **Làm trải nghiệm cho bé.** Nút mic, nghe lại, nhận xét tiếng Việt, màu, điểm khi đủ tin cậy; nối vào Tập nói và game 5 từ. Thêm câu ngắn sau khi phần từ đạt, trong cùng kế hoạch.
+3. **Kiểm độ đúng trước khi đưa bé dùng.** Đối chiếu với người nghe và thử trên điện thoại bằng mẫu được phép, thiết bị sẵn có. Đặc biệt kiểm trường hợp bé đọc đúng nhưng máy báo sai. Chưa đạt thì chưa bật điểm/màu khẳng định lỗi; tiếp tục cải thiện trong giới hạn miễn phí.
+
+**Điều đã chốt:** chỉ đi theo hướng chạy tại thiết bị, ngân sách phát sinh cho Speaking là **0 đồng phí API/dịch vụ/máy chủ mới**. **Điều cần chứng minh bằng bản thử:** máy nào chạy tốt và chấm giọng trẻ chính xác đến đâu. Chưa có bằng chứng để hứa chất lượng ngang ELSA. Chi tiết lập trình nằm trong [tài liệu cho AI](15-speaking-practice.md); bạn không cần chọn thêm công nghệ.
+
+## 18. Nghe từng câu ví dụ và phiên âm cả câu — cập nhật 11/10
+
+Đã thêm ở bản code local: dưới câu ví dụ tiếng Anh có IPA của cả câu và nút Nghe đọc chính câu đó, rồi mới đến nghĩa tiếng Việt. Áp dụng cả thẻ ôn, ví dụ bổ sung, mẫu hỏi–đáp, từng bước ngữ pháp và câu lỗi/câu sửa; offline cũng có Nghe câu. Khi AI tạo bài, yêu cầu phiên âm cho từng câu đầy đủ. Sửa câu thì phiên âm cũ bị bỏ để kiểm lại. Nếu chưa có IPA chắc chắn, app nói rõ và vẫn cho nghe; không lấy phiên âm của riêng từ để thế vào.
+
+Kiểm tra local mobile/desktop, dữ liệu lưu/backup/xóa và generation bằng fixture đã qua; chưa kiểm giọng thật trên điện thoại hoặc gọi AI thật. [Bằng chứng và ảnh](evaluations/sentence-ipa-and-listening.md). Mục17 vẫn là plan Speaking; thu mic/chấm điểm/coaching AI và nút tải/xóa bộ nhận âm chưa triển khai trong app.

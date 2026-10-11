@@ -1,5 +1,19 @@
 # Trạng thái dự án — Words for Kids
 
+**Latest11/10 ADR060/061:** sentence IPA + exact-example listening completed locally across shared UI and offline; generation supports full mistake/correction IPA; scoped data round-trip/deletion and origin boundaries checked. [Evidence](../evaluations/sentence-ipa-and-listening.md). Founder confirms Gemini key/project Free Tier/no billing and prefers AI Vietnamese coaching: updated founder17/spec15 with optional target+local-evidence advice, fixed fallback, no audio upload/paid fallback; no live call or coaching runtime yet. Cache/delete FAQ clarifies355MB+22MB versus old318MB; browser controls still pending. Continue SP1 cache/cancel/memory then SP2 mic/local adapter/optional mocked coaching; scoring calibration gates unchanged.
+
+11/10 — ADR056/057 local: nhóm thêm grammar, chọn tất cả ba loại qua mọi trang lọc, source-dated/name items và exact dedup toàn nhóm; backup/cloud remap giữ metadata và nhiều supplemental rows/sense. TTS first tap chờ voice readiness/cancel, offline local voice only.46 related unit/integration PASS,6 voice helper final confirmation PASS;10 distinct scoped browser cases PASS (results/evidence below), lint/types/final build PASS. [Evidence](../evaluations/groups-grammar-and-audio.md). Speaking checkpoint này là lịch sử planning; trạng thái SP1 mới nhất ở dưới. Không production/SQL/realAI/physical-phone claims.
+
+**Speaking mới nhất — SP1 local đang làm (ADR058/059):** founder “tiếp tục” sau plan0đ. Đã pin Transformers.js3.8.1, manifest English Wav2Vec2 q8/revision/SHA355MB, CTC decoder và CLI browser/Worker inference thật. Public fixtures cat/book/cup đúng phone sequence, apple cần variant handling; TTS vẫn có lỗi.11 unit cases, scoped lint/typecheck và final build PASS. [Evidence](../evaluations/speaking-local-feasibility.md), [founder plan17](../KE-HOACH-FOUNDER.md#speaking-review), [AI spec15](../15-speaking-practice.md). Không API/paid fallback/mic/score/child colors/game/real account/deploy; model/runtime không vào app bundle/SW.
+
+**Next action:** hoàn tất SP1 browser download/cache/cancel/peak-memory và device envelope, rồi SP2 mic/playback/local adapter. Không chờ founder review lại code local; quality/calibration/phone/child evidence vẫn pending, không bật score/red certainty bằng raw phone match. Founder owns publishing ADR049; ledger tổng chưa đổi.
+
+
+## 11/10 — Kiểm chứng giữ phiên đăng nhập
+
+Founder yêu cầu lưu session để lần mở sau không phải đăng nhập lại khi còn hợp lệ. Tính năng đã có: Supabase SSR persistent HttpOnly cookies, server getUser tự refresh access token và ghi cookie mới. Chỉ thêm5 test SDK/routes thật với cookie/env/network fixture: reopen, expired refresh/rotation, revoked refresh, network/reconnect, logout/origin.5/5 PASS; affected ESLint/typecheck PASS. Không sửa auth runtime/UI/DB/env hoặc kéo dài thời hạn server. [Evidence](../evaluations/auth-session-persistence.md). Không build/E2E vì chỉ test/docs; chưa liveGoogle/Supabase/physical-phone. Next: founder thử reopen cùng browser khi tự publish; quyền049/050 giữ nguyên.
+
+
 ## 11/10 — ADR055: Offline có hình và màu, dễ dùng cho bé
 
 Theo yêu cầu mới nhất: fallback offline dùng Cáo/Nunito/Theme C, lời ngắn, nút mở bài có màu/hình và reconnect kiểu nút. Thư viện đổi thành thẻ từ có artwork/fallback có nhãn, CTA ôn đến hạn và năm trò chơi có hình. Màn ôn/game có màu/tiến độ/feedback; focus/scroll khi đổi màn, ba lựa chọn ngang ở360px, empty/search/lỗi có recovery. Scope/account restrictions, duyệt/CAS/SRS/resume/dedup/IPA/credit giữ nguyên; public-shell hash cập nhật qua build.

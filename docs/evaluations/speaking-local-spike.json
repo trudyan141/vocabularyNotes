@@ -1,0 +1,324 @@
+{
+  "date": "2026-10-11",
+  "model": {
+    "id": "robg/speako-phoneme-recognizer",
+    "revision": "ad0f63cd58fc1bb1e9c261a3b4135997a31c2e58",
+    "transformersVersion": "3.8.1",
+    "license": "Apache-2.0",
+    "file": "onnx/model_quantized.onnx",
+    "bytes": 355216594,
+    "sha256": "1e03fc69aa5be1f365a94ffa17c060feafdadb626b8a662b7ba6b36cb9f0577e",
+    "sampleRate": 16000,
+    "blankId": 41
+  },
+  "runtime": "Chromium ephemeral profile; Worker CPU/WASM, one thread; desktop host with360px viewport (not physical mobile)",
+  "source": "Local macOS Samantha synthetic voice; temporary fixture files, not distributed or child data",
+  "loadedMs": 1457.5,
+  "results": [
+    {
+      "id": "cat-raw",
+      "targetText": "cat",
+      "referencePhones": "k æ t",
+      "type": "result",
+      "phones": [
+        {
+          "phone": "k",
+          "confidence": 0.9703188250724555,
+          "startMs": 0,
+          "endMs": 20.975
+        },
+        {
+          "phone": "æ",
+          "confidence": 0.987078271151297,
+          "startMs": 188.775,
+          "endMs": 209.75
+        }
+      ],
+      "inferenceMs": 512,
+      "durationMs": 419.5
+    },
+    {
+      "id": "cat-padded",
+      "targetText": "cat",
+      "referencePhones": "k æ t",
+      "type": "result",
+      "phones": [
+        {
+          "phone": "k",
+          "confidence": 0.9965804617944668,
+          "startMs": 245.2,
+          "endMs": 265.6333333333333
+        },
+        {
+          "phone": "æ",
+          "confidence": 0.9922409075316673,
+          "startMs": 449.53333333333336,
+          "endMs": 469.96666666666664
+        },
+        {
+          "phone": "t",
+          "confidence": 0.9855529683837181,
+          "startMs": 613,
+          "endMs": 633.4333333333333
+        }
+      ],
+      "inferenceMs": 895.2000000476837,
+      "durationMs": 919.5
+    },
+    {
+      "id": "book-padded",
+      "targetText": "book",
+      "referencePhones": "b ʊ k",
+      "type": "result",
+      "phones": [
+        {
+          "phone": "b",
+          "confidence": 0.9706724507678067,
+          "startMs": 247.48125,
+          "endMs": 268.1046875
+        },
+        {
+          "phone": "ə",
+          "confidence": 0.9772203580223789,
+          "startMs": 371.221875,
+          "endMs": 391.8453125
+        },
+        {
+          "phone": "ŋ",
+          "confidence": 0.9353448983716636,
+          "startMs": 433.0921875,
+          "endMs": 453.715625
+        },
+        {
+          "phone": "k",
+          "confidence": 0.9905805834570813,
+          "startMs": 515.5859375,
+          "endMs": 536.209375
+        }
+      ],
+      "inferenceMs": 796.2000000476837,
+      "durationMs": 824.9375
+    },
+    {
+      "id": "cup-padded",
+      "targetText": "cup",
+      "referencePhones": "k ʌ p",
+      "type": "result",
+      "phones": [
+        {
+          "phone": "k",
+          "confidence": 0.9956525285992484,
+          "startMs": 245.26666666666668,
+          "endMs": 265.7055555555556
+        },
+        {
+          "phone": "ə",
+          "confidence": 0.9106773224002642,
+          "startMs": 449.65555555555557,
+          "endMs": 470.09444444444443
+        },
+        {
+          "phone": "m",
+          "confidence": 0.5642828876983529,
+          "startMs": 572.2888888888889,
+          "endMs": 592.7277777777778
+        },
+        {
+          "phone": "m",
+          "confidence": 0.760767716319833,
+          "startMs": 613.1666666666666,
+          "endMs": 633.6055555555556
+        }
+      ],
+      "inferenceMs": 884.4000000953674,
+      "durationMs": 919.75
+    },
+    {
+      "id": "apple-padded",
+      "targetText": "apple",
+      "referencePhones": "æ p ə l",
+      "type": "result",
+      "phones": [
+        {
+          "phone": "æ",
+          "confidence": 0.9952159944771363,
+          "startMs": 346.5828804347826,
+          "endMs": 366.9701086956522
+        },
+        {
+          "phone": "p",
+          "confidence": 0.8467484694836501,
+          "startMs": 448.51902173913044,
+          "endMs": 468.90625
+        },
+        {
+          "phone": "l",
+          "confidence": 0.7084394451045181,
+          "startMs": 570.8423913043479,
+          "endMs": 611.616847826087
+        }
+      ],
+      "inferenceMs": 898,
+      "durationMs": 937.8125
+    },
+    {
+      "id": "family-padded",
+      "targetText": "They are a family.",
+      "referencePhones": "ð eɪ ɑɹ ə f æ m ə l i",
+      "type": "result",
+      "phones": [
+        {
+          "phone": "ð",
+          "confidence": 0.9795691699241753,
+          "startMs": 243.6875,
+          "endMs": 263.9947916666667
+        },
+        {
+          "phone": "eɪ",
+          "confidence": 0.9915778112243444,
+          "startMs": 324.9166666666667,
+          "endMs": 345.2239583333333
+        },
+        {
+          "phone": "ɑ",
+          "confidence": 0.96943587158566,
+          "startMs": 467.0677083333333,
+          "endMs": 487.375
+        },
+        {
+          "phone": "ɹ",
+          "confidence": 0.5758502701367114,
+          "startMs": 487.375,
+          "endMs": 507.6822916666667
+        },
+        {
+          "phone": "ə",
+          "confidence": 0.40557931680920234,
+          "startMs": 568.6041666666666,
+          "endMs": 588.9114583333334
+        },
+        {
+          "phone": "f",
+          "confidence": 0.9939559689853157,
+          "startMs": 670.140625,
+          "endMs": 690.4479166666666
+        },
+        {
+          "phone": "æ",
+          "confidence": 0.993270624719108,
+          "startMs": 791.984375,
+          "endMs": 812.2916666666666
+        },
+        {
+          "phone": "m",
+          "confidence": 0.9966733336196485,
+          "startMs": 873.2135416666666,
+          "endMs": 893.5208333333334
+        },
+        {
+          "phone": "ɪ",
+          "confidence": 0.9574518053462772,
+          "startMs": 934.1354166666666,
+          "endMs": 954.4427083333334
+        },
+        {
+          "phone": "l",
+          "confidence": 0.9982611879625706,
+          "startMs": 995.0572916666666,
+          "endMs": 1015.3645833333334
+        },
+        {
+          "phone": "i",
+          "confidence": 0.9840973562997573,
+          "startMs": 1096.59375,
+          "endMs": 1116.9010416666667
+        }
+      ],
+      "inferenceMs": 1395.2999999523163,
+      "durationMs": 1462.125
+    },
+    {
+      "id": "silence",
+      "type": "result",
+      "phones": [],
+      "inferenceMs": 957.5,
+      "durationMs": 1000
+    }
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "url": "/spike.html"
+    },
+    {
+      "method": "GET",
+      "url": "/worker.js"
+    },
+    {
+      "method": "GET",
+      "url": "/runtime/transformers.min.js"
+    },
+    {
+      "method": "GET",
+      "url": "/ctc.js"
+    },
+    {
+      "method": "GET",
+      "url": "/model/wav2vec2/preprocessor_config.json"
+    },
+    {
+      "method": "GET",
+      "url": "/model/wav2vec2/config.json"
+    },
+    {
+      "method": "GET",
+      "url": "/model/wav2vec2/onnx/model_quantized.onnx"
+    },
+    {
+      "method": "GET",
+      "url": "/runtime/ort-wasm-simd-threaded.jsep.mjs"
+    },
+    {
+      "method": "GET",
+      "url": "/runtime/ort-wasm-simd-threaded.jsep.wasm"
+    },
+    {
+      "method": "GET",
+      "url": "/model/wav2vec2/vocab.json"
+    },
+    {
+      "method": "GET",
+      "url": "/audio/cat.wav"
+    },
+    {
+      "method": "GET",
+      "url": "/audio/cat.wav"
+    },
+    {
+      "method": "GET",
+      "url": "/audio/book.wav"
+    },
+    {
+      "method": "GET",
+      "url": "/audio/cup.wav"
+    },
+    {
+      "method": "GET",
+      "url": "/audio/apple.wav"
+    },
+    {
+      "method": "GET",
+      "url": "/audio/family.wav"
+    }
+  ],
+  "consoleErrors": [],
+  "limits": {
+    "pronunciationCalibration": false,
+    "childValidation": false,
+    "physicalPhone": false,
+    "peakMemoryMeasured": false,
+    "scoreEnabled": false,
+    "childErrorColorsEnabled": false
+  },
+  "scope": "SP1 feasibility only; no mic/UI/game/provider API/billing/deployment"
+}

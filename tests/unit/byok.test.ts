@@ -94,3 +94,12 @@ it('accepts complete source dialogue/grammar and rejects fabricated evidence, ta
  for(const change of [{sourceEvidenceText:'They are teachers.'},{word:'teacher'},{analysis:''},{exampleIpa:'/ˈfæməli/'}])expect(()=>validateWorksheet({...familyWorksheet,learning:[{...item,...change}]})).toThrow();
  const schema=worksheetProviderSchema();expect(JSON.stringify(schema)).toContain('"learning"');expect(JSON.stringify(schema)).toContain('"pattern":{"type":"string"}');
 });
+
+it('requests and validates whole-sentence IPA for generated mistake/correction examples',async()=>{
+ const item={...familyWorksheet.learning[2],commonErrorIpa:'/hu ɪz ðeɪ/',correctionIpa:'/hu ɑɹ ðeɪ | ðeɪ ɑɹ ə fæməli/'};
+ expect(validateWorksheet({...familyWorksheet,learning:[item]}).learning?.[0].correctionIpa).toBe(item.correctionIpa);
+ for(const change of [{correctionIpa:'/fæməli/'},{commonErrorIpa:'/<script>/'},{correction:'',correctionIpa:'/hu ɑɹ ðeɪ/'}])expect(()=>validateWorksheet({...familyWorksheet,learning:[{...item,...change}]})).toThrow();
+ expect(validateWorksheet({...familyWorksheet,learning:[{...item,commonErrorIpa:null,correctionIpa:null}]}).learning?.[0].correctionIpa).toBeNull();
+ configureParentAi({key,model:'gemini-3.5-flash-lite'});const mock=vi.fn(async()=>Response.json(response()));await analyseWorksheet(new Blob(['image'],{type:'image/jpeg'}),'listed',new AbortController().signal,mock as typeof fetch);
+ const [,init]=mock.mock.calls[0] as unknown as [string,RequestInit];const body=JSON.parse(init.body as string);expect(body.systemInstruction.parts[0].text).toContain('commonErrorIpa and correctionIpa');expect(body.systemInstruction.parts[0].text).toContain('ENTIRE exact example');
+});

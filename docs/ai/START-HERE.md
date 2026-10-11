@@ -1,5 +1,17 @@
 # Bắt đầu / khôi phục / chuyển AI
 
+**Latest11/10 ADR060/061:** sentence IPA + exact-example listening completed locally across shared UI and offline; generation supports full mistake/correction IPA; scoped data round-trip/deletion and origin boundaries checked. [Evidence](../evaluations/sentence-ipa-and-listening.md). Founder confirms Gemini key/project Free Tier/no billing and prefers AI Vietnamese coaching: updated founder17/spec15 with optional target+local-evidence advice, fixed fallback, no audio upload/paid fallback; no live call or coaching runtime yet. Cache/delete FAQ clarifies355MB+22MB versus old318MB; browser controls still pending. Continue SP1 cache/cancel/memory then SP2 mic/local adapter/optional mocked coaching; scoring calibration gates unchanged.
+
+11/10 — ADR056/057 local: nhóm thêm grammar, chọn tất cả ba loại qua mọi trang lọc, source-dated/name items và exact dedup toàn nhóm; backup/cloud remap giữ metadata và nhiều supplemental rows/sense. TTS first tap chờ voice readiness/cancel, offline local voice only.46 related unit/integration PASS,6 voice helper final confirmation PASS;10 distinct scoped browser cases PASS (results/evidence below), lint/types/final build PASS. [Evidence](../evaluations/groups-grammar-and-audio.md). Speaking checkpoint này là lịch sử planning; trạng thái SP1 mới nhất ở dưới. Không production/SQL/realAI/physical-phone claims.
+
+**Speaking mới nhất — SP1 local đang làm (ADR058/059):** founder “tiếp tục” sau plan0đ. Đã pin Transformers.js3.8.1, manifest English Wav2Vec2 q8/revision/SHA355MB, CTC decoder và CLI browser/Worker inference thật. Public fixtures cat/book/cup đúng phone sequence, apple cần variant handling; TTS vẫn có lỗi.11 unit cases, scoped lint/typecheck và final build PASS. [Evidence](../evaluations/speaking-local-feasibility.md), [founder plan17](../KE-HOACH-FOUNDER.md#speaking-review), [AI spec15](../15-speaking-practice.md). Không API/paid fallback/mic/score/child colors/game/real account/deploy; model/runtime không vào app bundle/SW.
+
+**Next action:** hoàn tất SP1 browser download/cache/cancel/peak-memory và device envelope, rồi SP2 mic/playback/local adapter. Không chờ founder review lại code local; quality/calibration/phone/child evidence vẫn pending, không bật score/red certainty bằng raw phone match. Founder owns publishing ADR049; ledger tổng chưa đổi.
+
+
+Latest11/10 session persistence verified locally: existing Supabase SSR cookie survives a new request client and refreshes expired access token.5 SDK/route fixture tests PASS; no runtime changes. [Evidence](../evaluations/auth-session-persistence.md).
+
+
 Latest11/10 ADR055: offline fallback now uses Theme C/Nunito/Cáo, colored illustrated library/game actions and word tiles, short recovery copy/focus/progress. Scope/review/save/resume preserved;14 browser cases PASS and8 final confirmations. [Evidence](../evaluations/offline-child-ui.md). Local only; ADR049/050 still apply.
 
 
@@ -60,6 +72,7 @@ Steering 09/10/2026 bổ sung: IPA + cách đọc gần đúng bằng chữ Vi�
 | T09, T12 | 03, 08, 10 | bilingual-learning-content; react best practices |
 | T10, T11 | 02, 05, 06, 09, 10 | supabase-postgres-best-practices |
 | T13, T14, T15 | 05, 09, 10, 11, 13 | performance, core-web-vitals, accessibility; vocabulary-delivery + relevant DB skill |
+| Speaking SP0–SP4 | 15, 08, founder17, speaking-local-feasibility; current ADR058/059 | vocabulary-delivery, bilingual-learning-content, React; impeccable when UI changes |
 | Handoff dài | STATE, TASKS, HANDOFF-TEMPLATE | filesystem-context, context-compression |
 
 Các số 00–14 là file `docs/NN-*.md`, tra tên trong `docs/README.md`. T16/T17 dùng docs mở rộng và ADR riêng trước khi triển khai. Founder đọc KE-HOACH-FOUNDER; AI cập nhật mục tình hình khi có chặng/quyết định thay đổi, ledger vẫn ở docs/ai.

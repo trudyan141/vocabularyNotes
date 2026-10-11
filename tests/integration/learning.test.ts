@@ -139,3 +139,14 @@ it('preserves full-length sentence IPA through local save, archive and restorati
  const archive=await parseArchive(JSON.stringify(await exportArchive(repository)));expect(archive.records.examples.find(e=>e.textEn===text)?.pronunciations[0].ipa).toBe(ipa);expect(archive.records.sentences[0].payload.content).toMatchObject({exampleIpa:'/ɪz ɪt ə bʊk | jɛs ɪt ɪz/'});
  const restored=repo();await importArchive(restored,archive);expect((await restored.db.examples.toArray()).find(e=>e.textEn===text)?.pronunciations[0].ipa).toBe(ipa);expect((await restored.db.table('sentences').toArray())[0].payload.content).toMatchObject({exampleIpa:'/ɪz ɪt ə bʊk | jɛs ɪt ɪz/'});
 });
+
+it('keeps grammar example and correction IPA in every projection and archive restore',async()=>{
+ const r=repo();await seed(r,1);const word=(await r.word('word-0'))!;
+ const content={...objectPatterns(word)[0].content,senseId:word.id,targetRevision:word.revision,commonErrorIpa:'/wʌt ɪt ɪz | ɪts bʊk/',correctionIpa:'/wʌt ɪz ɪt | ɪts ən æpəl/'};
+ await saveContent(r,'grammar-ipa',null,content);
+ expect((await learningItems(r,'patterns','')).items[0]).toMatchObject({example:content.example,exampleIpa:content.exampleIpa});
+ expect((await learningItems(r,'grammar','')).items[0]).toMatchObject({example:content.example,mistakeIpa:content.commonErrorIpa,correctionIpa:content.correctionIpa});
+ const restored=repo();await importArchive(restored,await parseArchive(JSON.stringify(await exportArchive(r))));
+ expect((await restored.db.table('sentences').get([restored.scope.id,'grammar-ipa']))!.payload.content).toMatchObject({example:content.example,commonErrorIpa:content.commonErrorIpa,correctionIpa:content.correctionIpa});
+ expect((await learningItems(restored,'grammar','')).total).toBe(0); // Existing restore requires sense review, not data loss.
+});

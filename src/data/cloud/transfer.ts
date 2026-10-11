@@ -1,5 +1,5 @@
 import {Dexie} from 'dexie';
-import type {Deck} from '@/data/local/decks';
+import {remapGroup,type Deck} from '@/data/local/decks';
 import {cloudTables,parseCloudRow,type CloudTable} from '@/lib/cloud/contracts';
 import {contentHash,stableJson} from '@/domain/identity';
 import {LocalRepository,RepositoryError} from '@/data/local/repository';
@@ -25,9 +25,9 @@ export async function commitTransfer(target:LocalRepository,plan:TransferPlan){i
   if(entity==='evidence')row.lessonId=mapped('lessons',row.lessonId);
   if(entity==='lessonItems'){row.entryId=mapped('entries',row.entryId);row.senseId=mapped('senses',row.senseId);row.lessonId=mapped('lessons',row.lessonId);row.evidenceId=mapped('evidence',row.evidenceId);}
   if(entity==='notes')row.targetId=mapped(row.targetType==='sense'?'senses':'lessons',row.targetId);
-  if(entity==='decks'){const payload=row.payload as {deck:Deck};const mapSense=(id:string)=>String(mapped('senses',id));row.payload={deck:{...payload.deck,senseIds:[...new Set(payload.deck.senseIds.map(mapSense))],...(payload.deck.group?{group:{wordIds:[...new Set(payload.deck.group.wordIds.map(mapSense))],sentences:payload.deck.group.sentences.map(s=>({...s,senseId:mapSense(s.senseId)}))}}:{})}};}
+  if(entity==='decks'){const payload=row.payload as {deck:Deck};const mapSense=(id:string)=>String(mapped('senses',id));row.payload={deck:{...payload.deck,senseIds:[...new Set(payload.deck.senseIds.map(mapSense))],...(payload.deck.group?{group:remapGroup(payload.deck.group,mapSense,id=>String(mapped('lessons',id)))}:{})}};}
   if(entity==='mediaAssets'){const payload=row.payload as {asset:{senseId:string}};row.payload={asset:{...payload.asset,senseId:mapped('senses',payload.asset.senseId)}};}
-  if(entity==='sentences'){const payload=row.payload as {content:{senseId:string}};row.id=`extra-${mapped('senses',payload.content.senseId)}`;row.payload={content:{...payload.content,senseId:mapped('senses',payload.content.senseId)}};}
+  if(entity==='sentences'){const payload=row.payload as {content:{senseId:string;lessonId?:string}};if(original.id===`extra-${payload.content.senseId}`)row.id=`extra-${mapped('senses',payload.content.senseId)}`;row.payload={content:{...payload.content,senseId:mapped('senses',payload.content.senseId),...(payload.content.lessonId?{lessonId:mapped('lessons',payload.content.lessonId)}:{})}};}
   if(entity==='practiceSessions'){const payload=row.payload as {session:{questions:{word:Record<string,unknown>;choices:Record<string,unknown>[]}[]}};row.payload={session:{...payload.session,id:row.id,scopeId:target.scope.id,questions:payload.session.questions.map(q=>({...q,word:remapWord(q.word),choices:q.choices.map(remapWord)}))}};}
   if(entity==='reviewEvents'){row.senseId=mapped('senses',row.senseId);row.sessionId=mapped('practiceSessions',row.sessionId);}
   if(entity==='gameAttempts'){const payload=row.payload as {senseId:string;sessionId:string};row.payload={...payload,senseId:mapped('senses',payload.senseId),sessionId:mapped('practiceSessions',payload.sessionId)};}

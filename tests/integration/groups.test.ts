@@ -63,3 +63,44 @@ it('loads and saves all approved words beyond the search page limit',async()=>{
  const c=await groupCatalog(r);expect(c.words).toHaveLength(153);
  const result=await saveStudyGroup(r,{id:'large',version:null,name:'Large group',members:{wordIds:c.words.map(word=>word.id),sentences:[]}});expect((await groupContents(r,result.row)).words).toHaveLength(153);
 });
+
+async function addGrammar(r:LocalRepository,id:string,senseId='apple',lessonId='first',analysis='They là chủ ngữ; are đi với they.'){
+ const {saveContent}=await import('@/data/local/content');const word=(await r.word(senseId))!;
+ await saveContent(r,id,null,{senseId,targetRevision:word.revision,lessonId,example:'They are a family.',exampleVi:'Họ là một gia đình.',exampleIpa:'/ðeɪ ɑɹ ə ˈfæməli/',readingHintVi:'',pattern:'',patternExplanation:'',grammarTitle:'Hỏi về nhiều người',conditions:'Hỏi nhiều người là ai.',formula:'Who + are + they?',analysis,commonError:'Who is they?',correction:'Who are they?',approved:true,origin:'user'});
+}
+it('adds grammar with exact deduplication across senses, retains different explanations and partitions dated sets',async()=>{
+ const r=repo();await seed(r);await addGrammar(r,'grammar-apple');await addGrammar(r,'grammar-book','book');await addGrammar(r,'grammar-different','apple','first','Một cách giải thích khác.');
+ const {grammarKey}=await import('@/data/local/groups');const c=await groupCatalog(r);expect(c.grammar).toHaveLength(2);
+ const saved=await saveStudyGroup(r,{id:'grammar-group',version:null,name:'Ngữ pháp Family',members:{wordIds:[],sentences:[],grammar:c.allGrammar.map(item=>({senseId:item.senseId,key:grammarKey(item)}))},days:['2026-10-10']});
+ expect(saved.row.payload.deck.group.grammar).toHaveLength(2);expect(saved.duplicates).toBeGreaterThan(0);const content=await groupContents(r,saved.row);expect(content.grammar).toHaveLength(2);
+ const sets=saved.row.payload.deck.group.sets!;expect(sets.flatMap(set=>set.grammarKeys)).toHaveLength(2);expect(new Set(sets.flatMap(set=>set.wordIds)).size).toBe(content.words.length);expect(new Set(sets.flatMap(set=>set.sentenceKeys)).size).toBe(content.sentences.length);
+ const again=await saveStudyGroup(r,{id:saved.row.id,version:saved.row.version,name:'Ngữ pháp Family',members:saved.row.payload.deck.group,days:['2026-10-10']});expect(again.added).toBe(0);expect(again.row.payload.deck.group.sets).toEqual(sets);
+});
+it('keeps the original photo title/date and does not create a new dated item for duplicate-only additions',async()=>{
+ const r=repo();await seed(r);const first=await saveStudyGroup(r,{id:'dated',version:null,name:'Dates',members:{wordIds:[],sentences:[]},lessonIds:['first']});
+ expect(first.row.payload.deck.group.sets).toHaveLength(1);expect(first.row.payload.deck.group.sets![0]).toMatchObject({title:'Family',learnedOn:'2026-10-10',sourceType:'image',lessonId:'first'});
+ await r.saveLesson({operationId:'later-repeat',lessonId:'later-repeat',title:'Later photo',learnedOn:'2026-10-11',sourceType:'image',items:[{...catalog.find(word=>word.word==='apple')!,id:'apple',approved:true}]});
+ const next=await saveStudyGroup(r,{id:'dated',version:first.row.version,name:'Dates',members:first.row.payload.deck.group,lessonIds:['later-repeat']});expect(next.added).toBe(0);expect(next.row.payload.deck.group.sets).toEqual(first.row.payload.deck.group.sets);
+});
+async function expectFailure(promise:Promise<unknown>,message:string){const error=await promise.then(()=>null,error=>error);expect(error).toBeInstanceOf(Error);expect((error as Error).message).toContain(message);}
+it('allows grammar-only groups, hides stale grammar and rejects stale, invented or foreign selections atomically',async()=>{
+ const r=repo();await seed(r);await addGrammar(r,'grammar');const {grammarKey}=await import('@/data/local/groups'),c=await groupCatalog(r),ref={senseId:c.grammar[0].senseId,key:grammarKey(c.grammar[0])};
+ const saved=await saveStudyGroup(r,{id:'only-grammar',version:null,name:'Grammar only',members:{wordIds:[],sentences:[],grammar:[ref]}});expect((await groupContents(r,saved.row)).grammar).toHaveLength(1);await expect(new PracticeRepository(r).start('flashcard',{deck:saved.row.id})).rejects.toThrow();
+ await expectFailure(saveStudyGroup(r,{id:saved.row.id,version:null,name:'Stale',members:saved.row.payload.deck.group}),'conflict');
+ await expectFailure(saveStudyGroup(r,{id:'invented',version:null,name:'Invented',members:{wordIds:[],sentences:[],grammar:[{...ref,key:'made up'}]}}),'conflict');expect((await studyGroups(r)).map(row=>row.id)).toEqual(['only-grammar']);
+ const other=repo('guest:other-grammar',r.db);await expectFailure(saveStudyGroup(other,{id:'foreign',version:null,name:'Foreign',members:{wordIds:[],sentences:[],grammar:[ref]}}),'conflict');
+ const sense=(await r.word('apple'))!;await r.editWord('apple',sense.revision,{word:'apple',vi:'Táo mới',en:sense.en});const content=await groupContents(r,saved.row);expect(content.grammar).toHaveLength(0);expect(content.missing).toBe(1);
+});
+it('round-trips grammar/date membership in archives and cloud DTOs without approving restored content',async()=>{
+ const r=repo();await seed(r);await addGrammar(r,'grammar');const c=await groupCatalog(r),{grammarKey}=await import('@/data/local/groups');const saved=await saveStudyGroup(r,{id:'archive-grammar',version:null,name:'Grammar archive',members:{wordIds:['apple'],sentences:[],grammar:c.grammar.map(item=>({senseId:item.senseId,key:grammarKey(item)}))}});
+ expect(parseCloudRow('decks',saved.row)).toEqual(saved.row);const archive=await parseArchive(JSON.stringify(await exportArchive(r))),restored=repo('guest:grammar-restore');await importArchive(restored,archive);const row=(await studyGroups(restored))[0];expect(row.payload.deck.group).toEqual(saved.row.payload.deck.group);expect((await groupContents(restored,row)).grammar).toHaveLength(0);
+ const {deckSchema}=await import('@/data/local/decks');const invalid=structuredClone(saved.row.payload.deck);invalid.group.sets![0].grammarKeys.push('not a group member');expect(deckSchema.safeParse(invalid).success).toBe(false);
+});
+it('transfers all supplemental grammar rows and remaps parent/source references with dated membership',async()=>{
+ const source=repo();await seed(source);await addGrammar(source,'grammar-one');await addGrammar(source,'grammar-two','apple','first','Một giải thích khác.');const c=await groupCatalog(source),{grammarKey}=await import('@/data/local/groups');await saveStudyGroup(source,{id:'transfer-grammar',version:null,name:'Transferred grammar',members:{wordIds:['apple'],sentences:[],grammar:c.grammar.map(item=>({senseId:item.senseId,key:grammarKey(item)}))}});
+ const target=repo('account:60000000-0000-4000-8000-000000000006:70000000-0000-4000-8000-000000000007',source.db);
+ await target.saveLesson({operationId:'first',lessonId:'first',title:'Target original',learnedOn:'2026-10-09',sourceType:'manual',items:[{...catalog.find(word=>word.word==='pen')!,id:'pen',approved:true}]});
+ await commitTransfer(target,await prepareTransfer(source,target));const group=(await studyGroups(target))[0];const content=await groupContents(target,group);expect(content.grammar).toHaveLength(2);expect(group.payload.deck.group.sets![0].title).toBe('Family');expect(group.payload.deck.group.sets![0].lessonId).not.toBe('first');
+ const rows=await target.db.table('sentences').where('[scopeId+id]').between([target.scope.id,''],[target.scope.id,'\uffff']).toArray();expect(rows).toHaveLength(2);expect(new Set(rows.map(row=>row.id)).size).toBe(2);expect(rows.every(row=>row.payload.content.lessonId===group.payload.deck.group.sets![0].lessonId)).toBe(true);
+ const {remapGroup,deckSchema}=await import('@/data/local/decks');const mapped=remapGroup(group.payload.deck.group,id=>id==='apple'?'new-apple':id);expect(mapped.grammar?.every(ref=>ref.senseId==='new-apple')).toBe(true);expect(mapped.sets?.flatMap(set=>set.wordIds)).toContain('new-apple');expect(deckSchema.safeParse({...group.payload.deck,senseIds:group.payload.deck.senseIds.map(id=>id==='apple'?'new-apple':id),group:mapped}).success).toBe(true);
+});

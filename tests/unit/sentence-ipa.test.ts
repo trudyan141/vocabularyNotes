@@ -1,4 +1,5 @@
-import {it,expect} from 'vitest';
+import {it,expect,vi} from 'vitest';
+vi.mock('server-only',()=>({}));
 import {dictionary} from 'cmu-pronouncing-dictionary';
 import {NextRequest} from 'next/server';
 import {sentenceFromLexicon} from '@/lib/pronunciation/sentence';
@@ -21,4 +22,11 @@ it('keeps manually supplied IPA distinct from a prepared lexicon source',async()
  const {pronunciation}=await import('@/lib/learning/catalog');
  expect(pronunciation('I like this story book.',null,'/custom/')).toMatchObject({ipa:'/custom/',sourceUrl:null,origin:'user',verified:false});
  expect(pronunciation('I like this story book.',null)).toMatchObject({accent:'US',origin:'source',verified:false});
+});
+
+it('accepts the actual loopback host even when Next normalizes nextUrl, and rejects a different origin',async()=>{
+ const make=(origin:string)=>new NextRequest('http://localhost:4320/api/pronunciation',{method:'POST',headers:{Host:'127.0.0.1:4320',Origin:origin},body:JSON.stringify({texts:['Put the book on the shelf.']})});
+ const response=await POST(make('http://127.0.0.1:4320'));expect(response.status).toBe(200);expect((await response.json()).results[0].ipa).toMatch(/^\/pʊt .*ʃɛlf\/$/);
+ expect((await POST(make('http://localhost:4320'))).status).toBe(403);
+ const cross=make('http://127.0.0.1:4320');cross.headers.set('sec-fetch-site','cross-site');expect((await POST(cross)).status).toBe(403);
 });

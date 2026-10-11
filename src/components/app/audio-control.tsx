@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Volume2, Square } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useApp, useHydrated } from "./provider";
+import { englishVoice, waitForEnglishVoice } from "@/lib/audio/voices";
 export function AudioControl({
   text,
   slow = false,
@@ -15,10 +16,15 @@ export function AudioControl({
   const [speaking, setSpeaking] = useState(false);
   const [message, setMessage] = useState("");
   const generation = useRef(0);
+  const pending = useRef<AbortController | null>(null);
   useEffect(() => {
     const counter = generation;
+    const request = pending;
+    if ("speechSynthesis" in window) speechSynthesis.getVoices();
     const stop = () => {
       counter.current++;
+      request.current?.abort();
+      request.current = null;
       setSpeaking(false);
       setMessage("");
       if ("speechSynthesis" in window) speechSynthesis.cancel();
@@ -30,6 +36,8 @@ export function AudioControl({
     document.addEventListener("visibilitychange", hidden);
     return () => {
       counter.current++;
+      request.current?.abort();
+      request.current = null;
       if ("speechSynthesis" in window) speechSynthesis.cancel();
       window.removeEventListener("wfk-audio-stop", stop);
       document.removeEventListener("visibilitychange", hidden);
@@ -38,7 +46,7 @@ export function AudioControl({
   function play() {
     const wasSpeaking = speaking;
     window.dispatchEvent(new Event("wfk-audio-stop"));
-    if (!("speechSynthesis" in window)) {
+    if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) {
       setMessage(
         t(
           "Máy này chưa hỗ trợ đọc. Con vẫn có thể xem từ và ví dụ.",
@@ -52,39 +60,45 @@ export function AudioControl({
       setSpeaking(false);
       return;
     }
-    const voices = speechSynthesis.getVoices();
-    const voice = voices.find((v) => /^en[-_]/i.test(v.lang));
-    if (!voice) {
-      setMessage(
-        t(
-          "Chưa có giọng tiếng Anh trên máy. Bạn có thể thêm giọng trong cài đặt thiết bị.",
-          "No English voice is installed. You can add one in device settings.",
-        ),
-      );
-      return;
-    }
     const current = generation.current;
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = "en-US";
-    utterance.voice = voice;
-    utterance.rate = slow ? 0.7 : 0.9;
-    utterance.onend = () => {
-      if (generation.current === current) setSpeaking(false);
-    };
-    utterance.onerror = () => {
-      if (generation.current === current) {
+    const controller = new AbortController();
+    pending.current = controller;
+    const read = (voice: SpeechSynthesisVoice | null) => {
+      if (controller.signal.aborted || generation.current !== current) return;
+      pending.current = null;
+      if (!voice) {
         setSpeaking(false);
-        setMessage(
-          t(
-            "Chưa đọc được. Thử lại hoặc xem ví dụ bên dưới.",
-            "Could not play. Try again or read the example below.",
-          ),
-        );
+        setMessage(t(
+          "Chưa tải được giọng tiếng Anh. Thử lại hoặc thêm giọng trong cài đặt máy nhé.",
+          "The English voice is not ready. Try again or add one in device settings.",
+        ));
+        return;
       }
+      const failed = () => {
+        if (generation.current !== current) return;
+        setSpeaking(false);
+        setMessage(t("Chưa đọc được. Thử lại hoặc xem ví dụ bên dưới.", "Could not play. Try again or read the example below."));
+      };
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = voice.lang;
+      utterance.voice = voice;
+      utterance.rate = slow ? 0.7 : 0.9;
+      utterance.onend = () => { if (generation.current === current) setSpeaking(false); };
+      utterance.onerror = failed;
+      setMessage("");
+      setSpeaking(true);
+      try {
+        if (speechSynthesis.paused) speechSynthesis.resume();
+        speechSynthesis.speak(utterance);
+      } catch { failed(); }
     };
-    setMessage("");
-    setSpeaking(true);
-    speechSynthesis.speak(utterance);
+    const voice = englishVoice(speechSynthesis);
+    if (voice) read(voice);
+    else {
+      setSpeaking(true);
+      setMessage(t("Đang chuẩn bị giọng đọc…", "Getting the voice ready…"));
+      void waitForEnglishVoice(speechSynthesis, {signal: controller.signal}).then(read);
+    }
   }
   return (
     <div className="audio-control">

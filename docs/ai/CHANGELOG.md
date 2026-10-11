@@ -1,5 +1,19 @@
 # Nhật ký bàn giao
 
+## 11/10 — ADR055: Offline có hình và màu, dễ dùng cho bé
+
+Theo yêu cầu mới nhất: fallback offline dùng Cáo/Nunito/Theme C, lời ngắn, nút mở bài có màu/hình và reconnect kiểu nút. Thư viện đổi thành thẻ từ có artwork/fallback có nhãn, CTA ôn đến hạn và năm trò chơi có hình. Màn ôn/game có màu/tiến độ/feedback; focus/scroll khi đổi màn, ba lựa chọn ngang ở360px, empty/search/lỗi có recovery. Scope/account restrictions, duyệt/CAS/SRS/resume/dedup/IPA/credit giữ nguyên; public-shell hash cập nhật qua build.
+
+Lint/public JS ESLint/typecheck/build PASS;14 ca riêng biệt mobile360/desktop1280 PASS14.9s, xác nhận bản cuối8 ca PASS9.4s. Mười view đã xem, không overflow; ngắt mạng thực trong fixture qua service worker. [Bằng chứng](../evaluations/offline-child-ui.md). Local chưa commit/push/deploy; không full suite/realAI/cloud/SQL/physical-phone/human acceptance. Next: founder xem diff/ảnh và tự publish; human/device gates còn pending.
+
+
+## 11/10 — ADR054: Hồ sơ/avatar, dán ảnh mobile, xóa và ngữ pháp từ câu
+
+Theo năm yêu cầu trực tiếp của founder: header mở Hồ sơ/đăng nhập/avatar; tài khoản và chuyển thư viện chuyển vào `/profile`, `/account` tương thích; Cài đặt là nav thứ tư. Tên/avatar lưu trên máy. Bỏ disclosure Google data/terms, giữ consent tại thao tác gửi ảnh. Nút dán clipboard theo gesture, báo text/link/unsupported/denied/multiple và dùng intake/preview cũ. Xóa scope/CAS/tombstones cho từ/nhóm/deck/bộ ngày/câu/mẫu/ngữ pháp, giữ dữ liệu không thuộc phạm vi và lịch sử; confirmation giữ phiên bản đã xem. AI adapter/draft/archive hỗ trợ `learning[]` từ câu/đối thoại, review sửa/clear IPA, atomic save; prepared fallback đúng “Who are they? / They are a family.”, evidence và inferred grammar tách riêng. Schema pruning giữ field pattern. Avatar lỗi Google có thể đổi sang avatar local.
+
+Lint/typecheck/build PASS; 96 unit/integration liên quan PASS. Browser local scoped: 24 ca riêng biệt mobile360/desktop1280 đã qua, các ca lỗi fixture đã sửa/rerun; xác nhận UI8 ca và final avatar/IPA4 ca ghi chi tiết trong [evidence](../evaluations/profile-avatar-mobile-paste-delete-grammar.md). Config chung dừng trước browser vì PostgreSQL fixture không khởi động; `playwright.ui.config.ts` chỉ chạy app local với dữ liệu/AI/clipboard/auth mô phỏng. Không fullsuite/SQL/liveGoogle/realAI/production/physicalphone/human acceptance. Mười ảnh scoped đã kiểm; founder/device ledger không đổi. Source local chưa commit/push/deploy. **Next:** founder xem diff/local profile và thử clipboard/ảnh4 trên điện thoại khi tự chạy/publish; không agent tự triển khai.
+
+
 ## 11/10 — ADR052/053: Welcome gọn, bỏ footer/source notes và minh họa404
 
 Founder liên tiếp yêu cầu bỏ đoạn cuối Welcome, footer Bài mẫu mọi trang và Nguồn và ghi chú trong chi tiết từ; giữ metadata/notes trong database. Đã bỏ UI/query/CSS thừa, giữ nguồn/notes/scope/archive/sync và illustration credit cần thiết. Welcome co giãn theo viewport với Cáo, hình quen thuộc, lời ngắn và một CTA. Theo yêu cầu generate,404 có Cáo mới cầm bản đồ/50KBalphaWebP/số404HTML/VI-EN/Home, giữHTTP404. Affected lint/types/build PASS;14scopedbrowserPASS17,7s,4Welcome/404views đã xem. Không fullsuite/livecloud/worksheetAI/physicalphone; built-in imagegen chỉ tạo asset mới được yêu cầu. [Evidence](../evaluations/welcome-footer-and-404.md). ADR05114ca riêng biệt đã PASS trước; local chưa commit/push/deploy. Ledger không đổi, founder review local diff và device/human acceptance tiếp theo.

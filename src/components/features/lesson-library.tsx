@@ -1,4 +1,5 @@
 'use client';
+import {DeleteControl} from './delete-control';
 import {useState} from 'react';
 import Link from 'next/link';
 import {CalendarDays, ChevronLeft, ChevronRight, ImagePlus, PencilLine, Play, Search, X, BookOpen, FileImage, Keyboard, FolderPlus} from 'lucide-react';
@@ -59,6 +60,7 @@ export function LessonLibrary() {
               <p className="lesson-word-preview">{words.join(' · ')}{total>words.length&&` · +${total-words.length}`}</p>
               <div className="lesson-set-counts"><strong>{total} {t('từ','words')}</strong><span>{newCount} {t('từ mới','new')}</span>{reviewCount>0&&<span>{reviewCount} {t('ôn lại','review')}</span>}</div>
               <div className="lesson-set-actions"><Button asChild><Link href={`/practice?lesson=${encodeURIComponent(lesson.id)}`}><Play data-icon="inline-start" aria-hidden="true"/>{t('Học bộ này','Learn this set')}</Link></Button><Button asChild variant="ghost"><Link href={`/library?lesson=${encodeURIComponent(lesson.id)}`}><BookOpen data-icon="inline-start" aria-hidden="true"/>{t('Xem bộ từ','View set')}</Link></Button><ActionLink href={`/library/groups/edit?lesson=${encodeURIComponent(lesson.id)}`}><Button variant="ghost"><FolderPlus aria-hidden="true"/>{t("Thêm vào nhóm","Add to group")}</Button></ActionLink></div>
+              <DeleteControl target={{table:'lessons',id:lesson.id,version:lesson.version}} label={t('Xóa bộ theo ngày','Delete dated set')} description={t(`Xóa bộ “${title}” và câu/ngữ pháp thêm riêng cho bộ này? Từ vẫn ở thư viện; bộ khác vẫn giữ.`,`Delete “${title}” and its own additional sentences/grammar? Words remain in the library and other sets are kept.`)}/>
             </div>
             {editing?.scopeId===repository?.scope.id&&editing.id===lesson.id&&<LessonEditor key={`${editing.scopeId}:${editing.id}:${editing.version}`} lesson={editing} close={()=>setEditing(null)} saved={title=>{setEditing(null);setSaved(t(`Đã lưu tên bộ: ${title}`,`Saved set title: ${title}`));}}/>}
           </article>;

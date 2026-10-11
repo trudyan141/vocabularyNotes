@@ -1,4 +1,5 @@
 import {z} from 'zod';
+import {worksheetLearning} from '@/lib/ai/worksheet-learning';
 import {Dexie} from 'dexie';
 import {imageHeader,validateDimensions} from '@/lib/capture/image';
 import type {LocalRepository} from './repository';
@@ -22,7 +23,7 @@ export const archiveRecordsSchema=z.object({
  mediaAssets:z.array(z.object({...base,payload:z.object({asset:mediaAsset}).strict()}).strict()).default([]),
  decks:z.array(z.object({...base,payload:z.object({deck:deckSchema}).strict()}).strict()),
  sentences:z.array(z.object({...base,payload:z.object({content:contentSchema}).strict()}).strict()),
- learningDrafts:z.array(z.object({...base,payload:z.union([z.object({form}).strict(),z.object({data:z.object({text,items:z.array(ocrItem).max(100),mode:z.enum(['listed','all']),operation:id,origin:z.literal('ai_generated').optional(),model:z.string().max(100).optional()}).strict()}).strict()])}).strict()),
+ learningDrafts:z.array(z.object({...base,payload:z.union([z.object({form}).strict(),z.object({data:z.object({text,items:z.array(ocrItem).max(100),mode:z.enum(['listed','all']),operation:id,origin:z.literal('ai_generated').optional(),model:z.string().max(100).optional(),learning:z.array(worksheetLearning).max(20).optional()}).strict()}).strict()])}).strict()),
  drafts:z.array(z.object({...base,candidates:z.array(candidateSchema).max(100),saveOperationId:id,phase:z.enum(['review','saved']),lastReceiptId:id.nullable()}).strict()),
  receipts:z.array(z.object({scopeId:id,id,payloadHash:z.string().regex(/^[a-f0-9]{64}$/),result:z.object({added:z.number().int().nonnegative(),linked:z.number().int().nonnegative(),addedSenses:z.number().int().nonnegative(),lessonId:id,operationId:id}).strict()}).strict()),
  entries:z.array(z.object({...base,displayText:z.string().max(200),language:z.literal('en'),canonicalKey:z.string().max(300),keyVersion:z.literal(1),caseMode:z.enum(['fold','exact']),activeKey:z.string().max(300).optional(),kind:z.enum(['word','phrase'])}).strict()),

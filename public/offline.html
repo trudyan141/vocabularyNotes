@@ -1,1 +1,61 @@
-<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#fff8f8"><title>Words for Kids — học khi mất mạng</title><link rel="stylesheet" href="/offline.css"><script type="module" src="/offline.js"></script></head><body><main><a href="/today">Thử kết nối lại</a><h1>Words for Kids</h1><p>Đang offline. Con vẫn xem từ và ôn bài đã lưu trên máy.</p><section id="choose"><h2>Chọn thư viện trên máy này</h2><p>Chỉ mở thư viện khách hoặc bài mẫu khi bạn chọn. Thư viện tài khoản cần đăng nhập lại khi có mạng.</p><button id="guest">Bài của con trên máy</button><button id="demo">Bài mẫu</button></section><section id="library" hidden><div id="due"></div><button id="close">Đóng thư viện</button><label for="search">Tìm từ đã lưu</label><input id="search" type="search"><div id="words"></div><h2>Chọn buổi học khi mất mạng</h2><div class="offline-modes"><button id="offline-flashcard">Thẻ ôn</button><button id="offline-picture-word">Nhìn hình chọn từ</button><button id="offline-word-picture">Nghe từ chọn hình</button><button id="offline-letters">Điền chữ thiếu</button><button id="offline-spelling">Gõ cả từ</button></div><div id="resume"></div><details><summary>Thêm và sửa từ</summary><section id="parent"></section></details></section><section id="card" hidden><button id="back">Về thư viện</button><h2 id="word"></h2><img id="art" width="160" height="160" alt=""><p id="credit"></p><p id="ipa"></p><button id="listen">Nghe từ</button><button id="reveal">Xem nghĩa và ví dụ</button><div id="answer" hidden><h3 id="meaning"></h3><p id="definition"></p><p id="example"></p><p id="example-ipa" lang="en" aria-label="Phiên âm cả câu"></p><p id="translation"></p><p id="hint"></p><button id="again">Chưa nhớ — ôn lại sau</button><button id="good">Đã nhớ — lên lịch ngày mai</button></div></section><section id="game" hidden><button id="pause-game">Tạm dừng</button><div id="game-body"></div></section><p id="status" role="status"></p></main></body></html>
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#fff8f8">
+  <title>Words for Kids — học khi mất mạng</title>
+  <link rel="stylesheet" href="/offline.css">
+  <script type="module" src="/offline.js"></script>
+</head>
+<body>
+  <svg class="icon-definitions" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>
+    <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5M6 7a7 7 0 0 1 12-1l2 6M4 12l2 6a7 7 0 0 0 12-1"/></symbol>
+    <symbol id="back-arrow" viewBox="0 0 24 24"><path d="M19 12H5m6-6-6 6 6 6"/></symbol>
+    <symbol id="sound" viewBox="0 0 24 24"><path d="m11 5-6 4H2v6h3l6 4V5Zm4 3a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></symbol>
+  </defs></svg>
+  <main>
+    <header class="offline-header">
+      <div class="brand"><img src="/illustrations/book.svg" alt="" width="34" height="34"><h1>Words for Kids</h1></div>
+      <a class="button reconnect" href="/today"><svg class="icon" aria-hidden="true"><use href="#refresh"/></svg>Thử kết nối lại</a>
+    </header>
+    <section id="choose" aria-labelledby="welcome-title">
+      <div class="offline-welcome">
+        <img class="welcome-fox" src="/illustrations/fox.svg" alt="Cáo chào bạn" width="200" height="220">
+        <div><h2 id="welcome-title">Mất mạng rồi,<br>mình vẫn học nhé!</h2><p>Cùng Cáo chơi với những từ đã lưu.</p></div>
+      </div>
+      <h2 class="choose-title">Bạn muốn mở bài nào?</h2>
+      <div class="library-choices">
+        <button id="guest" class="library-choice" aria-label="Bài của con trên máy"><span class="choice-picture mint"><img src="/illustrations/bag.svg" alt="" width="86" height="86"></span><span><strong>Bài của con</strong><small>Những từ bạn đã lưu</small></span><svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></button>
+        <button id="demo" class="library-choice" aria-label="Bài mẫu"><span class="choice-picture lilac"><img src="/illustrations/apple.svg" alt="" width="86" height="86"></span><span><strong>Bài mẫu</strong><small>Chơi thử cùng Cáo</small></span><svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></button>
+      </div>
+      <p class="account-note">Bài trong tài khoản sẽ mở lại khi có mạng và bạn đăng nhập.</p>
+    </section>
+    <section id="library" hidden aria-labelledby="library-title">
+      <div class="section-heading"><h2 id="library-title">Bài của mình</h2><button id="close" class="quiet">Đổi bài</button></div>
+      <div id="due" class="due-banner"></div>
+      <section class="play-section" aria-labelledby="play-title"><h2 id="play-title">Chơi một chút nhé!</h2>
+        <div class="offline-modes">
+          <button id="offline-flashcard" class="mode yellow"><img src="/illustrations/book.svg" alt="" width="64" height="64"><span>Thẻ ôn</span></button>
+          <button id="offline-picture-word" class="mode lilac"><img src="/illustrations/apple.svg" alt="" width="64" height="64"><span>Nhìn hình chọn từ</span></button>
+          <button id="offline-word-picture" class="mode mint"><img src="/illustrations/cat.svg" alt="" width="64" height="64"><span>Nghe từ chọn hình</span></button>
+          <button id="offline-letters" class="mode pink"><img src="/illustrations/pencil.svg" alt="" width="64" height="64"><span>Điền chữ thiếu</span></button>
+          <button id="offline-spelling" class="mode lilac"><img src="/illustrations/notebook.svg" alt="" width="64" height="64"><span>Gõ cả từ</span></button>
+        </div><div id="resume"></div>
+      </section>
+      <section class="word-section" aria-labelledby="words-title"><h2 id="words-title">Từ của mình</h2><label class="search-label" for="search">Tìm từ đã lưu</label><input id="search" type="search" placeholder="Gõ từ hoặc nghĩa tiếng Việt…"><div id="words" class="word-grid"></div></section>
+      <details class="edit-section"><summary>Thêm và sửa từ</summary><section id="parent"></section></details>
+    </section>
+    <section id="card" class="learning-card" hidden aria-labelledby="word">
+      <button id="back" class="quiet"><svg class="icon" aria-hidden="true"><use href="#back-arrow"/></svg>Về thư viện</button>
+      <div class="word-stage"><img id="art" width="180" height="180" alt=""><h2 id="word" lang="en"></h2><p id="ipa" lang="en"></p></div>
+      <p id="credit" class="credit"></p>
+      <div class="card-actions"><button id="listen" class="secondary"><svg class="icon" aria-hidden="true"><use href="#sound"/></svg>Nghe từ</button><button id="reveal" class="primary">Xem nghĩa và ví dụ</button></div>
+      <div id="answer" hidden><div class="word-answer"><h3 id="meaning"></h3><p id="definition" lang="en"></p><p id="example" class="english-example" lang="en"></p><p id="example-ipa" class="reading-guide" lang="en" aria-label="Phiên âm cả câu"></p><p id="translation"></p><p id="hint" class="reading-guide"></p></div><div class="rating-actions"><button id="again" class="secondary" aria-label="Chưa nhớ — ôn lại sau">Chưa nhớ</button><button id="good" class="primary" aria-label="Đã nhớ — lên lịch ngày mai">Nhớ rồi</button></div></div>
+    </section>
+    <section id="game" class="learning-card" hidden><button id="pause-game" class="quiet">Tạm dừng</button><div id="game-body"></div></section>
+    <p id="status" role="status"></p>
+  </main>
+</body>
+</html>

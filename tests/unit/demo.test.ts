@@ -81,6 +81,8 @@ describe("small settings", () => {
       childFriendly: false,
       reduceMotion: true,
       sound: false,
+      profileName: "",
+      profileAvatar: "google",
     });
   });
   it("normalizes unsupported preference values safely", () => {

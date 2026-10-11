@@ -1,6 +1,8 @@
 "use client";
 import {SentencePronunciation} from "@/components/app/sentence-pronunciation";
 import Link from "next/link";
+import {useRouter} from "next/navigation";
+import {DeleteControl} from "./delete-control";
 import {Pencil,Play,ArrowLeft} from "lucide-react";
 import {useLiveQuery} from "dexie-react-hooks";
 import {useApp} from "@/components/app/provider";
@@ -15,6 +17,7 @@ import {useLibraryWord} from "@/data/local/hooks";
 import {WordLearningContent} from "./learning-content";
 export function WordDetail({ id }: { id: string }) {
   const { t,repository } = useApp();
+  const router=useRouter();
   const senses=useLiveQuery(async()=>{if(!repository)return null;const sense=await repository.db.senses.get([repository.scope.id,id]);if(!sense)return null;const rows=await repository.db.senses.where("[scopeId+entryId]").equals([repository.scope.id,sense.entryId]).toArray();return {scope:repository.scope.id,id,words:(await repository.words(rows.filter(row=>!row.deletedAt).map(row=>row.id))).filter(word=>word.approved)};},[repository,id]);
   const result = useLibraryWord(id);
   if (!result) return <DatabaseLoading />;
@@ -119,6 +122,7 @@ export function WordDetail({ id }: { id: string }) {
         </Link>
       </Button>
 
+      <DeleteControl target={{table:"senses",id:entry.id,version:Number(entry.revision.split(":")[1]),revision:entry.revision}} label={t("Xóa từ này","Delete this word")} description={t(`Xóa “${entry.word}” với nghĩa này khỏi thư viện và các buổi học? Các nghĩa khác vẫn giữ.`,`Delete “${entry.word}” in this sense from your library and practice? Other senses are kept.`)} onDeleted={()=>router.push("/library")}/>
     </article>
   );
 }

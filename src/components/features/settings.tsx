@@ -1,8 +1,6 @@
 "use client";
 import {ParentAiSettings} from "./parent-ai";
 import {ArchiveTools} from "@/components/features/archive-tools";
-import Link from "next/link";
-import {useState} from "react";
 import { Mail, UserRound } from "lucide-react";
 import { LibraryTools } from "./library-tools";
 import { Button } from "@/components/ui/button";
@@ -20,8 +18,7 @@ import { useApp, useHydrated } from "@/components/app/provider";
 import { Back } from "@/components/app/shared";
 export function Settings() {
   const hydrated = useHydrated();
-  const { t, preferences: p, setPreferences, storageError, demo,selectLocalLibrary,repository } = useApp();
-  const [switching,setSwitching]=useState(false);const [scopeStatus,setScopeStatus]=useState("");
+  const { t, preferences: p, setPreferences, storageError } = useApp();
   return (
     <div className="reading-page page-flow parent-page">
       <Back />
@@ -147,24 +144,6 @@ export function Settings() {
           />
         </Field>
       </FieldGroup>
-      <section>
-        <h2>{t("Bài học và tài khoản", "Lessons and account")}</h2>
-        <Button asChild variant="outline"><Link href="/account">{t("Tài khoản Google","Google account")}</Link></Button>
-        <p>
-          {t(
-            "Đăng nhập Google để dùng cùng bài học trên nhiều thiết bị.",
-            "Sign in with Google to use the same lessons on multiple devices.",
-          )}
-        </p>
-        {demo && (
-          <Button asChild variant="outline">
-            <Link prefetch={false} href="/capture">
-              {t("Thử duyệt bài mẫu", "Try sample review")}
-            </Link>
-          </Button>
-        )}
-      </section>
-      <section className="page-flow"><h2>{t("Thư viện đang mở","Current library")}</h2><p>{demo?t("Đang dùng bài mẫu để thử. Bài của con thật được lưu riêng, chuyển qua lại không xóa hay gộp dữ liệu.","Using sample lessons. Your own library is stored separately; switching does not delete or merge content."):t("Đang dùng thư viện của con trên máy này. Bài mẫu là một thư viện riêng.","Using your own local library. Sample lessons are stored separately.")}</p><Button variant="outline" disabled={switching||!repository} onClick={async()=>{setSwitching(true);try{await selectLocalLibrary(!demo);setScopeStatus(t("Đã chuyển thư viện; dữ liệu thư viện trước vẫn còn.","Library switched; previous content is preserved."));}catch{setScopeStatus(t("Chưa chuyển được. Thử lại; dữ liệu vẫn còn.","Could not switch. Retry; your content is preserved."));}finally{setSwitching(false);}}}>{demo?t("Dùng thư viện riêng của con","Use my child's library"):t("Mở bài mẫu để thử","Open sample lessons")}</Button><p role="status">{scopeStatus}</p></section>
       <ParentAiSettings/><LibraryTools/><ArchiveTools/>
       <section className="settings-author" aria-labelledby="settings-author-title">
         <h2 id="settings-author-title">{t("Về ứng dụng", "About the app")}</h2>

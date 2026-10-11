@@ -1,4 +1,25 @@
 # Đặc tả màn hình và điều hướng
+
+## Offline thân thiện cho bé — ADR055, 11/10/2026
+
+Màn fallback khi mất mạng dùng cùng Nunito/Theme C, Cáo và hình đã cache: lời chào ngắn, hai nút có màu/hình để mở Bài của con hoặc Bài mẫu, nút Thử kết nối lại có kiểu nút rõ ràng. Bài tài khoản vẫn cần mạng/đăng nhập; không tự chọn scope hoặc mở dữ liệu tài khoản. Thư viện có CTA ôn đến hạn, năm trò chơi có minh họa, thẻ từ gồm hình/English/nghĩa thay danh sách text. Không có hình hoặc ảnh chưa cache: biểu tượng sách có nhãn Chưa có hình, không đoán hình cho nghĩa. Màn ôn/game có màu, tiến độ, feedback và nút chính; ba lựa chọn ngang bằng nhau ở360px. Chuyển màn đưa focus về heading và đầu màn. Empty/search/error có lời ngắn và cách tiếp tục. Giữ duyệt nội dung, scope/CAS, chống trùng, SRS/resume, consent và attribution/IPA cả câu; không tự gửi AI.
+
+[Bằng chứng local](evaluations/offline-child-ui.md). Không đổi cache của tài khoản hoặc schema; asset trang chào/play dùng catalog đã precache. Không thêm font/icon/network dependency.
+
+## Hồ sơ, dán ảnh mobile, xóa và câu/ngữ pháp — ADR054, 11/10/2026
+
+Theo yêu cầu trực tiếp mới nhất, header mở **Hồ sơ và đăng nhập** bằng avatar. `/profile` chứa đăng nhập Google, trạng thái tài khoản/cloud, phần Bài học và tài khoản và Thư viện đang mở chuyển từ Cài đặt; `/account` giữ tương thích. Tên hiển thị và avatar Cáo/Mèo/Cún là thiết lập nhỏ trên máy, không tự sửa Google metadata hay sync hồ sơ. Google avatar vẫn có fallback. Cài đặt chuyển thành mục thứ tư của nav chính (thanh dưới mobile, bên trái desktop); quy tắc ba nav/header Cài đặt cũ được supersede cho steering này.
+
+Bỏ disclosure “Dữ liệu gửi Google và điều kiện sử dụng” khỏi UI Cài đặt theo yêu cầu; vẫn giữ xác nhận gửi ảnh/chi phí và kiểm nội dung tại hành động phân tích, không thay provider/account eligibility hay tạo claim free/quota.
+
+S04 có nút **Dán ảnh đã sao chép**, đọc clipboard chỉ sau khi bấm. Native Ctrl+V/⌘V và clipboard items tiếp tục dùng cùng intake một ảnh JPEG/PNG/WebP, 10MB/20MP, chuẩn hóa/bỏ metadata/lưu nháp/mở preview, không tự AI. Chỉ có text/link, không hỗ trợ, nhiều ảnh hay từ chối quyền: báo cách chọn ảnh từ máy; dán text ở ô nhập giữ bình thường.
+
+Nút xóa ở chi tiết từ, nhóm, bộ thẻ, bộ theo ngày và Câu/Mẫu câu/Ngữ pháp. Xác nhận tại chỗ, giữ phiên bản đã xem để từ chối stale write. Xóa nhóm/bộ thẻ không xóa từ/câu thư viện; xóa bộ theo ngày xóa liên kết và nội dung thêm riêng cho bộ, giữ từ và bộ khác. Xóa từ áp dụng đúng sense, loại khỏi học/search; giữ lịch sử và tombstones trong backup/sync. Xóa mẫu/ngữ pháp chỉ bỏ phần đó; xóa câu bổ sung xóa kèm phần gắn với cùng câu, được nêu trong xác nhận. Không thao tác dữ liệu founder thật.
+
+Adapter Gemini browser mở rộng `learning[]`: câu nguồn và ngữ pháp suy ra, target là từ đã chọn, evidence kiểm với transcript, explanation/formula/conditions/error/correction đầy đủ, IPA cả câu hoặc null. Luồng duyệt cho chỉnh nội dung, đổi câu xóa IPA/hint; lưu atomically vào nội dung approved theo phiên bản/lesson, nháp và archive giữ field optional. Mẫu deterministic cho đúng “Who are they? / They are a family.” giữ hai câu gốc, giải thích who/they/are/a family; không giả là OCR hoặc ngữ pháp in trên ảnh. Ảnh chỉ có câu vẫn yêu cầu AI chọn từ nội dung hữu ích. Kết quả mới đã kiểm bằng fixture; độ chính xác Gemini thật trên ảnh founder chưa đo.
+
+[Bằng chứng và giới hạn](evaluations/profile-avatar-mobile-paste-delete-grammar.md). Chỉ local theo ADR049/050.
+
 ## Welcome, footer và metadata học — ADR052/053, 11/10/2026
 
 Founder yêu cầu bỏ phần giải thích khó hiểu cuối Welcome, link Cài đặt lặp lại và strip Nghe từ/Nhìn hình/Chơi và nhớ. Welcome chỉ giữ minh họa Cáo/táo/sách/mèo, lời chào ngắn và primary Bắt đầu; bố cục co giãn theo viewport, không chèn nội dung thừa để lấp chiều cao. Header Cài đặt vẫn truy cập được. Bỏ footer Bài mẫu trên mọi route; nguồn mẫu vẫn phân biệt tại chính bài học và trong dữ liệu, không đổi APP_DEMO_MODE/scope/content.

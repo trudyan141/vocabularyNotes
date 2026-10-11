@@ -49,12 +49,8 @@ export async function importBackup(repo:LocalRepository,backup:Backup){
   return result;
 }
 export async function deleteWord(repo:LocalRepository,word:LibraryWord){
-  await repo.db.transaction("rw",repo.db.tables,async()=>{
-    const sense=await repo.db.senses.get([repo.scope.id,word.id]);const entry=sense&&await repo.db.entries.get([repo.scope.id,sense.entryId]);
-    if(!sense||!entry||`${entry.version}:${sense.version}`!==word.revision)throw new RepositoryError("conflict");
-    await repo.db.senses.update([repo.scope.id,word.id],{deletedAt:new Date().toISOString(),version:sense.version+1});
-    await repo.db.searchIndex.delete([repo.scope.id,word.id]);
-  });
+  const {deleteItem}=await import('./delete');
+  await deleteItem(repo,{table:'senses',id:word.id,version:Number(word.revision.split(':')[1]),revision:word.revision});
 }
 // Keep exported learning data separate from machine credentials and raw image blobs.
 export type SavedLearningRecords={notes:Note[];reviews:ReviewEvent[];states:ScopedDocument[]};

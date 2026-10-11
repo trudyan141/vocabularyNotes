@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Camera, RotateCw, Upload, Save, Trash2, ArrowLeft } from "lucide-react";
+import { Camera, RotateCw, Upload, Save, Trash2, ArrowLeft, ClipboardPaste } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
@@ -105,6 +105,8 @@ export function Capture() {
   const [busy, setBusy] = useState(false);
   const [captureMode, setCaptureMode] = useState<"upload" | "camera">("upload");
   const [dragging,setDragging]=useState(false);
+  const [readingClipboard,setReadingClipboard]=useState(false);
+  const clipboardLock=useRef(false);
   const dragDepth=useRef(0);
   const pendingTitle=useRef("");
   const pendingPaste=useRef<File|null>(null);
@@ -239,7 +241,9 @@ export function Capture() {
   useEffect(() => {
     if(repo&&pendingPaste.current&&!intakeLock.current){const file=pendingPaste.current;pendingPaste.current=null;void intake(file);}
     const paste = (event: ClipboardEvent) => {
-      const files = Array.from(event.clipboardData?.files ?? []).filter(file => file.type.startsWith("image/"));
+      const data=event.clipboardData;
+      const files = Array.from(data?.files ?? []).filter(file => file.type.startsWith("image/"));
+      if (!files.length) for (const item of Array.from(data?.items ?? [])) { if(item.kind==='file'&&item.type.startsWith('image/')) { const file=item.getAsFile();if(file)files.push(file); } }
       if (!files.length) return;
       event.preventDefault();
       if (busy || intakeLock.current || pendingPaste.current) return;
@@ -252,6 +256,20 @@ export function Capture() {
     document.addEventListener("paste", paste);
     return () => document.removeEventListener("paste", paste);
   });
+  async function pasteImage() {
+    if(clipboardLock.current||intakeLock.current||busy||!repo)return;
+    if(!navigator.clipboard?.read){setError(t("Máy này chưa dán được ảnh trực tiếp. Lưu ảnh vào Ảnh hoặc Tệp, rồi bấm Chọn ảnh từ máy.","This device cannot paste images directly. Save the photo to Photos or Files, then choose it."));return;}
+    clipboardLock.current=true;setReadingClipboard(true);setError("");
+    try {
+      const items=await navigator.clipboard.read();
+      if(!mounted.current)return;
+      const images=items.filter(item=>item.types.some(type=>type.startsWith('image/')));
+      if(images.length!==1){setError(t(images.length?"Dán một ảnh mỗi lần để xem và chỉnh từng trang.":"Bộ nhớ sao chép chỉ có chữ hoặc đường dẫn, chưa có ảnh. Nhấn giữ ảnh và chọn Sao chép hình ảnh; nếu vẫn không được, lưu ảnh rồi chọn từ máy.",images.length?"Paste one photo at a time.":"The clipboard contains text or a link, not an image. Copy the image itself, or save it and choose it from your device."));return;}
+      const type=images[0].types.find(type=>['image/png','image/jpeg','image/webp'].includes(type))??images[0].types.find(type=>type.startsWith('image/'))!;
+      const blob=await images[0].getType(type);if(mounted.current)await intake(new File([blob],t('Ảnh đã dán','Pasted photo')+`.${type.split('/')[1]}`,{type}));
+    } catch { if(mounted.current)setError(t("Chưa đọc được ảnh đã sao chép. Cho phép dán nếu máy hỏi, hoặc lưu ảnh rồi bấm Chọn ảnh từ máy.","Could not read the copied image. Allow pasting if prompted, or save the image and choose it.")); }
+    finally {clipboardLock.current=false;if(mounted.current)setReadingClipboard(false);}
+  }
   async function takePhoto() {
     pendingTitle.current=`Ảnh chụp · ${new Date().toLocaleDateString("en-CA")}`;
     const node = video.current;
@@ -319,8 +337,8 @@ export function Capture() {
       <section className="capture-intake" aria-label={t('Chụp, chọn hoặc dán ảnh bài học','Capture, choose or paste a worksheet photo')}>
         <Tabs value={captureMode} onValueChange={changeCaptureMode} className="capture-tabs">
           <TabsList className="capture-tabs-list" aria-label={t("Cách thêm ảnh", "How to add a photo")}>
-            <TabsTrigger value="upload" disabled={busy}><Upload aria-hidden="true" />{t("Chọn ảnh", "Upload photo")}</TabsTrigger>
-            <TabsTrigger value="camera" disabled={busy}><Camera aria-hidden="true" />{t("Chụp ảnh", "Camera")}</TabsTrigger>
+            <TabsTrigger value="upload" disabled={busy||readingClipboard}><Upload aria-hidden="true" />{t("Chọn ảnh", "Upload photo")}</TabsTrigger>
+            <TabsTrigger value="camera" disabled={busy||readingClipboard}><Camera aria-hidden="true" />{t("Chụp ảnh", "Camera")}</TabsTrigger>
           </TabsList>
           <TabsContent value="upload">
         <div className={`capture-dropzone${dragging?' is-dragging':''}${busy?' is-busy':''}`} data-testid="worksheet-dropzone" tabIndex={0}
@@ -330,8 +348,8 @@ export function Capture() {
           onDrop={event=>{event.preventDefault();dragDepth.current=0;setDragging(false);if(busy||intakeLock.current)return;const files=event.dataTransfer.files;if(files.length!==1){setError(t('Chọn một ảnh mỗi lần để xem và chỉnh rõ từng trang.','Choose one photo at a time so each page can be reviewed and cropped.'));return;}void intake(files[0]);}}>
           <Upload size={32} aria-hidden="true"/>
           <h2>{dragging?t('Thả ảnh vào đây','Drop your photo here'):t('Kéo thả ảnh bài học vào đây','Drag your worksheet photo here')}</h2>
-          <p>{t('Chọn ảnh từ máy hoặc dán ảnh đã sao chép (Ctrl+V / ⌘V)','Choose a photo or paste a copied image (Ctrl+V / ⌘V)')}</p>
-          <Button disabled={busy} onClick={()=>fileInput.current?.click()}>{t('Chọn ảnh từ máy','Choose an image')}</Button>
+          <p>{t('Chọn ảnh từ máy hoặc bấm Dán ảnh đã sao chép. Trên máy tính có thể dùng Ctrl+V / ⌘V.','Choose a photo or tap Paste copied image. On a computer you can also use Ctrl+V / ⌘V.')}</p>
+          <div className="row-wrap"><Button disabled={busy||readingClipboard} onClick={()=>fileInput.current?.click()}>{t('Chọn ảnh từ máy','Choose an image')}</Button><Button variant="outline" disabled={busy||readingClipboard||!repo} onClick={()=>void pasteImage()}><ClipboardPaste aria-hidden="true"/>{readingClipboard?t('Đang đọc ảnh…','Reading image…'):t('Dán ảnh đã sao chép','Paste copied image')}</Button></div>
           <input ref={fileInput} id="worksheet-file" type="file" hidden aria-label={t('Chọn ảnh từ máy','Choose an image')} accept="image/jpeg,image/png,image/webp,.heic,.heif" disabled={busy} onChange={event=>{const file=event.target.files?.[0];event.target.value='';if(file)void intake(file);}}/>
           <small>JPEG, PNG, WebP · {t('Tối đa 10 MB · Một ảnh mỗi lần','Up to 10 MB · One photo at a time')}</small>
         </div>

@@ -1,5 +1,8 @@
 # Dữ liệu, chống trùng và đồng bộ
 
+**ADR054 (11/10):** scoped CAS deletion writes versioned tombstones, not physical removal. Deleting a sense preserves saved history; the last active sense also tombstones its entry and frees activeKey. Deleting decks/groups leaves words/sentences; deleting a lesson tombstones its links and lesson-specific supplemental content, preserves other sets and global words. Search rebuild excludes deleted examples/links/lessons. Confirmation retains the reviewed version; no newer concurrent content is deleted. Existing cloud/backup DTOs retained; no SQL migration or live cloud test. [Evidence](evaluations/profile-avatar-mobile-paste-delete-grammar.md).
+
+
 **Hiện hành ADR046 (11/10/2026):** Cài đặt và mọi luồng thêm/sửa/học mở trực tiếp; người dùng tự chuẩn bị và chơi, gia đình tự phân vai. Không có parent gate. Review/approval là kiểm nội dung đúng phiên bản; auth/ownership/scope/CAS vẫn bảo vệ dữ liệu thực. Mô tả phân vai bố mẹ/bé cũ bên dưới được thay bởi quy tắc này; xem03/04.
 
 

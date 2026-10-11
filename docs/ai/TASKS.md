@@ -1,5 +1,11 @@
 # Ledger triển khai
 
+Checkpoint11/10 ADR055: offline illustrated chooser/library/card/game/empty/error shipped locally. Lint/public JS/types/build and14 scoped browser cases PASS, final8 rerun PASS;10 views inspected. [Evidence](../evaluations/offline-child-ui.md). Existing T07/offline data review/dedup/SRS/resume retained. No full suite/SQL/liveAI/phone/production; founder owns publishing.
+
+
+Checkpoint11/10 ADR054: direct five-part steering implemented locally (profile/avatar/nav, disclosure removal, mobile clipboard, scoped deletion, source sentence/grammar review/save).96 scoped unit/integration and24 distinct mobile/desktop browser cases PASS; PostgreSQL fixture unavailable, UI-only config retained. [Evidence](../evaluations/profile-avatar-mobile-paste-delete-grammar.md). T17 profile slice delivered; batch/TTS/FSRS unchanged. LiveAI/phone/SQL/production not verified; founder owns publishing.
+
+
 ## 11/10 — ADR052/053: Welcome gọn, bỏ footer/source notes và minh họa404
 
 Founder liên tiếp yêu cầu bỏ đoạn cuối Welcome, footer Bài mẫu mọi trang và Nguồn và ghi chú trong chi tiết từ; giữ metadata/notes trong database. Đã bỏ UI/query/CSS thừa, giữ nguồn/notes/scope/archive/sync và illustration credit cần thiết. Welcome co giãn theo viewport với Cáo, hình quen thuộc, lời ngắn và một CTA. Theo yêu cầu generate,404 có Cáo mới cầm bản đồ/50KBalphaWebP/số404HTML/VI-EN/Home, giữHTTP404. Affected lint/types/build PASS;14scopedbrowserPASS17,7s,4Welcome/404views đã xem. Không fullsuite/livecloud/worksheetAI/physicalphone; built-in imagegen chỉ tạo asset mới được yêu cầu. [Evidence](../evaluations/welcome-footer-and-404.md). ADR05114ca riêng biệt đã PASS trước; local chưa commit/push/deploy. Ledger không đổi, founder review local diff và device/human acceptance tiếp theo.
@@ -33,7 +39,7 @@ Status: `ready`, `planned`, `in_progress`, `pending_external`, `done`. Chỉ chu
 | T14 | P1 | Cross-cutting QA + quality gate | T08,T13 | in_progress | Gemini check104unit/Gemini E2E113/113 PASS/SQL PASS; evidence parent-dictionary-byok-deploy; human/device/liveAI/cloud/field/performance currentbuild pending |
 | T15 | P1 | Pilot, operations, release | T14 | in_progress | Founder authorized Vercel nativeGit deploy/current setup; readiness recorded in evidence; QA25human/physicalphone/pilot gates remain pending |
 | T16 | P2 | Local OCR workflow — removed by founder ADR029 | T15 | planned | Tesseract/deviceOCR removed, old ADR026 evidence historical; do not reimplement unless founder explicitly requests scope again |
-| T17 | P2 | Chọn expansion: profiles/batch/TTS/FSRS | T15 | planned | ADR + subtasks/acceptance trước triển khai |
+| T17 | P2 | Chọn expansion: profiles/batch/TTS/FSRS | T15; profile override trực tiếp ADR054 | in_progress | Local profile/avatar + account/navigation delivered and scoped-tested ADR054; batch/TTS/FSRS remain planned; phone/cloud profile expansion not claimed |
 | T18 | P0 | Prototype 5 màn, simple UX + kịch bản thử | None | done | Đủ 16 graph/mockup, 9 refinements; core + flow support clickable; browser 360/1440, SELF-REVIEW/screenshots/QA25-HUMAN-STUDY; human QA25 pending, app/camera/cloud/live AI chưa có |
 
 Mô tả chi tiết và deliverables tại `../11-delivery-plan.md`. Nếu thiếu credential ở T00/T05/T10, trạng thái live phần đó `pending_external`; vẫn hoàn tất những việc độc lập. Evidence phải ghi rõ phần nào mock, phần nào real.

@@ -1,5 +1,11 @@
 # Words for Kids — kế hoạch sản phẩm dành cho founder
 
+**Mới nhất11/10 — Offline dễ thương hơn (ADR055):** có Cáo và hình, font tròn cùng app, nút mở bài/trò chơi có màu và thư viện từ bằng thẻ hình. Lời ngắn, nút Kết nối lại rõ, màn học có tiến độ và phản hồi; dữ liệu/lịch ôn giữ nguyên.14ca offline mobile/desktop PASS, xác nhận8ca bản cuối, ảnh đã xem; chưa push/deploy/điện thoại thật. [Kết quả và ảnh](evaluations/offline-child-ui.md).
+
+
+**Mới nhất11/10 — Hồ sơ, dán ảnh, xóa và câu/ngữ pháp (ADR054):** Hồ sơ/avatar/đăng nhập ở góc phải, mục tài khoản/thư viện chuyển vào Hồ sơ; Cài đặt xuống thanh dưới thành mục thứ tư. Tên/avatar riêng nhớ trên máy. Bỏ phần Dữ liệu gửi Google và điều kiện sử dụng trong Cài đặt; xác nhận gửi ảnh vẫn tại nút phân tích. Thêm nút dán ảnh trên mobile và hướng dẫn khi clipboard chỉ có chữ; thêm xóa có xác nhận cho từ/nhóm/bộ/câu/mẫu/ngữ pháp. AI được yêu cầu đọc cả câu và bổ sung ngữ pháp, có mẫu “Who are they? / They are a family.”, duyệt/sửa/lưu cùng bộ ngày. Lint/types/build +96ca liên quan và24ca browser local đã qua; chưa thử Gemini thật/clipboard điện thoại thật, chưa push/deploy. [Bằng chứng](evaluations/profile-avatar-mobile-paste-delete-grammar.md).
+
+
 **Mới nhất11/10 — Welcome/footers/404 (ADR052/053):** Welcome chỉ Cáo, hình học, lời ngắn và Bắt đầu; bỏ strip/giải thích/Cài đặt lặp. Bỏ footer Bài mẫu mọi trang và mục Nguồn và ghi chú; dữ liệu nguồn/notes còn nguyên.404 có Cáo cầm bản đồ mới, màu vàng/berry và nút Về trang đầu.14ca scoped mobile/desktop PASS17,7s, ảnh đã xem; chưa push/deploy. [Kết quả](evaluations/welcome-footer-and-404.md).
 
 **Mới nhất11/10 — Thêm ảnh gọn hơn (ADR051):** hai tab Chọn ảnh / Chụp ảnh, chỉ hiện phần đang chọn; vẫn dán/kéo thả ảnh được. Mở camera mới hỏi quyền, chuyển tab tắt camera. Giữ màu berry/mint/lavender. File OCR cũ eng.traineddata không dùng, đã xóa và ignore theo yêu cầu. Kiểm gọn local lint/types/build và14 ca browser riêng biệt mobile/desktop PASS; chưa push/deploy. [Kết quả](evaluations/capture-tabs.md).

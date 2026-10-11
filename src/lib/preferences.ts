@@ -4,6 +4,8 @@ export type Preferences = {
   level: "Beginner" | "Intermediate";
   reduceMotion: boolean;
   sound: boolean;
+  profileName: string;
+  profileAvatar: "google" | "fox" | "cat" | "dog";
 };
 export const defaultPreferences: Preferences = {
   locale: "vi",
@@ -11,6 +13,8 @@ export const defaultPreferences: Preferences = {
   level: "Beginner",
   reduceMotion: false,
   sound: true,
+  profileName: "",
+  profileAvatar: "google",
 };
 export const preferencesKey = "wfk.preferences.v1";
 export function readPreferences(raw: string | null): Preferences {
@@ -27,6 +31,8 @@ export function readPreferences(raw: string | null): Preferences {
       level: p.level === "Intermediate" ? "Intermediate" : "Beginner",
       reduceMotion: p.reduceMotion === true,
       sound: p.sound !== false,
+      profileName: typeof p.profileName === "string" ? p.profileName.trim().slice(0, 60) : "",
+      profileAvatar: p.profileAvatar === "fox" || p.profileAvatar === "cat" || p.profileAvatar === "dog" ? p.profileAvatar : "google",
     };
   } catch {
     return defaultPreferences;

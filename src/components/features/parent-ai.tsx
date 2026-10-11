@@ -43,7 +43,7 @@ function ParentAiForm(){
     <small>{t('Chỉ gửi một câu ngắn để thử. Google có thể tính phí nếu tài khoản AI của bạn đã bật thanh toán.','Sends only a short sample prompt. Google may charge if billing is enabled on your AI account.')}</small>
     </div></details>
     <OperationStatus busy={checking} title={checking?t('Đang chờ Google kiểm tra key và model…','Waiting for Google to check the key and model…'):t('Kết quả kiểm tra AI','AI check result')} message={message} error={!!failure}/>{failure&&<AiFailureDetails details={failure}/>}
-    <details className="ai-data-note"><summary>{t('Dữ liệu gửi Google và điều kiện sử dụng','Google data use and eligibility')}</summary><p>{t('Google có thể dùng nội dung gửi miễn phí để cải thiện sản phẩm. Cắt bỏ thông tin riêng trước khi gửi. Điều khoản Google hạn chế ứng dụng dành cho hoặc dễ được người dưới 18 tuổi truy cập; dùng tài khoản người dùng không bỏ được hạn chế này.','Google may use content sent without charge to improve its products. Crop private details before sending. Google terms restrict apps directed toward or likely accessed by under-18s; using a personal account does not remove this restriction.')} <a href="https://ai.google.dev/gemini-api/terms" target="_blank" rel="noreferrer">{t('Điều khoản Google','Google terms')}</a></p></details>
+
   </section>;
 }
 

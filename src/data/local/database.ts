@@ -67,14 +67,14 @@ export async function rebuildSearch(tx: Transaction) {
   const key = (row: Pick<Base, "scopeId" | "id">) =>
     JSON.stringify([row.scopeId, row.id]);
   const lexemes = new Map(entries.map((e) => [key(e), e]));
-  const lessonMap = new Map(lessons.map((l) => [key(l), l]));
+  const lessonMap = new Map(lessons.filter(l=>!l.deletedAt).map((l) => [key(l), l]));
   const exampleMap = new Map<string, Example[]>();
-  for (const e of examples) {
+  for (const e of examples.filter(e=>!e.deletedAt)) {
     const id = key({ scopeId: e.scopeId, id: e.senseId });
     exampleMap.set(id, [...(exampleMap.get(id) ?? []), e]);
   }
   const linkMap = new Map<string, LessonItem[]>();
-  for (const l of links) {
+  for (const l of links.filter(l=>!l.deletedAt&&lessonMap.has(key({scopeId:l.scopeId,id:l.lessonId})))) {
     const id = key({ scopeId: l.scopeId, id: l.senseId });
     linkMap.set(id, [...(linkMap.get(id) ?? []), l]);
   }

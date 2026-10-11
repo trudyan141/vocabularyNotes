@@ -15,6 +15,7 @@ export function objectPatterns(word:Pick<LibraryWord,'word'|'pos'> & {vi?:string
 
 /** Evidence is a literal substring of the reviewed transcript, never a generated quote. */
 export function worksheetPatterns(word:Pick<LibraryWord,'word'|'pos'> & {vi?:string},text:string):PreparedPattern[]{
+ const family=familyPatterns(word,text);if(family.length)return family;
  const patterns=objectPatterns(word);if(!patterns.length)return [];
  const noun=word.word.toLowerCase(); // Whitelist in objectPatterns makes interpolation literal-safe.
  const question=text.match(/\bwhat\s+is\s+it\s*\?/i)?.[0];
@@ -22,4 +23,16 @@ export function worksheetPatterns(word:Pick<LibraryWord,'word'|'pos'> & {vi?:str
  const answer=text.match(new RegExp(`\\bit(?:\\s+is|['’]s)\\s+(?:a|an)\\s+${noun}\\b\\s*[.!?]?`,'i'))?.[0];
  return patterns.map(item=>{const evidence=(item.key==='what-is-it'?[question,answer]:[guess]).filter(Boolean).join(' ');
  return evidence?{...item,content:{...item.content,sourceEvidenceText:evidence,source:'Mục “Chữ gốc trên ảnh” giữ trích đoạn từ nội dung đã đọc; bản dịch, công thức, giải thích và ví dụ học thêm do dự án bổ sung, bạn kiểm lại.'}}:item;});
+}
+
+/** A small reviewed teaching fallback for the supplied family worksheet; never invent OCR. */
+function familyPatterns(word:Pick<LibraryWord,'word'|'pos'>,text:string):PreparedPattern[]{
+ if(word.word.toLowerCase()!=='family'||!['noun','danh từ'].includes(word.pos))return [];
+ const question=text.match(/\bWho\s+are\s+they\s*\?/i)?.[0];
+ const answer=text.match(/\bThey\s+are\s+a\s+family\s*\./i)?.[0];
+ if(!question||!answer)return [];
+ const common={approved:true as const,origin:'user' as const,readingHintVi:'',source:'Chữ gốc trích từ nội dung đã đọc; bản dịch và giải thích do dự án bổ sung, bạn kiểm và duyệt.',pattern:'',patternExplanation:'',grammarTitle:'',conditions:'',formula:'',analysis:'',commonError:'',correction:''};
+ return [{key:'family-question',content:{...common,example:question,exampleVi:'Họ là ai?',sourceEvidenceText:question}},
+ {key:'family-answer',content:{...common,example:answer,exampleVi:'Họ là một gia đình.',sourceEvidenceText:answer}},
+ {key:'who-are-they',content:{...common,example:`${question} ${answer}`,exampleVi:'Họ là ai? Họ là một gia đình.',sourceEvidenceText:answer,pattern:'Who are they? → They are + cụm danh từ.',patternExplanation:'Hỏi một nhóm người là ai và trả lời họ là một gia đình.',grammarTitle:'Hỏi về người: Who are they?',conditions:'Dùng who để hỏi về người. They chỉ nhiều người nên dùng are. A family nói cả nhóm là một gia đình.',formula:'Who + are + they? → They + are + cụm danh từ.',analysis:'Who hỏi “ai”; are đứng trước they trong câu hỏi. Trong câu trả lời, they đứng trước are. A family là một cụm danh từ: nhiều người cùng thuộc một gia đình.',commonError:'Who is they? / They is a family. / They are a families.',correction:'Who are they? / They are a family.'}}];
 }

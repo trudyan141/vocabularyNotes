@@ -7,3 +7,9 @@ it('keeps literal source questions and answers distinct from supplementary Vietn
 
 import {pathId} from '@/lib/path-id';
 it('decodes imported IDs once without corrupting literal percent sequences',()=>{expect(pathId('operation%3Aai-7')).toBe('operation:ai-7');expect(pathId('literal%253Avalue')).toBe('literal%3Avalue');expect(pathId('bad%')).toBe('bad%');});
+it('derives family questions from readable dialogue without treating inferred grammar as printed evidence',()=>{
+ const family={word:'family',pos:'noun'},text='Who are they?\nThey are a family.';
+ const result=worksheetPatterns(family,text);expect(result.map(row=>row.content.example)).toEqual(['Who are they?','They are a family.','Who are they? They are a family.']);
+ expect(result[2].content.conditions).toContain('They chỉ nhiều người nên dùng are');expect(result[2].content.sourceEvidenceText).toBe('They are a family.');
+ expect(worksheetPatterns(family,'Who are they?')).toEqual([]);expect(worksheetPatterns(family,'Who are they? They are teachers.')).toEqual([]);
+});

@@ -8,7 +8,7 @@ const noOverflow = async (page: import("@playwright/test").Page) =>
     )
     .toBe(true);
 
-test("welcome, keyboard skip and Today shell use three clear navigation items", async ({
+test("welcome, keyboard skip and Today shell use four clear navigation items", async ({
   page,
 }) => {
   const errors: string[] = [];
@@ -27,7 +27,7 @@ test("welcome, keyboard skip and Today shell use three clear navigation items", 
   await page.keyboard.press("Enter");
   await expect(page.locator("main")).toBeFocused();
   await page.getByRole("link", { name: "Bắt đầu", exact: true }).click();
-  await expect(page.getByRole("navigation").getByRole("link")).toHaveCount(3);
+  await expect(page.getByRole("navigation").getByRole("link")).toHaveCount(4);
   await expect(page.getByRole("link", { name: "Chơi 5 phút" })).toBeVisible();
   await expect(page.locator("footer")).toHaveCount(0);
   await noOverflow(page);
@@ -214,6 +214,8 @@ test("locale, mode, motion and sound preferences apply and persist independently
     "childFriendly",
     "level",
     "locale",
+    "profileAvatar",
+    "profileName",
     "reduceMotion",
     "sound",
   ]);
@@ -415,7 +417,7 @@ test("welcome stays simple and fills the viewport; every page has no sample foot
   await page.goto('/welcome');
   await expect(page.getByRole('heading',{name:'Cùng Cáo học tiếng Anh!',exact:true})).toBeVisible();
   await expect(page.getByRole('link',{name:'Bắt đầu',exact:true})).toBeVisible();
-  await expect(page.getByRole('link',{name:'Cài đặt',exact:true})).toHaveCount(1);
+  await expect(page.getByRole('link',{name:'Hồ sơ và đăng nhập',exact:true})).toHaveCount(1);
   await expect(page.locator('.welcome-learning, .welcome-copy small, footer')).toHaveCount(0);
   await expect(page.locator('main')).not.toContainText('Bắt đầu với bài mẫu');
   await noOverflow(page);
@@ -435,7 +437,7 @@ test("welcome stays simple and fills the viewport; every page has no sample foot
   await page.getByRole('radio',{name:'English',exact:true}).click();
   await page.goto('/welcome');
   await expect(page.getByRole('heading',{name:'Learn English with Fox!',exact:true})).toBeVisible();
-  await expect(page.getByRole('link',{name:'Settings',exact:true})).toHaveCount(1);
+  await expect(page.getByRole('link',{name:'Profile and sign in',exact:true})).toHaveCount(1);
   await page.getByRole('link',{name:'Get started',exact:true}).click();
   await expect(page).toHaveURL('/today');
 });

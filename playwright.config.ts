@@ -19,6 +19,7 @@ export default defineConfig({
         "groups.spec.ts",
         "seo.spec.ts",
         "account.spec.ts",
+        "profile-library.spec.ts",
         "parent-ai.spec.ts",
       ],
       use: {
@@ -36,6 +37,7 @@ export default defineConfig({
         "groups.spec.ts",
         "seo.spec.ts",
         "account.spec.ts",
+        "profile-library.spec.ts",
         "parent-ai.spec.ts",
       ],
       use: {

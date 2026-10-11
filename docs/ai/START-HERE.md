@@ -1,5 +1,11 @@
 # Bắt đầu / khôi phục / chuyển AI
 
+Latest11/10 ADR055: offline fallback now uses Theme C/Nunito/Cáo, colored illustrated library/game actions and word tiles, short recovery copy/focus/progress. Scope/review/save/resume preserved;14 browser cases PASS and8 final confirmations. [Evidence](../evaluations/offline-child-ui.md). Local only; ADR049/050 still apply.
+
+
+Latest11/10 ADR054: Hồ sơ/avatar/login ở header, account/current library vào `/profile`, Settings là nav thứ tư; bỏ Google data/terms disclosure. Clipboard button mobile/fallback, confirmed scoped CAS deletion, worksheet `learning[]` source sentences/inferred grammar/family dialogue saved/reloaded. Local only;96 related tests +24 distinct scoped browser cases PASS; [evidence](../evaluations/profile-avatar-mobile-paste-delete-grammar.md). Physical clipboard/live image recognition remain pending, no publish authorization.
+
+
 Latest11/10 ADR052/053: Welcome only mascot/short copy/CTA; no global sample footer or word-detail Source and notes disclosure. Provenance/notes preserved in DB. New generated map-fox404 with HTTP404/VI-EN/Home; scoped14browserPASS17,7s. [Evidence](../evaluations/welcome-footer-and-404.md). Local only, permissions/test rules049/050 remain.
 
 Latest11/10 ADR051: S04 Chọn ảnh / Chụp ảnh tabs, only selected panel, camera permission only after Open camera; leave tab stops tracks/late permission. Picker/drop/paste retained. Unused local eng.traineddata removed and *.traineddata ignored at founder request. [Scoped evidence](../evaluations/capture-tabs.md); local only under ADR049/050.

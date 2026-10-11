@@ -1,5 +1,7 @@
 # Speaking — đặc tả cho AI, hướng chạy tại thiết bị và không phát sinh phí
 
+**Latest11/10:** founder yêu cầu fix thư viện/nhóm/trùng ảnh và làm Speaking, cho phép browser test. App local có `/speaking` (Nói cùng Cáo), thu/nghe lại, download/progress/cache/delete/cancel, Worker local PCM/CTC/alignment và Gemini coaching gesture/fallback. Đây là nhận xét thử nghiệm chưa có numerical pronunciation score/calibrator/child/mobile validation; màu là quan sát máy có thể sai, không khẳng định bé sai. [Evidence hiện hành](evaluations/speaking-app-and-library-fixes.md). SP1 memory/device envelope và SP3/SP4 quality gates còn mở; không claim scoring hoàn tất. Các checkpoint cũ bên dưới là lịch sử.
+
 Cập nhật 11/10/2026: founder yêu cầu **100% miễn phí, tuyệt đối không phát sinh chi phí**, sau đó nói **“tiếp tục”**. Bắt đầu SP1 local theo [kế hoạch founder mục17](KE-HOACH-FOUNDER.md#speaking-review); không cần xin lại quyền cho code/fixture local. Đã có dependency, manifest, CTC decoder và browser/Worker inference thật; chưa có mic, điểm/màu hay game Speaking trong app. [Evidence SP1](evaluations/speaking-local-feasibility.md). Sửa lỗi TTS được kiểm riêng ở [evidence](evaluations/groups-grammar-and-audio.md).
 
 ## 1. Quyết định hiện tại và boundary
@@ -121,8 +123,8 @@ Chơi & học thêm “Nói cùng Cáo”, 5 từ từ nhóm/ngày/thư viện �
 | Bước | Deliverable | Dependency/quyền |
 |---|---|---|
 | SP0 | Một plan founder dễ đọc + spec local/0đ này | Hoàn tất; founder “tiếp tục” cho bước local |
-| SP1 | **Feasibility spike trước:** pinned q8/Worker/real local inference, download/cache/cancel; memory/latency/phone fidelity | **in_progress**: model/inference/decoder/CLI sanity done local; browser cache/cancel/memory/device envelope còn lại. Không global install/provider API/account/deploy |
-| SP2 | Mic/playback và adapter/alignment/quality/calibrator local; Gemini coaching tùy chọn + template VI fallback (mock); UI có fixture labelled | SP1 chứng minh envelope đủ dùng, tests boundary/cancel/no-cost-network |
+| SP1 | **Feasibility spike trước:** pinned q8/Worker/real local inference, download/cache/cancel; memory/latency/phone fidelity | **in_progress**: model/decoder, app browser download/cache/delete/inference done local; peak RAM/physical-device envelope còn lại. Không global install/provider API/account/deploy |
+| SP2 | Mic/playback và adapter/alignment/quality/calibrator local; Gemini coaching tùy chọn + template VI fallback (mock); UI có fixture labelled | Mic/playback/adapter/quality/VI/coaching mock implemented locally; calibrator and physical-device envelope remain open |
 | SP3 | Word scoring/colors/game thật; câu ngắn khi target/omission gate đạt | Calibration/quality evidence; build một bản cuối sau dependency/PWA thay đổi |
 | SP4 | Mẫu giọng trẻ Việt được phép, điện thoại sẵn có và người nghe tự nguyện; chốt supported devices/quality | Founder cho phép từng mẫu/thiết bị thật theo ADR049; không agent tự truy cập browser/account/data; không phát sinh thuê/mua |
 
@@ -144,7 +146,7 @@ Tests liên quan: tokenizer CTC/frame confidence/phone normalization, token-alig
 
 ## 8. Handoff
 
-Lượt “tiếp tục” đã có package/lock, public pinned manifest, decoder và CLI real browser/Worker inference, model download trong cache tạm, public licensed audio fixtures. Chưa có mic/recorder, app UI/game/scoring/calibrator/browser cache hoặc proof điện thoại. Không provider API, audio trẻ, push/deploy/account/billing. Next: hoàn tất SP1 browser download/cache/cancel/memory, rồi SP2 mic/adapter local; chưa bật điểm/màu lỗi trước quality evidence. Founder không phải chọn thêm engine. Publication/account/browser permissions theo ADR049 giữ nguyên.
+ADR062 latest: package/lock, manifest/decoder, real local app browser download/cache/delete/inference, mic/replay/target adapter, tentative color evidence/VI tips and optional mocked Gemini coaching implemented. Calibrator/numerical score/physical-mobile peak RAM/child validation remain open. No live provider call, child audio, cloud transfer, push/deploy/account/billing change. Next: actual device envelope and permitted scoring calibration. Founder does not need to select another engine. Browser permission is specific to diagnosis/tests; publishing remains ADR049.
 
 ## 9. Clarification11/10 — model storage/deletion and optional AI coaching
 
@@ -153,3 +155,13 @@ Model/runtime assets sẽ lưu bằng CacheStorage riêng theo origin/version, v
 Founder trực tiếp chọn AI nhận xét theo từng word, xác nhận project Free Tier không billing. Chốt Gemini coaching **optional/user gesture**, dùng settings key/off/restore semantics hiện có; không tự bật AI/key/default. Gửi target text/version/accent + các word indexes/expected-heard phones/quality/status đã đủ evidence, không bản thu/PCM/PII/full library. Không có evidence đáng tin → neutral coaching hoặc fallback, không giả lỗi. Prompt chỉ đưa1–2 lời khuyên tiếng Việt theo đúng word/error IDs được gửi; dùng chỉ dẫn tập âm có căn cứ, không suy tư thế miệng thực tế, sức khỏe hay tuổi từ clip. Structured response strict allowlist indexes/error IDs/VI length/plain text; không score/transcript/HTML/links/tools. AI không thay local score/colors/uncertainty; response sai index/target/revision phải discard.
 
 Một bounded call/lượt khi bấm, có AbortController/timeout, no auto retry/model/key rotation/paid fallback/grounding/search/Files API. Disabled/offline/missing key/429/4xx/5xx/schema/refusal/late scope result → template fallback và retry chủ động, không mua quota/nâng billing. Không lưu coaching/target/error payload vào cloud/backup/analytics/history trong scope này. UI phải báo trước khi gửi text/kết quả tới AI; không fake parent gate. Key không vào payload/URL/log/backup, giữ BYOK header/settings rules. Free Tier là điều kiện bên ngoài do founder xác nhận, client không tự chứng minh billing thực tế hoặc thay đổi tương lai; điều kiện provider cho app trẻ vẫn chưa xác minh. Không gọi live AI hay sửa account trong lượt này. Stage SP2 thêm coaching adapter mocked sau local assessment contract; quality gate trước score/red và speaking-game release giữ nguyên.
+
+
+## 10. Runtime local và giới hạn chất lượng hiện tại
+
+Nguồn code hiện hành: `/speaking`, `features/speaking.tsx`, `lib/speaking/client.ts`, `assessment.ts`, `coaching.ts`, `public/speaking-worker.js`, target route. Recorder MIME negotiation/10s/stop/late permission/PCM16kHz, target-revision cancel; browser cache pin/hash/marker; incremental stream hash bằng @noble/hashes2.4.0 MIT, không arrayBuffer355MB khi tải. Runtime/model vẫn lazy, không cloud audio. Cache partial có nút Xóa phần đã tải. Same-origin CMUdict US reference; unknown/heteronyms abstain. Global edit-distance acoustic alignment + variants + quality abstention là machine-observation prototype, **không calibrator/điểm xác suất**; màu đỏ hiển thị thiếu evidence của máy, không clinical/child error certainty. Nếu user muốn điểm/ELSA parity, không giả lập hoặc suyraw phone match thành score; cần SP3/SP4 calibration evidence.
+
+Coaching adapter đã có gesture/schema/index/cancel/timeout/no-retry/fallback, kiểm fixture; no live AI call hoặc policy eligibility claim. Không upload audio. Offline runtime assets được dedicated cache trả qua SW khi shell đang được control; app route/CMU target vẫn cần mở online, offline full Speaking/reload chưa chứng minh, không hứa sau một lần model download mọi flow offline hoạt động. Model/runtime file size không là peak RAM; streaming sửa duplicate download buffers, inference/device envelope vẫn cần đo.
+
+
+ADR062 implementation detail: Chrome rejected a single355MB Cache.put and buffered fixtures exhausted memory. Download now hashes incrementally and stores16MiB ONNX parts plus bounded manifest/complete marker; retrieval streams parts to the runtime. SHA/byte validation precedes ready. Cancelling leaves only non-ready partial assets, removable with Xóa phần đã tải. Runtime assets are generated from pinned installed packages, lazy-loaded, not install-time precached. Replay converts decoded mono16kHz PCM to a finite WAV header so mobile/desktop audio controls show real duration rather than WebM0:00/infinite duration. Full offline Speaking route/reference and physical-mobile peak RAM remain unverified.

@@ -996,11 +996,11 @@ Có điểm luyện nói sau khi kiểm được độ đúng của bộ chấm.
 | Điểm và ba màu | Quy tắc đối chiếu âm trong app | So âm bé nói với cách đọc của từ/câu; chưa chắc thì không kết luận sai |
 | Nhận xét tiếng Việt | **Gemini Free Tier** qua key bạn đã xác nhận; mẫu có sẵn khi không dùng được AI | AI viết lời khuyên riêng theo từng từ/lỗi đã nhận ra; hết quota, mất mạng hoặc tắt AI thì dùng mẫu, không chuyển sang dịch vụ tính phí |
 
-Dùng giao diện và hình Cáo hiện có. Nhận âm và điểm vẫn ở trên máy. Theo yêu cầu mới nhất, bước nhận xét dùng Gemini sau khi bấm **Nhận lời khuyên từ AI**: chỉ gửi câu cần đọc và kết quả từng âm/từ, không gửi bản thu, tên bé hay thư viện. AI không được tự thay điểm/màu hoặc bịa lỗi khi máy chưa nghe rõ. Key đã được bạn xác nhận Free Tier, không billing; app không tự nâng gói, đổi key hay mua quota. Đây là hướng triển khai bước Speaking sau, chưa có API nhận xét Speaking chạy trong app. Nguồn triển khai: [Transformers.js](https://huggingface.co/docs/transformers.js/v3.8.1/index) và [bản Wav2Vec2 chuyên tiếng Anh](https://huggingface.co/robg/speako-phoneme-recognizer). Đã đổi bản nhận âm trong cùng công nghệ sau khi bản đầu nghe sai nhiều từ; kết quả và lý do được ghi trong bằng chứng, bạn không phải chọn thêm.
+Dùng giao diện và hình Cáo hiện có. Nhận âm chạy trên máy; chưa có điểm phát âm chuẩn. Theo yêu cầu mới nhất, bước nhận xét dùng Gemini sau khi bấm **Nhận lời khuyên từ AI**: chỉ gửi câu cần đọc và kết quả từng âm/từ, không gửi bản thu, tên bé hay thư viện. AI không được tự thay điểm/màu hoặc bịa lỗi khi máy chưa nghe rõ. Key đã được bạn xác nhận Free Tier, không billing; app không tự nâng gói, đổi key hay mua quota. Nút nhận lời khuyên đã có trong code local; API thật chưa được gọi để kiểm thử. Nguồn triển khai: [Transformers.js](https://huggingface.co/docs/transformers.js/v3.8.1/index) và [bản Wav2Vec2 chuyên tiếng Anh](https://huggingface.co/robg/speako-phoneme-recognizer). Đã đổi bản nhận âm trong cùng công nghệ sau khi bản đầu nghe sai nhiều từ; kết quả và lý do được ghi trong bằng chứng, bạn không phải chọn thêm.
 
 ### Miễn phí có đánh đổi gì?
 
-Lần đầu cần tải khoảng **355 MB bộ nhận âm +22 MB phần chạy**, nên có nút tải riêng, báo dung lượng trước và khuyên dùng Wi-Fi sẵn có. Sau khi tải đủ và còn được lưu trên máy, hướng triển khai là xử lý giọng tại máy. Flow tải/lưu này đang là bước kế tiếp; chưa có trong app. Không tải ngầm khi bé mở trang. [Bản đã chọn](https://huggingface.co/robg/speako-phoneme-recognizer/tree/main/onnx).
+Lần đầu cần tải khoảng **355 MB bộ nhận âm +22 MB phần chạy**, nên có nút tải riêng, báo dung lượng trước và khuyên dùng Wi-Fi sẵn có. Sau khi tải đủ và còn được lưu trên máy, hướng triển khai là xử lý giọng tại máy. Flow tải/lưu/xóa đã có trong code local và kiểm bằng model thật trên desktop. Không tải ngầm khi bé mở trang. [Bản đã chọn](https://huggingface.co/robg/speako-phoneme-recognizer/tree/main/onnx).
 
 Máy yếu có thể chạy chậm hoặc không đủ bộ nhớ. Khi đó app giữ thu/nghe lại và báo chưa chấm được; **không chuyển sang dịch vụ trả phí**. Giọng bé ở trên máy, xóa khi thu lại/rời lượt; không tải giọng lên cloud. Không bật billing, mua quota, thuê máy chủ hay dùng gói trial rồi tự thu tiền. Nguồn tải miễn phí không hoạt động thì báo tải lại sau.
 
@@ -1012,11 +1012,11 @@ Có nút **Xóa bộ nhận âm**: dừng xử lý rồi chỉ xóa model/phần
 
 | Tình trạng | Nghe mẫu, thu âm, nghe lại | Nhận âm/chấm và nhận xét lỗi của lượt nói |
 |---|---|---|
-| Đã tải đủ, máy chạy được | Dùng được | Chấm tại máy; AI nhận xét riêng cần mạng/key/quota hợp lệ |
+| Đã tải đủ, máy chạy được | Dùng được | Nhận âm tại máy; tra âm mẫu cần mạng hiện tại, AI cần mạng/key/quota hợp lệ |
 | Chưa tải / đã xóa / cache bị dọn | Dùng được khi giọng đọc/mic của máy hỗ trợ | Cần tải lại để nhận âm; không có kết quả thì AI không được tự đoán bé sai từ nào |
-| Có bộ nhận âm nhưng AI tắt/hết quota/mất mạng | Dùng được | Nhận âm vẫn ở máy; dùng lời khuyên có sẵn thay AI |
+| Có bộ nhận âm nhưng AI tắt/hết quota/mất mạng | Dùng được | Nhận âm ở máy khi tra được âm mẫu; dùng lời khuyên có sẵn thay AI |
 
-Các nút tải/xóa, thu mic và nhận xét Speaking trong bảng **đang là thiết kế để triển khai**, chưa có trong app. Lượt thử trước chỉ lưu model ở thư mục tạm của máy coding. Con số318MB trong bản plan cũ đã được thay bằng355MB + khoảng22MB phần chạy.
+Các nút tải/xóa, thu mic/nghe lại và nhận xét Speaking đã có trong code local tại **Chơi & học → Nói cùng Cáo** và **Tập phát âm từ này** trong chi tiết từ. Bản nhận xét là thử nghiệm: màu chỉ mô tả âm máy nhận được; **chưa có điểm phát âm chuẩn hoặc bằng chứng giọng trẻ**. Chưa đưa thay đổi này lên website. Lượt thử cũ lưu model trong thư mục tạm của máy coding; flow app mới lưu riêng trong trình duyệt. Con số318MB trong bản plan cũ đã được thay bằng355MB + khoảng22MB phần chạy.
 
 AI có thể viết lời khuyên riêng hơn, nhưng **không bảo đảm nghe/chấm chính xác hơn** khi kết quả nhận âm đầu vào sai. Google phân biệt Free Tier và Paid Tier ở project; xác nhận key của bạn không có billing là điều kiện dùng miễn phí hiện tại, không phải app đã kiểm được tài khoản hay bảo đảm chính sách/quota không thay đổi. [Billing chính thức](https://ai.google.dev/gemini-api/docs/billing). Điều kiện dùng cho app trẻ em vẫn chưa được xác minh theo [terms](https://ai.google.dev/gemini-api/terms), nên chưa báo API Speaking đã đủ điều kiện phát hành hoặc gọi thử thật.
 
@@ -1032,4 +1032,11 @@ AI có thể viết lời khuyên riêng hơn, nhưng **không bảo đảm nghe
 
 Đã thêm ở bản code local: dưới câu ví dụ tiếng Anh có IPA của cả câu và nút Nghe đọc chính câu đó, rồi mới đến nghĩa tiếng Việt. Áp dụng cả thẻ ôn, ví dụ bổ sung, mẫu hỏi–đáp, từng bước ngữ pháp và câu lỗi/câu sửa; offline cũng có Nghe câu. Khi AI tạo bài, yêu cầu phiên âm cho từng câu đầy đủ. Sửa câu thì phiên âm cũ bị bỏ để kiểm lại. Nếu chưa có IPA chắc chắn, app nói rõ và vẫn cho nghe; không lấy phiên âm của riêng từ để thế vào.
 
-Kiểm tra local mobile/desktop, dữ liệu lưu/backup/xóa và generation bằng fixture đã qua; chưa kiểm giọng thật trên điện thoại hoặc gọi AI thật. [Bằng chứng và ảnh](evaluations/sentence-ipa-and-listening.md). Mục17 vẫn là plan Speaking; thu mic/chấm điểm/coaching AI và nút tải/xóa bộ nhận âm chưa triển khai trong app.
+Kiểm tra local mobile/desktop, dữ liệu lưu/backup/xóa và generation bằng fixture đã qua; chưa kiểm giọng thật trên điện thoại hoặc gọi AI thật. [Bằng chứng và ảnh](evaluations/sentence-ipa-and-listening.md). Mục17 đã cập nhật Speaking local: có thu/nghe lại, bộ tải/xóa và nhận xét thử nghiệm; điểm chuẩn/giọng trẻ chưa nghiệm thu.
+
+
+## 19. Sửa thư viện tài khoản, ảnh trùng và thêm bài vào nhóm — 11/10
+
+Đã xem browser thật theo quyền bạn cấp: máy tính đang dùng13 từ/1bộ riêng trên máy; tài khoản hiện0từ/0bộ. Đăng nhập không đồng nghĩa đã đưa bài cũ lên cloud. Code mới mở thư viện tài khoản trên thiết bị đăng nhập lần đầu khi chưa chọn thư viện riêng, báo rõ nếu bài còn ở máy và có nút đi thẳng tới xem trước/lưu bài lên tài khoản. Giữ bài gốc; ảnh gốc gửi riêng. Agent chưa đưa13từ thật lên cloud.
+
+Nhóm có nút rõ **Thêm từ, câu, ngữ pháp**, chọn từ/câu/ngữ pháp mới từ toàn bộ thư viện rồi lưu; mục cũ/ngày/tên bài vẫn giữ. Ảnh lặp một từ chỉ chọn một lần mặc định; nghĩa khác vẫn hiện để bạn chọn chủ động, không gộp nghĩa bằng AI hoặc tự xóa bài cũ. [Bằng chứng](evaluations/speaking-app-and-library-fixes.md).

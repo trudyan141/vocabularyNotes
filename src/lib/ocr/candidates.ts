@@ -11,10 +11,12 @@ export function candidates(text:string,mode:'listed'|'all'):OcrCandidate[]{
 
 // Exactly the same identity as local persistence. Never merge by similarity.
 export function candidateIdentity(item:Pick<OcrCandidate,'word'|'pos'|'sense'>){
- try{return JSON.stringify([canonicalKey(item.word),exactSenseKey(item.pos,item.sense)]);}catch{return null;}
+ try{return JSON.stringify([canonicalKey(item.word),exactSenseKey(normalizeOcrPos(item.pos),item.sense)]);}catch{return null;}
 }
 export function removeDuplicateCandidates(items:OcrCandidate[]){
  const chosen=new Map<string,OcrCandidate>();
  for(const item of items){const key=candidateIdentity(item);if(!key)continue;const old=chosen.get(key);if(!old||(!old.selected&&item.selected))chosen.set(key,item);}
  return items.filter(item=>{const key=candidateIdentity(item);return !key||chosen.get(key)===item;});
 }
+
+export function normalizeOcrPos(pos:string){const value=pos.normalize('NFKC').trim().toLowerCase();return ({'pron.':'pronoun','pron':'pronoun','đại từ':'pronoun','n.':'noun','n':'noun','danh từ':'noun','v.':'verb','v':'verb','động từ':'verb','adj.':'adjective','adj':'adjective'} as Record<string,string>)[value]??value;}

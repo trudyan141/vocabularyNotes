@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@huggingface/transformers": "3.8.1",
+    "@noble/hashes": "2.4.0",
     "@supabase/ssr": "0.12.7",
     "@supabase/supabase-js": "2.117.3",
     "class-variance-authority": "0.7.1",

@@ -121,7 +121,7 @@ export function WordDetail({ id }: { id: string }) {
         </Link>
       </Button>
 
-      <DeleteControl target={{table:"senses",id:entry.id,version:Number(entry.revision.split(":")[1]),revision:entry.revision}} label={t("Xóa từ này","Delete this word")} description={t(`Xóa “${entry.word}” với nghĩa này khỏi thư viện và các buổi học? Các nghĩa khác vẫn giữ.`,`Delete “${entry.word}” in this sense from your library and practice? Other senses are kept.`)} onDeleted={()=>router.push("/library")}/>
+      <Button asChild variant="secondary"><Link href={`/speaking?word=${encodeURIComponent(entry.id)}`}>{t("Tập phát âm từ này","Practise saying this word")}</Link></Button><DeleteControl target={{table:"senses",id:entry.id,version:Number(entry.revision.split(":")[1]),revision:entry.revision}} label={t("Xóa từ này","Delete this word")} description={t(`Xóa “${entry.word}” với nghĩa này khỏi thư viện và các buổi học? Các nghĩa khác vẫn giữ.`,`Delete “${entry.word}” in this sense from your library and practice? Other senses are kept.`)} onDeleted={()=>router.push("/library")}/>
     </article>
   );
 }

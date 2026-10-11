@@ -1,5 +1,12 @@
 # Nhật ký bàn giao
 
+## 11/10 — ADR062: Speaking app, account/local clarity, photo dedup and group append
+
+Founder explicitly allowed browser tests and requested implementation. Real desktop profile read-only:13words/1set local,0words/0sets cloud; no real transfer or production write. Fresh signed-in device defaults to owner-checked account library; explicit local choice and preview/backup/confirmed transfer retained. Account copy/focus refresh fixed. Photo POS alias/exact identity dedup and repeated-spelling default selection fixed without merging distinct meanings. Existing group primary **Thêm từ, câu, ngữ pháp** opens full live picker.
+
+Speaking navigation/word entry, mic10s/WAV replay/cancel/cleanup, explicit≈377MB model download/cache/delete, actual local WASM/CTC recognition, tentative word colors/VI advice and optional bounded Gemini coaching implemented locally. Download uses verified16MiB parts after actual Chrome OOM/single-cache-write failures. No numerical score or child/physical-mobile calibration, real AI/cloud integration, SQL, release, commit/push/deploy claims. [Final evidence, commands and screenshots](../evaluations/speaking-app-and-library-fixes.md); founder17/spec15/state/task checkpoints updated.
+
+
 ## 11/10 — Sentence IPA/listening, model storage FAQ and optional free AI coaching design
 
 Shared sentence row adds exact whole-sentence AudioControl to examples, additional/grammar/error/correction content, libraries/groups/preparation/review/grammar steps and flashcards; offline cards/game gain Nghe câu. Unknown IPA shows a clear status while audio stays usable; asynchronous lookups guard text. Worksheet prompt/schema supports nullable optional commonErrorIpa/correctionIpa, edit/deletion invalidation and archive preservation. Fixed same-origin dictionary403 caused by Next URL localhost normalization, preserves origin/cross-site rejection. Founder plan17/spec15 updated with355MB+22MB cache/delete/no-download behavior and user-confirmed Free Tier/no billing optional Gemini Vietnamese coaching from local evidence (no audio, no AI score override, fixed fallback). No mic/coaching runtime or live API call claimed. Scoped lint/types/build,58 unit/integration cases and local desktop/mobile checks; detailed commands/results/limits and screenshots in [evidence](../evaluations/sentence-ipa-and-listening.md). No full suite/SQL/real mic/real AI/production/push/deploy.

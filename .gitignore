@@ -51,3 +51,6 @@ next-env.d.ts
 
 # Obsolete local OCR model downloads; worksheet reading uses Gemini.
 *.traineddata
+
+# Generated from pinned installed dependency by prebuild
+/public/speaking/

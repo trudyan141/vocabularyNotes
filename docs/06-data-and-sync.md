@@ -146,3 +146,6 @@ Save expands approved lesson/day words, sentences and grammar, prefers that sour
 
 
 **11/10 — ADR060, IPA và nghe câu:** Mọi ví dụ English độc lập (ví dụ từ, bổ sung, hỏi–đáp, câu lỗi/câu sửa, từng bước grammar và thẻ ôn/offline) dùng thứ tự English → IPA toàn câu + nút Nghe → bản dịch nếu có. Nút đọc chính xác text hiện tại, độc lập việc tra IPA. Thiếu IPA chắc chắn hiển thị trạng thái rõ, vẫn cho nghe; không đoán/headword substitute. Công thức/placeholders không là câu ví dụ. Generated worksheet yêu cầu `exampleIpa`, `commonErrorIpa`, `correctionIpa` toàn đúng câu, null khi không chắc; enrichment giữ `examples[].pronunciations`. Hai field lỗi/sửa optional trong JSON, giữ qua backup/cloud và clear khi sửa/xóa phần tương ứng. Không verified tự động. [Evidence](evaluations/sentence-ipa-and-listening.md).
+
+
+**11/10 — ADR062:** Đăng nhập không tự chuyển bài guest lên cloud. Device chưa chọn loại thư viện và có session hợp lệ mở account với owner check; lựa chọn guest/demo đã chọn giữ nguyên. Profile phân biệt bài local/cloud, dẫn tới xem trước/backup/confirmed transfer. Account sync refresh khi focus/visibility/online, giữ outbox/conflict/ownership hiện có. Không sửa/xóa hay tự đưa dữ liệu thật lên cloud trong kiểm tra này. [Evidence](evaluations/speaking-app-and-library-fixes.md).

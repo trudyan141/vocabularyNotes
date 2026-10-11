@@ -5,6 +5,7 @@ self.addEventListener('install',event=>event.waitUntil(caches.open(VERSION).then
 self.addEventListener('activate',event=>event.waitUntil((async()=>{for(const key of await caches.keys())if((key.startsWith('wfk-public-')&&key!==VERSION)||key==='wfk-ocr-v1')await caches.delete(key);await self.clients.claim();})()));
 self.addEventListener('fetch',event=>{const url=new URL(event.request.url);if(url.origin!==self.location.origin||event.request.method!=='GET')return;
 
+ if(url.pathname.startsWith('/speaking/runtime/')){event.respondWith((async()=>{for(const key of await caches.keys())if(key.startsWith('wfk-speaking-model-')){const cached=await(await caches.open(key)).match(event.request);if(cached)return cached;}return fetch(event.request);})());return;}
  if(event.request.mode==='navigate'){event.respondWith(fetch(event.request).catch(()=>caches.match('/offline.html')));return;}
  // Only public assets. No API, RSC, document HTML, account content or remote resources.
  if(SHELL.includes(url.pathname)||/^\/illustrations\/online\/[A-F0-9-]+$/.test(url.pathname)||/^\/illustrations\/(?:[a-z-]+|openmoji\/[A-F0-9-]+)\.svg$/.test(url.pathname)){event.respondWith((async()=>{const cached=await caches.match(event.request);if(cached)return cached;const response=await fetch(event.request);if(response.ok){const cache=await caches.open(VERSION);await cache.put(event.request,response.clone());}return response;})());}

@@ -1626,3 +1626,19 @@ html[data-motion="reduced"] [data-slot="button"],html[data-motion="reduced"] [da
 .group-grammar { display:grid; gap:20px; }
 .group-grammar .grammar-formula { font-size:1.15rem; font-weight:800; }
 @media(max-width:700px) { .group-date-sets { grid-template-columns:1fr; } .group-tabs { flex-wrap:wrap; } .group-date-set[data-slot=button] { padding:14px; } }
+.speaking-stage { align-items:center; text-align:center; background:var(--mint,#dff3e8); padding:24px; border-radius:24px; }
+.speaking-target { font-size:clamp(1.5rem,5vw,2.3rem); font-weight:800; overflow-wrap:anywhere; }
+.speaking-recorder audio { width:100%; max-width:440px; }
+.speaking-token { padding:8px 14px; border-radius:12px; font-size:1.3rem; font-weight:800; }
+.speaking-token.match { background:#d9f3dd; color:#20582b; }
+.speaking-token.retry { background:#ffe6c0; color:#7c4208; }
+.speaking-token.missing { background:#ffe0e4; color:#932d42; }
+.speaking-token.uncertain { background:#ede7ee; color:#57465c; }
+.speaking-advice { padding:14px; border-left:4px solid #a38cac; }
+.speaking-advice.match { border-color:#3d9b57; }
+.speaking-advice.retry { border-color:#c47b22; }
+.speaking-advice.missing { border-color:#c34a65; }
+.speaking-download { padding:20px; border-radius:24px; }
+.speaking-download progress { width:100%; }
+.speaking-page .sentence-reading { justify-content:center; }
+.speaking-page .sentence-reading .sentence-ipa { flex:0 1 auto; }

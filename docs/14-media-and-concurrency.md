@@ -1,5 +1,15 @@
 # Ảnh học, animation và xử lý song song — Words for Kids
 
+12/10 ADR077: group select-all bật/tắt giữ lựa chọn ngoài lọc; lesson picker dùng hình/name/ngày học+createdAtHH:mm:ss/counts/word preview. Bài ảnh mới default4từ đã duyệt, giữ custom/legacy. Added mint/duplicate lilac details đóng mặc định. Editor luôn hiện hình hiện tại trước Đổi hình. Bổ sung hình có Không bổ sung bền qua reload, preference local IndexedDB theo scope, không sửa content/SRS và chưa backup/cloud; vẫn sửa hình trong editor. [Evidence](evaluations/group-picker-and-pictures.md).
+
+
+12/10 ADR076: hình editor staged tới1Save chung; validate/hash ngoài transaction hoặc Dexie.waitFor khi tái dùng transaction, không để parent transaction auto-commit giữa chừng. Giữ sense/revision/owner binding và attribution. Empty/missing-picture UI ưu tiên mascot/hình2D dễ thương gốc; reuse asset trước, generate riêng được khi cần. Cuteness không bỏ license/source hay gắn quyền dùng chỉ bằng attribution. [Evidence](evaluations/edit-save-navigation.md).
+
+## Hiện hành12/10 — ADR074
+
+Search ưu tiên minh họa OpenMoji có nguồn/tác giả/CCBYSA4 trước Commons; chỉ trusted fixed metadata SVG có thể normalize. Commons loại historical political cartoon/engraving và yêu cầu subject+illustration trong metadata. User có thể tìm ngoài/chọn file paid hoặc owned; optional nguồnHTTPS/filename lưu như User supplied, không giả license. Upload4MB/12MP đầu vào, normalizedJPEG512px/500KB, EXIF strip/signedreceipt/quota/owner/revision, backup/cloud. Không tự bật paid API hoặc coi source capture là authorization. Explicit word-content approval rebinds owned ready picture; revoked vẫn bị chặn.
+
+
 ## Quyết định hiện hành 10/10/2026 — ADR-030
 
 Founder đã yêu cầu **Gemini thay OpenAI** trong BYOK, ưu tiên model free tier và đổi nhiều model. Browser gọi trực tiếp Google generateContent bằng header x-goog-api-key, ảnh inline JPEG, systemInstruction coi ảnh là data, structured responseFormat JSON/schema; parse STOP/non-thought/strict DTO/evidence, max50/90s/500KB/cancel/no retry/Web Locks. Không key/ảnh đi qua app server, không key trong URL/IDB/backup/sync/env. Session mặc định/localStorage opt-in/delete giữ theo ADR029. Cấu hình cũ OpenAI bỏ qua, không gửi key cũ sang Google. Bốn model3.5FlashLite(default)/3.1FlashLite/3.6Flash/3.8Flash và custom Gemini ID; không tự fallback model hoặc bật billing. AI_PROVIDER server vẫn none (gateway planned).

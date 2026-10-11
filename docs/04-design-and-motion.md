@@ -1,5 +1,49 @@
 # UI, UX và animation — Words for Kids
 
+12/10 ADR079 — founder bỏ Câu độc lập: library/group chỉ2tab Từ/Ngữ pháp rộng bằng nhau; thêm group chỉ words/grammar hoặc cảbài/ngày, không add sentence refs mới. Ví dụ câu/IPA/audio trong word/grammar vẫn lưu và xem bình thường. Giữ legacy records/refs/backup/cloud; old sentence bookmark mở word chứa ví dụ. Review demo bỏ sentence tab. Supersede3tab cũ; Xếp câu là game grammar vẫn giữ. [Evidence](evaluations/two-learning-types.md).
+
+
+12/10 — ADR078: thiết kế cảm giác app mobile dùng UI/UX Pro Max + Impeccable: hierarchy rõ, CTA/touch feedback, điều hướng liên tục, form/keyboard, safe-area và trạng thái có minh họa. Responsive chỉ là baseline; giữ Theme C/Next.js/PWA. [Tiêu chí và cách áp dụng](skills/MOBILE-UX.md).
+
+12/10 ADR077: group select-all bật/tắt giữ lựa chọn ngoài lọc; lesson picker dùng hình/name/ngày học+createdAtHH:mm:ss/counts/word preview. Bài ảnh mới default4từ đã duyệt, giữ custom/legacy. Added mint/duplicate lilac details đóng mặc định. Editor luôn hiện hình hiện tại trước Đổi hình. Bổ sung hình có Không bổ sung bền qua reload, preference local IndexedDB theo scope, không sửa content/SRS và chưa backup/cloud; vẫn sửa hình trong editor. [Evidence](evaluations/group-picker-and-pictures.md).
+
+
+## 12/10 — ADR076: lưu một lần, phản hồi tại hành động
+
+Editor có1Save; không checkbox review/preview/approve lặp. Hình trong editor staged đến Save chung. Mọi submit API dùng pending/success/fail tại nút; success nền mint/chữ đậm/iconcheck, failure đỏ + lỗi phía trên nút; field validation tại input, mở/focus section lỗi. CSS trạng thái phải thắng variant và hover; không chỉ đổi nhãn. Đổi input đưa nút về idle, giữ nội dung sau lỗi. Không toast/provider payload; thao tác file/background/game có semantics riêng. Shared MainNavigation luôn có ở detail/edit/capture/session/public/error; chừa safe-area + chiều cao footer, sticky Save không nằm dưới nav. Trash icon accessible trên toolbar, không kẹp chữ destructive cạnh title dài.
+
+Empty state ưu tiên hình minh họa thật dễ thương cho bé: mascot gốc + heading dễ hiểu và CTA phù hợp (xóa lọc, thêm từ, về thư viện). Dùng asset có sẵn trước; có thể generate hình gốc nếu thiếu, giữ bản tĩnh/reduced-motion. Không dùng icon sách nhỏ/text trống làm default cho màn no-data. Bổ sung hình phân biệt thư viện chưa có từ với tất cả đã có hình. Việc chọn mobile-responsive ở ADR076 đã bị thay bởi ADR078; xem [hướng dẫn mobile UX](skills/MOBILE-UX.md). Skill không thay local/physical-user evidence. [Verification](evaluations/edit-save-navigation.md).
+
+
+## Hiện hành12/10 — ADR075
+
+Search/filter card with search icon, compact icon radio chips. Detail toolbar Back and icon trash before title; long title never shares line with destructive text. Grammar detail ALWAYS includes color-coded step guide, exact IPA/audio/VI, finite Play/Pause/Replay/manual steps and reduced-motion static. Generic supplied grammar too; do not remove guide in refactors. Error/correction have separate readable tints. Group results actual-added count/duplicates vs neutral unchanged, not generic success.
+
+
+## Hiện hành12/10 — ADR074
+
+Today2section Ôn bài/Thêm từ, review-group route. Xếp câu có token buttons, answer area, hint/audio/formula; tile full-row, recent-session cards có hình/mode/date/result. Không popup/extra rules. Theme C giữ.
+
+
+## Hiện hành12/10 — ADR072/073
+
+Ba tab bằng nhau Từ/Câu/Ngữ pháp. Pattern thuộc grammar, không tab thứ tư. Câu/ngữ pháp card ngắn chỉ structure/example, mở route detail thay Sheet. Filter inline ngay trên danh sách. Bỏ prepared-image picker, từng từ thiếu hình có Tìm hình và chọn thumbnail nguồn mở. WordDetail chỉ examples, không grammar/pattern clutter.
+
+
+12/10 ADR070: Today no word search/preview strip. Play setup collapsed with labeled selects; no sound toggle. Group mint header with counts/primary Play, secondary Add and top delete;6dated sets/page,12content items/page. Dated set delete inside detail. [Evidence](evaluations/compact-games-and-groups.md).
+
+
+12/10 ADR069: Today review FeatureAction illustrated card. All six Play tiles use picture-first column layout, including Speaking link. Picture preparation lists missing word/name/VI and licensed picker, contains no supplemental patterns. Group editor success shows one message, hides save/footer until new edits. [Evidence](evaluations/review-pictures-and-group-save.md).
+
+
+## 12/10 — ADR068: Today/review/backup gọn
+
+Today: Gõ từ mới + Thêm bài từ ảnh cùng FeatureAction illustrated card; chỉ một bài gần nhất, tất cả bộ vẫn ở thư viện. Không rename Today/list; edit tên/ngày ở Chi tiết bộ theo ngày trong filtered library. Review mỗi từ accordion đóng mặc định, chỉ hình/tên; bung riêng để chọn/sửa/credit. Settings một Sao lưu và khôi phục, export full archive và restore nhận cả text file cũ. [Bằng chứng](evaluations/compact-home-and-review.md).
+
+## 12/10 — ADR067: luồng ảnh và key đơn giản
+
+Cài đặt chỉ Cài đặt key AI → nhập/Lưu key; bỏ on/off/disclosure/model/test UI và cả khối Chấm phát âm. Editor Phân tích ảnh gửi ngay theo thao tác này, bỏ consent/privacy checkbox và màn xác nhận thứ hai. Review tự loại exact duplicate, chỉ hiện tên trùng khi có, Duyệt và lưu là approval; không checked gate. Autosave/restore/CAS/evidence/IPA, khác nghĩa/POS và atomic save giữ nguyên; reload/restored draft không tự gửi AI. Theo steering trực tiếp, các đoạn consent/checkbox/test UI cũ dưới đây là lịch sử nếu xung đột. [Bằng chứng](evaluations/simple-photo-review.md).
+
 ## Offline thân thiện cho bé — ADR055, 11/10/2026
 
 Màn fallback khi mất mạng dùng cùng Nunito/Theme C, Cáo và hình đã cache: lời chào ngắn, hai nút có màu/hình để mở Bài của con hoặc Bài mẫu, nút Thử kết nối lại có kiểu nút rõ ràng. Bài tài khoản vẫn cần mạng/đăng nhập; không tự chọn scope hoặc mở dữ liệu tài khoản. Thư viện có CTA ôn đến hạn, năm trò chơi có minh họa, thẻ từ gồm hình/English/nghĩa thay danh sách text. Không có hình hoặc ảnh chưa cache: biểu tượng sách có nhãn Chưa có hình, không đoán hình cho nghĩa. Màn ôn/game có màu, tiến độ, feedback và nút chính; ba lựa chọn ngang bằng nhau ở360px. Chuyển màn đưa focus về heading và đầu màn. Empty/search/error có lời ngắn và cách tiếp tục. Giữ duyệt nội dung, scope/CAS, chống trùng, SRS/resume, consent và attribution/IPA cả câu; không tự gửi AI.
@@ -64,7 +108,7 @@ Shared controls use berry primary with soft depth, lavender secondary, white out
 
 Ba nav `Hôm nay · Từ của con · Chơi & học`; CTA `Chơi 5 phút` khi có dữ liệu; lúc rỗng `Thêm bài mới` mở trực tiếp. Header có Cài đặt; capture/login/sync/key/edit/media review không có hộp thoại phân vai theo ADR046. Trẻ nghe→chọn 2–3 hình là đường gợi ý Beginner; còn bốn game theo khả năng đọc/gõ. Detail ưu tiên hình, từ, Nghe, nghĩa ngắn và một ví dụ; nội dung dài mở thêm. Voice cues do bé bấm cho trẻ chưa đọc, không autoplay.
 
-Áp dụng product-design cho một CTA/recovery/control, frontend-design cho visual riêng, motion-design cho purpose/choreography, ui-animation cho SVG/interruptions, bilingual-learning-content cho câu ngắn đúng nghĩa. UI/UX Pro Max local query children education trả cả blue/marketing/claymorphism: không áp phần không phù hợp brief. Inspo Headspace gợi friendliness, Duolingo gợi controls lớn/feedback, Daybridge gợi pastel, Bear gợi thư viện đọc rõ; không copy asset. [Nguồn và giới hạn](design/inspo-research.md).
+Áp dụng UI/UX Pro Max + Impeccable shape/operate cho CTA/recovery/control, frontend-design cho visual riêng, LottieFiles motion-design + Impeccable animate cho purpose/choreography/interruptions, bilingual-learning-content cho câu ngắn đúng nghĩa. UI/UX Pro Max local query children education trả cả blue/marketing/claymorphism: không áp phần không phù hợp brief. Inspo Headspace gợi friendliness, Duolingo gợi controls lớn/feedback, Daybridge gợi pastel, Bear gợi thư viện đọc rõ; không copy asset. [Nguồn và giới hạn](design/inspo-research.md).
 
 ## Minh họa và bố cục được founder sửa ngày 09/10/2026
 
@@ -164,3 +208,5 @@ Picker có phân trang phải có **Chọn tất cả N** cho toàn bộ kết q
 
 
 **11/10 — ADR060, IPA và nghe câu:** Mọi ví dụ English độc lập (ví dụ từ, bổ sung, hỏi–đáp, câu lỗi/câu sửa, từng bước grammar và thẻ ôn/offline) dùng thứ tự English → IPA toàn câu + nút Nghe → bản dịch nếu có. Nút đọc chính xác text hiện tại, độc lập việc tra IPA. Thiếu IPA chắc chắn hiển thị trạng thái rõ, vẫn cho nghe; không đoán/headword substitute. Công thức/placeholders không là câu ví dụ. Generated worksheet yêu cầu `exampleIpa`, `commonErrorIpa`, `correctionIpa` toàn đúng câu, null khi không chắc; enrichment giữ `examples[].pronunciations`. Hai field lỗi/sửa optional trong JSON, giữ qua backup/cloud và clear khi sửa/xóa phần tương ứng. Không verified tự động. [Evidence](evaluations/sentence-ipa-and-listening.md).
+
+12/10 ADR077: picker Từ/Câu/Ngữ pháp/Bài sort createdAt giảm dần để mục mới thêm nằm đầu; ngày group theo bài tạo mới nhất và trong ngày cùng thứ tự. Giữ tên/ngày học và dedup refs.

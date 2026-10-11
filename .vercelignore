@@ -1,0 +1,17 @@
+# Deploy only app/build sources; keep credentials and local evidence private.
+.git
+.agents
+.env*
+!.env.example
+.vercel/.env*
+docs
+tests
+test-results
+playwright-report
+supabase
+.venv-docs
+node_modules
+.next
+coverage
+public/speaking
+public/startup

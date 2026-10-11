@@ -1,12 +1,42 @@
 'use client';
-import {DeleteControl} from './delete-control';
-import {SentencePronunciation} from '@/components/app/sentence-pronunciation';
-import {GrammarSteps} from './grammar-steps';
 import {useState} from 'react';
-import Link from 'next/link';
 import {useLiveQuery} from 'dexie-react-hooks';
 import {useApp} from '@/components/app/provider';
 import {DatabaseLoading,ReadFailure} from '@/components/app/database-boundary';
 import {Button} from '@/components/ui/button';
-import {learningItems,type ContentMode} from '@/data/local/learning-library';
-export function ContentLibrary({mode,query,lesson}:{mode:ContentMode;query:string;lesson:string|null}){const {repository,t}=useApp();const [offset,setOffset]=useState(0);const data=useLiveQuery(async()=>{if(!repository)return null;try{return {scope:repository.scope.id,error:false,...await learningItems(repository,mode,query,lesson,offset)};}catch{return {scope:repository.scope.id,error:true,total:0,items:[]};}},[repository,mode,query,lesson,offset]);if(!data||data.scope!==repository?.scope.id)return <DatabaseLoading/>;if(data.error)return <ReadFailure/>;return <section className="page-flow"><p role="status">{data.total} {t('mục đã duyệt','approved items')}</p>{!data.total&&<p>{t('Chưa có nội dung khớp. Bạn có thể thêm ví dụ, mẫu câu hoặc ngữ pháp trong Sửa từ, rồi duyệt trước khi bé học.','No matching content. Users can add examples, patterns or grammar in Edit word and approve them before learning.')}</p>}{data.items.map(item=><article key={item.id} className="example-block page-flow"><h2>{item.title}</h2><p lang="en">{item.textEn}</p>{mode==='sentences'&&<SentencePronunciation text={item.textEn} pronunciations={item.pronunciations} ipa={item.exampleIpa}/>}<p>{item.textVi}</p>{mode!=='sentences'&&item.example&&<><p lang="en">{item.example}</p><SentencePronunciation text={item.example} ipa={item.exampleIpa}/><p>{item.exampleVi}</p></>}{item.pronunciations?.map((p,i)=><div key={i}>{p.readingHintVi&&<p className="reading-hint">{t('Cách đọc gần đúng: ','Reading hint: ')}{p.readingHintVi}</p>}</div>)}{item.readingHintVi&&<p className="reading-hint">{t('Cách đọc gần đúng: ','Reading hint: ')}{item.readingHintVi}</p>}{item.analysis&&<p>{item.analysis}</p>}{item.mistake&&<><p>{t('Lỗi dễ nhầm: ','Common mistake: ')}<span lang="en">{item.mistake}</span></p><SentencePronunciation text={item.mistake??''} ipa={item.mistakeIpa}/></>}{item.correction&&<><p>{t('Sửa thành: ','Correction: ')}<span lang="en">{item.correction}</span></p><SentencePronunciation text={item.correction??''} ipa={item.correctionIpa}/></>}{item.sourceEvidenceText&&<p>Chữ gốc trên ảnh: <q lang="en">{item.sourceEvidenceText}</q></p>}{mode!=='sentences'&&<GrammarSteps pattern={item.textEn}/>}{item.source&&<small>{item.source}</small>}<Button asChild variant="outline"><Link href={`/library/words/${item.senseId}`}>{t('Xem từ và ngữ cảnh','View word and context')}</Link></Button><DeleteControl target={{table:item.table,id:item.id,version:item.version,part:mode==='sentences'?undefined:mode}} label={mode==='sentences'?t('Xóa câu','Delete sentence'):mode==='patterns'?t('Xóa mẫu câu','Delete pattern'):t('Xóa ngữ pháp','Delete grammar')} description={mode==='sentences'?t('Xóa câu này và phần mẫu câu/ngữ pháp đi kèm nếu có? Từ và câu khác vẫn giữ.','Delete this sentence and its attached pattern/grammar, if any? The word and other sentences are kept.'):t('Xóa phần này? Câu ví dụ và nội dung khác vẫn giữ.','Delete this section? The example and other content are kept.')}/></article>)}{data.total>50&&<div className="row-wrap"><Button disabled={!offset} variant="outline" onClick={()=>setOffset(Math.max(0,offset-50))}>{t('Trang trước','Previous')}</Button><p>{offset+1}–{Math.min(data.total,offset+50)} / {data.total}</p><Button disabled={offset+50>=data.total} variant="outline" onClick={()=>setOffset(offset+50)}>{t('Trang tiếp','Next')}</Button></div>}</section>;}
+import Link from 'next/link';
+import {Back} from '@/components/app/shared';
+import {SentencePronunciation} from '@/components/app/sentence-pronunciation';
+import {learningItems,type LearningItem} from '@/data/local/learning-library';
+import {GrammarSteps} from './grammar-steps';
+import {DeleteControl} from './delete-control';
+
+export function LearningCard({item,mode='grammar'}:{item:LearningItem;mode?:'grammar';removable?:boolean}) {
+ return <Link className="learning-summary" href={`/library/${mode}/${encodeURIComponent(item.id)}?table=${item.table}`}><strong lang="en">{item.textEn}</strong>{item.example&&item.example!==item.textEn&&<span lang="en">{item.example}</span>}</Link>;
+}
+export function LearningDetail({id,mode}:{id:string;mode:'grammar'}) {
+ const {repository,t}=useApp();
+ const data=useLiveQuery(async()=>{if(!repository)return null;try{return {scope:repository.scope.id,item:(await learningItems(repository,mode,'',null,0,Number.MAX_SAFE_INTEGER)).items.find(item=>item.id===id||item.related?.some(child=>child.id===id)),error:false};}catch{return {scope:repository.scope.id,error:true,item:undefined};}},[repository,mode,id]);
+ if(!data||data.scope!==repository?.scope.id)return <DatabaseLoading/>;if(data.error)return <ReadFailure/>;
+ const item=data.item;if(!item)return <div className="page-flow"><Back href={`/library?mode=${mode}`}/><p>{t('Mục này không còn trong thư viện.','This item is no longer in the library.')}</p></div>;
+ const examples=[item,...(item.related??[]),...(item.variants??[]).map(variant=>({...item,id:`${item.id}:${variant.example}`,related:undefined,variants:undefined,textEn:variant.formula,textVi:variant.conditions??'',example:variant.example,exampleVi:variant.exampleVi,exampleIpa:variant.exampleIpa,analysis:variant.analysis,mistake:variant.commonError,mistakeIpa:variant.commonErrorIpa,correction:variant.correction,correctionIpa:variant.correctionIpa}))];
+ const title=item.family==='be-it-yes-no'?t('Hỏi và trả lời với “Is it…?”','Ask and answer with “Is it…?”'):item.title;
+ const targets=[item,...(item.related??[])].map(row=>({table:row.table,id:row.id,version:row.version}));
+ return <article className="reading-page page-flow learning-detail"><div className="learning-detail-toolbar"><Back href={`/library?mode=${mode}`}/><DeleteControl iconOnly target={targets[0]} targets={targets} label={t('Xóa mục này','Delete item')} description={t('Xóa bài này? Từ và các bài khác vẫn giữ.','Delete this lesson? Words and other lessons are kept.')}/></div><h1>{title}</h1>
+ {mode==='grammar'&&<GrammarSteps pattern={item.family==='be-it-yes-no'?'Is + it':item.textEn} conditions={item.textVi} analysis={item.analysis} examples={examples.map(row=>({textEn:row.example||row.textEn,textVi:row.exampleVi||row.textVi,ipa:row.exampleIpa,formula:row.textEn,analysis:row.analysis||row.textVi}))}/>}
+ {examples.map(row=><section className="grammar-example-section page-flow" key={row.id}>{row.example&&row.textEn!==row.example&&<p className="grammar-formula" lang="en">{row.textEn}</p>}<p className="grammar-english" lang="en">{row.example||row.textEn}</p><SentencePronunciation text={row.example||row.textEn} pronunciations={row.pronunciations} ipa={row.exampleIpa}/><p>{row.exampleVi||row.textVi}</p>{row.example&&row.textVi!==row.exampleVi&&<p>{row.textVi}</p>}{row.analysis&&<p>{row.analysis}</p>}
+ {row.mistake&&<div className="grammar-mistake"><strong>{t('Dễ nhầm','Watch out')}</strong><p lang="en">{row.mistake}</p><SentencePronunciation text={row.mistake} ipa={row.mistakeIpa}/></div>}
+ {row.correction&&<div className="grammar-correction"><strong>{t('Câu đúng','Correct sentence')}</strong><p lang="en">{row.correction}</p><SentencePronunciation text={row.correction} ipa={row.correctionIpa}/></div>}
+ </section>)}
+ </article>;
+}
+
+export function ContentLibrary({mode,query,lesson}:{mode:'grammar';query:string;lesson:string|null}) {
+ const {repository,t}=useApp();const [offset,setOffset]=useState(0);
+ const data=useLiveQuery(async()=>{if(!repository)return null;try{return {scope:repository.scope.id,error:false,...await learningItems(repository,mode,query,lesson,offset,12)};}catch{return {scope:repository.scope.id,error:true,total:0,items:[]};}},[repository,mode,query,lesson,offset]);
+ if(!data||data.scope!==repository?.scope.id)return <DatabaseLoading/>;if(data.error)return <ReadFailure/>;
+ return <section className="page-flow"><p role="status">{data.total} {t('mục','items')}</p>{!data.total&&<p>{t('Chưa có ngữ pháp phù hợp.','No matching grammar.')}</p>}
+ {data.items.map(item=><LearningCard key={`${item.table}:${item.id}`} item={item} mode="grammar"/>)}
+ {data.total>12&&<nav className="picker-pagination"><Button disabled={!offset} variant="secondary" onClick={()=>setOffset(Math.max(0,offset-12))}>{t('Trước','Previous')}</Button><span>{offset/12+1} / {Math.ceil(data.total/12)}</span><Button disabled={offset+12>=data.total} variant="secondary" onClick={()=>setOffset(offset+12)}>{t('Sau','Next')}</Button></nav>}
+ </section>;
+}

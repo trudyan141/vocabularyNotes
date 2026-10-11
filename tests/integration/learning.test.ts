@@ -150,3 +150,13 @@ it('keeps grammar example and correction IPA in every projection and archive res
  expect((await restored.db.table('sentences').get([restored.scope.id,'grammar-ipa']))!.payload.content).toMatchObject({example:content.example,commonErrorIpa:content.commonErrorIpa,correctionIpa:content.correctionIpa});
  expect((await learningItems(restored,'grammar','')).total).toBe(0); // Existing restore requires sense review, not data loss.
 });
+
+it('picture-only preparation saves a missing illustration without adding grammar or changing text',async()=>{const r=repo();const book=catalog.find(w=>w.word==='book')!;await r.saveLesson({operationId:'image-only',title:'Pictures',learnedOn:'2026-10-12',sourceType:'manual',items:[{...book,id:'image-book',art:null,approved:true}]});const before=(await r.word('image-book'))!;const count=(await learningItems(r,'grammar','')).total;await r.prepareLearning([{id:before.id,revision:before.revision,art:'book'}],null);const after=(await r.word(before.id))!;expect(after).toMatchObject({word:before.word,en:before.en,vi:before.vi,example:before.example,art:'book'});expect((await learningItems(r,'grammar','')).total).toBe(count);});
+
+it('shows one combined lesson item for sentence, pattern and grammar without losing detail',async()=>{
+ const r=repo();await seed(r,1);const word=(await r.word('word-0'))!;
+ const content={...objectPatterns(word)[0].content,senseId:word.id,targetRevision:word.revision};await saveContent(r,'combined',null,content);
+ const combined=(await learningItems(r,'learning','')).items.filter(item=>item.id==='combined');
+ expect(combined).toHaveLength(1);expect(combined[0]).toMatchObject({textEn:content.formula||content.pattern,example:content.example,analysis:content.analysis,exampleIpa:content.exampleIpa});
+ expect((await learningItems(r,'learning',content.formula)).items.some(item=>item.id==='combined')).toBe(true);
+});

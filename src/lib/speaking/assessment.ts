@@ -2,7 +2,7 @@ import {articulation} from './articulation';
 import type {HeardPhone} from './ctc';
 export type TargetWord={text:string;variants:string[][]};
 export type PhoneFeedback={expected:string;heard:string|null;status:'match'|'retry'|'missing'|'uncertain';advice:string};
-export type WordFeedback={index:number;text:string;expected:string[];heard:string[];status:'match'|'retry'|'missing'|'uncertain';advice:string;phones?:PhoneFeedback[]};
+export type WordFeedback={index:number;text:string;expected:string[];heard:string[];status:'match'|'retry'|'missing'|'uncertain';advice:string;score?:number|null;phones?:PhoneFeedback[]};
 const neighbours=new Set(['æ:ɛ','ɛ:ɪ','ɪ:i','ʊ:u','ɑ:ɔ','ə:ɑ','ʌ:ə','p:b','p:f','t:d','k:g','s:z','f:v','θ:s','θ:t','ð:d','ð:z','r:l','r:w','ʃ:s','ʒ:z','tʃ:dʒ'].flatMap(pair=>[pair,pair.split(':').reverse().join(':')]));
 const comparable=(p:string)=>p.replace('ɡ','g').replace('ɹ','r').replace('ʌ','ə').replace('ɚ','ɝ').replace('ɑɹ','ɝ');
 export function assessPhones(words:TargetWord[],heard:HeardPhone[]):WordFeedback[]{
@@ -48,6 +48,7 @@ export function recordingQuality(samples:Float32Array){
  * Acoustic uncertainty has no score; insertion/deletion cannot earn full credit. */
 export function pronunciationScore(feedback:WordFeedback[]):number|null{
  if(!feedback.length||feedback.some(word=>word.status==='uncertain'||!word.phones?.length||word.phones.some(phone=>phone.status==='uncertain')))return null;
+ if(feedback.every(word=>word.score!==undefined))return feedback.some(word=>word.score===null)?null:Math.round(feedback.reduce((sum,word)=>sum+word.score!,0)/feedback.length);
  let earned=0,total=0;
  for(const word of feedback){total+=Math.max(word.expected.length,word.heard.length);for(const phone of word.phones!){earned+=phone.status==='match'?1:phone.status==='retry'?.5:0;}}
  return total?Math.round(100*earned/total):null;

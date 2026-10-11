@@ -28,8 +28,6 @@ export async function deleteItem(repo:LocalRepository,target:DeleteTarget){
    if(target.table==='lessons'){
     const links=await repo.db.lessonItems.where('[scopeId+lessonId]').equals([repo.scope.id,row.id]).filter(link=>!link.deletedAt).toArray();
     for(const link of links)await remove('lessonItems',link);
-    const contents=await repo.db.table('sentences').where('[scopeId+id]').between([repo.scope.id,''],[repo.scope.id,'\uffff']).filter(c=>!c.deletedAt&&c.payload.content?.lessonId===row.id).toArray();
-    for(const content of contents)await remove('sentences',content);
     await rebuildSearch(Dexie.currentTransaction!);
    }
   }

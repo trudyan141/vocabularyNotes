@@ -164,7 +164,8 @@ test("detail hides navigation and metadata, handles missing art and supports pre
   await page
     .getByLabel("Nghĩa tiếng Việt", { exact: true })
     .fill("bờ của dòng sông");
-  await page.getByRole("button", { name: "Lưu chỉnh sửa trên máy" }).click();
+  await page.getByRole("button", { name: "Lưu chỉnh sửa" }).click();
+  await expect(page.getByRole('button',{name:'Đã lưu chỉnh sửa',exact:true})).toBeVisible();await page.getByRole('link',{name:'Quay lại',exact:true}).click();
   await expect(
     page.getByRole("heading", { name: "bờ của dòng sông", exact: true }),
   ).toBeVisible();

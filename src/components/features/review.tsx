@@ -1,5 +1,4 @@
 "use client";
-import {SentencePronunciation} from "@/components/app/sentence-pronunciation";
 import { useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -29,7 +28,7 @@ import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useApp, useHydrated } from "@/components/app/provider";
 import { Artwork, Back, EmptyState } from "@/components/app/shared";
-import { demoPatterns, validCandidate, type Candidate } from "@/lib/demo/model";
+import { validCandidate, type Candidate } from "@/lib/demo/model";
 
 function CandidateEditor({
   candidate,
@@ -286,11 +285,8 @@ export function Review({ draftId }: { draftId: string }) {
         </aside>
         <section aria-label={t("Kết quả minh họa", "Illustrative results")}>
           <Tabs defaultValue="words">
-            <TabsList aria-label={t("Loại nội dung", "Content type")}>
+            <TabsList className="content-modes-two" aria-label={t("Loại nội dung", "Content type")}>
               <TabsTrigger value="words">{t("Từ vựng", "Words")}</TabsTrigger>
-              <TabsTrigger value="sentences">
-                {t("Câu", "Sentences")}
-              </TabsTrigger>
               <TabsTrigger value="grammar">
                 {t("Ngữ pháp", "Grammar")}
               </TabsTrigger>
@@ -413,28 +409,6 @@ export function Review({ draftId }: { draftId: string }) {
                   )}
                 />
               )}
-            </TabsContent>
-            <TabsContent value="sentences">
-              <div className="page-flow content-preview">
-                <h2>
-                  {t(
-                    "Câu và mẫu câu minh họa",
-                    "Sample sentences and patterns",
-                  )}
-                </h2>
-                {demoPatterns.map((p) => (
-                  <div className="example-block" key={p.en}>
-                    <p lang="en">{p.en}</p><SentencePronunciation text={p.en}/>
-                    <p>{p.vi}</p>
-                    <small>
-                      {t(
-                        "Câu mẫu để tham khảo · chưa lưu được",
-                        "Sample sentence for reference · cannot be saved yet",
-                      )}
-                    </small>
-                  </div>
-                ))}
-              </div>
             </TabsContent>
             <TabsContent value="grammar">
               <EmptyState

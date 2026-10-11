@@ -104,3 +104,28 @@ it('transfers all supplemental grammar rows and remaps parent/source references 
  const rows=await target.db.table('sentences').where('[scopeId+id]').between([target.scope.id,''],[target.scope.id,'\uffff']).toArray();expect(rows).toHaveLength(2);expect(new Set(rows.map(row=>row.id)).size).toBe(2);expect(rows.every(row=>row.payload.content.lessonId===group.payload.deck.group.sets![0].lessonId)).toBe(true);
  const {remapGroup,deckSchema}=await import('@/data/local/decks');const mapped=remapGroup(group.payload.deck.group,id=>id==='apple'?'new-apple':id);expect(mapped.grammar?.every(ref=>ref.senseId==='new-apple')).toBe(true);expect(mapped.sets?.flatMap(set=>set.wordIds)).toContain('new-apple');expect(deckSchema.safeParse({...group.payload.deck,senseIds:group.payload.deck.senseIds.map(id=>id==='apple'?'new-apple':id),group:mapped}).success).toBe(true);
 });
+
+it('adds 30 new selections out of 100 while naming 70 existing words; repeat is a no-op',async()=>{const r=repo();const items=Array.from({length:100},(_,index)=>({...catalog[0],id:`item-${index}`,word:`sample ${String.fromCharCode(97+Math.floor(index/26))}${String.fromCharCode(97+index%26)}`,approved:true,art:null}));await r.saveLesson({operationId:'hundred',title:'Words',learnedOn:'2026-10-12',sourceType:'manual',items});const first=await saveStudyGroup(r,{id:'hundred-group',version:null,name:'Hundred',members:{wordIds:items.slice(0,70).map(item=>item.id),sentences:[]}});const mixed=await saveStudyGroup(r,{id:'hundred-group',version:first.row.version,name:'Hundred',members:{wordIds:items.map(item=>item.id),sentences:[]}});expect(mixed.added).toBe(30);expect(mixed.addedItems).toHaveLength(30);expect(mixed.addedItems.map(item=>item.label)).toEqual(items.slice(70).map(item=>item.word));expect(mixed.duplicateItems.filter(item=>item.kind==='word')).toHaveLength(70);expect(mixed.row.payload.deck.group.wordIds).toHaveLength(100);const repeat=await saveStudyGroup(r,{id:'hundred-group',version:mixed.row.version,name:'Hundred',members:{wordIds:items.map(item=>item.id),sentences:[]}});expect(repeat.unchanged).toBe(true);expect(repeat.added).toBe(0);expect(repeat.addedItems).toEqual([]);expect(repeat.row.version).toBe(mixed.row.version);expect(repeat.duplicateItems).toHaveLength(100);});
+
+it('lists new words, sentences, grammar and backdated lessons first without changing dedup representatives',async()=>{
+ const r=repo();await seed(r);await addGrammar(r,'older-guide','apple','first','Older explanation');await addGrammar(r,'newer-guide','book','first','Newer explanation');
+ const old='2026-10-10T01:00:00.000Z',fresh='2026-10-12T08:01:02.000Z';
+ await r.db.transaction('rw',r.db.tables,async()=>{
+  for(const row of await r.db.searchIndex.toArray())await r.db.searchIndex.put({...row,ordinal:(row.id==='book'?fresh:old)+row.id});
+  for(const row of await r.db.examples.toArray())await r.db.examples.put({...row,createdAt:row.senseId==='book'?fresh:old});
+  for(const row of await r.db.table('sentences').toArray())await r.db.table('sentences').put({...row,createdAt:row.id==='newer-guide'?fresh:old});
+  for(const row of await r.db.lessons.toArray())await r.db.lessons.put({...row,title:row.id==='repeat'?'New backdated lesson':'Older lesson',learnedOn:row.id==='repeat'?'2026-10-01':'2026-10-12',createdAt:row.id==='repeat'?fresh:old});
+ });
+ const c=await groupCatalog(r);expect(c.words.map(word=>word.id)).toEqual(['book','apple']);expect(c.sentences[0].senseId).toBe('book');expect(c.grammar.map(item=>item.id)).toEqual(['newer-guide','older-guide']);expect(c.lessons.map(row=>row.id)).toEqual(['repeat','first']);
+ // Editing a saved item never changes its creation order.
+ await r.db.lessons.update([r.scope.id,'first'],{updatedAt:'2026-10-13T00:00:00.000Z'});expect((await groupCatalog(r)).lessons[0].id).toBe('repeat');
+});
+
+it('adds only words and grammar from a lesson while keeping embedded examples and legacy sentence refs',async()=>{
+ const r=repo(),before=await seed(r);await addGrammar(r,'attached-grammar');const exampleRows=await r.db.examples.toArray();
+ const legacy={senseId:before.sentences[0].senseId,key:sentenceKey(before.sentences[0])};
+ const original=await saveStudyGroup(r,{id:'two-types',version:null,name:'Two types',members:{wordIds:[],sentences:[legacy]}});
+ const result=await saveStudyGroup(r,{id:'two-types',version:original.row.version,name:'Two types',members:original.row.payload.deck.group,lessonIds:['first'],includeSentences:false});
+ expect(result.row.payload.deck.group.wordIds).toHaveLength(2);expect(result.row.payload.deck.group.grammar).toHaveLength(1);expect(result.row.payload.deck.group.sentences).toEqual([legacy]);expect(result.added).toBe(3);expect(result.addedItems.map(item=>item.kind)).not.toContain('sentence');expect(await r.db.examples.toArray()).toEqual(exampleRows);expect((await r.word('apple'))!.example).toBeTruthy();
+ const fresh=await saveStudyGroup(r,{id:'two-types-new',version:null,name:'Two new types',members:{wordIds:[],sentences:[]},days:['2026-10-10'],includeSentences:false});expect(fresh.row.payload.deck.group.sentences).toEqual([]);expect((await groupContents(r,fresh.row)).grammar).toHaveLength(1);
+});

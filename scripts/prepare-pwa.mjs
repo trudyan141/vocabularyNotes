@@ -1,5 +1,5 @@
-import './prepare-speaking.mjs';
 import './prepare-brand.mjs';
+import './prepare-startup.mjs';
 import {createRequire} from 'node:module';
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {createHash} from 'node:crypto';

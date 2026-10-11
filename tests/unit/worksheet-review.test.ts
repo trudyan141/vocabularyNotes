@@ -1,5 +1,5 @@
 import {expect,it} from 'vitest';
-import {candidateIdentity,removeDuplicateCandidates,type OcrCandidate} from '@/lib/ocr/candidates';
+import {candidateIdentity,duplicateCandidateWords,removeDuplicateCandidates,type OcrCandidate} from '@/lib/ocr/candidates';
 import {worksheetPatterns} from '@/lib/learning/worksheet-patterns';
 const book:OcrCandidate={id:'first',literal:'book',word:'book',vi:'sách',en:'A book.',pos:'noun',sense:'object',example:'A book.',exampleVi:'Một quyển sách.',selected:false,art:null};
 it('removes only exact duplicates, retaining the first selected row and distinct meanings/POS',()=>{const selected={...book,id:'selected',word:' Book! ',selected:true,vi:'bản đã kiểm'};const otherSense={...book,id:'verb',pos:'verb',sense:'reserve'};const otherMeaning={...book,id:'second-meaning',sense:'register'};expect(removeDuplicateCandidates([book,selected,{...selected,id:'later'},otherSense,otherMeaning])).toEqual([selected,otherSense,otherMeaning]);expect(candidateIdentity({...book,word:''})).toBeNull();expect(removeDuplicateCandidates([{...book,word:''}])).toHaveLength(1);});
@@ -12,4 +12,9 @@ it('derives family questions from readable dialogue without treating inferred gr
  const result=worksheetPatterns(family,text);expect(result.map(row=>row.content.example)).toEqual(['Who are they?','They are a family.','Who are they? They are a family.']);
  expect(result[2].content.conditions).toContain('They chỉ nhiều người nên dùng are');expect(result[2].content.sourceEvidenceText).toBe('They are a family.');
  expect(worksheetPatterns(family,'Who are they?')).toEqual([]);expect(worksheetPatterns(family,'Who are they? They are teachers.')).toEqual([]);
+});
+
+it('reports only repeated exact identities without collapsing other senses or POS',()=>{
+ const rows=[book,{...book,id:'again',word:'BOOK',pos:'danh từ'},{...book,id:'later'}, {...book,id:'verb',pos:'verb',sense:'reserve'},{...book,id:'meaning',sense:'register'},{...book,id:'empty',word:''}];
+ expect(duplicateCandidateWords(rows)).toEqual(['book']);expect(removeDuplicateCandidates(rows)).toHaveLength(4);expect(duplicateCandidateWords([book])).toEqual([]);
 });

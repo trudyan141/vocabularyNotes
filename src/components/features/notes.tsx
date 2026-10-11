@@ -1,4 +1,6 @@
 "use client";
+import {SubmitButton,type SubmitState} from '@/components/ui/submit-button';
+import {submitError} from '@/lib/submit-error';
 import {Save} from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
@@ -17,15 +19,15 @@ export function LearningNotes({word,editable=false}:{word:LibraryWord;editable?:
   return <><p className="saved-note">{result.note.text}</p>{result.note.mnemonicData&&<Mnemonic word={word} template={result.note.mnemonicData.template}/>}</>;
 }
 function NoteEditor({word,note}:{word:LibraryWord;note?:Note}){
-  const {repository,t}=useApp();const [text,setText]=useState(note?.text??"");
+  const {repository,t}=useApp();const [submitState,setSubmitState]=useState<SubmitState>('idle'),[error,setError]=useState('');const [text,setText]=useState(note?.text??"");
   const [template,setTemplate]=useState<"none"|"word-association"|"sentence-chunks"|"grammar-transform">(note?.mnemonicData?.template??"none");
   const [version,setVersion]=useState(note?.version??null);const [busy,setBusy]=useState(false);const [status,setStatus]=useState("");
-  return <div className="note-editor"><label htmlFor="parent-note">{t("Ghi chú giúp con nhớ","Memory note")}</label><textarea id="parent-note" maxLength={10000} value={text} onChange={e=>setText(e.target.value)}/>
-    <label htmlFor="note-template">{t("Cách minh hoạ","Illustration template")}</label><select id="note-template" value={template} onChange={e=>setTemplate(e.target.value as typeof template)}>
+  return <div className="note-editor"><label htmlFor="parent-note">{t("Ghi chú giúp con nhớ","Memory note")}</label><textarea id="parent-note" maxLength={10000} value={text} onChange={e=>{setText(e.target.value);setSubmitState('idle');setError('');}}/>
+    <label htmlFor="note-template">{t("Cách minh hoạ","Illustration template")}</label><select id="note-template" value={template} onChange={e=>{setTemplate(e.target.value as typeof template);setSubmitState('idle');setError('');}}>
       <option value="none">{t("Chỉ ghi chú","Text only")}</option><option value="word-association">{t("Từ → nghĩa → ví dụ","Word association")}</option><option value="sentence-chunks">{t("Đọc câu từng cụm","Sentence chunks")}</option><option value="grammar-transform">{t("She likes → They like","Grammar transformation")}</option></select>
     {template!=="none"&&<Mnemonic word={word} template={template}/>}
-    <Button disabled={busy} onClick={async()=>{if(!repository||busy)return;setBusy(true);try{const saved=await repository.saveNote({id:note?.id??`note-${word.id}`,targetType:"sense",targetId:word.id,text,expectedVersion:version,
-      mnemonicData:template==="none"?null:{template}});setVersion(saved.version);setStatus(t("Đã lưu và duyệt ghi chú cho con.","Note saved and approved."));}catch{setStatus(t("Chưa lưu được hoặc ghi chú đã đổi ở tab khác; phần nhập còn nguyên.","Could not save or another tab changed the note; your input is intact."));}finally{setBusy(false);}}}><Save data-icon="inline-start" aria-hidden="true"/>{t("Lưu và duyệt ghi chú","Save and approve note")}</Button><p role="status">{status}</p></div>;
+    <SubmitButton type="button" state={busy?'pending':submitState} error={error} disabled={busy} onClick={async()=>{if(!repository||busy)return;setBusy(true);setError('');try{const saved=await repository.saveNote({id:note?.id??`note-${word.id}`,targetType:"sense",targetId:word.id,text,expectedVersion:version,
+      mnemonicData:template==="none"?null:{template}});setVersion(saved.version);setSubmitState('success');setStatus(t("Đã lưu và duyệt ghi chú cho con.","Note saved and approved."));}catch(cause){setSubmitState('error');setError(submitError(cause,t));}finally{setBusy(false);}}}><Save data-icon="inline-start" aria-hidden="true"/>{t("Lưu và duyệt ghi chú","Save and approve note")}</SubmitButton><p role="status">{status}</p></div>;
 }
 function Mnemonic({word,template}:{word:LibraryWord;template:NonNullable<Note["mnemonicData"]>["template"]}){
   const {t,preferences}=useApp();const [step,setStep]=useState(0);const [playing,setPlaying]=useState(false);

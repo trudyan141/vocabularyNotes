@@ -1,0 +1,145 @@
+{
+  "simulatedInitialCutoff": true,
+  "realCalls": 6,
+  "summaries": [
+    {
+      "http": 200,
+      "finish": "STOP",
+      "usage": {
+        "promptTokenCount": 1382,
+        "candidatesTokenCount": 248,
+        "totalTokenCount": 1630,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 282
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 1100
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "image": true,
+      "requestCharacters": 352681
+    },
+    {
+      "http": 200,
+      "finish": "STOP",
+      "usage": {
+        "promptTokenCount": 496,
+        "candidatesTokenCount": 455,
+        "totalTokenCount": 951,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 496
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "image": false,
+      "requestCharacters": 2402
+    },
+    {
+      "http": 200,
+      "finish": "STOP",
+      "usage": {
+        "promptTokenCount": 549,
+        "candidatesTokenCount": 372,
+        "totalTokenCount": 921,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 549
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "image": false,
+      "requestCharacters": 2571
+    },
+    {
+      "http": 200,
+      "finish": "STOP",
+      "usage": {
+        "promptTokenCount": 597,
+        "candidatesTokenCount": 506,
+        "totalTokenCount": 1103,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 597
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "image": false,
+      "requestCharacters": 2732
+    },
+    {
+      "http": 200,
+      "finish": "STOP",
+      "usage": {
+        "promptTokenCount": 416,
+        "candidatesTokenCount": 91,
+        "totalTokenCount": 507,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 416
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "image": false,
+      "requestCharacters": 1973
+    },
+    {
+      "http": 200,
+      "finish": "STOP",
+      "usage": {
+        "promptTokenCount": 741,
+        "candidatesTokenCount": 484,
+        "totalTokenCount": 1225,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 741
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "image": false,
+      "requestCharacters": 3797
+    }
+  ],
+  "words": [
+    "ball",
+    "cars",
+    "table",
+    "chairs",
+    "rulers",
+    "pens",
+    "pencil",
+    "crayons",
+    "eraser",
+    "teddy",
+    "bears",
+    "books",
+    "box"
+  ],
+  "learning": [
+    {
+      "example": "It's a ball.",
+      "formula": "It's + a + noun",
+      "sourceEvidenceText": "ball"
+    },
+    {
+      "example": "They are cars.",
+      "formula": "They are + noun + s/es",
+      "sourceEvidenceText": "cars"
+    }
+  ]
+}

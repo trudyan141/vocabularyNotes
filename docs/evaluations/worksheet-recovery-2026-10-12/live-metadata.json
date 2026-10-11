@@ -1,0 +1,64 @@
+{
+  "simulatedInitialCutoff": true,
+  "realCalls": 1,
+  "resumedTextOnly": true,
+  "summaries": [
+    {
+      "http": 200,
+      "finish": "STOP",
+      "usage": {
+        "promptTokenCount": 1098,
+        "candidatesTokenCount": 435,
+        "totalTokenCount": 1533,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1098
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "image": false,
+      "requestCharacters": 4719
+    }
+  ],
+  "words": [
+    "ball",
+    "cars",
+    "table",
+    "chairs",
+    "rulers",
+    "pens",
+    "pencil",
+    "crayons",
+    "eraser",
+    "teddy bears",
+    "books",
+    "box",
+    "chair",
+    "book",
+    "teddy bear",
+    "erasers",
+    "boxes"
+  ],
+  "learning": [
+    {
+      "example": "It's a ball. It's an eraser. They are cars.",
+      "formula": "It's a/an + danh từ số ít | They are + danh từ số nhiều",
+      "sourceEvidenceText": "It's a / an ...",
+      "variants": [
+        "It's a ball.",
+        "It's an eraser.",
+        "They are books."
+      ]
+    },
+    {
+      "example": "cars",
+      "formula": "Noun + s",
+      "sourceEvidenceText": "2+ items -> add s\ncars, chairs, rulers, pens, crayons, erasers, books, boxes",
+      "variants": [
+        "cars"
+      ]
+    }
+  ]
+}

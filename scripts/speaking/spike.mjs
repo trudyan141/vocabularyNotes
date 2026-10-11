@@ -1,3 +1,4 @@
+// HISTORICAL SPIKE (ADR059): requires the old dependency/runtime; not a current app or build tool.
 // Explicit, isolated local evaluation. Never invoked by dev/build/test or production.
 import {createServer} from 'node:http';
 import {createReadStream} from 'node:fs';

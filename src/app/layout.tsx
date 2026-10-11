@@ -17,7 +17,7 @@ export const viewport: Viewport = { themeColor: "#fff8f8" };
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="vi" className={nunito.variable}>
-      <body>
+      <body style={{backgroundColor:"#fff8f8",color:"#38213d"}}>
         <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify({'@context':'https://schema.org','@type':'WebSite',name:'Words for Kids',url:siteUrl,description:siteDescription,inLanguage:'vi'}).replace(/</g,'\\u003c')}}/>
         {children}
       </body>

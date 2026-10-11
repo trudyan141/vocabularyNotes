@@ -23,3 +23,12 @@ export function lessonTitle(lesson:Pick<Lesson,'title'|'learnedOn'|'sourceType'>
     : lesson.sourceType === 'demo' ? t('Bài mẫu','Sample lesson') : t('Từ gõ tay','Typed words');
   return `${source} · ${learningDate(lesson.learnedOn,t)}`;
 }
+
+export function lessonCreatedTime(at:string,t:Translate){
+ const date=new Date(at);return Number.isFinite(date.getTime())?new Intl.DateTimeFormat(t('vi-VN','en-GB'),{hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).format(date):'';
+}
+export function photoLessonTitle(title:string,words:string[],fallback:string){
+ const value=title.trim();
+ const automatic=!value||/^(Ảnh đã dán|Pasted photo|Ảnh chụp|Bài học từ ảnh|Bài đọc từ ảnh|Photo lesson|Captured photo)(\s*·.*)?$/i.test(value);
+ return automatic?([...new Set(words.map(word=>word.trim()).filter(Boolean))].slice(0,4).join(', ')||fallback).slice(0,200):value;
+}

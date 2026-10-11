@@ -1,6 +1,6 @@
 {
   "formatVersion": 1,
-  "reviewedOn": "2026-10-09",
+  "reviewedOn": "2026-10-12",
   "timezone": "Asia/Ho_Chi_Minh",
   "installedSkills": [
     {
@@ -1037,172 +1037,6 @@
       ]
     },
     {
-      "name": "product-design",
-      "directory": ".agents/skills/product-design",
-      "origin": "github",
-      "repository": "https://github.com/mblode/agent-skills",
-      "upstreamPath": "skills/product-design",
-      "commit": "5a781a88ed60c1033767b6b6a966887cd93dd912",
-      "commitDate": "2026-10-08T20:38:02Z",
-      "pinnedSourceUrl": "https://github.com/mblode/agent-skills/tree/5a781a88ed60c1033767b6b6a966887cd93dd912/skills/product-design",
-      "licenseDeclared": "MIT",
-      "installation": "project-local via skill-installer download helper; supporting resources and license retained",
-      "reviewScope": "SKILL.md, task-relevant references, license provenance, script inventory; local read-only search exercised for ui-ux-pro-max only; not a full security audit",
-      "files": [
-        {
-          "path": "LICENSE.md",
-          "sha256": "81ac64b19ea7ae7f9a8d197705df58f48ffca02c74fca13e565dedf4f7595b46"
-        },
-        {
-          "path": "SKILL.md",
-          "sha256": "1f5b964df7a7ff4ad9243a079f254fc670dda85fd70e931c514e3f40cd1ed302"
-        },
-        {
-          "path": "evals/evals.json",
-          "sha256": "637f7a3f7f8548b5e2eeee1fd7b3cc8264f2cab929d9c0a74572d28be65f0e58"
-        },
-        {
-          "path": "references/interface-quality.md",
-          "sha256": "e92b535385469e20a25c95bf6952e5724f5739b9322d1e3f3d3092415f0c2e0f"
-        },
-        {
-          "path": "references/naming-and-copy.md",
-          "sha256": "b96e3e8072643f34a74a4674a4c3fe4159f9f0ef60fb4d364fa80141b2b74355"
-        },
-        {
-          "path": "references/product-judgment.md",
-          "sha256": "78fd864b8d171160317536eed02c910b65c371992bbf18839177441fd3682dc5"
-        },
-        {
-          "path": "references/rules.md",
-          "sha256": "27a538b79822010d59162d9b86f6810be2b92e4bbd3da5cd91ebbf1c0cf8869b"
-        },
-        {
-          "path": "references/surfaces.md",
-          "sha256": "34dc1453abbf7850e1cb6a48c43e717b4be98fecae2921a4abcf255ebc06470b"
-        }
-      ]
-    },
-    {
-      "name": "ui-animation",
-      "directory": ".agents/skills/ui-animation",
-      "origin": "github",
-      "repository": "https://github.com/mblode/agent-skills",
-      "upstreamPath": "skills/ui-animation",
-      "commit": "5a781a88ed60c1033767b6b6a966887cd93dd912",
-      "commitDate": "2026-10-08T20:38:02Z",
-      "pinnedSourceUrl": "https://github.com/mblode/agent-skills/tree/5a781a88ed60c1033767b6b6a966887cd93dd912/skills/ui-animation",
-      "licenseDeclared": "MIT",
-      "installation": "project-local via skill-installer download helper; supporting resources and license retained",
-      "reviewScope": "SKILL.md, task-relevant references, license provenance, script inventory; local read-only search exercised for ui-ux-pro-max only; not a full security audit",
-      "files": [
-        {
-          "path": "LICENSE.md",
-          "sha256": "81ac64b19ea7ae7f9a8d197705df58f48ffca02c74fca13e565dedf4f7595b46"
-        },
-        {
-          "path": "SKILL.md",
-          "sha256": "25b09d6fb5eb57af8c1b91c6b74bc63280bc4f0fe143b80a2f8c18ed18f7cee8"
-        },
-        {
-          "path": "evals/discovery-mode.json",
-          "sha256": "360d35a2989c45c291cf43cd47ff1d4979bde77d61aaead64a4363109f238ab0"
-        },
-        {
-          "path": "evals/evals.json",
-          "sha256": "c72b6eb50340b27445fba7ccb17db75c1b65d071e1f1c5ffe7e1c8ed338051bd"
-        },
-        {
-          "path": "evals/fixtures/settings-panel.tsx",
-          "sha256": "d1d76c0c26473357cb902ff0ad1e6c889e166befd53b35783ca5b9de61ff98e8"
-        },
-        {
-          "path": "references/choreography.md",
-          "sha256": "36aa77068124f009e8b44944eeef907fd617a6ab9d136d83442acea6f21bc448"
-        },
-        {
-          "path": "references/clip-path-techniques.md",
-          "sha256": "bf22399db0579a7b289c4234b4729994d72a9e859258e2c60290990f7432deb1"
-        },
-        {
-          "path": "references/code-output.md",
-          "sha256": "3bc62e3503268280c451ddf05deed9f557006771e61f0d9fa32c9b766cf6bb8c"
-        },
-        {
-          "path": "references/component-patterns.md",
-          "sha256": "b669704adae8545cb3b85132bf5b9bb45b40f1bc4fd16face3923e338f43c409"
-        },
-        {
-          "path": "references/contextual-animations.md",
-          "sha256": "7418466a2c952c29e0c329ac754837290449d4ab2cb56927ad8661bf1fa2e91e"
-        },
-        {
-          "path": "references/curve-fitting.md",
-          "sha256": "5cf650743531385643f012549042ce6378ae40416b44da2da43fffe34222906d"
-        },
-        {
-          "path": "references/debugging-symptoms.md",
-          "sha256": "bb92e08e9c04dce772e82b9a08521fcf661b706372c23839f5a570711929d68b"
-        },
-        {
-          "path": "references/decision-framework.md",
-          "sha256": "140b47e450487c86316af316dc8d18de0852943e63ac75c40fcf8696e6d951e9"
-        },
-        {
-          "path": "references/gesture-drag.md",
-          "sha256": "e40667396caa1f811b314168cc938a9c4e64ac5a53efad34c2bd41042aede55f"
-        },
-        {
-          "path": "references/interface-sfx.md",
-          "sha256": "5f6e365c32845057aae74749155b87a74f5b731b4cea901c8d9d824e25bb16a1"
-        },
-        {
-          "path": "references/measurement-guide.md",
-          "sha256": "ed53ef060cc5f20f5b44df635692c22cfb39334dd2375b9c49018deca22d15ce"
-        },
-        {
-          "path": "references/performance-deep-dive.md",
-          "sha256": "f3f43c733bac58c4e64f13c769f7a360c39c0d446c886f79d929e76ae8b5fdfc"
-        },
-        {
-          "path": "references/review-format.md",
-          "sha256": "565456c30c5c97fc788331f395a785e5822a9fff4eaf0a496bc04ea8915dbd90"
-        },
-        {
-          "path": "references/scroll-animations.md",
-          "sha256": "536a21a8c3c08db50beec1d81471cbfc1e6bc33d8be4fd0868142d988e48a5bb"
-        },
-        {
-          "path": "references/spring-animations.md",
-          "sha256": "0012d3aecb3bd47ac0eeb7d8ce6bf78b017af4ccfe9a5f89f6397355001c38ee"
-        },
-        {
-          "path": "references/svg-animation.md",
-          "sha256": "a6a8bb58720711f16ec9b79ccfd525ec66c2718ef3a8e93f55a9dc9f5dfc7266"
-        },
-        {
-          "path": "references/transition-recipes.md",
-          "sha256": "ffc6e1fc9f053259c8c12dd2fbd7495fe364e88b206eabfc9a29ce741927b432"
-        },
-        {
-          "path": "references/vocabulary.md",
-          "sha256": "edb6a64b2fdf99d59f7087b1be38f779d8b8a614b6ed1b108275ea55a9633f09"
-        },
-        {
-          "path": "scripts/extract_frames.py",
-          "sha256": "80c16f2a50e7f10050e143af9464240c18c61d58394761d672f65c869f13952f"
-        },
-        {
-          "path": "scripts/fit_curves.py",
-          "sha256": "126f944b640b395da13d20d2c2861c4fcc79254e0bce5201b2d545b7d02474f1"
-        },
-        {
-          "path": "scripts/track_motion.py",
-          "sha256": "a8b5c60c1da1cea05e6e21307021d6e9369e76388a50c16293ff18eebe35dda7"
-        }
-      ]
-    },
-    {
       "name": "performance",
       "directory": ".agents/skills/performance",
       "origin": "github",
@@ -1746,5 +1580,5 @@
       "licenseMetadata": "MIT"
     }
   ],
-  "policy": "Project-local skills pinned by commit/checksum; no lifecycle hooks or automatic latest updates. Read-only UI/UX CSV search executed without persist. User explicitly authorized InspoMCP Codex configuration and research; tracked separately in docs/design/inspo-research.md. Project spec and user instructions remain authoritative."
+  "policy": "Project-local skills pinned by commit/checksum; no lifecycle hooks or automatic latest updates. Read-only UI/UX CSV search executed without persist. User explicitly authorized InspoMCP Codex configuration and research; tracked separately in docs/design/inspo-research.md. Project spec and user instructions remain authoritative. ADR078: prefer reputable, widely adopted, actively maintained upstreams; verify public stars/forks, maintainers, license and actual mobile UX/PWA fit before accepting skills. Popularity is not measured active usage. Responsive-only skills do not fulfill mobile app UX requests. Use existing pinned UI/UX Pro Max as mobile design lead; mobile-responsive retired. ADR078 full project audit 2026-10-12: retire mblode product-design/ui-animation (144 stars/13 forks); route interaction to UI/UX Pro Max + Impeccable and motion to LottieFiles + Impeccable. All new external skills require recorded reputable maintainer, substantial community signal, activity, license and actual stack/content fit; custom project skills are identified separately. Audit evidence: docs/skills/source-audit-2026-10-12.json."
 }

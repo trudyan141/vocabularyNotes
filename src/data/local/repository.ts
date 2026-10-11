@@ -220,6 +220,7 @@ export class LocalRepository {
     options: {
       lesson?: string | null;
       missingArt?: boolean;
+      excludeIds?: string[];
       offset?: number;
       limit?: number;
       approvedOnly?: boolean;
@@ -243,6 +244,7 @@ export class LocalRepository {
     options: {
       lesson?: string | null;
       missingArt?: boolean;
+      excludeIds?: string[];
       offset?: number;
       limit?: number;
       approvedOnly?: boolean;
@@ -254,11 +256,13 @@ export class LocalRepository {
       .between([this.scope.id, Dexie.minKey], [this.scope.id, Dexie.maxKey])
       .toArray();
     const source = rows.filter((r) => !options.approvedOnly || r.approval);
+    const excluded=new Set(options.excludeIds??[]);
     const matches = source.filter(
       (r) =>
         (!needle || r.terms.includes(needle)) &&
         (!options.lesson || r.lessonIds.includes(options.lesson)) &&
-        (!options.missingArt || !r.art),
+        (!options.missingArt || !r.art) &&
+        !excluded.has(r.id),
     );
     const limit = Math.max(1, Math.min(options.limit ?? 50, 100));
     const offset = Math.max(0, options.offset ?? 0);
@@ -583,7 +587,7 @@ export class LocalRepository {
 
   async reviewWord(id:string,revision:string,input:WordInput){
     const word=inputSchema.parse(input);
-    if(!word.vi.trim()||!word.en.trim()||!word.example.trim()||!word.exampleVi.trim()||word.approved!==true)throw new RepositoryError("invalid");
+    if(!word.vi.trim()||!word.en.trim()||!!word.example.trim()!==!!word.exampleVi.trim()||word.approved!==true)throw new RepositoryError("invalid");
     return this.db.transaction("rw",this.db.tables,async()=>{
       const sense=await this.db.senses.get([this.scope.id,id]);const oldEntry=sense&&await this.db.entries.get([this.scope.id,sense.entryId]);
       if(!sense||!oldEntry||sense.deletedAt||`${oldEntry.version}:${sense.version}`!==revision)throw new RepositoryError("conflict");
@@ -595,6 +599,7 @@ export class LocalRepository {
       const at=new Date().toISOString(),contentVersion=sense.contentVersion+1;
       await this.db.senses.put({...sense,entryId:entry.id,identity,pos:word.pos,senseLabel:word.sense,meaningVi:word.vi,definitionEn:word.en,art:word.art,origin:"user",source:word.source,pendingEdit:null,contentStatus:"complete",contentVersion,approvedContentVersion:contentVersion,learningApprovalStatus:"approved",version:sense.version+1,updatedAt:at,
         pronunciations:(word.pronunciations??[]).filter(p=>p.text===word.word).map(p=>({...p,contentVersion,approvedContentVersion:contentVersion}))});
+      if(word.art?.startsWith('media-')){const media=this.db.table<import('./types').ScopedDocument>('mediaAssets'),row=await media.get([this.scope.id,word.art]);const asset=row?.payload.asset as import('@/lib/media/contracts').MediaAsset|undefined;if(!row||row.deletedAt||asset?.senseId!==id||!asset.approved||asset.status!=='ready')throw new RepositoryError('invalid');await media.put({...row,version:row.version+1,updatedAt:at,payload:{asset:{...asset,word:word.word,revision:`${entry.version}:${sense.version+1}`}}});}
       const examples=await this.db.examples.where("[scopeId+senseId]").equals([this.scope.id,id]).toArray();
       for(const example of examples)await this.db.examples.update([this.scope.id,example.id],{deletedAt:at,version:example.version+1});
       await this.db.examples.add({...base(this.scope.id),senseId:id,position:0,textEn:word.example,translationVi:word.exampleVi,origin:"user",pronunciations:(word.examplePronunciations??[]).filter(p=>p.text===word.example).map(p=>({...p,contentVersion,approvedContentVersion:contentVersion}))});

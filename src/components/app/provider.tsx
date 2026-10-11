@@ -81,7 +81,7 @@ type AppState = {
   draftError: boolean;
   preferences: Preferences;
   storageError: boolean;
-  setPreferences: (patch:Partial<Preferences>)=>Promise<void>;
+  setPreferences: (patch:Partial<Preferences>)=>Promise<boolean>;
   t: (vi: string, en: string) => string;
   setCandidates: (next: Candidate[]) => void;
   savePreview: (fail?: boolean) => Promise<SaveResult>;
@@ -267,7 +267,7 @@ export function AppProvider({
           setAttempt((v) => v + 1);
         },
         ...settings,
-        setPreferences: async patch=>{updatePreferences(patch);if(repository?.scope.kind==='account')await queuePreferences(repository,patch).catch(()=>{snapshot={...snapshot,storageError:true};listeners.forEach(fn=>fn());});else if(repository?.scope.kind==='guest')await repository.db.metadata.put({key:'guest-display-preferences',value:JSON.stringify(snapshot.preferences)}).catch(()=>{});},
+        setPreferences: async patch=>{updatePreferences(patch);if(repository?.scope.kind==='account')await queuePreferences(repository,patch).catch(()=>{snapshot={...snapshot,storageError:true};listeners.forEach(fn=>fn());});else if(repository?.scope.kind==='guest')await repository.db.metadata.put({key:'guest-display-preferences',value:JSON.stringify(snapshot.preferences)}).catch(()=>{snapshot={...snapshot,storageError:true};listeners.forEach(fn=>fn());});return !snapshot.storageError;},
         t: (vi, en) => (settings.preferences.locale === "vi" ? vi : en),
         setCandidates,
         savePreview,

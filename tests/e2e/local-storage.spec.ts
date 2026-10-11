@@ -24,8 +24,9 @@ test("native IndexedDB save survives reload, updates another tab and rejects a s
     .getByLabel("Nghĩa tiếng Việt", { exact: true })
     .fill("quả táo bố mẹ sửa");
   await page
-    .getByRole("button", { name: "Lưu chỉnh sửa trên máy", exact: true })
+    .getByRole("button", { name: "Lưu chỉnh sửa", exact: true })
     .click();
+  await expect(page.getByRole('button',{name:'Đã lưu chỉnh sửa',exact:true})).toBeVisible();await page.getByRole('link',{name:'Quay lại',exact:true}).click();
   await expect(
     page.getByRole("heading", { name: "quả táo bố mẹ sửa", exact: true }),
   ).toBeVisible();
@@ -36,10 +37,10 @@ test("native IndexedDB save survives reload, updates another tab and rejects a s
     .getByLabel("Nghĩa tiếng Việt", { exact: true })
     .fill("bản cũ từ tab khác");
   await peer
-    .getByRole("button", { name: "Lưu chỉnh sửa trên máy", exact: true })
+    .getByRole("button", { name: "Lưu chỉnh sửa", exact: true })
     .click();
   await expect(peer.locator("main").getByRole("alert")).toContainText(
-    "Từ đã đổi ở tab khác",
+    "Nội dung đã đổi ở tab",
   );
   await expect(
     peer.getByLabel("Nghĩa tiếng Việt", { exact: true }),
@@ -350,27 +351,6 @@ test("two native tabs save the same reviewed draft once", async ({
   await peer.close();
 });
 
-test("changed English word saves a parent proposal while the child keeps the approved word", async ({
-  page,
-}) => {
-  await editor(page);
-  await page.getByLabel("Từ tiếng Anh", { exact: true }).fill("peach");
-  await page.getByLabel("Nghĩa tiếng Việt", { exact: true }).fill("quả đào");
-  await page
-    .getByRole("button", { name: "Lưu chỉnh sửa trên máy", exact: true })
-    .click();
-  await expect(
-    page.getByText("Đã lưu đề xuất chỉnh sửa trên máy", { exact: true }),
-  ).toBeVisible();
-  await page.reload();
-  await expect(page.getByLabel("Từ tiếng Anh", { exact: true })).toHaveValue(
-    "peach",
-  );
-  await page.getByRole("link", { name: "Quay lại", exact: true }).click();
-  await expect(
-    page.getByRole("heading", { name: "apple", exact: true }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("heading", { name: "quả táo", exact: true }),
-  ).toBeVisible();
+test('changed English word and its examples are approved together with one save',async({page})=>{
+ await editor(page);await page.getByLabel('Từ tiếng Anh',{exact:true}).fill('peach');await page.getByLabel('Nghĩa tiếng Việt',{exact:true}).fill('quả đào');await page.getByLabel('Nghĩa tiếng Anh',{exact:true}).fill('A sweet round fruit.');await page.getByLabel('Câu ví dụ tiếng Anh',{exact:true}).fill('I eat a peach.');await page.getByLabel('Nghĩa câu ví dụ',{exact:true}).fill('Con ăn quả đào.');await page.getByLabel('Câu ví dụ thứ hai',{exact:true}).fill('The peach is sweet.');await page.getByLabel('Nghĩa câu ví dụ thứ hai',{exact:true}).fill('Quả đào ngọt.');await page.getByRole('button',{name:'Lưu chỉnh sửa',exact:true}).click();await expect(page.getByRole('button',{name:'Đã lưu chỉnh sửa',exact:true})).toBeVisible();await page.reload();await expect(page.getByLabel('Từ tiếng Anh',{exact:true})).toHaveValue('peach');await page.getByRole('link',{name:'Quay lại',exact:true}).click();await expect(page.getByRole('heading',{name:'peach',exact:true})).toBeVisible();await expect(page.getByRole('heading',{name:'quả đào',exact:true})).toBeVisible();
 });

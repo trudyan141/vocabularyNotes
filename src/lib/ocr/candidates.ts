@@ -20,3 +20,9 @@ export function removeDuplicateCandidates(items:OcrCandidate[]){
 }
 
 export function normalizeOcrPos(pos:string){const value=pos.normalize('NFKC').trim().toLowerCase();return ({'pron.':'pronoun','pron':'pronoun','đại từ':'pronoun','n.':'noun','n':'noun','danh từ':'noun','v.':'verb','v':'verb','động từ':'verb','adj.':'adjective','adj':'adjective'} as Record<string,string>)[value]??value;}
+
+export function duplicateCandidateWords(items:Pick<OcrCandidate,'word'|'pos'|'sense'>[]){
+ const seen=new Set<string>(),duplicates=new Map<string,string>();
+ for(const item of items){const key=candidateIdentity(item);if(!key)continue;if(seen.has(key))duplicates.set(key,item.word.trim());else seen.add(key);}
+ return [...duplicates.values()];
+}

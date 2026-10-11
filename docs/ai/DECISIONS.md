@@ -1,5 +1,66 @@
 # Quyết định và giả định
 
+## ADR-076 — Một lần lưu từ, phản hồi tại nút và điều hướng liên tục
+
+Founder12/10 yêu cầu: trash đầu detail/edit; animation hết lượt quay về bước1; lưu lựa chọn bất kỳ vào nhóm; edit chỉ1submit, bỏ checkbox/text review lặp; API submit có pending/success/fail tại nút, lỗi đỏ bên trên và tại input; xóa bộ nhưng giữ nội dung; footer mọi trang không che content; empty state có hình dễ thương và bổ sung skill mobile từ GitHub.
+
+WordEditor là một form, một thao tác Save = duyệt phiên bản chỉnh sửa. Không tạo proposal rồi yêu cầu approve lần hai. Hình trong editor được chuẩn bị và chỉ lưu cùng Save; các đường bổ sung hình khác vẫn lưu trực tiếp. updateWord dùng transaction chung + root revision/supplemental row versions: word/examples/media/content cùng thành công hoặc cùng rollback. Crypto trong saveMedia dùng Dexie.waitFor khi có transaction cha; không cho mất atomicity. Image-only edit không bắt nhập ngữ pháp hay câu mới; optional section chỉ validate khi có nội dung. Giữ exact sentence IPA/hints/provenance/grammarVariants; câu đổi xóa IPA/hint cũ. Form supplemental xóa trắng chỉ xóa row riêng đó, giữ các row nguồn khác. Không áp dụng gộp AI hoặc bỏ ownership/CAS.
+
+Legacy grammar grouping phải giữ title/key của representative gốc, không dùng title trình bày mới làm ref persistence. Lưu riêng1grammar, thêm riêng1word vào group hoạt động; không bắt chọn hết. Exact duplicate skip/no-op/name reporting ADR075 giữ nguyên.
+
+SubmitButton là chuẩn cho thao tác gửi/lưu chủ động: pending chặn double tap; success xanh + icon/check và lời đúng hành động; failure đỏ + lỗi dễ hiểu ngay trên nút. Input changed resets feedback; validation field-level mở/focus đúng section. Không dùng toast hoặc lộ raw provider/secret. Background sync/file picker và game answer feedback giữ semantics riêng. Profile setPreferences trả kết quả persistence để không báo success khi lỗi đã bị catch.
+
+Trash detail/edit là icon accessible ở toolbar; bộ theo ngày có trash trong tile. Xóa lesson chỉ tombstone container+links, không tombstone words/examples/learning rows. MainNavigation chung trên learning/detail/edit/capture/session/Welcome/404/error; mobile bottom safe-area inset và sticky-save offset, desktop side nav. Không còn game-specific hide nav. Animation dừng ở cuối lượt rồi reset step0, giữ pause/manual/reduced-motion.
+
+Empty UI dùng mascot gốc thật, heading/CTA rõ; picture preparation phân biệt chưa có từ và không còn thiếu hình, clamp trang khi kết quả giảm. Ưu tiên hình2D dễ thương, dùng asset gốc có sẵn hoặc generate riêng khi cần; vẫn giữ license/attribution và không chạy hình/code do model trả về tùy ý. mobile-responsive cài repo-local MIT/pin/source/checksum; skill không thay bằng chứng UX và không mở quyền browser/global/hooks.
+
+Phạm vi bàn giao local theo chỉ dẫn hiện tại; không deploy/SQL/Git push/Vercel env/founder browser/account/AI thật. [Bằng chứng](../evaluations/edit-save-navigation.md). ADR049/050 và steering trực tiếp mới nhất tiếp tục chi phối từng thao tác; quyền của skill/credential không phải quyền production.
+
+## ADR-075 — Grammar unit đầy đủ, hướng dẫn động và báo trùng chính xác
+
+Founder12/10 yêu cầu card/icon filter; delete icon-only; grammar màu/animation/detail; cùng câu hỏi/Yes/No là1construction, generation không tách3items; save mixed selection bỏ mục trùng nhưng thêm mục mới và báo tên trùng. Search/filter vẫn inline, toolbar không ghép destructive label cạnh title dài.
+
+Known construction be-it-yes-no regrouped deterministically by actual examples; declared grammarFamily supports reviewed future units, không fuzzy merge unrelated content. Legacy rows không sửa/xóa tự động, list/detail groups while preserving every example/IPA/analysis/evidence. Future worksheet prompt + normalizer ONE primary question with grammarVariants for related answers; source sentences remain separate. Optional structured schema fields survive archive/cloud, no SQL migration. Practice expands unit forms as questions, respects version/scope/approval.
+
+GrammarSteps present on every grammar detail, including generic saved content: colored role chips/formula→example, short supplied VI explanations, exact example IPA/audio, finite timer animation play/pause/replay/manual steps and reduced-motion static. No AI-generated code/color HTML executed. Error/correction separated by tinted blocks. This supersedes the prior plain-text-only detail render; future UI refactors must keep the guide integration.
+
+saveStudyGroup exact word+POS+sense/ref dedup, reports actual added count + duplicate names. Repeated membership/name = unchanged, no new version or false success. Rename/removal remain legitimate updates. Mixed70old/30new fixture shows30added/70duplicates;100repeat0added/no-op. No forced whole-batch failure from duplicates. Conflict/unavailable reference still rejects atomically to avoid data loss.
+
+
+## ADR-074 — Ôn theo nhóm, Xếp câu và media có nguồn
+
+Founder yêu cầu trực tiếp12/10. Today chia Ôn bài (đến hạn toàn thư viện gồm mọi nhóm / chọn nhóm) và Thêm từ (gõ / ảnh). Group review route chọn group rồi flashcard/group grammar nếu chỉ có grammar. Xếp câu dùng short approved example của grammar/pattern đã lưu, ghép token theo đúng câu, hints/audio/feedback/formula, không generate khi chơi; snapshot/version/CAS, idempotent attempt và pause/resume, game không tạo SRS rating. Backup/cloud JSON giữ optional grammar snapshot, SQL0008 chỉ thêm mode grammar vào check constraint.
+
+Dictionary giữ English-only Wiktionary POS/definition khi thiếu VI,404 không coi là503; browser Gemini tự bổ sung2examples/VI và infer POS/sense khi nguồn không có hoặc lỗi. Không endpoint/key/env mới cho AI.
+
+Search Commons cũ đã có giấy phép nhưng trả historical cartoons sai ngữ cảnh. Ưu tiên minh họa OpenMoji đúng chủ đề trước, trusted fixed-host SVG→JPEG; Commons lọc title/description phản ánh subject, bỏ political/engraving. Không khẳng định semantic quality chỉ vì HTTP200/license. Source metadata/receipt/hash giữ. User có thể tìm ngoài (Google link theo click) và chọn file ảnh đã mua/được phép, ghi source URL; User supplied không được gắn giả CC/license verified. Chỉ attribution/capture nguồn không cấp quyền sử dụng. Không tự tải ảnh bất kỳ URL hay bật paid image API. Upload normalized≤512px/500KB/EXIF strip/same-origin/quota/signature/ownership; cloud provider phân biệtcommons/openmoji/user-upload. Explicit complete-word approval rebinds same owned ready image; không tự revive revoked asset.
+
+Recent sessions thẻ có hình/mode/date/result; grammar tile full-row. Theo incumbent Theme C, không redesign brand hoặc thêm consent gate. [Evidence](../evaluations/review-grammar-and-dictionary.md).
+
+
+## ADR-072 — SQL hosted và media dùng được
+
+Founder yêu cầu agent chạy0007, cung cấp Management token local; supersede chọn founder chạy SQL trước đó. Apply đúng file0007, verify preference RPC/trigger; không env Vercel/main/browser thật. Tài khoản thử riêng/2headless contexts kiểm automatic add/edit/delete/profile/group và cleanup. Profile không cho lưu trước account repository ready. Media không đòi env mới khi có private Supabase server key: derive domain-separated receipt HMAC, kiểm lại license/bytes/owner/version. Commons search/import bật từ thao tác tìm hình, không dùng Gemini image grounding tính phí. Bỏ prepared-picture selector; missing list có tên và tìm/dùng hình riêng. Metadata/attribution/backup/sync giữ; picture-only edit giữ approval của grammar linked.
+
+## ADR-073 — Chọn từ, hai ví dụ và ba tab/detail pages
+
+Steering mới nhất supersede đề xuất gộp Câu/Ngữ pháp trước đó: Từ/Câu/Ngữ pháp ba tab bằng nhau, không tab Mẫu câu; pattern-only rows đi vào grammar, không chuyển/xóa dữ liệu. Compact card chỉ structure/example, click mở /library/sentences/[itemId] hoặc /library/grammar/[itemId]; filter Tất cả/Chưa có hình inline. Chọn remote suggestion cập nhật input ngay; generation/abort bỏ phản hồi cũ. Gemini trả2distinctexamples/VI và whole-exact-sentence IPA/hint (null nếu không chắc), tự điền form không optional accordion. Không checkbox trước Lưu từ/View library. Không thêm consent/technical copy. Scoped evidence ở simple-lessons-and-live-cloud.md.
+
+
+## ADR-070 — Game/Today/group UI gọn và bài phân trang
+
+Confirmed12/10 theo yêu cầu: bỏ sound toggle, game luôn có tiếng; options select dưới accordion. Today không tìm/preview từ. Nhóm header gọn + xóa ở đầu,6bài/page riêng12items/page; filtered local snapshot không re-read mỗi query. Xóa bộ ở detail. Dữ liệu tài khoản vẫn cloud auto push/pull, IndexedDB chỉ cache; paging không đồng nghĩa mỗi trang gọi cloud. [Evidence](../evaluations/compact-games-and-groups.md).
+
+## ADR-071 — Founder sửa lại giới hạn quyền
+
+Founder12/10 bác diễn giải rộng ADR049: chỉ không push main, không thêm env Vercel, không tự mở browser thật founder. Agent được sửa code/DB/deploy để hoàn tất bug được giao. Supersede ADR049/publish restrictions cũ; không tự suy cấm database từ chữ local. Khi cần management credential vẫn phải cung cấp kết nối, không đánh đồng thiếu credential với cấm quyền. Founder chọn tự chạy migration0007; agent verify/prepares/deploys qua CLI. AGENTS đã cập nhật.
+
+
+## ADR-069 — Card ôn bài, bổ sung chỉ ảnh, lưu nhóm gọn
+
+Confirmed12/10/2026 theo yêu cầu trực tiếp. Ôn đến hạn card có hình/count; Nói cùng Cáo tile đứng cùng các game. Bổ sung hình không thêm mẫu câu/ngữ pháp, hiện từ thiếu và chọn hình sẵn. Sửa từ ưu tiên catalog không phụ thuộc cấu hình Commons. Chuẩn hóa POS/số nhiều được biết; unknown vẫn không đoán. Save nhóm thành công ẩn save và footer lặp; chỉnh tiếp cho phép lưu lại. Giữ CAS/dedup/provenance/license/scope. [Evidence](../evaluations/review-pictures-and-group-save.md).
+
+
 ## ADR-031 — Upload kéo thả, trạng thái hành động và ảnh đối chiếu
 
 Confirmed by user, 10/10/2026. Founder yêu cầu sửa nút phân tích/lưu bị khóa sau tick, hiển thị ảnh để đối chiếu AI và làm lại UI chụp/upload với drag-drop. S04 có vùng thả một ảnh, nút chọn ảnh tiếng Việt/bàn phím và camera riêng; cùng intake/validation/local draft, không tự gửi AI. S06/S07 dùng route extract: ảnh prepared chính xác sticky cạnh kết quả desktop, thumbnail sticky trên mobile và mở blob ảnh lớn. Nêu rõ thiếu key/consent/privacy hoặc chưa có từ/chưa đủ nghĩa/chưa duyệt; key/model cấu hình tại chỗ, không rời nháp, lưu key mở nút khi đủ xác nhận. Giữ session/localStorage opt-in, quota, privacy/parent review và model ADR030. Không gọi kiểm UI/response fixture là real AI accuracy. [Evidence](../evaluations/capture-review-ui.md).
@@ -398,3 +459,63 @@ Speaking per-word embeds in existing WordDetail with IPA/definitions/examples in
 ## ADR-065 — Hiện phần trăm, bỏ nhãn agent tự thêm
 
 Founder directly requests visible 0–100% and explicitly rejects agent-proposed “điểm tham khảo” label and prototype/technical copy. Implement percent only; no new approval or no-score gate imposed by agent. Existing speech-quality/unsupported checks can return no result, not fabricated0 or100. Formula:1 per matched phone,0,5 for allowed near substitutions,0 for other/missing; max(expected,heard) denominator, rounded percent; confidence does not become score. Same assessment drives spelling colors/table. This supersedes previous documents withholding numeric display until calibration. Calibration/child/physical-phone/ELSA parity are still **unverified facts**, documented in engineering evidence, not used to add rejected UI labels or claim performance that has not been measured. AI text coaching cannot change colors/points. No mock result substituted into production engine.
+
+
+## ADR-066 — Gemini audio replaces the local pack; direct Speak, cues and Fox startup (12/10/2026)
+
+Founder explicitly agrees to send recordings to Gemini Free Tier using the existing key, then asks to remove the355MB download entirely. Latest screenshot rejects an extra AI consent popup, reminding the agent not to add unsolicited rules/copy. Remove that dialog and Hỏi lại setting: tapping Nói requests browser mic permission directly, cues the capture, and automatically assesses at utterance end. Browser's native microphone permission still applies. No extra application consent gate or scoring/prototype disclaimer. Keep useful result detail sheet, meaning/IPA/examples and finite Speaking game; prior score-label rejection remains.
+
+Current scorer is fixed Gemini3.5 Flash-Lite generateContent with bounded mono16k WAV≤10seconds and one request per tap. Validate plain JSON/complete known reference variant/index/score/phones; unclear has null score. No tools/Files API, retry, model/provider or paid fallback. Founder confirms Free Tier/no billing; no account billing inspection or live-key tests. Audio/results stay in memory; body excludes identity/library. Supersedes ADR058–065 local-only/no audio upload/download-pack decisions and text-only AI coaching restriction; preserves account/sync decisions and ADR049/050 permissions.
+
+Remove Worker/prepare/dependencies/public runtime and download/delete UI. Delete only retired model-cache prefix on app entry and SW activation. Isolated old renderer peak≈1484MiB, optimization trial≈1525MiB despite reduced retained memory; suggests a memory-risk cause but is not an iPhone crash proof. Capture begins after ascending cue, finalizes/stops tracks before descending cue; contexts/tracks/requests cleaned up, no cues on load/hidden. Inline original Fox loading plus36Apple startup PNGs address document loading and Home Screen launch respectively; native share/in-app pre-document delay still requires physical testing.
+
+20scoped unit tests and12Chromium/WebKit browser cases PASS, lint/types/build PASS; no real founder account/mic/key, live AI generation, SQL/remote writes or deployment. [Current spec](../15-speaking-practice.md), [evidence](../evaluations/mobile-speaking-startup.md). No new cost, calibration or physical-device claim based on fixtures.
+
+
+## ADR-067 — Direct image analysis, one approval, automatic duplicates and key-only settings (12/10/2026)
+
+Founder rejects AI on/off explanation, Google upload disclosure, advanced/test controls, capture consent/manual-transcription/save-draft controls, duplicate action and final checked checkbox. Implement one Cài đặt key AI button opening password input/Lưu key. Keep existing model choice in persisted configuration without exposing model picker; no test API calls. Existing remembered credentials remain remembered, fresh overrides remain session-only; clearing input and saving disables credentials durably using existing boundary. Do not silently add private key persistence or change shared public default permissions.
+
+Editor Phân tích ảnh persists edited pixels then marks an explicit one-shot analysis action. Review consumes that action before provider request, displays progress/result directly; reload/restored draft never auto sends. No consent/private-image checkboxes. Existing read limits, image preprocessing, schema/evidence, cancellation, no retries and key/scope/CAS guards stay. Clicking Duyệt và lưu approves selected complete candidates and patterns atomically; no second approval checkbox. Exact word/POS/sense repeats automatically collapse, only actual duplicate names are displayed; existing library identities are linked without overwriting user edits, distinct POS/senses remain. Manual recovery behind Sửa chữ đọc được remains. Remove explicit save-draft UI/status only; autosave and recovery protect data.
+
+Founder also requests removal of the whole Speaking settings block; direct Nói→assessment already authorized by ADR066. No new UI notice/gate. Supersedes prior consent/checked/advanced UI requirements only in this capture/extract/key/Speaking scope, not unrelated destructive/auth/media boundaries. Founder explicitly authorizes launcher executable bit in this repo; chmod u+x only, existing engine context/detect, no global writes/download/install/publishing. [Evidence](../evaluations/simple-photo-review.md).
+
+
+## ADR-068 — One backup section, compact photo cards/review and latest lesson (12/10/2026)
+
+Founder accepts consolidation of the duplicate backup UI and requests an illustrated photo-add card matching Type new word, closed per-word image/name accordions, one latest lesson and title editing inside dated set detail. Settings now has one full archive export and one restore entry accepting either full archive or historic text backups. Retain checksums/limits, full restore only into empty library, legacy merge/no overwrite and review pending records; never remove user-data compatibility to simplify UI.
+
+Today has two same-system feature cards, recent lesson limited to one nonempty active set sorted by learning day then updatedAt; no inline rename. All sets remain accessible. Review words start closed, summary image/name; individual selection/edit/attribution inside. Move title/day editor to filtered-library dated-detail disclosure, preserve CAS/scope/words/schedules, remove inline editors from Today/list. [Evidence](../evaluations/compact-home-and-review.md). No schema/cloud/AI/key/deploy changes; ADR049/050 apply.
+
+
+## ADR-077 —12/10/2026: Chọn nhóm, nhận diện bài ảnh và bỏ bổ sung hình
+
+Steering trực tiếp từ founder với4ảnh: Select all trong group là toggle cho cả3loại và từng tab/kết quả lọc, giữ lựa chọn ngoài lọc. Thẻ chọn bài có hình, tên, ngày học + giờ/phút/giây tạo bài, số từ/câu/ngữ pháp và vài từ mẫu như thẻ bài trong nhóm. Bài ảnh mới không dùng tên file/ngày làm default: lấy tối đa4từ distinct đã duyệt khi lưu; giữ tên tự nhập và tên legacy nguyên vẹn. Ngày học vẫn là calendar date; giờ tạo dùng createdAt sẵn có, không đổi schema/dữ liệu lịch sử.
+
+Kết quả lưu nhóm tách phần mint xanh các mục thêm thật và phần lilac mục trùng, cả2details đóng mặc định; no-op không báo đã thêm. Data result trả addedItems theo membership delta, giữ deterministic dedup/CAS/no-op. Word editor luôn hiển thị hình hiện tại/hình staged phía trên Đổi hình;1Save chung vẫn giữ.
+
+Bổ sung hình có nút Không bổ sung cho từng từ, lưu preference IndexedDB metadata riêng theo scope trên thiết bị và lọc trước phân trang. Không đổi word/content/revision/approval/SRS, vẫn đổi hình qua word editor. Preference này hiện không đi qua backup/cloud; không claim đồng bộ thiết bị. Layout card gọn, rõ word/VI, mascot gốc và actions không tràn ngang.
+
+[Evidence](../evaluations/group-picker-and-pictures.md). Local only; không deploy/SQL/env/main/founder browser/AI thật.
+
+
+## ADR-078 — Mobile app UX skill selection, not responsive-only (12/10/2026)
+
+Founder rejects the2-star responsive skill and requires reputable/popular, widely adopted sources for real mobile UI/UX. Retire mobile-responsive package and active routing, preserve ADR076 historical evidence. Reuse pinned UI/UX Pro Max as primary mobile design skill, Impeccable for visual polish: hierarchy/navigation/touch feedback/forms/safe areas/states/motion, applied to existing Next.js PWA/Theme C. Expo official native skills and popular community mobile-design collection reviewed but not installed: stack fit and instructions matter alongside popularity. No duplicate install or runtime migration.
+
+Before accepting skills verify source/maintainer, dated public stars/forks/activity, license, actual contents and scope/stack. Do not claim stars measure active users or skill installation is UX validation. Details and scoped checks: [mobile UX research/routing](../skills/MOBILE-UX.md). No app, cloud, browser, hook/global, AI or deployment actions in this task.
+
+12/10 ADR077 steering bổ sung: picker mới nhất lên đầu cho word/sentence/grammar/lesson bằng createdAt, không tên/learnedOn/updatedAt. Giữ grouping ngày; thứ tự ngày theo bài tạo mới nhất, trong ngày giảm dần. Dedup representative/ref không đổi; projection only. [Evidence](../evaluations/group-picker-and-pictures.md).
+
+### ADR078 — kết quả rà soát toàn bộ skill12/10/2026
+
+Áp dụng policy nguồn nổi tiếng/nhiều sao/uy tín cho mọi skill upstream mới. Public REST audit10repo, đọc pinned SKILL/frontmatter và references/license theo scope: mblode chỉ144sao/13forks nên gỡ cả product-design và ui-animation; mobile-responsive đã gỡ. Giữ12upstream từ nguồn vendor/maintainer rõ và cộng đồng lớn cùng3custom đúng yêu cầu riêng. Không tự đặt ngưỡng sao thành yêu cầu founder hoặc coi stars là active users. Interaction chuyển UI/UX Pro Max + Impeccable shape/operate; motion chuyển LottieFiles + Impeccable animate. Không cài trùng, không đổi UI/runtime; các quyết định sản phẩm/rule IDs/evidence cũ giữ lịch sử. Inventory, source catalog, routing04/13/START-HERE và founder plan đã đồng bộ. [Bằng chứng nguồn và quyết định từng skill](../skills/MOBILE-UX.md).
+
+
+## ADR-079 —12/10/2026: Chỉ Từ và Ngữ pháp, ví dụ nằm trong bài
+
+Founder trực tiếp yêu cầu bỏ tab/list/luồng thêm Câu độc lập khỏi mọi page; Words và Grammar chia đều2tab. Ví dụ câu trong từ và ngữ pháp vẫn lưu/xem/IPA/audio bình thường. Supersede phần3tabs và add standalone sentences ởADR056/057/072/073/077; không thay các yêu cầu về ví dụ/whole-sentenceIPA/source-evidence/backup/cloud.
+
+Library và group detail/list bỏ sentence mode/count/action; group editor chỉ words/grammar/lessons, select-all chỉ2loại. UI save lesson/day truyền includeSentences=false, không tạo refs câu độc lập từ bài; vẫn thêm word và grammar đúng số. Legacy sentence refs giữ nguyên senseId/key khi sửa group; không xóa/rewrite data ngoài yêu cầu. Storage examples/learning/source sentences/cloud/backup giữ nguyên. Query mode=sentences trở về words; bookmark /library/sentences/id mở word chứa ví dụ, không render sentence detail riêng. Review demo bỏ sentence tab, Photo review/Today dùng copy2loại. Grammar Xếp câu vẫn giữ vì là game luyện ngữ pháp, không standalone sentence library.
+
+[Verification](../evaluations/two-learning-types.md). Local only/chưa deploy.

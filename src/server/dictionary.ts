@@ -1,5 +1,5 @@
 import 'server-only';
-import {bilingualSenses,vietnameseExamples,type DictionarySense,type WordSuggestion} from '@/lib/learning/dictionary';
+import {bilingualSenses,englishSenses,vietnameseExamples,type DictionarySense,type WordSuggestion} from '@/lib/learning/dictionary';
 import {boundedFetch} from '@/server/media/commons';
 const cache=new Map<string,{until:number;value:unknown}>(),pending=new Map<string,Promise<unknown>>();
 async function cached<T>(key:string,job:()=>Promise<T>):Promise<T>{
@@ -24,8 +24,9 @@ export async function lookupWord(word:string,fetcher:typeof fetch=fetch):Promise
       if(corpus.status==='fulfilled')for(const example of corpus.value)if(sense.examples.length<2&&!sense.examples.some(item=>item.en===example.en))sense.examples.push(example);
     }
     if(senses.length)return senses;
+    const english=en.status==='fulfilled'?englishSenses(word,en.value):[];if(english.length)return english.map(item=>({...item,examples:corpus.status==='fulfilled'?corpus.value:[]}));
     // English-only fallback: never invent a Vietnamese equivalent.
-    const url=new URL(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`),data=await json(url,fetcher);if(!Array.isArray(data))return [];
+    const url=new URL(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`);const response=await fetcher(url,{cache:'no-store',redirect:'error',signal:AbortSignal.timeout(8000)});if(response.status===404)return [];if(!response.ok)throw new Error('unavailable');const raw=await response.text();if(raw.length>700000)throw new Error('too-large');const data=JSON.parse(raw);if(!Array.isArray(data))return [];
     return data.slice(0,2).flatMap(entry=>(Array.isArray(entry.meanings)?entry.meanings:[]).flatMap((meaning:{partOfSpeech:string;definitions:{definition:string}[]})=>(meaning.definitions??[]).slice(0,2).map(def=>({word,vi:'',definition:String(def.definition).slice(0,1000),pos:meaning.partOfSpeech,ipa:typeof entry.phonetic==='string'?entry.phonetic:'',examples:corpus.status==='fulfilled'?corpus.value:[],source:`Free Dictionary API — https://en.wiktionary.org/wiki/${encodeURIComponent(word)} — ${String(entry.license?.name??'license in source')}`})))).slice(0,16);
   };return fetcher===fetch?cached(`w:${word}`,job):job();
 }

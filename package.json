@@ -25,12 +25,9 @@
     "eval:ai": "python3 -B scripts/ai-benchmark/self_test.py",
     "prebuild": "node scripts/prepare-offline.mjs && node scripts/prepare-pwa.mjs",
     "predev": "node scripts/prepare-offline.mjs && node scripts/prepare-pwa.mjs",
-    "test:sql": "sh scripts/test-cloud.sh",
-    "speaking:spike": "node scripts/speaking/spike.mjs"
+    "test:sql": "sh scripts/test-cloud.sh"
   },
   "dependencies": {
-    "@huggingface/transformers": "3.8.1",
-    "@noble/hashes": "2.4.0",
     "@supabase/ssr": "0.12.7",
     "@supabase/supabase-js": "2.117.3",
     "class-variance-authority": "0.7.1",

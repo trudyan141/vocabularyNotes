@@ -16,7 +16,7 @@ async function login(page:Page,actor:'A'|'B'){
 test('PKCE cookies, explicit guest transfer, SQL sync and owner separation through real routes',async({page,context,browser})=>{
  test.setTimeout(90_000);
  await page.goto('/add');await page.getByRole('combobox').fill('nu');await page.getByRole('option').filter({hasText:'nut'}).getByRole('button').click();
- await page.getByRole('checkbox',{name:'Tôi đã kiểm tra nội dung và đồng ý cho con học'}).check();await page.getByRole('button',{name:'Duyệt và lưu từ',exact:true}).click();await expect(page).toHaveURL(/\/library\/words\//);
+ await page.getByRole('button',{name:'Lưu từ',exact:true}).click();await expect(page).toHaveURL(/\/library\/words\//);
  await login(page,'A');
  const overview=await page.request.get('/api/auth/status?profile=1');expect((await overview.json()).cloud).toMatchObject({state:'empty',words:0,lessons:0});
  const cookies=await context.cookies();expect(cookies.some(cookie=>cookie.name.includes('auth-token')&&cookie.httpOnly)).toBe(true);

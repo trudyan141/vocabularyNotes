@@ -2,7 +2,7 @@
 import type { ReactNode } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
+import {FoxLoading} from "./fox-loading";
 import { useApp } from "./provider";
 export function DatabaseBoundary({ children,progressive=false }: { children: ReactNode;progressive?:boolean }) {
   const { t, databaseStatus, retryDatabase } = useApp();
@@ -33,15 +33,7 @@ export function DatabaseBoundary({ children,progressive=false }: { children: Rea
 }
 export function DatabaseLoading() {
   const { t } = useApp();
-  return (
-    <div role="status" className="page-flow">
-      <Skeleton className="h-10 w-3/4" />
-      <Skeleton className="h-56 w-full" />
-      <p>
-        {t("Đang mở bài học…", "Opening your lessons…")}
-      </p>
-    </div>
-  );
+  return <FoxLoading label={t('Đang tải…','Loading…')}/>;
 }
 export function ReadFailure() {
   const { t, retryDatabase } = useApp();

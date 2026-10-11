@@ -133,8 +133,9 @@ test("guest IndexedDB records can be edited and reloaded while foreign-scope rec
     .getByLabel("Nghĩa tiếng Việt", { exact: true })
     .fill("quả lê đã lưu thật");
   await page
-    .getByRole("button", { name: "Lưu chỉnh sửa trên máy", exact: true })
+    .getByRole("button", { name: "Lưu chỉnh sửa", exact: true })
     .click();
+  await expect(page.getByRole('button',{name:'Đã lưu chỉnh sửa',exact:true})).toBeVisible();await page.getByRole('link',{name:'Quay lại',exact:true}).click();
   await expect(
     page.getByRole("heading", { name: "quả lê đã lưu thật", exact: true }),
   ).toBeVisible();

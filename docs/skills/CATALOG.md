@@ -1,12 +1,14 @@
 # Skill đã tìm, chọn và đóng gói
 
+12/10 — ADR078: bỏ `mobile-responsive` (2 sao, responsive-only), `product-design` và `ui-animation` (nguồn mblode144sao/13forks); dùng UI/UX Pro Max đã pin làm nguồn chính thiết kế mobile, Impeccable hỗ trợ visual polish. Tiêu chí nguồn uy tín/nhiều sao/cộng đồng lớn và cách dùng mobile: [Mobile UX và chọn nguồn skill](MOBILE-UX.md). Không cài lại bản trùng hoặc đổi stack sang Expo.
+
 Ứng dụng cụ thể mới: `node` đã cài project-local pin commit và chạy `scripts/demo_media_concurrency.mjs` với timer giả lập (không gọi AI). Stock/photo finder/API/curation/license của SkillMedev đã đọc nhưng chưa cài: ưu tiên photo/landing chưa phù hợp trẻ; một số diễn giải rights quá rộng, không dùng thay license chính thức. Giữ bộ nhỏ, dùng pipeline 14 với nguồn primary. Skill mới có thể hiện trong catalog IDE từ lượt/chat tiếp theo; hiện đọc trực tiếp SKILL trong repo được. Tên app đổi, ba custom skill giữ invocation ổn định và đã sửa nội dung/lock.
 
-Kiểm tra nguồn ngày **09/10/2026**. Có **17 skill trong repo: 14 upstream + 3 riêng dự án**, đã bổ sung theo yêu cầu UX/UI/animation/performance. Commit/checksum chính xác ở [skills-lock.json](skills-lock.json). InspoMCP là công cụ nghiên cứu riêng, không tính vào số skill.
+Rà soát lại toàn bộ nguồn ngày **12/10/2026**. Có **15 skill trong repo: 12 upstream + 3 riêng dự án**, đã bổ sung theo yêu cầu UX/UI/animation/performance. Commit/checksum chính xác ở [skills-lock.json](skills-lock.json). InspoMCP là công cụ nghiên cứu riêng, không tính vào số skill.
 
 Skill là hướng dẫn cho coding agent. OCR/vision, storage, animation và audio trong app vẫn là code/runtime/API phải triển khai. Không có skill nào bảo đảm model đọc đúng ảnh hay nghĩa tiếng Việt.
 
-## 14 skill GitHub đã cài theo project
+## 12 skill GitHub đã cài theo project
 
 | Thư mục / invocation | Nguồn | Vai trò và task | License / ghi chú |
 |---|---|---|---|
@@ -18,16 +20,14 @@ Skill là hướng dẫn cho coding agent. OCR/vision, storage, animation và au
 | `react-best-practices` / **`vercel-react-best-practices`** | [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices) | React/Next performance, loading/rendering; T02/T07/T13 | MIT theo frontmatter SKILL; nguồn không có LICENSE standalone tại commit đã pin, xem provenance notice |
 | `filesystem-context` | [Context Engineering](https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/tree/main/skills/filesystem-context) | Context trên file, targeted retrieval; handoff dài | MIT; dùng docs/ai thay vì tạo ledger mới |
 | `context-compression` | [Context Engineering](https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/tree/main/skills/context-compression) | Summary giữ decisions/files/next action khi compaction | MIT; không hứa chống mất context tuyệt đối |
-| `ui-ux-pro-max` **mới** | [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/tree/main/.claude/skills/ui-ux-pro-max) | Search design/UX catalog, density/style guidance; T18/T02 | MIT; local CSV search có kiểm nhưng recommendation phải fit sản phẩm/VI, không áp máy móc |
-| `product-design` **mới** | [mblode/agent-skills](https://github.com/mblode/agent-skills/tree/main/skills/product-design) | Primary action, control choice, recovery/reachable states; T18/T02/T06/T09 | MIT; mode shape với rule IDs; dùng frontend-design cho visual, không cần cài mọi sibling skill |
-| `ui-animation` **mới** | [mblode/agent-skills](https://github.com/mblode/agent-skills/tree/main/skills/ui-animation) | CSS/WAAPI/Motion, interruption/reduced motion, QA27; T02/T08/T12 | MIT; video helper ffmpeg/OpenCV/scipy chỉ cần nếu reverse-engineer video; chưa chạy helper |
+| `ui-ux-pro-max` **nguồn chính mobile UX — ADR078** | [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/tree/main/.claude/skills/ui-ux-pro-max) | Mobile app UX: navigation, touch feedback, typography, spacing, forms, safe areas, empty/error states; Next.js/PWA implementation; T18/T02 | MIT; local CSV search có kiểm nhưng recommendation phải fit sản phẩm/VI, không áp máy móc |
 | `performance` **mới theo project** | [addyosmani/web-quality-skills](https://github.com/addyosmani/web-quality-skills/tree/main/skills/performance) | Baseline/trace/resource budgets, measure before/after; T02/T13/T14 | MIT; portable project copy, không ghi đè global skill đã có |
 | `core-web-vitals` **mới** | [addyosmani/web-quality-skills](https://github.com/addyosmani/web-quality-skills/tree/main/skills/core-web-vitals) | LCP/INP/CLS, lab vs field p75; T02/T14 | MIT; thiếu CrUX/RUM samples không đồng nghĩa pass |
 | `accessibility` **mới** | [addyosmani/web-quality-skills](https://github.com/addyosmani/web-quality-skills/tree/main/skills/accessibility) | WCAG/control names/focus/keyboard/contrast, device QA; T18/T02/T14 | MIT; automated audit không thay human usability |
 
 Tất cả bundle giữ references/supporting resources liên quan và attribution. Cài skill theo project, không bật hooks. Đã chạy script search UI/UX Pro Max **local, không persist** để đánh giá fit; chưa chạy video helpers/context demo hoặc lifecycle scripts. Nguồn chính thức của vendor được ưu tiên cho API/DB; community UX skills là hướng dẫn cần đối chiếu spec và đo thật.
 
-Phân vai để tránh chồng lấn: product-design quyết định interaction; frontend-design quyết định visual; UI/UX Pro Max hỗ trợ tra cứu, không làm spec độc lập. motion-design nêu purpose/timing, ui-animation triển khai và đo. performance đo tổng thể; core-web-vitals đo CWV; React skill giải quyết render/data fetching. Human test cho trẻ/người lớn và budgets tại [13-ux-performance-gates.md](../13-ux-performance-gates.md).
+Phân vai: UI/UX Pro Max + Impeccable shape/operate hướng dẫn interaction; frontend-design + Impeccable hướng dẫn visual. LottieFiles motion-design + Impeccable animate hướng dẫn purpose/timing/implementation; references của UI/UX Pro Max hỗ trợ reduced motion và interruptions. Spec dự án giữ quyền quyết định. performance đo tổng thể; core-web-vitals đo CWV; React skill giải quyết render/data fetching. Human test cho trẻ/người lớn và budgets tại [13-ux-performance-gates.md](../13-ux-performance-gates.md).
 
 ## InspoMCP theo yêu cầu người dùng
 

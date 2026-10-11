@@ -48,7 +48,7 @@ export function Artwork({
   const {repository,t}=useApp();
   const [failed,setFailed]=useState<string|null>(null);
   const custom=useLiveQuery(async()=>repository&&art?.startsWith('media-')?{scope:repository.scope.id,asset:await approvedMedia(repository,art,word)}:null,[repository,art,word]);
-  function credited(picture:ReactNode,source:string,label:string,license?:string,licenseUrl?:string){return showCredit?<figure className="credited-art">{picture}<figcaption><details className="media-credit"><summary>{t('Nguồn hình','Image source')}</summary><a href={source} target="_blank" rel="noreferrer">{label}</a>{licenseUrl&&<> · <a href={licenseUrl} target="_blank" rel="noreferrer">{license}</a></>}</details></figcaption></figure>:picture;}
+  function credited(picture:ReactNode,source:string,label:string,license?:string,licenseUrl?:string){return showCredit?<figure className="credited-art">{picture}<figcaption><details className="media-credit"><summary>{t('Nguồn hình','Image source')}</summary>{source?<a href={source} target="_blank" rel="noreferrer">{label}</a>:<span>{label}</span>}{licenseUrl&&<> · <a href={licenseUrl} target="_blank" rel="noreferrer">{license}</a></>}</details></figcaption></figure>:picture;}
   if(art?.startsWith('media-'))return custom?.scope===repository?.scope.id&&custom?.asset?credited(<Image unoptimized className="word-art" src={`data:image/jpeg;base64,${custom.asset.base64}`} alt="" width={size} height={size}/>,custom.asset.candidate.sourceUrl,custom.asset.candidate.credit):<div className="missing-art"><BookOpen aria-hidden="true"/><span>{word}</span></div>;
   const credit=artCredit(art);
   if(art&&failed===art)return <div className="missing-art"><BookOpen aria-hidden="true"/><span>{word}</span><small>{t("Chưa tải được hình","Image unavailable")}</small></div>;
@@ -78,11 +78,9 @@ export function EmptyState({
   children?: ReactNode;
 }) {
   return (
-    <Empty>
+    <Empty className="illustrated-empty">
       <EmptyHeader>
-        <EmptyMedia variant="icon">
-          <BookOpen aria-hidden="true" />
-        </EmptyMedia>
+        <EmptyMedia className="empty-fox"><Image src="/illustrations/fox.svg" alt="" width={136} height={136}/></EmptyMedia>
         <EmptyTitle>{title}</EmptyTitle>
         <EmptyDescription>{description}</EmptyDescription>
       </EmptyHeader>

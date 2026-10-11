@@ -22,7 +22,7 @@ Ngày 09/10/2026. Nội dung có thể thay đổi; pin SDK/model/dependencies k
 | [naptha/tesseract.js](https://github.com/naptha/tesseract.js) | OCR local/browser worker ứng viên P2 | Không là grammar engine hoặc cam kết đọc mọi chữ viết tay |
 | [web.dev — Core Web Vitals](https://web.dev/articles/vitals) | LCP ≤2,5 s/INP ≤200 ms/CLS ≤0,1 ở field p75, lab/field distinction | Ngưỡng không có nghĩa app đã đạt; cần samples/profile |
 | [UI/UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) | Local design/UX search cho T18/T02 | Kết quả có thể không fit vocabulary product; đã narrow retry và ghi fallback |
-| [mblode — agent-skills](https://github.com/mblode/agent-skills) | product-design và ui-animation, interaction/recovery/motion | Hướng dẫn community, không thay human test |
+| [UI/UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) + [Impeccable](https://github.com/pbakaus/impeccable) | Interaction/mobile UX/feedback/motion | Nguồn thay mblode đã gỡ theo ADR078; không thay human test |
 | [Addy Osmani — web-quality-skills](https://github.com/addyosmani/web-quality-skills) | performance/core-web-vitals/accessibility và measurement workflow | Chưa có app để đo score hoặc chứng minh improvement |
 | [InspoMCP — setup](https://inspomcp.dev/mcp), [source](https://github.com/Nutlope/inspo) | MCP visual research, đã cài bản npm 0.1.16 local cho Codex | CLI trên máy không hỗ trợ HTTP installer default; app discovery cần reload; không tự cấu hình Antigravity |
 

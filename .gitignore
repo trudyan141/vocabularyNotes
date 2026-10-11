@@ -52,5 +52,8 @@ next-env.d.ts
 # Obsolete local OCR model downloads; worksheet reading uses Gemini.
 *.traineddata
 
-# Generated from pinned installed dependency by prebuild
+# Retired generated recognition assets: never publish them again
 /public/speaking/
+
+# Generated original iOS launch images
+/public/startup/

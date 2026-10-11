@@ -1,11 +1,45 @@
 # Words for Kids — kế hoạch sản phẩm dành cho founder
 
+12/10 — ADR078: đã rà soát toàn bộ17skill, gỡ responsive2sao và2skill mblode144sao/13forks; còn15skill (12upstream+3custom). Dùng UI/UX Pro Max đã có (~134.800sao/~14.300forks) làm nguồn chính UX/UI như app mobile, Impeccable làm đẹp; giữ Next.js/PWA/Theme C. Đã ghi quy tắc phải chọn nguồn uy tín/nhiều sao/cộng đồng lớn và kiểm nội dung/stack/license. [Cách áp dụng và nghiên cứu](skills/MOBILE-UX.md). Đây là đổi hướng dẫn thiết kế, chưa phải thêm sửa UI hay xác nhận human UX.
+
+12/10 — ADR077 đã sửa local theo4ảnh: Chọn tất cả bật/tắt; bài trong picker có hình/từ mẫu/counts/giờ tạo; bài ảnh default4từ thay tên file/ngày; danh sách mới thêm màu xanh và trùng thu gọn; sửa từ thấy hình hiện tại; Không bổ sung bền reload trên thiết bị, vẫn đổi hình qua editor.20data tests/10UIcases/lint/types/build PASS. Chưa deploy; lựa chọn bỏ bổ sung hiện chưa cloud/backup. [Bằng chứng](evaluations/group-picker-and-pictures.md).
+
+
+12/10 — ADR076 local: sửa từ một lần lưu cả hình/nội dung; chọn riêng mục thêm nhóm; xóa bộ giữ từ/câu/ngữ pháp; trash đầu trang; animation về bước1; navigation không che content; submit thành công/lỗi tại nút, no-data có Cáo. Skill mobile-responsive đã gắn repo.56test dữ liệu/lint/typecheck/build PASS; 22ca UI mobile/desktop đã qua, kể cả2ca chốt hình/footer; docs/detector PASS. Bản sửa chưa deploy, không đụng env/main/tài khoản/browser thật. [Bằng chứng](evaluations/edit-save-navigation.md).
+
+## Hiện hành12/10 — ADR075
+
+Bộ tìm/lọc nằm trong card có icon. Detail ngữ pháp có hướng dẫn bằng màu/chuyển động và thùng rác gọn ở thanh trên. Câu hỏi Is it…? + Yes/No thành một bài, vẫn giữ đủ dữ liệu cũ; bài tạo mới có các dạng hỏi/đáp trong cùng cấu trúc. Lưu nhóm chỉ thêm mục mới, liệt kê mục trùng; gửi lại nguyên danh sách không báo lưu thành công giả. Ca100từ=70trùng/30mới đã đạt. Bản đã lên website; cloud thử riêng giữ1bài/3dạng và báo trùng đúng, cleanup PASS. [Bằng chứng](evaluations/grammar-guide-and-group-duplicates.md).
+
+
+## Hiện hành12/10 — ADR074
+
+Tra intense/intensely tại4317 đã200 đúng adjective/adverb. Today chia Ôn bài/Thêm từ và chọn nhóm riêng. Có trò Xếp câu từ ngữ pháp đã lưu; lịch ôn không bị game đổi. Recent sessions thành card có hình/kết quả. BROTHER nay dùng hình cậu bé thay tranh biếm họa. Có upload ảnh đã mua/được phép và giữ nguồn; ghi nguồn không tự tạo quyền. [Bằng chứng](evaluations/review-grammar-and-dictionary.md). SQL0008 đã chạy giữ các mode cũ. Sau deploy, ảnh tải lên/kèm nguồn/ngữ pháp/kết quả Xếp câu tự đồng bộ giữa2phiên tài khoản thử PASS, đã dọn dữ liệu thử. Không env mới/main/browser thật.
+
+
+## Hiện hành12/10 — ADR072/073
+
+SQL0007 đã chạy xong bằng token local. Kiểm thử cloud thật với tài khoản mẫu riêng: thêm/sửa/xóa từ, nhóm và hồ sơ tự xuất hiện ở phiên thứ hai; đã dọn tài khoản mẫu. Library3tab Từ/Câu/Ngữ pháp, detail trang riêng, filter inline. Chọn từ đúng input và Gemini tự thêm2ví dụ. Tìm/tải hình SISTER/BROTHER thật đã thành công. [Bằng chứng](evaluations/simple-lessons-and-live-cloud.md). Không push main/thêm env/browser thật.
+
+
+**12/10 — game/nhóm gọn và chốt đồng bộ:** bỏ tìm từ ở Hôm nay; tiếng game luôn bật, tùy chọn đóng gọn. Nhóm có header/actions gọn, xóa đầu trang,6bài mỗi trang. Code cloud qua test2thiết bị riêng, gồm từ/nhóm/hồ sơ;214logic tests PASS. Đã xác định Supabase thật thiếu hàm lưu hồ sơ, bạn chọn chạy [SQL0007](../supabase/migrations/202610110007_realtime.sql). SQL đã qua kiểm tra PostgreSQL cô lập. [Bằng chứng](evaluations/compact-games-and-groups.md). Đã triển khai CLI lên words-for-kids.vercel.app; mobile game/options và Today kiểm trực tiếp bằng profile riêng PASS. Không push main/không thêm env/không browser thật. Chờ bạn chạy SQL0007 để kiểm chứng cloud thực tế.
+
+
+**12/10 — ôn bài, hình và nhóm gọn hơn (local):** Ôn bài là card có hình. Bổ sung hình hiện rõ từ thiếu, chọn hình có sẵn được, không trộn mẫu câu. Form sửa từ dùng hình có sẵn trước để không phụ thuộc dịch vụ tìm ảnh chưa cấu hình. Lưu nhóm xong chỉ báo thành công. Card Nói cùng Cáo đồng bộ với các game. [Bằng chứng](evaluations/review-pictures-and-group-save.md). Chưa xuất bản.
+
+
+**12/10 — màn chính và duyệt từ gọn hơn (local):** Thêm bài từ ảnh là card có hình như Gõ từ mới. Từng từ từ ảnh chỉ hiện hình/tên, bấm mới mở form. Hôm nay chỉ một bài gần nhất; sửa tên/ngày ở chi tiết bộ. Sao lưu gộp hai nút Tải bản sao/Khôi phục bản sao, vẫn mở được file kiểu cũ. [Bằng chứng](evaluations/compact-home-and-review.md). Chưa xuất bản.
+
+**12/10 — thêm ảnh gọn hơn (local):** Cài đặt chỉ còn nút nhập key AI. Chọn/chỉnh ảnh → Phân tích → xem kết quả → Duyệt và lưu, không hỏi đồng ý hai lần hay checkbox kiểm lại. Từ trùng tự lọc và chỉ báo tên từ trùng. Bỏ nút chép từ ảnh/lưu nháp và cả khối Chấm phát âm trong Cài đặt; nháp vẫn tự giữ để tránh mất nội dung khi lỗi mạng. [Bằng chứng](evaluations/simple-photo-review.md). Chưa xuất bản; quyền launcher repo đã thêm theo bạn yêu cầu, không cài thêm công cụ.
+
+**12/10 — Speaking đã sửa local theo yêu cầu mới nhất:** bỏ bộ tải355MB, dùng Gemini chấm bản thu bằng key Free Tier bạn đã xác nhận. Bấm Nói mở mic ngay, có tiếng báo đầu/cuối, tự chấm sau khi nói xong; không popup xác nhận dư. Điểm phần trăm/màu chữ/nhận xét ở chi tiết từ và game trong Chơi & học. Mở bài có Cáo “Đang tải…” và ảnh khởi động Home Screen.20ca unit và12ca desktop/mobile/WebKit đã qua; chưa thử iPhone/key thật hoặc đưa lên website. [Bằng chứng và ảnh](evaluations/mobile-speaking-startup.md), [kế hoạch hiện hành mục17](#speaking-review).
+
 **12/10 — bản sửa local đã sẵn để review:** luyện nói nằm ngay trong chi tiết từ, có phần trăm/màu chữ/bảng sửa âm; game Nói cùng Cáo nằm trong Chơi & học. Account tự nhận thao tác thêm/sửa/xóa giữa thiết bị mẫu, tên/avatar cũng đồng bộ, bài chưa đăng nhập được giữ và chỉ sao chép khi muốn. Trang chào hiện nội dung nhanh hơn khoảng66% và tải ít mã hơn41% trong kiểm local; các trang học chưa đo được nhanh hơn. [Báo cáo cập nhật](BAO-CAO-PERFORMANCE-VA-DONG-BO.md), [ảnh và kiểm chứng](evaluations/speaking-refresh-and-automatic-sync.md). Chưa đưa lên website; SQL mới chưa chạy được ở máy local do giới hạn shared memory và chưa áp Supabase. Quyền GitHub/Vercel vẫn do bạn làm theo ADR049.
 
 
 **Mới nhất11/10 — Nhóm và âm thanh (ADR056/057):** nhóm thêm ngữ pháp, chọn tất cả từ/câu/ngữ pháp một lần, mục theo ngày và tên bài gốc, bỏ trùng toàn nhóm. Sửa lần bấm Nghe đầu bằng cách chờ giọng sẵn sàng ngay trong lần đó; có Dừng/hủy khi rời màn.46ca dữ liệu/voice và10ca browser mobile/desktop đã qua, chưa kiểm âm thanh điện thoại thật/push/deploy. [Bằng chứng](evaluations/groups-grammar-and-audio.md).
 
-**Mới nhất11/10 — Speaking không phát sinh phí, chờ review:** kế hoạch đã rút về một hướng: Wav2Vec2 chạy trong trình duyệt bằng Transformers.js, nhận xét tiếng Việt viết sẵn; không thuê máy chủ/chạy API chấm giọng. Có bước thử tốc độ và độ đúng trước khi làm đầy đủ. Chưa triển khai. Đọc [mục 17](#speaking-review); [chi tiết cho AI](15-speaking-practice.md).
+**Lịch sử11/10 — Speaking local trước ADR066 (đã thay thế):** kế hoạch đã rút về một hướng: Wav2Vec2 chạy trong trình duyệt bằng Transformers.js, nhận xét tiếng Việt viết sẵn; không thuê máy chủ/chạy API chấm giọng. Có bước thử tốc độ và độ đúng trước khi làm đầy đủ. Chưa triển khai. Đọc [mục 17](#speaking-review); [chi tiết cho AI](15-speaking-practice.md).
 
 **11/10 — Giữ đăng nhập khi mở lại:** tính năng đã có qua cookie an toàn và tự làm mới phiên. Mở lại cùng browser/domain khi phiên còn hợp lệ không cần login lại.5 ca kiểm local đã qua (mở lại, refresh, thu hồi, lỗi mạng, logout); không sửa cấu hình tài khoản hay thời hạn Supabase. [Bằng chứng](evaluations/auth-session-persistence.md). Google thật/điện thoại còn cần founder thử.
 
@@ -257,7 +291,7 @@ flowchart TD
 
 **Bố cục game/kết quả đã sửa:** ba đáp án bằng nhau, cùng một hàng ở màn từ 360 px; màn quá hẹp dùng ba hàng bằng nhau. Không dùng hai thẻ trên và một thẻ rộng phía dưới vì tạo thiên lệch thị giác. Không làm nhạt cả hình sau khi trả lời; feedback ngắn, có icon/chữ. Kết quả gọn trong một nhóm số đúng/sai/bỏ qua dùng mint/pink/lilac. Panel mã màn/checkbox lỗi chỉ là công cụ QA và được ẩn khỏi giao diện mặc định, không thuộc app cho bé.
 
-**Skill đã vận dụng trong vòng này:** frontend-design tạo mascot/palette/illustration riêng; product-design tách child learning và parent preparation; ui-ux-pro-max được tra và chọn lọc, không áp recommendation landing/blue; bilingual-learning-content giữ đúng nghĩa/ví dụ; motion-design/ui-animation định nghĩa storyboard, thời gian, pause và reduced motion ở mục 8. Hiệu năng dùng catalog/template, không phát video AI hoặc tải mọi asset khi mở app.
+**Skill đã vận dụng trong vòng prototype trước đây (lịch sử; product-design/ui-animation đã gỡ theo ADR078):** frontend-design tạo mascot/palette/illustration riêng; product-design tách child learning và parent preparation; ui-ux-pro-max được tra và chọn lọc, không áp recommendation landing/blue; bilingual-learning-content giữ đúng nghĩa/ví dụ; motion-design/ui-animation định nghĩa storyboard, thời gian, pause và reduced motion ở mục 8. Hiệu năng dùng catalog/template, không phát video AI hoặc tải mọi asset khi mở app.
 
 ### 4.4. S04 — Camera hoặc chọn ảnh
 
@@ -799,13 +833,13 @@ Nếu nhiều người không thấy nút Nghe hoặc không biết phải hiệ
 
 ## 12. Skill và công cụ đã bổ sung
 
-Skill là hướng dẫn giúp AI làm việc theo tiêu chuẩn; app đẹp và dễ dùng còn cần thiết kế, đo và sửa. Bộ hiện có **17 skill: 14 từ GitHub + 3 viết riêng cho dự án**.
+Skill là hướng dẫn giúp AI làm việc theo tiêu chuẩn; app đẹp và dễ dùng còn cần thiết kế, đo và sửa. Bộ hiện có **15 skill: 12 từ GitHub + 3 viết riêng cho dự án**.
 
 | Nhóm | Skill/công cụ | Công việc cụ thể |
 |---|---|---|
-| UX | **product-design**, **ui-ux-pro-max** — mới | Sắp hành động, chọn điều khiển, giảm lựa chọn, xử lý lỗi/trạng thái; tra cứu mẫu thiết kế |
+| UX | **ui-ux-pro-max** + Impeccable shape/operate | Sắp hành động, chọn điều khiển, giảm lựa chọn, xử lý lỗi/trạng thái; tra cứu mẫu thiết kế |
 | UI | frontend-design + **Impeccable mới theo yêu cầu founder** | Đã dùng distill/layout/colorize/typeset để gọn UI, sửa ba đáp án, màu/feedback/kết quả và font; context/detector đã chạy |
-| Animation | motion-design + **ui-animation** — bổ sung mới | Nguyên lý chuyển động + cách triển khai, reduced motion, kiểm khi bị ngắt |
+| Animation | LottieFiles motion-design + Impeccable animate | Nguyên lý chuyển động + cách triển khai, reduced motion, kiểm khi bị ngắt |
 | Performance | **performance**, **core-web-vitals** — mới; vercel-react-best-practices đã có | Đo tốc độ, tải tài nguyên, thời gian tương tác, render React/Next |
 | Dễ tiếp cận | **accessibility** — mới | Nút chạm, độ tương phản, bàn phím, đọc màn hình, zoom |
 | Xử lý song song | **node — mới** từ mcollina/skills | Giới hạn I/O, hủy/timeout, cache và tra trùng; demo độ trễ giả lập đã chạy, chưa đo tốc độ app |
@@ -815,7 +849,7 @@ Skill là hướng dẫn giúp AI làm việc theo tiêu chuẩn; app đẹp và
 | Giữ context | filesystem-context, context-compression, vocabulary-delivery | Task, quyết định, trạng thái, bằng chứng và bước tiếp theo cho AI |
 | Tham khảo thiết kế | **InspoMCP 0.1.16** — mới | Tìm ảnh/màu/chữ của mẫu thật; đã dùng để nghiên cứu bốn mẫu ở mục 7 |
 
-Nguồn mới: [Impeccable](https://github.com/pbakaus/impeccable), [mcollina/skills](https://github.com/mcollina/skills/tree/main/skills/node), [UI/UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill), [mblode: product-design và ui-animation](https://github.com/mblode/agent-skills), [Addy Osmani: web-quality-skills](https://github.com/addyosmani/web-quality-skills), [InspoMCP](https://github.com/Nutlope/inspo).
+Nguồn mới: [Impeccable](https://github.com/pbakaus/impeccable), [mcollina/skills](https://github.com/mcollina/skills/tree/main/skills/node), [UI/UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill), [Addy Osmani: web-quality-skills](https://github.com/addyosmani/web-quality-skills), [InspoMCP](https://github.com/Nutlope/inspo).
 
 InspoMCP đã được cấu hình cho Codex bằng phương thức chạy local, vì CLI Codex hiện có chưa hỗ trợ cách cài remote mặc định của installer. Đã kiểm khởi động và danh sách công cụ; phiên Codex hiện tại có thể cần khởi động lại để tự hiện công cụ mới. Phần nghiên cứu mẫu đã thực hiện trực tiếp qua endpoint đọc của InspoMCP. Antigravity chưa được cấu hình/kiểm kết nối trong lượt này.
 
@@ -972,71 +1006,15 @@ Checkpoint ADR040/041: source30129b7 nativeGit production READY dpl_6P6SXrqLUuPY
 
 <a id="speaking-review"></a>
 
-## 17. Kế hoạch tập phát âm — không phát sinh phí
+## 17. Tập phát âm — hướng chốt12/10
 
-**Cập nhật12/10 — đã làm trong code local:** mở chi tiết một từ là có nút **Nói** cạnh **Nghe**, vẫn giữ IPA, nghĩa và các ví dụ. Nói xong tự hiện phần trăm (ví dụ88%) và tô màu nhóm chữ. Chạm từ để mở khung so từng âm với cách sửa bằng tiếng Việt; có nút nghe mẫu và icon nghe giọng mình. Không thêm nhãn “điểm tham khảo” hay đoạn copy thử nghiệm vào màn học.
+Bạn đã đồng ý gửi bản thu để Gemini chấm và yêu cầu bỏ bộ tải355MB. App chỉ dùng **Gemini3.5 Flash-Lite với key hiện có**, không cần tải bộ nhận âm. Key/project Free Tier không billing đã được bạn xác nhận; hết lượt miễn phí thì báo thử sau, không mua thêm hoặc chuyển sang dịch vụ trả phí.
 
-**Nói cùng Cáo** là một ô game trong **Chơi & học**, mỗi vòng tối đa5 từ đã lưu và duyệt. Có Tiếp theo/Bỏ qua/Hoàn thành/Chơi lại; vòng mới dùng các từ tiếp theo. Tải và xóa bộ nhận âm nằm trong **Cài đặt**; trang nói chỉ dẫn tới đó khi chưa tải, tải rồi thì ẩn. Chốt công nghệ vẫn chạy nhận âm trên máy, dùng key Gemini miễn phí hiện có cho lời khuyên khi bật trong Cài đặt; không thêm dịch vụ thu phí.
+Bé bấm **Nói**, nghe tiếng báo rồi đọc; app tự nhận khi nói xong và báo kết thúc. Gemini nghe bản thu, trả điểm%, tô nhóm chữ xanh/cam/đỏ và hướng dẫn cách sửa từng âm bằng tiếng Việt. Bấm từ có màu để xem chi tiết; icon người để nghe lại. Bấm Nói là mở mic và tự chấm, không thêm popup xác nhận. Tập nói ngay trong trang từ, vẫn có nghĩa/IPA/ví dụ. **Nói cùng Cáo** ở Chơi & học cho một vòng≤5từ đã học.
 
-Các đoạn11/10 bên dưới ghi lịch sử lựa chọn. Trạng thái hiện hành và ảnh nằm ở [bằng chứng mới](evaluations/speaking-refresh-and-automatic-sync.md). Chất lượng với giọng trẻ/điện thoại thật và AI thật chưa được kiểm; số hiển thị tính từ kết quả đối chiếu âm đang chạy.
+Phần tải355MB đã bỏ cả UI/runtime/dependency; bộ cũ được dọn khi app cập nhật, bài học giữ nguyên. Không có mạng/hết quota vẫn nghe mẫu, thu và nghe lại được; phần chấm cần Gemini. Bản thu/điểm không lưu thành lịch sử hoặc đồng bộ tài khoản.
 
-
-**Chốt một hướng: điện thoại/máy tính của người dùng tự xử lý giọng nói. Không thuê máy chủ chấm giọng, không gọi API tính phí. Nhận âm/chấm tại máy không cần key; nhận xét riêng bằng AI dùng key Gemini Free Tier bạn đã xác nhận không gắn billing.** Sau yêu cầu “100% miễn phí” và “tiếp tục” ngày11/10, đã bắt đầu bước thử chạy thật trên máy local.
-
-**Đã thử được:** bộ nhận âm chạy trong trình duyệt, nhận đúng chuỗi âm của ba clip công khai “cat”, “book”, “cup”, khoảng1–1,3 giây/clip trên máy thử. Im lặng không tạo âm. Bản TTS vẫn có lỗi nhận âm, và “apple” cần kiểm biến thể cách đọc. **Chưa đưa nút mic/điểm/màu/game vào app**, chưa thử giọng trẻ hay điện thoại thật. Bước tiếp theo là tải/lưu bộ nhận âm và xử lý hủy/lỗi trên trình duyệt, rồi nối mic. [Bằng chứng ngắn](evaluations/speaking-local-feasibility.md).
-
-### Bé sẽ nhận được gì?
-
-Ở mỗi từ có nút **Tập nói**: nghe mẫu → bấm mic → nói → dừng → nghe lại → bấm **Xem nhận xét**. App chỉ ra chỗ cần tập bằng lời tiếng Việt ngắn, ví dụ “Con thử nói rõ âm cuối nhé”, khi thực sự nhận ra lỗi đó.
-
-- **Xanh lá:** nói rõ rồi.
-- **Cam:** cần tập thêm âm được chỉ ra.
-- **Đỏ:** phát âm khác hoặc bỏ thiếu từ, khi máy đủ chắc chắn.
-- **Chưa nghe rõ:** cho thu lại, không chấm 0 hay tô đỏ vì mic lỗi/tiếng ồn.
-
-Có điểm phần trăm sau khi nhận và đối chiếu được âm; ghi âm không rõ thì mời nói lại. Tập từ trước, rồi câu ngắn để chỉ ra từ bị thiếu. Trong **Chơi & học**, thêm **Nói cùng Cáo**, mỗi lượt 5 từ từ nhóm/bộ bài của bé. Bé được nghe lại, thử lại hoặc bỏ qua; không bị giữ lại vì điểm thấp.
-
-### Công nghệ đã chọn và việc của từng phần
-
-| Phần | Công nghệ dùng | Hiểu đơn giản |
-|---|---|---|
-| Thu và nghe lại | **MediaRecorder** của trình duyệt | Dùng mic có sẵn trên điện thoại |
-| Nghe từng âm | **Wav2Vec2**, bản ONNX đã nén | Bộ nhận âm nguồn mở chạy trên máy người dùng |
-| Chạy bộ nhận âm trong app | **Transformers.js + ONNX Runtime Web** | Đưa bộ nhận âm vào website, không cần máy chủ AI |
-| Điểm và ba màu | Quy tắc đối chiếu âm trong app | So âm bé nói với cách đọc của từ/câu; chưa chắc thì không kết luận sai |
-| Nhận xét tiếng Việt | **Gemini Free Tier** qua key bạn đã xác nhận; mẫu có sẵn khi không dùng được AI | AI viết lời khuyên riêng theo từng từ/lỗi đã nhận ra; hết quota, mất mạng hoặc tắt AI thì dùng mẫu, không chuyển sang dịch vụ tính phí |
-
-Dùng giao diện và hình Cáo hiện có. Nhận âm chạy trên máy; chưa có điểm phát âm chuẩn. Theo yêu cầu mới nhất, bước nhận xét dùng Gemini sau khi bấm **Nhận lời khuyên từ AI**: chỉ gửi câu cần đọc và kết quả từng âm/từ, không gửi bản thu, tên bé hay thư viện. AI không được tự thay điểm/màu hoặc bịa lỗi khi máy chưa nghe rõ. Key đã được bạn xác nhận Free Tier, không billing; app không tự nâng gói, đổi key hay mua quota. Nút nhận lời khuyên đã có trong code local; API thật chưa được gọi để kiểm thử. Nguồn triển khai: [Transformers.js](https://huggingface.co/docs/transformers.js/v3.8.1/index) và [bản Wav2Vec2 chuyên tiếng Anh](https://huggingface.co/robg/speako-phoneme-recognizer). Đã đổi bản nhận âm trong cùng công nghệ sau khi bản đầu nghe sai nhiều từ; kết quả và lý do được ghi trong bằng chứng, bạn không phải chọn thêm.
-
-### Miễn phí có đánh đổi gì?
-
-Lần đầu cần tải khoảng **355 MB bộ nhận âm +22 MB phần chạy**, nên có nút tải riêng, báo dung lượng trước và khuyên dùng Wi-Fi sẵn có. Sau khi tải đủ và còn được lưu trên máy, hướng triển khai là xử lý giọng tại máy. Flow tải/lưu/xóa đã có trong code local và kiểm bằng model thật trên desktop. Không tải ngầm khi bé mở trang. [Bản đã chọn](https://huggingface.co/robg/speako-phoneme-recognizer/tree/main/onnx).
-
-Máy yếu có thể chạy chậm hoặc không đủ bộ nhớ. Khi đó app giữ thu/nghe lại và báo chưa chấm được; **không chuyển sang dịch vụ trả phí**. Giọng bé ở trên máy, xóa khi thu lại/rời lượt; không tải giọng lên cloud. Không bật billing, mua quota, thuê máy chủ hay dùng gói trial rồi tự thu tiền. Nguồn tải miễn phí không hoạt động thì báo tải lại sau.
-
-### Bộ nhận âm tải về đâu, xóa được không?
-
-**Lưu trong bộ nhớ riêng của Words for Kids trên trình duyệt đang dùng**, không phải thư mục Downloads, bài học hay Google/cloud. Kỹ thuật dùng cache riêng của website; đổi máy/trình duyệt có thể phải tải lại. Dữ liệu này có thể bị trình duyệt dọn khi thiếu dung lượng, nên app sẽ kiểm trước khi chấm và báo tải lại nếu thiếu. [Cách trình duyệt lưu/dọn dữ liệu](https://developer.mozilla.org/en-US/docs/Web/API/Storage_API/Storage_quotas_and_eviction_criteria).
-
-Có nút **Xóa bộ nhận âm**: dừng xử lý rồi chỉ xóa model/phần chạy của Speaking, giữ từ/câu/nhóm và lịch học. **Xóa toàn bộ dữ liệu website trong cài đặt trình duyệt** là hành động khác, có thể xóa cả bài lưu trên máy.
-
-| Tình trạng | Nghe mẫu, thu âm, nghe lại | Nhận âm/chấm và nhận xét lỗi của lượt nói |
-|---|---|---|
-| Đã tải đủ, máy chạy được | Dùng được | Nhận âm tại máy; tra âm mẫu cần mạng hiện tại, AI cần mạng/key/quota hợp lệ |
-| Chưa tải / đã xóa / cache bị dọn | Dùng được khi giọng đọc/mic của máy hỗ trợ | Cần tải lại để nhận âm; không có kết quả thì AI không được tự đoán bé sai từ nào |
-| Có bộ nhận âm nhưng AI tắt/hết quota/mất mạng | Dùng được | Nhận âm ở máy khi tra được âm mẫu; dùng lời khuyên có sẵn thay AI |
-
-Các nút tải/xóa, thu mic/nghe lại và nhận xét Speaking đã có trong code local tại **Chơi & học → Nói cùng Cáo** và **Tập phát âm từ này** trong chi tiết từ. Bản nhận xét là thử nghiệm: màu chỉ mô tả âm máy nhận được; **chưa có điểm phát âm chuẩn hoặc bằng chứng giọng trẻ**. Chưa đưa thay đổi này lên website. Lượt thử cũ lưu model trong thư mục tạm của máy coding; flow app mới lưu riêng trong trình duyệt. Con số318MB trong bản plan cũ đã được thay bằng355MB + khoảng22MB phần chạy.
-
-AI có thể viết lời khuyên riêng hơn, nhưng **không bảo đảm nghe/chấm chính xác hơn** khi kết quả nhận âm đầu vào sai. Google phân biệt Free Tier và Paid Tier ở project; xác nhận key của bạn không có billing là điều kiện dùng miễn phí hiện tại, không phải app đã kiểm được tài khoản hay bảo đảm chính sách/quota không thay đổi. [Billing chính thức](https://ai.google.dev/gemini-api/docs/billing). Điều kiện dùng cho app trẻ em vẫn chưa được xác minh theo [terms](https://ai.google.dev/gemini-api/terms), nên chưa báo API Speaking đã đủ điều kiện phát hành hoặc gọi thử thật.
-
-### Làm theo ba bước, theo đúng thứ tự
-
-1. **Thử khả năng chạy miễn phí trước.** Cho bộ nhận âm chạy trong bản thử local với audio mẫu. Kiểm tốc độ, bộ nhớ và lỗi trên trình duyệt mobile/desktop. Đây là bước cần đạt trước khi làm trọn game.
-2. **Làm trải nghiệm cho bé.** Nút mic, nghe lại, nhận xét tiếng Việt, màu, điểm khi đủ tin cậy; nối vào Tập nói và game 5 từ. Thêm câu ngắn sau khi phần từ đạt, trong cùng kế hoạch.
-3. **Kiểm độ đúng trước khi đưa bé dùng.** Đối chiếu với người nghe và thử trên điện thoại bằng mẫu được phép, thiết bị sẵn có. Đặc biệt kiểm trường hợp bé đọc đúng nhưng máy báo sai. Đo và cải thiện chất lượng trong giới hạn miễn phí; UI phần trăm/màu theo yêu cầu12/10.
-
-**Điều đã chốt:** chỉ đi theo hướng chạy tại thiết bị, ngân sách phát sinh cho Speaking là **0 đồng phí API/dịch vụ/máy chủ mới**. **Điều cần chứng minh bằng bản thử:** máy nào chạy tốt và chấm giọng trẻ chính xác đến đâu. Chưa có bằng chứng để hứa chất lượng ngang ELSA. Chi tiết lập trình nằm trong [tài liệu cho AI](15-speaking-practice.md); bạn không cần chọn thêm công nghệ.
+Mở app có Cáo + **Đang tải…** trong lúc mở thư viện, kèm ảnh khởi động cho iPhone Home Screen. Đo local mô hình cũ có peak≈1,5GB RAM; đây là nghi vấn mạnh gây crash, chưa có crash log iPhone để khẳng định. Kiểm local và ảnh/kết quả ở [bằng chứng](evaluations/mobile-speaking-startup.md); chưa xuất bản, chưa xác nhận trên iPhone thật/key thật.
 
 ## 18. Nghe từng câu ví dụ và phiên âm cả câu — cập nhật 11/10
 

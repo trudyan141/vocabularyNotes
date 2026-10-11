@@ -1,5 +1,26 @@
 # Nhận dạng ảnh và nội dung học
 
+12/10 ADR076: chỉnh từ đã lưu có1Save chung word/examples/media/learning; bỏ review-checkbox/submit thứ2/thứ3. Save là explicit approval của phiên bản nhập, không tự verify IPA. Picture staged không tự ghi trước Save ở editor. Giữ grammarFamily/variants, source evidence và IPA đã lưu; thay câu xóa IPA/hint của đúng câu. Optional extra content không chặn chỉ đổi hình. API submit có pending/success/error ở nút và lỗi đỏ tại input/ngay trên nút; không toast/raw provider payload. [Evidence](evaluations/edit-save-navigation.md).
+
+## Hiện hành12/10 — ADR075
+
+One grammar construction = one worksheet learning unit. Question/affirmative/negative forms in grammarVariants, stable grammarFamily, primary question first, detailed simple VI/formula/example/error/correction and whole-sentence IPA per form/null if unsure. No HTML/JS from model. Normalizer deterministic known be-it-yes-no merges same target word; never silently truncates forms, evidence stays per variant. Legacy rows only grouped in projection, no user data rewrite. Source sentences remain separate. UI guide consumes declarative content and colors/animation in code.
+
+
+## Hiện hành12/10 — ADR074
+
+English-only Wiktionary definitions/POS đọc được dù không có VI; upstream404=empty match, failure thật vẫn503 nhưng browser Gemini fallback không bị chặn. Gemini result có POS/sense và2examples/VI/whole IPA nullable; unknown POS/sense được infer, không default noun cho adverb. Source/two examples auto-fill và abort stale edits giữ.
+
+
+## Hiện hành12/10 — ADR072/073
+
+Tra remote suggestion nhận đúng selected word ngay. Browser Gemini dùng key hiện có, tự yêu cầu đúng2examples/VI/IPA cả câu/hint, null nếu không chắc; không optional second-example accordion. Response strict bounded, mismatched word/incomplete response rejected, abort/generation chống ghi đè chỉnh sửa. Source metadata lưu, không claim IPA verified. Commons licensed search/import dùng server existing private key để ký receipt, không Gemini paid image grounding.
+
+
+## 12/10 — ADR067: luồng ảnh và key đơn giản
+
+Cài đặt chỉ Cài đặt key AI → nhập/Lưu key; bỏ on/off/disclosure/model/test UI và cả khối Chấm phát âm. Editor Phân tích ảnh gửi ngay theo thao tác này, bỏ consent/privacy checkbox và màn xác nhận thứ hai. Review tự loại exact duplicate, chỉ hiện tên trùng khi có, Duyệt và lưu là approval; không checked gate. Autosave/restore/CAS/evidence/IPA, khác nghĩa/POS và atomic save giữ nguyên; reload/restored draft không tự gửi AI. Theo steering trực tiếp, các đoạn consent/checkbox/test UI cũ dưới đây là lịch sử nếu xung đột. [Bằng chứng](evaluations/simple-photo-review.md).
+
 ## ADR054 — Worksheet sentences and inferred grammar (11/10/2026)
 
 Browser Gemini adapter now accepts bounded optional `learning[]` alongside words; provider prompt requires this field, while old results/drafts remain readable. Every item targets an extracted/selected word, has literal transcript evidence and a complete example/translation. Grammar requires conditions/formula/analysis/commonError/correction; inferred explanations stay distinct from printed sentences. Broad whole-sentence IPA is unverified and may be null. Review can edit suggestions; changing English clears stale IPA/hints. Reviewed content is saved atomically with its lesson using existing scoped/versioned `sentences` payload and archive contract. No new provider calls, automatic retries, schema migration or live accuracy claim. Prepared family fallback derives only from the exact readable dialogue “Who are they?” / “They are a family.”. See [scoped evidence](evaluations/profile-avatar-mobile-paste-delete-grammar.md).

@@ -1,190 +1,66 @@
 "use client";
-import {Save, Trash2} from "lucide-react";
-import {MediaEditor} from "./media-editor";
-import {WordLearningContent} from "./learning-content";
-import {useLiveQuery} from "dexie-react-hooks";
-import { useState } from "react";
-import {pronunciation} from "@/lib/learning/catalog";
-import {safeArt,readyArt} from "@/lib/media/catalog";
-import {deleteWord} from "@/data/local/backup";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import {
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Input } from "@/components/ui/input";
-import { Back, EmptyState } from "@/components/app/shared";
-import { useApp } from "@/components/app/provider";
-import {
-  DatabaseLoading,
-  ReadFailure,
-} from "@/components/app/database-boundary";
-import { useLibraryWord } from "@/data/local/hooks";
-import { RepositoryError } from "@/data/local/repository";
-import type { LibraryWord } from "@/data/local/types";
-export function WordEditor({ id }: { id: string }) {
-  const { t,repository } = useApp();
-  const result = useLibraryWord(id);
-  const extra=useLiveQuery(async()=>repository?{scope:repository.scope.id,examples:await repository.db.examples.where("[scopeId+senseId]").equals([repository.scope.id,id]).toArray()}:null,[repository,id]);
-  if (!result||!extra||extra.scope!==repository?.scope.id) return <DatabaseLoading />;
-  if (result.error) return <ReadFailure />;
-  if (!result.word)
-    return (
-      <EmptyState
-        title={t("Chưa có từ để sửa", "No word to edit")}
-        description={t(
-          "Quay về thư viện để chọn từ khác.",
-          "Go back to the library and choose another word.",
-        )}
-      >
-        <Back href="/library" />
-      </EmptyState>
-    );
-  return <EditorForm key={id} entry={result.word} extra={extra.examples.filter(e=>!e.deletedAt&&e.textEn!==result.word?.example)}/>;
+import Image from 'next/image';
+import {Save,ImageOff} from 'lucide-react';
+import {Button} from '@/components/ui/button';
+import {useState} from 'react';
+import {useRouter} from 'next/navigation';
+import {useLiveQuery} from 'dexie-react-hooks';
+import {pronunciation} from '@/lib/learning/catalog';
+import {useApp} from '@/components/app/provider';
+import {Back,EmptyState,Artwork} from '@/components/app/shared';
+import {DatabaseLoading,ReadFailure} from '@/components/app/database-boundary';
+import {Input} from '@/components/ui/input';
+import {Field,FieldLabel,FieldError} from '@/components/ui/field';
+import {SubmitButton,type SubmitState} from '@/components/ui/submit-button';
+import {submitError} from '@/lib/submit-error';
+import {useLibraryWord} from '@/data/local/hooks';
+import {updateWord,type ContentSnapshot} from '@/data/local/edit-word';
+import type {LearningContent} from '@/data/local/content';
+import type {Example,LibraryWord,ScopedDocument,WordInput} from '@/data/local/types';
+import type {MediaAsset} from '@/lib/media/contracts';
+import {DeleteControl} from './delete-control';
+import {WordPictureSearch} from './word-picture-search';
+const wordFields=[['word','Từ tiếng Anh','English word'],['vi','Nghĩa tiếng Việt','Vietnamese meaning'],['en','Nghĩa tiếng Anh','English meaning'],['pos','Loại từ','Part of speech'],['sense','Tên nghĩa','Sense label'],['ipa','Phiên âm IPA','IPA'],['hint','Cách đọc gần đúng của từ','Word reading hint'],['example','Câu ví dụ tiếng Anh','English example'],['exampleIpa','IPA cả câu ví dụ','Whole-sentence IPA'],['exampleVi','Nghĩa câu ví dụ','Example translation'],['exampleHint','Cách đọc gần đúng của câu','Sentence reading hint'],['secondExample','Câu ví dụ thứ hai','Second example'],['secondIpa','IPA cả câu ví dụ thứ hai','Second whole-sentence IPA'],['secondVi','Nghĩa câu ví dụ thứ hai','Second example translation'],['secondHint','Cách đọc gần đúng câu thứ hai','Second reading hint']] as const;
+const contentFields=[['example','Câu ví dụ','Example'],['exampleIpa','IPA cả câu','Whole-sentence IPA'],['exampleVi','Nghĩa câu ví dụ','Example translation'],['readingHintVi','Cách đọc gần đúng','Reading hint'],['pattern','Mẫu câu','Sentence pattern'],['patternExplanation','Giải thích mẫu câu','Pattern explanation'],['grammarTitle','Tên ngữ pháp','Grammar title'],['conditions','Dùng khi nào','When to use'],['formula','Công thức','Formula'],['analysis','Giải thích từng phần','Explain each part'],['commonError','Lỗi dễ nhầm','Common mistake'],['commonErrorIpa','IPA cả câu sai','Whole mistake IPA'],['correction','Câu sửa đúng','Correction'],['correctionIpa','IPA cả câu sửa đúng','Whole correction IPA']] as const;
+export function WordEditor({id}:{id:string}){
+ const {repository,t}=useApp();const result=useLibraryWord(id);
+ const data=useLiveQuery(async()=>{if(!repository)return null;const [examples,contents]=await Promise.all([repository.db.examples.where('[scopeId+senseId]').equals([repository.scope.id,id]).toArray(),repository.db.table<ScopedDocument>('sentences').where('[scopeId+id]').between([repository.scope.id,''],[repository.scope.id,'\uffff']).toArray()]);return {scope:repository.scope.id,examples:examples.filter(row=>!row.deletedAt&&row.position===1),contents:contents.filter(row=>!row.deletedAt&&(row.payload.content as LearningContent)?.senseId===id).map(row=>({id:row.id,version:row.version,content:row.payload.content as LearningContent}))};},[repository,id]);
+ if(!result||!data||data.scope!==repository?.scope.id)return <DatabaseLoading/>;
+ if(result.error)return <ReadFailure/>;
+ if(!result.word)return <EmptyState title={t('Chưa có từ để sửa','No word to edit')} description={t('Quay về thư viện để chọn từ khác nhé.','Choose another word in your library.')}><Back href="/library"/></EmptyState>;
+ return <EditorForm key={`${data.scope}:${id}`} entry={result.word} examples={data.examples} contents={data.contents}/>;
 }
-function EditorForm({ entry,extra }: { entry: LibraryWord;extra:import("@/data/local/types").Example[] }) {
-  const { t, demo, editPreview,repository } = useApp();
-  const [secondExample,setSecondExample]=useState(extra[0]?.textEn??"");const [secondVi,setSecondVi]=useState(extra[0]?.translationVi??"");const [secondHint,setSecondHint]=useState(extra[0]?.pronunciations?.[0]?.readingHintVi??"");
-  const [secondIpa,setSecondIpa]=useState(extra[0]?.pronunciations?.[0]?.ipa??"");
-  const [exampleIpa,setExampleIpa]=useState(entry.examplePronunciations[0]?.ipa??"");
-  const [example,setExample]=useState(entry.example);const [exampleVi,setExampleVi]=useState(entry.exampleVi);const [pos,setPos]=useState(entry.pos);const [sense,setSense]=useState(entry.sense);
-  const [ipa,setIpa]=useState(entry.pronunciations[0]?.ipa??"");const [hint,setHint]=useState(entry.pronunciations[0]?.readingHintVi??"");const [exampleHint,setExampleHint]=useState(entry.examplePronunciations[0]?.readingHintVi??"");const [art,setArt]=useState(safeArt(entry.art));const [checked,setChecked]=useState(false);const [deleting,setDeleting]=useState(false);
-  const [word, setWord] = useState(entry.pendingEdit?.patch.word ?? entry.word);
-  const [vi, setVi] = useState(entry.pendingEdit?.patch.vi ?? entry.vi);
-  const [en, setEn] = useState(entry.pendingEdit?.patch.en ?? entry.en);
-  // Keep the version opened by this editor; live queries must not silently erase an unsaved edit.
-  const [revision, setRevision] = useState(entry.revision);
-  const [proposed, setProposed] = useState(!!entry.pendingEdit);
-  const [invalid, setInvalid] = useState(false);
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState("");
-  const router = useRouter();
-  async function save(e: React.FormEvent) {
-    e.preventDefault();
-    if (saving) return;
-    if (!word.trim() || !vi.trim() || !en.trim()) {
-      setInvalid(true);
-      return;
-    }
-    setSaving(true);
-    setError("");
-    try {
-      const result = await editPreview(entry.id, revision, {
-        word: word.trim(),
-        vi: vi.trim(),
-        en: en.trim(),
-      });
-      setRevision(result.revision);
-      setProposed(result.proposed);
-      if (!result.proposed) router.push(`/library/words/${entry.id}`);
-    } catch (cause) {
-      setError(
-        cause instanceof RepositoryError && cause.code === "conflict"
-          ? t(
-              "Từ đã đổi ở tab khác hoặc bị trùng. Phần nhập vẫn còn; sao chép nội dung trước khi mở lại bản mới.",
-              "The word changed in another tab or conflicts with an existing word. Your input is intact; copy it before reopening the latest version.",
-            )
-          : t(
-              "Chưa lưu được chỉnh sửa. Phần nhập vẫn còn; kiểm tra quyền và dung lượng lưu trữ rồi thử lại.",
-              "Edits could not be saved. Your input is intact; check storage permissions and available space, then retry.",
-            ),
-      );
-    } finally {
-      setSaving(false);
-    }
-  }
-  return (
-    <div className="reading-page page-flow parent-page">
-      <Back href={`/library/words/${entry.id}`} />
-      <h1>
-        {demo ? t("Sửa từ mẫu", "Edit sample word") : t("Sửa từ", "Edit word")}
-      </h1>
-      <p>
-        {t(
-          "Sửa nội dung rồi bấm lưu. Khi đổi từ tiếng Anh, kiểm lại ví dụ và cách đọc trước khi con học.",
-          "Edit the content and save. When changing the English word, review its examples and pronunciation before your child learns.",
-        )}
-      </p>
-      {proposed && (
-        <Alert>
-          <AlertTitle>
-            {t(
-              "Đã lưu đề xuất chỉnh sửa trên máy",
-              "Edit proposal saved on this device",
-            )}
-          </AlertTitle>
-          <AlertDescription>
-            {t(
-              "Bản đã duyệt của bé vẫn giữ nguyên. Kiểm nghĩa, ví dụ và phát âm bên dưới, rồi bấm Duyệt toàn bộ nội dung.",
-              "The approved version is preserved. Review meanings, examples and pronunciation below, then approve the complete content.",
-            )}
-          </AlertDescription>
-        </Alert>
-      )}
-      <form onSubmit={save} noValidate>
-        <FieldGroup>
-          {[
-            {
-              id: "word",
-              label: t("Từ tiếng Anh", "English word"),
-              value: word,
-              change: setWord,
-            },
-            {
-              id: "vi",
-              label: t("Nghĩa tiếng Việt", "Vietnamese meaning"),
-              value: vi,
-              change: setVi,
-            },
-            {
-              id: "en",
-              label: t("Nghĩa tiếng Anh", "English meaning"),
-              value: en,
-              change: setEn,
-            },
-          ].map((f) => (
-            <Field key={f.id} data-invalid={invalid && !f.value.trim()}>
-              <FieldLabel htmlFor={`word-edit-${f.id}`}>{f.label}</FieldLabel>
-              <Input
-                id={`word-edit-${f.id}`}
-                value={f.value}
-                maxLength={f.id === "word" ? 200 : 1000}
-                disabled={saving}
-                onChange={(e) => {f.change(e.target.value);setChecked(false);if(f.id==="word"){setIpa("");setHint("");setExample("");setExampleVi("");setExampleHint("");setExampleIpa("");setSecondExample("");setSecondVi("");setSecondHint("");setSecondIpa("");setArt(null);}}}
-                aria-invalid={invalid && !f.value.trim()}
-                aria-describedby={invalid ? "word-edit-error" : undefined}
-              />
-            </Field>
-          ))}
-          {invalid && (
-            <FieldError id="word-edit-error">
-              {t(
-                "Điền đầy đủ từ và hai nghĩa trước khi lưu.",
-                "Enter the word and both meanings before saving.",
-              )}
-            </FieldError>
-          )}
-          {error && <FieldError role="alert">{error}</FieldError>}
-          <Button type="submit" size="lg" disabled={saving}><Save data-icon="inline-start" aria-hidden="true"/>
-            {saving
-              ? t("Đang lưu…", "Saving…")
-              : t("Lưu chỉnh sửa trên máy", "Save edits on this device")}
-          </Button>
-        </FieldGroup>
-      </form>
-      <section className="page-flow"><h2>{t("Duyệt toàn bộ nội dung","Review the complete content")}</h2><p>{t("Đổi từ cần sửa ví dụ đúng nghĩa. IPA sửa tay chưa có nguồn xác minh; cách đọc chữ Việt chỉ gần đúng.","Update examples when changing a word. Manually edited IPA is unverified; Vietnamese reading hints are approximate.")}</p>
-        {([["pos","Loại từ","Part of speech",pos,setPos],["sense","Tên nghĩa","Sense label",sense,setSense],["example","Câu ví dụ tiếng Anh","English example",example,setExample],["exampleVi","Nghĩa câu ví dụ","Example translation",exampleVi,setExampleVi],["ipa","Phiên âm IPA","IPA",ipa,setIpa],["hint","Cách đọc gần đúng chữ Việt","Vietnamese reading hint",hint,setHint],["secondExample","Câu ví dụ bổ sung","Additional example",secondExample,setSecondExample],["secondVi","Nghĩa câu ví dụ bổ sung","Additional example translation",secondVi,setSecondVi],["secondIpa","IPA cả câu ví dụ bổ sung","Additional whole-sentence IPA",secondIpa,setSecondIpa],["secondHint","Cách đọc câu ví dụ bổ sung","Additional example reading hint",secondHint,setSecondHint],["exampleIpa","IPA câu ví dụ (chưa xác minh)","Example IPA (unverified)",exampleIpa,setExampleIpa],["exampleHint","Cách đọc gần đúng của câu","Sentence reading hint",exampleHint,setExampleHint]] as const).map(([id,vi,en,value,change])=><Field key={id}><FieldLabel htmlFor={`review-${id}`}>{t(vi,en)}</FieldLabel><Input id={`review-${id}`} value={value} maxLength={id==="pos"?60:id==="sense"?200:1000} disabled={saving} onChange={e=>{change(e.target.value);if(id==='example'){setExampleIpa('');setExampleHint('');}if(id==='secondExample'){setSecondIpa('');setSecondHint('');}setChecked(false);}}/></Field>)}
-        <label htmlFor="review-art">{t("Hình đã chuẩn bị","Prepared illustration")}</label><select id="review-art" value={art??""} onChange={e=>{setArt(safeArt(e.target.value));setChecked(false);}}><option value="">{t("Chưa có hình","No illustration")}</option>{[...readyArt].map(a=><option key={a} value={a}>{a}</option>)}</select>
-        <label><input type="checkbox" checked={checked} onChange={e=>setChecked(e.target.checked)}/>{t("Tôi đã kiểm nghĩa, ví dụ, cách đọc và hình đúng nghĩa này.","I reviewed meanings, examples, pronunciation and the illustration for this sense.")}</label>
-        <Button disabled={saving||!checked} onClick={async()=>{if(!repository||saving)return;setSaving(true);setError("");try{const {revision: ignoredRevision,pendingEdit:ignoredProposal,...content}=entry;void ignoredRevision;void ignoredProposal;const old=entry.pronunciations[0];const same=word===entry.word&&ipa===(old?.ipa??"");await repository.reviewWord(entry.id,revision,{...content,word:word.trim(),vi:vi.trim(),en:en.trim(),pos,sense,example,exampleVi,art,source:entry.source,origin:"user",approved:true,
-          pronunciations:[pronunciation(word,hint||null,ipa||null,same?old?.sourceUrl??null:null,same&&!!old?.verified)],examplePronunciations:[pronunciation(example,exampleHint||null,exampleIpa||null)],additionalExamples:secondExample.trim()?[{textEn:secondExample.trim(),translationVi:secondVi.trim(),pronunciations:[pronunciation(secondExample.trim(),secondHint||null,secondIpa||null)]}]:[]} as unknown as import("@/data/local/types").WordInput);router.push(`/library/words/${entry.id}`);}catch{setError(t("Chưa duyệt được. Điền đủ ví dụ và hai nghĩa; nếu từ đã đổi ở tab khác, mở lại bản mới. Phần nhập vẫn còn.","Approval failed. Complete meanings and examples; reopen if another tab changed the word. Your input is intact."));}finally{setSaving(false);}}}>{t("Duyệt toàn bộ nội dung","Approve complete content")}</Button>
-        <Button variant="ghost" onClick={()=>setDeleting(true)}><Trash2 data-icon="inline-start" aria-hidden="true"/>{t("Xóa từ khỏi thư viện","Remove word from library")}</Button>{deleting&&<div role="alert"><p>{t("Xóa từ này khỏi các bài và trò chơi? Lịch sử đã lưu được giữ lại.","Remove this word from lessons and games? Saved history is retained.")}</p><Button variant="destructive" disabled={saving} onClick={async()=>{if(!repository)return;setSaving(true);try{await deleteWord(repository,{...entry,revision});router.push('/library');}catch{setError(t("Chưa xóa được; từ có thể đã đổi. Mở lại bản mới.","Removal failed; reopen the latest word."));}finally{setSaving(false);}}}>{t("Xác nhận xóa từ","Confirm removal")}</Button><Button variant="ghost" onClick={()=>setDeleting(false)}>{t("Hủy","Cancel")}</Button></div>}
-      </section>
-      <MediaEditor word={entry}/><WordLearningContent word={entry} editable/>
-    </div>
-  );
+function EditorForm({entry,examples,contents}:{entry:LibraryWord;examples:Example[];contents:ContentSnapshot[]}){
+ const {repository,t}=useApp(),router=useRouter();const second=examples[0];
+ const [baseline,setBaseline]=useState(entry),[snapshots,setSnapshots]=useState(contents);
+ const [form,setForm]=useState({word:entry.pendingEdit?.patch.word??entry.word,vi:entry.pendingEdit?.patch.vi??entry.vi,en:entry.pendingEdit?.patch.en??entry.en,pos:entry.pos,sense:entry.sense,ipa:entry.pronunciations[0]?.ipa??'',hint:entry.pronunciations[0]?.readingHintVi??'',example:entry.example,exampleVi:entry.exampleVi,exampleIpa:entry.examplePronunciations[0]?.ipa??'',exampleHint:entry.examplePronunciations[0]?.readingHintVi??'',secondExample:second?.textEn??'',secondVi:second?.translationVi??'',secondIpa:second?.pronunciations[0]?.ipa??'',secondHint:second?.pronunciations[0]?.readingHintVi??''});
+ const [extra,setExtra]=useState<LearningContent>(()=>contents.find(row=>row.id===`extra-${entry.id}`)?.content??{senseId:entry.id,targetRevision:entry.revision,example:'',exampleVi:'',readingHintVi:'',pattern:'',patternExplanation:'',grammarTitle:'',conditions:'',formula:'',analysis:'',commonError:'',correction:'',approved:true,origin:'user'});
+ const [art,setArt]=useState(entry.art),[prepared,setPrepared]=useState<MediaAsset|null>(null);
+ const [pictureBusy,setPictureBusy]=useState(false);
+ const [state,setState]=useState<SubmitState>('idle'),[error,setError]=useState(''),[errors,setErrors]=useState<Record<string,string>>({});
+ const busy=state==='pending';
+ function reset(){setState('idle');setError('');setErrors({});}
+ function change(field:typeof wordFields[number][0],value:string){reset();setForm(old=>({...old,[field]:value,...(field==='word'?{ipa:'',hint:''}:field==='example'?{exampleIpa:'',exampleHint:''}:field==='secondExample'?{secondIpa:'',secondHint:''}:{})}));if(field==='word'){setArt(null);setPrepared(null);}}
+ async function save(event:React.FormEvent){
+  event.preventDefault();if(!repository||busy||pictureBusy)return;
+  const invalid:Record<string,string>={};const required=['word','vi','en','pos','sense'] as const;
+  for(const field of required)if(!form[field].trim())invalid[field]=t('Điền ô này trước khi lưu.','Complete this field before saving.');
+  for(const [a,b] of [['example','exampleVi'],['secondExample','secondVi']] as const)if(!!form[a].trim()!==!!form[b].trim())invalid[form[a].trim()?b:a]=t('Câu ví dụ cần có cả tiếng Anh và nghĩa tiếng Việt.','An example needs both English and Vietnamese.');
+  const hasExtra=contentFields.some(([field])=>!!extra[field]?.trim());
+  if(hasExtra){for(const field of ['example','exampleVi'] as const)if(!extra[field].trim())invalid[`extra-${field}`]=t('Điền câu ví dụ và nghĩa của câu.','Complete the example and its translation.');if(extra.pattern&&!extra.patternExplanation)invalid['extra-patternExplanation']=t('Thêm giải thích cho mẫu câu.','Explain this pattern.');if(extra.grammarTitle)for(const field of ['conditions','formula','analysis','commonError','correction'] as const)if(!extra[field].trim())invalid[`extra-${field}`]=t('Điền phần này của ngữ pháp.','Complete this grammar field.');}
+  setErrors(invalid);if(Object.keys(invalid).length){setState('error');setError(t('Kiểm các ô màu đỏ rồi lưu lại nhé.','Check the marked fields and save again.'));const input=document.getElementById(`word-edit-${Object.keys(invalid)[0]}`);const details=input?.closest('details');if(details)details.open=true;input?.focus();return;}
+  setState('pending');setError('');
+  try{
+   const old=baseline.pronunciations[0],same=form.word===baseline.word&&form.ipa===(old?.ipa??'');
+   const exactPronunciation=(text:string,ipa:string,hint:string,old:Example['pronunciations'])=>{const existing=old.find(p=>p.text===text&&p.ipa===(ipa||null)&&p.readingHintVi===(hint||null));return existing?{...existing}:pronunciation(text,hint||null,ipa||null);};
+   const input:WordInput={id:entry.id,word:form.word.trim(),vi:form.vi.trim(),en:form.en.trim(),pos:form.pos.trim(),sense:form.sense.trim(),example:form.example.trim(),exampleVi:form.exampleVi.trim(),art,lesson:baseline.lesson,ready:true,source:baseline.source,origin:'user',caseMode:baseline.caseMode,approved:true,pronunciations:[pronunciation(form.word.trim(),form.hint||null,form.ipa||null,same?old?.sourceUrl??null:null,same&&!!old?.verified)],examplePronunciations:form.example.trim()?[exactPronunciation(form.example.trim(),form.exampleIpa,form.exampleHint,baseline.examplePronunciations)]:[],additionalExamples:form.secondExample.trim()?[{textEn:form.secondExample.trim(),translationVi:form.secondVi.trim(),pronunciations:[exactPronunciation(form.secondExample.trim(),form.secondIpa,form.secondHint,second?.pronunciations??[])]}]:[]};
+   const result=await updateWord(repository,entry.id,baseline.revision,input,snapshots,hasExtra?extra:null,prepared);
+   setBaseline(result.word);setSnapshots(result.rows);setArt(result.word.art);setPrepared(null);setState('success');requestAnimationFrame(()=>document.getElementById('word-edit-submit')?.scrollIntoView({block:'center',behavior:'auto'}));
+  }catch(cause){setState('error');setError(submitError(cause,t));}
+ }
+ return <div className="reading-page page-flow parent-page word-editor"><div className="word-edit-toolbar"><Back href={`/library/words/${entry.id}`}/><DeleteControl iconOnly target={{table:'senses',id:entry.id,version:Number(entry.revision.split(':')[1]),revision:entry.revision}} label={t('Xóa từ này','Delete this word')} description={t(`Xóa “${entry.word}” với nghĩa này? Các nghĩa khác vẫn giữ.`,`Delete “${entry.word}” in this sense? Other senses are kept.`)} onDeleted={()=>router.push('/library')}/></div><h1>{t('Sửa từ','Edit word')}</h1>
+ <form onSubmit={save} noValidate className="page-flow"><div className="word-edit-fields">{wordFields.map(([field,vi,en])=><Field key={field} data-invalid={!!errors[field]}><FieldLabel htmlFor={`word-edit-${field}`}>{t(vi,en)}</FieldLabel><Input id={`word-edit-${field}`} value={form[field]} disabled={busy} maxLength={field==='word'||field==='sense'?200:field==='pos'?60:1000} aria-invalid={!!errors[field]} aria-describedby={errors[field]?`error-${field}`:undefined} onChange={event=>change(field,event.target.value)}/>{errors[field]&&<FieldError id={`error-${field}`}>{errors[field]}</FieldError>}</Field>)}</div>
+ <fieldset disabled={busy}><div className={`staged-picture ${prepared||art?.startsWith('media-')?'with-credit':''}`}>{prepared?<><Image unoptimized src={`data:image/jpeg;base64,${prepared.base64}`} width={96} height={96} alt=""/></>:art?<Artwork art={art} word={baseline.word} size={96} showCredit/>:<Artwork art={null} word={form.word} size={96}/>}<span>{prepared?t('Hình đã chọn','Selected picture'):t('Hình hiện tại','Current picture')}</span>{(art||prepared)&&<Button type="button" variant="ghost" onClick={()=>{setArt(null);setPrepared(null);reset();}}><ImageOff aria-hidden="true"/>{t('Bỏ hình','Remove picture')}</Button>}</div><details className="word-picture-edit"><summary>{t('Đổi hình','Change picture')}</summary><WordPictureSearch key={`${baseline.revision}:${form.word}`} word={{...baseline,word:form.word.trim(),art}} onBusyChange={setPictureBusy} onPrepared={asset=>{setPrepared(asset);reset();}}/></details></fieldset>
+ <details><summary>{t('Ngữ pháp và mẫu câu','Grammar and patterns')}</summary><div className="word-edit-fields">{contentFields.map(([field,vi,en])=><Field key={field} data-invalid={!!errors[`extra-${field}`]}><FieldLabel htmlFor={`word-edit-extra-${field}`}>{t(vi,en)}</FieldLabel><Input id={`word-edit-extra-${field}`} value={extra[field]??''} disabled={busy} maxLength={2000} aria-invalid={!!errors[`extra-${field}`]} aria-describedby={errors[`extra-${field}`]?`error-extra-${field}`:undefined} onChange={event=>{reset();setExtra(old=>({...old,[field]:event.target.value,...(field==='example'?{exampleIpa:'',readingHintVi:''}:field==='commonError'?{commonErrorIpa:''}:field==='correction'?{correctionIpa:''}:{})}));}}/>{errors[`extra-${field}`]&&<FieldError id={`error-extra-${field}`}>{errors[`extra-${field}`]}</FieldError>}</Field>)}</div></details>
+ <SubmitButton id="word-edit-submit" size="lg" disabled={pictureBusy} state={state} error={error} successLabel={t('Đã lưu chỉnh sửa','Edits saved')}><Save aria-hidden="true"/>{t('Lưu chỉnh sửa','Save edits')}</SubmitButton></form></div>;
 }

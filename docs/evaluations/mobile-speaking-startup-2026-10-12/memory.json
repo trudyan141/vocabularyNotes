@@ -1,0 +1,59 @@
+{
+  "note": "One cold inference per variant, Chromium macOS arm64, public adult cat clip, 100ms RSS samples, total isolated renderer RSS; not iPhone peak RAM or field benchmark. The after row is a temporary local-Worker optimization trial, NOT the final Gemini implementation; retained RSS falls but peak does not. The entire local engine was subsequently removed.",
+  "rows": [
+    {
+      "mode": "before",
+      "initialRendererRssBytes": 134266880,
+      "peakRendererRssBytes": 1556135936,
+      "retainedRendererRssBytes": 1541095424,
+      "phones": [
+        {
+          "phone": "k",
+          "confidence": 0.9967328483010284,
+          "startMs": 20.8975,
+          "endMs": 41.795
+        },
+        {
+          "phone": "æ",
+          "confidence": 0.9946142105313254,
+          "startMs": 188.0775,
+          "endMs": 208.975
+        },
+        {
+          "phone": "t",
+          "confidence": 0.9706046245101277,
+          "startMs": 334.36,
+          "endMs": 376.155
+        }
+      ],
+      "ms": 2964.5999999046326
+    },
+    {
+      "mode": "after",
+      "initialRendererRssBytes": 153337856,
+      "peakRendererRssBytes": 1598603264,
+      "retainedRendererRssBytes": 410320896,
+      "phones": [
+        {
+          "phone": "k",
+          "confidence": 0.9967412165350968,
+          "startMs": 20.8975,
+          "endMs": 41.795
+        },
+        {
+          "phone": "æ",
+          "confidence": 0.9944843789992973,
+          "startMs": 188.0775,
+          "endMs": 208.975
+        },
+        {
+          "phone": "t",
+          "confidence": 0.9698590352190981,
+          "startMs": 334.36,
+          "endMs": 376.155
+        }
+      ],
+      "ms": 2714.100000143051
+    }
+  ]
+}

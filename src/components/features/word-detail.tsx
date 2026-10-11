@@ -57,7 +57,8 @@ export function WordDetail({ id }: { id: string }) {
             "The new content has not been approved for learning.",
           )}
         >
-          <ActionLink href={`/library/words/${id}/edit`}>
+
+        <ActionLink href={`/library/words/${id}/edit`}>
             <Button>{t("Kiểm tra nội dung", "Review content")}</Button>
           </ActionLink>
         </EmptyState>
@@ -67,12 +68,12 @@ export function WordDetail({ id }: { id: string }) {
     <article className="reading-page page-flow">
       <div className="section-heading">
         <Back href="/library" label={t("Từ của con", "My words")} />
-        <ActionLink href={`/library/words/${entry.id}/edit`}>
+        <div className="row-wrap"><DeleteControl iconOnly target={{table:"senses",id:entry.id,version:Number(entry.revision.split(":")[1]),revision:entry.revision}} label={t("Xóa từ này","Delete this word")} description={t(`Xóa “${entry.word}” với nghĩa này khỏi thư viện và các buổi học? Các nghĩa khác vẫn giữ.`,`Delete “${entry.word}” in this sense from your library and practice? Other senses are kept.`)} onDeleted={()=>router.push("/library")}/><ActionLink href={`/library/words/${entry.id}/edit`}>
           <Button variant="ghost">
             <Pencil data-icon="inline-start" />
             {t("Sửa", "Edit")}
           </Button>
-        </ActionLink>
+        </ActionLink></div>
       </div>
       <div className="word-detail-hero">
         <Artwork art={entry.art} word={entry.word} size={210} showCredit />
@@ -98,7 +99,7 @@ export function WordDetail({ id }: { id: string }) {
         <p className="muted">{entry.exampleVi}</p>
         {entry.examplePronunciations.map((p,i)=>p.readingHintVi?<p key={i} className="reading-hint">{t("Cách đọc gần đúng: ","Reading hint: ")}{p.readingHintVi}</p>:null)}
       </section>
-      <WordLearningContent word={entry}/>
+      <WordLearningContent word={entry} examplesOnly/>
       {!entry.art && (
         <Alert>
           <AlertTitle>
@@ -119,7 +120,7 @@ export function WordDetail({ id }: { id: string }) {
         </Link>
       </Button>
 
-      <DeleteControl target={{table:"senses",id:entry.id,version:Number(entry.revision.split(":")[1]),revision:entry.revision}} label={t("Xóa từ này","Delete this word")} description={t(`Xóa “${entry.word}” với nghĩa này khỏi thư viện và các buổi học? Các nghĩa khác vẫn giữ.`,`Delete “${entry.word}” in this sense from your library and practice? Other senses are kept.`)} onDeleted={()=>router.push("/library")}/>
+
     </article>
   );
 }

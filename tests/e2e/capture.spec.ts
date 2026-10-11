@@ -82,7 +82,7 @@ async function cameraFixture(page: Page, late = false) {
     };
   }, { late });
 }
-test("upload, rotate, crop, optional fields and consent survive reload without an AI upload", async ({
+test("upload, rotate, crop, optional fields auto-save and survive reload without an AI upload", async ({
   page,
 }) => {
   const remote: string[] = [];
@@ -106,11 +106,7 @@ test("upload, rotate, crop, optional fields and consent survive reload without a
   await page.getByLabel("Tên bài (tùy chọn)").fill("Bài của bé");
   await page.getByLabel("Ngày học (tùy chọn)").fill("2026-10-09");
   await page.getByLabel("Tags (tùy chọn)").fill("school, objects");
-  await page.getByRole("checkbox").check();
-  await page.getByRole("button", { name: "Lưu nháp trên máy" }).click();
-  await expect(
-    page.getByText("Đã lưu nháp trên máy", { exact: true }),
-  ).toBeVisible();
+  await page.waitForTimeout(700);
   await expect(
     page.getByRole("button", { name: "Phân tích ảnh bằng AI", exact: true }),
   ).toBeEnabled();
@@ -122,7 +118,7 @@ test("upload, rotate, crop, optional fields and consent survive reload without a
   await expect(page.getByLabel("Tags (tùy chọn)")).toHaveValue(
     "school, objects",
   );
-  await expect(page.getByRole("checkbox")).toBeChecked();
+  await expect(page.getByRole("checkbox")).toHaveCount(0);
   await expect(page.getByText("200 × 600 px", { exact: false })).toBeVisible();
   const rows = await records(page);
   expect(rows.drafts).toHaveLength(1);
@@ -149,10 +145,10 @@ test("two editors preserve stale input, and autosave quota failure retains field
   const peer = await context.newPage(); await peer.goto(url);
   await expect(peer.getByLabel("Tên bài (tùy chọn)")).toBeVisible();
   await page.getByLabel("Tên bài (tùy chọn)").fill("Newer title");
-  await page.getByRole("button",{name:"Lưu nháp trên máy"}).click();
-  await expect(page.getByText("Đã lưu nháp trên máy",{exact:true})).toBeVisible();
+  await page.waitForTimeout(700);
+  await expect.poll(async()=>(await records(page)).drafts[0].title).toBe("Newer title");
   await peer.getByLabel("Tên bài (tùy chọn)").fill("Stale title");
-  await peer.getByRole("button",{name:"Lưu nháp trên máy"}).click();
+  await peer.waitForTimeout(700);
   await expect(peer.getByText(/Nháp đã thay đổi ở tab khác/)).toBeVisible();
   await expect(peer.getByLabel("Tên bài (tùy chọn)")).toHaveValue("Stale title");
   expect((await records(page)).drafts[0].title).toBe("Newer title");
@@ -167,8 +163,10 @@ test("two editors preserve stale input, and autosave quota failure retains field
   await expect(page.getByLabel("Tên bài (tùy chọn)")).toHaveValue("Retry title");
   expect((await records(page)).drafts[0].title).toBe("Newer title");
   await page.evaluate(()=> { (window as unknown as {quota:boolean}).quota=false; });
-  await page.getByRole("button",{name:"Lưu nháp trên máy"}).click();
-  await expect(page.getByText("Đã lưu nháp trên máy",{exact:true})).toBeVisible();
+  await page.getByLabel("Tên bài (tùy chọn)").fill("Retry title ");
+  await page.getByLabel("Tên bài (tùy chọn)").fill("Retry title");
+  await page.waitForTimeout(700);
+  await expect.poll(async()=>(await records(page)).drafts[0].title).toBe("Retry title");
   await page.reload(); await expect(page.getByLabel("Tên bài (tùy chọn)")).toHaveValue("Retry title");
 });
 test("camera denied and unsupported retain file upload; permission is asked only after a click", async ({

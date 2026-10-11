@@ -1,5 +1,17 @@
 # Ôn tập, flashcard và minigame
 
+12/10 ADR076: grammar guide hết stage cuối thì dừng và tự quay về bước1; pause giữ bước đang xem, reduced-motion/manual controls giữ. Ref của grouped grammar phải là key của representative dữ liệu gốc, không đổi theo title UI. Nhóm nhận lựa chọn riêng từng mục, không bắt chọn hết. Xóa bộ ngày chỉ bỏ bộ và membership, giữ từ/câu/ngữ pháp trong global library; history/scope/CAS giữ. [Evidence](evaluations/edit-save-navigation.md).
+
+## Hiện hành12/10 — ADR075
+
+Grammar library groups Is it…?/Yes,it is/No,it isn’t in one unit with all explanations/examples; Xếp câu practices each form in the unit, snapshots parent/related versions and word scope, not just the primary question. Group selection duplicates individually skipped, new items retained; exact word+POS+sense, no near-meaning merge. Zero new/unchanged reports existing-items and does not write another version.
+
+
+## Hiện hành12/10 — ADR074
+
+Xếp câu từ grammar/pattern đã lưu và approved,2–12tokens/câu≤200chars; ví dụ quá dài không đưa vào buổi beginner này. Chọn token bằng chạm/keyboard, tháo token/xếp lại, gợi ý âm đầu/câu mẫu, feedback câu đúng/IPA/VI/formula. Snapshot phiên≤10questions, pause/resume/version CAS, gameAttempts one-per-question, không reviewStates/rating. Group refs giới hạn đúng cấu trúc đã chọn; stale grammar stops pending session. SQL0008/cloud/archive grammar mode hỗ trợ.
+
+
 **ADR064/06512/10:** Speaking từng từ nằm ngay chi tiết từ, giữ IPA/định nghĩa/ví dụ/listening. Hiện phần trăm không thêm nhãn “tham khảo”, tô nhóm chữ và mở bảng từng âm. Chơi & học có ô Nói cùng Cáo: vòng tối đa5 từ đã duyệt, tiếp/bỏ qua/hoàn thành/chơi lại sang các từ kế tiếp, không đổi lịch SRS. `/speaking?word=id` redirect chi tiết, `/speaking` redirect game. [Hiện hành](15-speaking-practice.md), [kiểm local](evaluations/speaking-refresh-and-automatic-sync.md).
 
 

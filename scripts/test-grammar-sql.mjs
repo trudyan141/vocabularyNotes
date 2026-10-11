@@ -1,0 +1,4 @@
+import {readFile} from 'node:fs/promises';
+import {pathToFileURL} from 'node:url';
+const {PGlite}=await import(pathToFileURL(process.env.TASK_PGLITE_MODULE).href),db=new PGlite();
+try {await db.exec("create table public.practice_sessions (id integer primary key, mode text not null check(mode in ('flashcard','picture-word','word-picture','letters','spelling')));insert into practice_sessions values (1,'flashcard'),(2,'spelling');");await db.exec(await readFile('supabase/migrations/202610120008_grammar_practice.sql','utf8'));await db.exec("insert into practice_sessions values (3,'grammar')");let refused=false;try{await db.exec("insert into practice_sessions values (4,'invalid')");}catch{refused=true;}const result=await db.query('select count(*)::int as count from practice_sessions');if(!refused||result.rows[0].count!==3)throw Error('Constraint failed');console.log('PASS 0008 preserves old rows, accepts grammar, rejects unknown mode');}finally{await db.close();}

@@ -1,18 +1,17 @@
 "use client";
+import {SubmitButton} from '@/components/ui/submit-button';
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Camera, RotateCw, Upload, Save, Trash2, ArrowLeft, ClipboardPaste } from "lucide-react";
+import { Camera, RotateCw, Upload, Trash2, ArrowLeft, ClipboardPaste } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Field,
   FieldGroup,
   FieldLabel,
-  FieldDescription,
 } from "@/components/ui/field";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { useApp } from "@/components/app/provider";
@@ -223,7 +222,7 @@ export function Capture() {
   async function intake(blob: Blob) {
     if (intakeLock.current) return;
     setCaptureMode("upload");
-    pendingTitle.current=blob instanceof File?blob.name.replace(/\.[^.]+$/, "").slice(0,200):`Ảnh chụp · ${new Date().toLocaleDateString("en-CA")}`;
+    pendingTitle.current="";
     intakeLock.current = true;
     stopCamera();
     setBusy(true);
@@ -271,7 +270,7 @@ export function Capture() {
     finally {clipboardLock.current=false;if(mounted.current)setReadingClipboard(false);}
   }
   async function takePhoto() {
-    pendingTitle.current=`Ảnh chụp · ${new Date().toLocaleDateString("en-CA")}`;
+    pendingTitle.current="";
     const node = video.current;
     if (!node || !node.videoWidth || intakeLock.current) return;
     intakeLock.current = true;
@@ -403,7 +402,6 @@ export function Capture() {
       </div>
           </TabsContent>
         </Tabs>
-        <p className="capture-local-note">{t('Ảnh chỉ được gửi khi bạn chọn phân tích.','Your photo is sent only when you choose to analyze it.')}</p>
       </section>
       {busy && (
         <p role="status">
@@ -822,51 +820,8 @@ function Editor({
                 }
               />
             </Field>
-            <Field orientation="horizontal">
-              <Checkbox
-                id="draft-consent"
-                checked={metadata.consent}
-                onCheckedChange={(checked) =>
-                  setMetadata((value) => ({
-                    ...value,
-                    consent: checked === true,
-                  }))
-                }
-              />
-              <FieldLabel htmlFor="draft-consent">
-                {t(
-                  "Cho phép gửi ảnh này để nhận dạng khi tôi bấm Phân tích ảnh.",
-                  "Allow this image to be uploaded when I press Analyse image.",
-                )}
-              </FieldLabel>
-            </Field>
-            <FieldDescription>
-              {t(
-                "Chỉ gửi ảnh khi bạn bấm phân tích. Mở lại nháp chưa gửi ảnh.",
-                "Photos are sent only when you choose to analyse them. Reopening a draft does not send it.",
-              )}
-            </FieldDescription>
           </FieldGroup>
-          <p>{t("AI giúp đọc chữ và gợi ý nghĩa. Bạn kiểm lại kết quả trước khi lưu.","AI reads text and suggests meanings. Review the results before saving.")}</p>
-          <Button disabled={processing||saving} onClick={async()=>{try{await persist();router.push(`/capture/${initial.draft.id}/extract`);}catch{}}}>{t("Phân tích ảnh bằng AI", "Analyse photo with AI")}</Button>
-          <Button asChild variant="outline"><Link prefetch={false} href={`/add?capture=${initial.draft.id}`}>{t("Chép và thêm từ từ ảnh", "Transcribe words from image")}</Link></Button>
-          <Button
-            variant="outline"
-            disabled={processing || saving}
-            onClick={() => void persist().catch(() => {})}
-          >
-            <Save data-icon="inline-start" />
-            {t("Lưu nháp trên máy", "Save draft locally")}
-          </Button>
-          <p role="status">
-            {processing
-              ? t("Đang chỉnh ảnh…", "Processing image…")
-              : saving
-                ? t("Đang lưu nháp…", "Saving draft…")
-                : dirty
-                  ? t("Có thay đổi chưa lưu", "Unsaved changes")
-                  : t("Đã lưu nháp trên máy", "Draft saved locally")}
-          </p>
+          <SubmitButton type="button" state={saving?'pending':error?'error':'idle'} error={error} disabled={processing||saving} onClick={async()=>{try{await persist();router.push(`/capture/${initial.draft.id}/extract?analyse=1`);}catch{}}}>{t("Phân tích ảnh bằng AI", "Analyse photo with AI")}</SubmitButton>
         </section>
       </div>
     </div>

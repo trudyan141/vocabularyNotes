@@ -34,3 +34,13 @@ export function readingHint(ipa:string){
   // Approximation only, not verified phonetics.
   return ipa.replace(/[\/ˈˌː]/g,'').replace(/tʃ/g,'ch').replace(/dʒ/g,'j').replace(/eɪ/g,'ây').replace(/aɪ/g,'ai').replace(/aʊ/g,'ao').replace(/oʊ|əʊ/g,'âu').replace(/æ/g,'e').replace(/ə|ʌ/g,'ơ').replace(/ɪ|i/g,'i').replace(/ɛ|e/g,'e').replace(/ʊ|u/g,'u').replace(/ɒ|ɔ/g,'o').replace(/ɑ/g,'a').replace(/θ/g,'th').replace(/ð/g,'đ').replace(/ʃ/g,'sh').replace(/ʒ/g,'zh').replace(/ŋ/g,'ng').replace(/ɹ/g,'r').replace(/j/g,'y').replace(/\./g,'-');
 }
+
+export function englishSenses(word:string,raw:string):DictionarySense[]{
+ const section=raw.match(/(?:^|\n)==English==\s*\n([\s\S]*?)(?=\n==[^=]|$)/)?.[1]??'';let pos='unknown';const results:DictionarySense[]=[];
+ const ipa=section.match(/\{\{IPA\|en\|(\/[^|}]+\/)/)?.[1]??'';
+ for(const line of section.split('\n')){const heading=line.match(/^={3,}\s*([^=]+?)\s*={3,}$/)?.[1];if(heading&&parts[heading])pos=parts[heading];
+  if(!/^# (?![:*#])/.test(line)||pos==='unknown')continue;
+  const definition=dictionaryText(line.slice(2).replace(/\{\{(?:l|m)\|en\|([^|}]+)(?:\|[^}]*)?\}\}/g,'$1'));
+  if(definition)results.push({word,vi:'',definition,pos,ipa,examples:[],source:`Wiktionary contributors — https://en.wiktionary.org/wiki/${encodeURIComponent(word)} — CC BY-SA 4.0`});
+ }return results.slice(0,16);
+}

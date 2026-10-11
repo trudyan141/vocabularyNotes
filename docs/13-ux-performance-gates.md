@@ -4,7 +4,9 @@
 
 ## Quyết định interaction
 
-| Quyết định | Lý do / rule của product-design | Acceptance |
+Rule IDs dưới đây là trace lịch sử ADR012 của product-design đã gỡ theo ADR078, không còn là routing skill. Quyết định sản phẩm vẫn giữ; thực hiện hiện dùng UI/UX Pro Max + Impeccable shape/operate và steering mới nhất.
+
+| Quyết định | Lý do / rule lịch sử ADR012 | Acceptance |
 |---|---|---|
 | 3 nav: Hôm nay/Từ của con/Chơi & học | `rule/one-primary-action`, `rule/smallest-intervention` | Account/settings qua header; capture CTA trong Hôm nay; active nav đúng route con |
 | Bắt đầu ở guest; Google tùy chọn | `rule/value-before-interruption` | Không buộc chọn level/login; mặc định Beginner, VI, child-friendly on; phụ huynh thiết lập cloud/AI; setting sửa được |
@@ -15,7 +17,7 @@
 | Nút và label đầy đủ | `rule/gesture-has-control-alternative`, `rule/accessible-name-required` | Swipe/flip không là cách duy nhất; nav icon+text; nút nghe accessible name chứa word/context |
 | Retry/back có scope và recovery | `rule/error-states-recovery`, `rule/name-object-scope-consequence` | Camera deny/upload, empty/no results, storage full, AI quota, merge partial có bước tiếp theo |
 
-`ui-ux-pro-max` đã được chạy local CSV search cho `education language learning`, retry `vocabulary study mobile app`; kết quả design-system có phần landing-page Hero/Testimonials và font không phù hợp mặc định VI. UX query `simple navigation progressive disclosure`, retry `progressive disclosure` không tìm đúng rule progressive disclosure. Đây là **fallback có chủ đích** sang rules đã đọc của product-design và quyết định dự án, không khẳng định catalog trả đúng pattern. Giữ độ thoáng, spacing và checklist hữu ích; không áp nguyên bộ recommendation hoặc Google Fonts import vào app.
+`ui-ux-pro-max` đã được chạy local CSV search cho `education language learning`, retry `vocabulary study mobile app`; kết quả design-system có phần landing-page Hero/Testimonials và font không phù hợp mặc định VI. UX query `simple navigation progressive disclosure`, retry `progressive disclosure` không tìm đúng rule progressive disclosure. Đây là **fallback có chủ đích** sang rules product-design đã đọc ở thời điểm prototype và quyết định dự án; skill đó hiện đã gỡ theo ADR078, không khẳng định catalog trả đúng pattern. Giữ độ thoáng, spacing và checklist hữu ích; không áp nguyên bộ recommendation hoặc Google Fonts import vào app.
 
 InspoMCP cung cấp visual references theo [bằng chứng nghiên cứu](design/inspo-research.md). Nhận xét screenshot không xác minh flow đăng nhập, SRS, accessibility, animation hay performance của sản phẩm nguồn.
 
@@ -70,7 +72,7 @@ T03 đã đo thêm [search5.000/local repository](evaluations/t03-local-reposito
 
 T02 bắt đầu baseline với fixture; T07/T09/T12 đo lại phần tương tác mới; T14 tổng hợp regression + device matrix; T15 thử người thật. Báo cáo dự kiến `docs/evaluations/ux-performance.md` gồm: commit/build, profile, route/task, raw outputs/screenshots/traces, before/after, actual vs target, limitation, next fix. File đã có sau T02 với raw JSON/trace/screenshots, số đo thật và pending rõ theo scope. Không biến baseline 20 từ thành 5.000-entry hoặc device/field pass.
 
-Nguồn đo: [web.dev Core Web Vitals](https://web.dev/articles/vitals); skill performance/core-web-vitals/accessibility trong repo. Dùng `product-design` mode shape, `frontend-design` cho art direction, `motion-design` cho purpose/timing, `ui-animation` cho implementation; không nạp cả bundle khi chỉ sửa một control.
+Nguồn đo: [web.dev Core Web Vitals](https://web.dev/articles/vitals); skill performance/core-web-vitals/accessibility trong repo. Dùng UI/UX Pro Max + Impeccable shape/operate cho interaction, `frontend-design` cho art direction, LottieFiles `motion-design` + Impeccable animate cho motion/implementation; không nạp cả bundle khi chỉ sửa một control.
 
 T18 artifacts và browser evidence ở [self-review](design/prototype/SELF-REVIEW.md), kịch bản riêng ở [QA25](design/prototype/QA25-HUMAN-STUDY.md). Targets production/CWV/device/human vẫn chưa measured; không suy pass từ kích thước WOFF2 hoặc browser demo.
 

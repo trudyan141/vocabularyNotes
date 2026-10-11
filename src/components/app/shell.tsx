@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { useApp } from "./provider";
 import { DatabaseBoundary } from "./database-boundary";
 import { ActionLink } from "./action-link";
+import { PullToRefresh } from "./pull-to-refresh";
 import type { ReactNode } from "react";
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -20,6 +21,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   ];
   return (
     <div className={cn("app-shell", showNav && "with-nav", pathname === "/welcome" && "welcome-shell")}>
+      <PullToRefresh />
       <a className="skip-link" href="#main">
         {t("Đến nội dung chính", "Skip to main content")}
       </a>

@@ -6,7 +6,7 @@ const fox=await readFile('public/illustrations/fox.svg');
 const sizes=[16,32,48,180];const icons=[];
 for(const size of sizes){
   const inset=Math.round(size*.08),side=size-2*inset;
-  const image=await sharp(fox).resize(side,side,{fit:'contain',background:{r:0,g:0,b:0,alpha:0}}).extend({top:inset,bottom:inset,left:inset,right:inset,background:'#fff8f8'}).png().toBuffer();
+  const image=await sharp(fox).resize(side,side,{fit:'contain',background:{r:0,g:0,b:0,alpha:0}}).extend({top:inset,bottom:inset,left:inset,right:inset,background:{r:0,g:0,b:0,alpha:0}}).png().toBuffer();
   await writeFile(size===180?'public/icons/apple-touch-icon.png':`public/icons/favicon-${size}.png`,image);if(size<180)icons.push({size,image});
 }
 const header=Buffer.alloc(6+16*icons.length);header.writeUInt16LE(1,2);header.writeUInt16LE(icons.length,4);let offset=header.length;

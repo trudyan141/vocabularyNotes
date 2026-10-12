@@ -6,7 +6,7 @@ const response=()=>({candidates:[{finishReason:'STOP',content:{parts:[{thought:t
 let values:Map<string,string>;
 beforeEach(()=>{values=new Map();vi.stubGlobal('window',{dispatchEvent:vi.fn()});vi.stubGlobal('localStorage',{getItem:(key:string)=>values.get(key)??null,setItem:(key:string,value:string)=>values.set(key,value),removeItem:(key:string)=>values.delete(key)});configureParentAi(null);});
 afterEach(()=>{vi.unstubAllGlobals();});
-it('rejects invented evidence, unsupported fields and substring headwords',()=>{expect(()=>validateWorksheet({...result,text:'apple'})).toThrow();expect(()=>validateWorksheet({...result,script:'run'})).toThrow();expect(()=>validateWorksheet({...result,words:[{...result.words[0],literal:'pineapple',word:'apple'}],text:'pineapple'})).toThrow();expect(aiCandidates(validateWorksheet(result))[0]).toMatchObject({origin:'ai_generated',art:'openmoji-1F350',selected:true});});
+it('rejects invented evidence, unsupported fields and substring headwords',()=>{expect(()=>validateWorksheet({...result,text:'apple'})).toThrow();expect(()=>validateWorksheet({...result,script:'run'})).toThrow();expect(()=>validateWorksheet({...result,words:[{...result.words[0],literal:'pineapple',word:'apple'}],text:'pineapple'})).toThrow();expect(aiCandidates(validateWorksheet(result))[0]).toMatchObject({origin:'ai_generated',art:null,selected:true});});
 it('uses direct Google headers and JPEG structured output; session keys are removable and never put in URLs',async()=>{
  configureParentAi({key,model:'gemini-3.5-flash-lite'},true);expect(values.has(parentKeyStorage)).toBe(true);
  const mock=vi.fn(async()=>Response.json(response()));

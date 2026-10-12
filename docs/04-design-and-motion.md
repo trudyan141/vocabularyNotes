@@ -1,5 +1,7 @@
 # UI, UX và animation — Words for Kids
 
+12/10 — ADR085, founder duyệt UX/UI: tìm và danh sách trước quản lý; thêm/sửa có phần chi tiết đóng, một Save chung; rating trước giải thích dài; review ảnh có nghĩa/chọn ngay hàng, tất cả preview vẫn trước Analyze. Group addition: mục đã lưu khóa, select/clear chỉ mục mới; một headword/caseMode mỗi hàng, nghĩa/POS vẫn riêng và mở/chọn được. Giọng đọc khi Nghe dùng preference tài khoản hiện có; tiếng trò chơi là setting riêng trên máy, giữ legacy mute và không autoplay. Grammar manual steps + OS/app reduced motion, tiếng/motion không quyết định lưu dữ liệu. [Implementation evidence](evaluations/ux-ui-implementation.md).
+
 12/10 — Tìm hình nhận ảnh riêng theo yêu cầu founder: shared WordPictureSearch có vùng kéo thả focus được, Ctrl+V/⌘V scoped vào từ đang dùng, nút Dán ảnh cho mobile và chọn file. Một ảnh JPEG/PNG/WebP dưới4MB theo upload media hiện có (server12MP, resize512, EXIFstrip/JPEG/receipt giữ). Paste chữ/URL giữ mặc định; không lấy URL ảnh để tự fetch. Clipboard không hỗ trợ/bị từ chối có recovery chọn file; multi-file/format/size sai không upload; lock chống nhận2lượt, abort khi unmount. Reuse upload ký và sense/revision/CAS, editor stage đến Save chung, Prepare lưu hình theo hành vi cũ; không AI/không đổi quota/provider/SQL/env.
 
 

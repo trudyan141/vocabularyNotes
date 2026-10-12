@@ -19,7 +19,7 @@ export async function preparePhotoBatch(capture:CaptureRepository,files:File[],b
  return {batchId,drafts,failures};
 }
 export type WorksheetDraft={
- batchRecovery?:import('@/lib/ai/worksheet-multi').MultiCheckpoint;text:string;items:OcrCandidate[];mode:'listed'|'all';operation:string;origin?:'ai_generated';model?:string;learning?:WorksheetLearning[];duplicates?:string[];recovery?:WorksheetCheckpoint;imageSignature?:string};
+ pictures?:Record<string,import('@/lib/media/contracts').MediaAsset>;batchRecovery?:import('@/lib/ai/worksheet-multi').MultiCheckpoint;text:string;items:OcrCandidate[];mode:'listed'|'all';operation:string;origin?:'ai_generated';model?:string;learning?:WorksheetLearning[];duplicates?:string[];recovery?:WorksheetCheckpoint;imageSignature?:string};
 export function photoSignature(draft:CaptureDraft){return JSON.stringify([draft.transform,draft.width,draft.height,draft.byteSize]);}
 export async function batchPhotos(local:LocalRepository,batchId:string){
  return (await new CaptureRepository(local).list()).filter(row=>row.batchId===batchId).sort((a,b)=>(a.batchOrder??0)-(b.batchOrder??0)||a.createdAt.localeCompare(b.createdAt));

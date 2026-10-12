@@ -1,0 +1,329 @@
+{
+  "url": "/library/words/apple/edit",
+  "title": "Sửa từ",
+  "scrollHeight": 2251,
+  "viewport": [
+    360,
+    800
+  ],
+  "overflow": false,
+  "text": "Quay lại\nSửa từ\nTừ tiếng Anh\nNghĩa tiếng Việt\nNghĩa tiếng Anh\nLoại từ\nTên nghĩa\nPhiên âm IPA\nCách đọc gần đúng của từ\nCâu ví dụ tiếng Anh\nIPA cả câu ví dụ\nNghĩa câu ví dụ\nCách đọc gần đúng của câu\nCâu ví dụ thứ hai\nIPA cả câu ví dụ thứ hai\nNghĩa câu ví dụ thứ hai\nCách đọc gần đúng câu thứ hai\nHình hiện tại\nBỏ hình\nĐổi hình\nNgữ pháp và mẫu câu\nLưu chỉnh sửa",
+  "controls": [
+    {
+      "text": "Quay lại",
+      "tag": "A",
+      "w": 123,
+      "h": 48,
+      "top": 92
+    },
+    {
+      "text": "Xóa từ này",
+      "tag": "BUTTON",
+      "w": 48,
+      "h": 48,
+      "top": 92
+    },
+    {
+      "text": "word-edit-word",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 246
+    },
+    {
+      "text": "word-edit-vi",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 345
+    },
+    {
+      "text": "word-edit-en",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 444
+    },
+    {
+      "text": "word-edit-pos",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 544
+    },
+    {
+      "text": "word-edit-sense",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 643
+    },
+    {
+      "text": "word-edit-ipa",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 742
+    },
+    {
+      "text": "word-edit-hint",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 841
+    },
+    {
+      "text": "word-edit-example",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 941
+    },
+    {
+      "text": "word-edit-exampleIpa",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 1040
+    },
+    {
+      "text": "word-edit-exampleVi",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 1139
+    },
+    {
+      "text": "word-edit-exampleHint",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 1238
+    },
+    {
+      "text": "word-edit-secondExample",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 1338
+    },
+    {
+      "text": "word-edit-secondIpa",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 1437
+    },
+    {
+      "text": "word-edit-secondVi",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 1536
+    },
+    {
+      "text": "word-edit-secondHint",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 1635
+    },
+    {
+      "text": "Bỏ hình",
+      "tag": "BUTTON",
+      "w": 118,
+      "h": 48,
+      "top": 1836
+    },
+    {
+      "text": "Đổi hình",
+      "tag": "SUMMARY",
+      "w": 286,
+      "h": 56,
+      "top": 1901
+    },
+    {
+      "text": "Tìm hình",
+      "tag": "BUTTON",
+      "w": 286,
+      "h": 48,
+      "top": 1957
+    },
+    {
+      "text": "Tìm ảnh trên web",
+      "tag": "A",
+      "w": 286,
+      "h": 48,
+      "top": 2017
+    },
+    {
+      "text": "Tìm thêm trên mạng",
+      "tag": "BUTTON",
+      "w": 286,
+      "h": 48,
+      "top": 2077
+    },
+    {
+      "text": "Chọn ảnh trên máy",
+      "tag": "BUTTON",
+      "w": 103,
+      "h": 114,
+      "top": 2217
+    },
+    {
+      "text": "Dán ảnh",
+      "tag": "BUTTON",
+      "w": 137,
+      "h": 48,
+      "top": 2250
+    },
+    {
+      "text": "Dùng ảnh khác",
+      "tag": "SUMMARY",
+      "w": 286,
+      "h": 56,
+      "top": 2426
+    },
+    {
+      "text": "Tìm ảnh trên Google",
+      "tag": "A",
+      "w": 286,
+      "h": 26,
+      "top": 2585
+    },
+    {
+      "text": "Tìm hình miễn phí trên Openclipart",
+      "tag": "A",
+      "w": 286,
+      "h": 26,
+      "top": 2623
+    },
+    {
+      "text": "Tìm hình trên Openverse · kiểm giấy phép ở trang gốc",
+      "tag": "A",
+      "w": 286,
+      "h": 51,
+      "top": 2660
+    },
+    {
+      "text": "",
+      "tag": "INPUT",
+      "w": 286,
+      "h": 48,
+      "top": 2749
+    },
+    {
+      "text": "Ngữ pháp và mẫu câu",
+      "tag": "SUMMARY",
+      "w": 328,
+      "h": 56,
+      "top": 1999
+    },
+    {
+      "text": "word-edit-extra-example",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 2087
+    },
+    {
+      "text": "word-edit-extra-exampleIpa",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 2186
+    },
+    {
+      "text": "word-edit-extra-exampleVi",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 2285
+    },
+    {
+      "text": "word-edit-extra-readingHintVi",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 2384
+    },
+    {
+      "text": "word-edit-extra-pattern",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 2484
+    },
+    {
+      "text": "word-edit-extra-patternExplanation",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 2583
+    },
+    {
+      "text": "word-edit-extra-grammarTitle",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 2682
+    },
+    {
+      "text": "word-edit-extra-conditions",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 2781
+    },
+    {
+      "text": "word-edit-extra-formula",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 2881
+    },
+    {
+      "text": "word-edit-extra-analysis",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 2980
+    },
+    {
+      "text": "word-edit-extra-commonError",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 3079
+    },
+    {
+      "text": "word-edit-extra-commonErrorIpa",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 3178
+    },
+    {
+      "text": "word-edit-extra-correction",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 3278
+    },
+    {
+      "text": "word-edit-extra-correctionIpa",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 3377
+    },
+    {
+      "text": "Lưu chỉnh sửa",
+      "tag": "BUTTON",
+      "w": 328,
+      "h": 56,
+      "top": 2075
+    }
+  ],
+  "run": "kJRyC2"
+}

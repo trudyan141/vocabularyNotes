@@ -1,0 +1,63 @@
+{
+  "url": "/library?mode=grammar",
+  "title": "Từ của con",
+  "scrollHeight": 899,
+  "viewport": [
+    360,
+    800
+  ],
+  "overflow": false,
+  "text": "Từ của con\nThêm từ\nBộ từ theo ngày\nNhóm học\nBổ sung hình cho từ\nXem và thêm hình cho những từ còn thiếu\nTừ\nNgữ pháp\nTìm bằng tiếng Anh hoặc tiếng Việt\n\n0 mục\n\nChưa có ngữ pháp phù hợp.",
+  "controls": [
+    {
+      "text": "Thêm từ",
+      "tag": "A",
+      "w": 98,
+      "h": 48,
+      "top": 139
+    },
+    {
+      "text": "Bộ từ theo ngày",
+      "tag": "A",
+      "w": 181,
+      "h": 48,
+      "top": 207
+    },
+    {
+      "text": "Nhóm học",
+      "tag": "A",
+      "w": 136,
+      "h": 48,
+      "top": 267
+    },
+    {
+      "text": "Bổ sung hình cho từXem và thêm hình cho những từ còn thiếu",
+      "tag": "A",
+      "w": 328,
+      "h": 112,
+      "top": 335
+    },
+    {
+      "text": "Từ",
+      "tag": "BUTTON",
+      "w": 156,
+      "h": 64,
+      "top": 473
+    },
+    {
+      "text": "Ngữ pháp",
+      "tag": "BUTTON",
+      "w": 156,
+      "h": 64,
+      "top": 473
+    },
+    {
+      "text": "library-search",
+      "tag": "INPUT",
+      "w": 288,
+      "h": 48,
+      "top": 614
+    }
+  ],
+  "run": "kJRyC2"
+}

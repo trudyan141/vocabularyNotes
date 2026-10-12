@@ -1,6 +1,5 @@
 import {z} from 'zod';
 import {worksheetLearning,validateLearning,combineLearningFamilies,validateWorksheetTemplates} from './worksheet-learning';
-import {dictionaryArt} from '@/lib/media/dictionary-art';
 import {normalizeOcrPos,removeDuplicateCandidates,type OcrCandidate} from '@/lib/ocr/candidates';
 export const parentKeyStorage='wfk-parent-ai-v1';
 export const defaultParentModel='gemini-3.5-flash-lite';
@@ -36,7 +35,7 @@ export function configureParentAi(value:ParentAi|null,remember=false){
 }
 export const worksheetResult=z.object({text:z.string().max(10000),warnings:z.array(z.string().max(500)).max(10),words:z.array(z.object({literal:z.string().min(1).max(200),word:z.string().regex(/^[a-zA-Z][a-zA-Z '-]{0,79}$/),vi:z.string().min(1).max(1000),en:z.string().min(1).max(1000),pos:z.string().min(1).max(60),sense:z.string().min(1).max(200),example:z.string().max(1000),exampleVi:z.string().max(1000),exampleIpa:z.string().max(2000).regex(/^\/[^<>\r\n\/]+\/$/u).nullable().optional()}).strict()).max(50),learning:z.array(worksheetLearning).max(20).optional()}).strict();
 export function validateWorksheet(value:unknown){const result=worksheetResult.parse(value);const normalize=(text:string)=>text.normalize('NFKC').toLowerCase().replace(/\s+/g,' ').trim();const literalText=normalize(result.text);if(result.words.some(item=>!literalText.includes(normalize(item.literal))||normalize(item.literal)!==normalize(item.word)))throw new Error('evidence');if(result.words.some(item=>item.exampleIpa&&((item.example.match(/[a-z]+(?:['’][a-z]+)*/gi)??[]).length>1)&&item.exampleIpa.slice(1,-1).trim().split(/\s+/).length<2))throw new Error('sentence-ipa');validateLearning(result.learning??[],result.text,result.words.map(word=>word.word));return {...result,learning:result.learning?combineLearningFamilies(result.learning):undefined};}
-export function aiCandidates(value:Pick<ReturnType<typeof validateWorksheet>,'words'>):OcrCandidate[]{const seen=new Set<string>();return removeDuplicateCandidates(value.words.map((item,i)=>{const key=item.word.toLowerCase().trim();const selected=!seen.has(key);seen.add(key);return {...item,pos:normalizeOcrPos(item.pos),id:`ai-${i}`,selected,art:dictionaryArt(item.word,item.pos,item.en),origin:'ai_generated' as const};}));}
+export function aiCandidates(value:Pick<ReturnType<typeof validateWorksheet>,'words'>):OcrCandidate[]{const seen=new Set<string>();return removeDuplicateCandidates(value.words.map((item,i)=>{const key=item.word.toLowerCase().trim();const selected=!seen.has(key);seen.add(key);return {...item,pos:normalizeOcrPos(item.pos),id:`ai-${i}`,selected,art:null,origin:'ai_generated' as const};}));}
 export type AiFailure={http:number;status:string;model:string;message:string;fields:string[];reason:string};
 export class ParentAiError extends Error{constructor(public code:string,public details?:AiFailure){super(code);}}
 function diagnosticText(value:unknown,key:string,max=1800){

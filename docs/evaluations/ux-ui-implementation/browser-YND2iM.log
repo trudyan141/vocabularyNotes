@@ -1,0 +1,51 @@
+✓ Lockfile passes supply-chain policies (verified 1d ago)
+Lockfile is up to date, resolution step is skipped
+Already up to date
+
+Done in 757ms using pnpm v11.25.0
+
+Running 42 tests using 2 workers
+
+[1/42] [desktop-chromium] › tests/e2e/search-batch.spec.ts:32:5 › all photos precede one analysis button; all scans precede shared meanings, reload and one save
+[2/42] [desktop-chromium] › tests/e2e/search-batch.spec.ts:20:5 › word list groups senses; are matches only the headword and visibly highlights it
+[3/42] [desktop-chromium] › tests/e2e/search-batch.spec.ts:45:5 › quota during scan keeps raw source and blocks save; reload resumes scans then common enrichment
+[4/42] [desktop-chromium] › tests/e2e/search-batch.spec.ts:50:5 › stop during second scan preserves first source and one common review resumes
+[5/42] [desktop-chromium] › tests/e2e/search-batch.spec.ts:54:5 › invalid photo reports its name and retains valid photos for retry, with no automatic upload
+[6/42] [desktop-chromium] › tests/e2e/search-batch.spec.ts:58:5 › paste repeatedly from single editor into the same batch, preserving crop and title without sending AI
+[7/42] [desktop-chromium] › tests/e2e/search-batch.spec.ts:67:5 › Paste another photo button works in the editor and text paste remains normal
+[8/42] [desktop-chromium] › tests/e2e/search-batch.spec.ts:73:5 › body-part photos repair a malformed scan and keep wrapped phrases through one review and save
+[9/42] [desktop-chromium] › tests/e2e/speaking-refresh.spec.ts:4:5 › Microphone permission failure recovers without a model pack or confirmation popup
+[10/42] [desktop-chromium] › tests/e2e/speaking-refresh.spec.ts:8:5 › Speech ends automatically, colours target and opens specific sound tips with icon replay
+[11/42] [desktop-chromium] › tests/e2e/speaking-refresh.spec.ts:16:5 › Signed-in scope overrides earlier device choice and cloud failure cannot silently write guest
+[12/42] [desktop-chromium] › tests/e2e/speaking-refresh.spec.ts:23:5 › Fox loading is painted while auth is slow, then gives way to lessons; iOS launch assets match the device
+[13/42] [desktop-chromium] › tests/e2e/speaking-refresh.spec.ts:34:5 › Quota failure keeps replay, retries only on another tap, and retired pack cleanup preserves public caches
+[14/42] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:13:5 › legacy mute stays off and separate game effects do not disable requested speech
+[15/42] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:20:5 › group additions protect saved members across filtered bulk actions; one row exposes each bank sense
+[16/42] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:28:5 › group filtered select-all spans more than ten pages and never changes saved members
+[17/42] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:34:5 › compact library, manual creation, section edits and picture all save through the shared action
+[18/42] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:40:5 › card ratings stay reachable and paused sessions move above new games
+[19/42] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:43:5 › all photo previews precede reading; each collapsed review shows meaning and direct selection
+[20/42] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:49:5 › reduced motion stops grammar step timers but manual steps and error recovery remain usable
+[21/42] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:52:5 › main screens retain navigation, usable empty recovery and responsive layout
+[22/42] [mobile-chromium] › tests/e2e/search-batch.spec.ts:20:5 › word list groups senses; are matches only the headword and visibly highlights it
+[23/42] [mobile-chromium] › tests/e2e/search-batch.spec.ts:32:5 › all photos precede one analysis button; all scans precede shared meanings, reload and one save
+[24/42] [mobile-chromium] › tests/e2e/search-batch.spec.ts:45:5 › quota during scan keeps raw source and blocks save; reload resumes scans then common enrichment
+[25/42] [mobile-chromium] › tests/e2e/search-batch.spec.ts:50:5 › stop during second scan preserves first source and one common review resumes
+[26/42] [mobile-chromium] › tests/e2e/search-batch.spec.ts:58:5 › paste repeatedly from single editor into the same batch, preserving crop and title without sending AI
+[27/42] [mobile-chromium] › tests/e2e/search-batch.spec.ts:54:5 › invalid photo reports its name and retains valid photos for retry, with no automatic upload
+[28/42] [mobile-chromium] › tests/e2e/search-batch.spec.ts:67:5 › Paste another photo button works in the editor and text paste remains normal
+[29/42] [mobile-chromium] › tests/e2e/search-batch.spec.ts:73:5 › body-part photos repair a malformed scan and keep wrapped phrases through one review and save
+[30/42] [mobile-chromium] › tests/e2e/speaking-refresh.spec.ts:4:5 › Microphone permission failure recovers without a model pack or confirmation popup
+[31/42] [mobile-chromium] › tests/e2e/speaking-refresh.spec.ts:8:5 › Speech ends automatically, colours target and opens specific sound tips with icon replay
+[32/42] [mobile-chromium] › tests/e2e/speaking-refresh.spec.ts:16:5 › Signed-in scope overrides earlier device choice and cloud failure cannot silently write guest
+[33/42] [mobile-chromium] › tests/e2e/speaking-refresh.spec.ts:23:5 › Fox loading is painted while auth is slow, then gives way to lessons; iOS launch assets match the device
+[34/42] [mobile-chromium] › tests/e2e/speaking-refresh.spec.ts:34:5 › Quota failure keeps replay, retries only on another tap, and retired pack cleanup preserves public caches
+[35/42] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:13:5 › legacy mute stays off and separate game effects do not disable requested speech
+[36/42] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:20:5 › group additions protect saved members across filtered bulk actions; one row exposes each bank sense
+[37/42] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:28:5 › group filtered select-all spans more than ten pages and never changes saved members
+[38/42] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:34:5 › compact library, manual creation, section edits and picture all save through the shared action
+[39/42] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:40:5 › card ratings stay reachable and paused sessions move above new games
+[40/42] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:43:5 › all photo previews precede reading; each collapsed review shows meaning and direct selection
+[41/42] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:49:5 › reduced motion stops grammar step timers but manual steps and error recovery remain usable
+[42/42] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:52:5 › main screens retain navigation, usable empty recovery and responsive layout
+  42 passed (1.0m)

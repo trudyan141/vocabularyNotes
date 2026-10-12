@@ -1,0 +1,175 @@
+{
+  "url": "/practice/decks",
+  "title": "Bộ thẻ của con",
+  "scrollHeight": 1521,
+  "viewport": [
+    1280,
+    1000
+  ],
+  "overflow": false,
+  "text": "Quay lại\nBộ thẻ của con\n\nĐặt tên, chọn từ rồi lưu để con ôn.\n\nTên bộ thẻ\nCách ôn: nhìn tiếng Anh → nhớ tiếng Việt\nChọn từ cho bộ thẻ\nĐã chọn 0 từ\nTìm từ để chọn\nChọn tất cả 20 từ\nChọn cả trang\napple\nquả táo\nbanana\nquả chuối\ngrapes\nquả nho\norange\nquả cam\nmilk\nsữa\nbread\nbánh mì\nwater\nnước\negg\nquả trứng\nbook\nquyển sách\nbag\ncái cặp\npen\nbút mực\ncat\ncon mèo\nTrước\nTrang 1 / 2\nSau\n0 từ trong bộ thẻ\nLưu bộ thẻ\nTạo bộ khác",
+  "controls": [
+    {
+      "text": "Quay lại",
+      "tag": "A",
+      "w": 123,
+      "h": 48,
+      "top": 120
+    },
+    {
+      "text": "deck-name",
+      "tag": "INPUT",
+      "w": 760,
+      "h": 48,
+      "top": 323
+    },
+    {
+      "text": "Cách ôn: nhìn tiếng Anh → nhớ tiếng Việt",
+      "tag": "SUMMARY",
+      "w": 760,
+      "h": 68,
+      "top": 392
+    },
+    {
+      "text": "English → tiếng ViệtTiếng Việt → English",
+      "tag": "SELECT",
+      "w": 760,
+      "h": 50,
+      "top": 494
+    },
+    {
+      "text": "deck-search",
+      "tag": "INPUT",
+      "w": 760,
+      "h": 48,
+      "top": 558
+    },
+    {
+      "text": "Chọn tất cả 20 từ",
+      "tag": "BUTTON",
+      "w": 155,
+      "h": 48,
+      "top": 622
+    },
+    {
+      "text": "Chọn cả trang",
+      "tag": "BUTTON",
+      "w": 132,
+      "h": 48,
+      "top": 622
+    },
+    {
+      "text": "apple · quả táo · danh từ",
+      "tag": "INPUT",
+      "w": 24,
+      "h": 24,
+      "top": 718
+    },
+    {
+      "text": "banana · quả chuối · danh từ",
+      "tag": "INPUT",
+      "w": 24,
+      "h": 24,
+      "top": 718
+    },
+    {
+      "text": "grapes · quả nho · danh từ",
+      "tag": "INPUT",
+      "w": 24,
+      "h": 24,
+      "top": 814
+    },
+    {
+      "text": "orange · quả cam · danh từ",
+      "tag": "INPUT",
+      "w": 24,
+      "h": 24,
+      "top": 814
+    },
+    {
+      "text": "milk · sữa · danh từ",
+      "tag": "INPUT",
+      "w": 24,
+      "h": 24,
+      "top": 911
+    },
+    {
+      "text": "bread · bánh mì · danh từ",
+      "tag": "INPUT",
+      "w": 24,
+      "h": 24,
+      "top": 911
+    },
+    {
+      "text": "water · nước · danh từ",
+      "tag": "INPUT",
+      "w": 24,
+      "h": 24,
+      "top": 1008
+    },
+    {
+      "text": "egg · quả trứng · danh từ",
+      "tag": "INPUT",
+      "w": 24,
+      "h": 24,
+      "top": 1008
+    },
+    {
+      "text": "book · quyển sách · danh từ",
+      "tag": "INPUT",
+      "w": 24,
+      "h": 24,
+      "top": 1105
+    },
+    {
+      "text": "bag · cái cặp · danh từ",
+      "tag": "INPUT",
+      "w": 24,
+      "h": 24,
+      "top": 1105
+    },
+    {
+      "text": "pen · bút mực · danh từ",
+      "tag": "INPUT",
+      "w": 24,
+      "h": 24,
+      "top": 1202
+    },
+    {
+      "text": "cat · con mèo · danh từ",
+      "tag": "INPUT",
+      "w": 24,
+      "h": 24,
+      "top": 1202
+    },
+    {
+      "text": "Trước",
+      "tag": "BUTTON",
+      "w": 90,
+      "h": 48,
+      "top": 1273
+    },
+    {
+      "text": "Sau",
+      "tag": "BUTTON",
+      "w": 77,
+      "h": 48,
+      "top": 1273
+    },
+    {
+      "text": "Lưu bộ thẻ",
+      "tag": "BUTTON",
+      "w": 141,
+      "h": 48,
+      "top": 1353
+    },
+    {
+      "text": "Tạo bộ khác",
+      "tag": "BUTTON",
+      "w": 154,
+      "h": 48,
+      "top": 1433
+    }
+  ],
+  "run": "kJRyC2"
+}

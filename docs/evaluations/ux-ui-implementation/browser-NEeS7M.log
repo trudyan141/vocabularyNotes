@@ -1,0 +1,179 @@
+✓ Lockfile passes supply-chain policies (verified 1d ago)
+Lockfile is up to date, resolution step is skipped
+Already up to date
+
+Done in 1s using pnpm v11.25.0
+
+Running 62 tests using 2 workers
+
+[1/62] [desktop-chromium] › tests/e2e/compact-home.spec.ts:5:5 › home has two illustrated add cards, one latest set and edits only inside dated detail
+[2/62] [desktop-chromium] › tests/e2e/compact-home.spec.ts:8:5 › one backup section downloads a complete archive and safely rejects invalid restore
+[3/62] [desktop-chromium] › tests/e2e/free-picture-sources.spec.ts:4:5 › live source search/import offers Noto Twemoji Fluent, stores approved JPEG, and exposes other free libraries
+[4/62] [desktop-chromium] › tests/e2e/media-source-errors.spec.ts:3:5 › empty searches name attempted sources and leave online fallback available
+[5/62] [desktop-chromium] › tests/e2e/media-source-errors.spec.ts:7:5 › upstream failure is distinguished from empty and identifies source without exposing provider payloads
+[6/62] [desktop-chromium] › tests/e2e/media-source-errors.spec.ts:11:5 › empty web search reveals Google and image paste; arbitrary user image keeps its supplied source
+[7/62] [desktop-chromium] › tests/e2e/media-source-errors.spec.ts:21:5 › web search remains available with catalog matches and keeps the current image and results
+[8/62] [desktop-chromium] › tests/e2e/search-batch.spec.ts:20:5 › word list groups senses; are matches only the headword and visibly highlights it
+[9/62] [desktop-chromium] › tests/e2e/search-batch.spec.ts:32:5 › all photos precede one analysis button; all scans precede shared meanings, reload and one save
+[10/62] [desktop-chromium] › tests/e2e/search-batch.spec.ts:45:5 › quota during scan keeps raw source and blocks save; reload resumes scans then common enrichment
+  1) [desktop-chromium] › tests/e2e/compact-home.spec.ts:5:5 › home has two illustrated add cards, one latest set and edits only inside dated detail 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('link', { name: 'Gõ từ mới', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('link', { name: 'Gõ từ mới', exact: true }) with timeout 5000ms
+      - waiting for getByRole('link', { name: 'Gõ từ mới', exact: true })
+
+
+      4 | test.beforeEach(async({page})=>{await page.route('**/api/auth/status*',r=>r.fulfill({json:{configured:false,user:null}}));await page.route('https://**',r=>r.abort());});
+      5 | test('home has two illustrated add cards, one latest set and edits only inside dated detail',async({page},info)=>{
+    > 6 |  await page.goto('/today');await expect(page.getByRole('link',{name:'Gõ từ mới',exact:true})).toBeVisible();const add=page.getByRole('link',{name:'Thêm bài từ ảnh',exact:true});await expect(add.locator('img')).toBeVisible();await expect(page.locator('.recent-lesson')).toHaveCount(1);await expect(page.getByRole('button',{name:/Đổi tên/})).toHaveCount(0);await page.screenshot({path:info.outputPath('home.png'),fullPage:true});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);await page.locator('.recent-lesson a').click();await page.getByText('Chi tiết bài theo ngày',{exact:true}).click();await page.getByRole('button',{name:'Sửa bộ từ',exact:true}).click();await page.getByLabel('Tên bộ',{exact:true}).fill('Bài gần nhất đã sửa');await page.getByRole('button',{name:'Lưu bộ từ',exact:true}).click();await page.reload();await expect(page.locator('main')).toContainText('Bài gần nhất đã sửa');await page.goto('/today');await expect(page.locator('.recent-lesson')).toHaveCount(1);
+        |                                                                                               ^
+      7 | });
+      8 | test('one backup section downloads a complete archive and safely rejects invalid restore',async({page},info)=>{
+      9 |  await page.goto('/settings');await expect(page.getByRole('heading',{name:'Sao lưu và khôi phục',exact:true})).toHaveCount(1);await expect(page.getByRole('button',{name:'Xuất từ và ghi chú',exact:true})).toHaveCount(0);await expect(page.getByRole('heading',{name:'Giữ bài học của con',exact:true})).toHaveCount(0);const wait=page.waitForEvent('download');await page.getByRole('button',{name:'Tải bản sao',exact:true}).click();const archive=JSON.parse(await readFile((await(await wait).path())!,'utf8'));expect(archive.formatVersion).toBe('words-for-kids.archive.v1');expect(archive.records.senses.length).toBeGreaterThan(0);const choose=page.waitForEvent('filechooser');await page.getByRole('button',{name:'Khôi phục bản sao',exact:true}).click();await(await choose).setFiles({name:'invalid.json',mimeType:'application/json',buffer:Buffer.from('{}')});await expect(page.getByText('File không hợp lệ hoặc quá lớn. Thư viện còn nguyên.',{exact:true})).toBeVisible();await page.screenshot({path:info.outputPath('backup.png'),fullPage:true});
+        at /Users/trunglk/Documents/trung-github/VocabularyNotes/tests/e2e/compact-home.spec.ts:6:95
+
+    Error Context: ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-NEeS7M/test-results/compact-home-home-has-two--42387-ts-only-inside-dated-detail-desktop-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-NEeS7M/test-results/compact-home-home-has-two--42387-ts-only-inside-dated-detail-desktop-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-NEeS7M/test-results/compact-home-home-has-two--42387-ts-only-inside-dated-detail-desktop-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[11/62] [desktop-chromium] › tests/e2e/search-batch.spec.ts:50:5 › stop during second scan preserves first source and one common review resumes
+[12/62] [desktop-chromium] › tests/e2e/search-batch.spec.ts:54:5 › invalid photo reports its name and retains valid photos for retry, with no automatic upload
+[13/62] [desktop-chromium] › tests/e2e/search-batch.spec.ts:58:5 › paste repeatedly from single editor into the same batch, preserving crop and title without sending AI
+[14/62] [desktop-chromium] › tests/e2e/search-batch.spec.ts:67:5 › Paste another photo button works in the editor and text paste remains normal
+[15/62] [desktop-chromium] › tests/e2e/search-batch.spec.ts:73:5 › body-part photos repair a malformed scan and keep wrapped phrases through one review and save
+[16/62] [desktop-chromium] › tests/e2e/speaking-refresh.spec.ts:4:5 › Microphone permission failure recovers without a model pack or confirmation popup
+[17/62] [desktop-chromium] › tests/e2e/speaking-refresh.spec.ts:8:5 › Speech ends automatically, colours target and opens specific sound tips with icon replay
+[18/62] [desktop-chromium] › tests/e2e/speaking-refresh.spec.ts:16:5 › Signed-in scope overrides earlier device choice and cloud failure cannot silently write guest
+[19/62] [desktop-chromium] › tests/e2e/speaking-refresh.spec.ts:23:5 › Fox loading is painted while auth is slow, then gives way to lessons; iOS launch assets match the device
+[20/62] [desktop-chromium] › tests/e2e/speaking-refresh.spec.ts:34:5 › Quota failure keeps replay, retries only on another tap, and retired pack cleanup preserves public caches
+[21/62] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:13:5 › legacy mute stays off and separate game effects do not disable requested speech
+[22/62] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:20:5 › group additions protect saved members across filtered bulk actions; one row exposes each bank sense
+[23/62] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:28:5 › group filtered select-all spans more than ten pages and never changes saved members
+[24/62] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:34:5 › compact library, manual creation, section edits and picture all save through the shared action
+  2) [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:34:5 › compact library, manual creation, section edits and picture all save through the shared action 
+
+    Error: expect(locator).not.toHaveAttribute() failed
+
+    Locator: locator('.library-management')
+    Expected: not have attribute
+    Error: strict mode violation: locator('.library-management') resolved to 2 elements:
+        1) <details class="library-management">…</details> aka locator('#main').getByText('Sắp xếp bài Bài theo ngàyNhóm')
+        2) <details class="library-management">…</details> aka getByText('Sắp xếp bài Bài theo ngàyNhóm').nth(1)
+
+    Call log:
+      - Expect "not toHaveAttribute" locator('.library-management') with timeout 5000ms
+      - waiting for locator('.library-management')
+
+
+      34 | test('compact library, manual creation, section edits and picture all save through the shared action',async({page},info)=>{
+      35 |  test.setTimeout(90000);
+    > 36 |  await page.goto('/library');await expect(page.getByRole('searchbox')).toBeInViewport();await expect(page.locator('.library-list li').first()).toBeInViewport();await expect(page.locator('.library-management')).not.toHaveAttribute('open');
+         |                                                                                                                                                                                                                       ^
+      37 |  await page.goto('/add');await page.getByRole('combobox').fill('uxmadeup');await page.getByLabel('Nghĩa tiếng Việt',{exact:true}).fill('từ tự thêm');await page.getByLabel('Nghĩa tiếng Anh',{exact:true}).fill('A word entered by the user.');await expect(page.getByLabel('Tên nghĩa để phân biệt',{exact:true})).not.toBeVisible();await page.getByRole('button',{name:'Lưu từ',exact:true}).click();await expect(page).toHaveURL(/\/library\/words\//);await page.getByRole('link',{name:'Sửa',exact:true}).click();await page.getByLabel('Nghĩa tiếng Việt',{exact:true}).fill('nghĩa đã sửa');await page.locator('.word-extra-fields > summary').click();await page.getByLabel('Câu ví dụ tiếng Anh',{exact:true}).fill('This is my word.');await page.locator('#word-edit-exampleVi').fill('Đây là từ của tôi.');await page.getByLabel('Câu ví dụ thứ hai',{exact:true}).fill('I wrote this word.');await page.getByLabel('Nghĩa câu ví dụ thứ hai',{exact:true}).fill('Tôi đã viết từ này.');await page.locator('.word-extra-fields > summary').click();
+      38 |  await page.getByText('Đổi hình',{exact:true}).click();await page.locator('.picture-intake-tools > summary').click();const buffer=await page.evaluate(()=>{const c=document.createElement('canvas');c.width=20;c.height=20;return c.toDataURL('image/png').split(',')[1];});await page.getByLabel('Chọn hình cho từ',{exact:true}).setInputFiles({name:'own.png',mimeType:'image/png',buffer:Buffer.from(buffer,'base64')});await expect(page.locator('.staged-picture')).toContainText('Hình đã chọn');await page.getByRole('button',{name:'Lưu chỉnh sửa',exact:true}).click();await expect(page.getByRole('button',{name:'Đã lưu chỉnh sửa',exact:true})).toBeVisible();await page.reload();await expect(page.getByLabel('Nghĩa tiếng Việt',{exact:true})).toHaveValue('nghĩa đã sửa');await page.locator('.word-extra-fields > summary').click();await expect(page.getByLabel('Câu ví dụ thứ hai',{exact:true})).toHaveValue('I wrote this word.');await expect(page.locator('.staged-picture img')).toHaveAttribute('src',/^data:image\/jpeg/);await page.screenshot({path:info.outputPath('compact-editor.png'),fullPage:true});
+      39 | });
+        at /Users/trunglk/Documents/trung-github/VocabularyNotes/tests/e2e/ux-refinement.spec.ts:36:215
+
+    Error Context: ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-NEeS7M/test-results/ux-refinement-compact-libr-c644f-e-through-the-shared-action-desktop-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-NEeS7M/test-results/ux-refinement-compact-libr-c644f-e-through-the-shared-action-desktop-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-NEeS7M/test-results/ux-refinement-compact-libr-c644f-e-through-the-shared-action-desktop-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[25/62] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:43:5 › all photo previews precede reading; each collapsed review shows meaning and direct selection
+[26/62] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:40:5 › card ratings stay reachable and paused sessions move above new games
+[27/62] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:49:5 › reduced motion stops grammar step timers but manual steps and error recovery remain usable
+[28/62] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:52:5 › main screens retain navigation, usable empty recovery and responsive layout
+[29/62] [desktop-chromium] › tests/e2e/word-picture-intake.spec.ts:5:5 › drop and keyboard paste use real upload and stage the image until the common Save
+[30/62] [desktop-chromium] › tests/e2e/word-picture-intake.spec.ts:18:5 › mobile paste button reads clipboard image; text paste stays normal and denied clipboard is actionable
+[31/62] [desktop-chromium] › tests/e2e/word-picture-intake.spec.ts:27:5 › invalid, multiple and oversized dropped files do not upload; failed upload keeps current image
+[32/62] [mobile-chromium] › tests/e2e/compact-home.spec.ts:5:5 › home has two illustrated add cards, one latest set and edits only inside dated detail
+[33/62] [mobile-chromium] › tests/e2e/compact-home.spec.ts:8:5 › one backup section downloads a complete archive and safely rejects invalid restore
+[34/62] [mobile-chromium] › tests/e2e/free-picture-sources.spec.ts:4:5 › live source search/import offers Noto Twemoji Fluent, stores approved JPEG, and exposes other free libraries
+[35/62] [mobile-chromium] › tests/e2e/media-source-errors.spec.ts:3:5 › empty searches name attempted sources and leave online fallback available
+[36/62] [mobile-chromium] › tests/e2e/media-source-errors.spec.ts:7:5 › upstream failure is distinguished from empty and identifies source without exposing provider payloads
+[37/62] [mobile-chromium] › tests/e2e/media-source-errors.spec.ts:11:5 › empty web search reveals Google and image paste; arbitrary user image keeps its supplied source
+[38/62] [mobile-chromium] › tests/e2e/media-source-errors.spec.ts:21:5 › web search remains available with catalog matches and keeps the current image and results
+  3) [mobile-chromium] › tests/e2e/compact-home.spec.ts:5:5 › home has two illustrated add cards, one latest set and edits only inside dated detail 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('link', { name: 'Gõ từ mới', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('link', { name: 'Gõ từ mới', exact: true }) with timeout 5000ms
+      - waiting for getByRole('link', { name: 'Gõ từ mới', exact: true })
+
+
+      4 | test.beforeEach(async({page})=>{await page.route('**/api/auth/status*',r=>r.fulfill({json:{configured:false,user:null}}));await page.route('https://**',r=>r.abort());});
+      5 | test('home has two illustrated add cards, one latest set and edits only inside dated detail',async({page},info)=>{
+    > 6 |  await page.goto('/today');await expect(page.getByRole('link',{name:'Gõ từ mới',exact:true})).toBeVisible();const add=page.getByRole('link',{name:'Thêm bài từ ảnh',exact:true});await expect(add.locator('img')).toBeVisible();await expect(page.locator('.recent-lesson')).toHaveCount(1);await expect(page.getByRole('button',{name:/Đổi tên/})).toHaveCount(0);await page.screenshot({path:info.outputPath('home.png'),fullPage:true});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);await page.locator('.recent-lesson a').click();await page.getByText('Chi tiết bài theo ngày',{exact:true}).click();await page.getByRole('button',{name:'Sửa bộ từ',exact:true}).click();await page.getByLabel('Tên bộ',{exact:true}).fill('Bài gần nhất đã sửa');await page.getByRole('button',{name:'Lưu bộ từ',exact:true}).click();await page.reload();await expect(page.locator('main')).toContainText('Bài gần nhất đã sửa');await page.goto('/today');await expect(page.locator('.recent-lesson')).toHaveCount(1);
+        |                                                                                               ^
+      7 | });
+      8 | test('one backup section downloads a complete archive and safely rejects invalid restore',async({page},info)=>{
+      9 |  await page.goto('/settings');await expect(page.getByRole('heading',{name:'Sao lưu và khôi phục',exact:true})).toHaveCount(1);await expect(page.getByRole('button',{name:'Xuất từ và ghi chú',exact:true})).toHaveCount(0);await expect(page.getByRole('heading',{name:'Giữ bài học của con',exact:true})).toHaveCount(0);const wait=page.waitForEvent('download');await page.getByRole('button',{name:'Tải bản sao',exact:true}).click();const archive=JSON.parse(await readFile((await(await wait).path())!,'utf8'));expect(archive.formatVersion).toBe('words-for-kids.archive.v1');expect(archive.records.senses.length).toBeGreaterThan(0);const choose=page.waitForEvent('filechooser');await page.getByRole('button',{name:'Khôi phục bản sao',exact:true}).click();await(await choose).setFiles({name:'invalid.json',mimeType:'application/json',buffer:Buffer.from('{}')});await expect(page.getByText('File không hợp lệ hoặc quá lớn. Thư viện còn nguyên.',{exact:true})).toBeVisible();await page.screenshot({path:info.outputPath('backup.png'),fullPage:true});
+        at /Users/trunglk/Documents/trung-github/VocabularyNotes/tests/e2e/compact-home.spec.ts:6:95
+
+    Error Context: ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-NEeS7M/test-results/compact-home-home-has-two--42387-ts-only-inside-dated-detail-mobile-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-NEeS7M/test-results/compact-home-home-has-two--42387-ts-only-inside-dated-detail-mobile-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-NEeS7M/test-results/compact-home-home-has-two--42387-ts-only-inside-dated-detail-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[39/62] [mobile-chromium] › tests/e2e/search-batch.spec.ts:32:5 › all photos precede one analysis button; all scans precede shared meanings, reload and one save
+[40/62] [mobile-chromium] › tests/e2e/search-batch.spec.ts:20:5 › word list groups senses; are matches only the headword and visibly highlights it
+[41/62] [mobile-chromium] › tests/e2e/search-batch.spec.ts:45:5 › quota during scan keeps raw source and blocks save; reload resumes scans then common enrichment
+[42/62] [mobile-chromium] › tests/e2e/search-batch.spec.ts:50:5 › stop during second scan preserves first source and one common review resumes
+[43/62] [mobile-chromium] › tests/e2e/search-batch.spec.ts:54:5 › invalid photo reports its name and retains valid photos for retry, with no automatic upload
+[44/62] [mobile-chromium] › tests/e2e/search-batch.spec.ts:58:5 › paste repeatedly from single editor into the same batch, preserving crop and title without sending AI
+[45/62] [mobile-chromium] › tests/e2e/search-batch.spec.ts:67:5 › Paste another photo button works in the editor and text paste remains normal
+[46/62] [mobile-chromium] › tests/e2e/search-batch.spec.ts:73:5 › body-part photos repair a malformed scan and keep wrapped phrases through one review and save
+[47/62] [mobile-chromium] › tests/e2e/speaking-refresh.spec.ts:4:5 › Microphone permission failure recovers without a model pack or confirmation popup
+[48/62] [mobile-chromium] › tests/e2e/speaking-refresh.spec.ts:8:5 › Speech ends automatically, colours target and opens specific sound tips with icon replay
+[49/62] [mobile-chromium] › tests/e2e/speaking-refresh.spec.ts:16:5 › Signed-in scope overrides earlier device choice and cloud failure cannot silently write guest
+[50/62] [mobile-chromium] › tests/e2e/speaking-refresh.spec.ts:23:5 › Fox loading is painted while auth is slow, then gives way to lessons; iOS launch assets match the device
+[51/62] [mobile-chromium] › tests/e2e/speaking-refresh.spec.ts:34:5 › Quota failure keeps replay, retries only on another tap, and retired pack cleanup preserves public caches
+[52/62] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:13:5 › legacy mute stays off and separate game effects do not disable requested speech
+[53/62] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:20:5 › group additions protect saved members across filtered bulk actions; one row exposes each bank sense
+[54/62] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:28:5 › group filtered select-all spans more than ten pages and never changes saved members
+[55/62] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:34:5 › compact library, manual creation, section edits and picture all save through the shared action
+[56/62] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:40:5 › card ratings stay reachable and paused sessions move above new games
+[57/62] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:43:5 › all photo previews precede reading; each collapsed review shows meaning and direct selection
+[58/62] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:49:5 › reduced motion stops grammar step timers but manual steps and error recovery remain usable
+[59/62] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:52:5 › main screens retain navigation, usable empty recovery and responsive layout
+[60/62] [mobile-chromium] › tests/e2e/word-picture-intake.spec.ts:5:5 › drop and keyboard paste use real upload and stage the image until the common Save
+[61/62] [mobile-chromium] › tests/e2e/word-picture-intake.spec.ts:18:5 › mobile paste button reads clipboard image; text paste stays normal and denied clipboard is actionable
+[62/62] [mobile-chromium] › tests/e2e/word-picture-intake.spec.ts:27:5 › invalid, multiple and oversized dropped files do not upload; failed upload keeps current image
+  3 failed
+    [desktop-chromium] › tests/e2e/compact-home.spec.ts:5:5 › home has two illustrated add cards, one latest set and edits only inside dated detail 
+    [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:34:5 › compact library, manual creation, section edits and picture all save through the shared action 
+    [mobile-chromium] › tests/e2e/compact-home.spec.ts:5:5 › home has two illustrated add cards, one latest set and edits only inside dated detail 
+  2 skipped
+  57 passed (1.1m)

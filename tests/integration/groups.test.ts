@@ -129,3 +129,26 @@ it('adds only words and grammar from a lesson while keeping embedded examples an
  expect(result.row.payload.deck.group.wordIds).toHaveLength(2);expect(result.row.payload.deck.group.grammar).toHaveLength(1);expect(result.row.payload.deck.group.sentences).toEqual([legacy]);expect(result.added).toBe(3);expect(result.addedItems.map(item=>item.kind)).not.toContain('sentence');expect(await r.db.examples.toArray()).toEqual(exampleRows);expect((await r.word('apple'))!.example).toBeTruthy();
  const fresh=await saveStudyGroup(r,{id:'two-types-new',version:null,name:'Two new types',members:{wordIds:[],sentences:[]},days:['2026-10-10'],includeSentences:false});expect(fresh.row.payload.deck.group.sentences).toEqual([]);expect((await groupContents(r,fresh.row)).grammar).toHaveLength(1);
 });
+it('add-only edits preserve saved membership and source sets even if submitted selection omits them',async()=>{
+ const r=repo(),c=await seed(r),ref={senseId:c.sentences[0].senseId,key:sentenceKey(c.sentences[0])};
+ const first=await saveStudyGroup(r,{id:'add-only',version:null,name:'Keep saved',members:{wordIds:['apple'],sentences:[ref]}});
+ const initialSet=first.row.payload.deck.group.sets?.find(set=>set.wordIds.includes('apple'));
+ const next=await saveStudyGroup(r,{id:'add-only',version:first.row.version,name:'Keep saved',members:{wordIds:['book'],sentences:[]},preserveExisting:true});
+ expect(next.row.payload.deck.group.wordIds).toEqual(['apple','book']);expect(next.row.payload.deck.group.sentences).toContainEqual(ref);
+ expect(next.row.payload.deck.group.sets?.find(set=>set.wordIds.includes('apple'))?.id).toBe(initialSet?.id);
+ const untouched=await saveStudyGroup(r,{id:'add-only',version:next.row.version,name:'Keep saved',members:{wordIds:[],sentences:[]},preserveExisting:true});
+ expect(untouched.unchanged).toBe(true);expect(untouched.row).toEqual(next.row);
+ await expect(saveStudyGroup(r,{id:'add-only',version:first.row.version,name:'Keep saved',members:{wordIds:[],sentences:[]},preserveExisting:true})).rejects.toThrow('conflict');
+});
+
+it('add-only transaction never deduplicates away existing legacy sense IDs',async()=>{
+ const r=repo();await seed(r);
+ const original=(await r.db.senses.get([r.scope.id,'apple']))!,index=(await r.db.searchIndex.get([r.scope.id,'apple']))!;
+ const entry=(await r.db.entries.get([r.scope.id,original.entryId]))!;await r.db.entries.put({...entry,id:'legacy-entry',activeKey:'legacy-fixture-apple'});
+ await r.db.senses.put({...original,id:'legacy-apple',entryId:'legacy-entry'});await r.db.searchIndex.put({...index,id:'legacy-apple'});
+ const {saveDeck}=await import('@/data/local/decks');
+ const first=await saveDeck(r,'legacy',null,{name:'Legacy members',direction:'en-vi',senseIds:['apple','legacy-apple'],group:{wordIds:['apple','legacy-apple'],sentences:[]}});
+ const next=await saveStudyGroup(r,{id:'legacy',version:first.version,name:'Legacy members',members:{wordIds:['book'],sentences:[]},preserveExisting:true});
+ expect(next.row.payload.deck.group.wordIds).toEqual(['apple','legacy-apple','book']);
+ expect(await r.db.senses.count()).toBe(3);
+});

@@ -1,0 +1,28 @@
+{
+  "url": "/practice/groups",
+  "title": "Ôn bài theo nhóm",
+  "scrollHeight": 1020,
+  "viewport": [
+    1280,
+    1000
+  ],
+  "overflow": false,
+  "text": "Quay lại\nÔn bài theo nhóm\nChưa có nhóm học\nTạo nhóm từ những bài đã lưu nhé.\nTạo nhóm",
+  "controls": [
+    {
+      "text": "Quay lại",
+      "tag": "A",
+      "w": 123,
+      "h": 48,
+      "top": 120
+    },
+    {
+      "text": "Tạo nhóm",
+      "tag": "A",
+      "w": 63,
+      "h": 20,
+      "top": 536
+    }
+  ],
+  "run": "kJRyC2"
+}

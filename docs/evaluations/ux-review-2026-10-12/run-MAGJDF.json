@@ -1,0 +1,62 @@
+{
+  "startedAt": "2026-10-12T12:06:55.567Z",
+  "sourceRoot": "/Users/trunglk/Documents/trung-github/VocabularyNotes",
+  "commit": "bc2983a1c8ed5914fe7cfeb830e71bbbcb358050",
+  "fingerprint": "e89d35ab001a95fe5394d5f84965bdd21157b968625aeafa84f0b91f4e49ba7d",
+  "scope": "ui",
+  "mode": "dev",
+  "specs": [
+    "ux-plan-audit.spec.ts"
+  ],
+  "node": "v24.14.1",
+  "provider": "fixture",
+  "commands": [
+    {
+      "label": "discovery",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--config",
+        "playwright.scoped.config.ts",
+        "--list",
+        "--reporter=list"
+      ],
+      "elapsedMs": 815,
+      "exitCode": 0,
+      "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-MAGJDF/discovery.log"
+    },
+    {
+      "label": "prepare",
+      "command": [
+        "pnpm",
+        "run",
+        "predev"
+      ],
+      "elapsedMs": 6643,
+      "exitCode": 0,
+      "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-MAGJDF/prepare.log"
+    },
+    {
+      "label": "browser",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--config",
+        "playwright.scoped.config.ts",
+        "--reporter=line"
+      ],
+      "elapsedMs": 250191,
+      "exitCode": 1,
+      "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-MAGJDF/browser.log"
+    }
+  ],
+  "tokens": "unavailable",
+  "discoveredTests": 2,
+  "snapshot": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-source-Zd0h4l",
+  "status": "failed",
+  "finishedAt": "2026-10-12T12:11:15.411Z"
+}

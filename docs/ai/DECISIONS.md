@@ -1,5 +1,10 @@
 # Quyết định và giả định
 
+## ADR-084 —12/10/2026: Ba nguồn hình và Google copy fallback
+
+Founder báo OpenMoji/Commons trả hình sai cho “rulers”, yêu cầu bỏ hai nguồn và dùng Google. Sau khi biết Google trong app cần dịch vụ/API, founder chốt giữ mở link và tự copy nếu phải trả phí. Tìm mới chỉ Noto/Twemoji/Fluent; không Google API, scraping hay env Vercel mới. Shared picture picker cho thủ công/worksheet/prepare/edit; từ mới tự preview hình đầu có sẵn, không auto-save. Staged media ghi trong lesson transaction, giữ exact-sense identities/CAS/retry và ảnh đã có khi thêm trùng. Legacy media/import và metadata nguồn/giấy phép giữ. [Spec](../14-media-and-concurrency.md), [evidence](../evaluations/three-picture-sources.md).
+
+
 12/10 — Tìm hình nhận ảnh riêng theo yêu cầu founder: shared WordPictureSearch có vùng kéo thả focus được, Ctrl+V/⌘V scoped vào từ đang dùng, nút Dán ảnh cho mobile và chọn file. Một ảnh JPEG/PNG/WebP dưới4MB theo upload media hiện có (server12MP, resize512, EXIFstrip/JPEG/receipt giữ). Paste chữ/URL giữ mặc định; không lấy URL ảnh để tự fetch. Clipboard không hỗ trợ/bị từ chối có recovery chọn file; multi-file/format/size sai không upload; lock chống nhận2lượt, abort khi unmount. Reuse upload ký và sense/revision/CAS, editor stage đến Save chung, Prepare lưu hình theo hành vi cũ; không AI/không đổi quota/provider/SQL/env.
 
 
@@ -602,3 +607,22 @@ Sau audit/preview2 và thêm systematic-debugging theo yêu cầu, founder nói 
 Runner scoped dùng shared config, discovery nonzero, snapshot/output riêng không .env, credential fixture, commit+contentfingerprint/portownership/stale guards; dev trước, final productionbuild khi ADR050 cần. Default release inventory không bỏ spec mới, cloud/no-demo đúng fixture, live media opt-in; không giảm full CI/SQL release gates. Không tự thay product/framework/font/nav, hooks/global/providerquota hoặc refactor toànapp. WF3 đo trên task thật, WF4 chỉ khi có hotspot evidence; không hứa actualtokens/time savings từ bytes hoặc upstream stars. Quyền12/10supersede ADR049 giữ.
 
 Nguồn có hiệu lực: [AGENTS](../../AGENTS.md), [workflow](WORKFLOW.md), [source review](../skills/WORKFLOW-SKILL-REVIEW.md); [implementation evidence](../evaluations/ai-workflow-optimization.md).
+
+
+## ADR084 — 12/10/2026: ưu tiên ba bộ ảnh rồi mở rộng web và ảnh user tự gắn
+
+Founder chốt ưu tiên Google Noto/Twemoji/Microsoft Fluent; thiếu thì tìm ảnh trên mạng, user tự gắn. Mở rộng Commons từ cartoon sang ảnh chụp đúng subject, giữ OpenMoji và hai query bounded hiện tại. Khi automatic empty/error, hiển thị ngay web search + paste/upload thay vì giấu trong disclosure. Không ràng buộc ảnh user vào catalog/license CC; lưu nguồn tùy chọn và `User supplied` trung thực. Tự động tìm trên Commons, website khác user chọn/dán/upload; không claim một API tìm toàn bộ Google/web.
+
+MIT dự kiến áp dụng cho code; không thay giấy phép asset bên thứ ba hoặc suy miễn phí/user-action thành quyền sử dụng. Automatic provider metadata/receipt, review/common Save, ready decode game và ownership/CAS giữ. Quyết định này mở rộng style fallback trong ADR081/14, không đổi dữ liệu học hoặc provider quota. [Evidence](../evaluations/web-picture-fallback.md):23unit+integration/12productionUI/lint/types/build PASS; chưa live web/device/deploy.
+
+
+ADR084 follow-up12/10: founder yêu cầu nút tìm web riêng khi ảnh catalog có kết quả nhưng không phù hợp. Shared picker luôn hiện Tìm ảnh trên web trước results, Google query theo từ hiện tại, click mở paste/upload và giữ hình/results cũ.8devUI mobile/desktop+lint/types PASS; không claim Google chính xác hơn hoặc production build/deploy cho addition này. [Evidence](../evaluations/web-picture-fallback.md).
+
+
+## ADR085 — 12/10/2026: UX/UI simplification and add-only group preparation
+
+Founder approved all four phases of [UX proposal](../DE-XUAT-UX-UI.md), then asked that bulk selection/unselection in group addition touch only new items and duplicate headwords display once. Reading/search first, collapsed library management, secondary pronunciation/example edit sections, one common Save with local feedback; ratings before long explanations; photo review summary shows meaning and explicit selection; all preview photos before analysis and one atomic review/save stay intact.
+
+Groups: saved members are locked in the add editor. Filter/page/global operations only affect pending new members; successful save makes additions protected too. Transaction `preserveExisting` unions baseline membership before validation, preserves source assignments and CAS. Missing/deleted/unapproved retained content produces safe failure, never silently removes saved references. Headword+caseMode projections collapse displayed rows; separate senses/POS and source records remain, with explicit per-sense access. General `saveStudyGroup` callers retain replacement semantics unless opting into add-only.
+
+Audio: remove practice's forced sound=true and literal playback enablement. Retain existing account `sound` for requested voice; separate tiny per-device game SFX preference, migration from legacy mute, retry/storage error and OS/app reduced-motion policy. No SQL/server preference change, auto audio, music, provider calls or parent gate. Motion is functional, finite; manual grammar steps stay available and timers stop under OS/app reduction. Theme C/Nunito/Cáo and four main navigation destinations retained. [Evidence](../evaluations/ux-ui-implementation.md).

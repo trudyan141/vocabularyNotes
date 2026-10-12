@@ -1,3 +1,5 @@
+import {validateMedia,saveMedia} from './media';
+import type {MediaAsset} from '@/lib/media/contracts';
 import {contentSchema,saveContent,type LearningContent} from './content';
 import {safeArt} from '@/lib/media/catalog';
 import {groupLibraryWords,matchesLibraryWord} from '@/lib/learning/library-search';
@@ -339,6 +341,8 @@ export class LocalRepository {
     title: string;
     learnedOn: string;
     captureBatch?:{id:string;signature:string};
+    picture?:{wordId:string;asset:MediaAsset};
+    pictures?:{wordId:string;asset:MediaAsset}[];
     sourceType: "demo" | "manual" | "image";
     items: WordInput[];
     draftId?: string;
@@ -357,6 +361,8 @@ export class LocalRepository {
       throw new RepositoryError("scope");
     for(const item of input.learning??[]){text(40).parse(item.key);if(!items.some(word=>word.id===item.wordId))throw new RepositoryError("invalid");contentSchema.parse({...item.content,senseId:item.wordId,targetRevision:"1:1"});}
     if((input.learning?.length??0)>200)throw new RepositoryError("invalid");
+    const pictures=[...(input.pictures??[]),...(input.picture?[input.picture]:[])];if(pictures.length>items.length||new Set(pictures.map(row=>row.wordId)).size!==pictures.length)throw new RepositoryError('invalid');
+    for(const picture of pictures){const word=items.find(row=>row.id===picture.wordId);if(!word||word.word!==picture.asset.word)throw new RepositoryError('invalid');await validateMedia(picture.asset);}
     const hash = await contentHash({ ...input, items }); // WebCrypto must finish before opening an IDB transaction.
     return this.db.transaction("rw", this.db.tables, async () => {
       const key: [string, string] = [this.scope.id, input.operationId];
@@ -494,6 +500,7 @@ export class LocalRepository {
         changed.add(sense.id);
       }
       for (const item of input.learning??[]){const target=resolved.get(item.wordId)!;await saveContent(this,`lesson-content-${lessonId}-${item.key}`,null,{...item.content,senseId:target.id,targetRevision:target.revision,lessonId});}
+      for(const picture of pictures){const target=resolved.get(picture.wordId);const word=target?await this.word(target.id):null;if(!word)throw new RepositoryError('invalid');if(!word.art)await saveMedia(this,{...picture.asset,senseId:word.id,word:word.word,revision:word.revision});}
       for (const id of changed) await this.reindex(id);
       await this.db.receipts.add({
         scopeId: this.scope.id,

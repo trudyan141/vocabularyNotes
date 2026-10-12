@@ -1,5 +1,8 @@
 # Ảnh học, animation và xử lý song song — Words for Kids
 
+12/10 ADR084 — Ưu tiên Noto→Twemoji→Microsoft Fluent, giữ OpenMoji, rồi Commons cartoon→ảnh chụp đúng subject nếu thiếu. Không có kết quả/lỗi thì mở sẵn tìm Google và dán/upload ảnh user chọn từ web; không bắt ảnh user thuộc catalog hay có license CC. Nguồn user tùy chọn, metadata `User supplied` không giả quyền MIT/CC; API automatic vẫn kiểm nguồn/license thực. User review/Save/receipt/revision và game decoded-ready giữ. Nút Tìm ảnh trên web luôn hiện trước results kể cả catalog đã có hình; user bấm mở Google cho từ hiện tại và phần dán/upload, giữ ảnh/kết quả cũ. Không tự scrape toàn bộ Google/web. [Evidence](evaluations/web-picture-fallback.md).
+
+
 12/10 — danh sách gọn và tìm hình có kết quả từng nguồn: bỏ subcards POS/nghĩa và nhãn đếm nghĩa dưới word card, giữ dữ liệu/sense IDs. Detail chooser chỉ hiện mỗi nhãn POS+nghĩa Việt một lần. Tìm hình theo Noto→Twemoji→Fluent→OpenMoji catalog rồi Commons nếu chưa có; lỗi/rỗng/lọc license thử query kế tiếp, báo nguồn/kind/code/status an toàn. They với nghĩa plural people có concept nhóm người; curl body cũ từ candidates=[] nay ra2hình Noto/Twemoji, đã kiểm cả2importJPEG/license thật. Không replay cookie founder. [Bằng chứng](evaluations/simple-word-cards-and-media-fallback.md). Hoàn tất local: 29 tests liên quan + 6 ca UI mobile/desktop PASS, lint/typecheck/build/docs PASS; curl they và 2 import thật PASS. Chưa deploy; không founder data/browser/SQL/env/main.
 
 
@@ -68,9 +71,9 @@ flowchart TD
   R --> G["Bé học và chơi với ảnh đã duyệt"]
 ```
 
-Ưu tiên: asset riêng của dự án/catalog dùng lại → thư viện mở được chọn trước như OpenMoji cho một số vật cụ thể → Openverse/Wikimedia Commons để tìm thêm. OpenMoji là CC BY-SA 4.0, cần credit và xử lý đúng giấy phép bản sửa; không đổi nhãn thành CC0. Openverse là máy tìm kiếm metadata, không cấp phép thay tác giả. Với Commons phải đọc trang từng file. P1 nguồn tìm mở tự động chỉ nhận CC0/public-domain có bằng chứng và CC BY phù hợp; CC BY-SA chỉ dùng từ bộ curated có quy trình giữ license. Không mặc định nhận NC/ND/không rõ nguồn.
+**Lịch sử, thay bằng steering mới nhất cuối tài liệu:** Ưu tiên: asset riêng của dự án/catalog dùng lại → thư viện mở được chọn trước như OpenMoji cho một số vật cụ thể → Openverse/Wikimedia Commons để tìm thêm. OpenMoji là CC BY-SA 4.0, cần credit và xử lý đúng giấy phép bản sửa; không đổi nhãn thành CC0. Openverse là máy tìm kiếm metadata, không cấp phép thay tác giả. Với Commons phải đọc trang từng file. P1 nguồn tìm mở tự động chỉ nhận CC0/public-domain có bằng chứng và CC BY phù hợp; CC BY-SA chỉ dùng từ bộ curated có quy trình giữ license. Không mặc định nhận NC/ND/không rõ nguồn.
 
-Các nguồn là **ứng viên**; T07 kiểm API và điều kiện lưu lại/phân phối của từng nguồn trước khi enable adapter. Không scrape Google/Pinterest, không lấy thumbnail làm bằng chứng cấp phép, không hotlink tùy ý. Nếu adapter yêu cầu hotlink thay rehost thì không phù hợp đường offline P1 và chưa bật. Trẻ không được mở trang search ngoài app. Credit bắt buộc vẫn reachable ở chi tiết hình; trang nguồn mở qua khu phụ huynh.
+Các nguồn là **ứng viên**; T07 kiểm API và điều kiện lưu lại/phân phối của từng nguồn trước khi enable adapter. Không scrape Google/Pinterest, không lấy thumbnail làm bằng chứng cấp phép, không hotlink tùy ý. Nếu adapter yêu cầu hotlink thay rehost thì không phù hợp đường offline P1 và chưa bật. Quy định cũ về không mở search ngoài app đã được founder thay bằng link Google/copy theo ADR084. Credit bắt buộc vẫn reachable ở chi tiết hình; trang nguồn mở qua khu phụ huynh.
 
 AI có thể gợi query và chấm semantic match khi provider đủ điều kiện; bản đầu dùng mapping/query theo taxonomy và phụ huynh chọn cũng được. Query chỉ gồm từ/POS/nghĩa/chủ đề công khai, không tên bé, ảnh giấy, câu riêng tư hoặc toàn thư viện. Không cần AI đọc mọi ảnh kết quả để tiêu nhiều vision calls.
 
@@ -156,7 +159,7 @@ Live smoke phát hiện thumbnail đổi host năm2026, đã bổ sung exact thu
 
 ## Founder automatic dictionary pictures — ADR-034
 
-Catalog177 first, then automatic lookup against1493 licensed OpenMoji17 metadata and a bounded fixed-origin SVG download before attaching. No key or arbitrary external URL.2 pending downloads/instance, coalesced code,8s/100KB/100asset cache; paid Commons adapter still needs shared SQL budget. Missing/abstract meanings are not forced to a random object; intelligence uses an explicitly symbolic brain, excluded from picture games. Parent review before save. Credits collapse into image detail, never anchors inside thumbnail links. See [evidence](evaluations/library-media-and-date-sets.md).
+**Historical implementation, superseded by ADR084:** Catalog177 first, then automatic lookup against1493 licensed OpenMoji17 metadata and a bounded fixed-origin SVG download before attaching. No key or arbitrary external URL.2 pending downloads/instance, coalesced code,8s/100KB/100asset cache; paid Commons adapter still needs shared SQL budget. Missing/abstract meanings are not forced to a random object; intelligence uses an explicitly symbolic brain, excluded from picture games. Parent review before save. Credits collapse into image detail, never anchors inside thumbnail links. See [evidence](evaluations/library-media-and-date-sets.md).
 
 ADR036 extends this automatic flow to photo review, not just dictionary entry: debounce parent sense edits, coalesce duplicate candidate signatures, sequential requests,50 selected missing pictures per batch/90s total/10s request, abort when candidates/sense changes or route closes, explicit Stop/retry. Parent approval waits for downloaded pictures; failure retains text and never attaches a mismatched/stale asset. Exact reviewed re-imports may fill only missing public art while preserving/rebasing parent content.
 
@@ -164,4 +167,8 @@ ADR036 extends this automatic flow to photo review, not just dictionary entry: d
 
 Preparation/photo picture batches show search/download stage, elapsed, completed/total words, found/no-match/error counts and per-word HTTP/timeout details near the action. Sequential ≤50 words/90s total/10s per word; Stop keeps completed downloads, explicit retry handles only missing words. Unknown-duration operations use an indeterminate progress bar rather than guessed percentage/ETA. Existing approval/license checks stay authoritative.
 
-12/10 ADR081 follow-up: search priority GoogleNoto, Twemoji, MicrosoftFluent, rồiOpenMoji/Commons. Catalog-first chỉ định bounded lookup, không giữOpenMojiởvịtríđầu; khôngthayhìnhuserđãchọn.
+12/10 steering mới nhất: tìm mới chỉ dùng **Google Noto → Twemoji → Microsoft Fluent**. Không tìm OpenMoji hoặc Wikimedia Commons nữa vì kết quả không đúng từ/nghĩa. Cả ba chưa có hình thì báo chưa có hình và hiện **Mở Google tìm ảnh**; người dùng tự copy rồi Dán ảnh, Ctrl+V/⌘V hoặc chọn file. Founder chốt giữ link khi tích hợp Google cần dịch vụ/API có phí; không scraper, không API trả phí, không thêm env Vercel.
+
+Một logic cho thêm từ thủ công, từ đọc từ ảnh, bổ sung hình và đổi hình. Từ mới tự tìm/gắn hình đầu từ ba nguồn vào bản xem trước; hình cùng nội dung chỉ ghi khi người dùng bấm Save chung / duyệt bài. Ảnh đọc từ worksheet được tìm sau scan/enrich, không tạo bài phụ. Staged JPEG trong nháp ảnh giữ khóa exact identity+definition; đổi từ/nghĩa không tái dùng hình cũ. Save lesson+media một transaction, receipt retry idempotent; từ/nghĩa đã lưu có hình không bị ghi đè khi thêm trùng.
+
+Ảnh user tự copy/upload giữ metadata `User supplied` và nguồn người dùng điền; không gán Google là tác giả hoặc suy giấy phép miễn phí. Giữ bounded upload, resize512, strip metadata, receipt/hash và sense/revision. Tắt hai nguồn chỉ áp dụng tìm mới: media đã lưu/import cũ giữ nguyên và legacy import vẫn đọc được.

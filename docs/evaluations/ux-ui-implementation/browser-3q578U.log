@@ -1,0 +1,601 @@
+✓ Lockfile passes supply-chain policies (verified 1d ago)
+Lockfile is up to date, resolution step is skipped
+Already up to date
+
+Done in 927ms using pnpm v11.25.0
+
+Running 32 tests using 2 workers
+
+[1/32] [desktop-chromium] › tests/e2e/search-batch.spec.ts:20:5 › word list groups senses; are matches only the headword and visibly highlights it
+[2/32] [desktop-chromium] › tests/e2e/search-batch.spec.ts:32:5 › all photos precede one analysis button; all scans precede shared meanings, reload and one save
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/fox.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "/illustrations/fox.svg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[3/32] [desktop-chromium] › tests/e2e/search-batch.spec.ts:45:5 › quota during scan keeps raw source and blocks save; reload resumes scans then common enrichment
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+  1) [desktop-chromium] › tests/e2e/search-batch.spec.ts:32:5 › all photos precede one analysis button; all scans precede shared meanings, reload and one save 
+
+    Error: expect(page).toHaveURL(expected) failed
+
+    Expected pattern: /\/capture\/batch\//
+    Received string:  "http://127.0.0.1:4347/capture"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toHaveURL" with timeout 5000ms
+        14 × locator resolved to <html lang="vi" data-mode="child" data-motion="system" class="__variable_dd5f49">…</html>
+           - unexpected value "http://127.0.0.1:4347/capture"
+
+
+      32 | test('all photos precede one analysis button; all scans precede shared meanings, reload and one save',async({page},info)=>{
+      33 |  let calls=0,active=0,max=0;const stages:string[]=[];await page.route('https://generativelanguage.googleapis.com/**',async route=>{calls++;active++;max=Math.max(max,active);const body=route.request().postDataJSON();stages.push(body.contents[0].parts.some((part:{inlineData?:unknown})=>part.inlineData)?'scan':JSON.parse(body.contents[0].parts[0].text).words[0]?.literal?'meanings':'grammar');await route.fulfill({json:chunkAnswer(body)});active--;});
+    > 34 |  await page.goto('/capture');await inputPhotos(page);await expect(page).toHaveURL(/\/capture\/batch\//);await expect(page.locator('.batch-photo-row')).toHaveCount(2);expect(calls).toBe(0);
+         |                                                                         ^
+      35 |  await expect(page.getByRole('link',{name:'Duyệt kết quả',exact:true})).toHaveCount(0);
+      36 |  await page.locator('.batch-photo-row').first().getByRole('link',{name:'Chỉnh ảnh',exact:true}).click();await page.getByRole('button',{name:'Xoay 90°'}).click();await page.getByRole('button',{name:'Giữ ảnh và về đợt ảnh'}).click();await expect(page.locator('.batch-photo-row')).toHaveCount(2);
+      37 |  const button=page.getByRole('button',{name:'Phân tích 2 ảnh',exact:true});const last=await page.locator('.batch-photo-row').last().boundingBox();const target=await button.boundingBox();expect(target!.y).toBeGreaterThan(last!.y+last!.height);
+        at /Users/trunglk/Documents/trung-github/VocabularyNotes/tests/e2e/search-batch.spec.ts:34:73
+
+    Error Context: ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-3q578U/test-results/search-batch-all-photos-pr-76a83-eanings-reload-and-one-save-desktop-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-3q578U/test-results/search-batch-all-photos-pr-76a83-eanings-reload-and-one-save-desktop-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-3q578U/test-results/search-batch-all-photos-pr-76a83-eanings-reload-and-one-save-desktop-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[4/32] [desktop-chromium] › tests/e2e/search-batch.spec.ts:50:5 › stop during second scan preserves first source and one common review resumes
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[5/32] [desktop-chromium] › tests/e2e/search-batch.spec.ts:54:5 › invalid photo reports its name and retains valid photos for retry, with no automatic upload
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[6/32] [desktop-chromium] › tests/e2e/search-batch.spec.ts:58:5 › paste repeatedly from single editor into the same batch, preserving crop and title without sending AI
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/fox.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[7/32] [desktop-chromium] › tests/e2e/search-batch.spec.ts:67:5 › Paste another photo button works in the editor and text paste remains normal
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[8/32] [desktop-chromium] › tests/e2e/search-batch.spec.ts:73:5 › body-part photos repair a malformed scan and keep wrapped phrases through one review and save
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[9/32] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:13:5 › legacy mute stays off and separate game effects do not disable requested speech
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/fox.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[10/32] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:20:5 › group additions protect saved members across filtered bulk actions; one row exposes each bank sense
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "/illustrations/apple.svg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+
+[WebServer] ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[11/32] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:28:5 › group filtered select-all spans more than ten pages and never changes saved members
+[12/32] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:34:5 › compact library, manual creation, section edits and picture all save through the shared action
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[13/32] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:39:5 › card ratings stay reachable and paused sessions move above new games
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/fox.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[14/32] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:42:5 › all photo previews precede reading; each collapsed review shows meaning and direct selection
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[15/32] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:48:5 › reduced motion stops grammar step timers but manual steps and error recovery remain usable
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "/illustrations/apple.svg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+  2) [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:34:5 › compact library, manual creation, section edits and picture all save through the shared action 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.fill: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByLabel('Nghĩa tiếng Việt', { exact: true })
+
+
+      34 | test('compact library, manual creation, section edits and picture all save through the shared action',async({page},info)=>{
+      35 |  await page.goto('/library');await expect(page.getByRole('searchbox')).toBeInViewport();await expect(page.locator('.library-list li').first()).toBeInViewport();await expect(page.locator('.library-management')).not.toHaveAttribute('open');
+    > 36 |  await page.goto('/add');await page.getByRole('combobox').fill('uxmadeup');await page.getByLabel('Nghĩa tiếng Việt',{exact:true}).fill('từ tự thêm');await page.getByLabel('Nghĩa tiếng Anh',{exact:true}).fill('A word entered by the user.');await expect(page.getByLabel('Tên nghĩa để phân biệt',{exact:true})).not.toBeVisible();await page.getByRole('button',{name:'Lưu từ',exact:true}).click();await expect(page).toHaveURL(/\/library\/words\//);await page.getByRole('link',{name:'Sửa',exact:true}).click();await page.getByLabel('Nghĩa tiếng Việt',{exact:true}).fill('nghĩa đã sửa');await page.locator('.word-extra-fields > summary').click();await page.getByLabel('Câu ví dụ tiếng Anh',{exact:true}).fill('This is my word.');await page.getByLabel('Nghĩa câu ví dụ',{exact:true}).fill('Đây là từ của tôi.');await page.getByLabel('Câu ví dụ thứ hai',{exact:true}).fill('I wrote this word.');await page.getByLabel('Nghĩa câu ví dụ thứ hai',{exact:true}).fill('Tôi đã viết từ này.');await page.locator('.word-extra-fields > summary').click();
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ^
+      37 |  await page.getByText('Đổi hình',{exact:true}).click();await page.locator('.picture-intake-tools > summary').click();const buffer=await page.evaluate(()=>{const c=document.createElement('canvas');c.width=20;c.height=20;return c.toDataURL('image/png').split(',')[1];});await page.getByLabel('Chọn hình cho từ',{exact:true}).setInputFiles({name:'own.png',mimeType:'image/png',buffer:Buffer.from(buffer,'base64')});await expect(page.locator('.staged-picture')).toContainText('Hình đã chọn');await page.getByRole('button',{name:'Lưu chỉnh sửa',exact:true}).click();await expect(page.getByRole('button',{name:'Đã lưu chỉnh sửa',exact:true})).toBeVisible();await page.reload();await expect(page.getByLabel('Nghĩa tiếng Việt',{exact:true})).toHaveValue('nghĩa đã sửa');await page.locator('.word-extra-fields > summary').click();await expect(page.getByLabel('Câu ví dụ thứ hai',{exact:true})).toHaveValue('I wrote this word.');await expect(page.locator('.staged-picture img')).toHaveAttribute('src',/^data:image\/jpeg/);await page.screenshot({path:info.outputPath('compact-editor.png'),fullPage:true});
+      38 | });
+      39 | test('card ratings stay reachable and paused sessions move above new games',async({page},info)=>{
+        at /Users/trunglk/Documents/trung-github/VocabularyNotes/tests/e2e/ux-refinement.spec.ts:36:560
+
+    Error Context: ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-3q578U/test-results/ux-refinement-compact-libr-c644f-e-through-the-shared-action-desktop-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-3q578U/test-results/ux-refinement-compact-libr-c644f-e-through-the-shared-action-desktop-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-3q578U/test-results/ux-refinement-compact-libr-c644f-e-through-the-shared-action-desktop-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[16/32] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:51:5 › main screens retain navigation, usable empty recovery and responsive layout
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+  3) [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:48:5 › reduced motion stops grammar step timers but manual steps and error recovery remain usable 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: locator('.grammar-tokens')
+    Expected: "It
+    is
+    an
+    apple."
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveText" locator('.grammar-tokens') with timeout 5000ms
+      - waiting for locator('.grammar-tokens')
+        11 × locator resolved to <div class="grammar-tokens">…</div>
+           - unexpected value "Itisanapple."
+
+
+      47 | });
+      48 | test('reduced motion stops grammar step timers but manual steps and error recovery remain usable',async({page},info)=>{
+    > 49 |  await page.goto('/library/words/apple/edit');await page.getByText('Ngữ pháp và mẫu câu',{exact:true}).click();await page.getByLabel('Câu ví dụ',{exact:true}).fill('It is an apple.');await page.locator('#word-edit-extra-exampleVi').fill('Đó là quả táo.');await page.getByLabel('Mẫu câu',{exact:true}).fill('It is + noun.');await page.getByLabel('Giải thích mẫu câu',{exact:true}).fill('Dùng để gọi tên.');await page.getByRole('button',{name:'Lưu chỉnh sửa',exact:true}).click();await expect(page.getByRole('button',{name:'Đã lưu chỉnh sửa',exact:true})).toBeVisible();await page.goto('/settings');await page.getByRole('switch',{name:'Giảm chuyển động',exact:true}).click();await page.goto('/library?mode=grammar');const link=page.locator('.learning-summary').first();await link.click();await page.locator('.learning-detail').waitFor();await page.clock.install();await page.getByRole('button',{name:'Bước tiếp',exact:true}).first().click();const text=await page.locator('.grammar-tokens').innerText();await page.clock.runFor(4000);await expect(page.locator('.grammar-tokens')).toHaveText(text);await page.emulateMedia({reducedMotion:'reduce'});await expect(page.locator('.grammar-tokens span').first()).toHaveCSS('animation-name','none');await page.screenshot({path:info.outputPath('grammar-static.png'),fullPage:true});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ^
+      50 | });
+      51 | test('main screens retain navigation, usable empty recovery and responsive layout',async({page},info)=>{
+      52 |  test.setTimeout(120000);
+        at /Users/trunglk/Documents/trung-github/VocabularyNotes/tests/e2e/ux-refinement.spec.ts:49:1077
+
+    Error Context: ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-3q578U/test-results/ux-refinement-reduced-moti-a75fe-rror-recovery-remain-usable-desktop-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-3q578U/test-results/ux-refinement-reduced-moti-a75fe-rror-recovery-remain-usable-desktop-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-3q578U/test-results/ux-refinement-reduced-moti-a75fe-rror-recovery-remain-usable-desktop-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[17/32] [mobile-chromium] › tests/e2e/search-batch.spec.ts:20:5 › word list groups senses; are matches only the headword and visibly highlights it
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "/illustrations/apple.svg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] [browser] Image with src "/illustrations/apple.svg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/fox.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "/illustrations/fox.svg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/fox.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[18/32] [mobile-chromium] › tests/e2e/search-batch.spec.ts:32:5 › all photos precede one analysis button; all scans precede shared meanings, reload and one save
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "/illustrations/apple.svg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[19/32] [mobile-chromium] › tests/e2e/search-batch.spec.ts:45:5 › quota during scan keeps raw source and blocks save; reload resumes scans then common enrichment
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "/illustrations/apple.svg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[20/32] [mobile-chromium] › tests/e2e/search-batch.spec.ts:50:5 › stop during second scan preserves first source and one common review resumes
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/fox.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "/illustrations/fox.svg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[21/32] [mobile-chromium] › tests/e2e/search-batch.spec.ts:54:5 › invalid photo reports its name and retains valid photos for retry, with no automatic upload
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/fox.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[22/32] [mobile-chromium] › tests/e2e/search-batch.spec.ts:58:5 › paste repeatedly from single editor into the same batch, preserving crop and title without sending AI
+[23/32] [mobile-chromium] › tests/e2e/search-batch.spec.ts:67:5 › Paste another photo button works in the editor and text paste remains normal
+[24/32] [mobile-chromium] › tests/e2e/search-batch.spec.ts:73:5 › body-part photos repair a malformed scan and keep wrapped phrases through one review and save
+  4) [mobile-chromium] › tests/e2e/search-batch.spec.ts:50:5 › stop during second scan preserves first source and one common review resumes 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'Phân tích 2 ảnh', exact: true })
+
+
+      50 | test('stop during second scan preserves first source and one common review resumes',async({page})=>{
+      51 |  let calls=0;await page.route('https://generativelanguage.googleapis.com/**',async route=>{calls++;if(calls===2)return;await route.fulfill({json:chunkAnswer(route.request().postDataJSON())});});
+    > 52 |  await page.goto('/capture');await inputPhotos(page);await page.getByRole('button',{name:'Phân tích 2 ảnh',exact:true}).click();await expect.poll(()=>calls).toBe(2);await page.getByRole('button',{name:'Dừng',exact:true}).click();await expect(page.getByText('Đã dừng; nháp vẫn còn.',{exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'Duyệt và lưu các từ đã chọn'})).toBeDisabled();await page.getByRole('button',{name:'Tiếp tục phân tích',exact:true}).click();await expect(page.getByRole('button',{name:'Đã phân tích · thử lại'})).toBeEnabled();await expect(page.locator('.review-word > summary')).toHaveCount(1);expect(calls).toBe(5);
+         |                                                                                                                         ^
+      53 | });
+      54 | test('invalid photo reports its name and retains valid photos for retry, with no automatic upload',async({page})=>{
+      55 |  let calls=0;page.on('request',request=>{if(request.url().includes('generativelanguage'))calls++;});await page.goto('/capture');await inputPhotos(page,{name:'broken.png',mimeType:'image/png',buffer:Buffer.from('invalid')});await expect(page.locator('#main').getByRole('alert')).toContainText('broken.png');await page.getByRole('link',{name:'Xem các ảnh đã thêm'}).click();await expect(page.locator('.batch-photo-row')).toHaveCount(1);expect(calls).toBe(0);
+        at /Users/trunglk/Documents/trung-github/VocabularyNotes/tests/e2e/search-batch.spec.ts:52:121
+
+    Error Context: ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-3q578U/test-results/search-batch-stop-during-s-06349-d-one-common-review-resumes-mobile-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-3q578U/test-results/search-batch-stop-during-s-06349-d-one-common-review-resumes-mobile-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-3q578U/test-results/search-batch-stop-during-s-06349-d-one-common-review-resumes-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[25/32] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:13:5 › legacy mute stays off and separate game effects do not disable requested speech
+[26/32] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:20:5 › group additions protect saved members across filtered bulk actions; one row exposes each bank sense
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/fox.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[27/32] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:28:5 › group filtered select-all spans more than ten pages and never changes saved members
+[28/32] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:34:5 › compact library, manual creation, section edits and picture all save through the shared action
+[WebServer] [browser] Image with src "/illustrations/apple.svg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[29/32] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:39:5 › card ratings stay reachable and paused sessions move above new games
+  5) [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:34:5 › compact library, manual creation, section edits and picture all save through the shared action 
+
+    Error: locator.fill: Error: strict mode violation: getByLabel('Nghĩa câu ví dụ', { exact: true }) resolved to 2 elements:
+        1) <input value="" maxlength="1000" data-slot="input" aria-invalid="false" id="word-edit-exampleVi" class="h-12 w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-1 text-base transition-[color,box-shadow] outline-none selection:bg-primary selection:text-primary-foreground file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacit…/> aka getByRole('textbox', { name: 'Nghĩa câu ví dụ', exact: true })
+        2) <input value="" maxlength="2000" data-slot="input" aria-invalid="false" id="word-edit-extra-exampleVi" class="h-12 w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-1 text-base transition-[color,box-shadow] outline-none selection:bg-primary selection:text-primary-foreground file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:…/> aka locator('#word-edit-extra-exampleVi')
+
+    Call log:
+      - waiting for getByLabel('Nghĩa câu ví dụ', { exact: true })
+
+
+      34 | test('compact library, manual creation, section edits and picture all save through the shared action',async({page},info)=>{
+      35 |  await page.goto('/library');await expect(page.getByRole('searchbox')).toBeInViewport();await expect(page.locator('.library-list li').first()).toBeInViewport();await expect(page.locator('.library-management')).not.toHaveAttribute('open');
+    > 36 |  await page.goto('/add');await page.getByRole('combobox').fill('uxmadeup');await page.getByLabel('Nghĩa tiếng Việt',{exact:true}).fill('từ tự thêm');await page.getByLabel('Nghĩa tiếng Anh',{exact:true}).fill('A word entered by the user.');await expect(page.getByLabel('Tên nghĩa để phân biệt',{exact:true})).not.toBeVisible();await page.getByRole('button',{name:'Lưu từ',exact:true}).click();await expect(page).toHaveURL(/\/library\/words\//);await page.getByRole('link',{name:'Sửa',exact:true}).click();await page.getByLabel('Nghĩa tiếng Việt',{exact:true}).fill('nghĩa đã sửa');await page.locator('.word-extra-fields > summary').click();await page.getByLabel('Câu ví dụ tiếng Anh',{exact:true}).fill('This is my word.');await page.getByLabel('Nghĩa câu ví dụ',{exact:true}).fill('Đây là từ của tôi.');await page.getByLabel('Câu ví dụ thứ hai',{exact:true}).fill('I wrote this word.');await page.getByLabel('Nghĩa câu ví dụ thứ hai',{exact:true}).fill('Tôi đã viết từ này.');await page.locator('.word-extra-fields > summary').click();
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ^
+      37 |  await page.getByText('Đổi hình',{exact:true}).click();await page.locator('.picture-intake-tools > summary').click();const buffer=await page.evaluate(()=>{const c=document.createElement('canvas');c.width=20;c.height=20;return c.toDataURL('image/png').split(',')[1];});await page.getByLabel('Chọn hình cho từ',{exact:true}).setInputFiles({name:'own.png',mimeType:'image/png',buffer:Buffer.from(buffer,'base64')});await expect(page.locator('.staged-picture')).toContainText('Hình đã chọn');await page.getByRole('button',{name:'Lưu chỉnh sửa',exact:true}).click();await expect(page.getByRole('button',{name:'Đã lưu chỉnh sửa',exact:true})).toBeVisible();await page.reload();await expect(page.getByLabel('Nghĩa tiếng Việt',{exact:true})).toHaveValue('nghĩa đã sửa');await page.locator('.word-extra-fields > summary').click();await expect(page.getByLabel('Câu ví dụ thứ hai',{exact:true})).toHaveValue('I wrote this word.');await expect(page.locator('.staged-picture img')).toHaveAttribute('src',/^data:image\/jpeg/);await page.screenshot({path:info.outputPath('compact-editor.png'),fullPage:true});
+      38 | });
+      39 | test('card ratings stay reachable and paused sessions move above new games',async({page},info)=>{
+        at /Users/trunglk/Documents/trung-github/VocabularyNotes/tests/e2e/ux-refinement.spec.ts:36:777
+
+    Error Context: ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-3q578U/test-results/ux-refinement-compact-libr-c644f-e-through-the-shared-action-mobile-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-3q578U/test-results/ux-refinement-compact-libr-c644f-e-through-the-shared-action-mobile-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-3q578U/test-results/ux-refinement-compact-libr-c644f-e-through-the-shared-action-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/fox.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[30/32] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:42:5 › all photo previews precede reading; each collapsed review shows meaning and direct selection
+[31/32] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:48:5 › reduced motion stops grammar step timers but manual steps and error recovery remain usable
+[WebServer] [browser] Image with src "/illustrations/apple.svg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[32/32] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:51:5 › main screens retain navigation, usable empty recovery and responsive layout
+[WebServer] [browser] Image with src "/illustrations/sun.svg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+  6) [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:48:5 › reduced motion stops grammar step timers but manual steps and error recovery remain usable 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: locator('.grammar-tokens')
+    Timeout: 5000ms
+    - Expected  - 4
+    + Received  + 1
+
+    - It
+    - is
+    - an
+    - apple.
+    + Itisanapple.
+
+    Call log:
+      - Expect "toHaveText" locator('.grammar-tokens') with timeout 5000ms
+      - waiting for locator('.grammar-tokens')
+        14 × locator resolved to <div class="grammar-tokens">…</div>
+           - unexpected value "Itisanapple."
+
+
+      47 | });
+      48 | test('reduced motion stops grammar step timers but manual steps and error recovery remain usable',async({page},info)=>{
+    > 49 |  await page.goto('/library/words/apple/edit');await page.getByText('Ngữ pháp và mẫu câu',{exact:true}).click();await page.getByLabel('Câu ví dụ',{exact:true}).fill('It is an apple.');await page.locator('#word-edit-extra-exampleVi').fill('Đó là quả táo.');await page.getByLabel('Mẫu câu',{exact:true}).fill('It is + noun.');await page.getByLabel('Giải thích mẫu câu',{exact:true}).fill('Dùng để gọi tên.');await page.getByRole('button',{name:'Lưu chỉnh sửa',exact:true}).click();await expect(page.getByRole('button',{name:'Đã lưu chỉnh sửa',exact:true})).toBeVisible();await page.goto('/settings');await page.getByRole('switch',{name:'Giảm chuyển động',exact:true}).click();await page.goto('/library?mode=grammar');const link=page.locator('.learning-summary').first();await link.click();await page.locator('.learning-detail').waitFor();await page.clock.install();await page.getByRole('button',{name:'Bước tiếp',exact:true}).first().click();const text=await page.locator('.grammar-tokens').innerText();await page.clock.runFor(4000);await expect(page.locator('.grammar-tokens')).toHaveText(text);await page.emulateMedia({reducedMotion:'reduce'});await expect(page.locator('.grammar-tokens span').first()).toHaveCSS('animation-name','none');await page.screenshot({path:info.outputPath('grammar-static.png'),fullPage:true});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ^
+      50 | });
+      51 | test('main screens retain navigation, usable empty recovery and responsive layout',async({page},info)=>{
+      52 |  test.setTimeout(120000);
+        at /Users/trunglk/Documents/trung-github/VocabularyNotes/tests/e2e/ux-refinement.spec.ts:49:1077
+
+    Error Context: ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-3q578U/test-results/ux-refinement-reduced-moti-a75fe-rror-recovery-remain-usable-mobile-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-3q578U/test-results/ux-refinement-reduced-moti-a75fe-rror-recovery-remain-usable-mobile-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-3q578U/test-results/ux-refinement-reduced-moti-a75fe-rror-recovery-remain-usable-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/fox.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "/illustrations/fox.svg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/fox.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "/illustrations/apple.svg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] [browser] Image with src "/illustrations/apple.svg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/fox.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[WebServer] 
+[WebServer] - A server/client branch `if (typeof window !== 'undefined')`.
+[WebServer] - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+[WebServer] - Date formatting in a user's locale which doesn't match the server.
+[WebServer] - External changing data without sending a snapshot of it along with the HTML.
+[WebServer] - Invalid HTML tag nesting.
+[WebServer] 
+[WebServer] It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+[WebServer] 
+[WebServer] https://react.dev/link/hydration-mismatch
+[WebServer] 
+[WebServer]   ...
+[WebServer]     <Page>
+[WebServer]       <Suspense fallback={<div>}>
+[WebServer]         ...
+[WebServer]           <div className="reading-pa...">
+[WebServer]             <Back>
+[WebServer]             <h1>
+[WebServer]             <p>
+[WebServer]             <FieldGroup>
+[WebServer]               <div data-slot="field-group" className={"group/fi..."}>
+[WebServer]                 <Field>
+[WebServer]                 <Field>
+[WebServer]                 <Field orientation="horizontal">
+[WebServer]                   <div role="group" data-slot="field" data-orientation="horizontal" className={"group/fi..."}>
+[WebServer]                     <FieldContent>
+[WebServer]                     <Switch disabled={true} id="child-mode" checked={true} onCheckedChange={function onCheckedChange}>
+[WebServer]                       <Switch data-slot="switch" data-size="default" className="peer group..." disabled={true} ...>
+[WebServer]                         <SwitchProvider __scopeSwitch={undefined} checked={true} defaultChecked={undefined} ...>
+[WebServer]                           <SwitchProvider scope={undefined} checked={true} setChecked={function} disabled={true} ...>
+[WebServer]                             <SwitchTrigger>
+[WebServer]                             <SwitchBubbleInput __scopeSwitch={undefined}>
+[WebServer]                               <Primitive.input type="checkbox" aria-hidden={true} defaultChecked={true} ...>
+[WebServer]                                 <input
+[WebServer]                                   type="checkbox"
+[WebServer]                                   aria-hidden={true}
+[WebServer]                                   defaultChecked={true}
+[WebServer]                                   required={undefined}
+[WebServer]                                   disabled={true}
+[WebServer]                                   name={undefined}
+[WebServer]                                   value="on"
+[WebServer]                                   form={undefined}
+[WebServer]                                   tabIndex={-1}
+[WebServer]                                   onClick={function handleEvent}
+[WebServer]                                   style={{
+[WebServer] +                                   position: "absolute"
+[WebServer] -                                   position: "absolute"
+[WebServer] +                                   pointerEvents: "none"
+[WebServer] +                                   opacity: 0
+[WebServer] -                                   opacity: "0"
+[WebServer] +                                   margin: 0
+[WebServer] +                                   transform: "translateX(-100%)"
+[WebServer] -                                   transform: "translateX(-100%)"
+[WebServer] -                                   pointer-events: "none"
+[WebServer] -                                   margin-top: "0px"
+[WebServer] -                                   margin-right: "0px"
+[WebServer] -                                   margin-bottom: "0px"
+[WebServer] -                                   margin-left: "0px"
+[WebServer]                                   }}
+[WebServer]                                   ref={function}
+[WebServer]                                 >
+[WebServer]                 <Field orientation="horizontal">
+[WebServer]                   <div role="group" data-slot="field" data-orientation="horizontal" className={"group/fi..."}>
+[WebServer]                     <FieldContent>
+[WebServer]                     <Switch disabled={true} id="motion-set..." checked={false} onCheckedChange={function onCheckedChange}>
+[WebServer]                       <Switch data-slot="switch" data-size="default" className="peer group..." disabled={true} ...>
+[WebServer]                         <SwitchProvider __scopeSwitch={undefined} checked={false} defaultChecked={undefined} ...>
+[WebServer]                           <SwitchProvider scope={undefined} checked={false} setChecked={function} disabled={true} ...>
+[WebServer]                             <SwitchTrigger>
+[WebServer]                             <SwitchBubbleInput __scopeSwitch={undefined}>
+[WebServer]                               <Primitive.input type="checkbox" aria-hidden={true} defaultChecked={false} ...>
+[WebServer]                                 <input
+[WebServer]                                   type="checkbox"
+[WebServer]                                   aria-hidden={true}
+[WebServer]                                   defaultChecked={false}
+[WebServer]                                   required={undefined}
+[WebServer]                                   disabled={true}
+[WebServer]                                   name={undefined}
+[WebServer]                                   value="on"
+[WebServer]                                   form={undefined}
+[WebServer]                                   tabIndex={-1}
+[WebServer]                                   onClick={function handleEvent}
+[WebServer]                                   style={{
+[WebServer] +                                   position: "absolute"
+[WebServer] -                                   position: "absolute"
+[WebServer] +                                   pointerEvents: "none"
+[WebServer] +                                   opacity: 0
+[WebServer] -                                   opacity: "0"
+[WebServer] +                                   margin: 0
+[WebServer] +                                   transform: "translateX(-100%)"
+[WebServer] -                                   transform: "translateX(-100%)"
+[WebServer] -                                   pointer-events: "none"
+[WebServer] -                                   margin-top: "0px"
+[WebServer] -                                   margin-right: "0px"
+[WebServer] -                                   margin-bottom: "0px"
+[WebServer] -                                   margin-left: "0px"
+[WebServer]                                   }}
+[WebServer]                                   ref={function}
+[WebServer]                                 >
+[WebServer]                 <Field orientation="horizontal">
+[WebServer]                   <div role="group" data-slot="field" data-orientation="horizontal" className={"group/fi..."}>
+[WebServer]                     <FieldContent>
+[WebServer]                     <Switch disabled={true} id="sound-setting" checked={true} onCheckedChange={function onCheckedChange}>
+[WebServer]                       <Switch data-slot="switch" data-size="default" className="peer group..." disabled={true} ...>
+[WebServer]                         <SwitchProvider __scopeSwitch={undefined} checked={true} defaultChecked={undefined} ...>
+[WebServer]                           <SwitchProvider scope={undefined} checked={true} setChecked={function} disabled={true} ...>
+[WebServer]                             <SwitchTrigger>
+[WebServer]                             <SwitchBubbleInput __scopeSwitch={undefined}>
+[WebServer]                               <Primitive.input type="checkbox" aria-hidden={true} defaultChecked={true} ...>
+[WebServer]                                 <input
+[WebServer]                                   type="checkbox"
+[WebServer]                                   aria-hidden={true}
+[WebServer]                                   defaultChecked={true}
+[WebServer]                                   required={undefined}
+[WebServer]                                   disabled={true}
+[WebServer]                                   name={undefined}
+[WebServer]                                   value="on"
+[WebServer]                                   form={undefined}
+[WebServer]                                   tabIndex={-1}
+[WebServer]                                   onClick={function handleEvent}
+[WebServer]                                   style={{
+[WebServer] +                                   position: "absolute"
+[WebServer] -                                   position: "absolute"
+[WebServer] +                                   pointerEvents: "none"
+[WebServer] +                                   opacity: 0
+[WebServer] -                                   opacity: "0"
+[WebServer] +                                   margin: 0
+[WebServer] +                                   transform: "translateX(-100%)"
+[WebServer] -                                   transform: "translateX(-100%)"
+[WebServer] -                                   pointer-events: "none"
+[WebServer] -                                   margin-top: "0px"
+[WebServer] -                                   margin-right: "0px"
+[WebServer] -                                   margin-bottom: "0px"
+[WebServer] -                                   margin-left: "0px"
+[WebServer]                                   }}
+[WebServer]                                   ref={function}
+[WebServer]                                 >
+[WebServer]                 <Field orientation="horizontal">
+[WebServer]                   <div role="group" data-slot="field" data-orientation="horizontal" className={"group/fi..."}>
+[WebServer]                     <FieldContent>
+[WebServer]                     <Switch id="game-sound..." disabled={true} checked={true} onCheckedChange={function setEnabled}>
+[WebServer]                       <Switch data-slot="switch" data-size="default" className="peer group..." id="game-sound..." ...>
+[WebServer]                         <SwitchProvider __scopeSwitch={undefined} checked={true} defaultChecked={undefined} ...>
+[WebServer]                           <SwitchProvider scope={undefined} checked={true} setChecked={function} disabled={true} ...>
+[WebServer]                             <SwitchTrigger>
+[WebServer]                             <SwitchBubbleInput __scopeSwitch={undefined}>
+[WebServer]                               <Primitive.input type="checkbox" aria-hidden={true} defaultChecked={true} ...>
+[WebServer]                                 <input
+[WebServer]                                   type="checkbox"
+[WebServer]                                   aria-hidden={true}
+[WebServer]                                   defaultChecked={true}
+[WebServer]                                   required={undefined}
+[WebServer]                                   disabled={true}
+[WebServer]                                   name={undefined}
+[WebServer]                                   value="on"
+[WebServer]                                   form={undefined}
+[WebServer]                                   tabIndex={-1}
+[WebServer]                                   onClick={function handleEvent}
+[WebServer]                                   style={{
+[WebServer] +                                   position: "absolute"
+[WebServer] -                                   position: "absolute"
+[WebServer] +                                   pointerEvents: "none"
+[WebServer] +                                   opacity: 0
+[WebServer] -                                   opacity: "0"
+[WebServer] +                                   margin: 0
+[WebServer] +                                   transform: "translateX(-100%)"
+[WebServer] -                                   transform: "translateX(-100%)"
+[WebServer] -                                   pointer-events: "none"
+[WebServer] -                                   margin-top: "0px"
+[WebServer] -                                   margin-right: "0px"
+[WebServer] -                                   margin-bottom: "0px"
+[WebServer] -                                   margin-left: "0px"
+[WebServer]                                   }}
+[WebServer]                                   ref={function}
+[WebServer]                                 >
+[WebServer]             ...
+[WebServer]  
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/fox.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "/illustrations/fox.svg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+[WebServer] Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+
+  6 failed
+    [desktop-chromium] › tests/e2e/search-batch.spec.ts:32:5 › all photos precede one analysis button; all scans precede shared meanings, reload and one save 
+    [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:34:5 › compact library, manual creation, section edits and picture all save through the shared action 
+    [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:48:5 › reduced motion stops grammar step timers but manual steps and error recovery remain usable 
+    [mobile-chromium] › tests/e2e/search-batch.spec.ts:50:5 › stop during second scan preserves first source and one common review resumes 
+    [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:34:5 › compact library, manual creation, section edits and picture all save through the shared action 
+    [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:48:5 › reduced motion stops grammar step timers but manual steps and error recovery remain usable 
+  26 passed (3.8m)

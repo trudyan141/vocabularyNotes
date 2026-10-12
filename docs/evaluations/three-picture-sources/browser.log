@@ -1,0 +1,24 @@
+
+Running 20 tests using 2 workers
+
+[1/20] [desktop-chromium] › tests/e2e/media-source-errors.spec.ts:3:5 › empty searches name attempted sources and leave online fallback available
+[2/20] [desktop-chromium] › tests/e2e/media-source-errors.spec.ts:7:5 › upstream failure is distinguished from empty and identifies source without exposing provider payloads
+[3/20] [desktop-chromium] › tests/e2e/media-source-errors.spec.ts:11:5 › empty web search reveals Google and image paste; arbitrary user image keeps its supplied source
+[4/20] [desktop-chromium] › tests/e2e/media-source-errors.spec.ts:21:5 › web search remains available with catalog matches and keeps the current image and results
+[5/20] [desktop-chromium] › tests/e2e/picture-fallback-flow.spec.ts:8:5 › new word missing pictures exposes free Google copy fallback and saves uploaded image with the word
+[6/20] [desktop-chromium] › tests/e2e/picture-fallback-flow.spec.ts:13:5 › new word automatically previews the first preferred picture for review and one save
+[7/20] [desktop-chromium] › tests/e2e/picture-fallback-flow.spec.ts:17:5 › photo words use the same three-source lookup and copied picture survives merged lesson save
+[8/20] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:43:5 › all photo previews precede reading; each collapsed review shows meaning and direct selection
+[9/20] [desktop-chromium] › tests/e2e/word-picture-intake.spec.ts:5:5 › drop and keyboard paste use real upload and stage the image until the common Save
+[10/20] [desktop-chromium] › tests/e2e/word-picture-intake.spec.ts:18:5 › mobile paste button reads clipboard image; text paste stays normal and denied clipboard is actionable
+[11/20] [mobile-chromium] › tests/e2e/media-source-errors.spec.ts:3:5 › empty searches name attempted sources and leave online fallback available
+[12/20] [mobile-chromium] › tests/e2e/media-source-errors.spec.ts:7:5 › upstream failure is distinguished from empty and identifies source without exposing provider payloads
+[13/20] [mobile-chromium] › tests/e2e/media-source-errors.spec.ts:11:5 › empty web search reveals Google and image paste; arbitrary user image keeps its supplied source
+[14/20] [mobile-chromium] › tests/e2e/media-source-errors.spec.ts:21:5 › web search remains available with catalog matches and keeps the current image and results
+[15/20] [mobile-chromium] › tests/e2e/picture-fallback-flow.spec.ts:8:5 › new word missing pictures exposes free Google copy fallback and saves uploaded image with the word
+[16/20] [mobile-chromium] › tests/e2e/picture-fallback-flow.spec.ts:13:5 › new word automatically previews the first preferred picture for review and one save
+[17/20] [mobile-chromium] › tests/e2e/picture-fallback-flow.spec.ts:17:5 › photo words use the same three-source lookup and copied picture survives merged lesson save
+[18/20] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:43:5 › all photo previews precede reading; each collapsed review shows meaning and direct selection
+[19/20] [mobile-chromium] › tests/e2e/word-picture-intake.spec.ts:5:5 › drop and keyboard paste use real upload and stage the image until the common Save
+[20/20] [mobile-chromium] › tests/e2e/word-picture-intake.spec.ts:18:5 › mobile paste button reads clipboard image; text paste stays normal and denied clipboard is actionable
+  20 passed (22.2s)

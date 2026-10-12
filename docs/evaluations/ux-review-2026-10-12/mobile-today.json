@@ -1,0 +1,63 @@
+{
+  "url": "/today",
+  "title": "Một chút tiếng Anh mỗi ngày",
+  "scrollHeight": 1504,
+  "viewport": [
+    360,
+    800
+  ],
+  "overflow": false,
+  "text": "Một chút tiếng Anh mỗi ngày\n\nNghe một từ, nhìn một hình. Cùng cáo ôn bài nhé!\n\nChơi 5 phút\nÔn bài\nÔn bài hôm nay\n20 từ đến hạn · tất cả nhóm\nÔn bài theo nhóm\nChọn nhóm con muốn ôn\nThêm từ\nGõ từ mới\nGõ từ, chọn nghĩa rồi lưu\nThêm bài từ ảnh\nChọn ảnh bài học để thêm từ và ngữ pháp\nBài gần nhất\nTất cả bộ từ theo ngày\nThế giới quanh con\n\n09/10/2026 · 12 từ mẫu",
+  "controls": [
+    {
+      "text": "Chơi 5 phút",
+      "tag": "A",
+      "w": 288,
+      "h": 56,
+      "top": 426
+    },
+    {
+      "text": "Ôn bài hôm nay20 từ đến hạn · tất cả nhóm",
+      "tag": "A",
+      "w": 328,
+      "h": 112,
+      "top": 578
+    },
+    {
+      "text": "Ôn bài theo nhómChọn nhóm con muốn ôn",
+      "tag": "A",
+      "w": 328,
+      "h": 112,
+      "top": 702
+    },
+    {
+      "text": "Gõ từ mớiGõ từ, chọn nghĩa rồi lưu",
+      "tag": "A",
+      "w": 328,
+      "h": 112,
+      "top": 885
+    },
+    {
+      "text": "Thêm bài từ ảnhChọn ảnh bài học để thêm từ và ngữ pháp",
+      "tag": "A",
+      "w": 328,
+      "h": 112,
+      "top": 1009
+    },
+    {
+      "text": "Tất cả bộ từ theo ngày",
+      "tag": "A",
+      "w": 328,
+      "h": 48,
+      "top": 1183
+    },
+    {
+      "text": "Thế giới quanh con09/10/2026 · 12 từ mẫu",
+      "tag": "A",
+      "w": 328,
+      "h": 137,
+      "top": 1247
+    }
+  ],
+  "run": "kJRyC2"
+}

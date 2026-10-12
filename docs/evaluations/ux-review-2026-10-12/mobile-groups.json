@@ -1,0 +1,28 @@
+{
+  "url": "/library/groups",
+  "title": "Nhóm học của con",
+  "scrollHeight": 872,
+  "viewport": [
+    360,
+    800
+  ],
+  "overflow": false,
+  "text": "Quay lại\nNhóm học của con\nTạo nhóm\nMột nhóm, một chủ đề\nVí dụ: Anh văn Family, Anh văn tiểu học. Chọn từ và ngữ pháp đã lưu cho từng nhóm.",
+  "controls": [
+    {
+      "text": "Quay lại",
+      "tag": "A",
+      "w": 123,
+      "h": 48,
+      "top": 92
+    },
+    {
+      "text": "Tạo nhóm",
+      "tag": "A",
+      "w": 136,
+      "h": 48,
+      "top": 223
+    }
+  ],
+  "run": "kJRyC2"
+}

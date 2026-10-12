@@ -1,5 +1,5 @@
 import {test,expect,type Page} from '@playwright/test';
-import {readFile,mkdir} from 'node:fs/promises';
+import {readFile} from 'node:fs/promises';
 const pear={literal:'pear',word:'pear',vi:'quả lê',en:'A fruit.',pos:'noun',sense:'fruit',example:'I eat a pear.',exampleVi:'Con ăn quả lê.',exampleIpa:'/aɪ it ə pɛɹ/'};
 function chunkAnswer(body:{contents:{parts:{text?:string;inlineData?:unknown}[]}[]}){
  if(body.contents[0].parts.some(part=>part.inlineData))return answer({text:'pear',warnings:[],words:[{literal:'pear',word:'pear'}],truncated:false});
@@ -26,7 +26,7 @@ test('word list groups senses; are matches only the headword and visibly highlig
  await page.reload();await expect(page.locator('.library-list li')).toHaveCount(20);
  await page.getByRole('searchbox').fill('apple');await expect(page.locator('.library-list li')).toHaveCount(1);await expect(page.locator('.library-senses')).toHaveCount(0);await expect(page.locator('.library-list li')).not.toContainText('2 nghĩa');
  await page.getByRole('searchbox').fill('are');await expect(page.locator('.library-list li')).toHaveCount(1);await expect(page.locator('.library-list strong')).toHaveText('are');await expect(page.locator('.library-list mark')).toHaveText('are');
- await mkdir('docs/evaluations/search-and-batch-2026-10-12',{recursive:true});await page.screenshot({path:`docs/evaluations/search-and-batch-2026-10-12/${info.project.name}-search.png`,fullPage:true});
+ await page.screenshot({path:info.outputPath('search.png'),fullPage:true});
  await page.getByRole('searchbox').fill('not-in-library');await expect(page.getByText('Không có từ phù hợp',{exact:true})).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
 test('all photos precede one analysis button; all scans precede shared meanings, reload and one save',async({page},info)=>{
@@ -38,7 +38,7 @@ test('all photos precede one analysis button; all scans precede shared meanings,
  await button.click();await expect(page.getByRole('button',{name:'Đã phân tích · thử lại'})).toBeEnabled();await expect(page.locator('.review-word > summary')).toHaveCount(1);expect(calls).toBe(4);expect(max).toBe(1);expect(stages).toEqual(['scan','scan','meanings','grammar']);
  expect((await snapshot(page)).lessons.filter(lesson=>lesson.sourceType==='image')).toHaveLength(0);
  await page.reload();await expect(page.locator('.review-word > summary')).toHaveCount(1);expect(calls).toBe(4);
- await mkdir('docs/evaluations/merged-photos-2026-10-12',{recursive:true});await page.evaluate(()=>{(document.activeElement as HTMLElement)?.blur();window.scrollTo(0,0);});await page.screenshot({path:`docs/evaluations/merged-photos-2026-10-12/${info.project.name}.png`,fullPage:true});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+ await page.evaluate(()=>{(document.activeElement as HTMLElement)?.blur();window.scrollTo(0,0);});await page.screenshot({path:info.outputPath('merged-photos.png'),fullPage:true});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
  await page.getByRole('button',{name:'Duyệt và lưu các từ đã chọn'}).click();await expect(page).toHaveURL(/\/library\?lesson=ocr-batch/);expect((await snapshot(page)).lessons.filter(lesson=>lesson.sourceType==='image')).toHaveLength(1);expect(calls).toBe(4);
  await page.getByRole('searchbox').fill('pear');await expect(page.locator('.library-list li')).toHaveCount(1);
 });

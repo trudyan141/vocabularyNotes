@@ -1927,3 +1927,68 @@ details.group-save-result { display:block; padding:1rem; }
 .picture-image-intake .row-wrap > button, .picture-image-intake .row-wrap > .submit-feedback { flex:1; min-width:0; }
 .picture-image-intake .submit-feedback > button { width:100%; }
 .picture-image-intake small { color:var(--muted-foreground); }
+
+/* Approved UX refinement: short paths to reading, review and one shared save. */
+.library-management { margin-block:0; }
+.library-management > summary,.word-extra-fields > summary,.flashcard-details > summary,.grammar-more > summary,.word-more-examples > summary,.group-bulk-options > summary,.picture-intake-tools > summary,.learning-date > summary { min-height:48px; display:flex; align-items:center; gap:8px; cursor:pointer; color:var(--primary); font-weight:700; }
+.library-management > summary::before,.word-extra-fields > summary::before,.flashcard-details > summary::before,.grammar-more > summary::before,.word-more-examples > summary::before,.group-bulk-options > summary::before,.picture-intake-tools > summary::before,.learning-date > summary::before { content:'+'; font-size:24px; }
+.library-management[open] > summary::before,.word-extra-fields[open] > summary::before,.flashcard-details[open] > summary::before,.grammar-more[open] > summary::before,.word-more-examples[open] > summary::before,.group-bulk-options[open] > summary::before,.picture-intake-tools[open] > summary::before,.learning-date[open] > summary::before { content:'−'; }
+.selection-save-bar { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 16px; background:var(--background); border-top:1px solid var(--border); z-index:25; }
+.selection-save-bar > span,.selection-save-bar > p { min-width:0; margin:0; font-size:14px; line-height:1.4; }
+.selection-save-bar [data-slot="button"] { flex-shrink:0; }
+.photo-steps { list-style:none; display:flex; padding:0; margin:4px 0 16px; gap:8px; flex-wrap:wrap; }
+.photo-steps li { display:flex; align-items:center; gap:6px; color:var(--muted-foreground); font-size:13px; }
+.photo-steps li > span { display:grid; place-items:center; width:24px; height:24px; border-radius:50%; background:var(--secondary); }
+.photo-steps li svg { width:16px; height:16px; }
+.photo-steps [aria-current="step"] { font-weight:800; color:var(--primary); }
+.photo-steps [data-complete="true"] { color:var(--foreground); }
+.review-item { padding:8px 12px; border:1px solid var(--border); border-radius:16px; background:var(--card); }
+.review-item[data-selected="true"] { background:var(--secondary); }
+.review-selection { display:flex; gap:8px; align-items:center; min-height:48px; font-weight:700; }
+.review-selection input,.group-sense-choices input { width:24px; height:24px; accent-color:var(--primary); flex-shrink:0; }
+.review-item .review-word { background:transparent; border:0; padding:0; }
+.review-meaning { display:block; font-size:15px; font-weight:500; line-height:1.5; }
+.group-sense-choices { padding:8px 12px; }
+.group-sense-choices > summary { cursor:pointer; min-height:44px; display:flex; align-items:center; color:var(--primary); }
+.group-sense-choices label { display:flex; gap:10px; align-items:center; min-height:48px; flex-wrap:wrap; }
+.group-sense-choices small { font-size:12px; }
+.group-word-list details { padding:8px 16px; }
+.group-word-list details a { display:flex; min-height:48px; }
+.group-bulk-options,.learning-date { border-bottom:1px solid var(--border); }
+.muted-audio-help { font-size:14px; min-height:44px; display:flex; align-items:center; color:var(--primary); }
+.grammar-lead { font-size:20px; line-height:1.5; }
+.grammar-lead > p { margin-block:8px; }
+.speaking-replay { width:auto; min-width:48px; }
+.play-suggestion { padding:12px 0; color:var(--foreground); }
+.batch-count { font-variant-numeric:tabular-nums; font-weight:700; }
+.mobile-copy { display:none; }
+@media (max-width:1050px) {
+ .selection-save-bar { position:sticky; bottom:calc(84px + env(safe-area-inset-bottom)); flex-wrap:wrap; box-shadow:0 -4px 16px rgb(56 33 61 / .06); }
+ body:has(input:focus,textarea:focus,select:focus) .selection-save-bar { position:static; box-shadow:none; }
+ .selection-save-bar [data-slot="button"] { flex:1; }
+ .selection-save-bar > span,.selection-save-bar > p { flex-basis:100%; }
+ html { scroll-padding-bottom:calc(200px + env(safe-area-inset-bottom)); }
+ .today-hero { display:grid; grid-template-columns:1fr 88px; align-items:start; padding:20px; text-align:left; min-height:0; }
+ .today-hero .hero-copy { grid-column:1; grid-row:1; }
+ .today-hero .hero-fox { grid-column:2; grid-row:1; width:88px; height:auto; margin:0; }
+ .today-hero h1 { font-size:24px; line-height:1.25; }
+ .today-hero .hero-copy > p { font-size:15px; line-height:1.5; }
+ .today-hero .hero-copy [data-slot="button"] { width:auto; }
+ .batch-photo-row .batch-photo-preview { max-width:100px; }
+ .batch-photo-row .batch-photo-preview img { max-height:140px; object-fit:contain; }
+ .desktop-copy { display:none; }
+ .mobile-copy { display:inline; }
+ .capture-dropzone { padding:24px 16px; }
+ .practice-question:has(#practice-answer:focus) > .game-picture-stage { display:none; }
+}
+@media (prefers-reduced-motion:no-preference) {
+ html:not([data-motion="reduced"]) .review-item,html:not([data-motion="reduced"]) .group-option-list label { transition:background-color 160ms ease-out; }
+ html:not([data-motion="reduced"]) .grammar-game .sentence-building [data-slot="button"] { animation:grammar-token-in 180ms ease-out; }
+}
+@media(max-width:1050px) {
+ .game-board[data-revealed="true"] > .word-art { width:110px; height:110px; object-fit:contain; }
+ .game-board[data-revealed="true"] { gap:12px; }
+ .group-sense-choices label { min-height:48px; }
+}
+
+.parent-page > form > fieldset.page-flow { border:0; margin:0; padding:0; min-width:0; }

@@ -1,0 +1,105 @@
+{
+  "url": "/library/lessons",
+  "title": "Bộ từ theo ngày",
+  "scrollHeight": 1131,
+  "viewport": [
+    1280,
+    1000
+  ],
+  "overflow": false,
+  "text": "Quay lại\nBộ từ theo ngày\n\nTìm bài của con, cùng ôn một chút nhé!\n\nThêm ảnh / file cho bộ mới\nTìm bộ từ\n09/10/2026\nThế giới quanh con\n\nBài mẫu\n\n09/10/2026 · 19:00:56\n\nbook · fish · cat · +9\n\n12 từ\n12 từ mới\nHọc bộ này\nXem bộ từ\nThêm vào nhóm\nTrái cây & đồ ăn\n\nBài mẫu\n\n09/10/2026 · 19:00:56\n\ngrapes · water · orange · +5\n\n8 từ\n8 từ mới\nHọc bộ này\nXem bộ từ\nThêm vào nhóm\nThêm cả ngày vào nhóm\nTừ mới và ôn lại là gì?",
+  "controls": [
+    {
+      "text": "Quay lại",
+      "tag": "A",
+      "w": 123,
+      "h": 48,
+      "top": 120
+    },
+    {
+      "text": "Thêm ảnh / file cho bộ mới",
+      "tag": "A",
+      "w": 262,
+      "h": 48,
+      "top": 210
+    },
+    {
+      "text": "sets-search",
+      "tag": "INPUT",
+      "w": 760,
+      "h": 48,
+      "top": 333
+    },
+    {
+      "text": "Xóa bộ này",
+      "tag": "BUTTON",
+      "w": 48,
+      "h": 48,
+      "top": 458
+    },
+    {
+      "text": "Học bộ này",
+      "tag": "A",
+      "w": 145,
+      "h": 48,
+      "top": 622
+    },
+    {
+      "text": "Xem bộ từ",
+      "tag": "A",
+      "w": 138,
+      "h": 48,
+      "top": 622
+    },
+    {
+      "text": "Thêm vào nhóm",
+      "tag": "A",
+      "w": 182,
+      "h": 48,
+      "top": 622
+    },
+    {
+      "text": "Xóa bộ này",
+      "tag": "BUTTON",
+      "w": 48,
+      "h": 48,
+      "top": 726
+    },
+    {
+      "text": "Học bộ này",
+      "tag": "A",
+      "w": 145,
+      "h": 48,
+      "top": 890
+    },
+    {
+      "text": "Xem bộ từ",
+      "tag": "A",
+      "w": 138,
+      "h": 48,
+      "top": 890
+    },
+    {
+      "text": "Thêm vào nhóm",
+      "tag": "A",
+      "w": 182,
+      "h": 48,
+      "top": 890
+    },
+    {
+      "text": "Thêm cả ngày vào nhóm",
+      "tag": "A",
+      "w": 244,
+      "h": 48,
+      "top": 970
+    },
+    {
+      "text": "Từ mới và ôn lại là gì?",
+      "tag": "SUMMARY",
+      "w": 760,
+      "h": 48,
+      "top": 1043
+    }
+  ],
+  "run": "kJRyC2"
+}

@@ -1,0 +1,34 @@
+import { test, expect, type Page, type TestInfo } from '@playwright/test';
+import { readFile, writeFile } from 'node:fs/promises';
+test.use({serviceWorkers:'block'});
+test.beforeEach(async({page})=>{
+ await page.addInitScript(()=>Object.defineProperty(navigator,'mediaDevices',{value:{getUserMedia:async()=>{throw new DOMException('denied','NotAllowedError');}}}));
+ await page.route('https://**',r=>r.abort());
+ await page.route('**/api/auth/status*',r=>r.fulfill({json:{configured:false,user:null}}));
+ await page.route('**/api/illustrations?**',r=>r.fulfill({json:{result:null}}));
+ await page.route('**/api/media/search**',r=>r.fulfill({json:{candidates:[],sources:[]}}));
+ await page.route('**/api/dictionary**',r=>r.fulfill({status:503,json:{error:'fixture unavailable'}}));
+});
+async function capture(page:Page,info:TestInfo,name:string){
+ await page.locator('main').waitFor();
+ await page.evaluate(()=>{(document.activeElement as HTMLElement)?.blur();window.scrollTo(0,0);});
+ await page.evaluate(async()=>{await document.fonts.ready;});
+ await page.screenshot({path:info.outputPath(name+'.png'),fullPage:true});
+ const data=await page.evaluate(()=>({url:location.pathname+location.search,title:document.querySelector('h1')?.textContent,scrollHeight:document.documentElement.scrollHeight,viewport:[innerWidth,innerHeight],overflow:document.documentElement.scrollWidth>innerWidth,text:document.querySelector('main')?.innerText??document.body.innerText,controls:[...document.querySelectorAll('main button, main a, main input, main select, main textarea, main summary')].filter(e=>e.getClientRects().length).map(e=>({text:e.textContent?.trim()||e.getAttribute('aria-label')||e.id,tag:e.tagName,w:Math.round(e.getBoundingClientRect().width),h:Math.round(e.getBoundingClientRect().height),top:Math.round(e.getBoundingClientRect().top+scrollY)}))}));
+ await writeFile(info.outputPath(name+'.json'),JSON.stringify(data,null,2));
+}
+test('settled grammar, locale and reduced-motion screens',async({page},info)=>{
+ test.setTimeout(90000);
+ await page.goto('/settings');await page.getByRole('radio',{name:'English',exact:true}).click();await expect(page.getByRole('heading',{name:'Settings',exact:true})).toBeVisible();await page.goto('/library');await expect(page.locator('.library-list li').first()).toBeVisible();await capture(page,info,'library-en');
+ await page.goto('/settings');await page.getByRole('radio',{name:'Tiếng Việt',exact:true}).click();await page.getByRole('switch',{name:'Giảm chuyển động',exact:true}).click();await page.goto('/welcome');await capture(page,info,'welcome-app-reduced');await page.emulateMedia({reducedMotion:'reduce'});await capture(page,info,'welcome-os-reduced');
+ await page.goto('/library/words/apple/edit');await page.getByText('Ngữ pháp và mẫu câu',{exact:true}).click();await page.getByLabel('Câu ví dụ',{exact:true}).fill('It is an apple.');await page.locator('#word-edit-extra-exampleVi').fill('Đó là quả táo.');await page.getByLabel('Mẫu câu',{exact:true}).fill('It is + noun.');await page.getByLabel('Giải thích mẫu câu',{exact:true}).fill('Dùng để gọi tên.');await page.getByRole('button',{name:'Lưu chỉnh sửa',exact:true}).click();await expect(page.getByRole('button',{name:'Đã lưu chỉnh sửa',exact:true})).toBeVisible();
+ await page.goto('/library?mode=grammar');const link=page.locator('a[href^="/library/grammar/"]').first();await link.waitFor();const href=await link.getAttribute('href');await page.goto(href!);await page.locator('.learning-detail').waitFor();await capture(page,info,'grammar-detail');
+ await page.goto('/practice');await page.getByRole('button',{name:'Xếp câu',exact:true}).click();await page.locator('.sentence-tiles').waitFor();await capture(page,info,'grammar-game');
+ await page.goto('/settings');const choice=page.waitForEvent('filechooser');await page.getByRole('button',{name:'Khôi phục bản sao',exact:true}).click();await (await choice).setFiles({name:'invalid.json',mimeType:'application/json',buffer:Buffer.from('{}')});await expect(page.getByText('File không hợp lệ hoặc quá lớn. Thư viện còn nguyên.',{exact:true})).toBeVisible();await capture(page,info,'restore-error');
+});
+test('remaining game and results screens',async({page},info)=>{
+ test.setTimeout(90000);
+ for(const [label,name] of [['Nghe từ chọn hình','word-picture'],['Điền chữ thiếu','letters'],['Gõ cả từ','spelling']]){await page.goto('/practice');await page.getByRole('button',{name:label,exact:true}).click();await page.locator('.game-board').waitFor();await capture(page,info,name);}
+ await page.goto('/practice');await page.getByRole('link',{name:/Nói cùng Cáo/}).click();await page.getByRole('button',{name:'Nói',exact:true}).waitFor();await capture(page,info,'speaking-ready');for(let i=0;i<5;i++)await page.getByRole('button',{name:'Bỏ qua',exact:true}).click();await expect(page.getByRole('heading',{name:'Con đã hoàn thành!',exact:true})).toBeVisible();await capture(page,info,'speaking-results');
+ await page.goto('/practice');await page.getByRole('button',{name:'Thẻ ôn',exact:true}).click();for(let i=0;i<10;i++){await page.getByRole('button',{name:'Xem đáp án',exact:true}).click();await page.getByRole('button',{name:'Nhớ rồi',exact:true}).click();}await expect(page.getByRole('heading',{name:'Con đã hoàn thành!',exact:true})).toBeVisible();await capture(page,info,'review-results');
+});

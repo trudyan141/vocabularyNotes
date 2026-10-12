@@ -1,4 +1,5 @@
 "use client";
+import {PhotoSteps} from '@/components/app/photo-steps';
 import {SubmitButton} from '@/components/ui/submit-button';
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
@@ -341,7 +342,7 @@ export function Capture() {
   return (
     <div className="reading-page page-flow parent-page capture-page">
       <Back />
-      <h1>{t("Thêm bài cho con", "Add a lesson")}</h1>
+      <h1>{t("Thêm bài cho con", "Add a lesson")}</h1><PhotoSteps step={1}/>
       <p>
         {t(
           "Thêm ảnh bài học, rồi xem và chỉnh ảnh trước khi đọc chữ.",
@@ -363,7 +364,7 @@ export function Capture() {
           onDragLeave={event=>{event.preventDefault();dragDepth.current=Math.max(0,dragDepth.current-1);if(!dragDepth.current)setDragging(false);}}
           onDrop={event=>{event.preventDefault();dragDepth.current=0;setDragging(false);if(busy||intakeLock.current)return;void intakeFiles(Array.from(event.dataTransfer.files));}}>
           <Upload size={32} aria-hidden="true"/>
-          <h2>{dragging?t('Thả ảnh vào đây','Drop your photo here'):t('Kéo thả ảnh bài học vào đây','Drag your worksheet photo here')}</h2>
+          <h2>{dragging?t('Thả ảnh vào đây','Drop your photo here'):<><span className="desktop-copy">{t('Kéo thả ảnh bài học vào đây','Drag your worksheet photo here')}</span><span className="mobile-copy">{t('Chọn ảnh bài học','Choose worksheet photos')}</span></>}</h2>
           <p>{t('Chọn ảnh từ máy hoặc bấm Dán ảnh đã sao chép. Trên máy tính có thể dùng Ctrl+V / ⌘V.','Choose a photo or tap Paste copied image. On a computer you can also use Ctrl+V / ⌘V.')}</p>
           <div className="row-wrap"><Button disabled={busy||readingClipboard||!repo} onClick={()=>fileInput.current?.click()}>{t('Chọn ảnh từ máy','Choose an image')}</Button><Button variant="outline" disabled={busy||readingClipboard||!repo} onClick={()=>void pasteImage()}><ClipboardPaste aria-hidden="true"/>{readingClipboard?t('Đang đọc ảnh…','Reading image…'):t('Dán ảnh đã sao chép','Paste copied image')}</Button></div>
           <input ref={fileInput} id="worksheet-file" type="file" multiple hidden aria-label={t('Chọn ảnh từ máy','Choose an image')} accept="image/jpeg,image/png,image/webp,.heic,.heif" disabled={busy||!repo} onChange={event=>{const files=Array.from(event.target.files??[]);event.target.value='';void intakeFiles(files);}}/>
@@ -715,7 +716,7 @@ function Editor({
       >
         <ArrowLeft data-icon="inline-start" aria-hidden="true"/>{t("Quay lại và giữ nháp", "Go back and keep draft")}
       </Button>
-      <h1>{t("Xem và chỉnh ảnh", "Check and edit image")}</h1>
+      <h1>{t("Xem và chỉnh ảnh", "Check and edit image")}</h1><PhotoSteps step={1}/>
       <p>
         {t(
           "Đây là ảnh sẽ gửi để đọc bài. Phóng to để kiểm tra chữ trước nhé.",

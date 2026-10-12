@@ -1,0 +1,28 @@
+{
+  "url": "/welcome",
+  "title": "Cùng Cáo học tiếng Anh!",
+  "scrollHeight": 1000,
+  "viewport": [
+    1280,
+    1000
+  ],
+  "overflow": false,
+  "text": "Cùng Cáo học tiếng Anh!\n\nThêm bài của bạn, rồi cùng học và chơi.\n\nBắt đầu\nChào con! Cùng học nhé!\napple\nquả táo\nbook\nquyển sách\ncat\ncon mèo",
+  "controls": [
+    {
+      "text": "Bắt đầu",
+      "tag": "A",
+      "w": 176,
+      "h": 56,
+      "top": 595
+    },
+    {
+      "text": "Chào cáo",
+      "tag": "BUTTON",
+      "w": 276,
+      "h": 304,
+      "top": 406
+    }
+  ],
+  "run": "kJRyC2"
+}

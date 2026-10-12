@@ -1,0 +1,105 @@
+{
+  "url": "/settings",
+  "title": "Cài đặt",
+  "scrollHeight": 1544,
+  "viewport": [
+    360,
+    800
+  ],
+  "overflow": false,
+  "text": "Quay lại\nCài đặt\n\nChọn cách hiển thị và âm thanh phù hợp với con.\n\nNgôn ngữ giao diện\nTiếng Việt\nEnglish\nTrình độ\nBeginner\nIntermediate\n\nLựa chọn này dành cho các buổi học sau; bài mẫu chưa thay đổi theo trình độ.\n\nGiao diện cho trẻ\n\nChữ lớn và lời hướng dẫn ngắn.\n\nGiảm chuyển động\n\nLuôn tôn trọng thiết lập giảm chuyển động của máy.\n\nÂm thanh khi bấm nghe\n\nKhông tự phát âm thanh. Dùng giọng tiếng Anh sẵn có trên máy.\n\nCài đặt key AI\nSao lưu và khôi phục\n\nGiữ một bản sao bài học, ghi chú, ảnh và lịch ôn.\n\nTải bản sao\nKhôi phục bản sao\n\nFile không hợp lệ hoặc quá lớn. Thư viện còn nguyên.\n\nVề ứng dụng\n\nTác giả: Ly Kien Trung\n\ntrudyan141@gmail.com\nVề Hôm nay",
+  "controls": [
+    {
+      "text": "Quay lại",
+      "tag": "A",
+      "w": 123,
+      "h": 48,
+      "top": 92
+    },
+    {
+      "text": "Tiếng Việt",
+      "tag": "BUTTON",
+      "w": 84,
+      "h": 48,
+      "top": 317
+    },
+    {
+      "text": "English",
+      "tag": "BUTTON",
+      "w": 65,
+      "h": 48,
+      "top": 317
+    },
+    {
+      "text": "Beginner",
+      "tag": "BUTTON",
+      "w": 76,
+      "h": 48,
+      "top": 424
+    },
+    {
+      "text": "Intermediate",
+      "tag": "BUTTON",
+      "w": 98,
+      "h": 48,
+      "top": 424
+    },
+    {
+      "text": "child-mode",
+      "tag": "BUTTON",
+      "w": 64,
+      "h": 48,
+      "top": 554
+    },
+    {
+      "text": "motion-setting",
+      "tag": "BUTTON",
+      "w": 64,
+      "h": 48,
+      "top": 630
+    },
+    {
+      "text": "sound-setting",
+      "tag": "BUTTON",
+      "w": 64,
+      "h": 48,
+      "top": 725
+    },
+    {
+      "text": "Cài đặt key AI",
+      "tag": "BUTTON",
+      "w": 328,
+      "h": 48,
+      "top": 813
+    },
+    {
+      "text": "Tải bản sao",
+      "tag": "BUTTON",
+      "w": 328,
+      "h": 48,
+      "top": 1001
+    },
+    {
+      "text": "Khôi phục bản sao",
+      "tag": "BUTTON",
+      "w": 328,
+      "h": 48,
+      "top": 1069
+    },
+    {
+      "text": "trudyan141@gmail.com",
+      "tag": "A",
+      "w": 243,
+      "h": 48,
+      "top": 1308
+    },
+    {
+      "text": "Về Hôm nay",
+      "tag": "A",
+      "w": 151,
+      "h": 48,
+      "top": 1376
+    }
+  ],
+  "run": "ug0tU3"
+}

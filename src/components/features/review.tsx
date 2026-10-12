@@ -227,7 +227,7 @@ export function Review({ draftId }: { draftId: string }) {
         <EmptyState
           title={t("Chưa có kết quả để duyệt", "No results to review")}
           description={t(
-            "Nhận dạng ảnh chưa được kết nối. Quay lại để thử bài mẫu nếu có.",
+            "Ảnh này chưa có kết quả để duyệt. Quay lại ảnh để phân tích hoặc nhập tay.",
             "Image extraction is not connected. Go back to try a sample when available.",
           )}
         >

@@ -1,0 +1,69 @@
+{
+  "startedAt": "2026-10-12T15:56:04.049Z",
+  "sourceRoot": "/Users/trunglk/Documents/trung-github/VocabularyNotes",
+  "commit": "bc2983a1c8ed5914fe7cfeb830e71bbbcb358050",
+  "fingerprint": "b3e6454daaae3d7184e20e92bbfc67bb1a489b95e24a79db045d8f26349e19e9",
+  "scope": "ui",
+  "mode": "production",
+  "specs": [
+    "picture-fallback-flow.spec.ts",
+    "media-source-errors.spec.ts",
+    "word-picture-intake.spec.ts",
+    "ux-refinement.spec.ts"
+  ],
+  "node": "v24.14.1",
+  "provider": "fixture",
+  "commands": [
+    {
+      "label": "discovery",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--config",
+        "playwright.scoped.config.ts",
+        "--grep",
+        "new word|photo words|empty searches|upstream failure|empty web|web search|paste|photo previews",
+        "--list",
+        "--reporter=list"
+      ],
+      "elapsedMs": 749,
+      "exitCode": 0,
+      "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-8cjbot/discovery.log"
+    },
+    {
+      "label": "build",
+      "command": [
+        "pnpm",
+        "build",
+        "--webpack"
+      ],
+      "elapsedMs": 32219,
+      "exitCode": 0,
+      "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-8cjbot/build.log"
+    },
+    {
+      "label": "browser",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--config",
+        "playwright.scoped.config.ts",
+        "--grep",
+        "new word|photo words|empty searches|upstream failure|empty web|web search|paste|photo previews",
+        "--reporter=line"
+      ],
+      "elapsedMs": 23293,
+      "exitCode": 0,
+      "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-8cjbot/browser.log"
+    }
+  ],
+  "tokens": "unavailable",
+  "discoveredTests": 20,
+  "snapshot": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-source-d3AhIn",
+  "status": "passed",
+  "finishedAt": "2026-10-12T15:57:01.840Z"
+}

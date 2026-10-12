@@ -1,0 +1,77 @@
+{
+  "url": "/practice",
+  "title": "Xếp câu",
+  "scrollHeight": 872,
+  "viewport": [
+    360,
+    800
+  ],
+  "overflow": false,
+  "text": "Xếp câu\nTạm dừng\n1 / 1\nXếp câu cùng Cáo\n\nĐó là quả táo.\n\nChạm các từ bên dưới để xếp câu\napple.\nIt\nis\nan\nXong rồi\nXếp lại\nGợi ý\nBỏ qua",
+  "controls": [
+    {
+      "text": "Tạm dừng",
+      "tag": "BUTTON",
+      "w": 83,
+      "h": 48,
+      "top": 92
+    },
+    {
+      "text": "apple.",
+      "tag": "BUTTON",
+      "w": 89,
+      "h": 48,
+      "top": 439
+    },
+    {
+      "text": "It",
+      "tag": "BUTTON",
+      "w": 53,
+      "h": 48,
+      "top": 439
+    },
+    {
+      "text": "is",
+      "tag": "BUTTON",
+      "w": 54,
+      "h": 48,
+      "top": 439
+    },
+    {
+      "text": "an",
+      "tag": "BUTTON",
+      "w": 60,
+      "h": 48,
+      "top": 439
+    },
+    {
+      "text": "Xong rồi",
+      "tag": "BUTTON",
+      "w": 124,
+      "h": 48,
+      "top": 507
+    },
+    {
+      "text": "Xếp lại",
+      "tag": "BUTTON",
+      "w": 112,
+      "h": 48,
+      "top": 507
+    },
+    {
+      "text": "Gợi ý",
+      "tag": "BUTTON",
+      "w": 99,
+      "h": 48,
+      "top": 575
+    },
+    {
+      "text": "Bỏ qua",
+      "tag": "BUTTON",
+      "w": 113,
+      "h": 48,
+      "top": 575
+    }
+  ],
+  "run": "ug0tU3"
+}

@@ -1,0 +1,28 @@
+{
+  "url": "/notifications/image-draft",
+  "title": "Tiếp tục bài từ ảnh",
+  "scrollHeight": 872,
+  "viewport": [
+    360,
+    800
+  ],
+  "overflow": false,
+  "text": "Quay lại\nTiếp tục bài từ ảnh\n\nẢnh và phần bạn đang chuẩn bị vẫn được giữ. Tiếp tục bài học khi bạn sẵn sàng nhé.\n\nTiếp tục nháp ảnh",
+  "controls": [
+    {
+      "text": "Quay lại",
+      "tag": "A",
+      "w": 123,
+      "h": 48,
+      "top": 92
+    },
+    {
+      "text": "Tiếp tục nháp ảnh",
+      "tag": "A",
+      "w": 224,
+      "h": 48,
+      "top": 321
+    }
+  ],
+  "run": "MAGJDF"
+}

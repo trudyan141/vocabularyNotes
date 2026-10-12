@@ -1,0 +1,77 @@
+{
+  "url": "/library/words/apple",
+  "title": "apple",
+  "scrollHeight": 1648,
+  "viewport": [
+    360,
+    800
+  ],
+  "overflow": false,
+  "text": "Từ của con\nSửa\napple\ndanh từ\n\n/ˈæp.əl/\n\nCách đọc gần đúng: ép-pồ\n\nNghe\nNói\nNghe chậm\n\nquả táo\n\nA round fruit that grows on a tree.\n\nMột câu ví dụ\n\nI eat an apple.\n\n/aɪ it ən æpəl/\nTham khảo · US\n\nNghe\n\nTôi ăn một quả táo.\n\nCách đọc gần đúng: ai ít ần ép-pồ\n\nVí dụ thêm đã duyệt\n\nThe apple is red.\n\n/ðə æpəl ɪz ɹɛd/\nTham khảo · US\n\nNghe\n\nQuả táo màu đỏ.\n\nCách đọc gần đúng: đờ ép-pồ iz red\n\nÔn từ này",
+  "controls": [
+    {
+      "text": "Từ của con",
+      "tag": "A",
+      "w": 112,
+      "h": 48,
+      "top": 92
+    },
+    {
+      "text": "Xóa từ này",
+      "tag": "BUTTON",
+      "w": 48,
+      "h": 48,
+      "top": 92
+    },
+    {
+      "text": "Sửa",
+      "tag": "A",
+      "w": 68,
+      "h": 48,
+      "top": 92
+    },
+    {
+      "text": "Nghe",
+      "tag": "BUTTON",
+      "w": 94,
+      "h": 48,
+      "top": 565
+    },
+    {
+      "text": "Nói",
+      "tag": "BUTTON",
+      "w": 79,
+      "h": 56,
+      "top": 565
+    },
+    {
+      "text": "Nghe chậm",
+      "tag": "BUTTON",
+      "w": 145,
+      "h": 48,
+      "top": 641
+    },
+    {
+      "text": "Nghe",
+      "tag": "BUTTON",
+      "w": 100,
+      "h": 48,
+      "top": 967
+    },
+    {
+      "text": "Nghe",
+      "tag": "BUTTON",
+      "w": 100,
+      "h": 48,
+      "top": 1295
+    },
+    {
+      "text": "Ôn từ này",
+      "tag": "A",
+      "w": 328,
+      "h": 56,
+      "top": 1472
+    }
+  ],
+  "run": "kJRyC2"
+}

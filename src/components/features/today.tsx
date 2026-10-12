@@ -40,10 +40,10 @@ export function Today() {
                 )}
           </p>
           {hasLessons ? (
-            <Button asChild size="lg" variant={dueCount>0?"outline":"default"} disabled={databaseStatus!=="ready"}>
-              <Link prefetch={false} href="/practice">
+            <Button asChild size="lg" variant="default" disabled={databaseStatus!=="ready"}>
+              <Link prefetch={false} href={dueCount>0?"/practice?review=due":"/practice"}>
                 <Play data-icon="inline-start" />
-                {t("Chơi 5 phút", "Play for 5 minutes")}
+                {dueCount>0?t(`Ôn ${Math.min(10,dueCount)} từ hôm nay`,`Review ${Math.min(10,dueCount)} words today`):t("Chơi 5 phút", "Play for 5 minutes")}
               </Link>
             </Button>
           ) : (
@@ -77,7 +77,7 @@ export function Today() {
           <div className="section-heading">
             <h2>{t("Bài gần nhất", "Latest lesson")}</h2>
           </div>
-          <Button asChild variant="link"><Link href="/library/lessons">{t("Tất cả bộ từ theo ngày","All word sets by date")}</Link></Button>
+          <Button asChild variant="link"><Link href="/library/lessons">{t("Tất cả bài theo ngày","All word sets by date")}</Link></Button>
           <div className="lesson-grid">
             {lessons&&lessons.scope===repository?.scope.id&&lessons.values.map(({lesson,total,art,word},i)=><article className="recent-lesson" key={lesson.id}><Link prefetch={false} className={`lesson-tile ${i%2?"lilac":"mint"}`} href={`/library?lesson=${encodeURIComponent(lesson.id)}`}><Artwork art={art} word={word} size={88}/><div><h3>{lesson.id==="food"?t("Trái cây & đồ ăn","Fruit & food"):lesson.id==="school"?t("Thế giới quanh con","Your world"):lessonTitle(lesson,t)}</h3><p>{learningDate(lesson.learnedOn,t)} · {total} {lesson.sourceType==="demo"?t("từ mẫu","sample words"):t("từ","words")}</p></div><ArrowRight aria-hidden="true"/></Link></article>)}
           </div>

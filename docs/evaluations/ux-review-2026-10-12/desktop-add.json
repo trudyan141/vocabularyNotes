@@ -1,0 +1,147 @@
+{
+  "url": "/add",
+  "title": "Thêm từ cho con",
+  "scrollHeight": 2462,
+  "viewport": [
+    1280,
+    1000
+  ],
+  "overflow": false,
+  "text": "Quay lại\nThêm từ cho con\n\nGõ vài chữ, chọn từ đúng. App tự điền nghĩa, cách đọc, ví dụ và tìm hình để bạn kiểm tra.\n\nNgày con học bộ từ này\nTừ gõ tay được gom vào bộ của ngày này.\nTừ tiếng Anh\nTra từ điển online\nKhi có mạng, chữ đang gõ được gửi để gợi ý chính tả. Chọn từ để tự điền từ điển; gợi ý đã chuẩn bị dùng được offline.\n\nHình sẽ được tự tìm theo nghĩa đã chọn.\n\nNghĩa tiếng Việt\nNghĩa tiếng Anh\nLoại từ\nTên nghĩa để phân biệt\nPhiên âm IPA (nếu có)\nCách đọc gần đúng chữ Việt\nCâu ví dụ tiếng Anh\nNghĩa câu ví dụ\nIPA câu ví dụ (chưa xác minh)\nCách đọc gần đúng của câu\nCâu ví dụ thứ hai\nNghĩa câu ví dụ thứ hai\nIPA cả câu ví dụ thứ hai\nCách đọc gần đúng câu thứ hai\n\nCách đọc chữ Việt chỉ gần đúng, không thay giọng tiếng Anh. IPA nhập tay cần đối chiếu nguồn; duyệt nội dung không tự xác minh IPA.\n\nLưu từ",
+  "controls": [
+    {
+      "text": "Quay lại",
+      "tag": "A",
+      "w": 123,
+      "h": 48,
+      "top": 120
+    },
+    {
+      "text": "add-learned-on",
+      "tag": "INPUT",
+      "w": 760,
+      "h": 48,
+      "top": 333
+    },
+    {
+      "text": "add-word",
+      "tag": "INPUT",
+      "w": 760,
+      "h": 48,
+      "top": 469
+    },
+    {
+      "text": "Tra từ điển online",
+      "tag": "BUTTON",
+      "w": 175,
+      "h": 48,
+      "top": 565
+    },
+    {
+      "text": "add-vi",
+      "tag": "INPUT",
+      "w": 760,
+      "h": 48,
+      "top": 804
+    },
+    {
+      "text": "add-en",
+      "tag": "INPUT",
+      "w": 760,
+      "h": 48,
+      "top": 912
+    },
+    {
+      "text": "add-pos",
+      "tag": "INPUT",
+      "w": 760,
+      "h": 48,
+      "top": 1019
+    },
+    {
+      "text": "add-sense",
+      "tag": "INPUT",
+      "w": 760,
+      "h": 48,
+      "top": 1126
+    },
+    {
+      "text": "add-ipa",
+      "tag": "INPUT",
+      "w": 760,
+      "h": 48,
+      "top": 1233
+    },
+    {
+      "text": "add-hint",
+      "tag": "INPUT",
+      "w": 760,
+      "h": 48,
+      "top": 1341
+    },
+    {
+      "text": "add-example",
+      "tag": "INPUT",
+      "w": 760,
+      "h": 48,
+      "top": 1448
+    },
+    {
+      "text": "add-exampleVi",
+      "tag": "INPUT",
+      "w": 760,
+      "h": 48,
+      "top": 1555
+    },
+    {
+      "text": "add-exampleIpa",
+      "tag": "INPUT",
+      "w": 760,
+      "h": 48,
+      "top": 1658
+    },
+    {
+      "text": "add-exampleHint",
+      "tag": "INPUT",
+      "w": 760,
+      "h": 48,
+      "top": 1766
+    },
+    {
+      "text": "add-secondExample",
+      "tag": "INPUT",
+      "w": 760,
+      "h": 48,
+      "top": 1873
+    },
+    {
+      "text": "add-secondExampleVi",
+      "tag": "INPUT",
+      "w": 760,
+      "h": 48,
+      "top": 1980
+    },
+    {
+      "text": "add-secondIpa",
+      "tag": "INPUT",
+      "w": 760,
+      "h": 48,
+      "top": 2087
+    },
+    {
+      "text": "add-secondHint",
+      "tag": "INPUT",
+      "w": 760,
+      "h": 48,
+      "top": 2195
+    },
+    {
+      "text": "Lưu từ",
+      "tag": "BUTTON",
+      "w": 760,
+      "h": 56,
+      "top": 2366
+    }
+  ],
+  "run": "kJRyC2"
+}

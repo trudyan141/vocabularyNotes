@@ -1,0 +1,28 @@
+{
+  "url": "/practice",
+  "title": "Con đã hoàn thành!",
+  "scrollHeight": 872,
+  "viewport": [
+    360,
+    800
+  ],
+  "overflow": false,
+  "text": "Con đã hoàn thành!\n\n10 đúng / nhớ rồi\n\n0 cần ôn thêm\n\n0 bỏ qua · 0 dùng gợi ý\n\nĐiểm trò chơi không thay lịch ôn. Con có thể ôn thẻ để tự đánh giá trí nhớ.\n\nChọn buổi học khác\nVề Hôm nay",
+  "controls": [
+    {
+      "text": "Chọn buổi học khác",
+      "tag": "BUTTON",
+      "w": 328,
+      "h": 48,
+      "top": 579
+    },
+    {
+      "text": "Về Hôm nay",
+      "tag": "A",
+      "w": 328,
+      "h": 48,
+      "top": 647
+    }
+  ],
+  "run": "ug0tU3"
+}

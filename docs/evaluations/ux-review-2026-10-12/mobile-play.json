@@ -1,0 +1,105 @@
+{
+  "url": "/practice",
+  "title": "Chơi & học",
+  "scrollHeight": 1090,
+  "viewport": [
+    360,
+    800
+  ],
+  "overflow": false,
+  "text": "Chơi & học\n\nCùng Cáo chơi với từ nhé!\n\nNói cùng Cáo\nNghe và nói các từ đã học\nThẻ ôn\nLật thẻ, nhớ từ\nNhìn hình chọn từ\nNhìn thật kỹ nhé!\nNghe từ chọn hình\nLắng nghe rồi chọn\nĐiền chữ thiếu\nTìm chữ còn thiếu\nGõ cả từ\nThử tài đánh vần\nXếp câu\nLuyện cấu trúc ngữ pháp\nTùy chọn chơi",
+  "controls": [
+    {
+      "text": "Nói cùng CáoNghe và nói các từ đã học",
+      "tag": "A",
+      "w": 158,
+      "h": 183,
+      "top": 188
+    },
+    {
+      "text": "Thẻ ônLật thẻ, nhớ từ",
+      "tag": "BUTTON",
+      "w": 158,
+      "h": 183,
+      "top": 188
+    },
+    {
+      "text": "Nhìn hình chọn từNhìn thật kỹ nhé!",
+      "tag": "BUTTON",
+      "w": 158,
+      "h": 187,
+      "top": 383
+    },
+    {
+      "text": "Nghe từ chọn hìnhLắng nghe rồi chọn",
+      "tag": "BUTTON",
+      "w": 158,
+      "h": 187,
+      "top": 383
+    },
+    {
+      "text": "Điền chữ thiếuTìm chữ còn thiếu",
+      "tag": "BUTTON",
+      "w": 158,
+      "h": 167,
+      "top": 582
+    },
+    {
+      "text": "Gõ cả từThử tài đánh vần",
+      "tag": "BUTTON",
+      "w": 158,
+      "h": 167,
+      "top": 582
+    },
+    {
+      "text": "Xếp câuLuyện cấu trúc ngữ pháp",
+      "tag": "BUTTON",
+      "w": 328,
+      "h": 120,
+      "top": 760
+    },
+    {
+      "text": "Tùy chọn chơi",
+      "tag": "SUMMARY",
+      "w": 326,
+      "h": 68,
+      "top": 901
+    },
+    {
+      "text": "Tất cả từTừ đến hạn ônTừ cần luyện thêm",
+      "tag": "SELECT",
+      "w": 286,
+      "h": 44,
+      "top": 997
+    },
+    {
+      "text": "Tất cả bài học2026-10-09 · Fruit & food / Trái cây & đồ ăn2026-10-09 · Your world / Thế giới quanh con",
+      "tag": "SELECT",
+      "w": 286,
+      "h": 44,
+      "top": 1082
+    },
+    {
+      "text": "English → tiếng ViệtTiếng Việt → English",
+      "tag": "SELECT",
+      "w": 286,
+      "h": 44,
+      "top": 1166
+    },
+    {
+      "text": "Tất cả bộ thẻ",
+      "tag": "SELECT",
+      "w": 286,
+      "h": 44,
+      "top": 1250
+    },
+    {
+      "text": "Tạo bộ thẻ",
+      "tag": "A",
+      "w": 286,
+      "h": 48,
+      "top": 1306
+    }
+  ],
+  "run": "kJRyC2"
+}

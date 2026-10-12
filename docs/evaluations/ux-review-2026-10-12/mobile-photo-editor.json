@@ -1,0 +1,133 @@
+{
+  "url": "/capture/c0da4402-34ef-4273-8aa3-6cc2e129fdbd/edit",
+  "title": "Xem và chỉnh ảnh",
+  "scrollHeight": 1818,
+  "viewport": [
+    360,
+    800
+  ],
+  "overflow": false,
+  "text": "Quay lại và giữ nháp\nXem và chỉnh ảnh\n\nĐây là ảnh sẽ gửi để đọc bài. Phóng to để kiểm tra chữ trước nhé.\n\nDán tiếp bằng Ctrl+V / ⌘V, hoặc thêm ảnh bên dưới. Ảnh đang chỉnh sẽ được giữ trong cùng đợt.\n\nDán thêm ảnh\nChọn thêm ảnh\nMở ảnh để phóng to\n\n1100 × 1556 px · 30 KB\n\nXoay 90°\nKhôi phục ảnh\nChọn hoặc chụp lại\nCắt vùng ảnh\nNháp bài học\nTên bài (tùy chọn)\nNgày học (tùy chọn)\nTags (tùy chọn)\nPhân tích ảnh bằng AI",
+  "controls": [
+    {
+      "text": "Quay lại và giữ nháp",
+      "tag": "BUTTON",
+      "w": 215,
+      "h": 48,
+      "top": 92
+    },
+    {
+      "text": "Dán thêm ảnh",
+      "tag": "BUTTON",
+      "w": 169,
+      "h": 48,
+      "top": 383
+    },
+    {
+      "text": "Chọn thêm ảnh",
+      "tag": "BUTTON",
+      "w": 178,
+      "h": 48,
+      "top": 443
+    },
+    {
+      "text": "Mở ảnh để phóng to",
+      "tag": "A",
+      "w": 328,
+      "h": 490,
+      "top": 511
+    },
+    {
+      "text": "Xoay 90°",
+      "tag": "BUTTON",
+      "w": 129,
+      "h": 48,
+      "top": 1066
+    },
+    {
+      "text": "Khôi phục ảnh",
+      "tag": "BUTTON",
+      "w": 148,
+      "h": 48,
+      "top": 1066
+    },
+    {
+      "text": "Chọn hoặc chụp lại",
+      "tag": "BUTTON",
+      "w": 183,
+      "h": 48,
+      "top": 1130
+    },
+    {
+      "text": "Cắt vùng ảnh",
+      "tag": "SUMMARY",
+      "w": 328,
+      "h": 56,
+      "top": 1199
+    },
+    {
+      "text": "crop-left",
+      "tag": "INPUT",
+      "w": 150,
+      "h": 48,
+      "top": 1379
+    },
+    {
+      "text": "crop-top",
+      "tag": "INPUT",
+      "w": 150,
+      "h": 48,
+      "top": 1379
+    },
+    {
+      "text": "crop-right",
+      "tag": "INPUT",
+      "w": 150,
+      "h": 48,
+      "top": 1486
+    },
+    {
+      "text": "crop-bottom",
+      "tag": "INPUT",
+      "w": 150,
+      "h": 48,
+      "top": 1486
+    },
+    {
+      "text": "Áp dụng vùng cắt",
+      "tag": "BUTTON",
+      "w": 176,
+      "h": 48,
+      "top": 1550
+    },
+    {
+      "text": "draft-title",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 1367
+    },
+    {
+      "text": "draft-date",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 1474
+    },
+    {
+      "text": "draft-tags",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 1582
+    },
+    {
+      "text": "Phân tích ảnh bằng AI",
+      "tag": "BUTTON",
+      "w": 328,
+      "h": 48,
+      "top": 1650
+    }
+  ],
+  "run": "MAGJDF"
+}

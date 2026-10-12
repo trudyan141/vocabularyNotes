@@ -1,0 +1,210 @@
+{
+  "url": "/capture/batch/199b0d2e-fc8f-489f-a575-855021e1f7f2",
+  "title": "Đọc nhiều ảnh bài học",
+  "scrollHeight": 2520,
+  "viewport": [
+    360,
+    800
+  ],
+  "overflow": false,
+  "text": "Quay lại\nĐọc nhiều ảnh bài học\n\nXem ảnh, chỉnh ảnh nào cần rồi đọc cả đợt. Đọc hết ảnh, lọc trùng rồi duyệt và lưu một bài chung.\n\nThêm ảnh\nDán thêm ảnh\nCó thể dán tiếp bằng Ctrl+V / ⌘V. Tối đa 10 ảnh mỗi đợt.\nMở ảnh để phóng to\nẢnh 1\nChỉnh ảnh\nXóa nháp\nMở ảnh để phóng to\nẢnh 2\nChỉnh ảnh\nXóa nháp\nDuyệt từ và ngữ pháp\nĐã phân tích · thử lại\nSửa chữ đọc được\npear\n1. pear\nNguồn hình\nThêm từ này\nTừ\nNghĩa tiếng Việt\nNghĩa tiếng Anh\nLoại từ\nTên nghĩa\nCâu ví dụ\nIPA cả câu ví dụ\nNghĩa câu\n\nSẵn sàng lưu 1 từ đã chọn.\n\nDuyệt và lưu các từ đã chọn",
+  "controls": [
+    {
+      "text": "Quay lại",
+      "tag": "A",
+      "w": 123,
+      "h": 48,
+      "top": 92
+    },
+    {
+      "text": "Thêm ảnh",
+      "tag": "BUTTON",
+      "w": 138,
+      "h": 48,
+      "top": 321
+    },
+    {
+      "text": "Dán thêm ảnh",
+      "tag": "BUTTON",
+      "w": 169,
+      "h": 48,
+      "top": 389
+    },
+    {
+      "text": "Mở ảnh để phóng to",
+      "tag": "A",
+      "w": 90,
+      "h": 182,
+      "top": 527
+    },
+    {
+      "text": "Chỉnh ảnh",
+      "tag": "A",
+      "w": 118,
+      "h": 48,
+      "top": 572
+    },
+    {
+      "text": "Xóa nháp",
+      "tag": "BUTTON",
+      "w": 131,
+      "h": 48,
+      "top": 628
+    },
+    {
+      "text": "Mở ảnh để phóng to",
+      "tag": "A",
+      "w": 90,
+      "h": 182,
+      "top": 765
+    },
+    {
+      "text": "Chỉnh ảnh",
+      "tag": "A",
+      "w": 118,
+      "h": 48,
+      "top": 810
+    },
+    {
+      "text": "Xóa nháp",
+      "tag": "BUTTON",
+      "w": 131,
+      "h": 48,
+      "top": 866
+    },
+    {
+      "text": "Đã phân tích · thử lại",
+      "tag": "BUTTON",
+      "w": 218,
+      "h": 48,
+      "top": 1041
+    },
+    {
+      "text": "Sửa chữ đọc được",
+      "tag": "SUMMARY",
+      "w": 319,
+      "h": 56,
+      "top": 1110
+    },
+    {
+      "text": "pear\n\npear",
+      "tag": "TEXTAREA",
+      "w": 319,
+      "h": 128,
+      "top": 1238
+    },
+    {
+      "text": "Từ/cụm từ được liệt kê hoặc nhấn mạnhTất cả từ trong đoạn",
+      "tag": "SELECT",
+      "w": 319,
+      "h": 24,
+      "top": 1431
+    },
+    {
+      "text": "Tạo danh sách để duyệt",
+      "tag": "BUTTON",
+      "w": 319,
+      "h": 48,
+      "top": 1475
+    },
+    {
+      "text": "pear",
+      "tag": "SUMMARY",
+      "w": 319,
+      "h": 72,
+      "top": 1199
+    },
+    {
+      "text": "Nguồn hình",
+      "tag": "SUMMARY",
+      "w": 96,
+      "h": 56,
+      "top": 1384
+    },
+    {
+      "text": "OpenMoji · Marius Schnabel",
+      "tag": "A",
+      "w": 91,
+      "h": 31,
+      "top": 1440
+    },
+    {
+      "text": "CC BY-SA 4.0",
+      "tag": "A",
+      "w": 91,
+      "h": 31,
+      "top": 1456
+    },
+    {
+      "text": "",
+      "tag": "INPUT",
+      "w": 24,
+      "h": 24,
+      "top": 1472
+    },
+    {
+      "text": "",
+      "tag": "INPUT",
+      "w": 319,
+      "h": 48,
+      "top": 1554
+    },
+    {
+      "text": "",
+      "tag": "INPUT",
+      "w": 319,
+      "h": 48,
+      "top": 1648
+    },
+    {
+      "text": "",
+      "tag": "INPUT",
+      "w": 319,
+      "h": 48,
+      "top": 1741
+    },
+    {
+      "text": "",
+      "tag": "INPUT",
+      "w": 319,
+      "h": 48,
+      "top": 1835
+    },
+    {
+      "text": "",
+      "tag": "INPUT",
+      "w": 319,
+      "h": 48,
+      "top": 1928
+    },
+    {
+      "text": "",
+      "tag": "INPUT",
+      "w": 319,
+      "h": 48,
+      "top": 2022
+    },
+    {
+      "text": "",
+      "tag": "INPUT",
+      "w": 319,
+      "h": 48,
+      "top": 2116
+    },
+    {
+      "text": "",
+      "tag": "INPUT",
+      "w": 319,
+      "h": 48,
+      "top": 2209
+    },
+    {
+      "text": "Duyệt và lưu các từ đã chọn",
+      "tag": "BUTTON",
+      "w": 319,
+      "h": 48,
+      "top": 2352
+    }
+  ],
+  "run": "MAGJDF"
+}

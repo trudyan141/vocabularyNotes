@@ -1,5 +1,22 @@
 # Nhật ký bàn giao
 
+## 12/10/2026 — ba nguồn hình + Google copy fallback
+
+Founder chốt bỏ OpenMoji/Commons khỏi tìm mới và giữ link Google/copy thay API có phí. Shared picture picker cho manual/worksheet/prepare/edit, auto preview3sources, atomic content+media save/replay, giữ ảnh cũ khi thêm trùng và chống late-search ghi đè staged user image.74unit/integration+20productionUI/build/lint/types PASS; docs/diff checks. [Evidence](../evaluations/three-picture-sources.md), ADR084/spec/founder plan updated. Không API key/env Vercel/deploy/live/device mới; các diff trước giữ.
+
+
+## 12/10/2026 — highlight tìm từ trong nhóm
+
+Group reader/picker dùng chung SearchHighlight cho tên/meaning/sense; tìm không dấu tô chữ có dấu. Reproduced missing mark, corrected one fixture assumption, final2devUI+4unit/lint/types/diff PASS. [Evidence](../evaluations/ux-ui-implementation.md). Chưa deploy.
+
+## 12/10/2026 — approved UX/UI implementation + group additions protection
+
+Delivered all4phases and2group bugs: reading-first/forms/review/common save; pending-only group bulk, headword projection with preserved senses/source sets; separate deviceSFX/voice and reduced/manual motion.46unit/integration+66productionUI/lint/types/build PASS;2live-media skips,74images. [Evidence](../evaluations/ux-ui-implementation.md) includes earlier failed runs/fixture corrections and source fingerprints. No deploy/live/phone/child pass; initial media diff preserved.
+
+## 12/10/2026 — UX/UI review and proposal awaiting approval
+
+UI/UX Pro Max toàn project:100captures/50screen-states ở360/1280+source inventory, identified mute reset and long reading/edit/review paths. [Founder proposal](../DE-XUAT-UX-UI.md) có4đợt/âm thanh/chuyển động; [AI guide](UX-UI-IMPLEMENTATION-PLAN.md) tách riêng. [Evidence](../evaluations/ux-review-2026-10-12.md) ghi capture harness failures và targeted retry, không fullE2E/human/device/live claim. No app edits/deploy; existing media diff preserved; implementation awaits founder scope/audio decision.
+
 ## 12/10 — sửa lỗi phân tích ảnh bộ phận cơ thể
 
 - Repro hai code defects: wrapped phrase được scan chấp nhận nhưng validation sau bác evidence; compact scan malformed dừng ngay thay vì content repair. So evidence NFKC/case/whitespace nhất quán, giữ transcript; compact scan tối đa một repair, không retry quota/network/account/refusal/timeout, invalid data không checkpoint.
@@ -536,3 +553,11 @@ Final047/048 local implementation checked under Gọn:10focuseddesktop/mobilePAS
 ## 12/10/2026 — Picture games actual image readiness
 
 Fix sister/brother admission when catalog art fails to load: both picture modes decode real images before selection/resume, filter targets and distractors, stop answers on render failure; offline follows the same guard. Fix imported-image renderer passing an empty headword. Scoped26unit+integration/12productionUI/lint/types/build PASS; not deployed/live media/device verified. [Evidence](../evaluations/picture-game-image-readiness-fix.md).
+
+
+## 12/10/2026 — Web picture fallback (ADR084)
+
+Keep Noto/Twemoji/Fluent priority; Commons broad query now accepts relevant photographs, with consistent family subject aliases. Empty/error opens web search and paste/upload options; arbitrary user sources retain `User supplied` metadata.23unit+integration/12productionUI/lint/types/build PASS. [Evidence](../evaluations/web-picture-fallback.md); not deployed/live web/device verified.
+
+
+12/10 ADR084 follow-up: shared picture picker always exposes Tìm ảnh trên web even with catalog matches. User click opens Google for current word and paste/upload controls, keeps existing image/results.8devUI/lint/types PASS; previous fallback diff preserved, no addition build/deploy. [Evidence](../evaluations/web-picture-fallback.md).

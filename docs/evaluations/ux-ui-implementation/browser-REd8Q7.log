@@ -1,0 +1,10 @@
+
+Running 6 tests using 2 workers
+
+[1/6] [desktop-chromium] › tests/e2e/edit-and-feedback.spec.ts:23:5 › partial legacy grammar saves to existing group then adds only one new word
+[2/6] [desktop-chromium] › tests/e2e/edit-and-feedback.spec.ts:11:5 › one edit save stages an image; shows field failure and success; delete is at the top and footer clears last button
+[3/6] [desktop-chromium] › tests/e2e/edit-and-feedback.spec.ts:27:5 › grammar animation finishes on step one and reduced motion retains manual control
+[4/6] [mobile-chromium] › tests/e2e/edit-and-feedback.spec.ts:11:5 › one edit save stages an image; shows field failure and success; delete is at the top and footer clears last button
+[5/6] [mobile-chromium] › tests/e2e/edit-and-feedback.spec.ts:23:5 › partial legacy grammar saves to existing group then adds only one new word
+[6/6] [mobile-chromium] › tests/e2e/edit-and-feedback.spec.ts:27:5 › grammar animation finishes on step one and reduced motion retains manual control
+  6 passed (7.1s)

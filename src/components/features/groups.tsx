@@ -13,7 +13,9 @@ import {ActionLink} from '@/components/app/action-link';
 import {DatabaseLoading,ReadFailure} from '@/components/app/database-boundary';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
+import {SearchHighlight} from '@/components/ui/search-highlight';
 import {studyGroups,groupContents,grammarKey} from '@/data/local/groups';
+import {groupLibraryWords,matchesLibraryWord} from '@/lib/learning/library-search';
 import {searchTerms} from '@/domain/identity';
 import {lessonTitle,learningDate} from '@/lib/learning/lesson-presentation';
 const pageSize=12;
@@ -27,7 +29,7 @@ function ScopedGroups(){
  if(data.error)return <ReadFailure/>;
  const selected=data.selected,content=data.content,currentSet=content?.sets.find(set=>set.id===setId);
  const needle=searchTerms(query),matching=(value:string)=>searchTerms(value).includes(needle);
- const words=content?.words.filter(word=>!currentSet||currentSet.wordIds.includes(word.id)).filter(word=>matching(`${word.word} ${word.vi} ${word.pos}`))??[],grammar=content?.grammar.filter(item=>!currentSet||currentSet.grammarKeys.includes(grammarKey(item))).filter(item=>matching(`${item.title} ${item.textEn} ${item.textVi}`))??[];
+ const words=groupLibraryWords(content?.words.filter(word=>!currentSet||currentSet.wordIds.includes(word.id)).filter(word=>matchesLibraryWord(word,query))??[]),grammar=content?.grammar.filter(item=>!currentSet||currentSet.grammarKeys.includes(grammarKey(item))).filter(item=>matching(`${item.title} ${item.textEn} ${item.textVi}`))??[];
  const learning=groupGrammarItems(grammar);
  const total=content?(mode==='words'?words.length:learning.length):data.rows.length;
  const currentSetPage=Math.min(lessonPage,Math.max(0,Math.ceil((content?.sets.length??0)/6)-1));
@@ -42,7 +44,7 @@ function ScopedGroups(){
    {currentSet&&<p className="muted group-set-current">{t('Đang xem: ','Viewing: ')}{lessonTitle(currentSet,t)}</p>}
    <label>{t('Tìm trong nhóm','Search this group')}<Input type="search" value={query} onChange={event=>{setQuery(event.target.value);setPage(0);}} placeholder={t('Tìm tiếng Anh hoặc tiếng Việt…','Search English or Vietnamese…')}/></label>
    {!total&&<EmptyState title={t('Chưa có mục phù hợp','No matching items')} description={query?t('Thử từ khác nhé.','Try another word.'):t('Bạn có thể thêm từ, ngữ pháp hoặc cả bài học vào nhóm.','Add words, grammar or a whole lesson to this group.')}/>}
-   {mode==='words'?<ul className="group-word-list">{words.slice(start,start+pageSize).map(word=><li key={word.id}><Link href={`/library/words/${encodeURIComponent(word.id)}`}><Artwork art={word.art} word={word.word} size={64}/><span><strong lang="en">{word.word}</strong><small>{word.vi} · {word.pos}</small></span></Link></li>)}</ul>:<div className="group-sentences page-flow">{learning.slice(start,start+pageSize).map(item=><LearningCard key={`${item.table}:${item.id}`} item={item} mode="grammar" removable={false}/>)}</div>}
+   {mode==='words'?<ul className="group-word-list">{words.slice(start,start+pageSize).map(word=><li key={word.id}><Link href={`/library/words/${encodeURIComponent(word.id)}`}><Artwork art={word.art} word={word.word} size={64}/><span><strong lang="en"><SearchHighlight text={word.word} query={query}/></strong><small><SearchHighlight text={word.vi} query={query}/> · {word.pos}</small></span></Link>{word.relatedSenses&&<details><summary>{t("Xem các nghĩa","View meanings")}</summary>{word.relatedSenses.map(sense=><Link key={sense.id} href={`/library/words/${encodeURIComponent(sense.id)}`}><SearchHighlight text={sense.vi} query={query}/> · {sense.pos}</Link>)}</details>}</li>)}</ul>:<div className="group-sentences page-flow">{learning.slice(start,start+pageSize).map(item=><LearningCard key={`${item.table}:${item.id}`} item={item} mode="grammar" removable={false}/>)}</div>}
   </>:<>{!data.rows.length?<EmptyState title={t('Một nhóm, một chủ đề','A group for every topic')} description={t('Ví dụ: Anh văn Family, Anh văn tiểu học. Chọn từ và ngữ pháp đã lưu cho từng nhóm.','For example: Family English or Primary English. Choose saved words and grammar for each group.')}/>:<div className="group-list">{data.rows.slice(start,start+pageSize).map((row,i)=><Link className={`group-link ${i%2?'lilac':'mint'}`} key={row.id} href={`/library/groups?group=${encodeURIComponent(row.id)}`}><FolderHeart aria-hidden="true"/><span><strong>{row.payload.deck.name}</strong><small>{row.payload.deck.group.wordIds.length} {t('từ','words')} · {row.payload.deck.group.grammar?.length??0} {t('ngữ pháp','grammar items')}</small></span><ChevronRight aria-hidden="true"/></Link>)}</div>}</>}
 
   {total>pageSize&&<nav className="picker-pagination" aria-label={t('Trang nhóm học','Learning group pages')}><Button variant="secondary" disabled={!currentPage} onClick={()=>setPage(currentPage-1)}><ChevronLeft aria-hidden="true"/>{t('Trước','Previous')}</Button><span>{currentPage+1} / {Math.ceil(total/pageSize)}</span><Button variant="secondary" disabled={start+pageSize>=total} onClick={()=>setPage(currentPage+1)}>{t('Sau','Next')}<ChevronRight aria-hidden="true"/></Button></nav>}

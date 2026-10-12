@@ -1,0 +1,91 @@
+{
+  "url": "/profile",
+  "title": "Hồ sơ của bạn",
+  "scrollHeight": 2112,
+  "viewport": [
+    360,
+    800
+  ],
+  "overflow": false,
+  "text": "Quay lại tùy chọn\nHồ sơ của bạn\nBài học và tài khoản\n\nDùng tài khoản Google để mở cùng bài học trên nhiều thiết bị. Bạn vẫn học được khi không đăng nhập.\n\nChưa đăng nhập\n\nĐăng nhập chưa được bật trên bản website này. Bài trên máy vẫn dùng được.\n\nĐăng nhập bằng Google\nTên và avatar của bạn\n\nLựa chọn này dùng trên máy hiện tại.\n\nTên hiển thị\nTài khoản\nCáo\nMèo\nCún\nLưu hồ sơ\nBài của con đang ở đâu?\n\nĐang xem bài mẫu. Bài mẫu không được đưa lên tài khoản.\n\nRiêng trên máy này\n\n0 từ đã lưu · 0 bộ bài\n\nBài chưa gắn với tài khoản. Đưa bài lên tài khoản bên dưới nếu muốn dùng trên máy khác.\n\nTrên tài khoản Google\n\nĐăng nhập để kiểm tra bài đã lưu trên tài khoản.\n\nThư viện đang mở\n\nĐang dùng bài mẫu để thử. Bài của con thật được lưu riêng, chuyển qua lại không xóa hay gộp dữ liệu.\n\nDùng thư viện riêng của con\n\nKiểm tra lại trạng thái\nVề Hôm nay",
+  "controls": [
+    {
+      "text": "Quay lại tùy chọn",
+      "tag": "A",
+      "w": 192,
+      "h": 48,
+      "top": 92
+    },
+    {
+      "text": "Đăng nhập bằng Google",
+      "tag": "BUTTON",
+      "w": 240,
+      "h": 48,
+      "top": 554
+    },
+    {
+      "text": "profile-name",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 764
+    },
+    {
+      "text": "Tài khoản",
+      "tag": "BUTTON",
+      "w": 160,
+      "h": 104,
+      "top": 828
+    },
+    {
+      "text": "Cáo",
+      "tag": "BUTTON",
+      "w": 160,
+      "h": 104,
+      "top": 828
+    },
+    {
+      "text": "Mèo",
+      "tag": "BUTTON",
+      "w": 160,
+      "h": 100,
+      "top": 941
+    },
+    {
+      "text": "Cún",
+      "tag": "BUTTON",
+      "w": 160,
+      "h": 100,
+      "top": 941
+    },
+    {
+      "text": "Lưu hồ sơ",
+      "tag": "BUTTON",
+      "w": 113,
+      "h": 48,
+      "top": 1057
+    },
+    {
+      "text": "Dùng thư viện riêng của con",
+      "tag": "BUTTON",
+      "w": 328,
+      "h": 48,
+      "top": 1784
+    },
+    {
+      "text": "Kiểm tra lại trạng thái",
+      "tag": "BUTTON",
+      "w": 228,
+      "h": 48,
+      "top": 1872
+    },
+    {
+      "text": "Về Hôm nay",
+      "tag": "A",
+      "w": 151,
+      "h": 48,
+      "top": 1944
+    }
+  ],
+  "run": "kJRyC2"
+}

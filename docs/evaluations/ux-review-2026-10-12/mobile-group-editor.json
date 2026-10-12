@@ -1,0 +1,182 @@
+{
+  "url": "/library/groups/edit",
+  "title": "Tạo nhóm học",
+  "scrollHeight": 2214,
+  "viewport": [
+    360,
+    800
+  ],
+  "overflow": false,
+  "text": "Quay lại\nTạo nhóm học\n\nChọn từ và ngữ pháp, hoặc gom tất cả một lần. Giữ ngày và tên bài gốc; mục trùng tự bỏ.\n\nTên nhóm\nTừ\nNgữ pháp\nBài / ngày\n\n0 từ · 0 ngữ pháp · 0 bài · 0 ngày được chọn\n\nTìm mục để chọn\nChọn tất cả từ và ngữ pháp\n(20)\nChọn tất cả 20 mục\nChọn cả trang\nbank\nbờ sông — phần đất dọc theo mép dòng sông, nơi bạn có thể đứng nhìn nước chảy · danh từ\nbank\nngân hàng · danh từ\ncar\nxe ô tô · danh từ\nsun\nmặt trời · danh từ\nbird\ncon chim · danh từ\ntree\ncây · danh từ\nfish\ncon cá · danh từ\ndog\ncon chó · danh từ\ncat\ncon mèo · danh từ\npen\nbút mực · danh từ\nbag\ncái cặp · danh từ\nbook\nquyển sách · danh từ\nTrước\n1 / 2\nSau\nLưu nhóm",
+  "controls": [
+    {
+      "text": "Quay lại",
+      "tag": "A",
+      "w": 123,
+      "h": 48,
+      "top": 92
+    },
+    {
+      "text": "group-name",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 291
+    },
+    {
+      "text": "Từ",
+      "tag": "BUTTON",
+      "w": 103,
+      "h": 64,
+      "top": 353
+    },
+    {
+      "text": "Ngữ pháp",
+      "tag": "BUTTON",
+      "w": 103,
+      "h": 64,
+      "top": 353
+    },
+    {
+      "text": "Bài / ngày",
+      "tag": "BUTTON",
+      "w": 103,
+      "h": 64,
+      "top": 353
+    },
+    {
+      "text": "",
+      "tag": "INPUT",
+      "w": 328,
+      "h": 48,
+      "top": 511
+    },
+    {
+      "text": "Chọn tất cả từ và ngữ pháp(20)",
+      "tag": "BUTTON",
+      "w": 328,
+      "h": 52,
+      "top": 575
+    },
+    {
+      "text": "Chọn tất cả 20 mục",
+      "tag": "BUTTON",
+      "w": 186,
+      "h": 48,
+      "top": 643
+    },
+    {
+      "text": "Chọn cả trang",
+      "tag": "BUTTON",
+      "w": 148,
+      "h": 48,
+      "top": 699
+    },
+    {
+      "text": "bank · bờ sông — phần đất dọc theo mép dòng sông, nơi bạn có thể đứng nhìn nước chảy · danh từ",
+      "tag": "INPUT",
+      "w": 24,
+      "h": 24,
+      "top": 818
+    },
+    {
+      "text": "bank · ngân hàng · danh từ",
+      "tag": "INPUT",
+      "w": 24,
+      "h": 24,
+      "top": 939
+    },
+    {
+      "text": "car · xe ô tô · danh từ",
+      "tag": "INPUT",
+      "w": 24,
+      "h": 24,
+      "top": 1036
+    },
+    {
+      "text": "sun · mặt trời · danh từ",
+      "tag": "INPUT",
+      "w": 24,
+      "h": 24,
+      "top": 1132
+    },
+    {
+      "text": "bird · con chim · danh từ",
+      "tag": "INPUT",
+      "w": 24,
+      "h": 24,
+      "top": 1229
+    },
+    {
+      "text": "tree · cây · danh từ",
+      "tag": "INPUT",
+      "w": 24,
+      "h": 24,
+      "top": 1326
+    },
+    {
+      "text": "fish · con cá · danh từ",
+      "tag": "INPUT",
+      "w": 24,
+      "h": 24,
+      "top": 1423
+    },
+    {
+      "text": "dog · con chó · danh từ",
+      "tag": "INPUT",
+      "w": 24,
+      "h": 24,
+      "top": 1519
+    },
+    {
+      "text": "cat · con mèo · danh từ",
+      "tag": "INPUT",
+      "w": 24,
+      "h": 24,
+      "top": 1616
+    },
+    {
+      "text": "pen · bút mực · danh từ",
+      "tag": "INPUT",
+      "w": 24,
+      "h": 24,
+      "top": 1713
+    },
+    {
+      "text": "bag · cái cặp · danh từ",
+      "tag": "INPUT",
+      "w": 24,
+      "h": 24,
+      "top": 1810
+    },
+    {
+      "text": "book · quyển sách · danh từ",
+      "tag": "INPUT",
+      "w": 24,
+      "h": 24,
+      "top": 1907
+    },
+    {
+      "text": "Trước",
+      "tag": "BUTTON",
+      "w": 102,
+      "h": 48,
+      "top": 1978
+    },
+    {
+      "text": "Sau",
+      "tag": "BUTTON",
+      "w": 89,
+      "h": 48,
+      "top": 1978
+    },
+    {
+      "text": "Lưu nhóm",
+      "tag": "BUTTON",
+      "w": 328,
+      "h": 48,
+      "top": 2046
+    }
+  ],
+  "run": "kJRyC2"
+}

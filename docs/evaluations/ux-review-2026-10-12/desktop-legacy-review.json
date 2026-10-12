@@ -1,0 +1,27 @@
+{
+  "url": "/capture/c12d6d05-847a-4abd-aeba-51985d6e080e/review",
+  "scrollHeight": 1020,
+  "viewport": [
+    1280,
+    1000
+  ],
+  "overflow": false,
+  "text": "Quay lại\nChưa có kết quả để duyệt\nNhận dạng ảnh chưa được kết nối. Quay lại để thử bài mẫu nếu có.\nVề phần thêm bài",
+  "controls": [
+    {
+      "text": "Quay lại",
+      "tag": "A",
+      "w": 123,
+      "h": 48,
+      "top": 120
+    },
+    {
+      "text": "Về phần thêm bài",
+      "tag": "A",
+      "w": 193,
+      "h": 48,
+      "top": 490
+    }
+  ],
+  "run": "MAGJDF"
+}

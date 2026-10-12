@@ -1,0 +1,56 @@
+{
+  "url": "/capture",
+  "title": "Thêm bài cho con",
+  "scrollHeight": 1020,
+  "viewport": [
+    1280,
+    1000
+  ],
+  "overflow": false,
+  "text": "Quay lại\nThêm bài cho con\n\nThêm ảnh bài học, rồi xem và chỉnh ảnh trước khi đọc chữ.\n\nChọn ảnh\nChụp ảnh\nKéo thả ảnh bài học vào đây\n\nChọn ảnh từ máy hoặc bấm Dán ảnh đã sao chép. Trên máy tính có thể dùng Ctrl+V / ⌘V.\n\nChọn ảnh từ máy\nDán ảnh đã sao chép\nJPEG, PNG, WebP · Tối đa 10 MB mỗi ảnh · Chọn tới 10 ảnh\nDuyệt bài mẫu",
+  "controls": [
+    {
+      "text": "Quay lại",
+      "tag": "A",
+      "w": 123,
+      "h": 48,
+      "top": 120
+    },
+    {
+      "text": "Chọn ảnh",
+      "tag": "BUTTON",
+      "w": 376,
+      "h": 48,
+      "top": 306
+    },
+    {
+      "text": "Chụp ảnh",
+      "tag": "BUTTON",
+      "w": 376,
+      "h": 48,
+      "top": 306
+    },
+    {
+      "text": "Chọn ảnh từ máy",
+      "tag": "BUTTON",
+      "w": 168,
+      "h": 48,
+      "top": 535
+    },
+    {
+      "text": "Dán ảnh đã sao chép",
+      "tag": "BUTTON",
+      "w": 219,
+      "h": 48,
+      "top": 535
+    },
+    {
+      "text": "Duyệt bài mẫu",
+      "tag": "A",
+      "w": 760,
+      "h": 48,
+      "top": 678
+    }
+  ],
+  "run": "kJRyC2"
+}

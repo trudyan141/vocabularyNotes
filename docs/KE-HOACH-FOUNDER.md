@@ -1,5 +1,13 @@
 # Words for Kids — kế hoạch sản phẩm dành cho founder
 
+**Cập nhật tìm hình 12/10:** chỉ dùng Noto, Twemoji và Fluent; bỏ hai nguồn cuối trả ảnh sai. Thiếu hình thì mở Google để tự copy rồi dán/chọn ảnh. Đã chốt không cần tích hợp API có phí. Áp dụng cả thêm từ, từ đọc từ ảnh, bổ sung và đổi hình; kiểm hình rồi lưu chung với nội dung. Ảnh đã lưu giữ nguyên. [Chi tiết](14-media-and-concurrency.md).
+
+
+**12/10 — Đã làm cả4đợt UX/UI và sửa hai lỗi nhóm theo duyệt.** Tìm từ/học và Save dễ tìm hơn; nhập chi tiết mở khi cần; review ảnh thấy nghĩa/chọn ngay hàng; tiếng trò chơi tách giọng đọc. Nhóm chỉ chọn/bỏ chọn mục mới, mục đã thêm khóa/giữ nguyên; một tên từ mỗi hàng, nghĩa/POS vẫn riêng.46test dữ liệu/logic+66caUI production/lint/types/build PASS,74ảnh;2test tìm ảnh thật để riêng. Bạn refresh bản local để kiểm; chưa deploy hoặc đánh giá trẻ/điện thoại thật. [Bản dễ đọc](DE-XUAT-UX-UI.md), [bằng chứng sau sửa](evaluations/ux-ui-implementation.md).
+
+**12/10 — ADR084, thiếu hình thì mở rộng tìm web:** ưu tiên Google Noto/Twemoji/Microsoft Fluent, giữ OpenMoji, Commons tìm cartoon rồi ảnh chụp; hết kết quả/lỗi thì mở ngay Google và dán/upload ảnh user chọn. Có nút Tìm ảnh trên web luôn hiện dù catalog có kết quả; bấm mở Google theo từ và phần dán/upload, giữ hình cũ (addition8devUI/lint/types PASS). Ảnh user không phải thuộc catalog, nguồn tùy chọn; metadata giữ nguồn thật/User supplied. Code dự kiến MIT không đổi license ảnh bên thứ ba.23unit+integration/12productionUI/lint/types/build PASS; chưa live web/device/deploy. [Bằng chứng](evaluations/web-picture-fallback.md).
+
+
 **12/10 — Đã triển khai [tối ưu flow coding AI, mục 21](#workflow-review).** Đường đọc đã gọn, runner kiểm đúng source và phạm vi; không đổi tính năng app.
 
 **12/10 — ADR082, nhiều ảnh thành một bài chung:** supersede review/save riêng từng ảnh. Toàn bộ preview ở trên, Phân tích ở dưới danh sách. Compact vision đọc tất cả ảnh trước, gom headwords/context rồi enrich4từ/lượt và grammar1400chars; một danh sách word/grammar duyệt và một lần Save tạo một lesson. Source/meaning/grammar checkpoints CAS được ghi xong từng phần trước khi đi tiếp; quota/stop/reload Continue, không auto AI. Exact word/POS/sense và declared grammar family/form dedup, giữ nghĩa/POS khác và câu nguồn. Snapshot ảnh/model/mode đổi chặn Save; transaction kiểm source revisions và idempotency; max10ảnh/500raw/100ktext/200learning, per-image caps và source-limit khôngsilentlydrop. Legacy per-photo drafts/lessons giữ. [Bằng chứng](evaluations/merged-photo-lesson.md). **Hoàn tất local:**61focused tests +14caUI mobile/desktop PASS (gồm regression mộtảnh); lint/typecheck/build/docs PASS. Chưa liveAI/physical-phone/hostedsync/deploy. Next: founder refresh bản local để dùng luồng chung.

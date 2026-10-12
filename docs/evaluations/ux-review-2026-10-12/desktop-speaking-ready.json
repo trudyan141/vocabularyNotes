@@ -1,0 +1,49 @@
+{
+  "url": "/practice/speaking",
+  "title": "Nói cùng Cáo",
+  "scrollHeight": 1020,
+  "viewport": [
+    1280,
+    1000
+  ],
+  "overflow": false,
+  "text": "Quay lại\nNói cùng Cáo\n\nNghe mẫu, rồi chạm mic để nói.\n\n1 / 5\napple\nNghe\nNói\n\nTừ tiếp theo\nBỏ qua",
+  "controls": [
+    {
+      "text": "Quay lại",
+      "tag": "A",
+      "w": 123,
+      "h": 48,
+      "top": 120
+    },
+    {
+      "text": "Nghe",
+      "tag": "BUTTON",
+      "w": 100,
+      "h": 48,
+      "top": 671
+    },
+    {
+      "text": "Nói",
+      "tag": "BUTTON",
+      "w": 94,
+      "h": 56,
+      "top": 671
+    },
+    {
+      "text": "Từ tiếp theo",
+      "tag": "BUTTON",
+      "w": 151,
+      "h": 48,
+      "top": 799
+    },
+    {
+      "text": "Bỏ qua",
+      "tag": "BUTTON",
+      "w": 93,
+      "h": 48,
+      "top": 799
+    }
+  ],
+  "run": "ug0tU3"
+}

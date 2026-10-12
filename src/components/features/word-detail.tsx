@@ -101,7 +101,13 @@ export function WordDetail({ id }: { id: string }) {
         <p className="muted">{entry.exampleVi}</p>
         {entry.examplePronunciations.map((p,i)=>p.readingHintVi?<p key={i} className="reading-hint">{t("Cách đọc gần đúng: ","Reading hint: ")}{p.readingHintVi}</p>:null)}
       </section>
-      <WordLearningContent word={entry} examplesOnly/>
+      <Button asChild size="lg">
+        <Link prefetch={false} href={`/practice?word=${entry.id}`}>
+          <Play data-icon="inline-start" />
+          {t("Ôn từ này", "Review this word")}
+        </Link>
+      </Button>
+      <details className="word-more-examples"><summary>{t("Ví dụ thêm","More examples")}</summary><WordLearningContent word={entry} examplesOnly/></details>
       {!entry.art && (
         <Alert>
           <AlertTitle>
@@ -115,12 +121,7 @@ export function WordDetail({ id }: { id: string }) {
           </AlertDescription>
         </Alert>
       )}
-      <Button asChild size="lg">
-        <Link prefetch={false} href={`/practice?word=${entry.id}`}>
-          <Play data-icon="inline-start" />
-          {t("Ôn từ này", "Review this word")}
-        </Link>
-      </Button>
+
 
 
     </article>

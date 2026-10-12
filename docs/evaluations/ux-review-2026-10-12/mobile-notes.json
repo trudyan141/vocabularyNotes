@@ -1,0 +1,42 @@
+{
+  "url": "/library/words/apple/notes",
+  "title": "Ghi chú của bạn: apple",
+  "scrollHeight": 872,
+  "viewport": [
+    360,
+    800
+  ],
+  "overflow": false,
+  "text": "Quay lại\nGhi chú của bạn: apple\nGhi chú giúp con nhớ\nCách minh hoạ\nChỉ ghi chú\nTừ → nghĩa → ví dụ\nĐọc câu từng cụm\nShe likes → They like\nLưu và duyệt ghi chú",
+  "controls": [
+    {
+      "text": "Quay lại",
+      "tag": "A",
+      "w": 123,
+      "h": 48,
+      "top": 92
+    },
+    {
+      "text": "parent-note",
+      "tag": "TEXTAREA",
+      "w": 328,
+      "h": 128,
+      "top": 256
+    },
+    {
+      "text": "Chỉ ghi chúTừ → nghĩa → ví dụĐọc câu từng cụmShe likes → They like",
+      "tag": "SELECT",
+      "w": 328,
+      "h": 24,
+      "top": 442
+    },
+    {
+      "text": "Lưu và duyệt ghi chú",
+      "tag": "BUTTON",
+      "w": 328,
+      "h": 48,
+      "top": 482
+    }
+  ],
+  "run": "kJRyC2"
+}

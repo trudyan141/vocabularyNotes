@@ -32,7 +32,7 @@ export function LessonLibrary() {
   return <div className="reading-page page-flow lesson-library">
     <Back href="/library"/>
     <header className="lesson-library-heading">
-      <div><h1>{t('Bộ từ theo ngày','Word sets by date')}</h1><p>{t('Tìm bài của con, cùng ôn một chút nhé!','Find your lesson. Let’s learn a little together!')}</p></div>
+      <div><h1>{t('Bài theo ngày','Lessons by date')}</h1><p>{t('Tìm bài của con, cùng ôn một chút nhé!','Find your lesson. Let’s learn a little together!')}</p></div>
       {addPhoto}
     </header>
     <div className="lesson-search">

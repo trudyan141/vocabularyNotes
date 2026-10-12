@@ -1,6 +1,6 @@
 import {test,expect,type Page} from '@playwright/test';
 test.beforeEach(async({page})=>{await page.route('**/api/auth/status',route=>route.fulfill({json:{configured:false,user:null}}));});
-async function open(page:Page){await page.goto('/library/words/apple/edit');await page.getByText('Đổi hình',{exact:true}).click();await expect(page.getByRole('button',{name:'Dán ảnh',exact:true})).toBeEnabled();}
+async function open(page:Page){await page.goto('/library/words/apple/edit');await page.getByText('Đổi hình',{exact:true}).click();await page.locator('.picture-intake-tools > summary').click();await expect(page.getByRole('button',{name:'Dán ảnh',exact:true})).toBeEnabled();}
 async function picture(page:Page){return page.evaluate(()=>{const canvas=document.createElement('canvas');canvas.width=180;canvas.height=120;const ctx=canvas.getContext('2d')!;ctx.fillStyle='#a8dece';ctx.fillRect(0,0,180,120);return canvas.toDataURL('image/png').split(',')[1];});}
 test('drop and keyboard paste use real upload and stage the image until the common Save',async({page},info)=>{
  await open(page);const base64=await picture(page);
@@ -13,7 +13,7 @@ test('drop and keyboard paste use real upload and stage the image until the comm
  }
  await page.getByRole('button',{name:'Lưu chỉnh sửa',exact:true}).click();await expect(page.getByRole('button',{name:'Đã lưu chỉnh sửa',exact:true})).toBeVisible();
  await page.reload();await expect(page.locator('.staged-picture img')).toHaveAttribute('src',/^data:image\/jpeg;base64,/);
- await page.screenshot({path:`docs/evaluations/picture-intake-saved-${info.project.name}.png`});
+ await page.screenshot({path:info.outputPath('picture-intake-saved.png')});
 });
 test('mobile paste button reads clipboard image; text paste stays normal and denied clipboard is actionable',async({page},info)=>{
  await open(page);await page.getByText('Dùng ảnh khác',{exact:true}).click();
@@ -22,7 +22,7 @@ test('mobile paste button reads clipboard image; text paste stays normal and den
  await page.getByRole('button',{name:'Dán ảnh',exact:true}).click();await expect(page.locator('.word-picture-search [role=alert]')).toContainText('Cho phép dán');
  const base64=await picture(page);await page.evaluate(base64=>Object.defineProperty(navigator.clipboard,'read',{configurable:true,value:async()=>[{types:['image/png'],getType:async()=>new Blob([Uint8Array.from(atob(base64),c=>c.charCodeAt(0))],{type:'image/png'})}]}),base64);
  const uploaded=page.waitForResponse(response=>response.url().endsWith('/api/media/upload'));await page.getByRole('button',{name:'Dán ảnh',exact:true}).click();expect((await uploaded).status()).toBe(200);await expect(page.locator('.staged-picture')).toContainText('Hình đã chọn');
- await page.screenshot({path:`docs/evaluations/picture-intake-paste-${info.project.name}.png`});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+ await page.screenshot({path:info.outputPath('picture-intake-paste.png')});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
 test('invalid, multiple and oversized dropped files do not upload; failed upload keeps current image',async({page})=>{
  await open(page);let calls=0;await page.route('**/api/media/upload',route=>{calls++;return route.fulfill({status:503,json:{error:'unavailable'}});});

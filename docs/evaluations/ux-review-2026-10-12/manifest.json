@@ -1,0 +1,1213 @@
+{
+  "runs": [
+    {
+      "startedAt": "2026-10-12T12:00:25.909Z",
+      "sourceRoot": "/Users/trunglk/Documents/trung-github/VocabularyNotes",
+      "commit": "bc2983a1c8ed5914fe7cfeb830e71bbbcb358050",
+      "fingerprint": "359b4c41ca9f549d543bb9053c2e96fb848ec1dddb0fa7fb4b290b32a8065c0d",
+      "scope": "ui",
+      "mode": "dev",
+      "specs": [
+        "ux-plan-audit.spec.ts"
+      ],
+      "node": "v24.14.1",
+      "provider": "fixture",
+      "commands": [
+        {
+          "label": "discovery",
+          "command": [
+            "pnpm",
+            "exec",
+            "playwright",
+            "test",
+            "--config",
+            "playwright.scoped.config.ts",
+            "--list",
+            "--reporter=list"
+          ],
+          "elapsedMs": 1069,
+          "exitCode": 0,
+          "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-kJRyC2/discovery.log"
+        },
+        {
+          "label": "prepare",
+          "command": [
+            "pnpm",
+            "run",
+            "predev"
+          ],
+          "elapsedMs": 7391,
+          "exitCode": 0,
+          "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-kJRyC2/prepare.log"
+        },
+        {
+          "label": "browser",
+          "command": [
+            "pnpm",
+            "exec",
+            "playwright",
+            "test",
+            "--config",
+            "playwright.scoped.config.ts",
+            "--reporter=line"
+          ],
+          "elapsedMs": 257619,
+          "exitCode": 1,
+          "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-kJRyC2/browser.log"
+        }
+      ],
+      "tokens": "unavailable",
+      "discoveredTests": 2,
+      "snapshot": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-source-KZKIb3",
+      "status": "failed",
+      "finishedAt": "2026-10-12T12:04:53.927Z"
+    },
+    {
+      "startedAt": "2026-10-12T12:05:43.180Z",
+      "sourceRoot": "/Users/trunglk/Documents/trung-github/VocabularyNotes",
+      "commit": "bc2983a1c8ed5914fe7cfeb830e71bbbcb358050",
+      "fingerprint": "9a548f8d512474b58db139350355eae30e0795d979e4da0de725197b64d4f289",
+      "scope": "ui",
+      "mode": "dev",
+      "specs": [
+        "ux-plan-audit.spec.ts"
+      ],
+      "node": "v24.14.1",
+      "provider": "fixture",
+      "commands": [
+        {
+          "label": "discovery",
+          "command": [
+            "pnpm",
+            "exec",
+            "playwright",
+            "test",
+            "--config",
+            "playwright.scoped.config.ts",
+            "--list",
+            "--reporter=list"
+          ],
+          "elapsedMs": 974,
+          "exitCode": 0,
+          "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-uP4oyV/discovery.log"
+        },
+        {
+          "label": "prepare",
+          "command": [
+            "pnpm",
+            "run",
+            "predev"
+          ],
+          "elapsedMs": 7050,
+          "exitCode": 0,
+          "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-uP4oyV/prepare.log"
+        },
+        {
+          "label": "browser",
+          "command": [
+            "pnpm",
+            "exec",
+            "playwright",
+            "test",
+            "--config",
+            "playwright.scoped.config.ts",
+            "--reporter=line"
+          ],
+          "elapsedMs": 23283,
+          "exitCode": 1,
+          "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-uP4oyV/browser.log"
+        }
+      ],
+      "tokens": "unavailable",
+      "discoveredTests": 2,
+      "snapshot": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-source-9y0eTt",
+      "status": "failed",
+      "finishedAt": "2026-10-12T12:06:16.438Z"
+    },
+    {
+      "startedAt": "2026-10-12T12:06:55.567Z",
+      "sourceRoot": "/Users/trunglk/Documents/trung-github/VocabularyNotes",
+      "commit": "bc2983a1c8ed5914fe7cfeb830e71bbbcb358050",
+      "fingerprint": "e89d35ab001a95fe5394d5f84965bdd21157b968625aeafa84f0b91f4e49ba7d",
+      "scope": "ui",
+      "mode": "dev",
+      "specs": [
+        "ux-plan-audit.spec.ts"
+      ],
+      "node": "v24.14.1",
+      "provider": "fixture",
+      "commands": [
+        {
+          "label": "discovery",
+          "command": [
+            "pnpm",
+            "exec",
+            "playwright",
+            "test",
+            "--config",
+            "playwright.scoped.config.ts",
+            "--list",
+            "--reporter=list"
+          ],
+          "elapsedMs": 815,
+          "exitCode": 0,
+          "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-MAGJDF/discovery.log"
+        },
+        {
+          "label": "prepare",
+          "command": [
+            "pnpm",
+            "run",
+            "predev"
+          ],
+          "elapsedMs": 6643,
+          "exitCode": 0,
+          "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-MAGJDF/prepare.log"
+        },
+        {
+          "label": "browser",
+          "command": [
+            "pnpm",
+            "exec",
+            "playwright",
+            "test",
+            "--config",
+            "playwright.scoped.config.ts",
+            "--reporter=line"
+          ],
+          "elapsedMs": 250191,
+          "exitCode": 1,
+          "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-MAGJDF/browser.log"
+        }
+      ],
+      "tokens": "unavailable",
+      "discoveredTests": 2,
+      "snapshot": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-source-Zd0h4l",
+      "status": "failed",
+      "finishedAt": "2026-10-12T12:11:15.411Z"
+    },
+    {
+      "startedAt": "2026-10-12T12:12:13.516Z",
+      "sourceRoot": "/Users/trunglk/Documents/trung-github/VocabularyNotes",
+      "commit": "bc2983a1c8ed5914fe7cfeb830e71bbbcb358050",
+      "fingerprint": "3f24cbb34033d16e12155b39aa006d6b76bd236b5c0c0c48bca73ef1d668b2d0",
+      "scope": "ui",
+      "mode": "dev",
+      "specs": [
+        "ux-plan-audit.spec.ts"
+      ],
+      "node": "v24.14.1",
+      "provider": "fixture",
+      "commands": [
+        {
+          "label": "discovery",
+          "command": [
+            "pnpm",
+            "exec",
+            "playwright",
+            "test",
+            "--config",
+            "playwright.scoped.config.ts",
+            "--list",
+            "--reporter=list"
+          ],
+          "elapsedMs": 922,
+          "exitCode": 0,
+          "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-ug0tU3/discovery.log"
+        },
+        {
+          "label": "prepare",
+          "command": [
+            "pnpm",
+            "run",
+            "predev"
+          ],
+          "elapsedMs": 9414,
+          "exitCode": 0,
+          "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-ug0tU3/prepare.log"
+        },
+        {
+          "label": "browser",
+          "command": [
+            "pnpm",
+            "exec",
+            "playwright",
+            "test",
+            "--config",
+            "playwright.scoped.config.ts",
+            "--reporter=line"
+          ],
+          "elapsedMs": 125561,
+          "exitCode": 1,
+          "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-ug0tU3/browser.log"
+        }
+      ],
+      "tokens": "unavailable",
+      "discoveredTests": 4,
+      "snapshot": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-source-idYrEH",
+      "status": "failed",
+      "finishedAt": "2026-10-12T12:14:32.391Z"
+    },
+    {
+      "startedAt": "2026-10-12T12:15:02.011Z",
+      "sourceRoot": "/Users/trunglk/Documents/trung-github/VocabularyNotes",
+      "commit": "bc2983a1c8ed5914fe7cfeb830e71bbbcb358050",
+      "fingerprint": "3f24cbb34033d16e12155b39aa006d6b76bd236b5c0c0c48bca73ef1d668b2d0",
+      "scope": "ui",
+      "mode": "dev",
+      "specs": [
+        "ux-plan-audit.spec.ts"
+      ],
+      "node": "v24.14.1",
+      "provider": "fixture",
+      "commands": [
+        {
+          "label": "discovery",
+          "command": [
+            "pnpm",
+            "exec",
+            "playwright",
+            "test",
+            "--config",
+            "playwright.scoped.config.ts",
+            "--grep",
+            "settled grammar",
+            "--project",
+            "desktop-chromium",
+            "--list",
+            "--reporter=list"
+          ],
+          "elapsedMs": 838,
+          "exitCode": 0,
+          "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-0YKWRY/discovery.log"
+        },
+        {
+          "label": "browser",
+          "command": [
+            "pnpm",
+            "exec",
+            "playwright",
+            "test",
+            "--config",
+            "playwright.scoped.config.ts",
+            "--grep",
+            "settled grammar",
+            "--project",
+            "desktop-chromium",
+            "--reporter=line"
+          ],
+          "elapsedMs": 43322,
+          "exitCode": 0,
+          "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-0YKWRY/browser.log"
+        }
+      ],
+      "tokens": "unavailable",
+      "discoveredTests": 1,
+      "snapshot": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-source-idYrEH",
+      "status": "passed",
+      "finishedAt": "2026-10-12T12:15:47.128Z"
+    }
+  ],
+  "captures": [
+    {
+      "name": "404",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/ux-audit-missing",
+      "file": "desktop-404.webp",
+      "height": 1000,
+      "overflow": false
+    },
+    {
+      "name": "account",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/account",
+      "file": "desktop-account.webp",
+      "height": 1624,
+      "overflow": false
+    },
+    {
+      "name": "add",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/add",
+      "file": "desktop-add.webp",
+      "height": 2462,
+      "overflow": false
+    },
+    {
+      "name": "capture",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/capture",
+      "file": "desktop-capture.webp",
+      "height": 1020,
+      "overflow": false
+    },
+    {
+      "name": "deck-editor",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/practice/decks",
+      "file": "desktop-deck-editor.webp",
+      "height": 1521,
+      "overflow": false
+    },
+    {
+      "name": "demo",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/lessons/demo",
+      "file": "desktop-demo.webp",
+      "height": 1020,
+      "overflow": false
+    },
+    {
+      "name": "flashcard-revealed",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/practice",
+      "file": "desktop-flashcard-revealed.webp",
+      "height": 1044,
+      "overflow": false
+    },
+    {
+      "name": "flashcard",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/practice",
+      "file": "desktop-flashcard.webp",
+      "height": 1020,
+      "overflow": false
+    },
+    {
+      "name": "grammar-list",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/library?mode=grammar",
+      "file": "desktop-grammar-list.webp",
+      "height": 1020,
+      "overflow": false
+    },
+    {
+      "name": "group-editor",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/library/groups/edit",
+      "file": "desktop-group-editor.webp",
+      "height": 1513,
+      "overflow": false
+    },
+    {
+      "name": "group-review",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/practice/groups",
+      "file": "desktop-group-review.webp",
+      "height": 1020,
+      "overflow": false
+    },
+    {
+      "name": "groups",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/library/groups",
+      "file": "desktop-groups.webp",
+      "height": 1020,
+      "overflow": false
+    },
+    {
+      "name": "lessons",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/library/lessons",
+      "file": "desktop-lessons.webp",
+      "height": 1131,
+      "overflow": false
+    },
+    {
+      "name": "library",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/library",
+      "file": "desktop-library.webp",
+      "height": 3183,
+      "overflow": false
+    },
+    {
+      "name": "notes",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/library/words/apple/notes",
+      "file": "desktop-notes.webp",
+      "height": 1020,
+      "overflow": false
+    },
+    {
+      "name": "paused",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/practice",
+      "file": "desktop-paused.webp",
+      "height": 1286,
+      "overflow": false
+    },
+    {
+      "name": "photo-editor",
+      "platform": "desktop",
+      "run": "MAGJDF",
+      "url": "/capture/c12d6d05-847a-4abd-aeba-51985d6e080e/edit",
+      "file": "desktop-photo-editor.webp",
+      "height": 1337,
+      "overflow": false
+    },
+    {
+      "name": "photo-extract",
+      "platform": "desktop",
+      "run": "MAGJDF",
+      "url": "/capture/c12d6d05-847a-4abd-aeba-51985d6e080e/extract",
+      "file": "desktop-photo-extract.webp",
+      "height": 1020,
+      "overflow": false
+    },
+    {
+      "name": "picture-feedback",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/practice",
+      "file": "desktop-picture-feedback.webp",
+      "height": 1020,
+      "overflow": false
+    },
+    {
+      "name": "picture-game",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/practice",
+      "file": "desktop-picture-game.webp",
+      "height": 1020,
+      "overflow": false
+    },
+    {
+      "name": "play",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/practice",
+      "file": "desktop-play.webp",
+      "height": 1092,
+      "overflow": false
+    },
+    {
+      "name": "prepare",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/library/prepare",
+      "file": "desktop-prepare.webp",
+      "height": 1020,
+      "overflow": false
+    },
+    {
+      "name": "profile",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/profile",
+      "file": "desktop-profile.webp",
+      "height": 1624,
+      "overflow": false
+    },
+    {
+      "name": "search-empty",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/library",
+      "file": "desktop-search-empty.webp",
+      "height": 1178,
+      "overflow": false
+    },
+    {
+      "name": "settings",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/settings",
+      "file": "desktop-settings.webp",
+      "height": 1360,
+      "overflow": false
+    },
+    {
+      "name": "sound-reenabled",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/settings",
+      "file": "desktop-sound-reenabled.webp",
+      "height": 1360,
+      "overflow": false
+    },
+    {
+      "name": "speaking-game",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/practice/speaking",
+      "file": "desktop-speaking-game.webp",
+      "height": 1020,
+      "overflow": false
+    },
+    {
+      "name": "speaking-loading",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/practice/speaking",
+      "file": "desktop-speaking-loading.webp",
+      "height": 1020,
+      "overflow": false
+    },
+    {
+      "name": "today",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/today",
+      "file": "desktop-today.webp",
+      "height": 1099,
+      "overflow": false
+    },
+    {
+      "name": "welcome",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/welcome",
+      "file": "desktop-welcome.webp",
+      "height": 1000,
+      "overflow": false
+    },
+    {
+      "name": "word-editor",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/library/words/apple/edit",
+      "file": "desktop-word-editor.webp",
+      "height": 1466,
+      "overflow": false
+    },
+    {
+      "name": "word",
+      "platform": "desktop",
+      "run": "kJRyC2",
+      "url": "/library/words/apple",
+      "file": "desktop-word.webp",
+      "height": 1461,
+      "overflow": false
+    },
+    {
+      "name": "404",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/ux-audit-missing",
+      "file": "mobile-404.webp",
+      "height": 800,
+      "overflow": false
+    },
+    {
+      "name": "account",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/account",
+      "file": "mobile-account.webp",
+      "height": 2112,
+      "overflow": false
+    },
+    {
+      "name": "add",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/add",
+      "file": "mobile-add.webp",
+      "height": 2556,
+      "overflow": false
+    },
+    {
+      "name": "capture",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/capture",
+      "file": "mobile-capture.webp",
+      "height": 937,
+      "overflow": false
+    },
+    {
+      "name": "deck-editor",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/practice/decks",
+      "file": "mobile-deck-editor.webp",
+      "height": 2189,
+      "overflow": false
+    },
+    {
+      "name": "demo",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/lessons/demo",
+      "file": "mobile-demo.webp",
+      "height": 872,
+      "overflow": false
+    },
+    {
+      "name": "flashcard-revealed",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/practice",
+      "file": "mobile-flashcard-revealed.webp",
+      "height": 1116,
+      "overflow": false
+    },
+    {
+      "name": "flashcard",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/practice",
+      "file": "mobile-flashcard.webp",
+      "height": 872,
+      "overflow": false
+    },
+    {
+      "name": "grammar-list",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/library?mode=grammar",
+      "file": "mobile-grammar-list.webp",
+      "height": 899,
+      "overflow": false
+    },
+    {
+      "name": "group-editor",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/library/groups/edit",
+      "file": "mobile-group-editor.webp",
+      "height": 2214,
+      "overflow": false
+    },
+    {
+      "name": "group-review",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/practice/groups",
+      "file": "mobile-group-review.webp",
+      "height": 872,
+      "overflow": false
+    },
+    {
+      "name": "groups",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/library/groups",
+      "file": "mobile-groups.webp",
+      "height": 872,
+      "overflow": false
+    },
+    {
+      "name": "lessons",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/library/lessons",
+      "file": "mobile-lessons.webp",
+      "height": 1622,
+      "overflow": false
+    },
+    {
+      "name": "library",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/library",
+      "file": "mobile-library.webp",
+      "height": 3337,
+      "overflow": false
+    },
+    {
+      "name": "notes",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/library/words/apple/notes",
+      "file": "mobile-notes.webp",
+      "height": 872,
+      "overflow": false
+    },
+    {
+      "name": "paused",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/practice",
+      "file": "mobile-paused.webp",
+      "height": 1276,
+      "overflow": false
+    },
+    {
+      "name": "photo-editor",
+      "platform": "mobile",
+      "run": "MAGJDF",
+      "url": "/capture/c0da4402-34ef-4273-8aa3-6cc2e129fdbd/edit",
+      "file": "mobile-photo-editor.webp",
+      "height": 1818,
+      "overflow": false
+    },
+    {
+      "name": "photo-extract",
+      "platform": "mobile",
+      "run": "MAGJDF",
+      "url": "/capture/c0da4402-34ef-4273-8aa3-6cc2e129fdbd/extract",
+      "file": "mobile-photo-extract.webp",
+      "height": 876,
+      "overflow": false
+    },
+    {
+      "name": "picture-feedback",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/practice",
+      "file": "mobile-picture-feedback.webp",
+      "height": 911,
+      "overflow": false
+    },
+    {
+      "name": "picture-game",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/practice",
+      "file": "mobile-picture-game.webp",
+      "height": 872,
+      "overflow": false
+    },
+    {
+      "name": "play",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/practice",
+      "file": "mobile-play.webp",
+      "height": 1090,
+      "overflow": false
+    },
+    {
+      "name": "prepare",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/library/prepare",
+      "file": "mobile-prepare.webp",
+      "height": 1122,
+      "overflow": false
+    },
+    {
+      "name": "profile",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/profile",
+      "file": "mobile-profile.webp",
+      "height": 2112,
+      "overflow": false
+    },
+    {
+      "name": "search-empty",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/library",
+      "file": "mobile-search-empty.webp",
+      "height": 1313,
+      "overflow": false
+    },
+    {
+      "name": "settings",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/settings",
+      "file": "mobile-settings.webp",
+      "height": 1493,
+      "overflow": false
+    },
+    {
+      "name": "sound-reenabled",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/settings",
+      "file": "mobile-sound-reenabled.webp",
+      "height": 1493,
+      "overflow": false
+    },
+    {
+      "name": "speaking-game",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/practice/speaking",
+      "file": "mobile-speaking-game.webp",
+      "height": 877,
+      "overflow": false
+    },
+    {
+      "name": "speaking-loading",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/practice/speaking",
+      "file": "mobile-speaking-loading.webp",
+      "height": 872,
+      "overflow": false
+    },
+    {
+      "name": "today",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/today",
+      "file": "mobile-today.webp",
+      "height": 1504,
+      "overflow": false
+    },
+    {
+      "name": "welcome",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/welcome",
+      "file": "mobile-welcome.webp",
+      "height": 800,
+      "overflow": false
+    },
+    {
+      "name": "word-editor",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/library/words/apple/edit",
+      "file": "mobile-word-editor.webp",
+      "height": 2251,
+      "overflow": false
+    },
+    {
+      "name": "word",
+      "platform": "mobile",
+      "run": "kJRyC2",
+      "url": "/library/words/apple",
+      "file": "mobile-word.webp",
+      "height": 1648,
+      "overflow": false
+    },
+    {
+      "name": "batch-review-expanded",
+      "platform": "desktop",
+      "run": "MAGJDF",
+      "url": "/capture/batch/9a6579a2-51e2-43d8-919b-af24350d8516",
+      "file": "desktop-batch-review-expanded.webp",
+      "height": 2496,
+      "overflow": false
+    },
+    {
+      "name": "batch-review",
+      "platform": "desktop",
+      "run": "MAGJDF",
+      "url": "/capture/batch/9a6579a2-51e2-43d8-919b-af24350d8516",
+      "file": "desktop-batch-review.webp",
+      "height": 1458,
+      "overflow": false
+    },
+    {
+      "name": "batch",
+      "platform": "desktop",
+      "run": "MAGJDF",
+      "url": "/capture/batch/9a6579a2-51e2-43d8-919b-af24350d8516",
+      "file": "desktop-batch.webp",
+      "height": 1065,
+      "overflow": false
+    },
+    {
+      "name": "legacy-review",
+      "platform": "desktop",
+      "run": "MAGJDF",
+      "url": "/capture/c12d6d05-847a-4abd-aeba-51985d6e080e/review",
+      "file": "desktop-legacy-review.webp",
+      "height": 1020,
+      "overflow": false
+    },
+    {
+      "name": "mic-error",
+      "platform": "desktop",
+      "run": "MAGJDF",
+      "url": "/practice/speaking",
+      "file": "desktop-mic-error.webp",
+      "height": 1020,
+      "overflow": false
+    },
+    {
+      "name": "notification-draft",
+      "platform": "desktop",
+      "run": "MAGJDF",
+      "url": "/notifications/image-draft",
+      "file": "desktop-notification-draft.webp",
+      "height": 1020,
+      "overflow": false
+    },
+    {
+      "name": "batch-review-expanded",
+      "platform": "mobile",
+      "run": "MAGJDF",
+      "url": "/capture/batch/199b0d2e-fc8f-489f-a575-855021e1f7f2",
+      "file": "mobile-batch-review-expanded.webp",
+      "height": 2520,
+      "overflow": false
+    },
+    {
+      "name": "batch-review",
+      "platform": "mobile",
+      "run": "MAGJDF",
+      "url": "/capture/batch/199b0d2e-fc8f-489f-a575-855021e1f7f2",
+      "file": "mobile-batch-review.webp",
+      "height": 1518,
+      "overflow": false
+    },
+    {
+      "name": "batch",
+      "platform": "mobile",
+      "run": "MAGJDF",
+      "url": "/capture/batch/199b0d2e-fc8f-489f-a575-855021e1f7f2",
+      "file": "mobile-batch.webp",
+      "height": 1155,
+      "overflow": false
+    },
+    {
+      "name": "legacy-review",
+      "platform": "mobile",
+      "run": "MAGJDF",
+      "url": "/capture/c0da4402-34ef-4273-8aa3-6cc2e129fdbd/review",
+      "file": "mobile-legacy-review.webp",
+      "height": 872,
+      "overflow": false
+    },
+    {
+      "name": "mic-error",
+      "platform": "mobile",
+      "run": "MAGJDF",
+      "url": "/practice/speaking",
+      "file": "mobile-mic-error.webp",
+      "height": 935,
+      "overflow": false
+    },
+    {
+      "name": "notification-draft",
+      "platform": "mobile",
+      "run": "MAGJDF",
+      "url": "/notifications/image-draft",
+      "file": "mobile-notification-draft.webp",
+      "height": 872,
+      "overflow": false
+    },
+    {
+      "name": "letters",
+      "platform": "desktop",
+      "run": "ug0tU3",
+      "url": "/practice",
+      "file": "desktop-letters.webp",
+      "height": 1020,
+      "overflow": false
+    },
+    {
+      "name": "review-results",
+      "platform": "desktop",
+      "run": "ug0tU3",
+      "url": "/practice",
+      "file": "desktop-review-results.webp",
+      "height": 1020,
+      "overflow": false
+    },
+    {
+      "name": "speaking-ready",
+      "platform": "desktop",
+      "run": "ug0tU3",
+      "url": "/practice/speaking",
+      "file": "desktop-speaking-ready.webp",
+      "height": 1020,
+      "overflow": false
+    },
+    {
+      "name": "speaking-results",
+      "platform": "desktop",
+      "run": "ug0tU3",
+      "url": "/practice/speaking",
+      "file": "desktop-speaking-results.webp",
+      "height": 1020,
+      "overflow": false
+    },
+    {
+      "name": "spelling",
+      "platform": "desktop",
+      "run": "ug0tU3",
+      "url": "/practice",
+      "file": "desktop-spelling.webp",
+      "height": 1020,
+      "overflow": false
+    },
+    {
+      "name": "word-picture",
+      "platform": "desktop",
+      "run": "ug0tU3",
+      "url": "/practice",
+      "file": "desktop-word-picture.webp",
+      "height": 1020,
+      "overflow": false
+    },
+    {
+      "name": "letters",
+      "platform": "mobile",
+      "run": "ug0tU3",
+      "url": "/practice",
+      "file": "mobile-letters.webp",
+      "height": 878,
+      "overflow": false
+    },
+    {
+      "name": "review-results",
+      "platform": "mobile",
+      "run": "ug0tU3",
+      "url": "/practice",
+      "file": "mobile-review-results.webp",
+      "height": 872,
+      "overflow": false
+    },
+    {
+      "name": "speaking-ready",
+      "platform": "mobile",
+      "run": "ug0tU3",
+      "url": "/practice/speaking",
+      "file": "mobile-speaking-ready.webp",
+      "height": 877,
+      "overflow": false
+    },
+    {
+      "name": "speaking-results",
+      "platform": "mobile",
+      "run": "ug0tU3",
+      "url": "/practice/speaking",
+      "file": "mobile-speaking-results.webp",
+      "height": 872,
+      "overflow": false
+    },
+    {
+      "name": "spelling",
+      "platform": "mobile",
+      "run": "ug0tU3",
+      "url": "/practice",
+      "file": "mobile-spelling.webp",
+      "height": 872,
+      "overflow": false
+    },
+    {
+      "name": "word-picture",
+      "platform": "mobile",
+      "run": "ug0tU3",
+      "url": "/practice",
+      "file": "mobile-word-picture.webp",
+      "height": 872,
+      "overflow": false
+    },
+    {
+      "name": "grammar-detail",
+      "platform": "desktop",
+      "run": "0YKWRY",
+      "url": "/library/grammar/extra-apple?table=sentences",
+      "file": "desktop-grammar-detail.webp",
+      "height": 1099,
+      "overflow": false
+    },
+    {
+      "name": "library-en",
+      "platform": "desktop",
+      "run": "0YKWRY",
+      "url": "/library",
+      "file": "desktop-library-en.webp",
+      "height": 3183,
+      "overflow": false
+    },
+    {
+      "name": "welcome-app-reduced",
+      "platform": "desktop",
+      "run": "0YKWRY",
+      "url": "/welcome",
+      "file": "desktop-welcome-app-reduced.webp",
+      "height": 1000,
+      "overflow": false
+    },
+    {
+      "name": "welcome-os-reduced",
+      "platform": "desktop",
+      "run": "0YKWRY",
+      "url": "/welcome",
+      "file": "desktop-welcome-os-reduced.webp",
+      "height": 1000,
+      "overflow": false
+    },
+    {
+      "name": "grammar-detail",
+      "platform": "mobile",
+      "run": "ug0tU3",
+      "url": "/library/grammar/extra-apple?table=sentences",
+      "file": "mobile-grammar-detail.webp",
+      "height": 1280,
+      "overflow": false
+    },
+    {
+      "name": "grammar-game",
+      "platform": "mobile",
+      "run": "ug0tU3",
+      "url": "/practice",
+      "file": "mobile-grammar-game.webp",
+      "height": 872,
+      "overflow": false
+    },
+    {
+      "name": "library-en",
+      "platform": "mobile",
+      "run": "ug0tU3",
+      "url": "/library",
+      "file": "mobile-library-en.webp",
+      "height": 3526,
+      "overflow": false
+    },
+    {
+      "name": "restore-error",
+      "platform": "mobile",
+      "run": "ug0tU3",
+      "url": "/settings",
+      "file": "mobile-restore-error.webp",
+      "height": 1544,
+      "overflow": false
+    },
+    {
+      "name": "welcome-app-reduced",
+      "platform": "mobile",
+      "run": "ug0tU3",
+      "url": "/welcome",
+      "file": "mobile-welcome-app-reduced.webp",
+      "height": 800,
+      "overflow": false
+    },
+    {
+      "name": "welcome-os-reduced",
+      "platform": "mobile",
+      "run": "ug0tU3",
+      "url": "/welcome",
+      "file": "mobile-welcome-os-reduced.webp",
+      "height": 800,
+      "overflow": false
+    },
+    {
+      "name": "grammar-game",
+      "platform": "desktop",
+      "run": "0YKWRY",
+      "url": "/practice",
+      "file": "desktop-grammar-game.webp",
+      "height": 1020,
+      "overflow": false
+    },
+    {
+      "name": "restore-error",
+      "platform": "desktop",
+      "run": "0YKWRY",
+      "url": "/settings",
+      "file": "desktop-restore-error.webp",
+      "height": 1385,
+      "overflow": false
+    }
+  ]
+}

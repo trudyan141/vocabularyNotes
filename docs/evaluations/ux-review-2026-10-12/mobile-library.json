@@ -1,0 +1,210 @@
+{
+  "url": "/library",
+  "title": "Từ của con",
+  "scrollHeight": 3337,
+  "viewport": [
+    360,
+    800
+  ],
+  "overflow": false,
+  "text": "Từ của con\nThêm từ\nBộ từ theo ngày\nNhóm học\nBổ sung hình cho từ\nXem và thêm hình cho những từ còn thiếu\nTừ\nNgữ pháp\nTìm bằng tiếng Anh hoặc tiếng Việt\nTất cả\nChưa có hình\n\n19 từ\n\napple\nquả táo\nbanana\nquả chuối\ngrapes\nquả nho\norange\nquả cam\nmilk\nsữa\nbread\nbánh mì\nwater\nnước\negg\nquả trứng\nbook\nquyển sách\nbag\ncái cặp\npen\nbút mực\ncat\ncon mèo\ndog\ncon chó\nfish\ncon cá\ntree\ncây\nbird\ncon chim\nsun\nmặt trời\ncar\nxe ô tô\nbank\nbank\nngân hàng\nChưa có hình · vẫn xem và học được",
+  "controls": [
+    {
+      "text": "Thêm từ",
+      "tag": "A",
+      "w": 98,
+      "h": 48,
+      "top": 139
+    },
+    {
+      "text": "Bộ từ theo ngày",
+      "tag": "A",
+      "w": 181,
+      "h": 48,
+      "top": 207
+    },
+    {
+      "text": "Nhóm học",
+      "tag": "A",
+      "w": 136,
+      "h": 48,
+      "top": 267
+    },
+    {
+      "text": "Bổ sung hình cho từXem và thêm hình cho những từ còn thiếu",
+      "tag": "A",
+      "w": 328,
+      "h": 112,
+      "top": 335
+    },
+    {
+      "text": "Từ",
+      "tag": "BUTTON",
+      "w": 156,
+      "h": 64,
+      "top": 473
+    },
+    {
+      "text": "Ngữ pháp",
+      "tag": "BUTTON",
+      "w": 156,
+      "h": 64,
+      "top": 473
+    },
+    {
+      "text": "library-search",
+      "tag": "INPUT",
+      "w": 288,
+      "h": 48,
+      "top": 614
+    },
+    {
+      "text": "Tất cả",
+      "tag": "BUTTON",
+      "w": 92,
+      "h": 48,
+      "top": 676
+    },
+    {
+      "text": "Chưa có hình",
+      "tag": "BUTTON",
+      "w": 133,
+      "h": 48,
+      "top": 676
+    },
+    {
+      "text": "applequả táo",
+      "tag": "A",
+      "w": 328,
+      "h": 112,
+      "top": 841
+    },
+    {
+      "text": "bananaquả chuối",
+      "tag": "A",
+      "w": 328,
+      "h": 112,
+      "top": 965
+    },
+    {
+      "text": "grapesquả nho",
+      "tag": "A",
+      "w": 328,
+      "h": 112,
+      "top": 1089
+    },
+    {
+      "text": "orangequả cam",
+      "tag": "A",
+      "w": 328,
+      "h": 112,
+      "top": 1213
+    },
+    {
+      "text": "milksữa",
+      "tag": "A",
+      "w": 328,
+      "h": 112,
+      "top": 1337
+    },
+    {
+      "text": "breadbánh mì",
+      "tag": "A",
+      "w": 328,
+      "h": 112,
+      "top": 1461
+    },
+    {
+      "text": "waternước",
+      "tag": "A",
+      "w": 328,
+      "h": 112,
+      "top": 1585
+    },
+    {
+      "text": "eggquả trứng",
+      "tag": "A",
+      "w": 328,
+      "h": 112,
+      "top": 1709
+    },
+    {
+      "text": "bookquyển sách",
+      "tag": "A",
+      "w": 328,
+      "h": 112,
+      "top": 1833
+    },
+    {
+      "text": "bagcái cặp",
+      "tag": "A",
+      "w": 328,
+      "h": 112,
+      "top": 1957
+    },
+    {
+      "text": "penbút mực",
+      "tag": "A",
+      "w": 328,
+      "h": 112,
+      "top": 2081
+    },
+    {
+      "text": "catcon mèo",
+      "tag": "A",
+      "w": 328,
+      "h": 112,
+      "top": 2205
+    },
+    {
+      "text": "dogcon chó",
+      "tag": "A",
+      "w": 328,
+      "h": 112,
+      "top": 2329
+    },
+    {
+      "text": "fishcon cá",
+      "tag": "A",
+      "w": 328,
+      "h": 112,
+      "top": 2453
+    },
+    {
+      "text": "treecây",
+      "tag": "A",
+      "w": 328,
+      "h": 112,
+      "top": 2577
+    },
+    {
+      "text": "birdcon chim",
+      "tag": "A",
+      "w": 328,
+      "h": 112,
+      "top": 2701
+    },
+    {
+      "text": "sunmặt trời",
+      "tag": "A",
+      "w": 328,
+      "h": 112,
+      "top": 2825
+    },
+    {
+      "text": "carxe ô tô",
+      "tag": "A",
+      "w": 328,
+      "h": 112,
+      "top": 2949
+    },
+    {
+      "text": "bankbankngân hàngChưa có hình · vẫn xem và học được",
+      "tag": "A",
+      "w": 328,
+      "h": 143,
+      "top": 3073
+    }
+  ],
+  "run": "kJRyC2"
+}

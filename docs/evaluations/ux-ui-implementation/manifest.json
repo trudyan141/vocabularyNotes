@@ -1,0 +1,520 @@
+[
+  {
+    "platform": "desktop",
+    "name": "desktop-home",
+    "file": "desktop-home.webp",
+    "test": "compact-home-home-has-two--42387-ts-only-inside-dated-detail-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-home",
+    "file": "mobile-home.webp",
+    "test": "compact-home-home-has-two--42387-ts-only-inside-dated-detail-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-backup",
+    "file": "desktop-backup.webp",
+    "test": "compact-home-one-backup-se-a841b-ely-rejects-invalid-restore-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-backup",
+    "file": "mobile-backup.webp",
+    "test": "compact-home-one-backup-se-a841b-ely-rejects-invalid-restore-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-web-fallback-user-image",
+    "file": "desktop-web-fallback-user-image.webp",
+    "test": "media-source-errors-empty--c8947-e-keeps-its-supplied-source-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-web-fallback-user-image",
+    "file": "mobile-web-fallback-user-image.webp",
+    "test": "media-source-errors-empty--c8947-e-keeps-its-supplied-source-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-empty-source-results",
+    "file": "desktop-empty-source-results.webp",
+    "test": "media-source-errors-empty--e9664-e-online-fallback-available-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-empty-source-results",
+    "file": "mobile-empty-source-results.webp",
+    "test": "media-source-errors-empty--e9664-e-online-fallback-available-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-web-button-with-results",
+    "file": "desktop-web-button-with-results.webp",
+    "test": "media-source-errors-web-se-b99ac-e-current-image-and-results-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-web-button-with-results",
+    "file": "mobile-web-button-with-results.webp",
+    "test": "media-source-errors-web-se-b99ac-e-current-image-and-results-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-merged-photos",
+    "file": "desktop-merged-photos.webp",
+    "test": "search-batch-all-photos-pr-76a83-eanings-reload-and-one-save-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-merged-photos",
+    "file": "mobile-merged-photos.webp",
+    "test": "search-batch-all-photos-pr-76a83-eanings-reload-and-one-save-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-pasted-three-photos",
+    "file": "desktop-pasted-three-photos.webp",
+    "test": "search-batch-paste-repeate-d2a16-nd-title-without-sending-AI-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-pasted-three-photos",
+    "file": "mobile-pasted-three-photos.webp",
+    "test": "search-batch-paste-repeate-d2a16-nd-title-without-sending-AI-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-search",
+    "file": "desktop-search.webp",
+    "test": "search-batch-word-list-gro-0a38e-d-and-visibly-highlights-it-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-search",
+    "file": "mobile-search.webp",
+    "test": "search-batch-word-list-gro-0a38e-d-and-visibly-highlights-it-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-fox-loading",
+    "file": "desktop-fox-loading.webp",
+    "test": "speaking-refresh-Fox-loadi-99e39-nch-assets-match-the-device-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-fox-loading",
+    "file": "mobile-fox-loading.webp",
+    "test": "speaking-refresh-Fox-loadi-99e39-nch-assets-match-the-device-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-inline-word",
+    "file": "desktop-inline-word.webp",
+    "test": "speaking-refresh-Speech-en-366bd-sound-tips-with-icon-replay-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-phonemes",
+    "file": "desktop-phonemes.webp",
+    "test": "speaking-refresh-Speech-en-366bd-sound-tips-with-icon-replay-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-inline-word",
+    "file": "mobile-inline-word.webp",
+    "test": "speaking-refresh-Speech-en-366bd-sound-tips-with-icon-replay-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-phonemes",
+    "file": "mobile-phonemes.webp",
+    "test": "speaking-refresh-Speech-en-366bd-sound-tips-with-icon-replay-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-photo-review",
+    "file": "desktop-photo-review.webp",
+    "test": "ux-refinement-all-photo-pr-32542-eaning-and-direct-selection-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-photo-review",
+    "file": "mobile-photo-review.webp",
+    "test": "ux-refinement-all-photo-pr-32542-eaning-and-direct-selection-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-ratings",
+    "file": "desktop-ratings.webp",
+    "test": "ux-refinement-card-ratings-3a0de-ssions-move-above-new-games-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-ratings",
+    "file": "mobile-ratings.webp",
+    "test": "ux-refinement-card-ratings-3a0de-ssions-move-above-new-games-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-compact-editor",
+    "file": "desktop-compact-editor.webp",
+    "test": "ux-refinement-compact-libr-c644f-e-through-the-shared-action-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-compact-editor",
+    "file": "mobile-compact-editor.webp",
+    "test": "ux-refinement-compact-libr-c644f-e-through-the-shared-action-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-group-preserved",
+    "file": "desktop-group-preserved.webp",
+    "test": "ux-refinement-group-additi-164ae-row-exposes-each-bank-sense-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-group-preserved",
+    "file": "mobile-group-preserved.webp",
+    "test": "ux-refinement-group-additi-164ae-row-exposes-each-bank-sense-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-screen--add",
+    "file": "desktop-screen--add.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-screen--capture",
+    "file": "desktop-screen--capture.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-screen--library-groups-edit",
+    "file": "desktop-screen--library-groups-edit.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-screen--library-groups",
+    "file": "desktop-screen--library-groups.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-screen--library-lessons",
+    "file": "desktop-screen--library-lessons.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-screen--library-mode-grammar",
+    "file": "desktop-screen--library-mode-grammar.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-screen--library-words-apple-edit",
+    "file": "desktop-screen--library-words-apple-edit.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-screen--library-words-apple",
+    "file": "desktop-screen--library-words-apple.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-screen--library",
+    "file": "desktop-screen--library.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-screen--missing-ux-page",
+    "file": "desktop-screen--missing-ux-page.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-screen--practice-decks",
+    "file": "desktop-screen--practice-decks.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-screen--practice-speaking",
+    "file": "desktop-screen--practice-speaking.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-screen--practice",
+    "file": "desktop-screen--practice.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-screen--profile",
+    "file": "desktop-screen--profile.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-screen--settings",
+    "file": "desktop-screen--settings.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-screen--today",
+    "file": "desktop-screen--today.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-screen--welcome",
+    "file": "desktop-screen--welcome.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-screen--add",
+    "file": "mobile-screen--add.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-screen--capture",
+    "file": "mobile-screen--capture.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-screen--library-groups-edit",
+    "file": "mobile-screen--library-groups-edit.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-screen--library-groups",
+    "file": "mobile-screen--library-groups.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-screen--library-lessons",
+    "file": "mobile-screen--library-lessons.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-screen--library-mode-grammar",
+    "file": "mobile-screen--library-mode-grammar.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-screen--library-words-apple-edit",
+    "file": "mobile-screen--library-words-apple-edit.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-screen--library-words-apple",
+    "file": "mobile-screen--library-words-apple.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-screen--library",
+    "file": "mobile-screen--library.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-screen--missing-ux-page",
+    "file": "mobile-screen--missing-ux-page.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-screen--practice-decks",
+    "file": "mobile-screen--practice-decks.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-screen--practice-speaking",
+    "file": "mobile-screen--practice-speaking.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-screen--practice",
+    "file": "mobile-screen--practice.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-screen--profile",
+    "file": "mobile-screen--profile.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-screen--settings",
+    "file": "mobile-screen--settings.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-screen--today",
+    "file": "mobile-screen--today.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-screen--welcome",
+    "file": "mobile-screen--welcome.webp",
+    "test": "ux-refinement-main-screens-0fb88-overy-and-responsive-layout-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-grammar-static",
+    "file": "desktop-grammar-static.webp",
+    "test": "ux-refinement-reduced-moti-a75fe-rror-recovery-remain-usable-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-grammar-static",
+    "file": "mobile-grammar-static.webp",
+    "test": "ux-refinement-reduced-moti-a75fe-rror-recovery-remain-usable-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-picture-intake-saved",
+    "file": "desktop-picture-intake-saved.webp",
+    "test": "word-picture-intake-drop-a-b5eea-image-until-the-common-Save-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-picture-intake-saved",
+    "file": "mobile-picture-intake-saved.webp",
+    "test": "word-picture-intake-drop-a-b5eea-image-until-the-common-Save-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-picture-intake-paste",
+    "file": "desktop-picture-intake-paste.webp",
+    "test": "word-picture-intake-mobile-6d43f-ied-clipboard-is-actionable-desktop-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-picture-intake-paste",
+    "file": "mobile-picture-intake-paste.webp",
+    "test": "word-picture-intake-mobile-6d43f-ied-clipboard-is-actionable-mobile-chromium",
+    "run": "q2Krgx"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-grammar-reset",
+    "file": "desktop-grammar-reset.webp",
+    "test": "edit-and-feedback-grammar--3ee30-tion-retains-manual-control-desktop-chromium",
+    "run": "REd8Q7"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-grammar-reset",
+    "file": "mobile-grammar-reset.webp",
+    "test": "edit-and-feedback-grammar--3ee30-tion-retains-manual-control-mobile-chromium",
+    "run": "REd8Q7"
+  },
+  {
+    "platform": "desktop",
+    "name": "desktop-edit-success",
+    "file": "desktop-edit-success.webp",
+    "test": "edit-and-feedback-one-edit-67cf2-d-footer-clears-last-button-desktop-chromium",
+    "run": "REd8Q7"
+  },
+  {
+    "platform": "mobile",
+    "name": "mobile-edit-success",
+    "file": "mobile-edit-success.webp",
+    "test": "edit-and-feedback-one-edit-67cf2-d-footer-clears-last-button-mobile-chromium",
+    "run": "REd8Q7"
+  }
+]

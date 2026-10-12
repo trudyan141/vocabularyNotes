@@ -1,0 +1,63 @@
+{
+  "url": "/practice",
+  "title": "Nghe từ chọn hình",
+  "scrollHeight": 872,
+  "viewport": [
+    360,
+    800
+  ],
+  "overflow": false,
+  "text": "Nghe từ chọn hình\nTạm dừng\n1 / 10\napple\nNghe\nGợi ý\nBỏ qua",
+  "controls": [
+    {
+      "text": "Tạm dừng",
+      "tag": "BUTTON",
+      "w": 83,
+      "h": 48,
+      "top": 92
+    },
+    {
+      "text": "Nghe",
+      "tag": "BUTTON",
+      "w": 100,
+      "h": 48,
+      "top": 274
+    },
+    {
+      "text": "Hình 1",
+      "tag": "BUTTON",
+      "w": 96,
+      "h": 112,
+      "top": 342
+    },
+    {
+      "text": "Hình 2",
+      "tag": "BUTTON",
+      "w": 96,
+      "h": 112,
+      "top": 342
+    },
+    {
+      "text": "Hình 3",
+      "tag": "BUTTON",
+      "w": 96,
+      "h": 112,
+      "top": 342
+    },
+    {
+      "text": "Gợi ý",
+      "tag": "BUTTON",
+      "w": 101,
+      "h": 48,
+      "top": 474
+    },
+    {
+      "text": "Bỏ qua",
+      "tag": "BUTTON",
+      "w": 113,
+      "h": 48,
+      "top": 474
+    }
+  ],
+  "run": "ug0tU3"
+}

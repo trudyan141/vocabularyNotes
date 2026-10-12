@@ -1,0 +1,56 @@
+{
+  "url": "/practice",
+  "title": "Nhìn hình chọn từ",
+  "scrollHeight": 872,
+  "viewport": [
+    360,
+    800
+  ],
+  "overflow": false,
+  "text": "Nhìn hình chọn từ\nTạm dừng\n1 / 10\nTừ nào đúng với hình?\napple\nbanana\ngrapes\nGợi ý\nBỏ qua",
+  "controls": [
+    {
+      "text": "Tạm dừng",
+      "tag": "BUTTON",
+      "w": 83,
+      "h": 48,
+      "top": 92
+    },
+    {
+      "text": "apple",
+      "tag": "BUTTON",
+      "w": 96,
+      "h": 80,
+      "top": 484
+    },
+    {
+      "text": "banana",
+      "tag": "BUTTON",
+      "w": 96,
+      "h": 80,
+      "top": 484
+    },
+    {
+      "text": "grapes",
+      "tag": "BUTTON",
+      "w": 96,
+      "h": 80,
+      "top": 484
+    },
+    {
+      "text": "Gợi ý",
+      "tag": "BUTTON",
+      "w": 101,
+      "h": 48,
+      "top": 584
+    },
+    {
+      "text": "Bỏ qua",
+      "tag": "BUTTON",
+      "w": 113,
+      "h": 48,
+      "top": 584
+    }
+  ],
+  "run": "kJRyC2"
+}

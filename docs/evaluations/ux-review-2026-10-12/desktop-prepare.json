@@ -1,0 +1,105 @@
+{
+  "url": "/library/prepare",
+  "title": "Bổ sung hình cho từ",
+  "scrollHeight": 1020,
+  "viewport": [
+    1280,
+    1000
+  ],
+  "overflow": false,
+  "text": "Quay lại\nBổ sung hình cho từ\nbank\n\nngân hàng\n\nNghĩa cần hình\nngân hàng · danh từ\nbờ sông — phần đất dọc theo mép dòng sông, nơi bạn có thể đứng nhìn nước chảy · danh từ\nKhông bổ sung\nTìm hình\nTìm ảnh trên web\nTìm thêm trên mạng\n\nKéo thả ảnh vào đây, hoặc bấm vùng này rồi Ctrl+V / ⌘V.\n\nChọn ảnh trên máy\nDán ảnh\nJPG, PNG, WebP · dưới 4 MB · một ảnh mỗi lần\nDùng ảnh khác",
+  "controls": [
+    {
+      "text": "Quay lại",
+      "tag": "A",
+      "w": 123,
+      "h": 48,
+      "top": 120
+    },
+    {
+      "text": "ngân hàng · danh từbờ sông — phần đất dọc theo mép dòng sông, nơi bạn có thể đứng nhìn nước chảy · danh từ",
+      "tag": "SELECT",
+      "w": 726,
+      "h": 26,
+      "top": 395
+    },
+    {
+      "text": "Không bổ sung",
+      "tag": "BUTTON",
+      "w": 726,
+      "h": 48,
+      "top": 868
+    },
+    {
+      "text": "Tìm hình",
+      "tag": "BUTTON",
+      "w": 726,
+      "h": 48,
+      "top": 437
+    },
+    {
+      "text": "Tìm ảnh trên web",
+      "tag": "A",
+      "w": 726,
+      "h": 48,
+      "top": 497
+    },
+    {
+      "text": "Tìm thêm trên mạng",
+      "tag": "BUTTON",
+      "w": 726,
+      "h": 48,
+      "top": 557
+    },
+    {
+      "text": "Chọn ảnh trên máy",
+      "tag": "BUTTON",
+      "w": 323,
+      "h": 48,
+      "top": 675
+    },
+    {
+      "text": "Dán ảnh",
+      "tag": "BUTTON",
+      "w": 357,
+      "h": 48,
+      "top": 675
+    },
+    {
+      "text": "Dùng ảnh khác",
+      "tag": "SUMMARY",
+      "w": 726,
+      "h": 56,
+      "top": 800
+    },
+    {
+      "text": "Tìm ảnh trên Google",
+      "tag": "A",
+      "w": 726,
+      "h": 29,
+      "top": 940
+    },
+    {
+      "text": "Tìm hình miễn phí trên Openclipart",
+      "tag": "A",
+      "w": 726,
+      "h": 29,
+      "top": 981
+    },
+    {
+      "text": "Tìm hình trên Openverse · kiểm giấy phép ở trang gốc",
+      "tag": "A",
+      "w": 726,
+      "h": 29,
+      "top": 1021
+    },
+    {
+      "text": "",
+      "tag": "INPUT",
+      "w": 726,
+      "h": 48,
+      "top": 1091
+    }
+  ],
+  "run": "kJRyC2"
+}

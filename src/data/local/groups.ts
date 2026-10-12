@@ -27,7 +27,7 @@ export async function studyGroups(repo:LocalRepository){
  const rows=await repo.db.table<ScopedDocument>('decks').where('[scopeId+id]').between([repo.scope.id,''],[repo.scope.id,'\uffff']).toArray();
  return rows.filter(row=>!row.deletedAt&&(row.payload.deck as Deck)?.group).sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt)||a.id.localeCompare(b.id)) as StudyGroup[];
 }
-export async function saveStudyGroup(repo:LocalRepository,input:{id:string;version:number|null;name:string;members:GroupMembers;lessonIds?:string[];days?:string[];includeSentences?:boolean}){
+export async function saveStudyGroup(repo:LocalRepository,input:{id:string;version:number|null;name:string;members:GroupMembers;lessonIds?:string[];days?:string[];includeSentences?:boolean;preserveExisting?:boolean}){
  z.string().trim().min(1).max(100).parse(input.name);
  return repo.db.transaction('rw',repo.db.tables,async()=>{
   const others=await studyGroups(repo);
@@ -36,7 +36,8 @@ export async function saveStudyGroup(repo:LocalRepository,input:{id:string;versi
   if(old&&(!(old.payload.deck as Deck).group||old.deletedAt))throw new RepositoryError('invalid');
   if((old?.version??null)!==input.version)throw new RepositoryError('conflict');
   const catalog=await groupCatalog(repo),approvedWords=new Map(catalog.words.map(word=>[word.id,word]));
-  const wordIds=[...input.members.wordIds],sentences=[...input.members.sentences],grammar=[...(input.members.grammar??[])];
+  const retained=input.preserveExisting?(old?.payload.deck as Deck|undefined)?.group:undefined;
+  const wordIds=[...(retained?.wordIds??[]),...input.members.wordIds],sentences=[...(retained?.sentences??[]),...input.members.sentences],grammar=[...(retained?.grammar??[]),...(input.members.grammar??[])];
   const lessonIds=new Set(input.lessonIds??[]),preferred=new Map<string,string>();
   for(const day of input.days??[])for(const lesson of catalog.lessons)if(lesson.learnedOn===day)lessonIds.add(lesson.id);
   if([...lessonIds].some(id=>!catalog.lessons.some(lesson=>lesson.id===id)))throw new RepositoryError('invalid');
@@ -55,7 +56,8 @@ export async function saveStudyGroup(repo:LocalRepository,input:{id:string;versi
    for(const ref of refs){const item=available.get(JSON.stringify([ref.senseId,ref.key]));if(!item)throw new RepositoryError('conflict');const identity=kind==='grammar'?(item.family??ref.key):ref.key;const existed=(kind==='grammar'?before?.grammar:before?.sentences)?.some(old=>old.key===ref.key);if(result.has(identity)||existed)duplicateItems.push({kind,label:item.example||item.textEn});if(!result.has(identity))result.set(identity,ref);}
    return [...result.values()];
   }
-  const group:GroupMembers={wordIds:[...uniqueWords.values()],sentences:uniqueRefs(sentences,catalog.allSentences,sentenceKey,'sentence'),grammar:uniqueRefs(grammar,catalog.allGrammar,grammarKey,'grammar')};
+  const mergedRefs=(saved:GroupMembers['sentences'],next:GroupMembers['sentences'])=>{const refs=new Map(saved.map(ref=>[ref.key,ref]));for(const ref of next)if(!refs.has(ref.key))refs.set(ref.key,ref);return [...refs.values()];};
+  const group:GroupMembers={wordIds:[...new Set([...(retained?.wordIds??[]),...uniqueWords.values()])],sentences:mergedRefs(retained?.sentences??[],uniqueRefs(sentences,catalog.allSentences,sentenceKey,'sentence')),grammar:mergedRefs(retained?.grammar??[],uniqueRefs(grammar,catalog.allGrammar,grammarKey,'grammar'))};
   group.sets=assignGroupSets(group,catalog.lessons,catalog.links,{sentences:catalog.allSentences,grammar:catalog.allGrammar},{sentence:sentenceKey,grammar:grammarKey},before?.sets,preferred);
   const sameMembers=!!before&&JSON.stringify([group.wordIds.slice().sort(),group.sentences.map(ref=>ref.key).sort(),(group.grammar??[]).map(ref=>ref.key).sort()])===JSON.stringify([before.wordIds.slice().sort(),before.sentences.map(ref=>ref.key).sort(),(before.grammar??[]).map(ref=>ref.key).sort()]);
   const unchanged=!!old&&sameMembers&&(old.payload.deck as Deck).name===input.name.trim();

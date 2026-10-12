@@ -15,8 +15,10 @@ import { Switch } from "@/components/ui/switch";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useApp, useHydrated } from "@/components/app/provider";
 import { Back } from "@/components/app/shared";
+import {useGameSound} from '@/lib/audio/game-preference';
 export function Settings() {
   const hydrated = useHydrated();
+  const gameSound=useGameSound();
   const { t, preferences: p, setPreferences, storageError } = useApp();
   return (
     <div className="reading-page page-flow parent-page">
@@ -75,8 +77,8 @@ export function Settings() {
             }}
             aria-label={t("Trình độ", "Level")}
           >
-            <ToggleGroupItem value="Beginner">Beginner</ToggleGroupItem>
-            <ToggleGroupItem value="Intermediate">Intermediate</ToggleGroupItem>
+            <ToggleGroupItem value="Beginner">{t("Mới bắt đầu","Beginner")}</ToggleGroupItem>
+            <ToggleGroupItem value="Intermediate">{t("Đã biết cơ bản","Intermediate")}</ToggleGroupItem>
           </ToggleGroup>
           <FieldDescription>
             {t(
@@ -126,7 +128,7 @@ export function Settings() {
         <Field orientation="horizontal">
           <FieldContent>
             <FieldLabel htmlFor="sound-setting">
-              {t("Âm thanh khi bấm nghe", "Sound when you tap listen")}
+              {t("Giọng đọc khi bấm Nghe", "Voice when you tap Listen")}
             </FieldLabel>
             <FieldDescription>
               {t(
@@ -142,6 +144,8 @@ export function Settings() {
             onCheckedChange={(v) => setPreferences({ sound: v })}
           />
         </Field>
+        <Field orientation="horizontal"><FieldContent><FieldLabel htmlFor="game-sound-setting">{t('Tiếng trò chơi','Game sounds')}</FieldLabel><FieldDescription>{t('Tiếng đúng, thử lại và hoàn thành trên máy này. Tắt tiếng này vẫn nghe bài được.','Correct, retry and completion sounds on this device. Turning these off still lets you listen.')}</FieldDescription></FieldContent><Switch id="game-sound-setting" disabled={!hydrated} checked={gameSound.enabled} onCheckedChange={gameSound.setEnabled}/></Field>
+        {gameSound.error&&<p role="alert">{t('Chưa lưu được tiếng trò chơi.','Game sound settings could not be saved.')} <Button variant="outline" onClick={()=>gameSound.setEnabled(gameSound.enabled)}>{t('Thử lưu lại','Try saving again')}</Button></p>}
       </FieldGroup>
       <ParentAiSettings/><ArchiveTools/>
       <section className="settings-author" aria-labelledby="settings-author-title">

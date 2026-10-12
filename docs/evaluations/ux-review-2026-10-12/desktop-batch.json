@@ -1,0 +1,84 @@
+{
+  "url": "/capture/batch/9a6579a2-51e2-43d8-919b-af24350d8516",
+  "title": "Đọc nhiều ảnh bài học",
+  "scrollHeight": 1065,
+  "viewport": [
+    1280,
+    1000
+  ],
+  "overflow": false,
+  "text": "Quay lại\nĐọc nhiều ảnh bài học\n\nXem ảnh, chỉnh ảnh nào cần rồi đọc cả đợt. Đọc hết ảnh, lọc trùng rồi duyệt và lưu một bài chung.\n\nThêm ảnh\nDán thêm ảnh\nCó thể dán tiếp bằng Ctrl+V / ⌘V. Tối đa 10 ảnh mỗi đợt.\nMở ảnh để phóng to\nẢnh 1\nChỉnh ảnh\nXóa nháp\nMở ảnh để phóng to\nẢnh 2\nChỉnh ảnh\nXóa nháp\nPhân tích 2 ảnh",
+  "controls": [
+    {
+      "text": "Quay lại",
+      "tag": "A",
+      "w": 123,
+      "h": 48,
+      "top": 120
+    },
+    {
+      "text": "Thêm ảnh",
+      "tag": "BUTTON",
+      "w": 138,
+      "h": 48,
+      "top": 346
+    },
+    {
+      "text": "Dán thêm ảnh",
+      "tag": "BUTTON",
+      "w": 169,
+      "h": 48,
+      "top": 418
+    },
+    {
+      "text": "Mở ảnh để phóng to",
+      "tag": "A",
+      "w": 180,
+      "h": 186,
+      "top": 506
+    },
+    {
+      "text": "Chỉnh ảnh",
+      "tag": "A",
+      "w": 118,
+      "h": 48,
+      "top": 555
+    },
+    {
+      "text": "Xóa nháp",
+      "tag": "BUTTON",
+      "w": 131,
+      "h": 48,
+      "top": 555
+    },
+    {
+      "text": "Mở ảnh để phóng to",
+      "tag": "A",
+      "w": 180,
+      "h": 186,
+      "top": 747
+    },
+    {
+      "text": "Chỉnh ảnh",
+      "tag": "A",
+      "w": 118,
+      "h": 48,
+      "top": 796
+    },
+    {
+      "text": "Xóa nháp",
+      "tag": "BUTTON",
+      "w": 131,
+      "h": 48,
+      "top": 796
+    },
+    {
+      "text": "Phân tích 2 ảnh",
+      "tag": "BUTTON",
+      "w": 158,
+      "h": 48,
+      "top": 977
+    }
+  ],
+  "run": "MAGJDF"
+}

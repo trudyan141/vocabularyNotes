@@ -1,0 +1,21 @@
+{
+  "url": "/ux-audit-missing",
+  "title": "Úi, Cáo đi lạc rồi! Không tìm thấy trang (404).",
+  "scrollHeight": 800,
+  "viewport": [
+    360,
+    800
+  ],
+  "overflow": false,
+  "text": "404\n\nÚi, Cáo đi lạc rồi!\nKhông tìm thấy trang (404).\n\nTrang này chưa tìm thấy. Cùng Cáo về trang đầu nhé.\n\nVề trang đầu",
+  "controls": [
+    {
+      "text": "Về trang đầu",
+      "tag": "A",
+      "w": 328,
+      "h": 56,
+      "top": 635
+    }
+  ],
+  "run": "kJRyC2"
+}

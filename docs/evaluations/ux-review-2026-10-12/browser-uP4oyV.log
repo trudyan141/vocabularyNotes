@@ -1,0 +1,83 @@
+✓ Lockfile passes supply-chain policies (verified 1d ago)
+Lockfile is up to date, resolution step is skipped
+Already up to date
+
+Done in 906ms using pnpm v11.25.0
+
+Running 2 tests using 2 workers
+
+[1/2] [desktop-chromium] › tests/e2e/ux-plan-audit.spec.ts:18:5 › photo review and recovery states
+[2/2] [mobile-chromium] › tests/e2e/ux-plan-audit.spec.ts:18:5 › photo review and recovery states
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+  1) [desktop-chromium] › tests/e2e/ux-plan-audit.spec.ts:18:5 › photo review and recovery states ──
+
+    Error: expect(page).toHaveURL(expected) failed
+
+    Expected pattern: /\/edit$/
+    Received string:  "http://127.0.0.1:4347/capture"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toHaveURL" with timeout 5000ms
+        14 × locator resolved to <html lang="vi" data-mode="child" data-motion="system" class="__variable_dd5f49">…</html>
+           - unexpected value "http://127.0.0.1:4347/capture"
+
+
+      18 | test('photo review and recovery states',async({page},info)=>{
+      19 |  test.setTimeout(240000);
+    > 20 |  await page.goto('/capture');const bytes=await readFile('docs/evaluations/t00/images/01-fruit.png');await page.getByRole('tabpanel',{name:'Chọn ảnh',exact:true}).getByLabel('Chọn ảnh từ máy',{exact:true}).setInputFiles({name:'audit.png',mimeType:'image/png',buffer:bytes});await expect(page).toHaveURL(/\/edit$/);await capture(page,info,'photo-editor');const draft=page.url().split('/').at(-2)!;
+         |                                                                                                                                                                                                                                                                                                     ^
+      21 |  await page.goto(`/capture/${draft}/extract`);await capture(page,info,'photo-extract');await page.goto(`/capture/${draft}/review`);await capture(page,info,'legacy-review');
+      22 |  await page.goto('/capture');await page.getByRole('tabpanel',{name:'Chọn ảnh',exact:true}).getByLabel('Chọn ảnh từ máy',{exact:true}).setInputFiles([{name:'one.png',mimeType:'image/png',buffer:bytes},{name:'two.png',mimeType:'image/png',buffer:bytes}]);await expect(page).toHaveURL(/\/batch\//);await capture(page,info,'batch');
+      23 |  await page.evaluate(()=>localStorage.setItem('wfk-parent-ai-v1',JSON.stringify({key:'AIza-fixture-audit-not-real-key-12345',model:'gemini-3.5-flash-lite'})));await page.reload();
+        at /Users/trunglk/Documents/trung-github/VocabularyNotes/tests/e2e/ux-plan-audit.spec.ts:20:293
+
+    Error Context: ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-uP4oyV/test-results/ux-plan-audit-photo-review-and-recovery-states-desktop-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-uP4oyV/test-results/ux-plan-audit-photo-review-and-recovery-states-desktop-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-uP4oyV/test-results/ux-plan-audit-photo-review-and-recovery-states-desktop-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  2) [mobile-chromium] › tests/e2e/ux-plan-audit.spec.ts:18:5 › photo review and recovery states ───
+
+    Error: expect(page).toHaveURL(expected) failed
+
+    Expected pattern: /\/edit$/
+    Received string:  "http://127.0.0.1:4347/capture"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toHaveURL" with timeout 5000ms
+        14 × locator resolved to <html lang="vi" data-mode="child" data-motion="system" class="__variable_dd5f49">…</html>
+           - unexpected value "http://127.0.0.1:4347/capture"
+
+
+      18 | test('photo review and recovery states',async({page},info)=>{
+      19 |  test.setTimeout(240000);
+    > 20 |  await page.goto('/capture');const bytes=await readFile('docs/evaluations/t00/images/01-fruit.png');await page.getByRole('tabpanel',{name:'Chọn ảnh',exact:true}).getByLabel('Chọn ảnh từ máy',{exact:true}).setInputFiles({name:'audit.png',mimeType:'image/png',buffer:bytes});await expect(page).toHaveURL(/\/edit$/);await capture(page,info,'photo-editor');const draft=page.url().split('/').at(-2)!;
+         |                                                                                                                                                                                                                                                                                                     ^
+      21 |  await page.goto(`/capture/${draft}/extract`);await capture(page,info,'photo-extract');await page.goto(`/capture/${draft}/review`);await capture(page,info,'legacy-review');
+      22 |  await page.goto('/capture');await page.getByRole('tabpanel',{name:'Chọn ảnh',exact:true}).getByLabel('Chọn ảnh từ máy',{exact:true}).setInputFiles([{name:'one.png',mimeType:'image/png',buffer:bytes},{name:'two.png',mimeType:'image/png',buffer:bytes}]);await expect(page).toHaveURL(/\/batch\//);await capture(page,info,'batch');
+      23 |  await page.evaluate(()=>localStorage.setItem('wfk-parent-ai-v1',JSON.stringify({key:'AIza-fixture-audit-not-real-key-12345',model:'gemini-3.5-flash-lite'})));await page.reload();
+        at /Users/trunglk/Documents/trung-github/VocabularyNotes/tests/e2e/ux-plan-audit.spec.ts:20:293
+
+    Error Context: ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-uP4oyV/test-results/ux-plan-audit-photo-review-and-recovery-states-mobile-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-uP4oyV/test-results/ux-plan-audit-photo-review-and-recovery-states-mobile-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-uP4oyV/test-results/ux-plan-audit-photo-review-and-recovery-states-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  2 failed
+    [desktop-chromium] › tests/e2e/ux-plan-audit.spec.ts:18:5 › photo review and recovery states ───
+    [mobile-chromium] › tests/e2e/ux-plan-audit.spec.ts:18:5 › photo review and recovery states ────

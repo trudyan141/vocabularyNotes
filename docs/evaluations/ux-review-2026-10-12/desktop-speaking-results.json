@@ -1,0 +1,28 @@
+{
+  "url": "/practice/speaking",
+  "title": "Con đã hoàn thành!",
+  "scrollHeight": 1020,
+  "viewport": [
+    1280,
+    1000
+  ],
+  "overflow": false,
+  "text": "Quay lại\nCon đã hoàn thành!\n\n5 từ đã luyện cùng Cáo\n\nChơi lại",
+  "controls": [
+    {
+      "text": "Quay lại",
+      "tag": "A",
+      "w": 123,
+      "h": 48,
+      "top": 120
+    },
+    {
+      "text": "Chơi lại",
+      "tag": "BUTTON",
+      "w": 760,
+      "h": 48,
+      "top": 484
+    }
+  ],
+  "run": "ug0tU3"
+}

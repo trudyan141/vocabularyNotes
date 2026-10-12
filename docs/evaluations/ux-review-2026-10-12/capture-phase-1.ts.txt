@@ -1,0 +1,38 @@
+import { test, expect, type Page, type TestInfo } from '@playwright/test';
+import { readFile, writeFile } from 'node:fs/promises';
+test.use({serviceWorkers:'block'});
+test.beforeEach(async({page})=>{
+ await page.route('https://**',r=>r.abort());
+ await page.route('**/api/auth/status*',r=>r.fulfill({json:{configured:false,user:null}}));
+ await page.route('**/api/illustrations?**',r=>r.fulfill({json:{result:null}}));
+ await page.route('**/api/media/search**',r=>r.fulfill({json:{candidates:[],sources:[]}}));
+ await page.route('**/api/dictionary**',r=>r.fulfill({status:503,json:{error:'fixture unavailable'}}));
+});
+async function capture(page:Page,info:TestInfo,name:string){
+ await page.locator('h1').first().waitFor();
+ await page.evaluate(async()=>{await document.fonts.ready;});
+ await page.screenshot({path:info.outputPath(name+'.png'),fullPage:true});
+ const data=await page.evaluate(()=>({url:location.pathname+location.search,title:document.querySelector('h1')?.textContent,scrollHeight:document.documentElement.scrollHeight,viewport:[innerWidth,innerHeight],overflow:document.documentElement.scrollWidth>innerWidth,text:document.querySelector('main')?.innerText??document.body.innerText,controls:[...document.querySelectorAll('main button, main a, main input, main select, main textarea, main summary')].filter(e=>e.getClientRects().length).map(e=>({text:e.textContent?.trim()||e.getAttribute('aria-label')||e.id,tag:e.tagName,w:Math.round(e.getBoundingClientRect().width),h:Math.round(e.getBoundingClientRect().height),top:Math.round(e.getBoundingClientRect().top+scrollY)}))}));
+ await writeFile(info.outputPath(name+'.json'),JSON.stringify(data,null,2));
+}
+test('inventory of screens and interaction states',async({page},info)=>{
+ test.setTimeout(240000);
+ const routes=[['welcome','/welcome'],['today','/today'],['library','/library'],['grammar-list','/library?mode=grammar'],['lessons','/library/lessons'],['groups','/library/groups'],['group-editor','/library/groups/edit'],['group-review','/practice/groups'],['deck-editor','/practice/decks'],['word','/library/words/apple'],['word-editor','/library/words/apple/edit'],['notes','/library/words/apple/notes'],['add','/add'],['prepare','/library/prepare'],['play','/practice'],['speaking','/speaking'],['speaking-game','/practice/speaking'],['profile','/profile'],['account','/account'],['settings','/settings'],['capture','/capture'],['demo','/lessons/demo'],['404','/ux-audit-missing']];
+ for(const [name,path] of routes){await page.goto(path);await capture(page,info,name);}
+ await page.goto('/settings');await page.getByRole('switch',{name:'Âm thanh khi bấm nghe',exact:true}).click();await expect(page.getByRole('switch',{name:'Âm thanh khi bấm nghe',exact:true})).not.toBeChecked();
+ await page.goto('/practice');await page.getByRole('button',{name:'Thẻ ôn',exact:true}).waitFor();await page.goto('/settings');await expect(page.getByRole('switch',{name:'Âm thanh khi bấm nghe',exact:true})).toBeChecked();await capture(page,info,'sound-reenabled');
+ await page.goto('/library');await page.getByRole('searchbox').fill('not-a-word');await expect(page.getByText('Không có từ phù hợp',{exact:true})).toBeVisible();await capture(page,info,'search-empty');
+ await page.goto('/practice');await page.getByRole('button',{name:'Thẻ ôn',exact:true}).click();await expect(page.getByRole('button',{name:'Xem đáp án',exact:true})).toBeVisible();await capture(page,info,'flashcard');await page.getByRole('button',{name:'Xem đáp án',exact:true}).click();await capture(page,info,'flashcard-revealed');await page.getByRole('button',{name:'Tạm dừng',exact:true}).click();await capture(page,info,'paused');
+ await page.goto('/practice');await page.getByRole('button',{name:'Nhìn hình chọn từ',exact:true}).click();await page.locator('.game-answers button').first().waitFor();await capture(page,info,'picture-game');await page.locator('.game-answers button').first().click();await page.locator('.game-feedback').waitFor();await capture(page,info,'picture-feedback');
+ await page.goto('/library/words/apple/edit');await page.getByText('Ngữ pháp và mẫu câu',{exact:true}).click();await page.getByLabel('Câu ví dụ',{exact:true}).fill('It is an apple.');await page.locator('#word-edit-extra-exampleVi').fill('Đó là quả táo.');await page.getByLabel('Mẫu câu',{exact:true}).fill('It is + noun.');await page.getByLabel('Giải thích mẫu câu',{exact:true}).fill('Dùng để gọi tên.');await page.getByRole('button',{name:'Lưu chỉnh sửa',exact:true}).click();await expect(page.getByRole('button',{name:'Đã lưu chỉnh sửa',exact:true})).toBeVisible();
+ await page.goto('/library?mode=grammar');await page.locator('a[href^="/library/grammar/"]').first().click();await capture(page,info,'grammar-detail');
+ await page.goto('/capture');const bytes=await readFile('docs/evaluations/t00/images/01-fruit.png');await page.getByRole('tabpanel',{name:'Chọn ảnh',exact:true}).getByLabel('Chọn ảnh từ máy',{exact:true}).setInputFiles({name:'audit.png',mimeType:'image/png',buffer:bytes});await expect(page).toHaveURL(/\/edit$/);await capture(page,info,'photo-editor');const draft=page.url().split('/').at(-2)!;
+ await page.goto(`/capture/${draft}/extract`);await capture(page,info,'photo-extract');await page.goto(`/capture/${draft}/review`);await capture(page,info,'legacy-review');
+ await page.goto('/capture');await page.getByRole('tabpanel',{name:'Chọn ảnh',exact:true}).getByLabel('Chọn ảnh từ máy',{exact:true}).setInputFiles([{name:'one.png',mimeType:'image/png',buffer:bytes},{name:'two.png',mimeType:'image/png',buffer:bytes}]);await expect(page).toHaveURL(/\/batch\//);await capture(page,info,'batch');
+ await page.evaluate(()=>localStorage.setItem('wfk-parent-ai-v1',JSON.stringify({key:'AIza-fixture-audit-not-real-key-12345',model:'gemini-3.5-flash-lite'})));await page.reload();
+ const pear={literal:'pear',word:'pear',vi:'quả lê',en:'A fruit.',pos:'noun',sense:'fruit',example:'I eat a pear.',exampleVi:'Con ăn quả lê.',exampleIpa:'/aɪ it ə pɛɹ/'};
+ await page.route('https://generativelanguage.googleapis.com/**',r=>{const body=r.request().postDataJSON();const result=body.contents[0].parts.some((p:{inlineData?:unknown})=>p.inlineData)?{text:'pear',warnings:[],words:[{literal:'pear',word:'pear'}],truncated:false}:JSON.parse(body.contents[0].parts[0].text).words[0]?.literal?{words:[pear]}:{learning:[]};return r.fulfill({json:{candidates:[{finishReason:'STOP',content:{parts:[{text:JSON.stringify(result)}]}}]}});});
+ await page.getByRole('button',{name:'Phân tích 2 ảnh',exact:true}).click();await expect(page.getByRole('button',{name:'Đã phân tích · thử lại'})).toBeEnabled();await capture(page,info,'batch-review');await page.locator('.review-word > summary').first().click();await capture(page,info,'batch-review-expanded');
+ await page.goto('/notifications/image-draft');await capture(page,info,'notification-draft');
+ await page.emulateMedia({reducedMotion:'reduce'});await page.goto('/welcome');await capture(page,info,'welcome-reduced');
+});

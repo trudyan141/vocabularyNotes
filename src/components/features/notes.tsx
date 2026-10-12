@@ -1,4 +1,5 @@
 "use client";
+import {useReducedMotion} from '@/components/app/use-reduced-motion';
 import {SubmitButton,type SubmitState} from '@/components/ui/submit-button';
 import {submitError} from '@/lib/submit-error';
 import {Save} from "lucide-react";
@@ -30,15 +31,15 @@ function NoteEditor({word,note}:{word:LibraryWord;note?:Note}){
       mnemonicData:template==="none"?null:{template}});setVersion(saved.version);setSubmitState('success');setStatus(t("Đã lưu và duyệt ghi chú cho con.","Note saved and approved."));}catch(cause){setSubmitState('error');setError(submitError(cause,t));}finally{setBusy(false);}}}><Save data-icon="inline-start" aria-hidden="true"/>{t("Lưu và duyệt ghi chú","Save and approve note")}</SubmitButton><p role="status">{status}</p></div>;
 }
 function Mnemonic({word,template}:{word:LibraryWord;template:NonNullable<Note["mnemonicData"]>["template"]}){
-  const {t,preferences}=useApp();const [step,setStep]=useState(0);const [playing,setPlaying]=useState(false);
+  const {t}=useApp();const reduced=useReducedMotion();const [step,setStep]=useState(0);const [playing,setPlaying]=useState(false);
   const words=word.example.split(/\s+/).filter(Boolean);const chunkSize=Math.max(1,Math.ceil(words.length/3));
   const chunks=[0,1,2].map(i=>words.slice(i*chunkSize,(i+1)*chunkSize).join(" ")).filter(Boolean);
   const scenes=template==="word-association"?[word.word,word.vi,word.example||word.en]:template==="sentence-chunks"?chunks:["She likes apples.","They like apples.",t("She: likes; They: like. Hiện tại đơn với động từ thường, câu khẳng định.","She: likes; They: like. Affirmative present simple with a lexical verb.")];
-  useEffect(()=>{if(!playing||preferences.reduceMotion)return;const timer=setTimeout(()=>{if(step>=scenes.length-1)setPlaying(false);else setStep(i=>i+1);},2500);return()=>clearTimeout(timer);},[playing,step,scenes.length,preferences.reduceMotion]);
+  useEffect(()=>{if(!playing||reduced)return;const timer=setTimeout(()=>{if(step>=scenes.length-1)setPlaying(false);else setStep(i=>i+1);},2500);return()=>clearTimeout(timer);},[playing,step,scenes.length,reduced]);
   useEffect(()=>{const pause=()=>{if(document.hidden)setPlaying(false);};document.addEventListener("visibilitychange",pause);return()=>document.removeEventListener("visibilitychange",pause);},[]);
   return <section className="mnemonic-scene"><h3>{t("Mẹo nhớ từng bước","Memory steps")}</h3><p>{template==="grammar-transform"?t("Câu mẫu minh hoạ quy tắc, không trích từ bài của con.","Prepared examples illustrating the rule, not extracted from your lesson."):word.example||word.en}</p>
     <p key={step} className="mnemonic-current" aria-live="polite"><strong>{scenes[step]??scenes[0]}</strong></p><p>{scenes.join(" / ")}</p>
-    <div className="row-wrap"><Button variant="outline" onClick={()=>{setPlaying(false);setStep(i=>Math.max(0,i-1));}} disabled={step===0}>{t("Bước trước","Previous step")}</Button><Button onClick={()=>{setPlaying(false);setStep(i=>(i+1)%Math.max(1,scenes.length));}}>{step===scenes.length-1?t("Xem lại","Replay"):t("Bước tiếp","Next step")}</Button><Button variant="outline" disabled={preferences.reduceMotion} onClick={()=>{if(step===scenes.length-1)setStep(0);setPlaying(v=>!v);}}>{playing?t("Tạm dừng minh hoạ","Pause illustration"):t("Phát minh hoạ","Play illustration")}</Button><Button variant="ghost" onClick={()=>{setStep(0);setPlaying(!preferences.reduceMotion);}}>{t("Phát lại","Replay")}</Button></div>{preferences.reduceMotion&&<p>{t("Đang dùng bản tĩnh; con xem đủ các bước ở trên.","Static mode; all steps are shown above.")}</p>}</section>;
+    <div className="row-wrap"><Button variant="outline" onClick={()=>{setPlaying(false);setStep(i=>Math.max(0,i-1));}} disabled={step===0}>{t("Bước trước","Previous step")}</Button><Button onClick={()=>{setPlaying(false);setStep(i=>(i+1)%Math.max(1,scenes.length));}}>{step===scenes.length-1?t("Xem lại","Replay"):t("Bước tiếp","Next step")}</Button><Button variant="outline" disabled={reduced} onClick={()=>{if(step===scenes.length-1)setStep(0);setPlaying(v=>!v);}}>{playing?t("Tạm dừng minh hoạ","Pause illustration"):t("Phát minh hoạ","Play illustration")}</Button><Button variant="ghost" onClick={()=>{setStep(0);setPlaying(!reduced);}}>{t("Phát lại","Replay")}</Button></div>{reduced&&<p>{t("Đang dùng bản tĩnh; con xem đủ các bước ở trên.","Static mode; all steps are shown above.")}</p>}</section>;
 }
 export function WordNotes({id}:{id:string}){const {t}=useApp();const result=useLibraryWord(id);if(!result)return <DatabaseLoading/>;if(result.error||!result.word)return <ReadFailure/>;
  return <div className="reading-page page-flow parent-page"><Back href={`/library/words/${id}`}/><h1>{t("Ghi chú của bạn","User notes")}: {result.word.word}</h1><LearningNotes word={result.word} editable/></div>;}

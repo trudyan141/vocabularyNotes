@@ -1,0 +1,77 @@
+{
+  "url": "/capture/c12d6d05-847a-4abd-aeba-51985d6e080e/extract",
+  "title": "Duyệt từ và ngữ pháp",
+  "scrollHeight": 1020,
+  "viewport": [
+    1280,
+    1000
+  ],
+  "overflow": false,
+  "text": "Quay lại\nDuyệt từ và ngữ pháp\nẢnh dùng để phân tích\nMở ảnh để phóng to\nĐây là ảnh AI sẽ đọc. Mở ảnh để xem chữ rõ hơn và đối chiếu từng từ.\nChỉnh lại ảnh hoặc cắt thông tin riêng\nPhân tích ảnh bằng AI\nSửa chữ đọc được\n\nChưa có từ được chọn để lưu. Phân tích ảnh hoặc chép chữ rồi tạo danh sách để duyệt.\n\nDuyệt và lưu các từ đã chọn",
+  "controls": [
+    {
+      "text": "Quay lại",
+      "tag": "A",
+      "w": 123,
+      "h": 48,
+      "top": 120
+    },
+    {
+      "text": "Mở ảnh để phóng to",
+      "tag": "A",
+      "w": 405,
+      "h": 598,
+      "top": 294
+    },
+    {
+      "text": "Chỉnh lại ảnh hoặc cắt thông tin riêng",
+      "tag": "A",
+      "w": 405,
+      "h": 26,
+      "top": 936
+    },
+    {
+      "text": "Phân tích ảnh bằng AI",
+      "tag": "BUTTON",
+      "w": 207,
+      "h": 48,
+      "top": 256
+    },
+    {
+      "text": "Sửa chữ đọc được",
+      "tag": "SUMMARY",
+      "w": 547,
+      "h": 56,
+      "top": 329
+    },
+    {
+      "text": "ocr-text",
+      "tag": "TEXTAREA",
+      "w": 547,
+      "h": 128,
+      "top": 435
+    },
+    {
+      "text": "Từ/cụm từ được liệt kê hoặc nhấn mạnhTất cả từ trong đoạn",
+      "tag": "SELECT",
+      "w": 547,
+      "h": 24,
+      "top": 636
+    },
+    {
+      "text": "Tạo danh sách để duyệt",
+      "tag": "BUTTON",
+      "w": 547,
+      "h": 48,
+      "top": 684
+    },
+    {
+      "text": "Duyệt và lưu các từ đã chọn",
+      "tag": "BUTTON",
+      "w": 547,
+      "h": 48,
+      "top": 484
+    }
+  ],
+  "run": "MAGJDF"
+}

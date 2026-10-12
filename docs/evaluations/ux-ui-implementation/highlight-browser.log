@@ -1,0 +1,22 @@
+✓ Lockfile passes supply-chain policies (verified 1d ago)
+Lockfile is up to date, resolution step is skipped
+Already up to date
+
+Done in 1.1s using pnpm v11.25.0
+
+Running 2 tests using 2 workers
+
+[1/2] [mobile-chromium] › tests/e2e/ux-refinement.spec.ts:20:5 › group additions protect saved members across filtered bulk actions; one row exposes each bank sense
+[2/2] [desktop-chromium] › tests/e2e/ux-refinement.spec.ts:20:5 › group additions protect saved members across filtered bulk actions; one row exposes each bank sense
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[WebServer] ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+[WebServer] [browser] Image with src "http://127.0.0.1:4347/illustrations/wordmark.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+  2 passed (29.2s)

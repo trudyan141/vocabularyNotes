@@ -1,0 +1,56 @@
+{
+  "url": "/practice",
+  "title": "Thẻ ôn",
+  "scrollHeight": 1044,
+  "viewport": [
+    1280,
+    1000
+  ],
+  "overflow": false,
+  "text": "Thẻ ôn\nTạm dừng\n1 / 10\napple\nNghe\nquả táo\n\nA round fruit that grows on a tree.\n\nI eat an apple.\n\n/aɪ it ən æpəl/\nTham khảo · US\n\nNghe\n\n/ˈæp.əl/ · ép-pồ\n\nChưa nhớ\nNhớ rồi\nĐánh giá chi tiết",
+  "controls": [
+    {
+      "text": "Tạm dừng",
+      "tag": "BUTTON",
+      "w": 118,
+      "h": 48,
+      "top": 120
+    },
+    {
+      "text": "Nghe",
+      "tag": "BUTTON",
+      "w": 100,
+      "h": 48,
+      "top": 518
+    },
+    {
+      "text": "Nghe",
+      "tag": "BUTTON",
+      "w": 100,
+      "h": 48,
+      "top": 737
+    },
+    {
+      "text": "Chưa nhớ",
+      "tag": "BUTTON",
+      "w": 112,
+      "h": 48,
+      "top": 864
+    },
+    {
+      "text": "Nhớ rồi",
+      "tag": "BUTTON",
+      "w": 96,
+      "h": 48,
+      "top": 864
+    },
+    {
+      "text": "Đánh giá chi tiết",
+      "tag": "BUTTON",
+      "w": 712,
+      "h": 48,
+      "top": 932
+    }
+  ],
+  "run": "kJRyC2"
+}

@@ -1,5 +1,7 @@
 # Đặc tả màn hình và điều hướng
 
+12/10 — ADR085, founder duyệt UX/UI: tìm và danh sách trước quản lý; thêm/sửa có phần chi tiết đóng, một Save chung; rating trước giải thích dài; review ảnh có nghĩa/chọn ngay hàng, tất cả preview vẫn trước Analyze. Group addition: mục đã lưu khóa, select/clear chỉ mục mới; một headword/caseMode mỗi hàng, nghĩa/POS vẫn riêng và mở/chọn được. Giọng đọc khi Nghe dùng preference tài khoản hiện có; tiếng trò chơi là setting riêng trên máy, giữ legacy mute và không autoplay. Grammar manual steps + OS/app reduced motion, tiếng/motion không quyết định lưu dữ liệu. [Implementation evidence](evaluations/ux-ui-implementation.md).
+
 **12/10 — ADR082, nhiều ảnh thành một bài chung:** supersede review/save riêng từng ảnh. Toàn bộ preview ở trên, Phân tích ở dưới danh sách. Compact vision đọc tất cả ảnh trước, gom headwords/context rồi enrich4từ/lượt và grammar1400chars; một danh sách word/grammar duyệt và một lần Save tạo một lesson. Source/meaning/grammar checkpoints CAS được ghi xong từng phần trước khi đi tiếp; quota/stop/reload Continue, không auto AI. Exact word/POS/sense và declared grammar family/form dedup, giữ nghĩa/POS khác và câu nguồn. Snapshot ảnh/model/mode đổi chặn Save; transaction kiểm source revisions và idempotency; max10ảnh/500raw/100ktext/200learning, per-image caps và source-limit khôngsilentlydrop. Legacy per-photo drafts/lessons giữ. [Bằng chứng](evaluations/merged-photo-lesson.md). **Hoàn tất local:**61focused tests +14caUI mobile/desktop PASS (gồm regression mộtảnh); lint/typecheck/build/docs PASS. Chưa liveAI/physical-phone/hostedsync/deploy. Next: founder refresh bản local để dùng luồng chung.
 
 
@@ -212,3 +214,7 @@ Group editor adds Grammar and a single Select all words/sentences/grammar across
 
 
 **11/10 — ADR060, IPA và nghe câu:** Mọi ví dụ English độc lập (ví dụ từ, bổ sung, hỏi–đáp, câu lỗi/câu sửa, từng bước grammar và thẻ ôn/offline) dùng thứ tự English → IPA toàn câu + nút Nghe → bản dịch nếu có. Nút đọc chính xác text hiện tại, độc lập việc tra IPA. Thiếu IPA chắc chắn hiển thị trạng thái rõ, vẫn cho nghe; không đoán/headword substitute. Công thức/placeholders không là câu ví dụ. Generated worksheet yêu cầu `exampleIpa`, `commonErrorIpa`, `correctionIpa` toàn đúng câu, null khi không chắc; enrichment giữ `examples[].pronunciations`. Hai field lỗi/sửa optional trong JSON, giữ qua backup/cloud và clear khi sửa/xóa phần tương ứng. Không verified tự động. [Evidence](evaluations/sentence-ipa-and-listening.md).
+
+## Bổ sung tìm hình — steering 12/10/2026
+
+Thêm từ, duyệt từ đọc từ ảnh, bổ sung hình và đổi hình dùng chung ba nguồn Noto/Twemoji/Fluent. Không còn tìm OpenMoji/Commons. Không có hình → mở Google để tự copy và dán/chọn ảnh trong app; founder đã chấp nhận mở link nếu hiển thị Google trong app cần API có phí. Hình mới xem trước để kiểm nghĩa; Save chung ghi cùng từ/bài. Không đổi ảnh của từ đã lưu khi thêm trùng. [Quy tắc media](14-media-and-concurrency.md).

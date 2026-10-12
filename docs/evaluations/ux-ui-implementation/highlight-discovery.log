@@ -1,0 +1,4 @@
+Listing tests:
+  [desktop-chromium] › ux-refinement.spec.ts:20:5 › group additions protect saved members across filtered bulk actions; one row exposes each bank sense
+  [mobile-chromium] › ux-refinement.spec.ts:20:5 › group additions protect saved members across filtered bulk actions; one row exposes each bank sense
+Total: 2 tests in 1 file

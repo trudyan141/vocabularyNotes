@@ -1,0 +1,35 @@
+{
+  "url": "/practice",
+  "title": "Thẻ ôn",
+  "scrollHeight": 1020,
+  "viewport": [
+    1280,
+    1000
+  ],
+  "overflow": false,
+  "text": "Thẻ ôn\nTạm dừng\n1 / 10\napple\nNghe\nXem đáp án",
+  "controls": [
+    {
+      "text": "Tạm dừng",
+      "tag": "BUTTON",
+      "w": 118,
+      "h": 48,
+      "top": 120
+    },
+    {
+      "text": "Nghe",
+      "tag": "BUTTON",
+      "w": 100,
+      "h": 48,
+      "top": 518
+    },
+    {
+      "text": "Xem đáp án",
+      "tag": "BUTTON",
+      "w": 712,
+      "h": 56,
+      "top": 586
+    }
+  ],
+  "run": "kJRyC2"
+}

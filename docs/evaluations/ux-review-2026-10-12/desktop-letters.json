@@ -1,0 +1,49 @@
+{
+  "url": "/practice",
+  "title": "Điền chữ thiếu",
+  "scrollHeight": 1020,
+  "viewport": [
+    1280,
+    1000
+  ],
+  "overflow": false,
+  "text": "Điền chữ thiếu\nTạm dừng\n1 / 10\nquả táo\n\na p _ l e\n\nGõ chữ còn thiếu\nKiểm tra\nGợi ý\nBỏ qua",
+  "controls": [
+    {
+      "text": "Tạm dừng",
+      "tag": "BUTTON",
+      "w": 118,
+      "h": 48,
+      "top": 120
+    },
+    {
+      "text": "practice-answer",
+      "tag": "INPUT",
+      "w": 712,
+      "h": 48,
+      "top": 612
+    },
+    {
+      "text": "Kiểm tra",
+      "tag": "BUTTON",
+      "w": 712,
+      "h": 48,
+      "top": 676
+    },
+    {
+      "text": "Gợi ý",
+      "tag": "BUTTON",
+      "w": 101,
+      "h": 48,
+      "top": 744
+    },
+    {
+      "text": "Bỏ qua",
+      "tag": "BUTTON",
+      "w": 113,
+      "h": 48,
+      "top": 744
+    }
+  ],
+  "run": "ug0tU3"
+}

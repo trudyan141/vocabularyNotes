@@ -1,0 +1,77 @@
+{
+  "url": "/library/grammar/extra-apple?table=sentences",
+  "title": "apple",
+  "scrollHeight": 1099,
+  "viewport": [
+    1280,
+    1000
+  ],
+  "overflow": false,
+  "text": "Quay lại\napple\nGhép câu từng bước\nXem chuyển động\nIt is\nnoun.\n\nDùng để gọi tên.\n\nIt is an apple.\n\nĐang tìm phiên âm…\n\nNghe\n\nĐó là quả táo.\n\n1\n2\nXem lại\nBước tiếp\n\nIt is + noun.\n\nIt is an apple.\n\nĐang tìm phiên âm…\n\nNghe\n\nĐó là quả táo.\n\nDùng để gọi tên.",
+  "controls": [
+    {
+      "text": "Quay lại",
+      "tag": "A",
+      "w": 123,
+      "h": 48,
+      "top": 120
+    },
+    {
+      "text": "Xóa mục này",
+      "tag": "BUTTON",
+      "w": 48,
+      "h": 48,
+      "top": 120
+    },
+    {
+      "text": "Xem chuyển động",
+      "tag": "BUTTON",
+      "w": 195,
+      "h": 48,
+      "top": 288
+    },
+    {
+      "text": "Nghe",
+      "tag": "BUTTON",
+      "w": 100,
+      "h": 48,
+      "top": 522
+    },
+    {
+      "text": "1",
+      "tag": "BUTTON",
+      "w": 50,
+      "h": 48,
+      "top": 645
+    },
+    {
+      "text": "2",
+      "tag": "BUTTON",
+      "w": 50,
+      "h": 48,
+      "top": 645
+    },
+    {
+      "text": "Xem lại",
+      "tag": "BUTTON",
+      "w": 117,
+      "h": 48,
+      "top": 645
+    },
+    {
+      "text": "Bước tiếp",
+      "tag": "BUTTON",
+      "w": 132,
+      "h": 48,
+      "top": 645
+    },
+    {
+      "text": "Nghe",
+      "tag": "BUTTON",
+      "w": 100,
+      "h": 48,
+      "top": 892
+    }
+  ],
+  "run": "0YKWRY"
+}

@@ -102,6 +102,7 @@ export function AudioControl({
   }
   return (
     <div className="audio-control">
+      {hydrated&&!preferences.sound&&<a className="muted-audio-help" href="/settings">{t("Bật giọng đọc trong Cài đặt","Enable voice in Settings")}</a>}
       <Button
         variant="secondary"
         disabled={!hydrated || !preferences.sound}

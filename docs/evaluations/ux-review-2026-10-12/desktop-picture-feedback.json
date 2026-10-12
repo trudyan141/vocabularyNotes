@@ -1,0 +1,49 @@
+{
+  "url": "/practice",
+  "title": "Nhìn hình chọn từ",
+  "scrollHeight": 1020,
+  "viewport": [
+    1280,
+    1000
+  ],
+  "overflow": false,
+  "text": "Nhìn hình chọn từ\nTạm dừng\n1 / 10\nTừ nào đúng với hình?\napple\nbanana\ngrapes\n\nĐúng rồi!\n\nquả táo · I eat an apple.\n\nCâu tiếp theo",
+  "controls": [
+    {
+      "text": "Tạm dừng",
+      "tag": "BUTTON",
+      "w": 118,
+      "h": 48,
+      "top": 120
+    },
+    {
+      "text": "apple",
+      "tag": "BUTTON",
+      "w": 232,
+      "h": 80,
+      "top": 566
+    },
+    {
+      "text": "banana",
+      "tag": "BUTTON",
+      "w": 232,
+      "h": 80,
+      "top": 566
+    },
+    {
+      "text": "grapes",
+      "tag": "BUTTON",
+      "w": 232,
+      "h": 80,
+      "top": 566
+    },
+    {
+      "text": "Câu tiếp theo",
+      "tag": "BUTTON",
+      "w": 712,
+      "h": 48,
+      "top": 829
+    }
+  ],
+  "run": "kJRyC2"
+}

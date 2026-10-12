@@ -1,5 +1,20 @@
 # Ảnh học, animation và xử lý song song — Words for Kids
 
+12/10 — danh sách gọn và tìm hình có kết quả từng nguồn: bỏ subcards POS/nghĩa và nhãn đếm nghĩa dưới word card, giữ dữ liệu/sense IDs. Detail chooser chỉ hiện mỗi nhãn POS+nghĩa Việt một lần. Tìm hình theo Noto→Twemoji→Fluent→OpenMoji catalog rồi Commons nếu chưa có; lỗi/rỗng/lọc license thử query kế tiếp, báo nguồn/kind/code/status an toàn. They với nghĩa plural people có concept nhóm người; curl body cũ từ candidates=[] nay ra2hình Noto/Twemoji, đã kiểm cả2importJPEG/license thật. Không replay cookie founder. [Bằng chứng](evaluations/simple-word-cards-and-media-fallback.md). Hoàn tất local: 29 tests liên quan + 6 ca UI mobile/desktop PASS, lint/typecheck/build/docs PASS; curl they và 2 import thật PASS. Chưa deploy; không founder data/browser/SQL/env/main.
+
+
+12/10 — dán ảnh liên tiếp + chia lượt ngay: trang chỉnh ảnh có Ctrl+V/⌘V và Dán thêm ảnh/Chọn thêm ảnh; dán ảnh2 giữ tên/crop/nháp ảnh1, tạo chung batch; màn batch tiếp tục nhận paste,10ảnh cap. Text paste giữ bình thường. Batch gọi mỗiảnh tuần tự, compactvision6k rồi≤4từ/4k và grammar≤1400chars/≤3items/7k, không thử full10k trước. SSE không vượt output limit; validated checkpoints/CAS/ảnhhash+model+mode giữ, quota/cancel dừng/continue đúng pending, không promise AI đọcđủtuyệtđối.50words/20learning/10000text/40calls/5minphoto caps vẫn giữ, quánguồn báo cắtảnh khôngsilentlydrop. [Bằng chứng](evaluations/continuous-paste-and-chunked-photos.md). Hoàn tất local: 63 test liên quan + 12 ca browser mobile/desktop PASS; lint/typecheck/build/docs PASS. Chưa deploy, chưa kiểm clipboard trên điện thoại thật hoặc live Gemini trong lượt này.
+
+
+12/10 ADR081: picture-word/word-picture chỉ dùng resolved ready art cho target và distractor; revalidate resume/check/answer/live UI, thiếu hình vẫn chơi flashcard/game chữ.Free online search adds pinned Noto2DSVG(Apache2), Twemoji graphics(CCBY4), MicrosoftFluentFlat(MIT) beside OpenMoji/Commons. Parents select; fixed IDs/paths, bounded fetch/quota/cache, sanitizedSVG→signedJPEG; creator/license/change notice/backup/cloud retained. Tìm thêm trên mạng→Commons, Openclipart/Openverse manual search links+originallicense review/upload. Paid/user-owned images still accepted. [Evidence](evaluations/free-picture-sources-and-games.md).
+
+
+12/10 — thư viện tìm từ chính xác và nhiều ảnh: mỗi headword/caseMode một hàng, các sense/POS giữ riêng và có link mở; không gộp/xóa dữ liệu học. Search UI chỉ tên từ/cụm từ + nghĩa Việt, từ đầu token/prefix, không dò ví dụ/definition/tên bài; highlight đúng text có dấu. Chọn/kéo thả tới10ảnh,10MB/20MP mỗiảnh, normalize/EXIF strip tuần tự, local batch có preview/crop/remove/add. Một nút đọc phần còn lại; từng ảnh tuần tự qua adapter/recovery hiện có, stop-on-error, completed checkpoints/CAS/reload giữ; review/save riêng từng ảnh, không auto-save hay auto-upload sau reload. [Bằng chứng](evaluations/search-and-batch.md). Hoàn tất local:35data/search tests+14UIcases mobile/desktop PASS; lint/types/final build/docs PASS; chưa deploy/liveAI/phone-human/cloud/SQL.
+
+
+12/10 — ADR080: worksheet fastpath1call; MAX_TOKENS/invalidresult/confirmedinputcontext tự chuyển compactvision+sequential4word/textpassage1400chars. Validated chunkscheckpointIndexedDB/CAS/imagehash/model/mode, reloadContinue, editinvalidates. Onecontentrepair/batch rồisplit, khôngretrynetwork/quota/key/refusal/timeout;1WebLock toànsequence/60srequest/500KB/5minUI/40recoverycalls. Sourcecaps50words20learning10000text vẫn giữ và báo cắtảnh khi vượt; khôngsilentlydrop. Grammar templatea/an/plural1unit3forms, exactevidence appgắn/sourceproject/wholeIPA nullable; review/saveapproval giữ. Supersede historical90s/no-retry chỉvớiboundedcontentrecovery. [Bằng chứng](evaluations/worksheet-recovery.md).
+
+
 12/10 ADR077: group select-all bật/tắt giữ lựa chọn ngoài lọc; lesson picker dùng hình/name/ngày học+createdAtHH:mm:ss/counts/word preview. Bài ảnh mới default4từ đã duyệt, giữ custom/legacy. Added mint/duplicate lilac details đóng mặc định. Editor luôn hiện hình hiện tại trước Đổi hình. Bổ sung hình có Không bổ sung bền qua reload, preference local IndexedDB theo scope, không sửa content/SRS và chưa backup/cloud; vẫn sửa hình trong editor. [Evidence](evaluations/group-picker-and-pictures.md).
 
 
@@ -148,3 +163,5 @@ ADR036 extends this automatic flow to photo review, not just dictionary entry: d
 ## Observable requests — ADR-037
 
 Preparation/photo picture batches show search/download stage, elapsed, completed/total words, found/no-match/error counts and per-word HTTP/timeout details near the action. Sequential ≤50 words/90s total/10s per word; Stop keeps completed downloads, explicit retry handles only missing words. Unknown-duration operations use an indeterminate progress bar rather than guessed percentage/ETA. Existing approval/license checks stay authoritative.
+
+12/10 ADR081 follow-up: search priority GoogleNoto, Twemoji, MicrosoftFluent, rồiOpenMoji/Commons. Catalog-first chỉ định bounded lookup, không giữOpenMojiởvịtríđầu; khôngthayhìnhuserđãchọn.

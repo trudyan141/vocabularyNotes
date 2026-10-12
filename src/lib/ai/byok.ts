@@ -136,7 +136,7 @@ export async function requestWorksheetJson(config:ParentAi,instruction:string,pa
  try{return JSON.parse(raw) as unknown;}catch{throw new ParentAiError('invalid-result');}
  }catch(e){if(callSignal.aborted&&!signal.aborted)throw new ParentAiError('timeout');throw e;}
 }
-export async function analyseWorksheet(blob:Blob,mode:'listed'|'all',signal:AbortSignal,fetcher:typeof fetch=fetch,onProgress?:(value:AiProgress)=>void,recovery?:{checkpoint?:import('./worksheet-recovery').WorksheetCheckpoint;onCheckpoint:(value:import('./worksheet-recovery').WorksheetCheckpoint)=>void}){
+export async function analyseWorksheet(blob:Blob,mode:'listed'|'all',signal:AbortSignal,fetcher:typeof fetch=fetch,onProgress?:(value:AiProgress)=>void,recovery?:{checkpoint?:import('./worksheet-recovery').WorksheetCheckpoint;onCheckpoint:(value:import('./worksheet-recovery').WorksheetCheckpoint)=>void;chunked?:boolean}){
  const config=parentAi();if(!config)throw new ParentAiError('missing-key');
  if(blob.type!=='image/jpeg'||blob.size>3000000||!blob.size)throw new ParentAiError('image');
  const execute=async()=>{
@@ -147,7 +147,7 @@ export async function analyseWorksheet(blob:Blob,mode:'listed'|'all',signal:Abor
   const resume=recovery?.checkpoint?.imageHash===imageHash&&recovery.checkpoint.mode===mode&&recovery.checkpoint.model===config.model?recovery.checkpoint:undefined;
   const image={inlineData:{mimeType:'image/jpeg',data:btoa(binary)}};
   let failed:unknown;
-  if(!resume){
+  if(!resume&&!recovery?.chunked){
    onProgress?.({stage:'waiting',text:'',words:[]});
    try{
     const data=await requestWorksheetJson(config,worksheetInstructions(mode),[{text:`Read this worksheet and prepare suggestions for review. Return one JSON object matching this schema, without markdown fences. Repeated occurrences of the same word, POS and sense must appear once; use consistent English POS and sense labels (they: pronoun). Keep truly different meanings or POS separate: ${JSON.stringify(worksheetProviderSchema())}`},image],10000,signal,fetcher,onProgress);

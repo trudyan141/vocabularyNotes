@@ -23,6 +23,8 @@ import {
   type CaptureMetadata,
 } from "@/data/local/capture";
 import { RepositoryError } from "@/data/local/repository";
+import {photoBatchLimit,preparePhotoBatch} from '@/data/local/worksheet-batch';
+import {useImagePaste} from './use-image-paste';
 import {
   fullTransform,
   ImageError,
@@ -102,6 +104,8 @@ export function Capture() {
   );
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [intakeProgress,setIntakeProgress]=useState('');
+  const [partialBatch,setPartialBatch]=useState<string|null>(null);
   const [captureMode, setCaptureMode] = useState<"upload" | "camera">("upload");
   const [dragging,setDragging]=useState(false);
   const [readingClipboard,setReadingClipboard]=useState(false);
@@ -237,6 +241,18 @@ export function Capture() {
       if (mounted.current) setBusy(false);
     }
   }
+  async function intakeFiles(files:File[]){
+    if(files.length===1){await intake(files[0]);return;}
+    if(!repo||intakeLock.current||!files.length)return;
+    if(files.length>photoBatchLimit){setError(t(`Chọn tối đa ${photoBatchLimit} ảnh mỗi đợt nhé.`,`Choose up to ${photoBatchLimit} photos per batch.`));return;}
+    intakeLock.current=true;stopCamera();setBusy(true);setError('');setPartialBatch(null);
+    try{
+      const result=await preparePhotoBatch(repo,files,undefined,0,(index,total)=>{if(mounted.current)setIntakeProgress(t(`Đang lưu ảnh ${index}/${total}…`,`Saving photo ${index}/${total}…`));});
+      if(!mounted.current)return;
+      if(result.failures.length){setError(result.failures.map(failure=>`${failure.name}: ${failureText(failure.error)}`).join(' '));if(result.drafts.length)setPartialBatch(result.batchId);}
+      else router.push(`/capture/batch/${result.batchId}`);
+    }finally{intakeLock.current=false;if(mounted.current){setBusy(false);setIntakeProgress('');}}
+  }
   useEffect(() => {
     if(repo&&pendingPaste.current&&!intakeLock.current){const file=pendingPaste.current;pendingPaste.current=null;void intake(file);}
     const paste = (event: ClipboardEvent) => {
@@ -333,6 +349,7 @@ export function Capture() {
         )}
       </p>
       {error && <Failure message={error} />}
+      {partialBatch&&<Button asChild><Link href={`/capture/batch/${partialBatch}`}>{t('Xem các ảnh đã thêm','View added photos')}</Link></Button>}
       <section className="capture-intake" aria-label={t('Chụp, chọn hoặc dán ảnh bài học','Capture, choose or paste a worksheet photo')}>
         <Tabs value={captureMode} onValueChange={changeCaptureMode} className="capture-tabs">
           <TabsList className="capture-tabs-list" aria-label={t("Cách thêm ảnh", "How to add a photo")}>
@@ -344,13 +361,13 @@ export function Capture() {
           onDragEnter={event=>{event.preventDefault();if(busy)return;dragDepth.current++;setDragging(true);}}
           onDragOver={event=>{event.preventDefault();event.dataTransfer.dropEffect=busy?'none':'copy';}}
           onDragLeave={event=>{event.preventDefault();dragDepth.current=Math.max(0,dragDepth.current-1);if(!dragDepth.current)setDragging(false);}}
-          onDrop={event=>{event.preventDefault();dragDepth.current=0;setDragging(false);if(busy||intakeLock.current)return;const files=event.dataTransfer.files;if(files.length!==1){setError(t('Chọn một ảnh mỗi lần để xem và chỉnh rõ từng trang.','Choose one photo at a time so each page can be reviewed and cropped.'));return;}void intake(files[0]);}}>
+          onDrop={event=>{event.preventDefault();dragDepth.current=0;setDragging(false);if(busy||intakeLock.current)return;void intakeFiles(Array.from(event.dataTransfer.files));}}>
           <Upload size={32} aria-hidden="true"/>
           <h2>{dragging?t('Thả ảnh vào đây','Drop your photo here'):t('Kéo thả ảnh bài học vào đây','Drag your worksheet photo here')}</h2>
           <p>{t('Chọn ảnh từ máy hoặc bấm Dán ảnh đã sao chép. Trên máy tính có thể dùng Ctrl+V / ⌘V.','Choose a photo or tap Paste copied image. On a computer you can also use Ctrl+V / ⌘V.')}</p>
-          <div className="row-wrap"><Button disabled={busy||readingClipboard} onClick={()=>fileInput.current?.click()}>{t('Chọn ảnh từ máy','Choose an image')}</Button><Button variant="outline" disabled={busy||readingClipboard||!repo} onClick={()=>void pasteImage()}><ClipboardPaste aria-hidden="true"/>{readingClipboard?t('Đang đọc ảnh…','Reading image…'):t('Dán ảnh đã sao chép','Paste copied image')}</Button></div>
-          <input ref={fileInput} id="worksheet-file" type="file" hidden aria-label={t('Chọn ảnh từ máy','Choose an image')} accept="image/jpeg,image/png,image/webp,.heic,.heif" disabled={busy} onChange={event=>{const file=event.target.files?.[0];event.target.value='';if(file)void intake(file);}}/>
-          <small>JPEG, PNG, WebP · {t('Tối đa 10 MB · Một ảnh mỗi lần','Up to 10 MB · One photo at a time')}</small>
+          <div className="row-wrap"><Button disabled={busy||readingClipboard||!repo} onClick={()=>fileInput.current?.click()}>{t('Chọn ảnh từ máy','Choose an image')}</Button><Button variant="outline" disabled={busy||readingClipboard||!repo} onClick={()=>void pasteImage()}><ClipboardPaste aria-hidden="true"/>{readingClipboard?t('Đang đọc ảnh…','Reading image…'):t('Dán ảnh đã sao chép','Paste copied image')}</Button></div>
+          <input ref={fileInput} id="worksheet-file" type="file" multiple hidden aria-label={t('Chọn ảnh từ máy','Choose an image')} accept="image/jpeg,image/png,image/webp,.heic,.heif" disabled={busy||!repo} onChange={event=>{const files=Array.from(event.target.files??[]);event.target.value='';void intakeFiles(files);}}/>
+          <small>JPEG, PNG, WebP · {t('Tối đa 10 MB mỗi ảnh · Chọn tới 10 ảnh','Up to 10 MB per photo · Choose up to 10 photos')}</small>
         </div>
           </TabsContent>
           <TabsContent value="camera">
@@ -405,7 +422,7 @@ export function Capture() {
       </section>
       {busy && (
         <p role="status">
-          {t(
+          {intakeProgress||t(
             "Đang kiểm tra ảnh và lưu nháp…",
             "Checking image and saving draft…",
           )}
@@ -429,7 +446,7 @@ export function Capture() {
             {drafts.rows.map((draft) => (
               <li key={draft.id}>
                 <div>
-                  <Link prefetch={false} href={`/capture/${draft.id}/edit`}>
+                  <Link prefetch={false} href={draft.batchId?`/capture/batch/${draft.batchId}`:`/capture/${draft.id}/edit`}>
                     {draft.title || t("Bài chưa đặt tên", "Untitled lesson")}
                   </Link>
                   <p>
@@ -544,6 +561,9 @@ function Editor({
   const { t } = useApp();
   const router = useRouter();
   const failureText = useFailureText();
+  const [batchId,setBatchId]=useState(initial.draft.batchId);
+  const [adding,setAdding]=useState(false);
+  const additionLock=useRef(false),extraInput=useRef<HTMLInputElement|null>(null);
   const [metadata, setMetadata] = useState<CaptureMetadata>({
     title: initial.draft.title,
     learnedOn: initial.draft.learnedOn,
@@ -658,9 +678,27 @@ function Editor({
   async function leave() {
     try {
       await persist();
-      router.push("/capture");
+      router.push(batchId?`/capture/batch/${batchId}`:"/capture");
     } catch {}
   }
+  async function addPhotos(files:File[]){
+    if(additionLock.current||processing||saving||!files.length)return;
+    additionLock.current=true;setAdding(true);setError('');
+    try{
+      const siblings=batchId?(await repo.list()).filter(row=>row.batchId===batchId):[initial.draft];
+      if(siblings.length+files.length>photoBatchLimit){setError(t('Một đợt có tối đa 10 ảnh. Giữ ảnh hiện tại rồi thêm đợt mới nhé.','A batch holds up to 10 photos. Save this batch and start another.'));return;}
+      await persist();await writes.current;
+      const nextBatch=batchId??crypto.randomUUID();
+      if(!batchId){const attached=await repo.attachBatch(initial.draft.id,version.current,nextBatch);version.current=attached.version;setBatchId(nextBatch);}
+      const offset=batchId?Math.max(-1,...siblings.map(row=>row.batchOrder??0))+1:1;
+      const added=await preparePhotoBatch(repo,files,nextBatch,offset);
+      if(!active.current)return;
+      if(added.failures.length){setError(added.failures.map(failure=>`${failure.name}: ${failureText(failure.error)}`).join(' '));return;}
+      router.push(`/capture/batch/${nextBatch}`);
+    }catch(cause){if(active.current)setError(failureText(cause));}
+    finally{additionLock.current=false;if(active.current)setAdding(false);}
+  }
+  const paste=useImagePaste(!adding&&!processing&&!saving,addPhotos,setError);
   const names = {
     left: t("Mép trái (%)", "Left edge (%)"),
     top: t("Mép trên (%)", "Top edge (%)"),
@@ -685,6 +723,12 @@ function Editor({
         )}
       </p>
       {error && <Failure message={error} />}
+      <section className="page-flow" aria-label={t('Thêm ảnh vào bài','Add more worksheet photos')}>
+        <p>{t('Dán tiếp bằng Ctrl+V / ⌘V, hoặc thêm ảnh bên dưới. Ảnh đang chỉnh sẽ được giữ trong cùng đợt.','Paste again with Ctrl+V / ⌘V or add another photo below. This photo stays in the same batch.')}</p>
+        <div className="row-wrap"><Button variant="outline" disabled={adding||processing||saving||paste.reading} onClick={()=>void paste.pasteImages()}><ClipboardPaste aria-hidden="true"/>{paste.reading?t('Đang đọc ảnh…','Reading image…'):t('Dán thêm ảnh','Paste another photo')}</Button><Button variant="outline" disabled={adding||processing||saving||paste.reading} onClick={()=>extraInput.current?.click()}><Upload aria-hidden="true"/>{t('Chọn thêm ảnh','Choose more photos')}</Button>{batchId&&<Button asChild variant="ghost"><Link href={`/capture/batch/${batchId}`}>{t('Xem đợt ảnh','View photo batch')}</Link></Button>}</div>
+        <input ref={extraInput} type="file" multiple hidden aria-label={t('Chọn thêm ảnh','Choose more photos')} accept="image/jpeg,image/png,image/webp,.heic,.heif" disabled={adding||processing||saving} onChange={event=>{const files=Array.from(event.target.files??[]);event.target.value='';void addPhotos(files);}}/>
+        {adding&&<p role="status">{t('Đang giữ ảnh và thêm ảnh mới…','Saving this photo and adding photos…')}</p>}
+      </section>
       <div className="capture-edit-layout">
         <section className="page-flow">
           <LocalPreview
@@ -821,7 +865,7 @@ function Editor({
               />
             </Field>
           </FieldGroup>
-          <SubmitButton type="button" state={saving?'pending':error?'error':'idle'} error={error} disabled={processing||saving} onClick={async()=>{try{await persist();router.push(`/capture/${initial.draft.id}/extract?analyse=1`);}catch{}}}>{t("Phân tích ảnh bằng AI", "Analyse photo with AI")}</SubmitButton>
+          <SubmitButton type="button" state={saving||adding?'pending':error?'error':'idle'} error={error} disabled={processing||saving||adding} onClick={async()=>{try{await persist();router.push(batchId?`/capture/batch/${batchId}`:`/capture/${initial.draft.id}/extract?analyse=1`);}catch{}}}>{batchId?t('Giữ ảnh và về đợt ảnh','Save photo and return to batch'):t("Phân tích ảnh bằng AI", "Analyse photo with AI")}</SubmitButton>
         </section>
       </div>
     </div>

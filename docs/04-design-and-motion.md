@@ -1,5 +1,19 @@
 # UI, UX và animation — Words for Kids
 
+12/10 — Tìm hình nhận ảnh riêng theo yêu cầu founder: shared WordPictureSearch có vùng kéo thả focus được, Ctrl+V/⌘V scoped vào từ đang dùng, nút Dán ảnh cho mobile và chọn file. Một ảnh JPEG/PNG/WebP dưới4MB theo upload media hiện có (server12MP, resize512, EXIFstrip/JPEG/receipt giữ). Paste chữ/URL giữ mặc định; không lấy URL ảnh để tự fetch. Clipboard không hỗ trợ/bị từ chối có recovery chọn file; multi-file/format/size sai không upload; lock chống nhận2lượt, abort khi unmount. Reuse upload ký và sense/revision/CAS, editor stage đến Save chung, Prepare lưu hình theo hành vi cũ; không AI/không đổi quota/provider/SQL/env.
+
+
+12/10 — danh sách gọn và tìm hình có kết quả từng nguồn: bỏ subcards POS/nghĩa và nhãn đếm nghĩa dưới word card, giữ dữ liệu/sense IDs. Detail chooser chỉ hiện mỗi nhãn POS+nghĩa Việt một lần. Tìm hình theo Noto→Twemoji→Fluent→OpenMoji catalog rồi Commons nếu chưa có; lỗi/rỗng/lọc license thử query kế tiếp, báo nguồn/kind/code/status an toàn. They với nghĩa plural people có concept nhóm người; curl body cũ từ candidates=[] nay ra2hình Noto/Twemoji, đã kiểm cả2importJPEG/license thật. Không replay cookie founder. [Bằng chứng](evaluations/simple-word-cards-and-media-fallback.md). Hoàn tất local: 29 tests liên quan + 6 ca UI mobile/desktop PASS, lint/typecheck/build/docs PASS; curl they và 2 import thật PASS. Chưa deploy; không founder data/browser/SQL/env/main.
+
+
+## ADR081 — Chuông gọn trên header
+
+Chuông Lucide48px cạnh avatar; mobile dùng avatar48px không cắt tên bằng ellipsis; desktop giữ tên profile. Popup neo chuông tối đa380px, giới hạn viewport/safe gutter16px, cuộn nội dung và đọc bằng keyboard. Badge berry số unread; rung650ms hữu hạn khi unread signature thay đổi, không loop hoặc âm thanh; OS/app reduced motion giữ tĩnh. Theme C/Nunito/mascot hiện có, row rõ title/summary/unread, trang detail760px.
+
+
+12/10 — thư viện tìm từ chính xác và nhiều ảnh: mỗi headword/caseMode một hàng, các sense/POS giữ riêng và có link mở; không gộp/xóa dữ liệu học. Search UI chỉ tên từ/cụm từ + nghĩa Việt, từ đầu token/prefix, không dò ví dụ/definition/tên bài; highlight đúng text có dấu. Chọn/kéo thả tới10ảnh,10MB/20MP mỗiảnh, normalize/EXIF strip tuần tự, local batch có preview/crop/remove/add. Một nút đọc phần còn lại; từng ảnh tuần tự qua adapter/recovery hiện có, stop-on-error, completed checkpoints/CAS/reload giữ; review/save riêng từng ảnh, không auto-save hay auto-upload sau reload. [Bằng chứng](evaluations/search-and-batch.md). Hoàn tất local:35data/search tests+14UIcases mobile/desktop PASS; lint/types/final build/docs PASS; chưa deploy/liveAI/phone-human/cloud/SQL.
+
+
 12/10 ADR079 — founder bỏ Câu độc lập: library/group chỉ2tab Từ/Ngữ pháp rộng bằng nhau; thêm group chỉ words/grammar hoặc cảbài/ngày, không add sentence refs mới. Ví dụ câu/IPA/audio trong word/grammar vẫn lưu và xem bình thường. Giữ legacy records/refs/backup/cloud; old sentence bookmark mở word chứa ví dụ. Review demo bỏ sentence tab. Supersede3tab cũ; Xếp câu là game grammar vẫn giữ. [Evidence](evaluations/two-learning-types.md).
 
 

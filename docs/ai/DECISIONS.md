@@ -1,5 +1,38 @@
 # Quyết định và giả định
 
+12/10 — Tìm hình nhận ảnh riêng theo yêu cầu founder: shared WordPictureSearch có vùng kéo thả focus được, Ctrl+V/⌘V scoped vào từ đang dùng, nút Dán ảnh cho mobile và chọn file. Một ảnh JPEG/PNG/WebP dưới4MB theo upload media hiện có (server12MP, resize512, EXIFstrip/JPEG/receipt giữ). Paste chữ/URL giữ mặc định; không lấy URL ảnh để tự fetch. Clipboard không hỗ trợ/bị từ chối có recovery chọn file; multi-file/format/size sai không upload; lock chống nhận2lượt, abort khi unmount. Reuse upload ký và sense/revision/CAS, editor stage đến Save chung, Prepare lưu hình theo hành vi cũ; không AI/không đổi quota/provider/SQL/env.
+
+
+12/10 — Bổ sung hình không lặp headword: founder báo are/they xuất hiện nhiều lần tại `/library/prepare`. Áp dụng projection headword + caseMode hiện có trước pagination12, sau filter approved/missing/skipped/lesson. Mỗi từ một dòng; nghĩa/POS khác nhau giữ nguyên và chọn bằng Nghĩa cần hình. Search/save/skip gắn đúng sense/revision; không bulk-copy ảnh vào nghĩa khác, không gộp/xóa dữ liệu học.
+
+
+12/10 — Notifications bổ sung theo founder: mỗi item có nút thùng rác riêng (48px), không nằm trong link detail. Bấm xóa chỉ dismiss phiên bản thông báo theo scope/signature bằng IndexedDB metadata, không xóa bài/nháp/queue và không tự chọn Không sao chép. Badge/list cập nhật, popup vẫn mở; bền reload, cùng lỗi retry không hiện lại, draft/công việc mới có thể báo mới. Lỗi lưu dismiss hiện ngay action, không ẩn item/claim success.
+
+
+## ADR-081 —12/10/2026: Chuông thông báo chung trên header
+
+Founder yêu cầu bỏ lời nhắc sao chép khỏi đầu Today, gom thông báo vào một feature Notifications. Header có chuông, badge số chưa đọc và rung hữu hạn khi tập thông báo chưa đọc thay đổi; tôn trọng OS/app reduced motion. Bấm chuông lần hai, Escape hoặc bên ngoài đóng popup. Chọn thông báo mở `/notifications/[id]` với nội dung và action đúng loại.
+
+Steering tiếp theo cùng lượt: nhắc “Bạn còn một bài đang chuẩn bị” cũng chuyển khỏi Today vào notification, detail có Tiếp tục nháp ảnh mở đúng draft; không auto-upload/AI. Draft notification dùng mọi scope guest/demo/account, receipt theo scope + draft id, sửa cùng draft không re-alert; bỏ/xong draft tự hết, draft mới unread.
+
+Thông báo hiện tại: nháp ảnh đang chuẩn bị, sao chép thư viện guest sau đăng nhập và đồng bộ cần xử lý (mạng/lượt gửi/trùng/xung đột). Không tạo feed giả hoặc gửi lesson khi mở/đọc. Danh sách chưa đánh dấu đọc; mở detail lưu read receipt bằng IndexedDB metadata theo account scope + nội dung thông báo. Không đưa receipt vào backup/cloud. Guest-copy choice cũ vẫn được tôn trọng; Không sao chép chỉ lưu lựa chọn theo owner, giữ nguyên dữ liệu gốc. Xem trước không kết thúc lời nhắc; chỉ xác nhận copy thành công hoặc decline mới kết thúc. Sync phục hồi tự hết thông báo, retry cùng lỗi không re-alert; công việc/nội dung khác có thể báo mới. Detail tái dùng transfer preview/backup/confirm và sync conflict choices; lỗi submit giữ ngay action, không chuyển feedback form vào inbox.
+
+Giữ Theme C, Nunito, mascot, nav và account isolation. Unknown notification route trả404; thông báo đã xử lý/khác scope có empty state. Không thêm SQL/provider/env/dependency hay sửa bài founder. [Bằng chứng](../evaluations/notifications.md).
+
+
+## ADR-080 —12/10/2026: Phân tích ảnh có chia lượt và tiếp tục từ nháp
+
+Founder yêu cầu chẩn đoán ảnh 2/curl, sửa lỗi và tối ưu context/chia calls để lấy đủ nội dung; chỉ thêm skill GitHub khi cần. Replay request gốc trả STOP, 2.387 input/2.488 output, 12 từ/1 ngữ pháp hợp lệ. Không suy context overflow từ độ dài base64 hoặc thông báo lỗi mạng. Chưa có response lỗi gốc nên chưa xác nhận nguyên nhân lần đầu.
+
+Giữ fast path một call. MAX_TOKENS, confirmed input-context error và invalid JSON/DTO/evidence chuyển sang compact vision + enrichment tuần tự: 4 từ/lượt, đoạn ≤1.400 ký tự. Tái dùng vocabulary đã hợp lệ; sửa learning bằng text, không đọc lại ảnh. Content repair tối đa một lượt/batch rồi chia nhỏ; không retry mạng/quota/key/refusal/timeout hoặc xoay key/model. Web Lock giữ toàn chuỗi; mỗi request tối đa 60s/500KB, toàn UI 5 phút, 40 recovery calls/run. Caps 50 từ/20 learning/10.000 ký tự giữ nguyên; nguồn vượt cap phải báo cắt ảnh, không bỏ âm thầm hoặc báo success. Các remainingPassages phải là đoạn nguyên văn và được đưa vào hàng đợi.
+
+Checkpoint chứa các chunk đã validate trong IndexedDB, giữ scope/CAS; không chứa credential/base64/thoughts. Image SHA-256 + mode/model ràng buộc resume; crop/model/mode thay đổi đọc lại, user edit hủy checkpoint. Reload/cancel/error giữ phần đã xong; Continue chỉ gọi phần còn thiếu. Review/save vẫn là explicit approval. Lỗi content/output/context/quota/timeout có copy riêng tại nút; bỏ duplicate alert và chờ AI xong mới tìm hình.
+
+Ngữ pháp a/an/They are dùng named forms nhỏ: primary a + an/plural variants trong một unit; code gắn exact source evidence, công thức/conditions và project provenance. Ví dụ/IPA AI giữ unverified/null nếu không chắc. Supersede deadline 90s/no-retry lịch sử chỉ cho bounded content recovery; không thay quyền quota/billing. Skills worksheet/bilingual/delivery + UI/UX Pro Max/React sẵn có đã đủ, không thêm upstream mới.
+
+[Verification](../evaluations/worksheet-recovery.md). Live smoke một ảnh do founder cung cấp, không general OCR benchmark/eligibility/free-quota guarantee. Chưa deploy; không main/Vercel env/cloud writes/founder browser.
+
+
 ## ADR-076 — Một lần lưu từ, phản hồi tại nút và điều hướng liên tục
 
 Founder12/10 yêu cầu: trash đầu detail/edit; animation hết lượt quay về bước1; lưu lựa chọn bất kỳ vào nhóm; edit chỉ1submit, bỏ checkbox/text review lặp; API submit có pending/success/fail tại nút, lỗi đỏ bên trên và tại input; xóa bộ nhưng giữ nội dung; footer mọi trang không che content; empty state có hình dễ thương và bổ sung skill mobile từ GitHub.
@@ -519,3 +552,43 @@ Founder trực tiếp yêu cầu bỏ tab/list/luồng thêm Câu độc lập k
 Library và group detail/list bỏ sentence mode/count/action; group editor chỉ words/grammar/lessons, select-all chỉ2loại. UI save lesson/day truyền includeSentences=false, không tạo refs câu độc lập từ bài; vẫn thêm word và grammar đúng số. Legacy sentence refs giữ nguyên senseId/key khi sửa group; không xóa/rewrite data ngoài yêu cầu. Storage examples/learning/source sentences/cloud/backup giữ nguyên. Query mode=sentences trở về words; bookmark /library/sentences/id mở word chứa ví dụ, không render sentence detail riêng. Review demo bỏ sentence tab, Photo review/Today dùng copy2loại. Grammar Xếp câu vẫn giữ vì là game luyện ngữ pháp, không standalone sentence library.
 
 [Verification](../evaluations/two-learning-types.md). Local only/chưa deploy.
+
+## 12/10/2026 — Tìm từ đúng mục và nhận dạng nhiều ảnh theo yêu cầu founder
+
+Founder báo từ lặp, query “are” trả nhiều mục không liên quan và yêu cầu tô nổi text đang tìm; muốn thêm nhiều ảnh một lần. Library UI search được giới hạn vào tên từ/cụm từ và nghĩa Việt, khớp từ đầu token với prefix cho nhập dở; không dùng examples/definitionEn/lesson title để tạo kết quả từ. Query có dấu/không dấu và hoa/thường cùng khớp, highlight giữ đúng text gốc. Generic search/deck picker vẫn giữ contract cũ. Read projection nhóm theo canonical headword + caseMode, mỗi tên một hàng, các nghĩa/POS/IDs có link riêng; không dùng AI semantic merge, không rewrite user data hoặc SRS. Group/filter trước pagination, chỉ hydrate examples/media cho page hiện tại.
+
+Multiple upload/drop tới10ảnh/đợt (bounded memory/quota), giữ10MB/20MP/header validation/normalizeJPEG/strip metadata cho mỗiảnh. Từng ảnh có capture draft/source/prepared/transform riêng và batchId/order optional trên record hiện có, không schema/SQL migration/cloud upload. Invalid file báo filename và giữ các ảnh hợp lệ; không bỏ cả đợt hoặc âm thầm bỏ ảnh. Batch preview có edit/crop/add/delete, một action phân tích pending photos tuần tự. Dùng Gemini adapter/recovery/WebLock hiện có, không rotate key/model, stop-on-quota/error/cancel;60s/request và5min/photo giữ. CAS bảo vệ capture version và learningDraft version, progress checkpoints được lưu vào local drafts; quota/hủy không làm mất ảnh đã xong. Reload chỉ khôi phục UI, không tự gửi AI; Continue bỏ qua completed/saved photos. Crop thay đổi làm kết quả cũ pending nhưng không xóa trước kết quả người dùng; metadata edit không tự làm mất review. Lưu vẫn review/approve riêng ảnh→existing deterministic saveLesson, cùng từ cùngsense chỉ tăng source link, không tạo từlặp. Xóa capture draft xóa đúng pixels/review draft của ảnh đó, không xóa bài/từ đã lưu.
+
+Giữ tất cả thay đổi pre-existing ADR079/080 và media work khác trong workspace. Không quyền founder-browser/env/main mới, không gọi AI thật/deploy/cloud/SQL trong lượt này. [Verification](../evaluations/search-and-batch.md).
+
+## ADR-081 —12/10/2026: Game hình dùng ảnh hợp lệ và tìm nhiều nguồn free
+
+Founder trực tiếp yêu cầu picture-word/word-picture chỉ chơi word có hình và mở thêm nguồn free, tham khảo app tiếng Anh. Validate resolved art của targets+distractors, including owned media approval/revision; revalidate session trước mutations/resume/liveUI. Không hình vẫn dùng game chữ/flashcard, không ghi điểm từ stale images.
+
+Search dùng catalog trước rồi Commons; thêm3pinnedsourceSVGcatalogs GoogleNoto2D Apache2, Twemoji graphicsCCBY4, MicrosoftFluentFlatMIT. License đúng image-directory khác font/code. User chọn hình; boundedfetch/signednormalizedJPEG/scope/CAS/provenance/backup/cloud giữ. Tìm thêm trên mạng mở Commons dù đã có candidatecatalog. Openclipart/Openverse là link tìm thủ công+revieworiginallicense/upload, không APIimport thiếu verification. Không chỉ cho dùng ảnh free: purchased/user-ownedupload vẫn có. Duolingo originalart/Quizletgallery+historicalFlickr/BritishCouncilcopyright nghiên cứu primary, không lấy ảnh của họ làm freeasset. [Evidence](../evaluations/free-picture-sources-and-games.md).
+
+12/10 ADR081 steering tiếp: founder thấy3nguồn mớiđẹp, yêu cầu ưu tiên khi search hơn2nguồn cũ. Ranking GoogleNoto→Twemoji→MicrosoftFluent→OpenMoji→Commons; không rewrite selected artwork.
+
+## 12/10/2026 — dán tiếp từ editor và chia request cho nhiều ảnh từ đầu
+
+Founder phát hiện paste ảnh1 chuyển editor rồi không nhận ảnh2, đồng thời hỏi chống overflow10k và lấydata dần. Supersede giới hạn paste chỉcapturepage và batch fastpath10k ởcheckpoint trước. Editor/batch dùng cùngimage-paste hook: image files được chặn default và append, text paste khôngpreventDefault. Editor persist pixel/metadata/CAS trước attachBatch optional metadata để giữ ảnhđầu cùngbatch với ảnhmới; không tạoảnhgộp hoặcghiđèsource. CtrlV/⌘V, clipboardbutton và chọnthêmfiles dùng normalizer hiệncó/10MB/20MP/stripmetadata. Batch vẫnmax10 và explicitanalyse/review/save.
+
+Batch analyser truyền chunked=true choadapter hiệncó; từng ảnh đọccompact6k từđầu, enrichword4/lượt4k, grammar≤1400chars/3items/lượt7k. Singlephoto path vẫn10k+fallback nhưADR080. Independentrequests khôngcộng tấtcảảnh thànhmộtresponse10k. SSE transport vẫn dùng streamGenerateContent nhưngpartialJSON khôngcommit; chỉvalidatedchunkscheckpoint vàoIDB. Failedcontent repairmộtlần rồisplit4→2→1/shorterpassage, network/quota khôngretryloop.50words/20learning/10000text,40recoverycalls/run,60srequest/5minphoto giữ; source-truncated/contextlimit báoeditcrop thayvì claimfullsuccess. KhôngcamkếtOCR/providerđọcđủmọichữ, cũngkhôngclaimstreamingbỏgiới hạnoutput. Theo [Gemini API](https://ai.google.dev/api/generate-content), MAX_TOKENS nghĩađãchạmmaxOutputTokens; [structured streaming](https://ai.google.dev/gemini-api/docs/generate-content/structured-output) nhậnpartialJSON vàcần ghéplại trướcvalidate.
+
+[Bằng chứng vàgiớihạn](../evaluations/continuous-paste-and-chunked-photos.md). Giữpre-existingnotification/media/appwork; khôngmain/env/deploy/cloud/SQL/founderbrowser/liveAI.
+
+## 12/10/2026 — bỏ các hàng nghĩa lặp và tiếp tục tìm hình khi nguồn rỗng/lỗi
+
+Founder muốn bỏ hai subcards noun·ông / verb·là lặp dưới word card. Library chỉ một card với word/meaning, không count2nghĩa hoặc subcards. Detail chooser collapse nhãn POS+VI giống nhau ở projection, ưu tiên ref hiện tại; sense records/English definitions/examples/provenance/sources/SRS/backup/cloud giữ nguyên. Nghĩa thật khác vẫn reachable trong detail, không semanticmerge hayxóa userdata.
+
+Metadata tìmhình tự động theo Noto/Twemoji/Fluent/OpenMoji catalog (giữ ưu tiên founder) rồi Commons nếu catalog chưa có. Source report trongAPI phân biệt catalog/network, found/empty/error, code safe/httpStatus/query và counts. Cảempty/filtered/queryerror thửquery kếtiếp; Commons HTTP200error cũng làprovidererror, không coi làempty; khôngcache failure, emptycache30s, success5min/inflight8 giữ. Status200 empty khác503 unavailable; client đọc JSON lỗi trước status, hiển thị nguồn có lỗi, details nguồn đóng mặcđịnh vàTìmthêmmạng luônreachable kểcảzeroresults. Import thấtbại báo tênnguồn, giữhìnhhiệntại/candidates; khôngtựapprove mộtảnhthaythế. Khôngrawproviderpayload/cookie/key trongAPI/UI/docs.
+
+They với sense đềcập pluralpeople dùng concept peopleholdinghands từcatalogpinned đãcó, vẫncho người dùngchọn/duyệt vàgiữlicense. Khônggắn nócho are hoặc nghĩa they chỉthings. Local guest replay body curl founder khôngcookie: trước200 candidates[], sau2002candidatesNoto/Twemoji+sourceattempts;2imports normalizedJPEG/license thậtPASS, khôngghi founderdata. Openclipart/Openverse vẫnmanuallinks, khôngclaim APIfallback đãtíchhợp hoặc tìmhết mọi nguồnInternet. Quota/consent/owner/receipt/SVGguards vàscope giữ; khôngSQL/newenv/deploy/main/founderbrowser. [Bằng chứng](../evaluations/simple-word-cards-and-media-fallback.md).
+
+## ADR082 — 12/10/2026: nhiều ảnh đọc trước, duyệt và lưu một bài chung
+
+Founder bác luồng review/save riêng từng ảnh và yêu cầu hành vi giống một ảnh: preview tất cả ảnh ở trên; nút phân tích cuối danh sách; lấy từ của tất cả ảnh rồi mới tra nghĩa, lọc trùng word và grammar toàn bộ; một danh sách duyệt và một lần submit. Supersede phần batch trong search-and-batch/continuous-paste.
+
+Dùng cùng ExtractForm/saveLesson, thêm coordinator compact-scan-all → global headword/context dedup → bounded word enrichment → grammar/source-sentence processing → one shared review. Nghĩa/POS khác giữ, grammar chỉ gộp construction/form xác định; source sentences và evidence riêng giữ. Không auto-gộp/sửa bài đã lưu. Source/model/mode snapshot + CAS/checkpoint ghi trước request tiếp, atomic snapshot guard khi save và receipt idempotency giữ dữ liệu. 10 ảnh/50raw per-image/500raw toànđợt; source-limit chặn complete, không bỏ chữ âm thầm. Mở max200 learning cho một lesson để không cắt về20 của single image; provider requests vẫn bounded nhỏ, không một JSON tổng10k.
+
+[Bằng chứng, lệnh và giới hạn](../evaluations/merged-photo-lesson.md). Chưa deploy/liveAI/phone/hosted sync trong lượt này.

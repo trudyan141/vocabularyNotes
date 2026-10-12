@@ -1,5 +1,36 @@
 # Đặc tả màn hình và điều hướng
 
+**12/10 — ADR082, nhiều ảnh thành một bài chung:** supersede review/save riêng từng ảnh. Toàn bộ preview ở trên, Phân tích ở dưới danh sách. Compact vision đọc tất cả ảnh trước, gom headwords/context rồi enrich4từ/lượt và grammar1400chars; một danh sách word/grammar duyệt và một lần Save tạo một lesson. Source/meaning/grammar checkpoints CAS được ghi xong từng phần trước khi đi tiếp; quota/stop/reload Continue, không auto AI. Exact word/POS/sense và declared grammar family/form dedup, giữ nghĩa/POS khác và câu nguồn. Snapshot ảnh/model/mode đổi chặn Save; transaction kiểm source revisions và idempotency; max10ảnh/500raw/100ktext/200learning, per-image caps và source-limit khôngsilentlydrop. Legacy per-photo drafts/lessons giữ. [Bằng chứng](evaluations/merged-photo-lesson.md). **Hoàn tất local:**61focused tests +14caUI mobile/desktop PASS (gồm regression mộtảnh); lint/typecheck/build/docs PASS. Chưa liveAI/physical-phone/hostedsync/deploy. Next: founder refresh bản local để dùng luồng chung.
+
+
+12/10 — Tìm hình nhận ảnh riêng theo yêu cầu founder: shared WordPictureSearch có vùng kéo thả focus được, Ctrl+V/⌘V scoped vào từ đang dùng, nút Dán ảnh cho mobile và chọn file. Một ảnh JPEG/PNG/WebP dưới4MB theo upload media hiện có (server12MP, resize512, EXIFstrip/JPEG/receipt giữ). Paste chữ/URL giữ mặc định; không lấy URL ảnh để tự fetch. Clipboard không hỗ trợ/bị từ chối có recovery chọn file; multi-file/format/size sai không upload; lock chống nhận2lượt, abort khi unmount. Reuse upload ký và sense/revision/CAS, editor stage đến Save chung, Prepare lưu hình theo hành vi cũ; không AI/không đổi quota/provider/SQL/env.
+
+
+12/10 — danh sách gọn và tìm hình có kết quả từng nguồn: bỏ subcards POS/nghĩa và nhãn đếm nghĩa dưới word card, giữ dữ liệu/sense IDs. Detail chooser chỉ hiện mỗi nhãn POS+nghĩa Việt một lần. Tìm hình theo Noto→Twemoji→Fluent→OpenMoji catalog rồi Commons nếu chưa có; lỗi/rỗng/lọc license thử query kế tiếp, báo nguồn/kind/code/status an toàn. They với nghĩa plural people có concept nhóm người; curl body cũ từ candidates=[] nay ra2hình Noto/Twemoji, đã kiểm cả2importJPEG/license thật. Không replay cookie founder. [Bằng chứng](evaluations/simple-word-cards-and-media-fallback.md). Hoàn tất local: 29 tests liên quan + 6 ca UI mobile/desktop PASS, lint/typecheck/build/docs PASS; curl they và 2 import thật PASS. Chưa deploy; không founder data/browser/SQL/env/main.
+
+
+12/10 — Bổ sung hình không lặp headword: founder báo are/they xuất hiện nhiều lần tại `/library/prepare`. Áp dụng projection headword + caseMode hiện có trước pagination12, sau filter approved/missing/skipped/lesson. Mỗi từ một dòng; nghĩa/POS khác nhau giữ nguyên và chọn bằng Nghĩa cần hình. Search/save/skip gắn đúng sense/revision; không bulk-copy ảnh vào nghĩa khác, không gộp/xóa dữ liệu học.
+
+
+12/10 — Notifications bổ sung theo founder: mỗi item có nút thùng rác riêng (48px), không nằm trong link detail. Bấm xóa chỉ dismiss phiên bản thông báo theo scope/signature bằng IndexedDB metadata, không xóa bài/nháp/queue và không tự chọn Không sao chép. Badge/list cập nhật, popup vẫn mở; bền reload, cùng lỗi retry không hiện lại, draft/công việc mới có thể báo mới. Lỗi lưu dismiss hiện ngay action, không ẩn item/claim success.
+
+
+12/10 — dán ảnh liên tiếp + chia lượt ngay: trang chỉnh ảnh có Ctrl+V/⌘V và Dán thêm ảnh/Chọn thêm ảnh; dán ảnh2 giữ tên/crop/nháp ảnh1, tạo chung batch; màn batch tiếp tục nhận paste,10ảnh cap. Text paste giữ bình thường. Batch gọi mỗiảnh tuần tự, compactvision6k rồi≤4từ/4k và grammar≤1400chars/≤3items/7k, không thử full10k trước. SSE không vượt output limit; validated checkpoints/CAS/ảnhhash+model+mode giữ, quota/cancel dừng/continue đúng pending, không promise AI đọcđủtuyệtđối.50words/20learning/10000text/40calls/5minphoto caps vẫn giữ, quánguồn báo cắtảnh khôngsilentlydrop. [Bằng chứng](evaluations/continuous-paste-and-chunked-photos.md). Hoàn tất local: 63 test liên quan + 12 ca browser mobile/desktop PASS; lint/typecheck/build/docs PASS. Chưa deploy, chưa kiểm clipboard trên điện thoại thật hoặc live Gemini trong lượt này.
+
+
+ADR081 bổ sung cùng lượt: nhắc bài/ảnh đang chuẩn bị chuyển vào chuông, bỏ `.draft-resume` khỏi Today. Mở detail có Tiếp tục nháp ảnh về đúng draft hiện tại, không gọi AI/tải ảnh tự động. Guest/demo/account đều có nhắc nháp theo scope; cùng draft sửa không reset unread, draft mới báo mới, draft đã xóa/lưu không còn notice.
+
+## ADR081 — Notifications
+
+Header có chuông thông báo chung, badge số chưa đọc, popup toggle/Close/Escape/outside và link detail `/notifications/[id]`. Bỏ guest-copy banner khỏi Today/mọi main. Detail chứa nội dung + preview/confirm/decline hoặc sync/reconcile đúng loại; đọc không tự submit/copy. Đã xử lý có empty mascot, id lạ404. Không thêm nav thứ năm. Lỗi tại form/nút vẫn ở nơi thao tác.
+
+
+**Lịch sử (luồng batch bị ADR082 thay thế)** — 12/10 thư viện tìm từ chính xác và nhiều ảnh: mỗi headword/caseMode một hàng, các sense/POS giữ riêng và có link mở; không gộp/xóa dữ liệu học. Search UI chỉ tên từ/cụm từ + nghĩa Việt, từ đầu token/prefix, không dò ví dụ/definition/tên bài; highlight đúng text có dấu. Chọn/kéo thả tới10ảnh,10MB/20MP mỗiảnh, normalize/EXIF strip tuần tự, local batch có preview/crop/remove/add. Một nút đọc phần còn lại; từng ảnh tuần tự qua adapter/recovery hiện có, stop-on-error, completed checkpoints/CAS/reload giữ; review/save riêng từng ảnh, không auto-save hay auto-upload sau reload. [Bằng chứng](evaluations/search-and-batch.md). Hoàn tất local:35data/search tests+14UIcases mobile/desktop PASS; lint/types/final build/docs PASS; chưa deploy/liveAI/phone-human/cloud/SQL.
+
+
+12/10 ADR079: chỉ2tab Từ/Ngữ pháp rộng bằng nhau; bỏ Câu/list/add độc lập ởmọipage. Group picker còn Từ/Ngữ pháp/Bài-ngày, select all và thêm lesson/day không tạo standalone sentence refs. Ví dụ câu/IPA/audio/VI trong từ/ngữ pháp vẫn lưu bình thường. Legacy refs/data/backup/cloud bảo toàn; sentence bookmark về word chứa ví dụ. [Evidence](evaluations/two-learning-types.md).
+
+
 ## Offline thân thiện cho bé — ADR055, 11/10/2026
 
 Màn fallback khi mất mạng dùng cùng Nunito/Theme C, Cáo và hình đã cache: lời chào ngắn, hai nút có màu/hình để mở Bài của con hoặc Bài mẫu, nút Thử kết nối lại có kiểu nút rõ ràng. Bài tài khoản vẫn cần mạng/đăng nhập; không tự chọn scope hoặc mở dữ liệu tài khoản. Thư viện có CTA ôn đến hạn, năm trò chơi có minh họa, thẻ từ gồm hình/English/nghĩa thay danh sách text. Không có hình hoặc ảnh chưa cache: biểu tượng sách có nhãn Chưa có hình, không đoán hình cho nghĩa. Màn ôn/game có màu, tiến độ, feedback và nút chính; ba lựa chọn ngang bằng nhau ở360px. Chuyển màn đưa focus về heading và đầu màn. Empty/search/error có lời ngắn và cách tiếp tục. Giữ duyệt nội dung, scope/CAS, chống trùng, SRS/resume, consent và attribution/IPA cả câu; không tự gửi AI.

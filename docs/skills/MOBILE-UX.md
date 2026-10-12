@@ -69,3 +69,5 @@ Routing thay thế không cần cài gói mới: UI/UX Pro Max, Impeccable và L
 ## Kiểm tra lượt này
 
 Chỉ gỡ skill và cập nhật policy/routing/docs, không sửa app. `PATH=/Users/trunglk/.nvm/versions/node/v24.14.1/bin:$PATH pnpm docs:check` PASS:683local links,15skills/317resources,48JSON; `git diff --check` PASS. JSON parse/integrity/link check, không schema-validation. Lần gọi pnpm ban đầu bị engine guard từ Node23.11.0; rerun bằng Node24.14.1 sẵn có đã qua.3file cache Python có sẵn được chuyển ra thư mục tạm của hệ thống, giữ bản gốc; không sửa nội dung skill đã pin. Không cần lint/build/E2E vì không thay runtime/UI.
+
+Kiểm lại khi bàn giao sau thay đổi ADR079 ở workspace: integrity15skills/317resources PASS,3directory đã gỡ không tồn tại. `pnpm docs:check` hiện FAIL chỉ2link ngoài scope từ04/DECISIONS tới evaluations/two-learning-types.md chưa có; lượt PASS683links ở trên là checkpoint trước các link ADR079 này. Không tạo evidence giả cho feature khác để làm check xanh.

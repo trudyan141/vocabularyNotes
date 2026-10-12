@@ -1,5 +1,38 @@
 # Words for Kids — kế hoạch sản phẩm dành cho founder
 
+**12/10 — ADR082, nhiều ảnh thành một bài chung:** supersede review/save riêng từng ảnh. Toàn bộ preview ở trên, Phân tích ở dưới danh sách. Compact vision đọc tất cả ảnh trước, gom headwords/context rồi enrich4từ/lượt và grammar1400chars; một danh sách word/grammar duyệt và một lần Save tạo một lesson. Source/meaning/grammar checkpoints CAS được ghi xong từng phần trước khi đi tiếp; quota/stop/reload Continue, không auto AI. Exact word/POS/sense và declared grammar family/form dedup, giữ nghĩa/POS khác và câu nguồn. Snapshot ảnh/model/mode đổi chặn Save; transaction kiểm source revisions và idempotency; max10ảnh/500raw/100ktext/200learning, per-image caps và source-limit khôngsilentlydrop. Legacy per-photo drafts/lessons giữ. [Bằng chứng](evaluations/merged-photo-lesson.md). **Hoàn tất local:**61focused tests +14caUI mobile/desktop PASS (gồm regression mộtảnh); lint/typecheck/build/docs PASS. Chưa liveAI/physical-phone/hostedsync/deploy. Next: founder refresh bản local để dùng luồng chung.
+
+
+12/10 — Bổ sung hình: are/they không lặp headword, group trước pagination12; chọn đúng nghĩa/POS, search/save/skip giữ sense/revision/CAS. Shared tìm hình có kéo thả, Ctrl+V/⌘V scoped, nút Dán ảnh mobile và picker; text paste giữ, one-image/4MB/format/lock và lỗi clipboard/upload. Editor stage→Save chung, Prepare dùng upload/lưu cũ.15data/media tests +8finalUIcases desktop/mobile +lint/types PASS. Primary build bị lock của lượt khác; UI trên snapshot webpack-dev4333 không private.env (test-only signing key), không claim production build/liveprovider/physicalclipboard/cloud/deploy. Local source dùng dev4317; next: founder refresh kiểm luồng. [Evidence](evaluations/prepare-list-dedup.md).
+
+
+12/10 — danh sách gọn và tìm hình có kết quả từng nguồn: bỏ subcards POS/nghĩa và nhãn đếm nghĩa dưới word card, giữ dữ liệu/sense IDs. Detail chooser chỉ hiện mỗi nhãn POS+nghĩa Việt một lần. Tìm hình theo Noto→Twemoji→Fluent→OpenMoji catalog rồi Commons nếu chưa có; lỗi/rỗng/lọc license thử query kế tiếp, báo nguồn/kind/code/status an toàn. They với nghĩa plural people có concept nhóm người; curl body cũ từ candidates=[] nay ra2hình Noto/Twemoji, đã kiểm cả2importJPEG/license thật. Không replay cookie founder. [Bằng chứng](evaluations/simple-word-cards-and-media-fallback.md). Hoàn tất local: 29 tests liên quan + 6 ca UI mobile/desktop PASS, lint/typecheck/build/docs PASS; curl they và 2 import thật PASS. Chưa deploy; không founder data/browser/SQL/env/main.
+
+
+12/10 — Notifications thùng rác từng item: xóa lời nhắc riêng theo scope/signature, bền reload; popup giữ mở/badge cập nhật, không xóa bài/nháp/pending sync hoặc đổi guest-copy choice. Mỗi nút48px riêng ngoài link, error tại action, focus Close khi item biến mất.6notification data tests +4UIcases desktop/mobile +lint/typecheck/final build PASS. Local/chưa deploy; next: preview khi triển khai.
+
+
+12/10 — dán ảnh liên tiếp + chia lượt ngay: trang chỉnh ảnh có Ctrl+V/⌘V và Dán thêm ảnh/Chọn thêm ảnh; dán ảnh2 giữ tên/crop/nháp ảnh1, tạo chung batch; màn batch tiếp tục nhận paste,10ảnh cap. Text paste giữ bình thường. Batch gọi mỗiảnh tuần tự, compactvision6k rồi≤4từ/4k và grammar≤1400chars/≤3items/7k, không thử full10k trước. SSE không vượt output limit; validated checkpoints/CAS/ảnhhash+model+mode giữ, quota/cancel dừng/continue đúng pending, không promise AI đọcđủtuyệtđối.50words/20learning/10000text/40calls/5minphoto caps vẫn giữ, quánguồn báo cắtảnh khôngsilentlydrop. [Bằng chứng](evaluations/continuous-paste-and-chunked-photos.md). Hoàn tất local: 63 test liên quan + 12 ca browser mobile/desktop PASS; lint/typecheck/build/docs PASS. Chưa deploy, chưa kiểm clipboard trên điện thoại thật hoặc live Gemini trong lượt này.
+
+
+12/10 — ADR081 Notifications: chuông header gom sao chép bài trên máy, nhắc nháp ảnh và đồng bộ cần xử lý; bỏ2banner khỏi Today. Badge unread, rung hữu hạn/reduced motion, popup toggle/Escape/outside, detail/action riêng, read receipt IndexedDB theo scope bền reload. Draft resume đúng editor/guest cũng có; không tự copy/AI. Account isolation/source/CAS giữ. **Hoàn tất local:**13focused data/sync tests +8UIcases desktop/mobile +lint/typecheck/final build PASS. Chưa deploy/hosted/physical-phone; không founder browser/AI/SQL/env/main. Next: kiểm bản preview khi triển khai. [Bằng chứng](evaluations/notifications.md).
+
+
+ADR081 steering tiếp12/10: đã ưu tiên Noto→Twemoji→MicrosoftFluent trướcOpenMoji/Commons, giữhìnhđãlưu.11media tests/2liveUIpriority mobile+desktop/lint/types/build PASS, chưadeploy.
+
+
+12/10 ADR081 local: hai game hình chỉ dùng từ có hình hợp lệ (kể cả đáp án), ảnh bị gỡ giữa lượt thì dừng an toàn. Tìm ảnh thêm GoogleNoto/Twemoji/MicrosoftFluent cùng OpenMoji/Commons; thêmlink Openclipart/Openverse tìm thủcông. Có nguồn/giấyphép, vẫncho ảnhmua/user-owned; khôngcopyảnh Duolingo/Quizlet.34data tests+6UImobile/desktop+actual3sourceimports+lint/types/build PASS, chưa deploy. [Bằng chứng](evaluations/free-picture-sources-and-games.md).
+
+
+**Lịch sử (luồng batch bị ADR082 thay thế)** — 12/10 thư viện tìm từ chính xác và nhiều ảnh: mỗi headword/caseMode một hàng, các sense/POS giữ riêng và có link mở; không gộp/xóa dữ liệu học. Search UI chỉ tên từ/cụm từ + nghĩa Việt, từ đầu token/prefix, không dò ví dụ/definition/tên bài; highlight đúng text có dấu. Chọn/kéo thả tới10ảnh,10MB/20MP mỗiảnh, normalize/EXIF strip tuần tự, local batch có preview/crop/remove/add. Một nút đọc phần còn lại; từng ảnh tuần tự qua adapter/recovery hiện có, stop-on-error, completed checkpoints/CAS/reload giữ; review/save riêng từng ảnh, không auto-save hay auto-upload sau reload. [Bằng chứng](evaluations/search-and-batch.md). Hoàn tất local:35data/search tests+14UIcases mobile/desktop PASS; lint/types/final build/docs PASS; chưa deploy/liveAI/phone-human/cloud/SQL.
+
+
+12/10 — ADR080: Đã sửa luồng đọc ảnh khi AI trả thiếu/sai hoặc chạm giới hạn câu trả lời. App chia phần nhỏ, giữ phần đã xong trong nháp và có Tiếp tục sau reload/lỗi; thông báo phân biệt nội dung, quota và timeout. Ảnh 2 thật đọc đủ 12 nhãn chính, giữ teddy bears, các từ trong Remember và một bài ngữ pháp đủ a/an/số nhiều. Curl gốc gọi lại chỉ 2.387 token đầu vào/2.488 đầu ra, nên chưa có bằng chứng quá context; response lỗi lần đầu chưa được cung cấp. **54 focused tests, 8 ca UI mobile/desktop, lint/typecheck/final build và live 7 calls PASS**. Bản local, chưa deploy. [Bằng chứng](evaluations/worksheet-recovery.md).
+
+
+12/10 ADR079 đã hoàn tất local: bỏ Câu riêng, hai tab Từ/Ngữ pháp chia đều; thêm bài chỉ thêm word/grammar và vẫn giữ toàn bộ ví dụ/IPA/audio. Link câu cũ về từ chứa ví dụ, không xóa dữ liệu.37data tests/8UIcases/lint/types/build PASS; chưa deploy. [Bằng chứng](evaluations/two-learning-types.md).
+
+
 12/10 — ADR078: đã rà soát toàn bộ17skill, gỡ responsive2sao và2skill mblode144sao/13forks; còn15skill (12upstream+3custom). Dùng UI/UX Pro Max đã có (~134.800sao/~14.300forks) làm nguồn chính UX/UI như app mobile, Impeccable làm đẹp; giữ Next.js/PWA/Theme C. Đã ghi quy tắc phải chọn nguồn uy tín/nhiều sao/cộng đồng lớn và kiểm nội dung/stack/license. [Cách áp dụng và nghiên cứu](skills/MOBILE-UX.md). Đây là đổi hướng dẫn thiết kế, chưa phải thêm sửa UI hay xác nhận human UX.
 
 12/10 — ADR077 đã sửa local theo4ảnh: Chọn tất cả bật/tắt; bài trong picker có hình/từ mẫu/counts/giờ tạo; bài ảnh default4từ thay tên file/ngày; danh sách mới thêm màu xanh và trùng thu gọn; sửa từ thấy hình hiện tại; Không bổ sung bền reload trên thiết bị, vẫn đổi hình qua editor.20data tests/10UIcases/lint/types/build PASS. Chưa deploy; lựa chọn bỏ bổ sung hiện chưa cloud/backup. [Bằng chứng](evaluations/group-picker-and-pictures.md).
@@ -874,7 +907,7 @@ Thiết kế, scaffold và benchmark có phần chuẩn bị độc lập. Độ
 
 **Bản đầu phải có:** brand Words for Kids, VI/Beginner/child-friendly, khu phụ huynh và voice cues; catalog/tìm hình hoạt họa có nguồn/license/duyệt; animation template và pipeline song song giới hạn; camera/upload, duyệt/sửa, local và Google/cloud, chống trùng giữ nghĩa khác, tìm kiếm, nghĩa Anh–Anh/Anh–Việt, ví dụ, câu/mẫu câu/grammar, nghe, ghi chú và ba template animation, flashcard/lịch ôn, đủ bốn game, offline cho nội dung đã lưu, sao lưu và chuyển thư viện.
 
-**Làm sau:** nhiều hồ sơ người học riêng, PDF nhiều trang/nhiều ảnh một lượt, giọng đọc cloud đồng nhất, tìm kiếm ngữ nghĩa nâng cao, thuật toán ôn nâng cao. Những phần này chưa có ở bản đầu thì phải nêu rõ trên sản phẩm.
+**Làm sau:** nhiều hồ sơ người học riêng, PDF nhiều trang (nhiều ảnh một bài đã làm local theo ADR082), giọng đọc cloud đồng nhất, tìm kiếm ngữ nghĩa nâng cao, thuật toán ôn nâng cao. Những phần này chưa có ở bản đầu thì phải nêu rõ trên sản phẩm.
 
 Giao diện vẫn đơn giản dù chức năng đầy đủ: chức năng nâng cao nằm trong chi tiết hoặc cài đặt, không phải thêm tab cho từng yêu cầu.
 

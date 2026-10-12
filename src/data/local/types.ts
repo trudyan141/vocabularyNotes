@@ -144,6 +144,7 @@ export type WordInput = DemoEntry & {
   tags?: string[];
 };
 export type LibraryWord = DemoEntry & {
+  relatedSenses?: LibraryWord[];
   pronunciations: Pronunciation[];
   examplePronunciations: Pronunciation[];
   pendingEdit?: PendingWordEdit | null;

@@ -16,6 +16,7 @@ import {ActionLink} from "@/components/app/action-link";
 import {DatabaseLoading,ReadFailure} from "@/components/app/database-boundary";
 import {useLibraryWord} from "@/data/local/hooks";
 import {WordLearningContent} from "./learning-content";
+import {visibleSenseChoices} from '@/lib/learning/library-search';
 export function WordDetail({ id }: { id: string }) {
   const { t,repository } = useApp();
   const router=useRouter();
@@ -24,6 +25,7 @@ export function WordDetail({ id }: { id: string }) {
   if (!result) return <DatabaseLoading />;
   if (result.error) return <ReadFailure />;
   const entry = result.word;
+  const senseChoices=senses&&senses.scope===repository?.scope.id&&senses.id===id?visibleSenseChoices(senses.words,id):[];
   if (!entry)
     return (
       <div className="reading-page">
@@ -84,7 +86,7 @@ export function WordDetail({ id }: { id: string }) {
           </WordSpeaking>
         </div>
       </div>
-      {senses&&senses.scope===repository?.scope.id&&senses.id===id&&senses.words.length>1&&<section className="sense-picker page-flow" aria-label={t("Các nghĩa của từ","Word meanings")}><h2>{t("Chọn nghĩa theo câu","Choose the meaning for your sentence")}</h2><p>{t("Từ này có nhiều nghĩa. Mỗi nghĩa có ví dụ riêng.","This word has several meanings, each with its own example.")}</p><div className="row-wrap">{senses.words.map(word=><Button key={word.id} asChild variant={word.id===entry.id?"secondary":"outline"}><Link prefetch={false} href={`/library/words/${word.id}`} aria-current={word.id===entry.id?"page":undefined}>{word.word} · {word.vi.split("—")[0].trim()}</Link></Button>)}</div></section>}
+      {senseChoices.length>1&&<section className="sense-picker page-flow" aria-label={t("Các nghĩa của từ","Word meanings")}><h2>{t("Chọn nghĩa theo câu","Choose the meaning for your sentence")}</h2><p>{t("Từ này có nhiều nghĩa. Mỗi nghĩa có ví dụ riêng.","This word has several meanings, each with its own example.")}</p><div className="row-wrap">{senseChoices.map(word=><Button key={word.id} asChild variant={word.id===entry.id?"secondary":"outline"}><Link prefetch={false} href={`/library/words/${word.id}`} aria-current={word.id===entry.id?"page":undefined}>{word.word} · {word.vi.split("—")[0].trim()}</Link></Button>)}</div></section>}
       <section>
         <h2 className="meaning">
           {entry.vi ||

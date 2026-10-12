@@ -1,5 +1,6 @@
 import {contentSchema,saveContent,type LearningContent} from './content';
 import {safeArt} from '@/lib/media/catalog';
+import {groupLibraryWords,matchesLibraryWord} from '@/lib/learning/library-search';
 import { Dexie } from "dexie";
 import { z } from "zod";
 import {
@@ -224,6 +225,7 @@ export class LocalRepository {
       offset?: number;
       limit?: number;
       approvedOnly?: boolean;
+      libraryOnly?: boolean;
     } = {},
   ): Promise<SearchResult> {
     return this.db.transaction(
@@ -248,6 +250,7 @@ export class LocalRepository {
       offset?: number;
       limit?: number;
       approvedOnly?: boolean;
+      libraryOnly?: boolean;
     } = {},
   ): Promise<SearchResult> {
     const needle = searchTerms(query);
@@ -257,6 +260,17 @@ export class LocalRepository {
       .toArray();
     const source = rows.filter((r) => !options.approvedOnly || r.approval);
     const excluded=new Set(options.excludeIds??[]);
+    if(options.libraryOnly){
+      const eligible=source.filter(r=>(!options.lesson||r.lessonIds.includes(options.lesson))&&(!options.missingArt||!r.art)&&!excluded.has(r.id));
+      const senses=await this.db.senses.bulkGet(eligible.map(r=>[this.scope.id,r.id]));
+      const entryIds=[...new Set(senses.flatMap(sense=>sense&&!sense.deletedAt?[sense.entryId]:[]))];
+      const entries=new Map((await this.db.entries.bulkGet(entryIds.map(id=>[this.scope.id,id]))).flatMap(entry=>entry&&!entry.deletedAt?[[entry.id,entry] as const]:[]));
+      const grouped=new Map<string,string[]>();
+      for(const sense of senses){if(!sense||sense.deletedAt)continue;const entry=entries.get(sense.entryId);if(!entry||!matchesLibraryWord({word:entry.displayText,vi:sense.meaningVi},query))continue;const key=JSON.stringify([canonicalKey(entry.displayText,entry.caseMode),entry.caseMode]);const ids=grouped.get(key)??[];ids.push(sense.id);grouped.set(key,ids);}
+      const limit=Math.max(1,Math.min(options.limit??50,100)),offset=Math.max(0,options.offset??0);
+      // Hydrate examples/media only for the visible page, after grouping and filtering.
+      return {words:groupLibraryWords(await this.words([...grouped.values()].slice(offset,offset+limit).flat())),total:grouped.size,totalLibrary:source.length};
+    }
     const matches = source.filter(
       (r) =>
         (!needle || r.terms.includes(needle)) &&
@@ -324,6 +338,7 @@ export class LocalRepository {
     operationId: string;
     title: string;
     learnedOn: string;
+    captureBatch?:{id:string;signature:string};
     sourceType: "demo" | "manual" | "image";
     items: WordInput[];
     draftId?: string;
@@ -341,7 +356,7 @@ export class LocalRepository {
     if (input.sourceType === "demo" && this.scope.kind !== "demo")
       throw new RepositoryError("scope");
     for(const item of input.learning??[]){text(40).parse(item.key);if(!items.some(word=>word.id===item.wordId))throw new RepositoryError("invalid");contentSchema.parse({...item.content,senseId:item.wordId,targetRevision:"1:1"});}
-    if((input.learning?.length??0)>20)throw new RepositoryError("invalid");
+    if((input.learning?.length??0)>200)throw new RepositoryError("invalid");
     const hash = await contentHash({ ...input, items }); // WebCrypto must finish before opening an IDB transaction.
     return this.db.transaction("rw", this.db.tables, async () => {
       const key: [string, string] = [this.scope.id, input.operationId];
@@ -349,6 +364,10 @@ export class LocalRepository {
       if (receipt) {
         if (receipt.payloadHash !== hash) throw new RepositoryError("conflict");
         return receipt.result;
+      }
+      if(input.captureBatch){
+        const rows=(await this.db.captureDrafts.where('[scopeId+updatedAt]').between([this.scope.id,''],[this.scope.id,'\uffff']).toArray()).filter(row=>row.batchId===input.captureBatch!.id).sort((a,b)=>(a.batchOrder??0)-(b.batchOrder??0)||a.createdAt.localeCompare(b.createdAt));
+        if(JSON.stringify(rows.map(row=>[row.id,row.version]))!==input.captureBatch.signature)throw new RepositoryError('conflict');
       }
       let lessonId = input.lessonId ?? crypto.randomUUID();
       if(input.sourceType==='manual'&&input.lessonId?.startsWith('manual-day-')){const daily=await this.db.lessons.where('[scopeId+learnedOn]').equals([this.scope.id,input.learnedOn]).toArray();const match=daily.find(l=>!l.deletedAt&&l.sourceType==='manual'&&l.id.startsWith('manual-day-'));if(match)lessonId=match.id;else {const moved=await this.db.lessons.get([this.scope.id,lessonId]);if(moved)lessonId=`manual-day-${input.learnedOn}-${crypto.randomUUID()}`;}}

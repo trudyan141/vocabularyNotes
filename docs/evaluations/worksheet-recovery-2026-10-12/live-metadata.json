@@ -1,8 +1,120 @@
 {
   "simulatedInitialCutoff": true,
-  "realCalls": 1,
-  "resumedTextOnly": true,
+  "realCalls": 7,
+  "resumedTextOnly": false,
   "summaries": [
+    {
+      "http": 200,
+      "finish": "STOP",
+      "usage": {
+        "promptTokenCount": 1427,
+        "candidatesTokenCount": 337,
+        "totalTokenCount": 1764,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 327
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 1100
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "image": true,
+      "requestCharacters": 352909
+    },
+    {
+      "http": 200,
+      "finish": "STOP",
+      "usage": {
+        "promptTokenCount": 612,
+        "candidatesTokenCount": 470,
+        "totalTokenCount": 1082,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 612
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "image": false,
+      "requestCharacters": 2514
+    },
+    {
+      "http": 200,
+      "finish": "STOP",
+      "usage": {
+        "promptTokenCount": 674,
+        "candidatesTokenCount": 389,
+        "totalTokenCount": 1063,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 674
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "image": false,
+      "requestCharacters": 2697
+    },
+    {
+      "http": 200,
+      "finish": "STOP",
+      "usage": {
+        "promptTokenCount": 739,
+        "candidatesTokenCount": 491,
+        "totalTokenCount": 1230,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 739
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "image": false,
+      "requestCharacters": 2892
+    },
+    {
+      "http": 200,
+      "finish": "STOP",
+      "usage": {
+        "promptTokenCount": 667,
+        "candidatesTokenCount": 315,
+        "totalTokenCount": 982,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 667
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "image": false,
+      "requestCharacters": 2710
+    },
+    {
+      "http": 200,
+      "finish": "STOP",
+      "usage": {
+        "promptTokenCount": 397,
+        "candidatesTokenCount": 86,
+        "totalTokenCount": 483,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 397
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "image": false,
+      "requestCharacters": 1883
+    },
     {
       "http": 200,
       "finish": "STOP",
@@ -43,21 +155,12 @@
   ],
   "learning": [
     {
-      "example": "It's a ball. It's an eraser. They are cars.",
-      "formula": "It's a/an + danh từ số ít | They are + danh từ số nhiều",
+      "example": "It's a ball.",
+      "formula": "It's + a/an + danh từ số ít. They + are + danh từ số nhiều.",
       "sourceEvidenceText": "It's a / an ...",
       "variants": [
-        "It's a ball.",
         "It's an eraser.",
         "They are books."
-      ]
-    },
-    {
-      "example": "cars",
-      "formula": "Noun + s",
-      "sourceEvidenceText": "2+ items -> add s\ncars, chairs, rulers, pens, crayons, erasers, books, boxes",
-      "variants": [
-        "cars"
       ]
     }
   ]

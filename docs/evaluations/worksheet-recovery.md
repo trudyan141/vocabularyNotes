@@ -1,0 +1,31 @@
+# Khôi phục phân tích ảnh theo từng phần —12/10/2026, ADR080
+
+## Chẩn đoán bằng ảnh và curl founder gửi
+
+Curl chỉ có request, không có HTTP response/finishReason của lần lỗi. Request ~358.914 ký tự chủ yếu là inline JPEG base64; đây không phải số token context. Gọi lại nguyên body bằng key founder gửi, không ghi key/payload vào repo: Gemini3.5FlashLite trả STOP, promptTokenCount2387, candidatesTokenCount2488, total4875, JSON hợp lệ12words/1grammar; validateWorksheet cũng chấp nhận. Vì vậy **chưa xác nhận nguyên nhân lần đầu và không có bằng chứng ảnh này vượt context**.
+
+Code cũ xử lý MAX_TOKENS, JSON/schema/evidence/IPA sai và stream thiếu STOP như một lỗi chung; UI mặc định nói kiểm tra mạng. Một lần gọi vừa đọc ảnh vừa tạo toàn bộ nghĩa/ví dụ/IPA/grammar, output giới hạn10000, deadline toàn bài90s. Kiểm tra recovery thật phát hiện model có thể chia “teddy bears” thành2từ, tự thêm Remember vào evidence hoặc bỏ dạng an; strict validation phải tiếp tục giữ, không nới evidence để lấy success.
+
+Theo [Google FinishReason](https://ai.google.dev/api/generate-content#FinishReason), MAX_TOKENS là giới hạn sinh output của request. [Image understanding](https://ai.google.dev/gemini-api/docs/image-understanding#token-calculation) tính token theo ảnh/resolution, không coi nguyên base64 là văn bản prompt; [thinking](https://ai.google.dev/gemini-api/docs/generate-content/thinking#token-limits-and-max_output_tokens) tính cả suy nghĩ trong max_output_tokens. Không đổi model/key/quota để né lỗi.
+
+## Thay đổi
+
+- Fast path vẫn1request khi JSON/strict validation/template coverage hợp lệ; prompt giới hạn verbosity, explicit minimal thinking cho model đã được docs xác nhận hỗ trợ. Grammar recovery dùng low; không gửi thinkingConfig cho custom/unsupported model.
+- MAX_TOKENS, confirmed input-context error, malformed JSON hoặc invalid DTO/evidence: fallback đọc ảnh bằng compact schema chỉtext/targets/warnings/truncated. Khi vocabulary đã valid chỉ sửa phần learning bằng text, không đọc lại ảnh.
+- Vocabulary4targets/request, đầy đủ literal/POS/sense/means/example/VI/whole-sentenceIPA nullable. Mọi target phải có trong response; thiếu không success. Chia batch lỗi làm2; content repair tối đa1lượt mỗi batch, không retry network/quota/key/access/refusal/timeout.
+- Learning context≤1400characters, overlap160; failed passage split overlap60. Chỉ3learning/request, source sentences giữ riêng, remainingPassages validated/queued cho phần chưa xử lý. One grammar family/variants giữ theoADR075. Template a/an/They are dùng named forms nhỏ; code tự gắn evidence nguyên văn, công thức/conditions/project provenance và validate đủ3dạng.
+- Giữ cap50words/20learning/10000text; nguồn vượtcap phải báo rõ, không silentdrop/success. Mỗi upstream request60s/500KB, toàn UI5phút,40recoveryrequests/run, tuần tự1request/WebLock across tabs. Quota provider vẫn authoritative; không keyrotation/paidfallback.
+- Checkpoint complete validated chunks vào learningDrafts IndexedDB, giữscope/CAS500msautosave; không partialJSON/thoughts/key/base64. ImageSHA256+mode+model binding; crop/model/mode khác không resume nhầm. User edit hủycheckpoint tránh AI ghi đè. Review/save approval vẫn bắt buộc.
+- Khi dừng/lỗi/reload, phần đã xong ởnháp và nút Tiếp tục phân tích chỉ gọi phần còn thiếu. Lỗi content/output/context/quota/timeout có copy riêng tại nút; bỏ duplicate alert. Pending/stop/generation ngăn stale result; picture fetching chờ AI xong.
+
+## Kiểm tra cuối
+
+Dùng Node24.14.1 vàpnpm11.25.0 bằng PATH local, không cài dependency/Chromium/skill mới.
+
+- `pnpm test tests/unit/byok.test.ts tests/unit/worksheet-recovery.test.ts tests/unit/worksheet-review.test.ts`: **54PASS**. Boundary gồm STOP/nonthought/splitUTF8SSE, malformed/refusal/oversize/cancel; exact evidence, wholeIPA, missing targets, split failedbatch, quota+checkpoint+resume, source-limit retained, changed-image binding, fulltext coverage, cross-tabbusy, no network retry, one content repair, leftover passages, complete a/an/plural grouped unit.
+- `pnpm lint`, `pnpm typecheck`, final`pnpm build`: **PASS**. Build cho production UI preview; interim preview reruns đã thay bởi final build vì livecontent findings cần sửa.
+- `pnpm exec playwright test --config playwright.compact.config.ts tests/e2e/parent-ai.spec.ts --grep 'truncated photo|invalid supplementary|editor tap|quota and cancel' --output=/tmp/wfk-worksheet-ui-final`: **8PASS** (16.5s). Browser test cô lập1280×1000/360×800, mockAI/canarykey, không founderbrowser. Luồng12toplabels từ suppliedimage→simulatedMAX_TOKENS→first4words→quota→reload→resume remaining8→12review→explicitsave/library; response content error không đổ mạng; fast path/dedup/distinctsense/IPA/archive; quota/cancel. First failures do testselect SSR+hydratedduplicate input, fullaccessible name và existingduplicate alert; selector ổn định từToday/hydratedtab, alert sửa đúng UI; chỉ rerun scope.
+- Live final một suppliedworksheet: initialMAX_TOKENS **mô phỏng**, sau đó **7request Gemini thật**, onecompactimage+textonly enrichment/grammar; allSTOP200, cácrequest nhỏ.17literal entries gồm12nhãn chính và5dạng trongRemember; giữ`teddy bears`, không thay dạng số ít/số nhiều nguồn.1grammarunit primaryIt's a ball+variantsIt's an eraser/They are books, exact templateevidence, wholeIPA nullable/unverified. [Metadata an toàn](worksheet-recovery-2026-10-12/live-metadata.json). Script live tạm đã xóa đểtest mặc định không gọi provider/key/ảnh thật.
+- Initial live exploration giữ [metadata trước prompt refinement](worksheet-recovery-2026-10-12/live-metadata-initial.json):13entries vì teddy/bears bị split, grammar thiếuan; **không coi là final content pass**. Kết quả JSON/sourceimage thật chỉ dùng theo requestdebug founder; không licenseclaim cho userfixture.
+
+Không fullsuite/SQL/cloudwrite/deploy/CI/phonephysical claim. Chỉ qualitysmoke1ảnh, không generalOCRbenchmark hay providereligibility/freequota guarantee. Original failedresponse vẫn chưa có nên không khẳng định rootcause chính xác của lần đầu. Khi nguồn hơncap, UI yêu cầu cắt ảnh thành phần; không hứa lấy đầy đủ vô hạn trong một bài. Skill riêngworksheet/bilingual/delivery vàUI/UXProMax+React đã đủ; không cần thêmupstreamGitHubskill, tuânADR078.

@@ -8,10 +8,11 @@ export function useLibrarySearch(
     missingArt?: boolean;
     offset?: number;
     limit?: number;
+    libraryOnly?: boolean;
   } = {},
 ) {
   const { repository } = useApp();
-  const { lesson = null, missingArt = false, offset = 0, limit = 50 } = options;
+  const { lesson = null, missingArt = false, offset = 0, limit = 50, libraryOnly=false } = options;
   const snapshot = useLiveQuery(async () => {
     if (!repository) return undefined;
     try {
@@ -21,6 +22,7 @@ export function useLibrarySearch(
         offset,
         limit,
         approvedOnly: true,
+        libraryOnly,
       });
       return { ...result, query, offset, scopeId: repository.scope.id, error: false };
     } catch {
@@ -33,7 +35,7 @@ export function useLibrarySearch(
         error: true,
       };
     }
-  }, [repository, query, lesson, missingArt, offset, limit]);
+  }, [repository, query, lesson, missingArt, offset, limit, libraryOnly]);
   // A prior scope's retained hook result must not flash in a newly selected library.
   return snapshot && snapshot.scopeId === repository?.scope.id && snapshot.query === query && snapshot.offset === offset ? snapshot : undefined;
 }

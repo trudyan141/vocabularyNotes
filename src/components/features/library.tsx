@@ -1,5 +1,6 @@
 "use client";
 import {DeleteControl} from "./delete-control";
+import {SearchHighlight} from '@/components/ui/search-highlight';
 import dynamic from "next/dynamic";
 const ContentLibrary=dynamic(()=>import("./content-library").then(module=>module.ContentLibrary),{loading:()=> <DatabaseLoading/>});
 import {useLiveQuery} from "dexie-react-hooks";
@@ -36,6 +37,7 @@ export function Library() {
   const [editingLesson,setEditingLesson]=useState(false);
   const [offset, setOffset] = useState(0);
   const result = useLibrarySearch(query, {
+    libraryOnly:true,
     lesson,
     missingArt: filter === "missing",
     offset,
@@ -121,8 +123,8 @@ export function Library() {
               <Link prefetch={false} href={`/library/words/${e.id}`}>
                 <Artwork art={e.art} word={e.word} size={80} />
                 <div>
-                  <strong lang="en">{e.word}</strong>
-                  <span>{t(e.vi, e.en)}</span>
+                  <strong lang="en"><SearchHighlight text={e.word} query={query}/></strong>
+                  <span><SearchHighlight text={t(e.vi, e.en)} query={query}/></span>
                   {!e.art && (
                     <small>
                       {t(

@@ -11,6 +11,17 @@ const max=()=>Response.json({candidates:[{finishReason:'MAX_TOKENS',content:{par
 const compact=(words:string[])=>({text:words.join('\n'),warnings:[],words:words.map(text=>({literal:text,word:text})),truncated:false});
 beforeEach(()=>{vi.stubGlobal('window',{dispatchEvent:vi.fn()});vi.stubGlobal('localStorage',{getItem:()=>null,setItem:vi.fn(),removeItem:vi.fn()});configureParentAi({key,model:'gemini-3.5-flash-lite'});});
 afterEach(()=>{vi.unstubAllGlobals();vi.useRealTimers();vi.restoreAllMocks();});
+it('chunked mode starts with compact vision and never sends the full 10k-token prompt',async()=>{
+ const labels=['ball','cars','table','box','pens'];const bodies:Record<string,unknown>[]=[];
+ const fetcher=vi.fn(async(_url:unknown,init?:RequestInit)=>{
+  const body=JSON.parse(init!.body as string);bodies.push(body);
+  if(bodies.length===1){expect(body.generationConfig.maxOutputTokens).toBe(6000);expect(body.contents[0].parts[1]).toHaveProperty('inlineData');return answer(compact(labels));}
+  expect(body.contents[0].parts).toHaveLength(1);expect(body.generationConfig.maxOutputTokens).toBeLessThan(10000);
+  const input=JSON.parse(body.contents[0].parts[0].text);return answer(input.words[0]?.literal?{words:input.words.map((target:{word:string})=>word(target.word))}:{learning:[]});
+ });
+ const result=await analyseWorksheet(image,'listed',new AbortController().signal,fetcher as typeof fetch,undefined,{chunked:true,onCheckpoint:vi.fn()});
+ expect(result.words.map(item=>item.word)).toEqual(labels);expect(bodies).toHaveLength(4);
+});
 it('recovers truncated SSE using one compact image read then bounded sequential text-only batches',async()=>{
  const labels=['ball','cars','table','chairs','rulers','pens','pencil','crayons','eraser','teddy bears','books','box'];
  let active=0,peak=0;const bodies:Record<string,unknown>[]=[];let checkpoint:WorksheetCheckpoint|undefined;
@@ -108,11 +119,14 @@ it('continues explicit leftover passages instead of silently stopping at the per
  const fetcher=vi.fn().mockResolvedValueOnce(answer({text,warnings:[],words:[word('book')],learning:[{example:'invalid'}]})).mockResolvedValueOnce(answer({learning:[],remainingPassages:['What is it?\nIt is a book.']})).mockResolvedValueOnce(answer({learning:[],remainingPassages:[]}));
  const result=await analyseWorksheet(image,'listed',new AbortController().signal,fetcher as typeof fetch,undefined,{onCheckpoint:value=>{checkpoint=value;}});expect(result.text).toBe(text);expect(fetcher).toHaveBeenCalledTimes(3);expect(checkpoint?.learningQueue).toEqual([]);
 });
-it('keeps a/an/plural as separate complete forms and repairs a missing an form',async()=>{
+it('keeps a/an/plural in one unit with exact literal evidence and repairs a missing an form',async()=>{
  const source="ball eraser cars\nIt's a / an ...\nThey are ...";
- const unit={...familyWorksheet.learning[2],word:'ball',grammarFamily:'be-object-number',sourceEvidenceText:"It's a / an ...",example:"It's a ball.",exampleVi:'Đó là một quả bóng.',exampleIpa:null,grammarVariants:[{formula:'They are + plural noun',example:'They are cars.',exampleVi:'Đó là những chiếc xe.',analysis:'They dùng với are.',exampleIpa:null}]};
- const complete={...unit,grammarVariants:[...unit.grammarVariants,{formula:'It is an + noun',example:"It's an eraser.",exampleVi:'Đó là một cục tẩy.',analysis:'an đứng trước âm nguyên âm.',exampleIpa:null}]};
- const fetcher=vi.fn().mockResolvedValueOnce(answer({text:source,warnings:[],words:['ball','eraser','cars'].map(word),learning:[unit]})).mockResolvedValueOnce(answer({learning:[unit]})).mockResolvedValueOnce(answer({learning:[complete]}));
- const result=await analyseWorksheet(image,'listed',new AbortController().signal,fetcher as typeof fetch);expect(result.learning?.[0].grammarVariants).toHaveLength(2);expect(fetcher).toHaveBeenCalledTimes(3);
+ const unit={...familyWorksheet.learning[2],word:'ball',grammarFamily:'be-object-number',sourceEvidenceText:"It's a / an ...",example:"It's a ball.",exampleVi:'Đó là một quả bóng.',exampleIpa:null};
+ const form=(example:string)=>({example,exampleVi:'Đó là đồ vật.',exampleIpa:null,analysis:'Giải thích thứ tự từ.',commonError:'It ball.',commonErrorIpa:null,correction:example,correctionIpa:null});
+ const incomplete={word:'ball',forms:{a:form("It's a ball."),plural:form('They are cars.')}};
+ const complete={...incomplete,forms:{...incomplete.forms,an:form("It's an eraser.")}};
+ const fetcher=vi.fn().mockResolvedValueOnce(answer({text:source,warnings:[],words:['ball','eraser','cars'].map(word),learning:[unit]})).mockResolvedValueOnce(answer(incomplete)).mockResolvedValueOnce(answer(complete));
+ const result=await analyseWorksheet(image,'listed',new AbortController().signal,fetcher as typeof fetch);expect(result.learning).toHaveLength(1);expect(result.learning?.[0]).toMatchObject({grammarFamily:'be-object-number',sourceEvidenceText:"It's a / an ..."});expect(result.learning?.[0].grammarVariants?.map(v=>v.example)).toEqual(["It's an eraser.",'They are cars.']);expect(fetcher).toHaveBeenCalledTimes(3);
  const body=JSON.parse(fetcher.mock.calls[2][1].body);expect(JSON.parse(body.contents[0].parts[0].text).repair).toContain('Do not omit the an form');expect(body.generationConfig.thinkingConfig.thinkingLevel).toBe('low');
+ expect(result.learning?.[0].source).toContain('do dự án bổ sung');expect(result.learning?.[0].grammarVariants?.[1].sourceEvidenceText).toBe('They are ...');
 });

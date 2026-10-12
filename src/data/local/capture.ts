@@ -25,6 +25,8 @@ export type CaptureDraft = Base &
     byteSize: number;
     phase: "editing";
     consentVersion: "image-upload-v1" | null;
+    batchId?: string;
+    batchOrder?: number;
   };
 export type LocalImage = Base & {
   blob: Blob;
@@ -103,10 +105,10 @@ export class CaptureRepository {
   async create(
     image: PreparedImage,
     id = crypto.randomUUID(),
-    initial?:{title:string;learnedOn:string},
+    initial?:{title:string;learnedOn:string;batchId?:string;batchOrder?:number},
   ): Promise<CaptureDraft> {
     validImage(image);
-    if(initial){metadataSchema.parse({...initial,tags:"",consent:false});}
+    if(initial){metadataSchema.parse({title:initial.title,learnedOn:initial.learnedOn,tags:"",consent:false});}
     const now = new Date().toISOString();
     const draft: CaptureDraft = {
       scopeId: this.local.scope.id,
@@ -123,6 +125,7 @@ export class CaptureRepository {
       tags: "",
       consent: false,
       consentVersion: null,
+      ...(initial?.batchId?{batchId:initial.batchId,batchOrder:initial.batchOrder??0}:{}),
       version: 1,
       createdAt: now,
       updatedAt: now,
@@ -171,9 +174,18 @@ export class CaptureRepository {
       return next;
     });
   }
+  async attachBatch(id:string,version:number,batchId:string,batchOrder=0){
+    const db=this.local.db;
+    return db.transaction('rw',db.captureDrafts,async()=>{
+      const draft=await db.captureDrafts.get(this.key(id));if(!draft)throw new RepositoryError('missing');
+      if(draft.version!==version||(draft.batchId&&draft.batchId!==batchId))throw new RepositoryError('conflict');
+      if(draft.batchId===batchId)return draft;
+      const next={...draft,batchId,batchOrder,version:version+1,updatedAt:new Date().toISOString()};await db.captureDrafts.put(next);return next;
+    });
+  }
   async remove(id: string, version: number) {
     const db = this.local.db;
-    return db.transaction("rw", db.captureDrafts, db.localMedia, async () => {
+    return db.transaction("rw", db.captureDrafts, db.localMedia, db.table('learningDrafts'), async () => {
       const draft = await db.captureDrafts.get(this.key(id));
       if (!draft) return;
       if (draft.version !== version) throw new RepositoryError("conflict");
@@ -182,6 +194,7 @@ export class CaptureRepository {
         this.key(draft.preparedKey),
       ]);
       await db.captureDrafts.delete(this.key(id));
+      await db.table('learningDrafts').delete(this.key(`ocr:${id}`));
     });
   }
 }

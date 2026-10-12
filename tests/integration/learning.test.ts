@@ -160,3 +160,16 @@ it('shows one combined lesson item for sentence, pattern and grammar without los
  expect(combined).toHaveLength(1);expect(combined[0]).toMatchObject({textEn:content.formula||content.pattern,example:content.example,analysis:content.analysis,exampleIpa:content.exampleIpa});
  expect((await learningItems(r,'learning',content.formula)).items.some(item=>item.id==='combined')).toBe(true);
 });
+
+it('both picture games exclude absent and stale imported images from targets and distractors',async()=>{
+ const r=repo();await seed(r,4);const valid=(await r.search('',{approvedOnly:true})).words;const bad=valid[3],scope=r.scope.id;
+ // Leave an apparently valid media id in the search index; its asset is absent.
+ const media=`media-${crypto.randomUUID()}`;await r.db.senses.update([scope,bad.id],{art:media});await r.db.searchIndex.update([scope,bad.id],{art:media});const noPicture={...catalog[4],id:'no-picture',art:null,approved:true};await r.saveLesson({operationId:crypto.randomUUID(),title:'No art',learnedOn:'2026-10-12',sourceType:'manual',items:[noPicture]});
+ const practice=new PracticeRepository(r);
+ for(const mode of ['picture-word','word-picture'] as const){const session=await practice.start(mode);expect(session.questions).toHaveLength(3);expect(session.questions.flatMap(q=>[q.word,...q.choices]).every(word=>!!word.art&&word.id!==bad.id&&word.id!=='no-picture')).toBe(true);await expect(practice.start(mode,{word:bad.id})).rejects.toThrow('not-ready');await expect(practice.start(mode,{word:'no-picture'})).rejects.toThrow('not-ready');}
+ expect((await practice.start('flashcard')).questions.some(q=>q.word.id==='no-picture')).toBe(true);
+});
+it('invalidates an existing picture game when a distractor loses its image without changing the target revision',async()=>{
+ const r=repo();await seed(r,4);const practice=new PracticeRepository(r),session=await practice.start('word-picture');const target=session.questions[0].word,choice=session.questions[0].choices.find(word=>word.id!==target.id)!;
+ await r.db.senses.update([r.scope.id,choice.id],{art:null});expect((await r.word(target.id))!.revision).toBe(target.revision);expect(await practice.pictureSessionCurrent(session)).toBe(false);expect((await practice.sessions()).some(row=>row.id===session.id)).toBe(false);await expect(practice.check(session.id,session.version,target.word)).rejects.toThrow('conflict');expect(await r.db.table('gameAttempts').count()).toBe(0);
+});

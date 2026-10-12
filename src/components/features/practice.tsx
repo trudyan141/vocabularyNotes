@@ -10,6 +10,7 @@ import {GameSounds} from "@/lib/audio/game-sounds";
 import {BookOpen, Image, Volume2, Pencil, Keyboard, ArrowLeft, ArrowRight, Star, Check, Lightbulb, SkipForward, Trophy, Mic, Blocks} from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import {DatabaseLoading} from '@/components/app/database-boundary';
 import {OperationStatus} from "@/components/ui/operation-status";
 import { useLiveQuery } from "dexie-react-hooks";
 import { Button } from "@/components/ui/button";
@@ -29,7 +30,9 @@ export function PracticePreview(){
   useEffect(()=>{const stop=()=>sounds.current?.stop();const hidden=()=>{if(document.hidden)stop();};window.addEventListener('wfk-audio-stop',stop);document.addEventListener('visibilitychange',hidden);return()=>{sounds.current?.close();window.removeEventListener('wfk-audio-stop',stop);document.removeEventListener('visibilitychange',hidden);};},[]);
   const practice=useMemo(()=>repository?new PracticeRepository(repository):null,[repository]);
   const snapshot=useLiveQuery(async()=>practice?{scope:practice.repository.scope.id,sessions:await practice.sessions()}:null,[practice]);
-  const [session,setSession]=useState<Session|null>(null);const [busy,setBusy]=useState(false);const [error,setError]=useState("");const lock=useRef(false);
+  const [session,setSession]=useState<Session|null>(null);
+  const pictureValidity=useLiveQuery(async()=>practice&&session?{id:session.id,valid:await practice.pictureSessionCurrent(session)}:null,[practice,session]);
+  const [busy,setBusy]=useState(false);const [error,setError]=useState("");const lock=useRef(false);
   const [deck,setDeck]=useState(params.get("deck")??"");
   const decks=useLiveQuery(async()=>repository?{scope:repository.scope.id,rows:await repository.db.table<ScopedDocument>("decks").where("[scopeId+id]").between([repository.scope.id,""],[repository.scope.id,"\uffff"]).toArray()}:null,[repository]);
   const reviewText=useMemo(()=>(vi:string,en:string)=>preferences.locale==="vi"?vi:en,[preferences.locale]);
@@ -50,7 +53,7 @@ export function PracticePreview(){
     });return()=>{active=false;};
   },[practice,review,savedSession,router,reviewText,deck,params]);
   async function start(mode:Mode){if(!practice||lock.current)return;sounds.current?.stop();lock.current=true;setBusy(true);setError("");try{const next=await practice.start(mode,{word:params.get("word")??undefined,due,weak,lesson:lesson||undefined,deck:deck||undefined,direction});setSession(next);if(review==="due"){opened.current=`${practice!.repository.scope.id}:${next.id}`;router.replace(`/practice?review=${review??"group"}${deck?`&deck=${encodeURIComponent(deck)}`:""}&session=${encodeURIComponent(next.id)}`,{scroll:false});}}
-    catch{setError(mode==="grammar"?t("Chưa có cấu trúc đã lưu để xếp câu. Thêm bài có ngữ pháp hoặc chọn nhóm khác nhé.","No saved grammar to practise. Add grammar or choose another group."):t("Chưa đủ từ phù hợp cho kiểu học này. Thêm/duyệt từ hoặc chọn Thẻ ôn; game hình cần 3 hình khác nhau.","Not enough eligible words. Add approved words or choose flashcards; picture games need three distinct pictures."));}finally{lock.current=false;setBusy(false);}}
+    catch{setError(mode==="grammar"?t("Chưa có cấu trúc đã lưu để xếp câu. Thêm bài có ngữ pháp hoặc chọn nhóm khác nhé.","No saved grammar to practise. Add grammar or choose another group."):t("Chưa đủ từ phù hợp cho kiểu học này. Thêm/duyệt từ hoặc chọn Thẻ ôn; game hình chỉ dùng từ đã có hình và cần 3 hình khác nhau.","Not enough eligible words. Add approved words or choose flashcards; picture games only use words with ready pictures and need three distinct pictures."));}finally{lock.current=false;setBusy(false);}}
   async function change(action:"reveal"|"hint"|"answer"|"check",input:{answer?:string;rating?:Rating;skipped?:boolean}={}){
     if(!practice||!session||lock.current)return;sounds.current??=new GameSounds();sounds.current.unlock(true);lock.current=true;setBusy(true);setError("");
     try{const next=action==="check"?await practice.check(session.id,session.version,input.answer??""):action==="answer"?await practice.answer(session.id,session.version,input):await practice.reveal(session.id,session.version,action==="hint");setSession(next);if(action==="check")sounds.current.play(next.checkedCorrect?"correct":"again",true);else if(next.completedAt)sounds.current.play("complete",true);else if(action==="reveal")sounds.current.play("reveal",true);}
@@ -58,6 +61,10 @@ export function PracticePreview(){
     finally{lock.current=false;setBusy(false);}
   }
   const sessions=snapshot?.scope===repository?.scope.id?snapshot?.sessions??[]:[];
+  if(session&&!session.completedAt&&(session.mode==='picture-word'||session.mode==='word-picture')){
+    if(pictureValidity?.id!==session.id)return <DatabaseLoading/>;
+    if(!pictureValidity.valid)return <div className="reading-page page-flow"><EmptyState title={t('Hình trong lượt chơi đã đổi','Pictures changed')} description={t('Cùng chọn trò chơi để bắt đầu lượt mới nhé.','Choose a game to start a new round.')}><Button onClick={()=>setSession(null)}>{t('Chọn trò chơi','Choose a game')}</Button></EmptyState></div>;
+  }
   if(session && session.scopeId===repository?.scope.id){
     if(session.completedAt){const correct=session.answers.filter(a=>a.correct&&!a.skipped).length,wrong=session.answers.filter(a=>!a.correct&&!a.skipped).length;
       return <div className="reading-page page-flow game-result"><div className="game-celebration"><NextImage src="/illustrations/fox.svg" alt="" width={130} height={130}/><Trophy aria-hidden="true"/></div><h1>{t("Con đã hoàn thành!","Session complete!")}</h1><div className="practice-results"><p><Check aria-hidden="true"/> {correct} {t("đúng / nhớ rồi","correct / remembered")}</p><p><BookOpen aria-hidden="true"/> {wrong} {t("cần ôn thêm","need review")}</p><p>{session.answers.filter(a=>a.skipped).length} {t("bỏ qua","skipped")} · {session.answers.filter(a=>a.hint).length} {t("dùng gợi ý","hints")}</p></div><p>{t("Điểm trò chơi không thay lịch ôn. Con có thể ôn thẻ để tự đánh giá trí nhớ.","Game scores do not change review dates. Use flashcards to rate your recall.")}</p>{wrong>0&&<Button variant="outline" onClick={()=>{setWeak(true);setSession(null);}}>{t("Ôn thẻ các từ cần luyện","Review words needing practice")}</Button>}<Button onClick={()=>setSession(null)}>{t("Chọn buổi học khác","Choose another session")}</Button><Button asChild variant="outline"><Link href="/today"><ArrowLeft data-icon="inline-start" aria-hidden="true"/>{t("Về Hôm nay","Back to Today")}</Link></Button></div>;

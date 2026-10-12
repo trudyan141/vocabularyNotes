@@ -437,24 +437,24 @@ test("quota rollback preserves the image for retry and confirmed delete removes 
   ).toBeVisible();
 });
 
-test('drop zone rejects multiple files, accepts one worksheet and keyboard file choice uses the same safe intake', async ({page}) => {
- await page.goto('/capture');
- const drop=page.getByTestId('worksheet-dropzone');
+test('drop zone accepts multiple worksheets and keyboard file choice uses the same safe intake', async ({page}) => {
+ await page.goto('/capture');await expect(page.getByRole('button',{name:'Chọn ảnh từ máy',exact:true})).toBeEnabled();
+ const drop=page.getByRole('tabpanel',{name:'Chọn ảnh',exact:true}).getByTestId('worksheet-dropzone');
  const bytes=Array.from(await readFile('docs/evaluations/t00/images/01-fruit.png'));
  const multiple=await page.evaluateHandle(bytes=>{const data=new DataTransfer();for(const name of ['one.png','two.png'])data.items.add(new File([new Uint8Array(bytes)],name,{type:'image/png'}));return data;},bytes);
- await drop.dispatchEvent('drop',{dataTransfer:multiple});await expect(page.locator('#main [role=alert]')).toContainText('Chọn một ảnh mỗi lần');expect((await records(page)).drafts).toHaveLength(0);
+ await drop.dispatchEvent('drop',{dataTransfer:multiple});await expect(page).toHaveURL(/\/capture\/batch\//);await expect(page.locator('.batch-photo-row')).toHaveCount(2);expect((await records(page)).drafts).toHaveLength(2);await page.goto('/capture');
  const single=await page.evaluateHandle(bytes=>{const data=new DataTransfer();data.items.add(new File([new Uint8Array(bytes)],'worksheet.png',{type:'image/png'}));return data;},bytes);
  await drop.dispatchEvent('dragenter',{dataTransfer:single});await expect(drop).toHaveClass(/is-dragging/);await drop.dispatchEvent('drop',{dataTransfer:single});await expect(page).toHaveURL(/\/edit$/);await expect(page.getByRole('link',{name:'Ảnh đã xử lý để nhận dạng'})).toBeVisible();
- await page.goto('/capture');const chooser=page.waitForEvent('filechooser');await page.getByRole('button',{name:'Chọn ảnh từ máy',exact:true}).focus();await page.keyboard.press('Enter');await(await chooser).setFiles('docs/evaluations/t00/images/01-fruit.png');await expect(page).toHaveURL(/\/edit$/);
- expect((await records(page)).drafts).toHaveLength(2);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+ await page.goto('/capture');await expect(page.getByRole('button',{name:'Chọn ảnh từ máy',exact:true})).toBeEnabled();const chooser=page.waitForEvent('filechooser');await page.getByRole('button',{name:'Chọn ảnh từ máy',exact:true}).focus();await page.keyboard.press('Enter');await(await chooser).setFiles('docs/evaluations/t00/images/01-fruit.png');await expect(page).toHaveURL(/\/edit$/);
+ expect((await records(page)).drafts).toHaveLength(4);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
 
 test('pasting an image opens a local preview and text paste stays normal',async({page})=>{
  const remote:string[]=[];page.on('request',r=>{if(r.method()==='POST')remote.push(r.url());});
- await page.goto('/capture');await expect(page.getByTestId('worksheet-dropzone')).toContainText('Ctrl+V / ⌘V');
- const buffer=await fixture(page);await page.getByTestId('worksheet-dropzone').focus();
+ await page.goto('/capture');await expect(page.getByRole('tabpanel',{name:'Chọn ảnh',exact:true}).getByRole('button',{name:'Chọn ảnh từ máy',exact:true})).toBeEnabled();await expect(page.getByRole('tabpanel',{name:'Chọn ảnh',exact:true}).getByTestId('worksheet-dropzone')).toContainText('Ctrl+V / ⌘V');
+ const buffer=await fixture(page);await page.getByRole('tabpanel',{name:'Chọn ảnh',exact:true}).getByTestId('worksheet-dropzone').focus();
  await page.evaluate(base64=>{const bytes=Uint8Array.from(atob(base64),c=>c.charCodeAt(0));const data=new DataTransfer();data.items.add(new File([bytes],'clipboard.png',{type:'image/png'}));document.activeElement!.dispatchEvent(new ClipboardEvent('paste',{clipboardData:data,bubbles:true,cancelable:true}));},buffer.toString('base64'));
- await expect(page).toHaveURL(/\/capture\/[^/]+\/edit$/);await expect(page.getByText('600 × 400 px',{exact:false})).toBeVisible();await expect(page.getByRole('img',{name:'Ảnh đã xử lý để nhận dạng',exact:true})).toBeVisible();expect(await page.getByRole('img',{name:'Ảnh đã xử lý để nhận dạng',exact:true}).evaluate(image=>(image as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);await expect(page.getByLabel('Tên bài (tùy chọn)')).toHaveValue('Ảnh đã dán');expect(remote).toEqual([]);
+ await expect(page).toHaveURL(/\/capture\/[^/]+\/edit$/);await expect(page.getByText('600 × 400 px',{exact:false})).toBeVisible();await expect(page.getByRole('img',{name:'Ảnh đã xử lý để nhận dạng',exact:true})).toBeVisible();expect(await page.getByRole('img',{name:'Ảnh đã xử lý để nhận dạng',exact:true}).evaluate(image=>(image as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);await expect(page.getByLabel('Tên bài (tùy chọn)')).toHaveValue('');expect(remote).toEqual([]);
  await page.reload();await expect(page.getByText('600 × 400 px',{exact:false})).toBeVisible();
  await page.goto('/capture');const textPaste=await page.evaluate(()=>{const data=new DataTransfer();data.setData('text/plain','hello');return document.dispatchEvent(new ClipboardEvent('paste',{clipboardData:data,bubbles:true,cancelable:true}));});expect(textPaste).toBe(true);await expect(page).toHaveURL('/capture');
 });

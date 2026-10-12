@@ -3,8 +3,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import {MainNavigation} from "./navigation";
-import dynamic from 'next/dynamic';
-const GuestCopyPrompt=dynamic(()=>import('./guest-copy-prompt').then(module=>module.GuestCopyPrompt));
+import {NotificationBell} from './notifications';
 import { ProfileLink } from "@/components/features/profile";
 import { cn } from "@/lib/utils";
 import { useApp } from "./provider";
@@ -36,11 +35,11 @@ export function AppShell({ children }: { children: ReactNode }) {
           />
           <span>Words for Kids</span>
         </Link>
-        <ProfileLink />
+        <div className="header-actions"><NotificationBell/><ProfileLink /></div>
       </header>
       <MainNavigation labels={[t('Hôm nay','Today'),t('Từ của con','My words'),t('Chơi & học','Play & learn'),t('Cài đặt','Settings')]} label={t('Điều hướng chính','Main navigation')}/>
       <div className="app-content">
-        <main id="main" tabIndex={-1}><GuestCopyPrompt/>
+        <main id="main" tabIndex={-1}>
           {["/welcome", "/settings"].includes(pathname) ? (
             children
           ) : (

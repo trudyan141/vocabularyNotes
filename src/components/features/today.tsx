@@ -2,7 +2,7 @@
 import Link from "next/link";
 import {FoxLoading} from "@/components/app/fox-loading";
 import Image from "next/image";
-import { Camera, ArrowRight, Play, FileImage } from "lucide-react";
+import { Camera, ArrowRight, Play } from "lucide-react";
 import { FeatureAction } from "@/components/app/feature-action";
 import { Button } from "@/components/ui/button";
 import {PracticeRepository} from "@/data/local/practice";
@@ -14,10 +14,6 @@ import { Artwork } from "@/components/app/shared";
 
 export function Today() {
   const { t, entries, repository,databaseStatus } = useApp();
-  const draft = useLiveQuery(async () => repository ? {
-    scopeId: repository.scope.id,
-    value: await repository.db.captureDrafts.where("[scopeId+updatedAt]").between([repository.scope.id,""],[repository.scope.id,"\uffff"]).reverse().first(),
-  } : null, [repository]);
   const lessons=useLiveQuery(async()=>{if(!repository)return null;const rows=await repository.db.lessons.where("[scopeId+learnedOn]").between([repository.scope.id,""],[repository.scope.id,"\uffff"]).reverse().toArray();const values=[];for(const lesson of rows.filter(l=>!l.deletedAt).sort((a,b)=>b.learnedOn.localeCompare(a.learnedOn)||b.updatedAt.localeCompare(a.updatedAt))){const result=await repository.search("",{lesson:lesson.id,approvedOnly:true,limit:1});if(result.total){values.push({lesson,total:result.total,art:result.words[0]?.art??null,word:result.words[0]?.word??lesson.title});break;}}return {scope:repository.scope.id,values};},[repository]);
   const due=useLiveQuery(async()=>{if(!repository)return null;try{return {scope:repository.scope.id,count:(await new PracticeRepository(repository).dueIds()).length,error:false};}catch{return {scope:repository.scope.id,count:0,error:true};}},[repository]);
   const dueCount=due&&due.scope===repository?.scope.id?due.count:0;
@@ -76,14 +72,6 @@ export function Today() {
       <ActionLink href="/add"><Button variant="feature"><FeatureAction image="/illustrations/pencil.svg" title={t("Gõ từ mới", "Type a new word")} description={t("Gõ từ, chọn nghĩa rồi lưu","Type a word, choose its meaning and save")}/></Button></ActionLink>
       <ActionLink href="/capture"><Button variant="feature"><FeatureAction image="/illustrations/book.svg" title={t("Thêm bài từ ảnh", "Add a photo lesson")} description={t("Chọn ảnh bài học để thêm từ và ngữ pháp", "Choose a lesson photo to add words and grammar")}/></Button></ActionLink>
       </div></section>
-      {draft?.scopeId === repository?.scope.id && draft?.value && (
-        <section className="draft-resume">
-          <p>{t("Bạn còn một bài đang chuẩn bị.", "You have an unfinished lesson.")}</p>
-          <ActionLink href={`/capture/${draft.value.id}/edit`}>
-            <Button variant="secondary"><FileImage data-icon="inline-start" aria-hidden="true"/>{t("Tiếp tục nháp ảnh", "Resume image draft")}<ArrowRight data-icon="inline-end" aria-hidden="true"/></Button>
-          </ActionLink>
-        </section>
-      )}
       {hasLessons && (
         <section className="lesson-section">
           <div className="section-heading">

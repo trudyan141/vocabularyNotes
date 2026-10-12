@@ -1,6 +1,6 @@
 # Trạng thái hiện tại — Words for Kids
 
-Updated: 12/10/2026. Current task: **fix phân tích hai ảnh bộ phận cơ thể — implemented_local/scoped verified:61unit+6productionUI/lint/types/build PASS**. [Evidence](../evaluations/body-part-photo-analysis-fix.md). WF1 done; WF2 scoped verified, cloud fixture pending_environment; baseline bên dưới giữ nguyên. Không suy local thành deployed/live Gemini pass.
+Updated: 12/10/2026. Current task: **fix game hình nhận từ thiếu/hỏng ảnh — implemented_local/scoped verified:26unit+integration/12productionUI/lint/types/build PASS**. [Evidence](../evaluations/picture-game-image-readiness-fix.md). Cả hai game hình và offline kiểm ảnh tải+decode trước chọn/resume; ảnh lỗi không nhận đáp án, imported image dùng đúng headword. WF1 done; WF2 scoped verified, cloud fixture pending_environment; baseline bên dưới giữ nguyên. Không suy local thành deployed/live media/device pass.
 
 ## Baseline / current steering
 
@@ -13,10 +13,10 @@ Updated: 12/10/2026. Current task: **fix phân tích hai ảnh bộ phận cơ t
 
 ## Work / verification / gaps
 
-Pre-existing diff ở đầu task: plan/source review/systematic-debugging+lock/catalog và pointers (lượt audit trước), giữ nguyên. WF1 archive lossless trước rewrite; WF2 runner/shared config có7guard tests+dev/productionUI/no-demo PASS, lint/types/final snapshotbuild PASS; cloud smoke chưa chạy qua initdb SHMALL. Source identity = commit + content fingerprint, không SHA đơn lẻ.
+Working tree đầu task game hình sạch; workflow baseline bên dưới thuộc lượt trước. WF1 archive lossless trước rewrite; WF2 runner/shared config có7guard tests+dev/productionUI/no-demo PASS, lint/types/final snapshotbuild PASS; cloud smoke chưa chạy qua initdb SHMALL. Source identity = commit + content fingerprint, không SHA đơn lẻ.
 
 External acceptance vẫn mở: child/provider eligibility/quality/cost benchmark, human UX, physical camera/clipboard/audio/PWA/install, field/performance trên final release; xem TASKS. Fixture/mock không chứng minh live quality. Token/time của chat trước unavailable; chỉ đo bootstrap bytes/setup/test metadata có thật.
 
-**Next action:** kiểm live Gemini với ảnh worksheet gốc trên môi trường chạy bản sửa; hiện chưa deploy hoặc kiểm điện thoại thật. WF3 metrics ghi trong evidence task này; không tự refactor WF4.
+**Next action:** kiểm lại bộ từ sister/brother của founder trên môi trường chạy bản sửa; thay đổi game hình hiện chưa deploy hoặc kiểm điện thoại thật.
 
 Lịch sử/checkpoints: [STATE history](STATE.history-2026-10-12.md), [CHANGELOG](CHANGELOG.md). Không append history vào current state.

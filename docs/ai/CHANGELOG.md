@@ -531,3 +531,8 @@ ADR043 source7f5a750 production READY and live360px Library/Today verified,13wor
 11/10 latest task047/048 in progress under T07/T08/T09/T14: whole-sentence IPA under English examples, generation/edit/storage rules, copied-image paste→local draft preview. Local implementation and check in progress; hosted/complete CI not yet claimed. [Evidence](../evaluations/sentence-ipa-and-image-paste.md). Next: finish local checks/responsive visual evidence, then reviewable local handoff; publishing requires current founder approval per ADR049.
 
 Final047/048 local implementation checked under Gọn:10focuseddesktop/mobilePASS46.3s, then stale-hint bug fix +affectedESLint/types/build/2focusedcasesPASS9.2s;148unitcheck earlier pre-hint checkpoint. IPA/clipboard docs/rules ready; source remains uncommitted/unpushed/not hosted. New browser/GitHub/Vercel permission gate049 respected. Evidence sentence-ipa-and-image-paste. Ledger unchanged; founder review/publishing next.
+
+
+## 12/10/2026 — Picture games actual image readiness
+
+Fix sister/brother admission when catalog art fails to load: both picture modes decode real images before selection/resume, filter targets and distractors, stop answers on render failure; offline follows the same guard. Fix imported-image renderer passing an empty headword. Scoped26unit+integration/12productionUI/lint/types/build PASS; not deployed/live media/device verified. [Evidence](../evaluations/picture-game-image-readiness-fix.md).

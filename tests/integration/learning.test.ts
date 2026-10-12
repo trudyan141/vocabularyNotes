@@ -29,10 +29,10 @@ describe("complete local learning flows",()=>{
     const saved=await saveDeck(repository,"large-deck",null,{name:"501 words",senseIds:senses.map(s=>s.id),direction:"en-vi"});
     expect((saved.payload.deck as {senseIds:string[]}).senseIds).toHaveLength(501);
     const archive=await parseArchive(JSON.stringify(await exportArchive(repository)));expect(archive.records.decks[0].payload.deck.senseIds).toHaveLength(501);
-    const session=await new PracticeRepository(repository).start("flashcard",{deck:"large-deck"});expect(session.questions).toHaveLength(10);
+    const session=await new PracticeRepository(repository, async()=>true).start("flashcard",{deck:"large-deck"});expect(session.questions).toHaveLength(10);
   });
   it("uses the same scoped due selection for Today and a capped review session",async()=>{
-    const repository=repo();await seed(repository,4);await repository.saveLesson({operationId:crypto.randomUUID(),title:"Pending",learnedOn:"2026-10-09",sourceType:"manual",items:[{...catalog[4],id:"word-4",approved:false}]});const practice=new PracticeRepository(repository);
+    const repository=repo();await seed(repository,4);await repository.saveLesson({operationId:crypto.randomUUID(),title:"Pending",learnedOn:"2026-10-09",sourceType:"manual",items:[{...catalog[4],id:"word-4",approved:false}]});const practice=new PracticeRepository(repository, async()=>true);
     const now=new Date().toISOString(),future=new Date(Date.now()+86400000).toISOString(),past=new Date(Date.now()-86400000).toISOString();
     for(const [id,dueAt,deletedAt] of [["word-0",future,null],["word-1",past,null],["word-2",future,now]] as const){await repository.db.table("reviewStates").put({scopeId:repository.scope.id,id,version:1,createdAt:now,updatedAt:now,deletedAt,payload:{state:{dueAt,intervalDays:1,ease:2.5,streak:1,algorithmVersion:1}}});}
     const foreign=repo("guest:foreign",repository.db.name);await foreign.db.table("reviewStates").put({scopeId:foreign.scope.id,id:"word-3",version:1,createdAt:now,updatedAt:now,deletedAt:null,payload:{state:{dueAt:future}}});
@@ -49,7 +49,7 @@ describe("complete local learning flows",()=>{
     expect(await foreign.db.notes.get([foreign.scope.id,saved.id])).toBeUndefined();
   });
   it("requires reveal and persists one review/event/state through replay and reopen",async()=>{
-    const repository=repo();await seed(repository);const practice=new PracticeRepository(repository);let session=await practice.start("flashcard");
+    const repository=repo();await seed(repository);const practice=new PracticeRepository(repository, async()=>true);let session=await practice.start("flashcard");
     await expect(practice.answer(session.id,session.version,{rating:"Good"})).rejects.toThrow("invalid");
     session=await practice.reveal(session.id,session.version);const old=session;
     session=await practice.answer(session.id,session.version,{rating:"Good"});
@@ -60,7 +60,7 @@ describe("complete local learning flows",()=>{
     expect(restored?.position).toBe(1);expect(restored?.answers).toHaveLength(1);
   });
   it("persists game feedback exactly once and never schedules from game scores",async()=>{
-    const repository=repo();await seed(repository);const practice=new PracticeRepository(repository);let session=await practice.start("picture-word");
+    const repository=repo();await seed(repository);const practice=new PracticeRepository(repository, async()=>true);let session=await practice.start("picture-word");
     expect(session.questions.every(q=>q.choices.length===3)).toBe(true);
     const answer=session.questions[0].word.word;session=await practice.check(session.id,session.version,answer);const answered=session;
     expect((await practice.get(session.id))?.checkedCorrect).toBe(true);
@@ -71,7 +71,7 @@ describe("complete local learning flows",()=>{
     expect(session.answers[0].correct).toBe(true);
   });
   it("rejects stale questions after a parent edit and insufficient distinct picture choices",async()=>{
-    const repository=repo();await seed(repository,2);const practice=new PracticeRepository(repository);
+    const repository=repo();await seed(repository,2);const practice=new PracticeRepository(repository, async()=>true);
     await expect(practice.start("word-picture")).rejects.toThrow("not-ready");
     const session=await practice.start("spelling");const word=session.questions[0].word;
     await repository.editWord(word.id,word.revision,{word:word.word,vi:"đã sửa",en:word.en});
@@ -103,7 +103,7 @@ describe("complete local learning flows",()=>{
     const broken={...archive,records:{...archive.records,senses:archive.records.senses.map(s=>({...s,entryId:"missing"}))}};const {checksum,...data}=broken;void checksum;await expect(parseArchive(JSON.stringify({...data,checksum:await contentHash(data)}))).rejects.toThrow("invalid");
   });
  it("filters explicit due/weak/lesson decks and persists the reverse direction",async()=>{
-  const repository=repo();await seed(repository,3);const practice=new PracticeRepository(repository);let game=await practice.start("spelling",{word:"word-2"});game=await practice.check(game.id,game.version,"wrong");await practice.answer(game.id,game.version,{});const weak=await practice.start("flashcard",{weak:true,direction:"vi-en"});expect(weak.questions.map(q=>q.word.id)).toEqual(["word-2"]);expect(weak.direction).toBe("vi-en");const revealed=await practice.reveal(weak.id,weak.version);await practice.answer(revealed.id,revealed.version,{rating:"Good"});const due=await practice.start("flashcard",{due:true});expect(due.questions.map(q=>q.word.id)).not.toContain("word-2");
+  const repository=repo();await seed(repository,3);const practice=new PracticeRepository(repository, async()=>true);let game=await practice.start("spelling",{word:"word-2"});game=await practice.check(game.id,game.version,"wrong");await practice.answer(game.id,game.version,{});const weak=await practice.start("flashcard",{weak:true,direction:"vi-en"});expect(weak.questions.map(q=>q.word.id)).toEqual(["word-2"]);expect(weak.direction).toBe("vi-en");const revealed=await practice.reveal(weak.id,weak.version);await practice.answer(revealed.id,revealed.version,{rating:"Good"});const due=await practice.start("flashcard",{due:true});expect(due.questions.map(q=>q.word.id)).not.toContain("word-2");
  });
  it("validates parent-authored extra examples/grammar and rejects stale content writes",async()=>{
   const repository=repo();await seed(repository,1);const word=(await repository.word("word-0"))!;const data={senseId:word.id,targetRevision:word.revision,example:"She eats an apple.",exampleVi:"Bạn ấy ăn một quả táo.",readingHintVi:"",pattern:"She + verb-s + object",patternExplanation:"Câu khẳng định, hiện tại đơn.",grammarTitle:"Hiện tại đơn",conditions:"Thói quen",formula:"She + verb-s",analysis:"She là chủ ngữ; eats là động từ.",commonError:"She eat an apple.",correction:"She eats an apple.",approved:true as const,origin:"user" as const};
@@ -117,7 +117,7 @@ describe("complete local learning flows",()=>{
     expect((await learningItems(repository,'grammar','')).total).toBe(0);
  });
  it("saves custom decks with version checks and filters their explicit senses",async()=>{
-  const repository=repo();await seed(repository,4);const saved=await saveDeck(repository,"deck-1",null,{name:"My two words",senseIds:["word-0","word-2"],direction:"vi-en"});expect(saved.version).toBe(1);await expect(saveDeck(repository,"deck-1",null,{name:"stale",senseIds:["word-1"],direction:"en-vi"})).rejects.toThrow("conflict");const practice=await new PracticeRepository(repository).start("flashcard",{deck:"deck-1",direction:"vi-en"});expect(practice.questions.map(q=>q.word.id)).toEqual(["word-0","word-2"]);expect((await exportArchive(repository)).records.decks).toHaveLength(1);
+  const repository=repo();await seed(repository,4);const saved=await saveDeck(repository,"deck-1",null,{name:"My two words",senseIds:["word-0","word-2"],direction:"vi-en"});expect(saved.version).toBe(1);await expect(saveDeck(repository,"deck-1",null,{name:"stale",senseIds:["word-1"],direction:"en-vi"})).rejects.toThrow("conflict");const practice=await new PracticeRepository(repository, async()=>true).start("flashcard",{deck:"deck-1",direction:"vi-en"});expect(practice.questions.map(q=>q.word.id)).toEqual(["word-0","word-2"]);expect((await exportArchive(repository)).records.decks).toHaveLength(1);
  });
 });
 
@@ -127,7 +127,7 @@ import {objectPatterns} from '@/lib/learning/worksheet-patterns';
 import {lessonSets} from '@/data/local/lesson-library';
 it('saves worksheet grammar atomically, retains source separation and replays without duplicates',async()=>{const r=repo();const book=catalog.find(w=>w.word==='book')!;const learning=objectPatterns(book).map(item=>({...item,wordId:'book'}));const input={operationId:'grammar-op',lessonId:'photo-one',title:'Worksheet one',learnedOn:'2026-10-10',sourceType:'image' as const,items:[{...book,id:'book',approved:true}],learning};await r.saveLesson(input);await r.saveLesson(input);expect((await learningItems(r,'grammar','',input.lessonId)).total).toBe(2);expect((await learningItems(r,'patterns','')).items[0].source).toContain('Không phải');expect(await r.db.table('sentences').count()).toBe(2);const archive=await exportArchive(r);expect(await parseArchive(JSON.stringify(archive))).toBeTruthy();await expect(r.saveLesson({...input,operationId:'invalid',learning:[{...learning[0],wordId:'foreign'}]})).rejects.toThrow('invalid');expect(await r.db.lessons.count()).toBe(1);});
 it('fills only missing pictures with CAS while preserving approved parent grammar',async()=>{const r=repo();const book=catalog.find(w=>w.word==='book')!;await r.saveLesson({operationId:'picture-op',title:'Missing picture',learnedOn:'2026-10-10',sourceType:'manual',items:[{...book,id:'book',art:null,approved:true}]});const word=(await r.word('book'))!;const content={...objectPatterns(book)[0].content,senseId:word.id,targetRevision:word.revision};await saveContent(r,'extra-book',null,content);await r.prepareLearning([{id:word.id,revision:word.revision,art:'book'}],{id:word.id,revision:word.revision,contents:objectPatterns(book)});expect((await r.word('book'))!.art).toBe('book');expect((await learningItems(r,'grammar','')).total).toBe(3);await expect(r.prepareLearning([{id:word.id,revision:word.revision,art:'cat'}],null)).rejects.toThrow('conflict');expect((await r.word('book'))!.art).toBe('book');});
-it('groups typed words by local learning day and retains separate imported sets with new/review counts',async()=>{const r=repo();const apple=catalog.find(w=>w.word==='apple')!,book=catalog.find(w=>w.word==='book')!;const add=(operationId:string,word:typeof apple,day:string)=>r.saveLesson({operationId,lessonId:`manual-day-${day}`,title:`Typed ${day}`,learnedOn:day,sourceType:'manual',items:[{...word,id:operationId,approved:true}]});await add('first',apple,'2026-10-09');await add('second',book,'2026-10-09');expect(await r.db.lessons.count()).toBe(1);await r.saveLesson({operationId:'photo',lessonId:'photo',title:'Unit 1',learnedOn:'2026-10-10',sourceType:'image',items:[{...apple,id:'from-photo',approved:true}]});expect(await r.db.senses.count()).toBe(2);const rows=await lessonSets(r,'');expect(rows[0]).toMatchObject({total:1,newCount:0,reviewCount:1});expect(rows[1]).toMatchObject({total:2,newCount:2});expect(await lessonSets(r,'2026-10-09')).toHaveLength(1);expect(await lessonSets(r,'apple')).toHaveLength(2);const old=rows[1].lesson;await r.editLesson(old.id,old.version,'Older words','2026-10-08');await expect(r.editLesson(old.id,old.version,'stale','2026-10-07')).rejects.toThrow('conflict');await add('third',catalog.find(w=>w.word==='cat')!,'2026-10-09');expect(await r.db.lessons.count()).toBe(3);expect((await lessonSets(r,'2026-10-09'))[0].total).toBe(1);const session=await new PracticeRepository(r).start('flashcard',{lesson:'photo'});expect(session.questions).toHaveLength(1);});
+it('groups typed words by local learning day and retains separate imported sets with new/review counts',async()=>{const r=repo();const apple=catalog.find(w=>w.word==='apple')!,book=catalog.find(w=>w.word==='book')!;const add=(operationId:string,word:typeof apple,day:string)=>r.saveLesson({operationId,lessonId:`manual-day-${day}`,title:`Typed ${day}`,learnedOn:day,sourceType:'manual',items:[{...word,id:operationId,approved:true}]});await add('first',apple,'2026-10-09');await add('second',book,'2026-10-09');expect(await r.db.lessons.count()).toBe(1);await r.saveLesson({operationId:'photo',lessonId:'photo',title:'Unit 1',learnedOn:'2026-10-10',sourceType:'image',items:[{...apple,id:'from-photo',approved:true}]});expect(await r.db.senses.count()).toBe(2);const rows=await lessonSets(r,'');expect(rows[0]).toMatchObject({total:1,newCount:0,reviewCount:1});expect(rows[1]).toMatchObject({total:2,newCount:2});expect(await lessonSets(r,'2026-10-09')).toHaveLength(1);expect(await lessonSets(r,'apple')).toHaveLength(2);const old=rows[1].lesson;await r.editLesson(old.id,old.version,'Older words','2026-10-08');await expect(r.editLesson(old.id,old.version,'stale','2026-10-07')).rejects.toThrow('conflict');await add('third',catalog.find(w=>w.word==='cat')!,'2026-10-09');expect(await r.db.lessons.count()).toBe(3);expect((await lessonSets(r,'2026-10-09'))[0].total).toBe(1);const session=await new PracticeRepository(r, async()=>true).start('flashcard',{lesson:'photo'});expect(session.questions).toHaveLength(1);});
 
 it('reimport keeps a single sense and parent wording while filling only missing reviewed art',async()=>{const r=repo(),book=catalog.find(w=>w.word==='book')!;await r.saveLesson({operationId:'old-no-art',lessonId:'old-photo',title:'Old photo',learnedOn:'2026-10-09',sourceType:'image',items:[{...book,id:'original:ai-0',art:null,vi:'nghĩa bố mẹ đã sửa',approved:true}]});const before=(await r.word('original:ai-0'))!;await saveContent(r,'parent-grammar',null,{...objectPatterns(book)[0].content,senseId:before.id,targetRevision:before.revision});const result=await r.saveLesson({operationId:'new-photo',lessonId:'new-photo',title:'New photo',learnedOn:'2026-10-10',sourceType:'image',items:[{...book,id:'new:ai-0',art:'book',approved:true}]});expect(result).toMatchObject({added:0,linked:1});expect(await r.db.senses.count()).toBe(1);expect(await r.db.lessonItems.count()).toBe(2);expect((await r.word(before.id))).toMatchObject({vi:'nghĩa bố mẹ đã sửa',art:'book',approved:true});expect((await learningItems(r,'grammar','')).total).toBe(1);});
 
@@ -165,11 +165,23 @@ it('both picture games exclude absent and stale imported images from targets and
  const r=repo();await seed(r,4);const valid=(await r.search('',{approvedOnly:true})).words;const bad=valid[3],scope=r.scope.id;
  // Leave an apparently valid media id in the search index; its asset is absent.
  const media=`media-${crypto.randomUUID()}`;await r.db.senses.update([scope,bad.id],{art:media});await r.db.searchIndex.update([scope,bad.id],{art:media});const noPicture={...catalog[4],id:'no-picture',art:null,approved:true};await r.saveLesson({operationId:crypto.randomUUID(),title:'No art',learnedOn:'2026-10-12',sourceType:'manual',items:[noPicture]});
- const practice=new PracticeRepository(r);
+ const practice=new PracticeRepository(r, async()=>true);
  for(const mode of ['picture-word','word-picture'] as const){const session=await practice.start(mode);expect(session.questions).toHaveLength(3);expect(session.questions.flatMap(q=>[q.word,...q.choices]).every(word=>!!word.art&&word.id!==bad.id&&word.id!=='no-picture')).toBe(true);await expect(practice.start(mode,{word:bad.id})).rejects.toThrow('not-ready');await expect(practice.start(mode,{word:'no-picture'})).rejects.toThrow('not-ready');}
  expect((await practice.start('flashcard')).questions.some(q=>q.word.id==='no-picture')).toBe(true);
 });
 it('invalidates an existing picture game when a distractor loses its image without changing the target revision',async()=>{
- const r=repo();await seed(r,4);const practice=new PracticeRepository(r),session=await practice.start('word-picture');const target=session.questions[0].word,choice=session.questions[0].choices.find(word=>word.id!==target.id)!;
+ const r=repo();await seed(r,4);const practice=new PracticeRepository(r, async()=>true),session=await practice.start('word-picture');const target=session.questions[0].word,choice=session.questions[0].choices.find(word=>word.id!==target.id)!;
  await r.db.senses.update([r.scope.id,choice.id],{art:null});expect((await r.word(target.id))!.revision).toBe(target.revision);expect(await practice.pictureSessionCurrent(session)).toBe(false);expect((await practice.sessions()).some(row=>row.id===session.id)).toBe(false);await expect(practice.check(session.id,session.version,target.word)).rejects.toThrow('conflict');expect(await r.db.table('gameAttempts').count()).toBe(0);
+});
+
+it('checks actual image loading before both picture games, replacing missing sister/brother with pictured words',async()=>{
+ const r=repo();await seed(r,5);
+ await r.saveLesson({operationId:crypto.randomUUID(),title:'Family',learnedOn:'2026-10-12',sourceType:'manual',items:[{...catalog[0],id:'sister',word:'sister',vi:'chị gái',en:'A female sibling.',art:'online-openmoji-1F467',approved:true},{...catalog[0],id:'brother',word:'brother',vi:'anh trai',en:'A male sibling.',art:'online-openmoji-1F466',approved:true}]});
+ const loaded:string[]=[];const practice=new PracticeRepository(r,async src=>{loaded.push(src);return !src.includes('/online/');});
+ for(const mode of ['picture-word','word-picture'] as const){const s=await practice.start(mode);expect(s.questions.flatMap(q=>[q.word,...q.choices]).every(w=>!['sister','brother'].includes(w.id))).toBe(true);await expect(practice.start(mode,{word:'sister'})).rejects.toThrow('not-ready');}
+ expect(loaded).toContain('/illustrations/online/1F467');expect(loaded).toContain('/illustrations/online/1F466');
+ expect((await practice.start('flashcard')).questions.some(q=>q.word.id==='sister')).toBe(true);
+ const valid=await new PracticeRepository(r,async()=>true).start('word-picture');
+ const resumed=new PracticeRepository(r,async()=>false);expect((await resumed.sessions()).some(s=>s.id===valid.id)).toBe(false);
+ await expect(resumed.check(valid.id,valid.version,valid.questions[0].word.word)).rejects.toThrow('conflict');expect(await r.db.table('gameAttempts').count()).toBe(0);
 });

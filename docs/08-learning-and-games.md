@@ -3,6 +3,8 @@
 12/10 ADR081: hai game picture-word/word-picture lọc word.art đã resolve/approved/ready; không dùng chỉsearchIndexart. Targets+distractors phảicóhình, media stale/revoked/missing bịbỏ. Cần3choice khác nhau; session được revalidate kểcảdistractors trướcresume/mutations và liveUI; không ghiđiểm từảnhold. Flashcard/letters/spelling vẫnnhậnwordthiếuhình. [Evidence](evaluations/free-picture-sources-and-games.md).
 
 
+12/10 ADR081 bugfix: catalog ID hợp lệ chưa chứng minh ảnh tồn tại. Cả hai game hình phải tải+decode ảnh trước chọn target/distractor và resume; ảnh lỗi/404/HTML/default bị loại, lấy từ có hình khác. Imported art kiểm đúng headword. Lỗi render dừng nhận đáp án; offline giữ cùng kiểm tra. [Evidence](evaluations/picture-game-image-readiness-fix.md).
+
 12/10 ADR076: grammar guide hết stage cuối thì dừng và tự quay về bước1; pause giữ bước đang xem, reduced-motion/manual controls giữ. Ref của grouped grammar phải là key của representative dữ liệu gốc, không đổi theo title UI. Nhóm nhận lựa chọn riêng từng mục, không bắt chọn hết. Xóa bộ ngày chỉ bỏ bộ và membership, giữ từ/câu/ngữ pháp trong global library; history/scope/CAS giữ. [Evidence](evaluations/edit-save-navigation.md).
 
 ## Hiện hành12/10 — ADR075

@@ -1,4 +1,6 @@
 import {test,expect} from '@playwright/test';
+// Fault injection must reach the decoder instead of the PWA's already cached assets.
+test.use({serviceWorkers:'block'});
 test.beforeEach(async({page})=>{await page.route(/^https:\/\//,route=>route.abort());await page.route('**/api/auth/status*',route=>route.fulfill({json:{configured:false,user:null}}));await page.addInitScript(()=>localStorage.setItem('wfk-parent-ai-disabled-v1','1'));});
 test('both picture games use only ready images; missing selected word shows a recovery message',async({page},info)=>{
  await page.goto('/library');await expect(page.getByRole('link').filter({hasText:/apple/}).first()).toBeVisible();await page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('words-for-kids.local');r.onsuccess=()=>resolve(r.result);});await new Promise<void>((resolve,reject)=>{const tx=db.transaction(['senses','searchIndex'],'readwrite');for(const name of ['senses','searchIndex']){const store=tx.objectStore(name),r=store.getAll();r.onsuccess=()=>{for(const row of r.result)if(!['apple','banana','grapes'].includes(row.id))store.put({...row,art:row.id==='book'?'media-00000000-0000-4000-8000-000000000099':null});};}tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);});db.close();});
@@ -10,4 +12,24 @@ test('removing a distractor picture closes the active game and prevents old imag
  const id=await page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('words-for-kids.local');r.onsuccess=()=>resolve(r.result);});const sessions=await new Promise<{payload:{session:{questions:{word:{id:string};choices:{id:string}[]}[]}}}[]>(resolve=>{const r=db.transaction('practiceSessions').objectStore('practiceSessions').getAll();r.onsuccess=()=>resolve(r.result);});db.close();const q=sessions[0].payload.session.questions[0];return q.choices.find(choice=>choice.id!==q.word.id)!.id;});
  const editor=await context.newPage();await editor.goto(`/library/words/${id}/edit`);await editor.getByRole('button',{name:'Bỏ hình',exact:true}).click();await editor.getByRole('button',{name:'Lưu chỉnh sửa',exact:true}).click();await expect(editor.getByRole('button',{name:'Đã lưu chỉnh sửa',exact:true})).toBeVisible();
  await expect(page.getByText('Hình trong lượt chơi đã đổi',{exact:true})).toBeVisible();await expect(page.locator('.game-answers')).toHaveCount(0);await page.getByRole('button',{name:'Chọn trò chơi',exact:true}).click();await expect(page.getByRole('button',{name:'Nhìn hình chọn từ',exact:true})).toBeVisible();await editor.close();
+});
+test('broken image files are replaced before both picture games; image failure during play stops answers',async({page})=>{
+ await page.goto('/library');await expect(page.getByRole('link').filter({hasText:/apple/}).first()).toBeVisible();
+ // Metadata still claims these vendored assets exist; the decoder must reject them.
+ await page.route('**/illustrations/apple.svg',route=>route.fulfill({status:200,contentType:'text/html',body:'missing image'}));
+ await page.route('**/illustrations/banana.svg',route=>route.fulfill({status:404,body:'not found'}));
+ for(const name of ['Nhìn hình chọn từ','Nghe từ chọn hình']){
+  await page.goto('/practice');await page.getByRole('button',{name,exact:true}).click();await expect(page.locator('.game-answers button')).toHaveCount(3);await expect(page.locator('.missing-art')).toHaveCount(0);
+  const words=await page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('words-for-kids.local');r.onsuccess=()=>resolve(r.result);});const rows=await new Promise<{payload:{session:{questions:{word:{art:string};choices:{art:string}[]}[]}}}[]>(resolve=>{const r=db.transaction('practiceSessions').objectStore('practiceSessions').getAll();r.onsuccess=()=>resolve(r.result);});db.close();return rows.flatMap(row=>row.payload.session.questions.flatMap(q=>[q.word,...q.choices]));});expect(words.every(w=>w.art!=='apple'&&w.art!=='banana')).toBe(true);
+ }
+ // A loaded picture can still fail later (cache eviction/offline/server failure).
+ await page.locator('.game-answers img').first().evaluate(image=>image.dispatchEvent(new Event('error')));
+ await expect(page.getByText('Hình trong lượt chơi đã đổi',{exact:true})).toBeVisible();await expect(page.locator('.game-answers')).toHaveCount(0);
+});
+
+test('approved imported image is rendered in both picture games without default artwork',async({page})=>{
+ const sharp=(await import('sharp')).default,bytes=await sharp({create:{width:16,height:16,channels:3,background:'red'}}).jpeg().toBuffer(),hash=(await import('node:crypto')).createHash('sha256').update(bytes).digest('hex');
+ await page.route('**/api/media/upload',route=>route.fulfill({json:{candidate:{id:`upload:${hash}`,title:'File:fixture.jpg',sourceUrl:'',imageUrl:'',creator:'User supplied',license:'User supplied',licenseUrl:'',credit:'Fixture'},base64:bytes.toString('base64'),sha256:hash,checkedAt:new Date().toISOString(),receipt:'local-fixture'}}));
+ await page.goto('/library/words/apple/edit');await page.getByText('Đổi hình',{exact:true}).click();await page.getByText('Dùng ảnh khác',{exact:true}).click();await page.getByLabel('Chọn hình cho từ',{exact:true}).setInputFiles({name:'fixture.jpg',mimeType:'image/jpeg',buffer:bytes});await page.getByRole('button',{name:'Lưu chỉnh sửa',exact:true}).click();await expect(page.getByRole('button',{name:'Đã lưu chỉnh sửa',exact:true})).toBeVisible();
+ for(const name of ['Nhìn hình chọn từ','Nghe từ chọn hình']){await page.goto('/practice?word=apple');await page.getByRole('button',{name,exact:true}).click();await expect(page.locator('.game-answers button')).toHaveCount(3);const image=page.locator('img[src^="data:image/jpeg;base64,"]');await expect(image).toHaveCount(1);await expect.poll(()=>image.evaluate((img:HTMLImageElement)=>img.complete&&img.naturalWidth>0)).toBe(true);await expect(page.locator('.missing-art')).toHaveCount(0);}
 });

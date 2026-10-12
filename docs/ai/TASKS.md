@@ -16,7 +16,7 @@ Direct user task ưu tiên ready task. Status chỉ done khi có evidence, mock/
 | T09 | P1 | Flashcard/SRS/results | T03,T07 | in_progress | Local SRS/attempt/CAS; device/human gates pending |
 | T10 | P1 | Auth/cloud/schema/RLS | T01,T03 | in_progress | Hosted0007/0008+own fixtures verified; fresh OAuth/storage/deletion complete acceptance pending |
 | T11 | P1 | Sync/merge/backup/deletion | T06,T10 | in_progress | Hosted own two-device smoke; accepted-history/conflict/deletion full acceptance pending |
-| T12 | P1 | Games/ready art/grammar/speaking | T07,T09 | in_progress | Local scoped evidence; human/device/media/audio quality pending |
+| T12 | P1 | Games/ready art/grammar/speaking | T07,T09 | in_progress | [Image game fix](../evaluations/picture-game-image-readiness-fix.md):26unit+integration/12productionUI PASS; human/device/media/audio quality pending |
 | T13 | P1 | PWA/offline/cache scopes | T08,T11,T12 | in_progress | Local offline evidence; install/update/physical devices pending |
 | T14 | P1 | Cross-cutting QA | T08,T13 | in_progress | Full checks at release; human/field/final performance gates open |
 | T15 | P1 | Pilot/operations/release | T14 | in_progress | No push main/new Vercel env/founder browser; pilot readiness pending |

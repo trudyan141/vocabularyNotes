@@ -1,3 +1,5 @@
+import {loadPicture} from '@/lib/media/load-picture';
+import {approvedMedia} from './media';
 import {grammarKey} from './groups';
 import {learningItems} from './learning-library';
 import type {LearningContent} from './content';
@@ -15,12 +17,35 @@ export type Session={id:string;scopeId:string;mode:Mode;direction?:"en-vi"|"vi-e
   answers:{questionId:string;correct:boolean;skipped:boolean;hint:boolean;rating:Rating|null}[];completedAt:string|null;version:number;createdAt:string};
 const modes=z.enum(["flashcard","picture-word","word-picture","letters","spelling","grammar"]);
 export class PracticeRepository{
-  constructor(readonly repository:LocalRepository){}
+  private pictures=new Map<string,Promise<boolean>>();
+  private failedPictures=new Set<string>();
+  constructor(readonly repository:LocalRepository,private readonly imageLoads=loadPicture){}
+  pictureFailed(art:string){this.failedPictures.add(art);}
+  private async pictureLoads(word:LibraryWord){
+    const art=safeArt(word.art);if(!art||this.failedPictures.has(art))return false;
+    let src=art.startsWith('online-openmoji-')?`/illustrations/online/${art.slice(16)}`:art.startsWith('openmoji-')?`/illustrations/openmoji/${art.slice(9)}.svg`:`/illustrations/${art}.svg`;
+    if(art.startsWith('media-')){const asset=await approvedMedia(this.repository,art,word.word);if(!asset)return false;src=`data:image/jpeg;base64,${asset.base64}`;}
+    const key=`${word.id}:${word.revision}:${art}`;
+    if(!this.pictures.has(key))this.pictures.set(key,this.imageLoads(src).catch(()=>false));
+    return this.pictures.get(key)!;
+  }
+  private async picturedWords(words:LibraryWord[]){
+    const result:LibraryWord[]=[];
+    // Bound online downloads; missing images never become default game artwork.
+    for(let i=0;i<words.length;i+=2){const chunk=words.slice(i,i+2),ready=await Promise.all(chunk.map(word=>this.pictureLoads(word)));result.push(...chunk.filter((_,i)=>ready[i]));}
+    return result;
+  }
+  async pictureSessionLoaded(session:Session){
+    if(!await this.pictureSessionCurrent(session))return false;
+    if(session.mode!=='picture-word'&&session.mode!=='word-picture')return true;
+    const words=[...new Map(session.questions.flatMap(q=>[q.word,...q.choices]).map(word=>[word.id,word])).values()];
+    return (await this.picturedWords(words)).length===words.length;
+  }
   private get table(){return this.repository.db.table<ScopedDocument>("practiceSessions");}
   async sessions(){
     const rows=await this.table.where("[scopeId+id]").between([this.repository.scope.id,""],[this.repository.scope.id,"\uffff"]).toArray();
     const sessions=rows.map(row=>row.payload.session as Session).filter(Boolean).sort((a,b)=>b.createdAt.localeCompare(a.createdAt));const visible:Session[]=[];
-    for(const session of sessions){if(session.completedAt){visible.push(session);continue;}const current=await this.repository.words(session.questions.map(q=>q.word.id));if(session.questions.every(q=>current.some(w=>w.id===q.word.id&&w.approved&&w.revision===q.word.revision))&&await this.pictureSessionCurrent(session)&& (await Promise.all(session.questions.map(q=>this.grammarCurrent(q)))).every(Boolean))visible.push(session);}return visible;
+    for(const session of sessions){if(session.completedAt){visible.push(session);continue;}const current=await this.repository.words(session.questions.map(q=>q.word.id));if(session.questions.every(q=>current.some(w=>w.id===q.word.id&&w.approved&&w.revision===q.word.revision))&&await this.pictureSessionLoaded(session)&& (await Promise.all(session.questions.map(q=>this.grammarCurrent(q)))).every(Boolean))visible.push(session);}return visible;
   }
   async get(id:string){return (await this.table.get([this.repository.scope.id,id]))?.payload.session as Session|undefined;}
   async dueIds(){
@@ -34,19 +59,21 @@ export class PracticeRepository{
   }
   async start(mode:Mode,filter:{word?:string;due?:boolean;weak?:boolean;lesson?:string;deck?:string;direction?:"en-vi"|"vi-en"}={}):Promise<Session>{
     modes.parse(mode);
+    this.pictures.clear();this.failedPictures.clear();
     if(mode==="grammar")return this.startGrammar(filter);
     const scope=this.repository.scope.id;
     const index=await this.repository.db.searchIndex.where("[scopeId+ordinal]").between([scope,""],[scope,"\uffff"]).toArray();
     let candidates=index.filter(row=>row.approval&&(!filter.lesson||row.lessonIds.includes(filter.lesson)));
     if(mode==="picture-word"||mode==="word-picture")candidates=candidates.filter(row=>!!safeArt(row.art));
     const picture=(word:LibraryWord)=>!!safeArt(word.art)&&word.approved&&!(["intelligent","smart","clever"].includes(word.word.toLowerCase())&&word.pos==="adjective");
-    const distractorWords=(await this.repository.words(candidates.slice(0,100).map(row=>row.id))).filter(word=>!(mode==="picture-word"||mode==="word-picture")||picture(word));
+    let distractorWords=(await this.repository.words(candidates.slice(0,100).map(row=>row.id))).filter(word=>!(mode==="picture-word"||mode==="word-picture")||picture(word));
+    if(mode==='picture-word'||mode==='word-picture')distractorWords=await this.picturedWords(distractorWords);
     if(filter.deck){const row=await this.repository.db.table<ScopedDocument>("decks").get([scope,filter.deck]);if(!row||row.deletedAt)throw new RepositoryError("not-ready");const deck=row.payload.deck as {senseIds:string[];group?:{wordIds:string[]}};const ids=deck.group?.wordIds??deck.senseIds;candidates=candidates.filter(row=>ids.includes(row.id));}
     if(filter.word)candidates=candidates.filter(row=>row.id===filter.word);
     if(filter.due){const ids=new Set(await this.dueIds());candidates=candidates.filter(row=>ids.has(row.id));}
     if(filter.weak){const attempts=await this.repository.db.table<ScopedDocument>("gameAttempts").where("[scopeId+id]").between([scope,""],[scope,"\uffff"]).toArray();const latest=new Map<string,ScopedDocument>();for(const attempt of attempts.sort((a,b)=>a.updatedAt.localeCompare(b.updatedAt)))latest.set(attempt.payload.senseId as string,attempt);candidates=candidates.filter(row=>{const attempt=latest.get(row.id);return attempt&&(!attempt.payload.correct||attempt.payload.hint);});}
     let words=(await this.repository.words(candidates.slice(0,100).map(row=>row.id))).filter(word=>word.vi.trim()&&word.en.trim());
-    if(mode==="picture-word"||mode==="word-picture")words=words.filter(picture);
+    if(mode==="picture-word"||mode==="word-picture")words=words.filter(word=>picture(word)&&distractorWords.some(ready=>ready.id===word.id&&ready.revision===word.revision&&ready.art===word.art));
     if(mode==="letters")words=words.filter(word=>/^[a-z]{2,30}$/i.test(word.word));
     const unique=distractorWords.filter((word,i)=>distractorWords.findIndex(other=>answerKey(other.word,other.caseMode)===answerKey(word.word,word.caseMode))===i);
     const distractorPool=mode==="picture-word"||mode==="word-picture"?unique:words;
@@ -80,10 +107,11 @@ export class PracticeRepository{
     if(session.mode!=='picture-word'&&session.mode!=='word-picture')return true;
     const snapshots=session.questions.flatMap(question=>[question.word,...question.choices]);
     const current=await this.repository.words([...new Set(snapshots.map(word=>word.id))]);const byId=new Map(current.map(word=>[word.id,word]));
-    return snapshots.every(snapshot=>{const word=byId.get(snapshot.id);return word?.approved&&!!safeArt(word.art)&&word.art===snapshot.art&&word.revision===snapshot.revision;});
+    return snapshots.every(snapshot=>{const word=byId.get(snapshot.id);return word?.approved&&!!safeArt(word.art)&&!this.failedPictures.has(word.art!)&&word.art===snapshot.art&&word.revision===snapshot.revision;});
   }
   private async grammarCurrent(question:Question){if(!question.grammar)return true;const row=await this.repository.db.table<ScopedDocument>('sentences').get([this.repository.scope.id,question.grammar.id]);const content=row?.payload.content as LearningContent|undefined;return !!row&&!row.deletedAt&&row.version===question.grammar.version&&!!content?.approved&&content.targetRevision===question.word.revision;}
   async reveal(id:string,version:number,hint=false){
+    const pending=await this.get(id);if(pending&&!await this.pictureSessionLoaded(pending))throw new RepositoryError('conflict');
     return this.repository.db.transaction("rw",this.repository.db.tables,async()=>{
       const session=await this.get(id);if(!session)throw new RepositoryError("missing");
       if(session.version!==version||session.completedAt||!await this.pictureSessionCurrent(session))throw new RepositoryError("conflict");
@@ -92,6 +120,7 @@ export class PracticeRepository{
     });
   }
   async check(id:string,version:number,answer:string){
+    const pending=await this.get(id);if(pending&&!await this.pictureSessionLoaded(pending))throw new RepositoryError('conflict');
     z.string().max(200).parse(answer);
     return this.repository.db.transaction("rw",this.repository.db.tables,async()=>{
       const session=await this.get(id);if(!session)throw new RepositoryError("missing");
@@ -106,6 +135,7 @@ export class PracticeRepository{
   private async put(session:Session){const row=await this.table.get([session.scopeId,session.id]);if(!row)throw new RepositoryError("missing");
     await this.table.put({...row,updatedAt:new Date().toISOString(),version:session.version,payload:{session}});}
   async answer(id:string,version:number,input:{answer?:string;rating?:Rating;skipped?:boolean}):Promise<Session>{
+    const pending=await this.get(id);if(pending&&!await this.pictureSessionLoaded(pending))throw new RepositoryError('conflict');
     z.object({answer:z.string().max(200).optional(),rating:z.enum(["Again","Hard","Good","Easy"]).optional(),skipped:z.boolean().optional()}).strict().parse(input);
     return this.repository.db.transaction("rw",this.repository.db.tables,async()=>{
       const session=await this.get(id);if(!session)throw new RepositoryError("missing");

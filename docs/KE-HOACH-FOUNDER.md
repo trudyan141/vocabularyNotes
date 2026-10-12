@@ -1,5 +1,7 @@
 # Words for Kids — kế hoạch sản phẩm dành cho founder
 
+**12/10 — Đã triển khai [tối ưu flow coding AI, mục 21](#workflow-review).** Đường đọc đã gọn, runner kiểm đúng source và phạm vi; không đổi tính năng app.
+
 **12/10 — ADR082, nhiều ảnh thành một bài chung:** supersede review/save riêng từng ảnh. Toàn bộ preview ở trên, Phân tích ở dưới danh sách. Compact vision đọc tất cả ảnh trước, gom headwords/context rồi enrich4từ/lượt và grammar1400chars; một danh sách word/grammar duyệt và một lần Save tạo một lesson. Source/meaning/grammar checkpoints CAS được ghi xong từng phần trước khi đi tiếp; quota/stop/reload Continue, không auto AI. Exact word/POS/sense và declared grammar family/form dedup, giữ nghĩa/POS khác và câu nguồn. Snapshot ảnh/model/mode đổi chặn Save; transaction kiểm source revisions và idempotency; max10ảnh/500raw/100ktext/200learning, per-image caps và source-limit khôngsilentlydrop. Legacy per-photo drafts/lessons giữ. [Bằng chứng](evaluations/merged-photo-lesson.md). **Hoàn tất local:**61focused tests +14caUI mobile/desktop PASS (gồm regression mộtảnh); lint/typecheck/build/docs PASS. Chưa liveAI/physical-phone/hostedsync/deploy. Next: founder refresh bản local để dùng luồng chung.
 
 
@@ -1068,3 +1070,74 @@ Nhóm có nút rõ **Thêm từ, câu, ngữ pháp**, chọn từ/câu/ngữ ph�
 Theo yêu cầu “báo cáo trước khi làm”, đã tạo [báo cáo nguyên nhân/cách sửa/skill](BAO-CAO-PERFORMANCE-VA-DONG-BO.md); chưa sửa app hay database. Website trả byte đầu≈242–252ms trong5lượt/route, còn lab mobile chờ thư viện/nút≈3,6giây, auth chậm có thể kéo lên6,6–9,2giây. Ảnh Cáo tải nhỏ nhưng bị tạo lại lúc tự chào làm LCP muộn; chỉ sửa số LCP chưa giải quyết thời gian bấm.
 
 Yêu cầu mới của founder: đã đăng nhập thì mọi bài mới/thêm/sửa/xóa tự vào account, máy khác tự cập nhật; bài khách chỉ hỏi sao chép một lần. Source hiện vẫn có nhánh guest sau đăng nhập và sync3s/30s, chưa đạt yêu cầu. Chốt hướng đề xuất: sửa scope/account trước, hàng đợi chống mất bài + Supabase Realtime; tiếp đó chung request auth, welcome nhẹ/static và giữ node Cáo. Giữ stack hiện tại, không mua gói/AI/server. Chưa tối ưu/deploy hay chuyển bài thật; số đo/boundaries/kiểm tra nghiệm thu ở báo cáo.
+
+<a id="workflow-review"></a>
+
+## 21. Tối ưu flow coding AI — triển khai sau duyệt, 12/10
+
+### Kết luận để founder quyết định
+
+**Nên giảm việc đọc lại và làm lại trước.** Repo đang khiến AI phải đọc quá nhiều lịch sử để biết điều gì còn đúng; một số lượt còn mất công xử lý môi trường kiểm thử hoặc kiểm nhầm bản cũ. Quy tắc kiểm tra Gọn đã có và nhiều task gần đây đã làm theo. Chưa có bằng chứng rằng cắt mạnh test sẽ giải quyết nguyên nhân chính.
+
+Audit ban đầu và preview2 được giữ ở phần dưới. Founder đã duyệt triển khai bằng “ok làm đi”: đường đọc tài liệu và runner đã được sửa và kiểm theo phạm vi; không sửa tính năng sản phẩm hoặc CI. Plan này dành cho **AI viết code**; không đổi cách Gemini phân tích bài trong app.
+
+### Skill GitHub đã chọn và dùng để rà plan
+
+Đã gắn **systematic-debugging** từ [obra/superpowers](https://github.com/obra/superpowers/tree/bb92a77741419a4ab5f06e711a283343f1ada0c3/skills/systematic-debugging), maintainer `obra`/Jesse Vincent, MIT. Snapshot 12/10: repo **297.938 sao /26.615 forks**, vừa release ngày 10/10; có phản hồi cộng đồng dùng riêng skill này. Sao/forks là của cả repo, không phải số người dùng skill. [Bằng chứng chọn nguồn và so ứng viên](skills/WORKFLOW-SKILL-REVIEW.md).
+
+Skill giúp làm theo thứ tự **tái hiện → tìm nguyên nhân → kiểm giả thuyết → sửa và xác nhận**. Đã cài riêng vào project và pin commit; dùng trực tiếp ở lượt này, có thể xuất hiện trong danh sách skill từ lượt sau. Không cài cả bộ Superpowers, hooks hoặc global config. Feature vẫn dùng workflow dự án; chỉ bug/lỗi test mới cần skill này.
+
+Không chọn planning-with-files hoặc workflow execution đầy đủ: chúng thêm bộ kế hoạch/hook/helper và kiểm trùng với repo. Skill mới có phạm vi hẹp để hỗ trợ sửa đúng; không tự chứng minh đã nhanh hơn hay tiết kiệm token.
+
+**Sau khi dùng skill rà, plan bổ sung:**
+
+- Mỗi bug phải có dữ kiện tái hiện và giả thuyết cụ thể; không sửa thử nhiều thứ cùng lúc.
+- Phân biệt lỗi code, fixture test, môi trường và bản code cũ; xử lý đúng nguồn lỗi trước khi chạy lại.
+- Đo từng nguyên nhân riêng: lượng tài liệu đọc, thời gian dựng môi trường, số lần sửa/chạy lại. Chưa có số thì ghi chưa có.
+- Giữ kiểm tra Gọn; skill không ép full test hay test phản chiếu text/button đơn giản.
+
+Phần chi tiết theo bốn pha và điều kiện nghiệm thu ở [plan AI, review lần 2](ai/WORKFLOW-OPTIMIZATION-PLAN.md#workflow-skill-review).
+
+### Vì sao đang chậm và tốn
+
+| Phát hiện trong repo | Nó làm AI tốn công ở đâu? | Đề xuất |
+|---|---|---|
+| Ba file AI phải đọc lúc bắt đầu có tổng khoảng **130 KiB** | Nạp nhiều thông tin trước khi đụng tới bug; mất context thì đọc lại | Giữ trạng thái hiện tại ngắn, chuyển lịch sử sang nơi tra cứu |
+| START-HERE lặp nguyên văn **25 đoạn** với mỗi file STATE/TASKS | Đọc và cập nhật cùng nội dung nhiều lần | Mỗi loại thông tin có một nơi chính; nơi khác dẫn link |
+| Hướng dẫn cũ về quyền deploy/Speaking còn ở đường đọc đầu | Phải đối chiếu cũ/mới; có nguy cơ làm theo yêu cầu đã bị thay | Điểm vào chỉ trỏ hướng dẫn hiện hành, giữ lịch sử riêng |
+| Có lượt build bị khóa, hoặc test chạy bản snapshot cũ | Phải dựng môi trường lại rồi kiểm lại | Mỗi môi trường có người sở hữu, biết chính xác đang kiểm bản code nào |
+| Có 7 cấu hình browser test; bản mặc định chỉ chọn **13/29 file test** | Tốn công tìm đúng lệnh; “full test” có thể bỏ sót test mới | Một cách chạy theo phạm vi dùng chung; kiểm đủ danh sách ở release |
+| Một số file có dòng code dài hàng nghìn ký tự | Khó đọc đúng phần lỗi và sửa nhỏ | Chỉnh vùng đang sửa; chỉ tách code nếu có bằng chứng cần |
+
+Các số trên đo từ file repo, **không phải số token thực tế**. Chưa có thống kê token/chi phí/thời gian của các chat trước, nên chưa thể nói nguyên nhân nào chiếm bao nhiêu phần trăm. Bản kỹ thuật ghi nguồn và cách kiểm lại từng kết luận.
+
+### Flow mới đề xuất cho mỗi task
+
+1. **Hiểu việc đang giao:** đọc trạng thái ngắn, đúng yêu cầu hiện hành và đúng phần code liên quan.
+2. **Xác định lỗi hoặc kết quả cần đạt:** tái hiện đúng vấn đề, chốt trạng thái chính/lỗi cần kiểm; không mở rộng thành audit toàn app.
+3. **Sửa trọn phần được giao:** giữ dữ liệu, quyền và những thay đổi có sẵn.
+4. **Kiểm đúng rủi ro:** kiểm trên mobile/desktop khi đổi UI; giữ test lưu/chống trùng/quyền; build bản cuối khi cần theo quy tắc Gọn.
+5. **Bàn giao ngắn:** thay gì, đã kiểm gì, còn giới hạn nào; chi tiết để trong một bản evidence, các file khác dẫn link.
+
+Task nhỏ vẫn được làm trọn, không phải dừng vì hết một mức token tự đặt. Khi có lỗi thật hoặc ảnh hưởng rộng, mở rộng kiểm tra có lý do.
+
+### Thứ tự làm sau khi founder duyệt
+
+| Chặng | Founder sẽ nhận được | Cách biết đã đạt |
+|---|---|---|
+| **1. Dọn tài liệu đầu vào** | AI vào việc bằng bộ current state ngắn; lịch sử vẫn tra được | Không mất yêu cầu/quyền/pending; đọc đúng quyết định mới và việc tiếp theo |
+| **2. Chuẩn hóa môi trường và test** | Có cách chạy gọn cho từng task; không phải dựng config tạm liên tục | Kiểm đúng bản code, đúng ca mobile/desktop; test mới không bị bỏ khỏi danh sách release |
+| **3. Đo trên 3 task tiếp theo được giao** | Báo cáo thời gian, lượng context, token nếu có, lần làm lại và lỗi | So task cùng mức độ; nêu rõ phần chưa đo, không claim tiết kiệm từ cảm giác |
+| **4. Sửa phần code còn gây tốn công** | Chỉ cải thiện module chứng minh là điểm nghẽn | Kiểm hành vi liên quan vẫn pass; không refactor toàn app |
+
+Ưu tiên chặng 1 rồi chặng 2. Chặng 4 chỉ làm nếu đo cho thấy cần. Ngoài một skill đã được yêu cầu và cài ở trên, không tự thêm skill/plugin, đổi model, hooks hay global config. Không tự tạo ba feature để benchmark.
+
+### Mục tiêu và những thứ vẫn phải giữ
+
+Mục tiêu tài liệu: ba file đầu vào từ khoảng 130 KiB xuống **tối đa khoảng 12 KiB** trong trạng thái bình thường, giảm khoảng 91% lượng dữ liệu của riêng ba file. Con số này không bao gồm AGENTS, skill bắt buộc hoặc context do ứng dụng AI chèn; **không có nghĩa giảm 91% tổng token**.
+
+Mục tiêu thử nghiệm trên việc tương đương: nhanh hơn ít nhất **25%**, ít token mỗi task ít nhất **30% nếu đo được**, đồng thời không tăng lỗi phải sửa lại. Đây là mục tiêu cần kiểm chứng, chưa phải kết quả hay cam kết. Ba task đầu chỉ đủ đánh giá bước đầu; việc khác độ khó phải ghi rõ, không so máy móc.
+
+Giữ kiểm tra chống mất dữ liệu, phân quyền, lỗi và lưu thật; giữ lint/typecheck theo phạm vi và full checks trước release. Giữ lịch sử quyết định và bằng chứng. Giữ ba giới hạn founder đã chốt: không push main, không thêm env Vercel, không điều khiển browser thật founder.
+
+**Đã duyệt:** chặng1/2 theo ADR083. Ba file đầu vào hiện khoảng9,7KiB so với130KiB audit ban đầu, lịch sử giữ nguyên riêng. Runner dev/production cô lập, chặn source cũ/port hoặc snapshot đã có owner; release discovery đủ31file hiện tại. Lint/types,7guardtests, dev/production desktop+mobile, no-demo và build cuối PASS. Cloud smoke còn thiếu vì PostgreSQL local không khởi động được (SHMALL); không gọi full E2E/SQL đã pass. [Bàn giao workflow](evaluations/ai-workflow-optimization.md). Chặng3 đo trên task thật tiếp theo; chưa claim giảm actualtokens/thời gian task hoặc tự refactor chặng4. [Chi tiết audit và kế hoạch cho AI](ai/WORKFLOW-OPTIMIZATION-PLAN.md).

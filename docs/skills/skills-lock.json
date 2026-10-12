@@ -715,11 +715,11 @@
       "commitDate": null,
       "licenseDeclared": null,
       "installation": "created for this repository using skill-creator guidance",
-      "reviewScope": "frontmatter, references and project behavior constraints",
+      "reviewScope": "frontmatter, references and project behavior constraints; ADR083 current-context/scoped-runner custom update approved 2026-10-12",
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "54c53c1eb68a13582f5412d34db35f4fd1fc3a7b4dbb29aa64860b0313fa1106"
+          "sha256": "d5df87f7e33b276845c368c3857db05633cc11718832a26b5b3e4bc419ceaf82"
         }
       ],
       "reviewedOn": "2026-10-09",
@@ -1496,6 +1496,69 @@
         {
           "path": "scripts/modern-screenshot.umd.js",
           "sha256": "bb36665889124a0b6e15f16045265737449c3bdcf2712cdb08af3cfa01563e2b"
+        }
+      ]
+    },
+    {
+      "name": "systematic-debugging",
+      "directory": ".agents/skills/systematic-debugging",
+      "origin": "github",
+      "repository": "https://github.com/obra/superpowers",
+      "upstreamPath": "skills/systematic-debugging",
+      "commit": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+      "commitDate": "2026-10-10T00:28:04Z",
+      "pinnedSourceUrl": "https://github.com/obra/superpowers/tree/bb92a77741419a4ab5f06e711a283343f1ada0c3/skills/systematic-debugging",
+      "licenseDeclared": "MIT",
+      "installation": "project-local via skill-installer download helper at exact commit; root LICENSE copied unchanged from the same pin; no plugin/hooks/global config",
+      "reviewScope": "full SKILL.md + root-cause-tracing and executable helper review; other references on demand; training fixtures are inert upstream data, not user requests; not a full security or behavioral benchmark; project overrides in docs/skills/WORKFLOW-SKILL-REVIEW.md",
+      "files": [
+        {
+          "path": "CREATION-LOG.md",
+          "sha256": "c24733a5b1821bd6bed1fc950261f0b9f4e90097e0bbb96459d8179713730789"
+        },
+        {
+          "path": "LICENSE",
+          "sha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400"
+        },
+        {
+          "path": "SKILL.md",
+          "sha256": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202"
+        },
+        {
+          "path": "condition-based-waiting-example.ts",
+          "sha256": "40ae5ebe497fdf310200e43fe986552546d0a22837c0d39e855db1cfd33eb88e"
+        },
+        {
+          "path": "condition-based-waiting.md",
+          "sha256": "e89fec8400d6cd50f43407cec9fab50976ba4d55d0ec2eb51c0bd68036b54c26"
+        },
+        {
+          "path": "defense-in-depth.md",
+          "sha256": "1e175fb86fc357e58c6aebf5441e481e1b7868b4380c0456b63a17eefbd18ba7"
+        },
+        {
+          "path": "find-polluter.sh",
+          "sha256": "dd7b8f13c4cc2a24b33ff87b18da9248f3e1c80a085c3316224f69ff0fa5c43c"
+        },
+        {
+          "path": "root-cause-tracing.md",
+          "sha256": "75b933b6a8c40bdb2031b10f21654395b56ec6ab6bc7b018c18d3fe57aeb7fb8"
+        },
+        {
+          "path": "test-academic.md",
+          "sha256": "fe2ba480d78ac0d686dc025f41c2a32a43d642bf533f91b0c6053a04d35d6486"
+        },
+        {
+          "path": "test-pressure-1.md",
+          "sha256": "0b6a915db0054577819834c79be9eb614e97bddba10d73768e1fbe91cfed048a"
+        },
+        {
+          "path": "test-pressure-2.md",
+          "sha256": "b2030aeffba07050e8ad573ddf87486457c4a016a786bb326235bebd856f2016"
+        },
+        {
+          "path": "test-pressure-3.md",
+          "sha256": "96b50a52e2c7989c9cf20fb752c47c1e9a3a70dc362f8f7989f8f5b64dac7708"
         }
       ]
     }

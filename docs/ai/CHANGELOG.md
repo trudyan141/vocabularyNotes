@@ -1,5 +1,33 @@
 # Nhật ký bàn giao
 
+## 12/10 — sửa lỗi phân tích ảnh bộ phận cơ thể
+
+- Repro hai code defects: wrapped phrase được scan chấp nhận nhưng validation sau bác evidence; compact scan malformed dừng ngay thay vì content repair. So evidence NFKC/case/whitespace nhất quán, giữ transcript; compact scan tối đa một repair, không retry quota/network/account/refusal/timeout, invalid data không checkpoint.
+- Regression nhãn từ screenshot: scan-all/7phrases exact dedup/repair/bounded failure/resume failed photo/reload/one atomic save.61unit tests +6productionUI desktop/mobile +lint/types/build PASS. Dev navigation compile timeouts ghi đầy đủ, không patch app/timeouts để che; production scoped verify final PASS. [Evidence/source/commands/limits](../evaluations/body-part-photo-analysis-fix.md).
+- Chưa live Gemini với worksheet gốc, phone/deploy; screenshot không có provider response nên không khẳng định defect nào là nguyên nhân chính xác phiên founder. Giữ toàn bộ pre-existing workflow diff.
+
+## 12/10 — ADR083: triển khai WF1/WF2 sau founder duyệt
+
+- Currentbootstrap ~9,7KiB từ audit130KiB; exacthistory archive giữ cùng directory/links. AGENTS→current route, product detail PROJECT-RULES; delivery/handoff/customskilllock đồng bộ; STATE/TASKS chỉ current/link, no competingledger. Source/source-review skill đã có giữ.
+- Shared Playwright scopes+`pnpm test:ui`: discovery, credential-freeowned snapshot/dev or production, commit+contenthash, lock/port/zero/stale guards, unique logs/result. Defaultrelease31/31specfiles314testsdiscovered, liveopt-in; không claimfull314PASS/CI.
+- `pnpm test:workflow`7PASS; finallint/typesPASS; dev+finalproduction2UIcasesdesktop/mobilePASS, finalisolatedwebpackbuildPASS; no-demo1PASS reusebuild. Stale/zero/overlap reject đúng. Firstdevfailure do runnerenvfilter nhầm sourceenv.ts, sửa +regressionPASS; no productchange.
+- Cloud discovery đúng nhưng nativeinitdb SHMALL(shmget56bytes) failstartup; pending_environment, khôngSQL/fullE2EcloudPASS. Khôngkernel/global/PGliteinstall/hosted/founderdata/browser/main/env/deploy. [Evidence/commands/limits](../evaluations/ai-workflow-optimization.md).
+- Final `pnpm docs:check` PASS859links/16skills329resources/49JSONparsed (khôngschema); `git diff --check` PASS. WF3ghi metrics trên task founder giao tiếp theo, actualtokens/time saving chưa đo; WF4không tựrefactor.
+
+## 12/10 — Workflow skill theo yêu cầu founder và preview plan lần 2
+
+- Tìm/đối chiếu 3 nguồn GitHub; chọn riêng systematic-debugging từ obra/superpowers, MIT, exact pin bb92a77741419a4ab5f06e711a283343f1ada0c3. [Metadata/source/fit và ứng viên loại](../skills/WORKFLOW-SKILL-REVIEW.md). Snapshot stars/forks là repo-level, không usage count; không claim saving từ upstream.
+- Installer helper project-local PASS; SKILL byte-identical với pinned raw, LICENSE root đúng pin và lock12resources. Inventory16skills/329resources. Không cài plugin/hooks/global hoặc chạy helper/training fixtures upstream.
+- Dùng bốn pha skill rà số đo/evidence và bổ sung hypothesis/experiment, phân loại code/fixture/environment/stale/external và verification đúng boundary vào [plan mục 8](WORKFLOW-OPTIMIZATION-PLAN.md#workflow-skill-review); [founder preview lần 2](../KE-HOACH-FOUNDER.md#workflow-review). Catalog/bug routing/STATE/TASKS cập nhật; chưa triển khai WF1/WF2 hoặc sửa app/runner/CI.
+- Verification skill/docs: `PATH=/Users/trunglk/.nvm/versions/node/v24.14.1/bin:$PATH pnpm docs:check` PASS813links/16skills329resources/49JSONparsed, gồm frontmatter/inventory/SHA checks; `git diff --check` PASS. `python3 .../skill-creator/scripts/quick_validate.py .agents/skills/systematic-debugging` chưa chạy được (ModuleNotFoundError: yaml), không claim helper PASS và không cài thêm dependency; project validator đã kiểm name/description/frontmatter/lock. Không lint/typecheck/build/E2E/SQL vì không đổi app/runtime/config.
+
+## 12/10 — Audit flow coding AI và plan cho founder review
+
+- Đo ba file bootstrap 133.300 bytes; exact paragraph overlap, current/historical routing, build/snapshot rerun và default E2E inventory 13/29 spec. Chưa có usage/time toàn task, không claim saving đã đạt.
+- Báo cáo dễ đọc trong [founder mục 21](../KE-HOACH-FOUNDER.md#workflow-review); [plan AI](WORKFLOW-OPTIMIZATION-PLAN.md) ghi evidence, current/archive design, test boundary, source isolation và pilot metrics.
+- Cập nhật STATE/TASKS bằng link/status chờ review. Không sửa workflow có hiệu lực, AGENTS/skill/scripts/config/CI/app; không ADR mới trước approval. Không database/deploy/main/env/browser founder.
+- Verification docs-only: `PATH=/Users/trunglk/.nvm/versions/node/v24.14.1/bin:$PATH pnpm docs:check` PASS (799 local links, 15 skills/317 resources, 25 requirements/19 tasks/16 screens, 48 JSON parsed; không schema validation); `git diff --check` PASS. Không lint/typecheck/build/E2E/SQL vì chỉ viết báo cáo/plan.
+
 **12/10 — ADR082, nhiều ảnh thành một bài chung:** supersede review/save riêng từng ảnh. Toàn bộ preview ở trên, Phân tích ở dưới danh sách. Compact vision đọc tất cả ảnh trước, gom headwords/context rồi enrich4từ/lượt và grammar1400chars; một danh sách word/grammar duyệt và một lần Save tạo một lesson. Source/meaning/grammar checkpoints CAS được ghi xong từng phần trước khi đi tiếp; quota/stop/reload Continue, không auto AI. Exact word/POS/sense và declared grammar family/form dedup, giữ nghĩa/POS khác và câu nguồn. Snapshot ảnh/model/mode đổi chặn Save; transaction kiểm source revisions và idempotency; max10ảnh/500raw/100ktext/200learning, per-image caps và source-limit khôngsilentlydrop. Legacy per-photo drafts/lessons giữ. [Bằng chứng](../evaluations/merged-photo-lesson.md). **Hoàn tất local:**61focused tests +14caUI mobile/desktop PASS (gồm regression mộtảnh); lint/typecheck/build/docs PASS. Chưa liveAI/physical-phone/hostedsync/deploy. Next: founder refresh bản local để dùng luồng chung.
 
 

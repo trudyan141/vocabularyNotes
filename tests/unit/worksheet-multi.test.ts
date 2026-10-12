@@ -26,3 +26,43 @@ it('truncated source never proceeds to meanings or reports complete, including r
  await expect(analyseWorksheets(photos,'truncated','listed',new AbortController().signal,undefined,undefined,state=>{checkpoint=state;},fetcher as typeof fetch)).rejects.toThrow('source-limit');expect(checkpoint?.complete).toBe(false);expect(fetcher).toHaveBeenCalledTimes(1);
  const next=vi.fn(async()=>answer({text:'pear',warnings:[],words:[{word:'pear',literal:'pear'}],truncated:false}));await expect(analyseWorksheets(photos,'truncated','listed',new AbortController().signal,undefined,checkpoint,undefined,next as typeof fetch)).rejects.toThrow('source-limit');
 });
+it('repairs one malformed second scan before enriching the photographed body-part labels',async()=>{
+ const labels=[['four fingers','two feet','two legs','one mouth'],['one mouth','two ears','two hands','two legs','two arms','two feet']];
+ let scans=0;const stages:string[]=[];let checkpoint:MultiCheckpoint|undefined;
+ const fetcher=vi.fn(async(_url:unknown,init?:RequestInit)=>{
+  const body=JSON.parse(init!.body as string);
+  if(body.contents[0].parts.some((part:{inlineData?:unknown})=>part.inlineData)){
+   stages.push('scan');const index=scans++===0?0:1;
+   const scan={text:labels[index].join('\n'),warnings:[],words:labels[index].map(word=>({word,literal:word})),truncated:false};
+   if(scans===2){const {truncated,...invalid}=scan;void truncated;return answer(invalid);}
+   return answer(scan);
+  }
+  expect(scans).toBe(3);const input=JSON.parse(body.contents[0].parts[0].text);
+  stages.push(input.words[0]?.literal?'meanings':'grammar');return answer(input.words[0]?.literal?{words:input.words.map((item:{word:string})=>word(item.word))}:{learning:[]});
+ });
+ const result=await analyseWorksheets(photos,'body-parts','listed',new AbortController().signal,undefined,undefined,value=>{checkpoint=value;},fetcher as typeof fetch);
+ expect(result.words.map(item=>item.word)).toEqual(['four fingers','two feet','two legs','one mouth','two ears','two hands','two arms']);
+ expect(stages).toEqual(['scan','scan','scan','meanings','meanings','grammar','grammar']);expect(checkpoint?.complete).toBe(true);
+});
+it('accepts wrapped source labels as evidence through enrichment and grammar validation',async()=>{
+ const fetcher=vi.fn(async(_url:unknown,init?:RequestInit)=>{
+  const body=JSON.parse(init!.body as string);
+  if(body.contents[0].parts.some((part:{inlineData?:unknown})=>part.inlineData))return answer({text:'four\nfingers\ntwo   feet',warnings:[],words:[{word:'four fingers',literal:'four fingers'},{word:'two feet',literal:'two feet'}],truncated:false});
+  const input=JSON.parse(body.contents[0].parts[0].text);return answer(input.words[0]?.literal?{words:input.words.map((item:{word:string})=>word(item.word))}:{learning:[]});
+ });
+ const result=await analyseWorksheets(photos,'wrapped','listed',new AbortController().signal,undefined,undefined,undefined,fetcher as typeof fetch);
+ expect(result.words.map(item=>item.word)).toEqual(['four fingers','two feet']);expect(result.text).toContain('four\nfingers');
+});
+it('bounds repeated malformed scans and resumes only the failed photo with prior source intact',async()=>{
+ let saved:MultiCheckpoint|undefined;
+ const first=vi.fn().mockResolvedValueOnce(answer({text:'four fingers',warnings:[],words:[{word:'four fingers',literal:'four fingers'}],truncated:false})).mockResolvedValue(answer({text:'two ears',words:[]}));
+ await expect(analyseWorksheets(photos,'bounded','listed',new AbortController().signal,undefined,undefined,value=>{saved=value;},first as typeof fetch)).rejects.toThrow('invalid-result');
+ expect(first).toHaveBeenCalledTimes(3);expect(saved?.pages).toHaveLength(1);expect(saved?.complete).toBe(false);
+ let scans=0;const next=vi.fn(async(_url:unknown,init?:RequestInit)=>{
+  const body=JSON.parse(init!.body as string);
+  if(body.contents[0].parts.some((part:{inlineData?:unknown})=>part.inlineData)){scans++;return answer({text:'two ears',warnings:[],words:[{word:'two ears',literal:'two ears'}],truncated:false});}
+  const input=JSON.parse(body.contents[0].parts[0].text);return answer(input.words[0]?.literal?{words:input.words.map((item:{word:string})=>word(item.word))}:{learning:[]});
+ });
+ const result=await analyseWorksheets(photos,'bounded','listed',new AbortController().signal,undefined,saved,value=>{saved=value;},next as typeof fetch);
+ expect(scans).toBe(1);expect(result.words.map(item=>item.word)).toEqual(['four fingers','two ears']);expect(saved?.complete).toBe(true);
+});

@@ -8,7 +8,9 @@ Rà soát lại toàn bộ nguồn ngày **12/10/2026**. Có **15 skill trong re
 
 Skill là hướng dẫn cho coding agent. OCR/vision, storage, animation và audio trong app vẫn là code/runtime/API phải triển khai. Không có skill nào bảo đảm model đọc đúng ảnh hay nghĩa tiếng Việt.
 
-## 12 skill GitHub đã cài theo project
+## 13 skill GitHub đã cài theo project
+
+**12/10 — Bổ sung theo yêu cầu founder:** [systematic-debugging](../../.agents/skills/systematic-debugging/SKILL.md) từ `obra/superpowers`, MIT, pin `bb92a77741419a4ab5f06e711a283343f1ada0c3`. Dùng cho bug/test failure, không mỗi task docs/text. [Review nguồn, community signals và project overrides](WORKFLOW-SKILL-REVIEW.md). Current inventory **16 skills = 13 upstream + 3 custom**; các mốc 15 skills trong evaluation cũ là lịch sử. Giữ vocabulary-delivery/context skills hiện có; không cài cả Superpowers hoặc siblings/hooks.
 
 | Thư mục / invocation | Nguồn | Vai trò và task | License / ghi chú |
 |---|---|---|---|

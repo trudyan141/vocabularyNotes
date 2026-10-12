@@ -400,6 +400,8 @@ Founder requests copy/paste image and immediate display in Capture. Page-scoped 
 
 ## ADR-049 — Founder owns browser, GitHub and Vercel actions (11/10/2026)
 
+**Historical/superseded by direct founder steering12/10:** current [AGENTS](../../AGENTS.md) has only three operation limits (no push main, no new Vercel env, no founder real browser). Database/deploy needed by the assigned task are authorized within data scope; do not reapply ADR049's old approval gate. ADR083 changes agent workflow, not those current permissions.
+
 Founder explicitly withdraws automatic permission for native-browser manipulation, pushing main/GitHub and Vercel environment changes. Default is local source/docs and isolated fixture tests only; no native founder browser/account/real data operations, commits to main, remote writes/push/merge, deployments or hosting/environment changes without explicit approval for that concrete action. Past deployment/browser approvals superseded. Prepare reviewable local work before asking, name action/target and auto-deploy consequences; credentials, setup instructions and skills are not authorization. Local read-only Git status/diff remains allowed.
 
 ## ADR-050 — Scoped lightweight testing (11/10/2026, explicitly chosen)
@@ -592,3 +594,11 @@ Founder bác luồng review/save riêng từng ảnh và yêu cầu hành vi gi�
 Dùng cùng ExtractForm/saveLesson, thêm coordinator compact-scan-all → global headword/context dedup → bounded word enrichment → grammar/source-sentence processing → one shared review. Nghĩa/POS khác giữ, grammar chỉ gộp construction/form xác định; source sentences và evidence riêng giữ. Không auto-gộp/sửa bài đã lưu. Source/model/mode snapshot + CAS/checkpoint ghi trước request tiếp, atomic snapshot guard khi save và receipt idempotency giữ dữ liệu. 10 ảnh/50raw per-image/500raw toànđợt; source-limit chặn complete, không bỏ chữ âm thầm. Mở max200 learning cho một lesson để không cắt về20 của single image; provider requests vẫn bounded nhỏ, không một JSON tổng10k.
 
 [Bằng chứng, lệnh và giới hạn](../evaluations/merged-photo-lesson.md). Chưa deploy/liveAI/phone/hosted sync trong lượt này.
+
+## ADR083 — 12/10/2026: founder duyệt workflow coding AI Gọn và context theo nhu cầu
+
+Sau audit/preview2 và thêm systematic-debugging theo yêu cầu, founder nói “ok làm đi”: triển khai WF1/WF2 của WORKFLOW-OPTIMIZATION-PLAN. START/STATE/TASKS giữ current, checkpoint archived losslessly; AGENTS/current spec/explicit steering có thẩm quyền, history lookup only. Delivery/handoff/skill lock đồng bộ. Không append feature handoff vào ba file hoặc tạo competing ledger.
+
+Runner scoped dùng shared config, discovery nonzero, snapshot/output riêng không .env, credential fixture, commit+contentfingerprint/portownership/stale guards; dev trước, final productionbuild khi ADR050 cần. Default release inventory không bỏ spec mới, cloud/no-demo đúng fixture, live media opt-in; không giảm full CI/SQL release gates. Không tự thay product/framework/font/nav, hooks/global/providerquota hoặc refactor toànapp. WF3 đo trên task thật, WF4 chỉ khi có hotspot evidence; không hứa actualtokens/time savings từ bytes hoặc upstream stars. Quyền12/10supersede ADR049 giữ.
+
+Nguồn có hiệu lực: [AGENTS](../../AGENTS.md), [workflow](WORKFLOW.md), [source review](../skills/WORKFLOW-SKILL-REVIEW.md); [implementation evidence](../evaluations/ai-workflow-optimization.md).

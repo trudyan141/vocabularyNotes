@@ -70,3 +70,23 @@ test('Paste another photo button works in the editor and text paste remains norm
  await page.evaluate(bytes=>{Object.defineProperty(navigator,'clipboard',{configurable:true,value:{read:async()=>[{types:['image/png'],getType:async()=>new Blob([new Uint8Array(bytes)],{type:'image/png'})}]}});},bytes);
  await page.getByRole('button',{name:'Dán thêm ảnh',exact:true}).click();await expect(page).toHaveURL(/\/capture\/batch\//);await expect(page.locator('.batch-photo-row')).toHaveCount(2);await page.getByRole('button',{name:'Dán thêm ảnh',exact:true}).click();await expect(page.locator('.batch-photo-row')).toHaveCount(3);
 });
+test('body-part photos repair a malformed scan and keep wrapped phrases through one review and save',async({page})=>{
+ const labels=[['four fingers','two feet','two legs','one mouth'],['one mouth','two ears','two hands','two legs','two arms','two feet']];
+ let scans=0;const stages:string[]=[];
+ await page.route('https://generativelanguage.googleapis.com/**',async route=>{
+  const body=route.request().postDataJSON();
+  if(body.contents[0].parts.some((part:{inlineData?:unknown})=>part.inlineData)){
+   stages.push('scan');const index=scans++===0?0:1;
+   const value={text:labels[index].join('\n').replace('four fingers','four\nfingers').replace('two feet','two   feet'),warnings:[],words:labels[index].map(word=>({word,literal:word})),truncated:false};
+   if(scans===2){const {truncated,...invalid}=value;void truncated;await route.fulfill({json:answer(invalid)});}else await route.fulfill({json:answer(value)});return;
+  }
+  const input=JSON.parse(body.contents[0].parts[0].text);stages.push(input.words[0]?.literal?'meanings':'grammar');
+  await route.fulfill({json:answer(input.words[0]?.literal?{words:input.words.map((item:{word:string})=>({...pear,word:item.word,literal:item.word,example:`I see ${item.word}.`,exampleIpa:null}))}:{learning:[]})});
+ });
+ await page.goto('/capture');await inputPhotos(page);await page.getByRole('button',{name:'Phân tích 2 ảnh',exact:true}).click();
+ await expect(page.getByRole('button',{name:'Đã phân tích · thử lại'})).toBeEnabled();await expect(page.locator('.review-word > summary')).toHaveCount(7);
+ expect(stages).toEqual(['scan','scan','scan','meanings','meanings','grammar','grammar']);await expect(page.getByRole('button',{name:'Duyệt và lưu các từ đã chọn'})).toBeEnabled();
+ await page.reload();await expect(page.locator('.review-word > summary')).toHaveCount(7);expect(scans).toBe(3);
+ await page.getByRole('button',{name:'Duyệt và lưu các từ đã chọn'}).click();await expect(page).toHaveURL(/\/library\?lesson=ocr-batch/);
+ expect((await snapshot(page)).lessons.filter(lesson=>lesson.sourceType==='image')).toHaveLength(1);await expect(page.locator('.library-list li')).toHaveCount(7);
+});

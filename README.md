@@ -36,3 +36,7 @@ pnpm docs:check
 SQL/E2E cloud cần PostgreSQL; chi tiết setup ở hướng dẫn. `vercel.json`, env example, Supabase config/migrations và GitHub CI đã chuẩn bị; đã deploy tự động Vercel qua push main; CI remote ghi trong evidence. Camera/voice/PWA thiết bị thật, provider/Google/Supabase hosted và human pilot vẫn cần nghiệm thu.
 
 [Mở app hosted](https://words-for-kids.vercel.app), [gắn Gemini key/chọn model](https://words-for-kids.vercel.app/settings#parent-ai).
+
+## Kiểm gọn cho coding task (ADR083)
+
+`pnpm test:ui -- --list <file.spec.ts>` rồi `pnpm test:ui -- <file.spec.ts> --grep '<behavior>'`. Mặc định dev snapshot không .env, port/output riêng và kiểm source identity; `--mode production` build snapshot cuối khi cần. `--scope no-demo|cloud|release` chọn fixture; cloud cần PostgreSQL local, live media opt-in. [Lệnh và giới hạn runner](docs/ai/WORKFLOW.md). `pnpm test:workflow` kiểm guards; `pnpm test:e2e` vẫn full release inventory và gates CI giữ nguyên.

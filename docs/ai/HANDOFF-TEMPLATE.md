@@ -1,33 +1,18 @@
-# Handoff — dùng khi chuyển chat hoặc công cụ
+# Handoff — current state, không toàn history
 
-Copy nội dung theo template; thay placeholder bằng dữ kiện, không giữ các section rỗng:
+Giữ exact identifiers/artifact paths và bỏ section rỗng. Không key/token/email cá nhân/ảnh trẻ. Không paste terminal history; link log redact. Merge thay đổi mới vào STATE current, không append checkpoint.
 
-```markdown
-Updated: <date/time/timezone>
-Objective: <user objective and latest steering>
-Current task: <Txx and status>
-Scope constraints: <only changes to the confirmed baseline>
-
-Completed:
-- <behavior, exact paths, requirement IDs>
-
-In progress:
-- <current files, uncommitted work, partial operation IDs if safe>
-
-Verification:
-- <command, environment, result, evidence artifact>
-- <real vs mocked integration; checks not run>
-
-Decisions:
-- <ADR IDs and short rationale for new choices>
-
-Failures / dependencies:
-- <exact remaining issue, attempted fixes, credential or user information needed>
-
-Next action:
-- <one executable next step, routed documents and acceptance>
-
-Read next: AGENTS.md, docs/ai/STATE.md, TASKS.md, <relevant docs>
+```text
+Updated: <time/timezone>
+Objective + latest steering: <user scope>
+Task/status + acceptance left: <one active task>
+Source identity: <commit + content fingerprint; dirty files cần giữ>
+Completed: <behavior + evidence link>
+In flight: <paths/symbols/diff/operation đang dở>
+Verification: <command/mode/mock-live/source/result/unique cases>
+Failure: <exact error + hypothesis/probe result; code/fixture/environment/stale/external>
+Limits/dependency: <integration/device chưa kiểm>
+Next action: <ONE executable next step + relevant file/spec>
 ```
 
-Không nhét key, token, email cá nhân hoặc ảnh học sinh vào handoff. Không copy toàn bộ terminal history; trỏ tới log đã redact nếu cần. STATE ghi tình hình hiện tại; CHANGELOG giữ lịch sử, TASKS giữ dependencies/status; tránh hai bản truth khác nhau.
+STATE là current; TASKS status/dependency/link; CHANGELOG/evaluation history. Chỉ đổi spec/DECISIONS khi product/architecture decision đổi. Read next AGENTS/START/STATE và đúng task/spec, không đọc history snapshot trừ khi cần checkpoint.

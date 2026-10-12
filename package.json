@@ -11,7 +11,7 @@
     "dev": "next dev --hostname 127.0.0.1",
     "build": "next build",
     "start": "next start --hostname 127.0.0.1",
-    "lint": "eslint src tests next.config.ts playwright.config.ts vitest.config.mts eslint.config.mjs postcss.config.mjs --max-warnings=0",
+    "lint": "eslint src tests next.config.ts playwright*.ts scripts/test-ui.mjs scripts/lib/ui-runner.mjs scripts/tests/ui-runner.test.mjs vitest.config.mts eslint.config.mjs postcss.config.mjs --max-warnings=0",
     "typecheck": "next typegen && tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -25,7 +25,9 @@
     "eval:ai": "python3 -B scripts/ai-benchmark/self_test.py",
     "prebuild": "node scripts/prepare-offline.mjs && node scripts/prepare-pwa.mjs",
     "predev": "node scripts/prepare-offline.mjs && node scripts/prepare-pwa.mjs",
-    "test:sql": "sh scripts/test-cloud.sh"
+    "test:sql": "sh scripts/test-cloud.sh",
+    "test:ui": "node scripts/test-ui.mjs",
+    "test:workflow": "node --test scripts/tests/*.test.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "0.12.7",

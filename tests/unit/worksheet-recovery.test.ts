@@ -62,7 +62,7 @@ it('repairs invalid supplementary grammar with text-only calls while retaining v
  const body=JSON.parse(fetcher.mock.calls[1][1].body);expect(body.contents[0].parts).toHaveLength(1);expect(body.systemInstruction.parts[0].text).toContain('ENTIRE exact example');
 });
 it('rejects invented words in compact read and never saves them',async()=>{
- const checkpoint=vi.fn();const fetcher=vi.fn().mockResolvedValueOnce(max()).mockResolvedValueOnce(answer({...compact(['ball']),text:'book'}));
+ const checkpoint=vi.fn();const fetcher=vi.fn().mockResolvedValueOnce(max()).mockResolvedValue(answer({...compact(['ball']),text:'book'}));
  await expect(analyseWorksheet(image,'listed',new AbortController().signal,fetcher as typeof fetch,undefined,{onCheckpoint:checkpoint})).rejects.toThrow('invalid-result');expect(checkpoint).not.toHaveBeenCalled();
 });
 it('does not treat a missing requested word as a successful batch',async()=>{

@@ -1,0 +1,84 @@
+{
+  "reviewedOn": "2026-10-12",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "metadataSource": "GitHub REST API via curl with TLS verification",
+  "repositories": [
+    {
+      "repository": "obra/superpowers",
+      "stars": 297938,
+      "forks": 26615,
+      "archived": false,
+      "pushedAt": "2026-10-10T03:03:30Z",
+      "owner": "obra",
+      "defaultBranch": "main",
+      "license": {
+        "key": "mit",
+        "name": "MIT License",
+        "spdx_id": "MIT",
+        "url": "https://api.github.com/licenses/mit",
+        "node_id": "MDc6TGljZW5zZTEz"
+      },
+      "commit": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+      "commitDate": "2026-10-10T00:28:04Z"
+    },
+    {
+      "repository": "OthmanAdi/planning-with-files",
+      "stars": 27405,
+      "forks": 2269,
+      "archived": false,
+      "pushedAt": "2026-10-12T08:07:36Z",
+      "owner": "OthmanAdi",
+      "defaultBranch": "master",
+      "license": {
+        "key": "mit",
+        "name": "MIT License",
+        "spdx_id": "MIT",
+        "url": "https://api.github.com/licenses/mit",
+        "node_id": "MDc6TGljZW5zZTEz"
+      },
+      "commit": "ff349ebe322b4f86c3416a6fbcde515f1de32e8b",
+      "commitDate": "2026-10-12T08:07:30Z"
+    },
+    {
+      "repository": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "stars": 18110,
+      "forks": 1496,
+      "archived": false,
+      "pushedAt": "2026-10-12T02:06:40Z",
+      "owner": "muratcankoylan",
+      "defaultBranch": "main",
+      "license": {
+        "key": "mit",
+        "name": "MIT License",
+        "spdx_id": "MIT",
+        "url": "https://api.github.com/licenses/mit",
+        "node_id": "MDc6TGljZW5zZTEz"
+      },
+      "commit": "9ff0c99108b36d3b886defd825d8ac1f47dba374",
+      "commitDate": "2026-10-12T02:06:39Z"
+    }
+  ],
+  "selectedSkillHistory": [
+    {
+      "sha": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+      "date": "2026-10-10T00:28:04Z",
+      "subject": "Release v7.0.0: rebuilt brainstorming, Antigravity Marketplace manifest, Windows hook fixes (#2489)"
+    },
+    {
+      "sha": "c74782ead66b8ded584d9b9cf64dcba95457f320",
+      "date": "2026-07-24T00:27:16Z",
+      "subject": "refactor(skills): drop social proof from systematic-debugging"
+    },
+    {
+      "sha": "af67e03f85baace34c5564c3bf934f45e3c2d36d",
+      "date": "2026-07-24T00:27:16Z",
+      "subject": "refactor(skills): fold systematic-debugging Related-skills block into Phase 4"
+    }
+  ],
+  "latestSelectedRelease": [
+    {
+      "tag": "v7.0.0",
+      "publishedAt": "2026-10-10T00:28:58Z"
+    }
+  ]
+}

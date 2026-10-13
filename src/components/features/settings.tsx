@@ -1,5 +1,6 @@
 "use client";
 import {ParentAiSettings} from "./parent-ai";
+import {GoogleSearchSettings} from "./google-search-settings";
 import {ArchiveTools} from "@/components/features/archive-tools";
 import { Mail, UserRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -147,7 +148,7 @@ export function Settings() {
         <Field orientation="horizontal"><FieldContent><FieldLabel htmlFor="game-sound-setting">{t('Tiếng trò chơi','Game sounds')}</FieldLabel><FieldDescription>{t('Tiếng đúng, thử lại và hoàn thành trên máy này. Tắt tiếng này vẫn nghe bài được.','Correct, retry and completion sounds on this device. Turning these off still lets you listen.')}</FieldDescription></FieldContent><Switch id="game-sound-setting" disabled={!hydrated} checked={gameSound.enabled} onCheckedChange={gameSound.setEnabled}/></Field>
         {gameSound.error&&<p role="alert">{t('Chưa lưu được tiếng trò chơi.','Game sound settings could not be saved.')} <Button variant="outline" onClick={()=>gameSound.setEnabled(gameSound.enabled)}>{t('Thử lưu lại','Try saving again')}</Button></p>}
       </FieldGroup>
-      <ParentAiSettings/><ArchiveTools/>
+      <ParentAiSettings/><GoogleSearchSettings/><ArchiveTools/>
       <section className="settings-author" aria-labelledby="settings-author-title">
         <h2 id="settings-author-title">{t("Về ứng dụng", "About the app")}</h2>
         <p><UserRound aria-hidden="true"/><span>{t("Tác giả", "Author")}: <strong>Ly Kien Trung</strong></span></p>

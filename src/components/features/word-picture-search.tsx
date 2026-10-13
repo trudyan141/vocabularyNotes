@@ -10,17 +10,86 @@ import {mediaCandidate,mediaAsset,type MediaCandidate,type MediaAsset} from '@/l
 import {saveMedia} from '@/data/local/media';
 import type {LibraryWord} from '@/data/local/types';
 import {pictureAttempt,pictureAttemptText,pictureSourceNames,type PictureAttempt} from '@/lib/media/search-report';
+import {getGoogleSearchConfig} from '@/lib/media/google-search-config';
+import {searchGoogleImages,type WebImageItem} from '@/lib/media/google-search';
 class PictureRequestError extends Error{constructor(public data:{source?:string;sources?:PictureAttempt[];code?:string},public status:number){super('picture-request');}}
 export function WordPictureSearch({word,onSaved,onPrepared,onBusyChange,autoSearch=false,saveMessage}:{word:Pick<LibraryWord,'id'|'word'|'en'|'vi'|'sense'|'pos'|'revision'|'art'>;autoSearch?:boolean;saveMessage?:string;onBusyChange?:(busy:boolean)=>void;onPrepared?:(asset:MediaAsset)=>void;onSaved?:(result:{revision:string;art:string})=>void}) {
  const {repository,t}=useApp();const [busy,setBusy]=useState(false),[error,setError]=useState(''),[saved,setSaved]=useState(false),[candidates,setCandidates]=useState<MediaCandidate[]>([]);
- const [source,setSource]=useState('');const [webFallback,setWebFallback]=useState(false);const [operation,setOperation]=useState<'search'|'picture'|null>(null);const [found,setFound]=useState(false);const fileInput=useRef<HTMLInputElement|null>(null);
+ const [source,setSource]=useState('');const [webFallback,setWebFallback]=useState(false);const [operation,setOperation]=useState<'search'|'web'|'picture'|null>(null);const [found,setFound]=useState(false);const fileInput=useRef<HTMLInputElement|null>(null);
  const [attempts,setAttempts]=useState<PictureAttempt[]>([]);
+ const [webResults,setWebResults]=useState<WebImageItem[]>([]);
+ const [webBusy,setWebBusy]=useState(false);
+ const [chosenWebId,setChosenWebId]=useState<string|null>(null);
+ const [hasGoogleConfig,setHasGoogleConfig]=useState(false);
  const controller=useRef<AbortController|null>(null);
  const uploadLock=useRef(false),clipboardLock=useRef(false),mounted=useRef(true),dragDepth=useRef(0);
  const [readingClipboard,setReadingClipboard]=useState(false),[dragging,setDragging]=useState(false);
  useEffect(()=>{mounted.current=true;return()=>{mounted.current=false;};},[]);
  useEffect(()=>()=>controller.current?.abort(),[]);
  useEffect(()=>{onBusyChange?.(busy);},[busy,onBusyChange]);
+ useEffect(()=>{const check=()=>setHasGoogleConfig(Boolean(getGoogleSearchConfig()));check();window.addEventListener('wfk-google-search-config-changed',check);return()=>window.removeEventListener('wfk-google-search-config-changed',check);},[]);
+ async function searchOnline(){
+  if(busy||webBusy)return;
+  setOperation('web');setWebBusy(true);setError('');setSaved(false);
+  const worker=new AbortController();controller.current=worker;
+  try{
+   const response=await fetch('/api/media/web-search',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({word:word.word}),
+    signal:AbortSignal.any([worker.signal,AbortSignal.timeout(15000)])
+   });
+   const data=await response.json();
+   let onlineItems:WebImageItem[]=Array.isArray(data.results)?data.results:[];
+   const googleCfg=getGoogleSearchConfig();
+   if(googleCfg){
+    const googleItems=await searchGoogleImages(word.word,googleCfg,worker.signal);
+    onlineItems=[...onlineItems,...googleItems];
+   }
+   if(worker.signal.aborted)return;
+   setWebResults(onlineItems);
+   if(!onlineItems.length){
+    setError(t('Chưa tìm thấy ảnh phù hợp trên mạng. Thử dùng ảnh khác bên dưới.','No suitable online pictures found. Try another image below.'));
+   }
+  }catch{
+   if(!worker.signal.aborted){
+    setError(t('Chưa tải được ảnh từ mạng. Kiểm tra kết nối rồi thử lại nhé.','Could not load online pictures. Check connection and retry.'));
+   }
+  }finally{
+   if(!worker.signal.aborted)setWebBusy(false);
+  }
+ }
+ async function chooseWeb(item:WebImageItem){
+  if(busy||!repository)return;
+  setOperation('picture');setChosenWebId(item.id);
+  const worker=new AbortController();controller.current=worker;setBusy(true);setError('');
+  try{
+   const response=await fetch('/api/media/import-url',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({url:item.imageUrl,title:item.title,sourceUrl:item.sourceUrl,creator:item.creator}),
+    signal:AbortSignal.any([worker.signal,AbortSignal.timeout(25000)])
+   });
+   const data=await response.json();
+   if(!response.ok)throw new Error('import-failed');
+   if(worker.signal.aborted)return;
+   const asset=mediaAsset.parse({...data,senseId:word.id,word:word.word,revision:word.revision,status:'ready',approved:true});
+   if(onPrepared){
+    onPrepared(asset);setSaved(true);setWebResults([]);setCandidates([]);return;
+   }
+   const art=await saveMedia(repository,asset);
+   onSaved?.({art,revision:`${word.revision.split(':')[0]}:${Number(word.revision.split(':')[1])+1}`});
+   setSaved(true);setWebResults([]);setCandidates([]);
+  }catch{
+   if(!worker.signal.aborted){
+    setError(t('Chưa lưu được ảnh này từ mạng. Thử chọn ảnh khác nhé.','Could not save this online image. Try choosing another one.'));
+   }
+  }finally{
+   if(!worker.signal.aborted){
+    setBusy(false);setChosenWebId(null);
+   }
+  }
+ }
  async function request(operation:'search'|'import'|'upload',body:unknown,signal:AbortSignal){
   const response=await fetch(`/api/media/${operation}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal});
   const data=await response.json();if(!response.ok)throw new PictureRequestError(data,response.status);return data;
@@ -75,8 +144,18 @@ export function WordPictureSearch({word,onSaved,onPrepared,onBusyChange,autoSear
   event.preventDefault();if(!busy&&!readingClipboard&&!clipboardLock.current)void intake(files);
  }}>
  {saved?<p className="picture-saved" role="status">{onPrepared?saveMessage??t('Đã chọn hình. Bấm Lưu chỉnh sửa bên dưới để lưu.','Picture selected. Save your edits below to keep it.'):t('Đã lưu hình.','Picture saved.')}</p>:<SubmitButton type="button" variant="secondary" state={operation==='search'?(busy?'pending':error?'error':found?'success':'idle'):'idle'} error={operation==='search'?error:undefined} successLabel={t('Đã tìm thấy hình · tìm lại','Pictures found · search again')} disabled={busy||readingClipboard} onClick={()=>void search()}><ImagePlus aria-hidden="true"/>{busy?t('Đang tải hình…','Loading pictures…'):t('Tìm hình gợi ý','Find suggested pictures')}</SubmitButton>}
- <Button asChild variant="outline"><a href={`https://www.google.com/search?tbm=isch&q=${encodeURIComponent(word.word)}`} target="_blank" rel="noreferrer" onClick={()=>{setWebFallback(true);setSaved(false);}}><Globe aria-hidden="true"/>{t('Mở Google tìm ảnh','Open Google image search')}</a></Button>
+ <SubmitButton type="button" variant="outline" state={operation==='web'?(webBusy?'pending':error?'error':webResults.length?'success':'idle'):'idle'} error={operation==='web'?error:undefined} successLabel={t('Đã tìm thấy ảnh online · tìm lại','Pictures found · search again')} disabled={busy||webBusy||readingClipboard} onClick={()=>void searchOnline()}><Globe aria-hidden="true"/>{webBusy?t('Đang tìm trên mạng…','Searching online…'):t('Tìm ảnh trên mạng (Google / Web)','Search online (Google / Web)')}</SubmitButton>
  {error&&operation==='picture'&&<p className="submit-error" role="alert">{error}</p>}
+ {webResults.length>0&&<div className="picture-results">
+  {webResults.map(item=><article key={item.id}>
+   <button type="button" disabled={busy||webBusy||readingClipboard} data-submit-state={operation==='picture'&&chosenWebId===item.id?(busy?'pending':error?'error':saved?'success':'idle'):'idle'} aria-label={t(`Dùng hình cho ${word.word}: ${item.title}`,`Use picture for ${word.word}: ${item.title}`)} onClick={()=>void chooseWeb(item)}>
+    <Image unoptimized src={item.thumbnailUrl} alt={item.title} width={160} height={160}/>
+    <span className={`source-badge badge-${item.source}`}>{item.source==='google'?'Google':item.source==='commons'?t('Thư viện mở','Open library'):t('Web','Web')}</span>
+   </button>
+   <a href={item.sourceUrl} target="_blank" rel="noreferrer">{item.title} · {item.creator||item.source}</a>
+  </article>)}
+ </div>}
+ {webResults.length>0&&!hasGoogleConfig&&<p className="google-key-hint"><small>{t('Đang tìm từ nguồn Thư viện mở & Web miễn phí. Bạn có thể thêm Google Search Key trong Cài đặt để bổ sung kết quả Google.','Searching free Open library & Web. Add Google Search Key in Settings to include Google results.')}</small></p>}
  {attempts.length>0&&<details className="picture-source-results"><summary>{t('Kết quả từng nguồn hình','Results by image source')}</summary><ul>{attempts.map((attempt,index)=><li key={index}>{pictureAttemptText(attempt)}</li>)}</ul></details>}
  <div className="picture-results">{candidates.map(candidate=><article key={candidate.id}>
   <button type="button" disabled={busy||readingClipboard} data-submit-state={operation==='picture'?(busy?'pending':error?'error':saved?'success':'idle'):'idle'} aria-label={t(`Dùng hình cho ${word.word}: ${candidate.title}`,`Use picture for ${word.word}: ${candidate.title}`)} onClick={()=>void choose(candidate)}><Image unoptimized src={candidate.imageUrl||""} alt={candidate.title} width={160} height={160}/></button>

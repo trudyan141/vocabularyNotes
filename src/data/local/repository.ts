@@ -2,7 +2,7 @@ import {validateMedia,saveMedia} from './media';
 import type {MediaAsset} from '@/lib/media/contracts';
 import {contentSchema,saveContent,type LearningContent} from './content';
 import {safeArt} from '@/lib/media/catalog';
-import {groupLibraryWords,matchesLibraryWord} from '@/lib/learning/library-search';
+import {withoutWordMemberships,aggregateWordId,aggregateTagPrefix,groupLibraryWords,matchesLibraryWord} from '@/lib/learning/library-search';
 import { Dexie } from "dexie";
 import { z } from "zod";
 import {
@@ -23,6 +23,7 @@ import { catalog } from "@/lib/learning/catalog";
 import { LibraryDatabase } from "./database";
 import type {
   Base,
+  Sense,
   LibraryWord,
   Note,
   ReviewEvent,
@@ -140,11 +141,7 @@ export class LocalRepository {
   async words(ids: string[]): Promise<LibraryWord[]> {
     return this.db.transaction(
       "r",
-      this.db.entries,
-      this.db.senses,
-      this.db.examples,
-      this.db.lessonItems,
-      this.db.table("mediaAssets"),
+      [this.db.entries,this.db.senses,this.db.examples,this.db.lessonItems,this.db.lessons,this.db.table("decks"),this.db.table("mediaAssets")],
       () => this.readWords(ids),
     );
   }
@@ -171,6 +168,21 @@ export class LocalRepository {
     const entries = new Map(
       lexemes.flatMap((e) => (e ? [[e.id, e] as const] : [])),
     );
+    const [allSenses,allLinks,allLessons,allDecks]=await Promise.all([
+      this.db.senses.where('[scopeId+id]').between([this.scope.id,''],[this.scope.id,'\uffff']).toArray(),
+      this.db.lessonItems.where('[scopeId+id]').between([this.scope.id,''],[this.scope.id,'\uffff']).toArray(),
+      this.db.lessons.where('[scopeId+id]').between([this.scope.id,''],[this.scope.id,'\uffff']).toArray(),
+      this.db.table<import('./types').ScopedDocument>('decks').where('[scopeId+id]').between([this.scope.id,''],[this.scope.id,'\uffff']).toArray(),
+    ]);
+    const aggregateKey=(sense:Sense)=>JSON.stringify([sense.entryId,sense.pos,aggregateWordId(sense)]);
+    const aliases=new Map<string,string[]>();for(const sense of allSenses){if(sense.deletedAt)continue;const key=aggregateKey(sense),ids=aliases.get(key)??[];ids.push(sense.id);aliases.set(key,ids);}
+    const groupBySource=new Map<string,{id:string;name:string}[]>();for(const row of allDecks){const deck=row.payload.deck as import('./decks').Deck;if(row.deletedAt||!deck?.group)continue;for(const id of deck.senseIds){const groups=groupBySource.get(id)??[];groups.push({id:row.id,name:deck.name});groupBySource.set(id,groups);}}
+    const lessonsById=new Map(allLessons.filter(lesson=>!lesson.deletedAt).map(lesson=>[lesson.id,lesson]));
+    const lessonBySource=new Map<string,{id:string;name:string}[]>();for(const link of allLinks){const lesson=lessonsById.get(link.lessonId);if(link.deletedAt||!lesson)continue;const lessons=lessonBySource.get(link.senseId)??[];lessons.push({id:lesson.id,name:lesson.title});lessonBySource.set(link.senseId,lessons);}
+    const memberships=(sense:Sense)=>{const ids=aliases.get(aggregateKey(sense))??[sense.id];return {
+      groupMemberships:[...new Map(ids.flatMap(id=>groupBySource.get(id)??[]).map(group=>[group.id,group])).values()],
+      lessonMemberships:[...new Map(ids.flatMap(id=>lessonBySource.get(id)??[]).map(lesson=>[lesson.id,lesson])).values()],
+    };};
     const firstExamples = new Map<string, (typeof examples)[number]>();
     const firstLessons = new Map<string, string>();
     for (const e of examples.sort((a,b)=>(a.position??0)-(b.position??0)||a.createdAt.localeCompare(b.createdAt)||a.id.localeCompare(b.id)))
@@ -190,6 +202,7 @@ export class LocalRepository {
       return [
         {
           id: s.id,
+          ...memberships(s),
           word: e.displayText,
           vi: s.meaningVi,
           en: s.definitionEn,
@@ -228,15 +241,17 @@ export class LocalRepository {
       limit?: number;
       approvedOnly?: boolean;
       libraryOnly?: boolean;
+      aggregateOnly?: boolean;
     } = {},
   ): Promise<SearchResult> {
     return this.db.transaction(
       "r",
-      [this.db.entries,this.db.senses,this.db.examples,this.db.lessonItems,this.db.searchIndex,this.db.table("mediaAssets")],
+      [this.db.entries,this.db.senses,this.db.examples,this.db.lessonItems,this.db.searchIndex,this.db.lessons,this.db.table("decks"),this.db.table("mediaAssets")],
       () => this.readSearch(query, options),
     );
   }
-  async matchingApprovedWordIds(query: string): Promise<string[]> {
+  async matchingApprovedWordIds(query: string,aggregateOnly=false): Promise<string[]> {
+    if(aggregateOnly){const rows=await this.db.searchIndex.where('[scopeId+ordinal]').between([this.scope.id,''],[this.scope.id,'\uffff']).filter(row=>row.approval&&(!query.trim()||row.terms.includes(searchTerms(query)))).toArray();const senses=await this.db.senses.bulkGet(rows.map(row=>[this.scope.id,row.id]));const groups=new Map<string,string>();for(const sense of senses){if(!sense||sense.deletedAt)continue;const key=JSON.stringify([sense.entryId,sense.pos,aggregateWordId(sense)]);if(!groups.has(key)||sense.id===aggregateWordId(sense))groups.set(key,sense.id);}return [...groups.values()];}
     const needle = searchTerms(query);
     return this.db.searchIndex.where("[scopeId+ordinal]")
       .between([this.scope.id, Dexie.minKey], [this.scope.id, Dexie.maxKey])
@@ -253,6 +268,7 @@ export class LocalRepository {
       limit?: number;
       approvedOnly?: boolean;
       libraryOnly?: boolean;
+      aggregateOnly?: boolean;
     } = {},
   ): Promise<SearchResult> {
     const needle = searchTerms(query);
@@ -271,7 +287,7 @@ export class LocalRepository {
       for(const sense of senses){if(!sense||sense.deletedAt)continue;const entry=entries.get(sense.entryId);if(!entry||!matchesLibraryWord({word:entry.displayText,vi:sense.meaningVi},query))continue;const key=JSON.stringify([canonicalKey(entry.displayText,entry.caseMode),entry.caseMode]);const ids=grouped.get(key)??[];ids.push(sense.id);grouped.set(key,ids);}
       const limit=Math.max(1,Math.min(options.limit??50,100)),offset=Math.max(0,options.offset??0);
       // Hydrate examples/media only for the visible page, after grouping and filtering.
-      return {words:groupLibraryWords(await this.words([...grouped.values()].slice(offset,offset+limit).flat())),total:grouped.size,totalLibrary:source.length};
+      return {words:groupLibraryWords(await this.words([...grouped.values()].slice(offset,offset+limit).flat()),!options.lesson),total:grouped.size,totalLibrary:await this.aggregateCount(source.map(row=>row.id))};
     }
     const matches = source.filter(
       (r) =>
@@ -280,15 +296,21 @@ export class LocalRepository {
         (!options.missingArt || !r.art) &&
         !excluded.has(r.id),
     );
+    let ids=matches.map(row=>row.id);
+    if(options.aggregateOnly){const senses=await this.db.senses.bulkGet(ids.map(id=>[this.scope.id,id]));const groups=new Map<string,string>();for(const sense of senses){if(!sense||sense.deletedAt)continue;const key=JSON.stringify([sense.entryId,sense.pos,aggregateWordId(sense)]);if(!groups.has(key)||sense.id===aggregateWordId(sense))groups.set(key,sense.id);}ids=[...groups.values()];}
     const limit = Math.max(1, Math.min(options.limit ?? 50, 100));
     const offset = Math.max(0, options.offset ?? 0);
     return {
       words: await this.words(
-        matches.slice(offset, offset + limit).map((r) => r.id),
+        ids.slice(offset,offset+limit),
       ),
-      total: matches.length,
+      total: ids.length,
       totalLibrary: source.length,
     };
+  }
+  private async aggregateCount(ids:string[]){
+    const senses=await this.db.senses.bulkGet(ids.map(id=>[this.scope.id,id]));
+    return new Set(senses.filter(s=>s&&!s.deletedAt).map(s=>JSON.stringify([s!.entryId,s!.pos,aggregateWordId(s!)]))).size;
   }
   private async reindex(senseId: string) {
     const s = await this.db.senses.get([this.scope.id, senseId]);
@@ -437,6 +459,8 @@ export class LocalRepository {
           const complete =
             !!word.vi.trim() && !!word.en.trim() && !!word.example.trim();
           const approved = word.approved === true;
+          const normalizeDefinition=(text:string)=>text.normalize('NFKC').trim().replace(/\s+/g,' ').toLowerCase();
+          const exactMeaning=await this.db.senses.where('[scopeId+entryId]').equals([this.scope.id,entry.id]).filter(existing=>!existing.deletedAt&&existing.pos===word.pos&&!!word.vi.trim()&&!!word.en.trim()&&normalizeDefinition(existing.meaningVi)===normalizeDefinition(word.vi)&&normalizeDefinition(existing.definitionEn)===normalizeDefinition(word.en)).first();
           sense = {
             ...base(this.scope.id, word.id),
             entryId: entry.id,
@@ -453,7 +477,7 @@ export class LocalRepository {
             contentVersion: 1,
             approvedContentVersion: approved ? 1 : null,
             pronunciations: word.pronunciations ?? [],
-            tags: word.tags ?? [],
+            tags:exactMeaning?[...(word.tags??[]).filter(tag=>!tag.startsWith(aggregateTagPrefix)),`${aggregateTagPrefix}${aggregateWordId(exactMeaning)}`]:word.tags??[],
           };
           await this.db.senses.add(sense);
           result.added++;
@@ -592,6 +616,7 @@ export class LocalRepository {
       await this.db.senses.put({
         ...s,
         pendingEdit: null,
+        tags:s.meaningVi===validated.vi&&s.definitionEn===validated.en?s.tags:s.tags.filter(tag=>!tag.startsWith(aggregateTagPrefix)),
         meaningVi: validated.vi,
         definitionEn: validated.en,
         origin: "user",
@@ -612,7 +637,7 @@ export class LocalRepository {
   }
 
   async reviewWord(id:string,revision:string,input:WordInput){
-    const word=inputSchema.parse(input);
+    const word=inputSchema.parse(withoutWordMemberships(input));
     if(!word.vi.trim()||!word.en.trim()||!!word.example.trim()!==!!word.exampleVi.trim()||word.approved!==true)throw new RepositoryError("invalid");
     return this.db.transaction("rw",this.db.tables,async()=>{
       const sense=await this.db.senses.get([this.scope.id,id]);const oldEntry=sense&&await this.db.entries.get([this.scope.id,sense.entryId]);
@@ -623,7 +648,7 @@ export class LocalRepository {
       const identity=exactSenseKey(word.pos,word.sense),collision=await this.db.senses.where("[scopeId+entryId+identity]").equals([this.scope.id,entry.id,identity]).first();
       if(collision&&collision.id!==id)throw new RepositoryError("conflict");
       const at=new Date().toISOString(),contentVersion=sense.contentVersion+1;
-      await this.db.senses.put({...sense,entryId:entry.id,identity,pos:word.pos,senseLabel:word.sense,meaningVi:word.vi,definitionEn:word.en,art:word.art,origin:"user",source:word.source,pendingEdit:null,contentStatus:"complete",contentVersion,approvedContentVersion:contentVersion,learningApprovalStatus:"approved",version:sense.version+1,updatedAt:at,
+      await this.db.senses.put({...sense,tags:sense.entryId===entry.id&&sense.pos===word.pos&&sense.meaningVi===word.vi&&sense.definitionEn===word.en?sense.tags:sense.tags.filter(tag=>!tag.startsWith(aggregateTagPrefix)),entryId:entry.id,identity,pos:word.pos,senseLabel:word.sense,meaningVi:word.vi,definitionEn:word.en,art:word.art,origin:"user",source:word.source,pendingEdit:null,contentStatus:"complete",contentVersion,approvedContentVersion:contentVersion,learningApprovalStatus:"approved",version:sense.version+1,updatedAt:at,
         pronunciations:(word.pronunciations??[]).filter(p=>p.text===word.word).map(p=>({...p,contentVersion,approvedContentVersion:contentVersion}))});
       if(word.art?.startsWith('media-')){const media=this.db.table<import('./types').ScopedDocument>('mediaAssets'),row=await media.get([this.scope.id,word.art]);const asset=row?.payload.asset as import('@/lib/media/contracts').MediaAsset|undefined;if(!row||row.deletedAt||asset?.senseId!==id||!asset.approved||asset.status!=='ready')throw new RepositoryError('invalid');await media.put({...row,version:row.version+1,updatedAt:at,payload:{asset:{...asset,word:word.word,revision:`${entry.version}:${sense.version+1}`}}});}
       const examples=await this.db.examples.where("[scopeId+senseId]").equals([this.scope.id,id]).toArray();

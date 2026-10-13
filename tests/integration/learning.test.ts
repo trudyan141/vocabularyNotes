@@ -1,5 +1,5 @@
 import "fake-indexeddb/auto";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { Dexie } from "dexie";
 import { LibraryDatabase } from "../../src/data/local/database";
 import { LocalRepository } from "../../src/data/local/repository";
@@ -29,7 +29,9 @@ describe("complete local learning flows",()=>{
     const saved=await saveDeck(repository,"large-deck",null,{name:"501 words",senseIds:senses.map(s=>s.id),direction:"en-vi"});
     expect((saved.payload.deck as {senseIds:string[]}).senseIds).toHaveLength(501);
     const archive=await parseArchive(JSON.stringify(await exportArchive(repository)));expect(archive.records.decks[0].payload.deck.senseIds).toHaveLength(501);
-    const session=await new PracticeRepository(repository, async()=>true).start("flashcard",{deck:"large-deck"});expect(session.questions).toHaveLength(10);
+    const firstHundred=new Set((await repository.db.searchIndex.where('[scopeId+ordinal]').between([scope,''],[scope,'\uffff']).toArray()).filter(row=>row.id.startsWith('large-')).slice(0,100).map(row=>row.id));
+    const random=vi.spyOn(Math,'random').mockReturnValue(0.5);
+    try {for(const mode of ['flashcard','spelling'] as const){const session=await new PracticeRepository(repository, async()=>true).start(mode,{deck:'large-deck'});expect(session.questions).toHaveLength(10);expect(session.questions.some(q=>!firstHundred.has(q.word.id))).toBe(true);const next=await new PracticeRepository(repository, async()=>true).start(mode,{deck:'large-deck'});random.mockReturnValue(0.999);const ordered=await new PracticeRepository(repository, async()=>true).start(mode,{deck:'large-deck'});expect(next.questions.map(q=>q.word.id)).not.toEqual(ordered.questions.map(q=>q.word.id));random.mockReturnValue(0.5);}} finally {random.mockRestore();}
   });
   it("uses the same scoped due selection for Today and a capped review session",async()=>{
     const repository=repo();await seed(repository,4);await repository.saveLesson({operationId:crypto.randomUUID(),title:"Pending",learnedOn:"2026-10-09",sourceType:"manual",items:[{...catalog[4],id:"word-4",approved:false}]});const practice=new PracticeRepository(repository, async()=>true);
@@ -117,7 +119,7 @@ describe("complete local learning flows",()=>{
     expect((await learningItems(repository,'grammar','')).total).toBe(0);
  });
  it("saves custom decks with version checks and filters their explicit senses",async()=>{
-  const repository=repo();await seed(repository,4);const saved=await saveDeck(repository,"deck-1",null,{name:"My two words",senseIds:["word-0","word-2"],direction:"vi-en"});expect(saved.version).toBe(1);await expect(saveDeck(repository,"deck-1",null,{name:"stale",senseIds:["word-1"],direction:"en-vi"})).rejects.toThrow("conflict");const practice=await new PracticeRepository(repository, async()=>true).start("flashcard",{deck:"deck-1",direction:"vi-en"});expect(practice.questions.map(q=>q.word.id)).toEqual(["word-0","word-2"]);expect((await exportArchive(repository)).records.decks).toHaveLength(1);
+  const repository=repo();await seed(repository,4);const saved=await saveDeck(repository,"deck-1",null,{name:"My two words",senseIds:["word-0","word-2"],direction:"vi-en"});expect(saved.version).toBe(1);await expect(saveDeck(repository,"deck-1",null,{name:"stale",senseIds:["word-1"],direction:"en-vi"})).rejects.toThrow("conflict");const practice=await new PracticeRepository(repository, async()=>true).start("flashcard",{deck:"deck-1",direction:"vi-en"});expect(practice.questions.map(q=>q.word.id).sort()).toEqual(["word-0","word-2"]);expect((await exportArchive(repository)).records.decks).toHaveLength(1);
  });
 });
 
@@ -184,4 +186,14 @@ it('checks actual image loading before both picture games, replacing missing sis
  const valid=await new PracticeRepository(r,async()=>true).start('word-picture');
  const resumed=new PracticeRepository(r,async()=>false);expect((await resumed.sessions()).some(s=>s.id===valid.id)).toBe(false);
  await expect(resumed.check(valid.id,valid.version,valid.questions[0].word.word)).rejects.toThrow('conflict');expect(await r.db.table('gameAttempts').count()).toBe(0);
+});
+it('both picture games can target a ready word beyond the first 100 library records',async()=>{
+ const r=repo();await seed(r,3);const scope=r.scope.id;
+ const templates=await r.words(['word-0','word-1','word-2']);
+ for(let i=0;i<110;i++){
+  const original=templates[i%3],sense=(await r.db.senses.get([scope,original.id]))!,entry=(await r.db.entries.get([scope,sense.entryId]))!,index=(await r.db.searchIndex.get([scope,original.id]))!;
+  const id=`picture-late-${i}`,word=`pictureword${i}`;await r.db.entries.put({...entry,id,displayText:word,canonicalKey:word,activeKey:word});await r.db.senses.put({...sense,id,entryId:id,meaningVi:`Nghĩa ${i}`});await r.db.searchIndex.put({...index,id,terms:word,ordinal:`pictureword${String(i).padStart(3,'0')}`});
+ }
+ const practice=new PracticeRepository(r,async()=>true);
+ for(const mode of ['picture-word','word-picture'] as const){const session=await practice.start(mode,{word:'picture-late-109'});expect(session.questions).toHaveLength(1);expect(session.questions[0].word.id).toBe('picture-late-109');expect(session.questions[0].choices).toHaveLength(3);}
 });

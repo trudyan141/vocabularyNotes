@@ -1,3 +1,4 @@
+import {withoutWordMemberships} from '@/lib/learning/library-search';
 import { z } from "zod";
 import {safeArt} from "@/lib/media/catalog";
 import type { LocalRepository } from "./repository";
@@ -15,7 +16,7 @@ export type Backup=z.infer<typeof backupSchema>;
 export async function exportBackup(repo:LocalRepository):Promise<Backup>{
   const data=await repo.db.transaction("r",repo.db.tables,async()=>{
     const senses=await repo.db.senses.where("[scopeId+entryId]").between([repo.scope.id,""],[repo.scope.id,"\uffff"]).toArray();
-    const words=await repo.words(senses.filter(s=>!s.deletedAt).map(s=>s.id));
+    const words=(await repo.words(senses.filter(s=>!s.deletedAt).map(s=>s.id))).map(withoutWordMemberships);
     const notes=await repo.db.notes.where("[scopeId+targetType+targetId]").between([repo.scope.id,"sense",""],[repo.scope.id,"sense","\uffff"]).toArray();
     return {formatVersion:"words-for-kids.text.v1" as const,exportedAt:new Date().toISOString(),words,
       notes:notes.filter(n=>!n.deletedAt).map(n=>({id:n.id,targetId:n.targetId,text:n.text,mnemonicData:n.mnemonicData??null}))};

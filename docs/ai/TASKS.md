@@ -18,7 +18,7 @@ UX review direct task **UXR01: implemented_local / scoped verified**. [Founder p
 | T09 | P1 | Flashcard/SRS/results | T03,T07 | in_progress | Local SRS/attempt/CAS; device/human gates pending |
 | T10 | P1 | Auth/cloud/schema/RLS | T01,T03 | in_progress | Hosted0007/0008+own fixtures verified; fresh OAuth/storage/deletion complete acceptance pending |
 | T11 | P1 | Sync/merge/backup/deletion | T06,T10 | in_progress | Hosted own two-device smoke; accepted-history/conflict/deletion full acceptance pending |
-| T12 | P1 | Games/ready art/grammar/speaking | T07,T09 | in_progress | [Image game fix](../evaluations/picture-game-image-readiness-fix.md):26unit+integration/12productionUI PASS; human/device/media/audio quality pending |
+| T12 | P1 | Games/ready art/grammar/speaking | T07,T09 | in_progress | [Saved game pictures](../evaluations/typing-game-saved-images.md): 12media tests/10productionUI/lint/types/build PASS. [Tìm ký tự thiếu](../evaluations/missing-letters-game.md):44scoped tests/6productionUI/lint/types/build PASS; SQL0009 hosted verified. [Full pool + aggregate](../evaluations/game-pools-and-global-words.md) scoped verified; UI chưa deploy, human/device/audio pending |
 | T13 | P1 | PWA/offline/cache scopes | T08,T11,T12 | in_progress | Local offline evidence; install/update/physical devices pending |
 | T14 | P1 | Cross-cutting QA | T08,T13 | in_progress | Full checks at release; human/field/final performance gates open |
 | T15 | P1 | Pilot/operations/release | T14 | in_progress | No push main/new Vercel env/founder browser; pilot readiness pending |

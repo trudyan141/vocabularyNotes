@@ -1,5 +1,9 @@
 # Words for Kids — kế hoạch sản phẩm dành cho founder
 
+**13/10 — Game Tìm ký tự thiếu:** bé chỉ điền1–3chữ vào ô ngay trong từ bằng gõ hoặc chạm chữ gợi ý, có nghĩa/hình/nghe. Game riêng bên cạnh Gõ cả từ, random toàn kho phù hợp, tạm dừng/mở lại giữ ô thiếu; điểm không đổi lịch ôn. Có bản offline; cloud đã mở loại phiên mới bằng SQL0009. Code local và [bằng chứng](evaluations/missing-letters-game.md), chưa deploy giao diện.
+
+**13/10 — Chơi toàn kho và từ tổng/nhóm:** lượt mới random từ toàn bộ từ/ngữ pháp đủ điều kiện, vẫn giữ vòng ngắn; tên bộ custom có thể bỏ trống. Chỉ kho tổng loại trùng, cùng từ ở nhiều nhóm/bài vẫn giữ và hiển thị các nhóm/bài chứa từ. Cloud đã gắn liên kết tổng cho31nhóm được bạn duyệt:158bản nguồn →124mục nghĩa tổng (123headwords), giữ toàn bộ nội dung/liên kết/lịch sử. Code local và kiểm UI theo [bằng chứng](evaluations/game-pools-and-global-words.md); chưa deploy giao diện mới.
+
 **Cập nhật tìm hình 12/10:** chỉ dùng Noto, Twemoji và Fluent; bỏ hai nguồn cuối trả ảnh sai. Thiếu hình thì mở Google để tự copy rồi dán/chọn ảnh. Đã chốt không cần tích hợp API có phí. Áp dụng cả thêm từ, từ đọc từ ảnh, bổ sung và đổi hình; kiểm hình rồi lưu chung với nội dung. Ảnh đã lưu giữ nguyên. [Chi tiết](14-media-and-concurrency.md).
 
 

@@ -1,6 +1,6 @@
 # Trạng thái hiện tại — Words for Kids
 
-Updated: 12/10/2026. Current task: **ba nguồn hình + Google copy fallback — implemented_local/scoped verified**. [Evidence](../evaluations/three-picture-sources.md):74unit/integration+20productionUI/build/lint/types PASS. Tìm mới chỉ Noto/Twemoji/Fluent; thiếu hình mở Google/copy theo founder chốt, không API có phí/env Vercel mới. Shared picker cho manual/worksheet/prepare/edit; preview và một Save atomic, giữ ảnh cũ/dedup. [UX baseline](../evaluations/ux-ui-implementation.md) và highlight nhóm đã kiểm riêng; chưa deploy/live/human/device.
+Updated: 13/10/2026. Current task: **Sửa ảnh đã lưu bị mất trong ba game điền/gõ chữ**. Root cause: game truyền tên từ rỗng làm approved media lookup thất bại; truyền đúng tên và giấu fallback answer riêng. [Evidence](../evaluations/typing-game-saved-images.md):12media tests/10productionUI/lint/types/build PASS. Giữ toàn bộ diff game/random/aggregate/missing-letters trước; SQL0009 hosted verified, UI chưa deploy.
 
 ## Baseline / current steering
 
@@ -18,6 +18,6 @@ Working tree đầu task game hình sạch; workflow baseline bên dưới thu�
 
 External acceptance vẫn mở: child/provider eligibility/quality/cost benchmark, human UX, physical camera/clipboard/audio/PWA/install, field/performance trên final release; xem TASKS. Fixture/mock không chứng minh live quality. Token/time của chat trước unavailable; chỉ đo bootstrap bytes/setup/test metadata có thật.
 
-**Next action:** founder refresh local, kiểm thêm từ/ảnh/đổi hình với ba nguồn và Google copy trên dữ liệu thực.
+**Next action:** founder refresh bản local và mở game điền/gõ chữ với từ có ảnh đã lưu.
 
 Lịch sử/checkpoints: [STATE history](STATE.history-2026-10-12.md), [CHANGELOG](CHANGELOG.md). Không append history vào current state.

@@ -21,3 +21,8 @@ it('hides repeated sense labels in detail while retaining current ID and distinc
  const words=[{id:'one',pos:'noun',vi:'ông'},{id:'two',pos:'noun',vi:'ÔNG'},{id:'three',pos:'noun',vi:'người già'}] as LibraryWord[];
  expect(visibleSenseChoices(words,'two').map(word=>word.id)).toEqual(['two','three']);expect(words).toHaveLength(3);
 });
+
+it('a reviewed alias and its untagged original appear as one meaning and preserve the current source route',()=>{
+ const words=[{id:'root',pos:'noun',vi:'cái ghế',tags:[]},{id:'alias',pos:'noun',vi:'chiếc ghế',tags:['global-word:root']}] as LibraryWord[];
+ expect(visibleSenseChoices(words,'root').map(word=>word.id)).toEqual(['root']);expect(visibleSenseChoices(words,'alias').map(word=>word.id)).toEqual(['alias']);
+});

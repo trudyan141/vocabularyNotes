@@ -11,3 +11,8 @@
 /* The two library actions carry their own color, like the play tiles. */
 #guest{background:var(--mint)}#demo{background:var(--lilac)}#guest:hover,#demo:hover{background:var(--pink)}
 .missing-art{display:flex;flex-direction:column;justify-content:center;gap:2px}.missing-art img{width:58px;height:58px!important}.missing-art small{font-size:.7rem;font-weight:600;color:var(--muted)}
+
+.missing-letter-word{display:flex;justify-content:center;flex-wrap:wrap;align-items:center;gap:8px;font-size:1.8rem;font-weight:800}
+.missing-letter-word .missing-letter-slot{width:48px;min-width:48px;height:56px;padding:0;text-align:center;font:inherit;border:2px solid #b62d63;border-radius:12px;background:white}
+.missing-letter-bank{display:flex;justify-content:center;gap:12px}
+.missing-letter-bank button{min-width:48px;min-height:48px;font-size:1.5rem;font-weight:800}

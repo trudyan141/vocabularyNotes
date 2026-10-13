@@ -1,5 +1,9 @@
 # Ôn tập, flashcard và minigame
 
+13/10 ADR087: game **Tìm ký tự thiếu** riêng với Gõ cả từ/Điền chữ thiếu cũ. Giấu ngẫu nhiên1–3chữ ASCII, giữ ít nhất1chữ và toàn bộ khoảng trắng/dấu câu; từ/cụm đủ nghĩa đã duyệt, tối đa80ký tự. Bé gõ từng ô hoặc chạm bank chữ đúng đã trộn; paste phân phối vào ô, Enter khi IME chưa xong không submit. Snapshot positions giữ qua pause/reload/cloud/archive; server check chỉ1–3chữ thiếu, GameAttempts không SRS. Online có nghĩa/hình đã lưu/Nghe; offline cùng luật. [Evidence](evaluations/missing-letters-game.md).
+
+13/10 ADR086: vòng mới đọc toàn bộ nội dung đã duyệt đủ điều kiện rồi random trước giới hạn10câu (Speaking5từ). Không cắt100bản nguồn hoặc luôn chọn10mục đầu. Target/distractor/choice random; ảnh vẫn phải ready/load/decode và grammar giữ construction/forms/CAS. Bộ custom tên trống dùng “Bộ thẻ của con”. Kho tổng dùng aggregate đã duyệt, nhóm/bài giữ nguyên bản nguồn; word có groupMemberships/lessonMemberships đọc từ memberships thật. [Evidence](evaluations/game-pools-and-global-words.md).
+
 12/10 ADR081: hai game picture-word/word-picture lọc word.art đã resolve/approved/ready; không dùng chỉsearchIndexart. Targets+distractors phảicóhình, media stale/revoked/missing bịbỏ. Cần3choice khác nhau; session được revalidate kểcảdistractors trướcresume/mutations và liveUI; không ghiđiểm từảnhold. Flashcard/letters/spelling vẫnnhậnwordthiếuhình. [Evidence](evaluations/free-picture-sources-and-games.md).
 
 

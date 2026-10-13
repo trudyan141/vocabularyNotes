@@ -86,6 +86,7 @@ export function WordDetail({ id }: { id: string }) {
           </WordSpeaking>
         </div>
       </div>
+      {(entry.groupMemberships?.length||entry.lessonMemberships?.length)?<section className="page-flow word-memberships"><h2>{t('Từ này ở đâu?','Where is this word?')}</h2><div className="row-wrap">{entry.groupMemberships?.map(group=><Button key={group.id} variant="outline" asChild><Link href={`/library/groups?group=${encodeURIComponent(group.id)}`}>{t('Nhóm: ','Group: ')}{group.name}</Link></Button>)}{entry.lessonMemberships?.map(lesson=><Button key={lesson.id} variant="outline" asChild><Link href={`/library?lesson=${encodeURIComponent(lesson.id)}`}>{t('Bài: ','Lesson: ')}{lesson.name}</Link></Button>)}</div></section>:null}
       {senseChoices.length>1&&<section className="sense-picker page-flow" aria-label={t("Các nghĩa của từ","Word meanings")}><h2>{t("Chọn nghĩa theo câu","Choose the meaning for your sentence")}</h2><p>{t("Từ này có nhiều nghĩa. Mỗi nghĩa có ví dụ riêng.","This word has several meanings, each with its own example.")}</p><div className="row-wrap">{senseChoices.map(word=><Button key={word.id} asChild variant={word.id===entry.id?"secondary":"outline"}><Link prefetch={false} href={`/library/words/${word.id}`} aria-current={word.id===entry.id?"page":undefined}>{word.word} · {word.vi.split("—")[0].trim()}</Link></Button>)}</div></section>}
       <section>
         <h2 className="meaning">

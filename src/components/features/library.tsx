@@ -126,6 +126,8 @@ export function Library() {
                 <div>
                   <strong lang="en"><SearchHighlight text={e.word} query={query}/></strong>
                   <span><SearchHighlight text={t(e.vi, e.en)} query={query}/></span>
+                  {!!e.groupMemberships?.length&&<small>{t("Nhóm: ","Groups: ")}{e.groupMemberships.map(group=>group.name).join(" · ")}</small>}
+                  {!!e.lessonMemberships?.length&&<small>{t("Bài: ","Lessons: ")}{e.lessonMemberships.map(lesson=>lesson.name).join(" · ")}</small>}
                   {!e.art && (
                     <small>
                       {t(

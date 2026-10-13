@@ -1,3 +1,6 @@
+import {eligibleMissingLetters,missingLetterPositions,missingLetters,validMissingPositions} from '@/lib/learning/missing-letters';
+import {uniqueAggregateWords,withoutWordMemberships} from '@/lib/learning/library-search';
+import {shuffled} from '@/lib/learning/random';
 import {loadPicture} from '@/lib/media/load-picture';
 import {approvedMedia} from './media';
 import {grammarKey} from './groups';
@@ -10,12 +13,12 @@ import type { LocalRepository } from "./repository";
 import { RepositoryError } from "./repository";
 import type { LibraryWord, ScopedDocument } from "./types";
 import { answerKey, schedule, type Rating, type ReviewState } from "@/lib/learning/srs";
-export type Mode="flashcard"|"picture-word"|"word-picture"|"letters"|"spelling"|"grammar";
-export type Question={id:string;word:LibraryWord;choices:LibraryWord[];missingIndex:number;grammar?:GrammarSnapshot};
+export type Mode="flashcard"|"picture-word"|"word-picture"|"letters"|"spelling"|"missing-letters"|"grammar";
+export type Question={id:string;word:LibraryWord;choices:LibraryWord[];missingIndex:number;missingIndices?:number[];grammar?:GrammarSnapshot};
 export type Session={id:string;scopeId:string;mode:Mode;direction?:"en-vi"|"vi-en";questions:Question[];position:number;revealed:boolean;hint:boolean;
   checkedAnswer:string|null;checkedCorrect:boolean|null;
   answers:{questionId:string;correct:boolean;skipped:boolean;hint:boolean;rating:Rating|null}[];completedAt:string|null;version:number;createdAt:string};
-const modes=z.enum(["flashcard","picture-word","word-picture","letters","spelling","grammar"]);
+const modes=z.enum(["flashcard","picture-word","word-picture","letters","spelling","missing-letters","grammar"]);
 export class PracticeRepository{
   private pictures=new Map<string,Promise<boolean>>();
   private failedPictures=new Set<string>();
@@ -66,25 +69,30 @@ export class PracticeRepository{
     let candidates=index.filter(row=>row.approval&&(!filter.lesson||row.lessonIds.includes(filter.lesson)));
     if(mode==="picture-word"||mode==="word-picture")candidates=candidates.filter(row=>!!safeArt(row.art));
     const picture=(word:LibraryWord)=>!!safeArt(word.art)&&word.approved&&!(["intelligent","smart","clever"].includes(word.word.toLowerCase())&&word.pos==="adjective");
-    let distractorWords=(await this.repository.words(candidates.slice(0,100).map(row=>row.id))).filter(word=>!(mode==="picture-word"||mode==="word-picture")||picture(word));
+    let distractorWords=mode==="picture-word"||mode==="word-picture"?(await this.repository.words(candidates.map(row=>row.id))).filter(picture):[];
     if(mode==='picture-word'||mode==='word-picture')distractorWords=await this.picturedWords(distractorWords);
     if(filter.deck){const row=await this.repository.db.table<ScopedDocument>("decks").get([scope,filter.deck]);if(!row||row.deletedAt)throw new RepositoryError("not-ready");const deck=row.payload.deck as {senseIds:string[];group?:{wordIds:string[]}};const ids=deck.group?.wordIds??deck.senseIds;candidates=candidates.filter(row=>ids.includes(row.id));}
     if(filter.word)candidates=candidates.filter(row=>row.id===filter.word);
     if(filter.due){const ids=new Set(await this.dueIds());candidates=candidates.filter(row=>ids.has(row.id));}
     if(filter.weak){const attempts=await this.repository.db.table<ScopedDocument>("gameAttempts").where("[scopeId+id]").between([scope,""],[scope,"\uffff"]).toArray();const latest=new Map<string,ScopedDocument>();for(const attempt of attempts.sort((a,b)=>a.updatedAt.localeCompare(b.updatedAt)))latest.set(attempt.payload.senseId as string,attempt);candidates=candidates.filter(row=>{const attempt=latest.get(row.id);return attempt&&(!attempt.payload.correct||attempt.payload.hint);});}
-    let words=(await this.repository.words(candidates.slice(0,100).map(row=>row.id))).filter(word=>word.vi.trim()&&word.en.trim());
+    let words=(await this.repository.words(candidates.map(row=>row.id))).filter(word=>word.vi.trim()&&word.en.trim());
     if(mode==="picture-word"||mode==="word-picture")words=words.filter(word=>picture(word)&&distractorWords.some(ready=>ready.id===word.id&&ready.revision===word.revision&&ready.art===word.art));
     if(mode==="letters")words=words.filter(word=>/^[a-z]{2,30}$/i.test(word.word));
+    if(mode==="missing-letters")words=words.filter(word=>eligibleMissingLetters(word.word));
     const unique=distractorWords.filter((word,i)=>distractorWords.findIndex(other=>answerKey(other.word,other.caseMode)===answerKey(word.word,word.caseMode))===i);
     const distractorPool=mode==="picture-word"||mode==="word-picture"?unique:words;
     if((mode==="picture-word"||mode==="word-picture")&&unique.length<3)throw new RepositoryError("not-ready");
     if(!words.length)throw new RepositoryError("not-ready");
     const id=crypto.randomUUID(),at=new Date().toISOString();
-    const questions=words.slice(0,10).map((word,index)=>{
-      const candidates=distractorPool.filter(other=>answerKey(other.word,other.caseMode)!==answerKey(word.word,word.caseMode)&&other.vi!==word.vi&&other.art!==word.art).slice(0,2);
-      const choices=[word,...candidates]; if(choices.length===3){const rotate=index%3;choices.push(...choices.splice(0,rotate));}
-      return {id:crypto.randomUUID(),word,choices,missingIndex:Math.max(0,Math.floor(word.word.length/2))};
-    }).filter(q=>!(mode==="picture-word"||mode==="word-picture")||q.choices.length===3);
+    const questions:Question[]=[];
+    for(const word of shuffled(uniqueAggregateWords(words))){
+      const candidates=shuffled(distractorPool.filter(other=>answerKey(other.word,other.caseMode)!==answerKey(word.word,word.caseMode)&&other.vi!==word.vi&&other.art!==word.art)).slice(0,2);
+      const choices=shuffled([word,...candidates]);
+      if((mode==='picture-word'||mode==='word-picture')&&choices.length<3)continue;
+      const missingIndices=mode==='missing-letters'?missingLetterPositions(word.word):undefined;
+      questions.push({id:crypto.randomUUID(),word:withoutWordMemberships(word),choices:choices.map(withoutWordMemberships),missingIndex:missingIndices?.[0]??Math.max(0,Math.floor(word.word.length/2)),...(missingIndices?{missingIndices}:{})});
+      if(questions.length===10)break;
+    }
     if(!questions.length)throw new RepositoryError("not-ready");
     const session:Session={id,scopeId:this.repository.scope.id,mode,direction:filter.direction??"en-vi",questions,position:0,revealed:false,hint:false,checkedAnswer:null,checkedCorrect:null,answers:[],completedAt:null,version:1,createdAt:at};
     await this.table.add({scopeId:session.scopeId,id,createdAt:at,updatedAt:at,version:1,deletedAt:null,payload:{session}});return session;
@@ -98,7 +106,7 @@ export class PracticeRepository{
     const expanded=families.flatMap(item=>[item,...(item.related??[]),...(item.variants??[]).map(variant=>({...item,related:undefined,variants:undefined,textEn:variant.formula,example:variant.example,exampleVi:variant.exampleVi,exampleIpa:variant.exampleIpa}))]);
     const seen=new Set<string>();const eligible=expanded.filter(item=>{const identity=JSON.stringify([item.example,item.exampleVi,item.textEn]);if(seen.has(identity))return false;seen.add(identity);return true;}).filter(item=>item.table==='sentences'&&item.example&&item.exampleVi&&item.example.length<=200&&sentenceTiles(item.example).length>=2&&sentenceTiles(item.example).length<=12);
     const words=await this.repository.words([...new Set(eligible.map(item=>item.senseId))]);
-    const questions:Question[]=eligible.slice(0,10).flatMap(item=>{const word=words.find(word=>word.id===item.senseId&&word.approved);return word?[{id:crypto.randomUUID(),word,choices:[],missingIndex:0,grammar:{id:item.id,version:item.version,formula:item.textEn,example:item.example!,exampleVi:item.exampleVi!,...(item.exampleIpa?{exampleIpa:item.exampleIpa}:{})}}]:[];});
+    const questions:Question[]=shuffled(eligible).flatMap(item=>{const word=words.find(word=>word.id===item.senseId&&word.approved);return word?[{id:crypto.randomUUID(),word:withoutWordMemberships(word),choices:[],missingIndex:0,grammar:{id:item.id,version:item.version,formula:item.textEn,example:item.example!,exampleVi:item.exampleVi!,...(item.exampleIpa?{exampleIpa:item.exampleIpa}:{})}}]:[];}).slice(0,10);
     if(!questions.length)throw new RepositoryError('not-ready');
     const at=new Date().toISOString(),session:Session={id:crypto.randomUUID(),scopeId:this.repository.scope.id,mode:'grammar',questions,position:0,revealed:false,hint:false,checkedAnswer:null,checkedCorrect:null,answers:[],completedAt:null,version:1,createdAt:at};
     await this.table.add({scopeId:session.scopeId,id:session.id,createdAt:at,updatedAt:at,version:1,deletedAt:null,payload:{session}});return session;
@@ -127,7 +135,11 @@ export class PracticeRepository{
       if(session.version!==version||session.completedAt||!await this.pictureSessionCurrent(session)||session.mode==="flashcard"||session.checkedAnswer!=null)throw new RepositoryError("conflict");
       const question=session.questions[session.position];const word=await this.repository.word(question.word.id);
       if(!word?.approved||word.revision!==question.word.revision||!await this.grammarCurrent(question))throw new RepositoryError("conflict");
-      const correct=answerKey(answer,question.word.caseMode)===answerKey(question.grammar?.example??question.word.word,question.word.caseMode),at=new Date().toISOString();
+      if(session.mode==='missing-letters'&&!validMissingPositions(question.word.word,question.missingIndices??[]))throw new RepositoryError('invalid');
+      const expected=session.mode==='missing-letters'?missingLetters(question.word.word,question.missingIndices!):question.grammar?.example??question.word.word;
+      const typed=answer.normalize('NFKC').trim();
+      const validInput=session.mode!=='missing-letters'||(/^[a-z]{1,3}$/i.test(typed)&&typed.length===question.missingIndices!.length);
+      const correct=validInput&&answerKey(answer,question.word.caseMode)===answerKey(expected,question.word.caseMode),at=new Date().toISOString();
       await this.repository.db.table<ScopedDocument>("gameAttempts").add({scopeId:session.scopeId,id:`${session.id}:${question.id}`,createdAt:at,updatedAt:at,version:1,deletedAt:null,payload:{senseId:word.id,questionId:question.id,sessionId:session.id,answer,correct,skipped:false,hint:session.hint}});
       const next={...session,checkedAnswer:answer,checkedCorrect:correct,version:version+1};await this.put(next);return next;
     });

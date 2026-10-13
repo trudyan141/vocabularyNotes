@@ -1,5 +1,17 @@
 # Nhật ký bàn giao
 
+## 13/10/2026 — Ảnh đã lưu trong game điền/gõ chữ
+
+Sửa shared stage của letters/spelling/missing-letters: lookup dùng tên thật để approved media nhận đúng ảnh, fallback giấu đáp án bằng hideWord riêng. Giữ approval/scope/sense/revision validation, không sửa dữ liệu cloud. Regression lưu upload qua Edit→Library→ba game và fallback không lộ đáp án; giữ regressions hai picture games. [Evidence](../evaluations/typing-game-saved-images.md). Chưa deploy.
+
+## 13/10/2026 — Thêm Tìm ký tự thiếu1–3chữ
+
+New missing-letters mode: visible-word inline blanks, random1–3/at least1letter remains, tap shuffled letter bank or type/backspace/paste, IME guard, approved full aggregate pool and max10round. Persist/revalidate masks across pause/reload/archive/cloud, partial answer check/one attempt, no SRS. Shared offline helper and cache manifest; corrected an extra parenthesis in offline distractor selection that prevented module parsing. SQL0009 additive mode check hosted+rollback fixture verified; no user/history/RLS mutation or new env. [Evidence](../evaluations/missing-letters-game.md).
+
+## 13/10/2026 — Game đủ kho/random, custom Save và aggregate giữ nhóm
+
+Bỏ cap100 trước chọn game, shuffle full eligible words/grammar trước cap10; Speaking random5/full pool, queue giữ qua rerender. Tên custom trống có default, chọn tất cả qua mọi trang/lưu/reload. Founder duyệt31nhóm cùng nghĩa rồi yêu cầu chỉ gom kho tổng: hosted tags cập nhật65source records, giữ158bản nguồn và toàn bộ examples/links/decks/history, tạo124aggregate meanings/123headwords; không xóa nguồn nhóm. Live memberships hiển thị ID/tên nhóm+bài; exact EN/VI/POS aggregate cho bản mới, edit nghĩa tách lại. [Evidence](../evaluations/game-pools-and-global-words.md).
+
 ## 12/10/2026 — ba nguồn hình + Google copy fallback
 
 Founder chốt bỏ OpenMoji/Commons khỏi tìm mới và giữ link Google/copy thay API có phí. Shared picture picker cho manual/worksheet/prepare/edit, auto preview3sources, atomic content+media save/replay, giữ ảnh cũ khi thêm trùng và chống late-search ghi đè staged user image.74unit/integration+20productionUI/build/lint/types PASS; docs/diff checks. [Evidence](../evaluations/three-picture-sources.md), ADR084/spec/founder plan updated. Không API key/env Vercel/deploy/live/device mới; các diff trước giữ.

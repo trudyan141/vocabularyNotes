@@ -1,5 +1,7 @@
 'use client';
 import Image from 'next/image';
+import {shuffled} from '@/lib/learning/random';
+import {uniqueAggregateWords} from '@/lib/learning/library-search';
 import {useEffect,useRef,useState,type ReactNode} from 'react';
 import {useLiveQuery} from 'dexie-react-hooks';
 import {Mic,UserRound,ArrowRight,Trophy} from 'lucide-react';
@@ -20,7 +22,11 @@ function SpeakingGame(){
  const {repository,t}=useApp();
  const data=useLiveQuery(async()=>repository?{scope:repository.scope.id,words:(await repository.words((await repository.db.senses.where('[scopeId+id]').between([repository.scope.id,''],[repository.scope.id,'\uffff']).filter(row=>!row.deletedAt).toArray()).map(row=>row.id))).filter(w=>w.approved)}:null,[repository]);
  const [position,setPosition]=useState(0),[round,setRound]=useState(0),[busy,setBusy]=useState(false),[results,setResults]=useState<Record<number,number|null>>({});
- const queue=data&&data.scope===repository?.scope.id?Array.from({length:Math.min(5,data.words.length)},(_,i)=>data.words[(round*5+i)%data.words.length]):[],word=queue[position];
+ const [draw,setDraw]=useState<{round:number;ids:string[]}|null>(null);
+ const words=data&&data.scope===repository?.scope.id?data.words:[];
+ if(data&&data.scope===repository?.scope.id&&(!draw||draw.round!==round||(!draw.ids.length&&words.length)))setDraw({round,ids:shuffled(uniqueAggregateWords(words)).slice(0,5).map(word=>word.id)});
+ const byId=new Map(words.map(word=>[word.id,word]));
+ const queue=draw?.round===round?draw.ids.flatMap(id=>{const word=byId.get(id);return word?[word]:[];}):[],word=queue[position];
  const complete=queue.length>0&&position>=queue.length,scored=Object.values(results).filter((n):n is number=>n!==null);
  return <div className="reading-page page-flow speaking-page"><Back href="/practice"/>{complete?<section className="game-result page-flow"><div className="game-celebration"><Image src="/illustrations/fox.svg" width={130} height={130} alt=""/><Trophy aria-hidden="true"/></div><h1>{t('Con đã hoàn thành!','Well done!')}</h1>{scored.length>0&&<SpeakingScore score={Math.round(scored.reduce((a,b)=>a+b,0)/scored.length)}/>}<p>{queue.length} {t('từ đã luyện cùng Cáo','words practised with Fox')}</p><Button onClick={()=>{setResults({});setPosition(0);setRound(n=>n+1);}}>{t('Chơi lại','Play again')}</Button></section>:<><header className="section-heading"><div><h1>{t('Nói cùng Cáo','Speak with Fox')}</h1><p>{t('Nghe mẫu, rồi chạm mic để nói.','Listen, then tap the microphone to speak.')}</p></div><Image src="/illustrations/fox.svg" width={80} height={80} alt=""/></header>{!data?<p role="status">{t('Đang mở bài…','Opening lessons…')}</p>:!word?<EmptyState title={t('Thêm từ để tập nói nhé','Add a word to practise speaking')} description={t('Lưu và duyệt ít nhất một từ trong thư viện.','Save and approve a library word.')}><Button asChild><a href="/add">{t('Thêm từ mới','Add a word')}</a></Button></EmptyState>:<><div className="game-progress"><span>{position+1} / {queue.length}</span><div role="progressbar" aria-label={t('Tiến độ trò chơi','Game progress')} aria-valuenow={position} aria-valuemin={0} aria-valuemax={queue.length}><span style={{transform:`scaleX(${position/queue.length})`}}/></div></div><WordSpeaking key={`${round}:${word.id}:${word.revision}`} word={word} onBusy={setBusy} onResult={score=>setResults(old=>({...old,[position]:score}))}/><div className="row-wrap"><Button variant="secondary" disabled={busy||!(position in results)} onClick={()=>setPosition(n=>n+1)}>{t(position===queue.length-1?'Hoàn thành':'Từ tiếp theo',position===queue.length-1?'Finish':'Next word')}<ArrowRight aria-hidden="true"/></Button><Button variant="ghost" disabled={busy} onClick={()=>setPosition(n=>n+1)}>{t('Bỏ qua','Skip')}</Button></div></>}</>}</div>;
 }

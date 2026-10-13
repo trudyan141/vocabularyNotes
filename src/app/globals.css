@@ -1997,3 +1997,14 @@ details.group-save-result { display:block; padding:1rem; }
 }
 
 .parent-page > form > fieldset.page-flow { border:0; margin:0; padding:0; min-width:0; }
+
+/* Short spelling practice keeps the known letters visible around touch-sized blanks. */
+.practice-modes .play-tile-missing-letters { background:#fff0c4; }
+.missing-letters-form { justify-items:center; }
+.missing-letters-form > p { text-align:center; max-width:38ch; }
+.missing-letter-word { display:flex; justify-content:center; flex-wrap:wrap; align-items:center; gap:8px; max-width:100%; font-size:clamp(1.6rem,5vw,2.25rem); font-weight:800; }
+.missing-letter-known { min-width:.65em; text-align:center; }
+.missing-letter-space { width:16px; }
+.missing-letter-word .missing-letter-slot { width:48px; height:56px; min-width:48px; padding:0; border:2px solid var(--primary); border-radius:12px; text-align:center; font:inherit; background:var(--card); }
+.missing-letter-bank { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+.missing-letter-bank button { min-width:48px; min-height:48px; font-size:1.5rem; font-weight:800; }

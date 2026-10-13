@@ -1,6 +1,6 @@
 import {test,expect} from '@playwright/test';
 const owner='60000000-0000-4000-8000-000000000006',library='70000000-0000-4000-8000-000000000007';
-test.beforeEach(async({page})=>{await page.addInitScript(()=>{localStorage.setItem('wfk-parent-ai-v1',JSON.stringify({key:'AIza-speaking-fixture-key-only-123',model:'gemini-3.5-flash-lite'}));});await page.route('**/api/auth/status*',route=>route.fulfill({json:{configured:false,user:null}}));await page.route('https://generativelanguage.googleapis.com/**',route=>route.abort());});
+test.beforeEach(async({page})=>{await page.addInitScript(()=>{Math.random=()=>0.999;localStorage.setItem('wfk-parent-ai-v1',JSON.stringify({key:'AIza-speaking-fixture-key-only-123',model:'gemini-3.5-flash-lite'}));});await page.route('**/api/auth/status*',route=>route.fulfill({json:{configured:false,user:null}}));await page.route('https://generativelanguage.googleapis.com/**',route=>route.abort());});
 test('Microphone permission failure recovers without a model pack or confirmation popup',async({page})=>{
  await page.addInitScript(()=>{Object.defineProperty(navigator,'mediaDevices',{value:{getUserMedia:async()=>{throw new DOMException('denied','NotAllowedError');}}});});
  await page.goto('/speaking');await expect(page.getByRole('link',{name:/Tải bộ nhận âm/})).toHaveCount(0);await page.getByRole('button',{name:'Nói',exact:true}).click();await expect(page.getByText(/Chưa mở được mic/)).toBeVisible();await expect(page.getByRole('dialog')).toHaveCount(0);await page.goto('/settings');await expect(page.getByRole('button',{name:'Tải bộ nhận âm miễn phí'})).toHaveCount(0);await expect(page.getByRole('heading',{name:'Chấm phát âm',exact:true})).toHaveCount(0);await expect(page.getByRole('button',{name:'Hỏi lại trước khi gửi bản thu',exact:true})).toHaveCount(0);
@@ -39,4 +39,13 @@ test('Quota failure keeps replay, retries only on another tap, and retired pack 
  let requests=0;await page.route('https://generativelanguage.googleapis.com/**',route=>{requests++;return route.fulfill({status:429,json:{error:'quota-fixture'}});});
  await page.goto('/library/words/apple');await expect.poll(()=>page.evaluate(async()=>(await caches.keys()).includes('wfk-speaking-model-retired-fixture'))).toBe(false);expect(await page.evaluate(async()=>(await caches.keys()).includes('public-fixture-keep'))).toBe(true);
  await page.getByRole('button',{name:'Nói',exact:true}).click();await expect(page.getByText('Hết lượt chấm miễn phí. Con nghe lại và thử sau nhé.',{exact:true})).toBeVisible({timeout:15000});expect(requests).toBe(1);await expect(page.locator('.speaking-score')).toHaveCount(0);await expect(page.getByRole('button',{name:'Nghe lại giọng của con',exact:true})).toBeEnabled();await page.getByRole('button',{name:'Nói',exact:true}).click();await expect.poll(()=>requests,{timeout:15000}).toBe(2);await expect(page.getByRole('button',{name:'Nói',exact:true})).toBeEnabled();
+});
+
+test('Speaking rounds draw randomly from the full library while retaining distinct meanings',async({page})=>{
+ await page.goto('/practice/speaking');const first:string[]=[];
+ for(let i=0;i<5;i++){await expect(page.locator('.game-progress > span')).toHaveText(`${i+1} / 5`);first.push((await page.locator('.speaking-target').innerText()).trim());await page.getByRole('button',{name:'Bỏ qua',exact:true}).click();}
+ await expect(page.getByRole('heading',{name:'Con đã hoàn thành!',exact:true})).toBeVisible();
+ await page.evaluate(()=>{Math.random=()=>0.5;});await page.getByRole('button',{name:'Chơi lại',exact:true}).click();const second:string[]=[];
+ for(let i=0;i<5;i++){await expect(page.locator('.game-progress > span')).toHaveText(`${i+1} / 5`);second.push((await page.locator('.speaking-target').innerText()).trim());await page.getByRole('button',{name:'Bỏ qua',exact:true}).click();}
+ expect(second).not.toEqual(first);expect(second.some(word=>!first.includes(word))).toBe(true);
 });

@@ -1,0 +1,14 @@
+/** Only English letters are hidden; spacing and punctuation remain visible. */
+export function letterPositions(text:string){return [...text].flatMap((letter,index)=>/^[a-z]$/i.test(letter)?[index]:[]);}
+export function eligibleMissingLetters(text:string){return [...text].length<=80&&letterPositions(text).length>=2;}
+export function missingLetterPositions(text:string,random:()=>number=Math.random):number[]{
+ if(!eligibleMissingLetters(text))return [];
+ const pool=letterPositions(text),count=1+Math.floor(random()*Math.min(3,pool.length-1)),positions:number[]=[];
+ for(let i=0;i<count;i++)positions.push(pool.splice(Math.floor(random()*pool.length),1)[0]);
+ return positions.sort((a,b)=>a-b);
+}
+export function validMissingPositions(text:string,positions:readonly number[]){
+ const letters=letterPositions(text);
+ return eligibleMissingLetters(text)&&positions.length>=1&&positions.length<=3&&positions.length<letters.length&&positions.every((index,i)=>Number.isInteger(index)&&letters.includes(index)&&(i===0||positions[i-1]<index));
+}
+export function missingLetters(text:string,positions:readonly number[]){const letters=[...text];return positions.map(index=>letters[index]).join('');}

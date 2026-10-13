@@ -1,0 +1,31 @@
+import 'fake-indexeddb/auto';
+import {afterEach,it,expect} from 'vitest';
+import {Dexie} from 'dexie';
+import {LibraryDatabase} from '@/data/local/database';
+import {LocalRepository} from '@/data/local/repository';
+import {catalog} from '@/lib/learning/catalog';
+import {saveStudyGroup,groupContents} from '@/data/local/groups';
+import {PracticeRepository} from '@/data/local/practice';
+import {exportArchive,parseArchive} from '@/data/local/archive';
+import {exportBackup,parseBackup} from '@/data/local/backup';
+import {aggregateWordId,uniqueAggregateWords} from '@/lib/learning/library-search';
+const dbs:LibraryDatabase[]=[];
+afterEach(async()=>{for(const db of dbs.splice(0)){db.close();await Dexie.delete(db.name);}});
+it('aggregates exact definitions globally while retaining both groups lessons examples and source IDs',async()=>{
+ const db=new LibraryDatabase(`aggregate-${crypto.randomUUID()}`);dbs.push(db);const repo=new LocalRepository(db,{kind:'guest',id:'guest:aggregate'});
+ for(const [id,sense] of [['first','reading material'],['second','school supply']] as const)await repo.saveLesson({operationId:`op-${id}`,title:`Lesson ${id}`,learnedOn:'2026-10-13',sourceType:'manual',items:[{...catalog.find(w=>w.word==='book')!,id,sense,approved:true}]});
+ const first=await saveStudyGroup(repo,{id:'group-one',version:null,name:'School',members:{wordIds:['first'],sentences:[],grammar:[]}}),second=await saveStudyGroup(repo,{id:'group-two',version:null,name:'Home',members:{wordIds:['second'],sentences:[],grammar:[]}});
+ const source=await repo.words(['first','second']);expect(source).toHaveLength(2);expect(aggregateWordId(source[0])).toBe(aggregateWordId(source[1]));expect(uniqueAggregateWords(source)).toHaveLength(1);
+ expect((await repo.search('',{aggregateOnly:true})).total).toBe(1);expect(await repo.matchingApprovedWordIds('',true)).toHaveLength(1);
+ expect((await groupContents(repo,first.row)).words.map(w=>w.id)).toEqual(['first']);expect((await groupContents(repo,second.row)).words.map(w=>w.id)).toEqual(['second']);
+ expect(source[0].groupMemberships?.map(g=>g.name).sort()).toEqual(['Home','School']);expect(source[1].lessonMemberships).toHaveLength(2);
+ const session=await new PracticeRepository(repo).start('flashcard');expect(session.questions).toHaveLength(1);expect(session.questions[0].word.groupMemberships).toBeUndefined();
+ expect((await parseBackup(JSON.stringify(await exportBackup(repo)))).words).toHaveLength(2);expect((await parseArchive(JSON.stringify(await exportArchive(repo)))).records.decks).toHaveLength(2);
+ await repo.editWord(source[1].id,source[1].revision,{word:source[1].word,vi:'một nghĩa khác',en:'A different meaning'});expect((await repo.search('',{aggregateOnly:true})).total).toBe(2);
+ expect((await repo.word('first'))?.groupMemberships?.map(g=>g.name)).toEqual(['School']);
+});
+it('never aggregates different meanings or parts of speech merely because the spelling is shared',async()=>{
+ const db=new LibraryDatabase(`aggregate-senses-${crypto.randomUUID()}`);dbs.push(db);const repo=new LocalRepository(db,{kind:'guest',id:'guest:aggregate'});
+ await repo.saveLesson({operationId:'different',title:'Different meanings',learnedOn:'2026-10-13',sourceType:'manual',items:[{...catalog[0],id:'river',word:'bank',pos:'noun',sense:'river edge',vi:'bờ sông',en:'Land along a river',approved:true},{...catalog[0],id:'money',word:'bank',pos:'noun',sense:'financial institution',vi:'ngân hàng',en:'A place for money',approved:true},{...catalog[0],id:'verb',word:'bank',pos:'verb',sense:'deposit',vi:'gửi tiền',en:'To deposit money',approved:true}]});
+ expect((await repo.search('',{aggregateOnly:true})).total).toBe(3);expect((await new PracticeRepository(repo).start('spelling')).questions).toHaveLength(3);
+});

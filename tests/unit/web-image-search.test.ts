@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+vi.mock('server-only', () => ({}));
 import { getGoogleSearchConfig, setGoogleSearchConfig } from '@/lib/media/google-search-config';
 import { searchGoogleImages } from '@/lib/media/google-search';
 
@@ -95,3 +96,51 @@ describe('searchGoogleImages', () => {
     fetchSpy.mockRestore();
   });
 });
+
+describe('searchFreeWebPictures', () => {
+  it('filters out diseased medical archives and surfaces clean illustrations', async () => {
+    const { searchFreeWebPictures } = await import('@/server/media/web-search');
+
+    const customFetcher = vi.fn().mockImplementation(async (url: string) => {
+      if (url.includes('bing.com')) {
+        return {
+          ok: true,
+          text: async () =>
+            '<div><a m="{\&quot;t\&quot;:\&quot;Two Feet Clipart\&quot;,\&quot;murl\&quot;:\&quot;https://example.com/feet.jpg\&quot;,\&quot;turl\&quot;:\&quot;https://example.com/thumb.jpg\&quot;}" /><a m="{\&quot;t\&quot;:\&quot;Two diseased feet medical drawing\&quot;,\&quot;murl\&quot;:\&quot;https://example.com/bad.jpg\&quot;,\&quot;turl\&quot;:\&quot;https://example.com/bad_thumb.jpg\&quot;}" /></div>',
+        };
+      }
+      return { ok: false, text: async () => '' };
+    });
+
+    const results = await searchFreeWebPictures('two feet', customFetcher as unknown as typeof fetch);
+
+    // Wellcome diseased drawing must be filtered out
+    const titles = results.map((r) => r.title);
+    expect(titles.some((t) => /diseased/i.test(t))).toBe(false);
+
+    // Clean illustrations from Web Clipart must be present
+    expect(titles).toContain('Two Feet Clipart');
+    expect(results[0].source).toBe('web');
+  });
+
+  it('maps number words to number clipart queries', async () => {
+    const { searchFreeWebPictures } = await import('@/server/media/web-search');
+
+    const customFetcher = vi.fn().mockImplementation(async (url: string) => {
+      if (url.includes('bing.com') && (url.includes('number%202') || url.includes('number+2'))) {
+        return {
+          ok: true,
+          text: async () =>
+            '<div><a m="{\&quot;t\&quot;:\&quot;Cartoon Number 2 Clipart\&quot;,\&quot;murl\&quot;:\&quot;https://example.com/num2.jpg\&quot;,\&quot;turl\&quot;:\&quot;https://example.com/num2_thumb.jpg\&quot;}" /></div>',
+        };
+      }
+      return { ok: false, text: async () => '' };
+    });
+
+    const results = await searchFreeWebPictures('two', customFetcher as unknown as typeof fetch);
+    expect(results.length).toBeGreaterThanOrEqual(1);
+    expect(results[0].title).toBe('Cartoon Number 2 Clipart');
+    expect(results[0].source).toBe('web');
+  });
+});
+

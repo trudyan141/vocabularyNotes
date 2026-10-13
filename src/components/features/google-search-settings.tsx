@@ -60,8 +60,8 @@ function GoogleSearchForm() {
         <form id="google-search-form" className="compact-form" onSubmit={handleSave}>
           <p className="settings-tip">
             {t(
-              'Miễn phí 100 lượt/ngày. Nếu không nhập key, app sẽ tự động tìm ảnh từ Thư viện mở và Web miễn phí.',
-              '100 free searches/day. If omitted, the app automatically finds images from Open library and Web for free.'
+              'Miễn phí 100 lượt/ngày. Nếu không nhập key, app sẽ tự động tìm ảnh clipart hoạt hình từ Web miễn phí.',
+              '100 free searches/day. If omitted, the app automatically finds cartoon clipart from the Web for free.'
             )}
           </p>
 

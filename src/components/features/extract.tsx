@@ -55,8 +55,58 @@ export function ExtractForm({draftId,batchId,blob,title,learnedOn,initial,initia
  for(const item of jobs){
  if(!active||controller.signal.aborted)break;setImageStatus(`Đang tìm hình: ${item.word}`);
  const signal=AbortSignal.any([controller.signal,AbortSignal.timeout(10000)]);
- try{const response=await fetch('/api/media/search',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({word:item.word,sense:item.en||item.sense,consent:true}),signal});if(!response.ok)throw new Error('image search unavailable');const data=await response.json();const candidate=mediaCandidate.array().parse(data.candidates)[0];
- if(!candidate){missing++;}else{const imported=await fetch('/api/media/import',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:candidate.id,title:candidate.title,consent:true}),signal});if(!imported.ok)throw new Error('image unavailable');const asset=mediaAsset.parse({...await imported.json(),senseId:item.id,word:item.word,revision:'1:1',approved:true,status:'ready'});if(!controller.signal.aborted)found.set(pictureSignature(item),asset);}
+ try{
+  let asset: MediaAsset | null = null;
+  try {
+   const webRes = await fetch('/api/media/web-search', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ word: item.word }),
+    signal
+   });
+   if (webRes.ok) {
+    const webData = await webRes.json();
+    const firstWeb = Array.isArray(webData.items) && webData.items.length > 0 ? webData.items[0] : null;
+    if (firstWeb?.imageUrl) {
+     const impRes = await fetch('/api/media/import-url', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+       url: firstWeb.imageUrl,
+       fallbackUrl: firstWeb.thumbnailUrl,
+       title: firstWeb.title,
+       sourceUrl: firstWeb.sourceUrl,
+       creator: firstWeb.creator,
+      }),
+      signal
+     });
+     if (impRes.ok) {
+      asset = mediaAsset.parse({
+       ...await impRes.json(),
+       senseId: item.id,
+       word: item.word,
+       revision: '1:1',
+       approved: true,
+       status: 'ready'
+      });
+     }
+    }
+   }
+  } catch {
+   // Web search error, fall back to catalog
+  }
+  if (!asset) {
+   const response=await fetch('/api/media/search',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({word:item.word,sense:item.en||item.sense,consent:true}),signal});
+   if(!response.ok)throw new Error('image search unavailable');
+   const data=await response.json();
+   const candidate=mediaCandidate.array().parse(data.candidates)[0];
+   if(!candidate){missing++;}else{
+    const imported=await fetch('/api/media/import',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:candidate.id,title:candidate.title,consent:true}),signal});
+    if(!imported.ok)throw new Error('image unavailable');
+    asset=mediaAsset.parse({...await imported.json(),senseId:item.id,word:item.word,revision:'1:1',approved:true,status:'ready'});
+   }
+  }
+  if(asset&&!controller.signal.aborted)found.set(pictureSignature(item),asset);
  if(controller.signal.aborted)break;
  }catch{if(controller.signal.aborted)break;failures.push(`${item.word}: ${signal.aborted?'hết thời gian 10 giây':'chưa tải được hình, thử lại sau nhé'}`);}
  processed++;if(active)setImageCounts({completed:processed,total:jobs.length,found:found.size,failures:[...failures]});
@@ -112,11 +162,11 @@ export function ExtractForm({draftId,batchId,blob,title,learnedOn,initial,initia
  </div></details>
  <OperationStatus busy={imageBusy} title={imageBusy?imageStatus:t('Kết quả tìm hình','Picture search result')} message={imageBusy?`Đã xử lý ${imageCounts.completed}/${imageCounts.total} từ · tải được ${imageCounts.found} hình`:imageStatus} error={!imageBusy&&imageCounts.failures.length>0} completed={imageCounts.completed} total={imageCounts.total}/>{imageCounts.failures.length>0&&<details open><summary>{t('Chi tiết lỗi tải hình','Picture error details')}</summary><ul>{imageCounts.failures.map(item=><li key={item}>{item}</li>)}</ul></details>}{imageBusy&&<Button variant="outline" onClick={()=>imageWorker.current?.abort()}>Dừng tìm hình</Button>}{!imageBusy&&draft.items.some(i=>i.selected&&!i.art&&!draft.pictures?.[pictureSignature(i)])&&<Button variant="outline" disabled={busy} onClick={()=>{imageAttempts.current.clear();setImageAttempt(n=>n+1);}}>Tìm lại hình còn thiếu</Button>}
  {duplicateWords.length>0&&<p role="status" className="duplicate-summary">{t('Từ trùng: ','Duplicates: ')}{duplicateWords.join(', ')}</p>}
- {draft.items.map((item,i)=><article className="review-item" key={item.id} data-selected={item.selected}><label className="review-selection"><input type="checkbox" checked={item.selected} disabled={busy} onChange={e=>patch(item.id,'selected',e.target.checked)}/>{t(`Lưu ${item.word}`,`Save ${item.word}`)}</label><details className="review-word"><summary><PicturePreview item={item} asset={draft.pictures?.[pictureSignature(item)]} size={64}/><span><strong lang="en">{item.word}</strong><span className="review-meaning">{item.vi||t("Cần bổ sung nghĩa","Add a meaning")} · {item.pos}</span></span></summary><fieldset className="page-flow"><legend className="sr-only">{i+1}. {item.literal}</legend><PicturePreview item={item} asset={draft.pictures?.[pictureSignature(item)]} size={96}/><details><summary>{t("Chọn hoặc dán hình khác","Choose or paste another image")}</summary><ReviewPictureChoice key={pictureSignature(item)} item={item} setOperations={setPictureOperations} onPrepared={asset=>{setSubmitState("idle");setDraft(d=>({...d,pictures:{...d.pictures,[pictureSignature(item)]:asset}}));}}/></details>{([['word','Từ','Word'],['vi','Nghĩa tiếng Việt','Vietnamese'],['en','Nghĩa tiếng Anh','English meaning'],['pos','Loại từ','Part of speech'],['sense','Tên nghĩa','Sense label'],['example','Câu ví dụ','Example'],['exampleIpa','IPA cả câu ví dụ','Whole-sentence IPA'],['exampleVi','Nghĩa câu','Example translation']] as const).map(([field,vi,en])=><label key={field}>{t(vi,en)}<Input maxLength={field==='word'||field==='sense'?200:field==='pos'?60:1000} value={item[field]??''} disabled={busy} onChange={e=>patch(item.id,field,e.target.value)}/></label>)}</fieldset></details></article>)}
+ {draft.items.map((item,i)=><article className="review-item" key={item.id} data-selected={item.selected}><label className="review-selection"><input type="checkbox" checked={item.selected} disabled={busy} onChange={e=>patch(item.id,'selected',e.target.checked)}/>{t(`Lưu ${item.word}`,`Save ${item.word}`)}</label><details className="review-word"><summary><PicturePreview item={item} asset={draft.pictures?.[pictureSignature(item)]} size={64}/><span><strong lang="en">{item.word}</strong><span className="review-meaning">{item.vi||t("Cần bổ sung nghĩa","Add a meaning")} · {item.pos}</span></span></summary><fieldset className="page-flow"><legend className="sr-only">{i+1}. {item.literal}</legend><PicturePreview item={item} asset={draft.pictures?.[pictureSignature(item)]} size={96}/><details><summary>{t("Chọn hoặc dán hình khác","Choose or paste another image")}</summary><ReviewPictureChoice key={pictureSignature(item)} item={item} asset={draft.pictures?.[pictureSignature(item)]} setOperations={setPictureOperations} onPrepared={asset=>{setSubmitState("idle");setDraft(d=>({...d,pictures:{...d.pictures,[pictureSignature(item)]:asset}}));}}/></details>{([['word','Từ','Word'],['vi','Nghĩa tiếng Việt','Vietnamese'],['en','Nghĩa tiếng Anh','English meaning'],['pos','Loại từ','Part of speech'],['sense','Tên nghĩa','Sense label'],['example','Câu ví dụ','Example'],['exampleIpa','IPA cả câu ví dụ','Whole-sentence IPA'],['exampleVi','Nghĩa câu','Example translation']] as const).map(([field,vi,en])=><label key={field}>{t(vi,en)}<Input maxLength={field==='word'||field==='sense'?200:field==='pos'?60:1000} value={item[field]??''} disabled={busy} onChange={e=>patch(item.id,field,e.target.value)}/></label>)}</fieldset></details></article>)}
  {patterns.length>0&&<section className="panel page-flow"><h2>{t('Mẫu câu và ngữ pháp bổ sung','Additional patterns and grammar')}</h2><p>{t('Câu có nhãn chữ gốc được lấy từ nội dung đã đọc trên ảnh; phần giải thích và mẫu học thêm do dự án bổ sung. Kiểm trước khi lưu cùng bộ từ.','Project additions, not text transcribed from the photo. Review before saving with this set.')}</p>{patterns.map(item=><details key={item.key}><summary><span>{item.content.grammarTitle||item.content.pattern||item.content.example}<span className="review-meaning" lang="en">{item.content.example}</span><span className="review-meaning">{item.content.exampleVi}</span></span></summary><p>{item.content.source}</p>{item.content.sourceEvidenceText&&<p>Chữ gốc trên ảnh: <q lang="en">{item.content.sourceEvidenceText}</q></p>}<p lang="en">{item.content.example}</p><SentencePronunciation text={item.content.example} ipa={item.content.exampleIpa}/><p>{item.content.exampleVi}</p><p>{item.content.conditions}</p><p lang="en">{item.content.formula}</p><GrammarSteps pattern={item.content.pattern}/><p>{item.content.analysis}</p><p>{t('Lỗi dễ nhầm: ','Common mistake: ')}{item.content.commonError}</p><SentencePronunciation text={item.content.commonError} ipa={item.content.commonErrorIpa}/><p>{t('Sửa thành: ','Correction: ')}{item.content.correction}</p><SentencePronunciation text={item.content.correction} ipa={item.content.correctionIpa}/>{item.content.grammarVariants?.map((variant,index)=><section className="grammar-example-section" key={index}><strong lang="en">{variant.formula}</strong><p lang="en">{variant.example}</p><SentencePronunciation text={variant.example} ipa={variant.exampleIpa}/><p>{variant.exampleVi}</p><p>{variant.analysis}</p></section>)}{item.key.startsWith('ai-learning-')&&<div className="page-flow">{([['example','Câu tiếng Anh'],['exampleIpa','IPA cả câu'],['exampleVi','Nghĩa câu'],['pattern','Mẫu câu'],['patternExplanation','Giải thích mẫu câu'],['grammarTitle','Tên ngữ pháp'],['conditions','Dùng khi nào'],['formula','Công thức'],['analysis','Phân tích'],['commonError','Lỗi dễ nhầm'],['commonErrorIpa','IPA cả câu sai'],['correction','Sửa đúng'],['correctionIpa','IPA cả câu sửa đúng']] as const).map(([field,label])=><label key={field}>{label}<Input maxLength={2000} disabled={busy} value={item.content[field]??''} onChange={event=>{setSubmitState('idle');setError('');setDraft(d=>({...d,recovery:undefined,learning:d.learning?.map((learning,i)=>item.key===`ai-learning-${i}`?{...learning,[field]:field==='exampleIpa'&&!event.target.value?null:event.target.value,...(field==='example'?{exampleIpa:null,readingHintVi:''}:field==='commonError'?{commonErrorIpa:null}:field==='correction'?{correctionIpa:null}:{})}:learning)}));}}/></label>)}</div>}</details>)}<label><input type="checkbox" checked={includePatterns} disabled={busy} onChange={e=>{setIncludePatterns(e.target.checked);}}/>{t('Lưu kèm các mẫu câu/ngữ pháp đã kiểm','Include these reviewed patterns and grammar')}</label></section>}
  <div className="selection-save-bar"><p id="save-help" aria-live="polite">{saveHelp}</p><SubmitButton type="button" state={action==='save'?(busy?'pending':error?'error':submitState):'idle'} error={action==='save'?error:undefined} aria-describedby="save-help" disabled={disabled||busy||imageBusy||pictureBusy||!selected.length||incomplete||!!photos&&(!draft.batchRecovery?.complete||draft.batchRecovery.signature!==signature)} onClick={()=>void save()}>{t('Duyệt và lưu các từ đã chọn','Approve and save selected words')}</SubmitButton></div></>}</div></div></div>;
 }
 
 function PicturePreview({item,asset,size}:{item:OcrCandidate;asset?:MediaAsset;size:number}){return asset?<Image unoptimized src={`data:image/jpeg;base64,${asset.base64}`} width={size} height={size} alt={item.word}/>:<Artwork art={item.art} word={item.word} size={size} showCredit/>;}
 
-function ReviewPictureChoice({item,setOperations,onPrepared}:{item:OcrCandidate;setOperations:React.Dispatch<React.SetStateAction<Record<string,boolean>>>;onPrepared:(asset:MediaAsset)=>void}){const key=pictureSignature(item);const onBusyChange=useCallback((busy:boolean)=>setOperations(old=>old[key]===busy?old:{...old,[key]:busy}),[key,setOperations]);useEffect(()=>()=>setOperations(old=>({...old,[key]:false})),[key,setOperations]);return <WordPictureSearch word={{...item,revision:'1:1'}} onPrepared={onPrepared} onBusyChange={onBusyChange} saveMessage="Đã chọn hình. Duyệt và lưu bài để giữ hình này."/>;}
+function ReviewPictureChoice({item,asset,setOperations,onPrepared}:{item:OcrCandidate;asset?:MediaAsset;setOperations:React.Dispatch<React.SetStateAction<Record<string,boolean>>>;onPrepared:(asset:MediaAsset)=>void}){const key=pictureSignature(item);const onBusyChange=useCallback((busy:boolean)=>setOperations(old=>old[key]===busy?old:{...old,[key]:busy}),[key,setOperations]);useEffect(()=>()=>setOperations(old=>({...old,[key]:false})),[key,setOperations]);return <WordPictureSearch autoSearch word={{...item,art:asset?asset.candidate.id:item.art,revision:'1:1'}} onPrepared={onPrepared} onBusyChange={onBusyChange} saveMessage="Đã chọn hình. Duyệt và lưu bài để giữ hình này."/>;}

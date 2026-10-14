@@ -1,15 +1,18 @@
 "use client";
+import {SessionCard,modes,modeArt} from './session-history';
+import {PracticeSelection} from './practice-selection';
+import {savePracticeSelection} from '@/data/local/practice-selection';
+import {PracticeScope} from './practice-scope';
+import {GrammarCard} from './grammar-card';
+import {practiceFilter,practiceHref,type PracticeFilter} from '@/lib/learning/practice-filter';
 import {MissingLettersQuestion} from './missing-letters-question';
 import {GrammarQuestion} from './grammar-question';
 import {SentencePronunciation} from "@/components/app/sentence-pronunciation";
-import {ActionLink} from "@/components/app/action-link";
-import type {ScopedDocument} from "@/data/local/types";
-import type {Deck} from "@/data/local/decks";
 import Link from "next/link";
 import NextImage from "next/image";
 import {useGameSound} from '@/lib/audio/game-preference';
 import {GameSounds} from "@/lib/audio/game-sounds";
-import {BookOpen, Image, Volume2, Pencil, Keyboard, ArrowLeft, ArrowRight, Star, Check, Lightbulb, SkipForward, Trophy, Mic, Blocks} from "lucide-react";
+import {BookOpen, Image, Volume2, Pencil, Keyboard, ArrowLeft, ArrowRight, Star, Check, Lightbulb, SkipForward, Trophy, Mic, Blocks, RotateCcw, Trash2} from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {DatabaseLoading} from '@/components/app/database-boundary';
@@ -22,42 +25,58 @@ import { AudioControl } from "@/components/app/audio-control";
 import { useApp } from "@/components/app/provider";
 import { PracticeRepository, type Mode, type Session } from "@/data/local/practice";
 import { type Rating } from "@/lib/learning/srs";
-const modes:[Mode,string,string][]=[["flashcard","Thẻ ôn","Flashcards"],["picture-word","Nhìn hình chọn từ","Picture to word"],["word-picture","Nghe từ chọn hình","Word to picture"],["letters","Điền chữ thiếu","Missing letters"],["spelling","Gõ cả từ","Spell the word"],["missing-letters","Tìm ký tự thiếu","Find missing letters"],["grammar","Xếp câu","Build sentences"]];
-const modeArt={flashcard:"book","picture-word":"apple","word-picture":"cat",letters:"pencil",spelling:"bag","missing-letters":"pencil",grammar:"notebook"};
-const modePrompts={flashcard:["Lật thẻ, nhớ từ","Flip and remember"],"picture-word":["Nhìn thật kỹ nhé!","Look closely!"],"word-picture":["Lắng nghe rồi chọn","Listen and choose"],letters:["Tìm chữ còn thiếu","Find the missing letter"],spelling:["Thử tài đánh vần","Try spelling"],"missing-letters":["Điền 1–3 chữ vào từ","Fill 1–3 missing letters"],grammar:["Luyện cấu trúc ngữ pháp","Practise grammar"]};
-const modeIcons={flashcard:BookOpen,"picture-word":Image,"word-picture":Volume2,letters:Pencil,spelling:Keyboard,"missing-letters":Pencil,grammar:Blocks};
-export function PracticePreview(){
+const modePrompts={flashcard:["Lật thẻ, nhớ từ","Flip and remember"],"picture-word":["Nhìn thật kỹ nhé!","Look closely!"],"word-picture":["Lắng nghe rồi chọn","Listen and choose"],letters:["Tìm chữ còn thiếu","Find the missing letter"],spelling:["Thử tài đánh vần","Try spelling"],"missing-letters":["Điền 1–3 chữ vào từ","Fill 1–3 missing letters"],"grammar-card":["Nghe câu, xem nghĩa và cách dùng","Listen, read meaning and usage"],grammar:["Thử thách ghép câu đã học","Build a sentence you have learned"]};
+const modeIcons={flashcard:BookOpen,"picture-word":Image,"word-picture":Volume2,letters:Pencil,spelling:Keyboard,"missing-letters":Pencil,grammar:Blocks,"grammar-card":BookOpen};
+export function PracticePreview(){return <PracticeSelection><PracticeGame/></PracticeSelection>;}
+function PracticeGame(){
   const {repository,t,preferences}=useApp();const gameSound=useGameSound();const soundEnabled=useRef(gameSound.enabled);const sounds=useRef<GameSounds|null>(null);const params=useSearchParams(),router=useRouter();
   useEffect(()=>{soundEnabled.current=gameSound.enabled;if(!gameSound.enabled)sounds.current?.stop();},[gameSound.enabled]);
   useEffect(()=>{const stop=()=>sounds.current?.stop();const hidden=()=>{if(document.hidden)stop();};window.addEventListener('wfk-audio-stop',stop);document.addEventListener('visibilitychange',hidden);return()=>{sounds.current?.close();window.removeEventListener('wfk-audio-stop',stop);document.removeEventListener('visibilitychange',hidden);};},[]);
   const practice=useMemo(()=>repository?new PracticeRepository(repository):null,[repository]);
-  const snapshot=useLiveQuery(async()=>practice?{scope:practice.repository.scope.id,sessions:await practice.sessions()}:null,[practice]);
+  const snapshot=useLiveQuery(async()=>practice?{scope:practice.repository.scope.id,sessions:await practice.resumableSessions()}:null,[practice]);
   const [session,setSession]=useState<Session|null>(null);
   const pictureValidity=useLiveQuery(async()=>practice&&session?{id:session.id,valid:await practice.pictureSessionLoaded(session)}:null,[practice,session]);
   const [failedPictureSession,setFailedPictureSession]=useState<string|null>(null);
   const [busy,setBusy]=useState(false);const [error,setError]=useState("");const lock=useRef(false);
-  const [deck,setDeck]=useState(params.get("deck")??"");
-  const decks=useLiveQuery(async()=>repository?{scope:repository.scope.id,rows:await repository.db.table<ScopedDocument>("decks").where("[scopeId+id]").between([repository.scope.id,""],[repository.scope.id,"\uffff"]).toArray()}:null,[repository]);
+  const filter=practiceFilter(params);
+  function hubHref(next:PracticeFilter){const href=practiceHref(next);return next.due?`${href}&hub=1`:href;}
+  function openSession(next:Session){window.dispatchEvent(new Event("wfk-audio-stop"));setError("");opened.current="";router.replace(practiceHref(next.filter??{},next.id),{scroll:false});}
+  async function leave(){
+    if(lock.current)return;lock.current=true;setBusy(true);window.dispatchEvent(new Event("wfk-audio-stop"));setError("");
+    try{if(practice&&session)await practice.discardUnstarted(session.id);opened.current="";router.replace(hubHref(session?.filter??filter),{scroll:false});}
+    catch{setError(t('Chưa đóng được lượt học. Thử lại nhé.','Could not close this round. Please retry.'));}
+    finally{lock.current=false;setBusy(false);}
+  }
+  async function reset(){
+    if(!repository||lock.current)return;lock.current=true;setBusy(true);setError('');
+    try{await savePracticeSelection(repository,{});opened.current="";window.dispatchEvent(new Event("wfk-audio-stop"));router.replace("/practice",{scroll:false});}
+    catch{setError(t('Chưa bỏ được bộ lọc. Thử lại nhé.','Could not clear the selection. Please retry.'));}
+    finally{lock.current=false;setBusy(false);}
+  }
   const reviewText=useMemo(()=>(vi:string,en:string)=>preferences.locale==="vi"?vi:en,[preferences.locale]);
   const review=params.get("review"),savedSession=params.get("session");const opened=useRef("");
-  const [due,setDue]=useState(review==="due");const [weak,setWeak]=useState(false);const [lesson,setLesson]=useState(params.get("lesson")??"");const [direction,setDirection]=useState<"en-vi"|"vi-en">("en-vi");
-  const lessons=useLiveQuery(async()=>repository?{scope:repository.scope.id,rows:await repository.db.lessons.where("[scopeId+learnedOn]").between([repository.scope.id,""],[repository.scope.id,"\uffff"]).toArray()}:null,[repository]);
+  useEffect(()=>{if(!savedSession)void Promise.resolve().then(()=>setSession(null));},[savedSession]);
   useEffect(()=>{
-    if(!practice||(review!=="due"&&review!=="group"&&params.get("mode")!=="grammar"))return;let active=true;
-    const key=`${practice.repository.scope.id}:${savedSession??"new"}`;
+    if(!practice||(!savedSession&&(params.get('hub')==='1'||(review!=="due"&&review!=="group"&&params.get('mode')!=="grammar"))))return;
+    let active=true;const key=`${practice.repository.scope.id}:${savedSession??params.toString()}`;
     void Promise.resolve().then(async()=>{
       if(!active||opened.current===key)return;opened.current=key;lock.current=true;setBusy(true);setError("");
       try{
-        const next=savedSession?(await practice.sessions()).find(s=>s.id===savedSession):await practice.start(params.get("mode")==="grammar"?"grammar":"flashcard",{due:review==="due",deck:deck||undefined});
-        if(!next)throw new Error("missing");
-        if(active){setSession(next);opened.current=`${practice.repository.scope.id}:${next.id}`;if(!savedSession)router.replace(`/practice?review=${review??"group"}${deck?`&deck=${encodeURIComponent(deck)}`:""}&session=${encodeURIComponent(next.id)}`,{scroll:false});}
-      }catch{if(active)setError(reviewText(savedSession?"Buổi ôn này không còn dùng được. Về Hôm nay để mở các từ đến hạn mới nhất.":"Hiện chưa có từ đến hạn để ôn, hoặc chưa mở được thư viện. Về Hôm nay kiểm tra lại; có thể chọn Thẻ ôn để thử lại.","No eligible review session could be opened. Return to Today to check the latest due words or retry flashcards."));}
+        const next=savedSession?(await practice.sessions()).find(s=>s.id===savedSession):await practice.start(params.get('mode')==='grammar'?'grammar-card':'flashcard',practiceFilter(params));
+        if(!next)throw new Error('missing');
+        if(active&&next.filter)await savePracticeSelection(practice.repository,next.filter);
+        if(active){if(savedSession){setSession(next);opened.current=`${next.scopeId}:${next.id}`;}else{opened.current="";router.replace(practiceHref(next.filter??{},next.id),{scroll:false});}}
+      }catch{if(active)setError(reviewText('Chưa mở được buổi ôn. Chọn lại bài hoặc nhóm rồi thử lại nhé.','Could not open this session. Choose a lesson or group and retry.'));}
       finally{lock.current=false;if(active)setBusy(false);}
     });return()=>{active=false;};
-  },[practice,review,savedSession,router,reviewText,deck,params]);
-  async function start(mode:Mode){if(!practice||lock.current)return;sounds.current?.stop();lock.current=true;setBusy(true);setError("");try{const next=await practice.start(mode,{word:params.get("word")??undefined,due,weak,lesson:lesson||undefined,deck:deck||undefined,direction});setSession(next);if(review==="due"){opened.current=`${practice!.repository.scope.id}:${next.id}`;router.replace(`/practice?review=${review??"group"}${deck?`&deck=${encodeURIComponent(deck)}`:""}&session=${encodeURIComponent(next.id)}`,{scroll:false});}}
-    catch{setError(mode==="missing-letters"?t("Chưa có từ phù hợp. Chọn từ có ít nhất 2 chữ cái hoặc đổi bộ thẻ nhé.","No suitable words yet. Choose words with at least two letters or another deck."):mode==="grammar"?t("Chưa có cấu trúc đã lưu để xếp câu. Thêm bài có ngữ pháp hoặc chọn nhóm khác nhé.","No saved grammar to practise. Add grammar or choose another group."):t("Chưa đủ từ phù hợp cho kiểu học này. Thêm/duyệt từ hoặc chọn Thẻ ôn; game hình chỉ dùng từ đã có hình và cần 3 hình khác nhau.","Not enough eligible words. Add approved words or choose flashcards; picture games only use words with ready pictures and need three distinct pictures."));}finally{lock.current=false;setBusy(false);}}
-  async function change(action:"reveal"|"hint"|"answer"|"check",input:{answer?:string;rating?:Rating;skipped?:boolean}={}){
+  },[practice,review,savedSession,router,reviewText,params]);
+  async function start(mode:Mode,replay?:Session,reviewOnly=false){
+    if(!practice||lock.current)return;window.dispatchEvent(new Event('wfk-audio-stop'));lock.current=true;setBusy(true);setError('');
+    try{openSession(replay?await practice.replay(replay.id,reviewOnly):await practice.start(mode,filter));}
+    catch{setError(replay?t('Nội dung lượt cũ đã đổi hoặc chưa mở được. Con chọn trò chơi để bắt đầu lượt mới nhé.','The old round changed or could not be opened. Choose a game to start a new round.'):mode==='grammar'||mode==='grammar-card'?t('Phần đang chọn chưa có ngữ pháp đã duyệt. Thêm bài có ngữ pháp hoặc chọn nhóm khác nhé.','No approved grammar in this selection. Add grammar or choose another group.'):t('Chưa đủ từ phù hợp cho kiểu học này. Thêm/duyệt từ hoặc chọn Thẻ ôn; game hình cần 3 hình khác nhau.','Not enough eligible words. Add approved words or choose flashcards; picture games need three distinct pictures.'));}
+    finally{lock.current=false;setBusy(false);}
+  }
+  async function change(action:"reveal"|"hint"|"answer"|"check",input:{answer?:string;rating?:Rating;skipped?:boolean;understood?:boolean}={}){
     if(!practice||!session||lock.current)return;window.dispatchEvent(new Event("wfk-audio-stop"));sounds.current??=new GameSounds();sounds.current.unlock(soundEnabled.current);lock.current=true;setBusy(true);setError("");
     try{const next=action==="check"?await practice.check(session.id,session.version,input.answer??""):action==="answer"?await practice.answer(session.id,session.version,input):await practice.reveal(session.id,session.version,action==="hint");setSession(next);if(action==="check")sounds.current.play(next.checkedCorrect?"correct":"again",soundEnabled.current);else if(next.completedAt)sounds.current.play("complete",soundEnabled.current);else if(action==="reveal")sounds.current.play("reveal",soundEnabled.current);}
     catch{setError(t("Phiên chưa lưu được hoặc nội dung đã đổi. Phần đang học vẫn còn; mở lại phiên mới nhất hoặc thử lại.","Could not save or the content changed. Resume the latest session or retry."));}
@@ -66,13 +85,14 @@ export function PracticePreview(){
   const sessions=snapshot?.scope===repository?.scope.id?snapshot?.sessions??[]:[];
   if(session&&!session.completedAt&&(session.mode==='picture-word'||session.mode==='word-picture')){
     if(pictureValidity?.id!==session.id)return <DatabaseLoading/>;
-    if(!pictureValidity.valid||failedPictureSession===session.id)return <div className="reading-page page-flow"><EmptyState title={t('Hình trong lượt chơi đã đổi','Pictures changed')} description={t('Cùng chọn trò chơi để bắt đầu lượt mới nhé.','Choose a game to start a new round.')}><Button onClick={()=>setSession(null)}>{t('Chọn trò chơi','Choose a game')}</Button></EmptyState></div>;
+    if(!pictureValidity.valid||failedPictureSession===session.id)return <div className="reading-page page-flow"><EmptyState title={t('Hình trong lượt chơi đã đổi','Pictures changed')} description={t('Cùng chọn trò chơi để bắt đầu lượt mới nhé.','Choose a game to start a new round.')}><Button onClick={leave}>{t('Chọn trò chơi','Choose a game')}</Button></EmptyState></div>;
   }
   if(session && session.scopeId===repository?.scope.id){
     if(session.completedAt){const correct=session.answers.filter(a=>a.correct&&!a.skipped).length,wrong=session.answers.filter(a=>!a.correct&&!a.skipped).length;
-      return <div className="reading-page page-flow game-result"><div className="game-celebration"><NextImage src="/illustrations/fox.svg" alt="" width={130} height={130}/><Trophy aria-hidden="true"/></div><h1>{t("Con đã hoàn thành!","Session complete!")}</h1><div className="practice-results"><p><Check aria-hidden="true"/> {correct} {t("đúng / nhớ rồi","correct / remembered")}</p><p><BookOpen aria-hidden="true"/> {wrong} {t("cần ôn thêm","need review")}</p><p>{session.answers.filter(a=>a.skipped).length} {t("bỏ qua","skipped")} · {session.answers.filter(a=>a.hint).length} {t("dùng gợi ý","hints")}</p></div><p>{t("Điểm trò chơi không thay lịch ôn. Con có thể ôn thẻ để tự đánh giá trí nhớ.","Game scores do not change review dates. Use flashcards to rate your recall.")}</p>{wrong>0&&<Button variant="outline" onClick={()=>{setWeak(true);setSession(null);}}>{t("Ôn thẻ các từ cần luyện","Review words needing practice")}</Button>}<Button onClick={()=>setSession(null)}>{t("Chọn buổi học khác","Choose another session")}</Button><Button asChild variant="outline"><Link href="/today"><ArrowLeft data-icon="inline-start" aria-hidden="true"/>{t("Về Hôm nay","Back to Today")}</Link></Button></div>;
+      return <div className="reading-page page-flow game-result"><div className="game-celebration"><NextImage src="/illustrations/fox.svg" alt="" width={130} height={130}/><Trophy aria-hidden="true"/></div><h1>{t("Con đã hoàn thành!","Session complete!")}</h1><PracticeScope filter={session.filter} count={session.questions.length} grammar={!!session.questions[0]?.grammar}/><div className="practice-results"><p><Check aria-hidden="true"/> {correct} {session.mode==='grammar-card'?t("con chọn đã hiểu","you marked understood"):t("đúng / nhớ rồi","correct / remembered")}</p><p><BookOpen aria-hidden="true"/> {wrong} {session.mode==='grammar-card'?t("con muốn xem lại","you want to review"):t("cần ôn thêm","need review")}</p><p>{session.answers.filter(a=>a.skipped).length} {t("bỏ qua","skipped")} · {session.answers.filter(a=>a.hint).length} {t("dùng gợi ý","hints")}</p></div><p>{t("Điểm trò chơi không thay lịch ôn. Con có thể ôn thẻ để tự đánh giá trí nhớ.","Game scores do not change review dates. Use flashcards to rate your recall.")}</p>{wrong>0&&<Button disabled={busy} onClick={()=>void start(session.mode,session,true)}><RotateCcw aria-hidden="true"/>{t(`Làm lại ${wrong} câu cần xem lại`,`Retry ${wrong} questions needing review`)}</Button>}<Button disabled={busy} onClick={()=>void start(session.mode,session)}><RotateCcw aria-hidden="true"/>{busy?t('Đang mở lại…','Opening again…'):t('Chơi lại','Play again')}</Button><Button variant="secondary" disabled={busy} onClick={leave}>{t('Chọn trò chơi khác','Choose another game')}</Button>{error&&<p role="alert">{error}</p>}<Button asChild variant="outline"><Link href="/today"><ArrowLeft data-icon="inline-start" aria-hidden="true"/>{t("Về Hôm nay","Back to Today")}</Link></Button></div>;
     }
-    return <div className="reading-page page-flow game-session"><div className="section-heading"><h1>{t(modes.find(m=>m[0]===session.mode)![1],modes.find(m=>m[0]===session.mode)![2])}</h1><Button variant="outline" onClick={()=>{window.dispatchEvent(new Event("wfk-audio-stop"));setSession(null);}}>{t("Tạm dừng","Pause")}</Button></div>
+    return <div className="reading-page page-flow game-session"><div className="section-heading"><h1>{t(modes.find(m=>m[0]===session.mode)![1],modes.find(m=>m[0]===session.mode)![2])}</h1><Button variant="outline" disabled={busy} onClick={leave}>{t("Về chọn trò chơi","Back to games")}</Button></div>
+      <PracticeScope filter={session.filter} count={session.questions.length} grammar={!!session.questions[0]?.grammar}/>
       <div className="game-progress"><span>{session.position+1} / {session.questions.length}</span><div role="progressbar" aria-label={t('Tiến độ buổi học','Session progress')} aria-valuenow={session.position} aria-valuemin={0} aria-valuemax={session.questions.length}><span style={{transform:`scaleX(${session.position/session.questions.length})`}}/></div></div>
       <QuestionView key={`${session.id}:${session.position}`} session={session} busy={busy} action={change} onPictureUnavailable={art=>{practice?.pictureFailed(art);setFailedPictureSession(session.id);}}/>
       {error&&<p role="alert">{error}</p>}
@@ -80,39 +100,35 @@ export function PracticePreview(){
     </div>;
   }
   return <div className="reading-page page-flow play-hub"><header className="play-welcome"><div><h1>{t("Chơi & học","Play & learn")}</h1><p>{t("Cùng Cáo chơi với từ nhé!","Let's play with words!")}</p></div><NextImage src="/illustrations/fox.svg" alt="" width={110} height={110}/></header>
+    <PracticeScope filter={filter}><Button variant="outline" disabled={busy} onClick={()=>void reset()}><RotateCcw aria-hidden="true"/>{t("Ôn tất cả","Practise everything")}</Button></PracticeScope>
     <OperationStatus key="open-review" busy={busy} title={t("Đang mở buổi học…","Opening your session…")}/>
-    {sessions.filter(s=>!s.completedAt).length>0&&<section className="page-flow"><h2>{t("Buổi học đang dở","Resume learning")}</h2><div className="session-history">{sessions.filter(s=>!s.completedAt).slice(0,5).map(s=><SessionCard key={s.id} session={s} open={()=>setSession(s)}/>)}</div></section>}
+    {sessions.filter(s=>!s.completedAt).length>0&&<section className="page-flow"><h2>{t("Buổi học đang dở","Resume learning")}</h2><div className="session-history">{sessions.filter(s=>!s.completedAt).map(s=><PendingSession key={s.id} session={s} practice={practice!} open={()=>openSession(s)} busy={busy}/>)}</div></section>}
     {!sessions.some(s=>!s.completedAt)&&<p className="play-suggestion">{t('Bắt đầu với Thẻ ôn:','Start with Flashcards:')} {t('lật thẻ rồi chọn Nhớ rồi hoặc Chưa nhớ.','flip a card, then choose Remembered or Again.')}</p>}
-    <div className="practice-modes"><Button asChild className="play-tile play-tile-speaking" size="lg" variant="secondary"><Link prefetch={false} href="/practice/speaking"><span className="play-tile-art"><NextImage src="/illustrations/fox.svg" width={84} height={84} alt=""/><Mic aria-hidden="true"/></span><span className="play-tile-copy"><strong>{t("Nói cùng Cáo","Speak with Fox")}</strong><small>{t("Nghe và nói các từ đã học","Listen and say your words")}</small></span><ArrowRight className="play-tile-arrow" aria-hidden="true"/></Link></Button>{modes.map(([mode,vi,en])=>{const Icon=modeIcons[mode];return <Button key={mode} className={`play-tile play-tile-${mode}`} aria-label={t(vi,en)} size="lg" variant="secondary" disabled={busy||!repository} onClick={()=>void start(mode)}><span className="play-tile-art"><Artwork art={modeArt[mode]} word="" size={84}/><Icon aria-hidden="true"/></span><span className="play-tile-copy"><strong>{t(vi,en)}</strong><small>{t(modePrompts[mode][0],modePrompts[mode][1])}</small></span><ArrowRight className="play-tile-arrow" aria-hidden="true"/></Button>;})}</div>
-    <details className="practice-options"><summary>{t("Tùy chọn chơi","Play options")}</summary><div className="practice-filter-form">
-    <div className="form-field"><label htmlFor="practice-words">{t('Từ để chơi','Words to play')}</label><select id="practice-words" value={due?'due':weak?'weak':'all'} onChange={e=>{setDue(e.target.value==='due');setWeak(e.target.value==='weak');}}><option value="all">{t('Tất cả từ','All words')}</option><option value="due">{t('Từ đến hạn ôn','Due for review')}</option><option value="weak">{t('Từ cần luyện thêm','Words to practise')}</option></select></div>
-    <div className="form-field"><label htmlFor="practice-lesson">{t("Chọn bài học","Choose lesson")}</label><select id="practice-lesson" value={lesson} onChange={e=>setLesson(e.target.value)}><option value="">{t("Tất cả bài học","All lessons")}</option>{lessons&&lessons.scope===repository?.scope.id&&lessons.rows.filter(l=>!l.deletedAt).map(l=><option key={l.id} value={l.id}>{l.learnedOn} · {l.title}</option>)}</select></div>
-    <div className="form-field"><label htmlFor="card-direction">{t("Chiều ôn thẻ","Flashcard direction")}</label><select id="card-direction" value={direction} onChange={e=>setDirection(e.target.value as typeof direction)}><option value="en-vi">English → tiếng Việt</option><option value="vi-en">Tiếng Việt → English</option></select></div>
-    <div className="form-field"><label htmlFor="practice-deck">{t("Bộ thẻ riêng","Custom deck")}</label><select id="practice-deck" value={deck} onChange={e=>{setDeck(e.target.value);const row=decks?.rows.find(r=>r.id===e.target.value);if(row)setDirection((row.payload.deck as Deck).direction);}}><option value="">{t("Tất cả bộ thẻ","Any deck")}</option>{decks&&decks.scope===repository?.scope.id&&decks.rows.filter(r=>!r.deletedAt&&((r.payload.deck as Deck).group?.wordIds??(r.payload.deck as Deck).senseIds).length).map(row=><option key={row.id} value={row.id}>{(row.payload.deck as Deck).name}</option>)}</select></div><ActionLink href="/practice/decks"><Button variant="link">{t("Tạo bộ thẻ","Create a deck")}</Button></ActionLink>
-    </div></details>
+    {(['words','grammar'] as const).map(category=><section className="page-flow" key={category} aria-labelledby={`practice-${category}`}><h2 id={`practice-${category}`}>{category==='words'?t('Từ vựng','Words'):t('Ngữ pháp','Grammar')}</h2>    <div className="practice-modes">{category==='words'&&<Button asChild className="play-tile play-tile-speaking" size="lg" variant="secondary"><Link prefetch={false} href={practiceHref(filter,undefined,"/practice/speaking")}><span className="play-tile-art"><NextImage src="/illustrations/fox.svg" width={84} height={84} alt=""/><Mic aria-hidden="true"/></span><span className="play-tile-copy"><strong>{t("Nói cùng Cáo","Speak with Fox")}</strong><small>{t("Nghe và nói các từ đã học","Listen and say your words")}</small></span><ArrowRight className="play-tile-arrow" aria-hidden="true"/></Link></Button>}{modes.filter(([mode])=>category==='grammar'?(mode==='grammar'||mode==='grammar-card'):(mode!=='grammar'&&mode!=='grammar-card')).map(([mode,vi,en])=>{const Icon=modeIcons[mode];return <Button key={mode} className={`play-tile play-tile-${mode}`} aria-label={t(vi,en)} size="lg" variant="secondary" disabled={busy||!repository} onClick={()=>void start(mode)}><span className="play-tile-art"><Artwork art={modeArt[mode]} word="" size={84}/><Icon aria-hidden="true"/></span><span className="play-tile-copy"><strong>{t(vi,en)}</strong><small>{t(modePrompts[mode][0],modePrompts[mode][1])}</small></span><ArrowRight className="play-tile-arrow" aria-hidden="true"/></Button>;})}</div></section>)}
     {error&&<><p role="alert">{error}</p><Button asChild variant="outline"><Link href="/today"><ArrowLeft data-icon="inline-start" aria-hidden="true"/>{t("Về Hôm nay","Back to Today")}</Link></Button></>}
     {!repository&&<EmptyState title={t("Đang mở thư viện","Opening library")} description={t("Đợi một chút nhé.","Just a moment.")}/>}
-    {sessions.some(s=>s.completedAt)&&<section className="page-flow"><h2>{t("Buổi học gần đây","Recent sessions")}</h2><div className="session-history">{sessions.filter(s=>s.completedAt).slice(0,5).map(s=><SessionCard key={s.id} session={s} open={()=>setSession(s)}/>)}</div></section>}
+    <Button asChild variant="link"><Link href="/profile">{t('Lịch sử buổi học trong Hồ sơ','Learning history in Profile')}</Link></Button>
 
   </div>;
 }
-function SessionCard({session,open}:{session:Session;open:()=>void}){const {t}=useApp(),mode=modes.find(mode=>mode[0]===session.mode),correct=session.answers.filter(answer=>answer.correct).length;return <button className="session-history-card" onClick={open}><span className="session-history-art"><Artwork art={modeArt[session.mode]} word="" size={54}/></span><span className="session-history-copy"><strong>{mode?t(mode[1],mode[2]):t('Buổi học','Learning session')}</strong><small>{new Date(session.completedAt??session.createdAt).toLocaleDateString('vi-VN',{day:'numeric',month:'numeric'})} · {session.questions.length} {t('câu','questions')}</small><span>{session.completedAt?t(session.mode==='flashcard'?`Nhớ rồi ${correct}/${session.questions.length}`:`Đúng ${correct}/${session.questions.length}`,`${correct}/${session.questions.length} correct`):t(`Tiếp tục · ${session.position}/${session.questions.length}`,`Resume · ${session.position}/${session.questions.length}`)}</span></span>{session.completedAt?<Trophy className="session-history-mark" aria-hidden="true"/>:<ArrowRight className="session-history-mark" aria-hidden="true"/>}</button>;}
-function QuestionView({session,busy,action,onPictureUnavailable}:{session:Session;busy:boolean;onPictureUnavailable:(art:string)=>void;action:(action:"reveal"|"hint"|"answer"|"check",input?:{answer?:string;rating?:Rating;skipped?:boolean})=>Promise<void>}){
+
+function QuestionView({session,busy,action,onPictureUnavailable}:{session:Session;busy:boolean;onPictureUnavailable:(art:string)=>void;action:(action:"reveal"|"hint"|"answer"|"check",input?:{answer?:string;rating?:Rating;skipped?:boolean;understood?:boolean})=>Promise<void>}){
   const {t,preferences}=useApp();const q=session.questions[session.position],word=q.word;const [answer,setAnswer]=useState("");const feedback=session.checkedAnswer!=null?(session.checkedCorrect?t("Đúng rồi!","Correct!"):t(`Đáp án là ${word.word}. Mình cùng xem lại nhé.`,`The answer is ${word.word}. Let's review it.`)):null;const [detailed,setDetailed]=useState(false);const pending=useRef<string|null>(null);
   const prompt=useRef<HTMLHeadingElement>(null);useEffect(()=>{prompt.current?.focus({preventScroll:true});},[session.revealed,session.checkedAnswer]);
   const choices=session.mode==="picture-word"||session.mode==="word-picture";
   const mask=[...word.word].map((letter,i)=>i===q.missingIndex?"_":letter).join(" ");
   function check(value:string){if(busy||feedback!==null)return;pending.current=value;void action("check",{answer:value});}
+  if(session.mode==="grammar-card")return <GrammarCard session={session} busy={busy} action={action}/>;
   if(session.mode==="grammar")return <GrammarQuestion session={session} busy={busy} action={action}/>;
   return <section className={`practice-question page-flow game-board ${feedback?(session.checkedCorrect?"is-correct":"try-again"):""}`} data-revealed={session.revealed}>
-    {session.mode==="flashcard"?<><Artwork art={word.art} word={word.word} size={180}/><h2 ref={prompt} tabIndex={-1} lang={session.direction==="vi-en"?"vi":"en"}>{session.direction==="vi-en"?word.vi:word.word}</h2>{session.direction!=="vi-en"&&<AudioControl text={word.word}/>}
-      {session.revealed?<><h3>{session.direction==="vi-en"?word.word:word.vi}</h3>{session.direction==="vi-en"&&<AudioControl text={word.word}/>}      <div className="row-wrap">{(["Again","Good",...(detailed||!preferences.childFriendly?["Hard","Easy"]:[])] as Rating[]).map(rating=><Button key={rating} disabled={busy} onClick={()=>void action("answer",{rating})}>{t({Again:"Chưa nhớ",Good:"Nhớ rồi",Hard:"Nhớ khó",Easy:"Rất dễ"}[rating],rating)}</Button>)}</div><Button variant="link" onClick={()=>setDetailed(v=>!v)}>{t("Đánh giá chi tiết","Detailed ratings")}</Button><details className="flashcard-details"><summary>{t("Ví dụ và cách đọc","Examples and pronunciation")}</summary><div className="page-flow"><p lang="en">{word.en}</p><p lang="en">{word.example}</p><SentencePronunciation text={word.example} pronunciations={word.examplePronunciations}/>{word.pronunciations.map((p,i)=><p key={i}>{p.verified?p.ipa:null} {p.readingHintVi&&`· ${p.readingHintVi}`}</p>)}
+    {session.mode==="flashcard"?<><Artwork art={word.art} word={word.word} size={180}/><h2 ref={prompt} tabIndex={-1} lang={session.direction==="vi-en"?"vi":"en"}>{session.direction==="vi-en"?word.vi:word.word}</h2>{session.direction!=="vi-en"&&<AudioControl text={word.word} autoPlay/>}
+      {session.revealed?<><h3>{session.direction==="vi-en"?word.word:word.vi}</h3>{session.direction==="vi-en"&&<AudioControl text={word.word} autoPlay/>}      <div className="row-wrap">{(["Again","Good",...(detailed||!preferences.childFriendly?["Hard","Easy"]:[])] as Rating[]).map(rating=><Button key={rating} disabled={busy} onClick={()=>void action("answer",{rating})}>{t({Again:"Chưa nhớ",Good:"Nhớ rồi",Hard:"Nhớ khó",Easy:"Rất dễ"}[rating],rating)}</Button>)}</div><Button variant="link" onClick={()=>setDetailed(v=>!v)}>{t("Đánh giá chi tiết","Detailed ratings")}</Button><details className="flashcard-details"><summary>{t("Ví dụ và cách đọc","Examples and pronunciation")}</summary><div className="page-flow"><p lang="en">{word.en}</p><p lang="en">{word.example}</p><SentencePronunciation text={word.example} pronunciations={word.examplePronunciations}/>{word.pronunciations.map((p,i)=><p key={i}>{p.verified?p.ipa:null} {p.readingHintVi&&`· ${p.readingHintVi}`}</p>)}
 </div></details></>:<Button size="lg" disabled={busy} onClick={()=>void action("reveal")}>{t("Xem đáp án","Show answer")}</Button>}</>:
       <><h2 ref={prompt} tabIndex={-1} className="game-prompt">{session.mode==="picture-word"?t("Từ nào đúng với hình?","Which word matches?"):session.mode==="word-picture"?word.word:word.vi}</h2>
       {session.mode==="picture-word"&&<div className="game-picture-stage"><Artwork art={word.art} word={word.word} onUnavailable={onPictureUnavailable} size={180}/></div>}
-      {session.mode==="word-picture"&&<AudioControl text={word.word}/>}
+      {session.mode==="word-picture"&&<AudioControl text={word.word} autoPlay/>}
       {(session.mode==="letters"||session.mode==="spelling"||session.mode==="missing-letters")&&word.art&&<div className="game-picture-stage game-picture-small"><Artwork art={word.art} word={word.word} hideWord size={120}/></div>}
-      {session.mode==="missing-letters"&&<AudioControl text={word.word}/>}
+      {session.mode==="missing-letters"&&<AudioControl text={word.word} autoPlay/>}
       {session.mode==="letters"&&<p className="letter-mask" lang="en">{mask}</p>}
       {choices?<div className="game-answers">{q.choices.map(choice=><button key={choice.id} data-result={feedback?(choice.word===word.word?"correct":choice.word===session.checkedAnswer?"incorrect":"idle"):"idle"} disabled={busy||feedback!==null} aria-label={session.mode==="word-picture"?`${t("Hình","Picture")} ${q.choices.indexOf(choice)+1}`:choice.word} onClick={()=>check(choice.word)}>
         {session.mode==="word-picture"?<Artwork art={choice.art} word={choice.word} onUnavailable={onPictureUnavailable} size={90}/>:choice.word}{feedback&&choice.word===word.word&&<Check className="answer-check" aria-hidden="true"/>}</button>)}</div>:
@@ -120,4 +136,12 @@ function QuestionView({session,busy,action,onPictureUnavailable}:{session:Sessio
       {session.hint&&<p>{session.mode==="missing-letters"?t(`Chữ thiếu đầu tiên là ${[...word.word][q.missingIndices![0]]}.`,`The first missing letter is ${[...word.word][q.missingIndices![0]]}.`):<>{t("Gợi ý: bắt đầu bằng ","Hint: starts with ")}{word.word[0]}</>}</p>}
       {feedback?<><div className="game-feedback"><NextImage src="/illustrations/fox.svg" alt="" width={64} height={64}/><p role="status">{feedback}</p>{session.checkedCorrect&&<span className="feedback-stars" aria-hidden="true"><Star/><Star/><Star/></span>}</div><p>{word.vi} · {word.example}</p><Button disabled={busy} onClick={()=>void action("answer",{answer:pending.current??""})}>{t("Câu tiếp theo","Next question")}<ArrowRight aria-hidden="true"/></Button></>:<div className="row-wrap"><Button variant="outline" disabled={busy} onClick={()=>void action("hint")}><Lightbulb aria-hidden="true"/>{t("Gợi ý","Hint")}</Button><Button variant="ghost" disabled={busy} onClick={()=>void action("answer",{skipped:true})}><SkipForward aria-hidden="true"/>{t("Bỏ qua","Skip")}</Button></div>}</>}
   </section>;
+}
+
+function PendingSession({session,practice,open,busy}:{session:Session;practice:PracticeRepository;open:()=>void;busy:boolean}){
+ const {t}=useApp();const [pending,setPending]=useState(false),[error,setError]=useState('');const lock=useRef(false);
+ return <div className="session-history-card pending-session"><SessionCard className="session-history-open" session={session} open={open}/><Button variant="ghost" disabled={busy||pending} aria-label={t('Xóa buổi học đang dở','Delete unfinished session')} onClick={async()=>{
+  if(lock.current)return;lock.current=true;setPending(true);setError('');
+  try{await practice.remove(session.id,session.version);}catch{setError(t('Chưa xóa được lượt này. Lượt có thể đã đổi; thử lại từ danh sách mới nhé.','Could not delete this round. It may have changed; retry from the updated list.'));}finally{lock.current=false;setPending(false);}
+ }}><Trash2 aria-hidden="true"/><span className="sr-only">{pending?t('Đang xóa…','Deleting…'):t('Xóa lượt','Delete round')}</span></Button>{error&&<p role="alert">{error}</p>}</div>;
 }

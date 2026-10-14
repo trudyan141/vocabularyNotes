@@ -1774,8 +1774,6 @@ html[data-motion="reduced"] [data-slot="button"],html[data-motion="reduced"] [da
 .grammar-translation { font-size:1.2rem; font-weight:700; }
 .picture-upload > div { margin-top:14px; gap:12px; }
 @media(min-width:760px){.today-section-actions,.review-group-list,.session-history { grid-template-columns:repeat(2,minmax(0,1fr)); }}
-.practice-modes .play-tile-grammar { grid-column:1/-1; flex-direction:row; justify-content:flex-start; gap:20px; min-height:120px; }
-.play-tile-grammar .play-tile-copy { text-align:left; align-items:flex-start; }
 .session-history-card:only-child { grid-column:1/-1; }
 .sentence-building [data-slot="button"]:disabled { opacity:1; color:var(--foreground); background:var(--card); }
 
@@ -2008,3 +2006,46 @@ details.group-save-result { display:block; padding:1rem; }
 .missing-letter-word .missing-letter-slot { width:48px; height:56px; min-width:48px; padding:0; border:2px solid var(--primary); border-radius:12px; text-align:center; font:inherit; background:var(--card); }
 .missing-letter-bank { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
 .missing-letter-bank button { min-width:48px; min-height:48px; font-size:1.5rem; font-weight:800; }
+
+/* The selected learning scope stays visible before, during and after a round. */
+.practice-scope { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; padding:16px 20px; border-radius:16px; background:var(--muted); }
+.practice-scope > div { flex:1; min-width:0; }
+.practice-scope strong { display:flex; align-items:center; gap:8px; }
+.practice-scope strong svg { width:20px; height:20px; flex:none; }
+.practice-scope p { margin:6px 0; overflow-wrap:anywhere; }
+.practice-scope small { color:var(--muted-foreground); }
+.grammar-study-meaning { padding:18px; border-radius:16px; background:#dff4e8; color:#254d39; }
+.grammar-study-meaning h3 { margin:0 0 8px; }
+.grammar-study-meaning p:last-child { margin-bottom:0; }
+.grammar-study .grammar-english { font-size:1.5rem; overflow-wrap:anywhere; }
+@media(max-width:480px){ .practice-scope { padding:16px; }.practice-scope > div { flex-basis:100%; } }
+
+.pending-session { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:start; gap:8px; }
+.session-history-open { display:flex; align-items:center; gap:16px; min-width:0; border:0; padding:0; text-align:left; background:transparent; color:inherit; cursor:pointer; }
+.session-history-open:focus-visible { outline:3px solid var(--primary); outline-offset:4px; border-radius:8px; }
+.pending-session > p { grid-column:1/-1; margin:0; color:var(--destructive); }
+.session-history-panel > .session-history { margin-top:16px; }
+.group-lesson-card { display:flex; flex-direction:column; gap:14px; min-width:0; padding:16px; background:var(--card); border:1px solid var(--border); border-radius:20px; }
+.group-lesson-card[data-selected=true] { border-color:var(--primary); background:var(--mint); }
+.group-lesson-card .group-date-set[data-slot=button] { width:100%; min-height:0; padding:0; border:0; box-shadow:none; background:transparent; }
+.group-lesson-card .group-lesson-play { align-self:flex-start; margin-inline-start:76px; max-width:calc(100% - 76px); min-height:48px; height:auto; white-space:normal; }
+@media(max-width:700px) { .group-lesson-card .group-lesson-play { margin-inline-start:0; max-width:100%; } }
+
+.session-source { overflow-wrap:anywhere; }
+
+.word-reading-guide { display:grid; gap:6px; max-width:100%; }
+.word-reading-guide .ipa { margin-top:0; overflow-wrap:anywhere; }
+.word-reading-guide .ipa small { display:inline; }
+.word-reading-guide .reading-hint { color:var(--foreground); }
+.word-reading-guide > small { font-size:.85rem; }
+.audio-source { max-width:28ch; font-size:.75rem; overflow-wrap:anywhere; color:var(--foreground); }
+.audio-source a,.word-reading-guide a { text-decoration:underline; text-underline-offset:3px; }
+.speaking-stage .audio-control { align-items:center; }
+
+.speaking-stage > .audio-source { max-width:100%; }
+.speaking-embedded .word-reading-guide { text-align:left; }
+
+.audio-source summary,.pronunciation-source summary { cursor:pointer; color:var(--muted-foreground); font-size:.75rem; }
+.audio-source summary:focus-visible,.pronunciation-source summary:focus-visible { outline:2px solid var(--ring); outline-offset:4px; }
+.audio-source[open] > small,.pronunciation-source[open] > a { display:block; margin-top:8px; }
+.pronunciation-source { font-size:.75rem; overflow-wrap:anywhere; }

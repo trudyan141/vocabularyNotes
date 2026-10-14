@@ -212,6 +212,7 @@ test('offline missing library and empty search offer friendly recovery',async({p
 });
 
 test('audio first tap waits for delayed voices and pending stop prevents late playback online and offline',async({page})=>{
+ await page.route('**/api/audio/word',route=>route.fulfill({json:{word:'apple',sample:null}}));
  await page.addInitScript(()=>{
   const events=new EventTarget();let voices:SpeechSynthesisVoice[]=[];const spoken:string[]=[];
   const synth={getVoices:()=>voices,cancel:()=>{},resume:()=>{},paused:false,speak:(utterance:SpeechSynthesisUtterance)=>{spoken.push(utterance.text);queueMicrotask(()=>utterance.onend?.({} as SpeechSynthesisEvent));},addEventListener:events.addEventListener.bind(events),removeEventListener:events.removeEventListener.bind(events)};
@@ -222,7 +223,7 @@ test('audio first tap waits for delayed voices and pending stop prevents late pl
  const plays=()=>page.evaluate(()=>(window as unknown as {audioFixture:{spoken:string[]}}).audioFixture.spoken.length);
  await page.goto('/library/words/apple');const listen=page.getByRole('button',{name:'Nghe: apple',exact:true});await listen.click();await expect(page.locator('.audio-status').first()).toContainText('Đang chuẩn bị');expect(await plays()).toBe(0);await setVoices(true);await expect.poll(plays).toBe(1);await expect(page.locator('.audio-status').first()).toBeEmpty();await listen.click();await expect.poll(plays).toBe(2);
  await setVoices(false);await listen.click();await page.getByRole('button',{name:'Dừng đọc: apple',exact:true}).click();await setVoices(true);expect(await plays()).toBe(2);
- await setVoices(false);await listen.click();await page.getByRole('link',{name:'Từ của con',exact:true}).click();await expect(page).toHaveURL(/\/library$/);await setVoices(true);expect(await plays()).toBe(2);
+ await setVoices(false);await listen.click();await page.getByRole('main').getByRole('link',{name:'Từ của con',exact:true}).click();await expect(page).toHaveURL(/\/library$/);await setVoices(true);expect(await plays()).toBe(2);
  await page.goto('/offline.html');await page.getByRole('button',{name:'Bài mẫu',exact:true}).click();await page.getByRole('searchbox').fill('apple');await page.locator('.word-tile').click();await page.getByRole('button',{name:'Nghe từ',exact:true}).click();await expect(page.getByRole('status')).toContainText('Đang chuẩn bị');await setVoices(true,false);expect(await plays()).toBe(0);await setVoices(true,true);await expect.poll(plays).toBe(1);await page.getByRole('button',{name:'Nghe từ',exact:true}).click();await expect.poll(plays).toBe(2);
  await setVoices(false);await page.getByRole('button',{name:'Nghe từ',exact:true}).click();await page.getByRole('button',{name:'Về thư viện',exact:true}).click();await setVoices(true);expect(await plays()).toBe(2);
 });

@@ -61,12 +61,12 @@ export function ExtractForm({draftId,batchId,blob,title,learnedOn,initial,initia
    const webRes = await fetch('/api/media/web-search', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ word: item.word }),
+    body: JSON.stringify({ word: item.word, sense: item.en || item.sense }),
     signal
    });
    if (webRes.ok) {
     const webData = await webRes.json();
-    const firstWeb = Array.isArray(webData.items) && webData.items.length > 0 ? webData.items[0] : null;
+    const firstWeb = Array.isArray(webData.results) && webData.results.length > 0 ? webData.results[0] : null;
     if (firstWeb?.imageUrl) {
      const impRes = await fetch('/api/media/import-url', {
       method: 'POST',
@@ -169,4 +169,4 @@ export function ExtractForm({draftId,batchId,blob,title,learnedOn,initial,initia
 
 function PicturePreview({item,asset,size}:{item:OcrCandidate;asset?:MediaAsset;size:number}){return asset?<Image unoptimized src={`data:image/jpeg;base64,${asset.base64}`} width={size} height={size} alt={item.word}/>:<Artwork art={item.art} word={item.word} size={size} showCredit/>;}
 
-function ReviewPictureChoice({item,asset,setOperations,onPrepared}:{item:OcrCandidate;asset?:MediaAsset;setOperations:React.Dispatch<React.SetStateAction<Record<string,boolean>>>;onPrepared:(asset:MediaAsset)=>void}){const key=pictureSignature(item);const onBusyChange=useCallback((busy:boolean)=>setOperations(old=>old[key]===busy?old:{...old,[key]:busy}),[key,setOperations]);useEffect(()=>()=>setOperations(old=>({...old,[key]:false})),[key,setOperations]);return <WordPictureSearch autoSearch word={{...item,art:asset?asset.candidate.id:item.art,revision:'1:1'}} onPrepared={onPrepared} onBusyChange={onBusyChange} saveMessage="Đã chọn hình. Duyệt và lưu bài để giữ hình này."/>;}
+function ReviewPictureChoice({item,asset,setOperations,onPrepared}:{item:OcrCandidate;asset?:MediaAsset;setOperations:React.Dispatch<React.SetStateAction<Record<string,boolean>>>;onPrepared:(asset:MediaAsset)=>void}){const key=pictureSignature(item);const onBusyChange=useCallback((busy:boolean)=>setOperations(old=>old[key]===busy?old:{...old,[key]:busy}),[key,setOperations]);useEffect(()=>()=>setOperations(old=>({...old,[key]:false})),[key,setOperations]);return <WordPictureSearch autoSearch={!!item.en.trim()&&!!item.sense.trim()} word={{...item,art:asset?asset.candidate.id:item.art,revision:'1:1'}} onPrepared={onPrepared} onBusyChange={onBusyChange} saveMessage="Đã chọn hình. Duyệt và lưu bài để giữ hình này."/>;}

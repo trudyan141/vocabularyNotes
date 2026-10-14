@@ -164,5 +164,6 @@ export class LibraryDatabase extends Dexie {
       ...schemaV2, captureDrafts: "[scopeId+id], [scopeId+updatedAt]",
       learningDrafts: "[scopeId+id]",
     });
+    this.version(5).stores({practiceSessions:'[scopeId+id], [scopeId+createdAt]'});
   }
 }

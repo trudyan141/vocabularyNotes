@@ -1,5 +1,17 @@
 # Nhật ký bàn giao
 
+## 14/10/2026 — Giữ bài đang ôn khi rời trang
+
+Tái hiện mất filter khi bấm thư viện rồi quay lại chơi trên mobile/desktop. Persist selection local theo scope, restore trước hub/Speaking, giữ explicit URL/session; reset await save, storage errors giữ filter và retry.4scoped tests+10devUI/lint/types PASS; rộng ngoài ý định có1deletion fixture failure không liên quan selection. [Evidence](../evaluations/persistent-practice-selection.md). Chưa deploy/device.
+
+## 14/10/2026 — Phân tích bốn ảnh đếm cạnh và hình đúng nghĩa
+
+Live Gemini trên thumbnail tái hiện literal “Let's count!” với word “count”/numeric labels làm strict scan dừng trước enrichment. Normalize punctuation ở mép source phrases, giữ full transcript/plural/cụm; prompt data JSON; raw thiếu nghĩa không auto-search, web/Google sense query và cache giữ nghĩa, photo đọc đúng results contract.90tests+4productionUI/lint/types/build PASS; real four-thumbnail rerun PASS, không claim ảnh gốc/phone/web-quality. [Evidence](../evaluations/four-shape-photo-analysis-fix.md). Chưa deploy; diff game/audio trước giữ.
+
+## 14/10/2026 — Phạm vi game, chơi lại đúng lượt và ôn ngữ pháp dễ hiểu
+
+Phạm vi luôn hiện trên hub/lượt/kết quả; URL và optional snapshot filter giữ bài/nhóm/từ/due/weak/direction qua reload và thoát. Ôn tất cả bỏ filters, Chơi lại giữ đúng câu hỏi/game và revalidate approval/revisions/media; sửa race render trước URL khiến reload về lượt cũ. Speaking dùng cùng scope. Thêm grammar-card có nghe exact câu/IPA, nghĩa/giải thích Việt và GrammarSteps finite/reduced-motion; self assessment không đổi SRS/weak words. Archive/cloud giữ metadata; SQL0010 hosted applied+rollback fixture verified, không đổi learning rows/RLS. [Evidence](../evaluations/game-scope-and-grammar-cards.md).
+
 ## 14/10/2026 — Thêm bài vào nhóm có refs cũ không khả dụng
 
 Tái hiện conflict khi nhóm giữ ngữ pháp đã invalidated do sửa từ. Add-only transaction giữ refs cũ khớp cả senseId+key, không dùng catalog availability để chặn các mục mới hợp lệ. Exact dedup, nguồn/ngày cũ, approval cho additions và CAS giữ nguyên.17unit/integration +4devUI/lint/types PASS; [evidence](../evaluations/group-save-retained-members.md). Chưa deploy/device/account verification.
@@ -577,3 +589,20 @@ Keep Noto/Twemoji/Fluent priority; Commons broad query now accepts relevant phot
 
 
 12/10 ADR084 follow-up: shared picture picker always exposes Tìm ảnh trên web even with catalog matches. User click opens Google for current word and paste/upload controls, keeps existing image/results.8devUI/lint/types PASS; previous fallback diff preserved, no addition build/deploy. [Evidence](../evaluations/web-picture-fallback.md).
+
+
+14/10 ADR089: added pending-session delete with scoped CAS/tombstones, inline pending/error/retry and retained learning; grammar Cần xem lại persists without advancing; completed history moved to default-closed Profile section. Offline excludes deleted rounds.42data+1syntax+12devUI+4productionUI/lint/types/build PASS. [Evidence](../evaluations/session-controls-and-review-progress.md). Not deployed/live-account/device verified; existing scope/replay diff preserved.
+
+
+14/10 ADR090 founder clarification: Cần xem lại now advances sentence/progress, results offer subset retry; Play options removed. Group saved-media covers use real owner word, each assigned lesson has practice link, add-only duplicate report excludes retained members and legacy lesson assignment preserved. Delete icon inside card; Profile history10/page via additive IndexedDBv5 index.66data tests+22productionUI/lint/types/build PASS. [Evidence](../evaluations/review-retry-group-lessons-and-history.md). No deploy/live-account/device validation.
+
+
+14/10 card follow-up: moved group lesson play action inside the same card, below metadata like library cards; keeps sibling selection/play controls and exact group-set links.2devUI/lint/types/diff PASS; bounded mobile+desktop screenshots. [Evidence](../evaluations/review-retry-group-lessons-and-history.md). Styling-only, no build/deploy.
+
+
+14/10 ADR091/092: exclude untouched rounds from resume and discard on explicit exit; started feedback/progress retained with game+named lesson/group labels. Split Words/Grammar and equal grammar tiles. Scoped picture peers precede global fallback; Words AudioControl autoPlay opt-in retains voice mute/cancel/replay, Settings copy updated.57data+8productionUI/lint/types/build PASS. [Evidence](../evaluations/started-rounds-and-game-sections.md). No deploy/device/live-account validation.
+
+
+14/10/2026 — ADR093: IPA và gợi nhớ chữ Việt dưới target Speaking; Nghe1.0/Nghe chậm0.6 ở game/detail; nguồn US Wiktionary→Commons checkedlicense/creator/source +real MP3 derivative, devicefallback/cancellation. Không scrape Cambridge hay đổi storedcontent/Gemini/SRS.20unit/10productionUI/lint/types/build PASS, live snowy metadata PASS; chưa phone/human listening/deploy. [Evidence](../evaluations/speaking-reading-and-open-audio.md).
+
+14/10 follow-up: thu gọn link nguồn audio/IPA mặc định trong native details, giữ attribution truy cập khi cần. Lint/types/diff PASS; scoped UI verification ở evidence audio.

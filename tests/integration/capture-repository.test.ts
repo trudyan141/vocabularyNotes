@@ -128,6 +128,6 @@ describe("local capture drafts", () => {
     await repo.create(image);
     expect((await db.drafts.get(["demo:test", "demo"]))?.version).toBe(8);
     expect(await db.localMedia.count()).toBe(3);
-    expect(db.verno).toBe(4);
+    expect(db.verno).toBe(5);
   });
 });

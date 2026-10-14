@@ -1,6 +1,6 @@
 # Trạng thái hiện tại — Words for Kids
 
-Updated: 14/10/2026. Current task: **Sửa thêm bài vào nhóm bị chặn lưu khi có mục cũ không còn khả dụng**. Root cause: add-only save kiểm lại refs ngữ pháp/câu đã lưu theo catalog hiện tại, báo conflict trước khi lưu bài mới. Giữ refs cũ khớp senseId+key, vẫn validate additions và CAS. [Evidence](../evaluations/group-save-retained-members.md):17unit/integration +4devUI mobile/desktop +lint/types PASS. Chưa deploy/kiểm iPhone hoặc dữ liệu tài khoản thật.
+Updated:14/10/2026. Current task: **IPA/hint và sound mở cho Nói cùng Cáo**. Có IPA+cách đọc chữ Việt ngay dưới từ, Nghe1.0/Nghe chậm0.6, exact US Wiktionary→Commons có license/source/creator và MP3; thiếu/lỗi dùng device voice, chặn late playback, không đổi dữ liệu học. Follow-up: link audio/IPA mặc định thu gọn trong mục nguồn. [Evidence](../evaluations/speaking-reading-and-open-audio.md):20unit/10productionUI/lint/types/build PASS; live snowy metadata PASS, phone/live listening/deploy chưa kiểm. Diff task trước giữ.
 
 ## Baseline / current steering
 
@@ -14,10 +14,10 @@ Updated: 14/10/2026. Current task: **Sửa thêm bài vào nhóm bị chặn lư
 
 ## Work / verification / gaps
 
-Working tree đầu task game hình sạch; workflow baseline bên dưới thuộc lượt trước. WF1 archive lossless trước rewrite; WF2 runner/shared config có7guard tests+dev/productionUI/no-demo PASS, lint/types/final snapshotbuild PASS; cloud smoke chưa chạy qua initdb SHMALL. Source identity = commit + content fingerprint, không SHA đơn lẻ.
+Working tree đầu task phạm vi game sạch; workflow baseline bên dưới thuộc lượt trước. WF1 archive lossless trước rewrite; WF2 runner/shared config có7guard tests+dev/productionUI/no-demo PASS, lint/types/final snapshotbuild PASS; cloud smoke chưa chạy qua initdb SHMALL. Source identity = commit + content fingerprint, không SHA đơn lẻ.
 
 External acceptance vẫn mở: child/provider eligibility/quality/cost benchmark, human UX, physical camera/clipboard/audio/PWA/install, field/performance trên final release; xem TASKS. Fixture/mock không chứng minh live quality. Token/time của chat trước unavailable; chỉ đo bootstrap bytes/setup/test metadata có thật.
 
-**Next action:** refresh bản local và thêm lại bài vào nhóm để xác nhận trên dữ liệu thực tế.
+**Next action:** refresh bản local thử một bài thời tiết: nghe tự động, chọn từ cùng bài, làm một câu rồi thoát/tiếp tục.
 
 Lịch sử/checkpoints: [STATE history](STATE.history-2026-10-12.md), [CHANGELOG](CHANGELOG.md). Không append history vào current state.

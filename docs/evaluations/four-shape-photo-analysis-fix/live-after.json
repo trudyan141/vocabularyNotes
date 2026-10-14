@@ -1,0 +1,266 @@
+[
+  {
+    "stage": "scan",
+    "http": 200,
+    "finish": "STOP",
+    "generated": {
+      "text": "Let's count the number\nof sides...",
+      "warnings": [],
+      "words": [
+        {
+          "literal": "sides",
+          "word": "sides"
+        }
+      ],
+      "truncated": false
+    }
+  },
+  {
+    "stage": "scan",
+    "http": 200,
+    "finish": "STOP",
+    "generated": {
+      "text": "It has three sides.",
+      "warnings": [],
+      "words": [
+        {
+          "literal": "sides",
+          "word": "sides"
+        }
+      ],
+      "truncated": false
+    }
+  },
+  {
+    "stage": "scan",
+    "http": 200,
+    "finish": "STOP",
+    "generated": {
+      "text": "Let's count!",
+      "warnings": [],
+      "words": [
+        {
+          "literal": "Let's count",
+          "word": "Let's count"
+        }
+      ],
+      "truncated": false
+    }
+  },
+  {
+    "stage": "scan",
+    "http": 200,
+    "finish": "STOP",
+    "generated": {
+      "text": "How many sides does a\ntriangle have?",
+      "warnings": [],
+      "words": [
+        {
+          "literal": "sides",
+          "word": "sides"
+        }
+      ],
+      "truncated": false
+    }
+  },
+  {
+    "stage": "meanings",
+    "http": 200,
+    "finish": "STOP",
+    "generated": {
+      "words": [
+        {
+          "literal": "sides",
+          "word": "sides",
+          "vi": "các cạnh",
+          "en": "the lines that make the flat shape",
+          "pos": "noun",
+          "sense": "plural of side, geometric boundary line",
+          "example": "It has three sides.",
+          "exampleVi": "Nó có ba cạnh.",
+          "exampleIpa": "/ɪt hæz θriː saɪdz/"
+        },
+        {
+          "literal": "Let's count",
+          "word": "Let's count",
+          "vi": "Chúng ta hãy đếm",
+          "en": "say numbers in order together",
+          "pos": "phrase",
+          "sense": "suggestion to begin counting",
+          "example": "Let's count the stars.",
+          "exampleVi": "Hãy cùng đếm các ngôi sao nào.",
+          "exampleIpa": "/lɛts kaʊnt ðə stɑːrz/"
+        }
+      ]
+    }
+  },
+  {
+    "stage": "grammar",
+    "http": 200,
+    "finish": "STOP",
+    "generated": {
+      "learning": [
+        {
+          "word": "sides",
+          "source": "Let's count the number of sides...",
+          "sourceEvidenceText": "sides",
+          "grammarTitle": "Danh từ số nhiều",
+          "grammarFamily": "Plural Nouns",
+          "pattern": "noun + s",
+          "patternExplanation": "Thêm s vào sau danh từ đếm được số nhiều.",
+          "formula": "Noun + s/es",
+          "conditions": "Dùng khi chỉ từ hai đối tượng trở lên.",
+          "analysis": "1. Xác định danh từ gốc (side). 2. Thêm -s thành sides để chỉ số nhiều.",
+          "commonError": "side",
+          "commonErrorIpa": "/saɪd/",
+          "correction": "sides",
+          "correctionIpa": "/saɪdz/",
+          "example": "There are four sides.",
+          "exampleVi": "Có bốn cạnh.",
+          "exampleIpa": "/ðɛr ɑr fʊr saɪdz/",
+          "readingHintVi": ""
+        },
+        {
+          "word": "Let's count",
+          "source": "Let's count the number of sides...",
+          "sourceEvidenceText": "Let's count",
+          "grammarTitle": "Câu mệnh lệnh rủ rê",
+          "grammarFamily": "Imperatives",
+          "pattern": "Let's + verb",
+          "patternExplanation": "Dùng để rủ ai đó cùng làm gì với mình.",
+          "formula": "Let's + V-inf",
+          "conditions": "Dùng trong văn phong thân mật để đề nghị cùng làm.",
+          "analysis": "1. Dùng Let's. 2. Thêm động từ nguyên thể (count).",
+          "commonError": "Let's counting",
+          "commonErrorIpa": "/lɛts ˈkaʊntɪŋ/",
+          "correction": "Let's count",
+          "correctionIpa": "/lɛts kaʊnt/",
+          "example": "Let's count together.",
+          "exampleVi": "Hãy cùng nhau đếm nhé.",
+          "exampleIpa": "/lɛts kaʊnt təˈɡɛðər/",
+          "readingHintVi": ""
+        }
+      ],
+      "remainingPassages": []
+    }
+  },
+  {
+    "stage": "grammar",
+    "http": 200,
+    "finish": "STOP",
+    "generated": {
+      "learning": [
+        {
+          "word": "sides",
+          "sourceEvidenceText": "It has three sides.",
+          "source": "It has three sides.",
+          "grammarTitle": "Danh từ số nhiều",
+          "grammarFamily": "Plural Nouns",
+          "pattern": "Noun + s",
+          "patternExplanation": "Thêm s sau danh từ đếm được số nhiều.",
+          "conditions": "Khi danh từ chỉ số lượng từ hai trở lên.",
+          "formula": "Noun + s",
+          "analysis": "1. Đọc danh từ số ít. 2. Thêm s vào cuối. 3. Phát âm âm /s/.",
+          "commonError": "It has three side.",
+          "commonErrorIpa": "/ɪt hæz θriː saɪd/",
+          "correction": "It has three sides.",
+          "correctionIpa": "/ɪt hæz θriː saɪdz/",
+          "example": "It has three sides.",
+          "exampleVi": "Nó có ba cạnh.",
+          "exampleIpa": "/ɪt hæz θriː saɪdz/",
+          "readingHintVi": ""
+        }
+      ],
+      "remainingPassages": []
+    }
+  },
+  {
+    "stage": "grammar",
+    "http": 200,
+    "finish": "STOP",
+    "generated": {
+      "learning": [
+        {
+          "word": "Let's count",
+          "example": "Let's count!",
+          "exampleVi": "Chúng ta hãy đếm nào!",
+          "exampleIpa": "/lɛts kaʊnt/",
+          "readingHintVi": "",
+          "pattern": "Let's + verb",
+          "patternExplanation": "Dùng để rủ ai đó cùng làm một việc gì đó.",
+          "grammarTitle": "Câu mệnh lệnh rủ rê",
+          "conditions": "Dùng khi muốn đề nghị người khác cùng tham gia.",
+          "formula": "Let's + động từ nguyên thể",
+          "analysis": "1. Let's (Let us): Chúng ta hãy. 2. count: đếm.",
+          "commonError": "Lets count",
+          "commonErrorIpa": "/lɛts kaʊnt/",
+          "correction": "Let's count",
+          "correctionIpa": "/lɛts kaʊnt/",
+          "source": "",
+          "sourceEvidenceText": "Let's count!"
+        }
+      ],
+      "remainingPassages": []
+    }
+  },
+  {
+    "stage": "grammar",
+    "http": 200,
+    "finish": "STOP",
+    "generated": {
+      "learning": [
+        {
+          "grammarFamily": "noun_plural",
+          "grammarVariants": [
+            {
+              "formula": "noun + s",
+              "example": "A triangle has three sides.",
+              "exampleVi": "Một hình tam giác có ba cạnh.",
+              "exampleIpa": "/ə ˈtraɪæŋɡəl hæz θriː saɪdz/",
+              "analysis": "Thêm 's' sau danh từ đếm được số nhiều.",
+              "conditions": "Dùng khi số lượng lớn hơn 1.",
+              "commonError": "A triangle has three side.",
+              "commonErrorIpa": "/ə ˈtraɪæŋɡəl hæz θriː saɪd/",
+              "correction": "A triangle has three sides.",
+              "correctionIpa": "/ə ˈtraɪæŋɡəl hæz θriː saɪdz/",
+              "sourceEvidenceText": "How many sides does a triangle have?"
+            }
+          ],
+          "example": "How many sides does a triangle have?",
+          "exampleVi": "Hình tam giác có mấy cạnh?",
+          "exampleIpa": "/haʊ ˈmɛni saɪdz dʌz ə ˈtraɪæŋɡəl hæv/",
+          "readingHintVi": "",
+          "pattern": "noun + s",
+          "patternExplanation": "Thêm s vào sau danh từ số nhiều.",
+          "grammarTitle": "Danh từ số nhiều",
+          "conditions": "Danh từ đếm được từ 2 trở lên.",
+          "formula": "noun + s",
+          "analysis": "Sides là dạng số nhiều của side.",
+          "commonError": "How many side does it have?",
+          "commonErrorIpa": "/haʊ ˈmɛni saɪd dʌz ɪt hæv/",
+          "correction": "How many sides does it have?",
+          "correctionIpa": "/haʊ ˈmɛni saɪdz dʌz ɪt hæv/",
+          "source": "passage",
+          "sourceEvidenceText": "How many sides does a triangle have?",
+          "word": "sides"
+        }
+      ],
+      "remainingPassages": []
+    }
+  },
+  {
+    "valid": true,
+    "words": [
+      {
+        "word": "sides",
+        "sense": "plural of side, geometric boundary line",
+        "pos": "noun"
+      },
+      {
+        "word": "Let's count",
+        "sense": "suggestion to begin counting",
+        "pos": "phrase"
+      }
+    ]
+  }
+]

@@ -1,5 +1,7 @@
 # Ảnh học, animation và xử lý song song — Words for Kids
 
+**14/10 — hình đúng nghĩa trong photo review:** mục chưa có definition/sense không auto-search. Web/Google picture query nhận headword + contextual definition/sense (context query ≤140 chars); web cache phân biệt sense. Photo auto-lookup đọc đúng `results` contract; prepared picture vẫn chờ Duyệt và lưu. Không bảo đảm web result đúng nghĩa; giữ user review. [Evidence](evaluations/four-shape-photo-analysis-fix.md).
+
 12/10 ADR084 — Ưu tiên Noto→Twemoji→Microsoft Fluent, giữ OpenMoji, rồi Commons cartoon→ảnh chụp đúng subject nếu thiếu. Không có kết quả/lỗi thì mở sẵn tìm Google và dán/upload ảnh user chọn từ web; không bắt ảnh user thuộc catalog hay có license CC. Nguồn user tùy chọn, metadata `User supplied` không giả quyền MIT/CC; API automatic vẫn kiểm nguồn/license thực. User review/Save/receipt/revision và game decoded-ready giữ. Nút Tìm ảnh trên web luôn hiện trước results kể cả catalog đã có hình; user bấm mở Google cho từ hiện tại và phần dán/upload, giữ ảnh/kết quả cũ. Không tự scrape toàn bộ Google/web. [Evidence](evaluations/web-picture-fallback.md).
 
 

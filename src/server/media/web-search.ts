@@ -1,5 +1,6 @@
 import 'server-only';
 import type { WebImageItem } from '@/lib/media/google-search';
+import {pictureSearchQuery} from '@/lib/media/picture-query';
 
 const cache = new Map<string, { expires: number; items: WebImageItem[] }>();
 
@@ -113,10 +114,11 @@ export const NUMBER_WORDS: Record<string, string> = {
 
 export async function searchFreeWebPictures(
   word: string,
-  fetcher: typeof fetch = fetch
+  fetcher: typeof fetch = fetch,
+  sense = ''
 ): Promise<WebImageItem[]> {
   const normalized = word.trim().toLowerCase();
-  const cacheKey = `web:${normalized}`;
+  const cacheKey = JSON.stringify([normalized,sense.trim()]);
   const cached = cache.get(cacheKey);
   if (cached && cached.expires > Date.now()) {
     return cached.items;
@@ -146,11 +148,11 @@ export async function searchFreeWebPictures(
 
     // Bỏ hẳn Wikimedia Commons & Openverse theo yêu cầu người dùng, tập trung hoàn toàn vào Web Clipart & tranh vẽ thiếu nhi chuẩn
     tasks = [
-      searchBingClipart(subject || normalized, fetcher),
+      searchBingClipart(pictureSearchQuery(subject || normalized,sense), fetcher),
     ];
 
     if (subject && subject !== normalized) {
-      tasks.push(searchBingClipart(normalized, fetcher));
+      tasks.push(searchBingClipart(pictureSearchQuery(normalized,sense), fetcher));
     }
   }
 

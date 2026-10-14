@@ -130,3 +130,10 @@ it('keeps a/an/plural in one unit with exact literal evidence and repairs a miss
  const body=JSON.parse(fetcher.mock.calls[2][1].body);expect(JSON.parse(body.contents[0].parts[0].text).repair).toContain('Do not omit the an form');expect(body.generationConfig.thinkingConfig.thinkingLevel).toBe('low');
  expect(result.learning?.[0].source).toContain('do dự án bổ sung');expect(result.learning?.[0].grammarVariants?.[1].sourceEvidenceText).toBe('They are ...');
 });
+it('normalizes edge punctuation only on source phrases and retains all transcription and inner apostrophes',async()=>{
+ const fetcher=vi.fn().mockResolvedValueOnce(answer({text:"Let's count!\nsides...",warnings:[],words:[{literal:"Let's count!",word:"Let's count"},{literal:'sides...',word:'sides'}],truncated:false})).mockImplementation(async(_url:unknown,init?:RequestInit)=>{const input=JSON.parse(JSON.parse(init!.body as string).contents[0].parts[0].text);return answer(input.words[0]?.literal?{words:input.words.map((item:{word:string})=>word(item.word))}:{learning:[]});});
+ const result=await analyseWorksheet(image,'listed',new AbortController().signal,fetcher as typeof fetch,undefined,{chunked:true,onCheckpoint:vi.fn()});expect(result.words.map(item=>item.word)).toEqual(["Let's count",'sides']);expect(result.text).toBe("Let's count!\nsides...");expect(fetcher).toHaveBeenCalledTimes(3);
+});
+it('still rejects invented or singularized scan targets and non-English labels instead of coercing them',async()=>{
+ for(const target of [{literal:'sides!',word:'side'},{literal:'sides!',word:'food'},{literal:'2-D',word:'shape'},{literal:'invented!',word:'invented'}]){const publish=vi.fn();const fetcher=vi.fn().mockResolvedValue(answer({text:'sides!\n2-D',warnings:[],words:[target],truncated:false}));await expect(analyseWorksheet(image,'listed',new AbortController().signal,fetcher as typeof fetch,undefined,{chunked:true,onCheckpoint:publish})).rejects.toThrow('invalid-result');expect(publish).not.toHaveBeenCalled();expect(fetcher).toHaveBeenCalledTimes(2);}
+});

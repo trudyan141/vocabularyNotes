@@ -66,3 +66,11 @@ it('bounds repeated malformed scans and resumes only the failed photo with prior
  const result=await analyseWorksheets(photos,'bounded','listed',new AbortController().signal,undefined,saved,value=>{saved=value;},next as typeof fetch);
  expect(scans).toBe(1);expect(result.words.map(item=>item.word)).toEqual(['four fingers','two ears']);expect(saved?.complete).toBe(true);
 });
+it('reads all four shape slides when scan phrases include sentence punctuation and numeric counting labels',async()=>{
+ const slides=[{text:"Let's count the number\nof sides...",words:[{literal:'sides',word:'sides'}]},{text:'It has three sides.',words:[{literal:'sides',word:'sides'}]},{text:"Let's count!\n1\n2\n3",words:[{literal:"Let's count!",word:'count'},...['1','2','3'].map(word=>({literal:word,word}))]},{text:'How many sides does a\ntriangle have?',words:[{literal:'sides',word:'sides'},{literal:'triangle',word:'triangle'}]}];
+ let scans=0;const stages:string[]=[];let saved:MultiCheckpoint|undefined;
+ const fetcher=vi.fn(async(_url:unknown,init?:RequestInit)=>{const body=JSON.parse(init!.body as string);if(body.contents[0].parts.some((part:{inlineData?:unknown})=>part.inlineData)){stages.push('scan');scans++;const index=Number(atob(body.contents[0].parts.find((part:{inlineData?:unknown})=>part.inlineData).inlineData.data));return answer({...slides[index],warnings:[],truncated:false});}expect(scans).toBe(4);const input=JSON.parse(body.contents[0].parts[0].text);if(input.words[0]?.literal){stages.push('meanings');expect(input.words.find((item:{word:string})=>item.word==='sides').context).toContain('triangle');return answer({words:input.words.map((item:{word:string})=>({...word(item.word),sense:item.word==='sides'?'shape edges':'shape'}))});}stages.push('grammar');return answer({learning:[]});});
+ const four=Array.from({length:4},(_,i)=>({id:String(i),blob:new Blob([String(i)],{type:'image/jpeg'})}));
+ const result=await analyseWorksheets(four,'shape-slides','listed',new AbortController().signal,undefined,undefined,state=>{saved=state;},fetcher as typeof fetch);
+ expect(result.words.map(item=>item.word)).toEqual(['sides',"Let's count",'triangle']);expect(result.text).toContain("Let's count!\n1\n2\n3");expect(saved?.complete).toBe(true);expect(stages).toEqual(['scan','scan','scan','scan','meanings','grammar','grammar','grammar','grammar']);
+});

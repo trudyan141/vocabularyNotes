@@ -129,12 +129,12 @@ export function Settings() {
         <Field orientation="horizontal">
           <FieldContent>
             <FieldLabel htmlFor="sound-setting">
-              {t("Giọng đọc khi bấm Nghe", "Voice when you tap Listen")}
+              {t("Giọng đọc", "Voice playback")}
             </FieldLabel>
             <FieldDescription>
               {t(
-                "Không tự phát âm thanh. Dùng giọng tiếng Anh sẵn có trên máy.",
-                "No autoplay. Uses an English voice installed on your device.",
+                "Game từ vựng tự đọc khi vào câu mới. Ở các màn khác, bấm Nghe để đọc. Dùng giọng tiếng Anh trên máy.",
+                "Word games read each new question automatically. Elsewhere, tap Listen. Uses an English voice installed on your device.",
               )}
             </FieldDescription>
           </FieldContent>

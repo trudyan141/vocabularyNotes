@@ -1,4 +1,4 @@
-const VERSION='wfk-public-1a03adc72d272e93';
+const VERSION='wfk-public-4552eda529b532e8';
 const SHELL=['/offline.html','/fonts/nunito.woff2','/offline.css','/offline.js','/offline-games.js','/offline-srs.js','/offline-missing-letters.js','/offline-parent.js','/offline-identity.js','/offline-prepared-ipa.js','/offline-pronunciation.js','/offline-voices.js','/open-illustrations.js','/illustrations/fox.svg','/icons/app-192.png','/icons/app-512.png',...['apple','bag','banana','bird','book','bread','car','cat','chair','desk','dog','egg','eraser','fish','glue','grapes','milk','notebook','orange','pen','pencil','ruler','scissors','shelf','sun','tree','water'].map(name=>`/illustrations/${name}.svg`)];
 self.addEventListener('install',event=>event.waitUntil(caches.open(VERSION).then(async cache=>{for(const path of SHELL)await cache.add(path);})));
 // Updates activate only after every existing tab closes; never interrupt an unsaved lesson.

@@ -12,6 +12,7 @@ import {CloudTools} from './cloud-tools';
 import {TransferTools} from './transfer-tools';
 import {CloudSources} from './cloud-sources';
 import {AccountDelete} from './account-delete';
+import {SessionHistory} from './session-history';
 import {ProfileAvatar,ProfileSettings} from './profile';
 import {CurrentLibrary} from './current-library';
 import {LibraryDatabase} from '@/data/local/database';
@@ -53,6 +54,7 @@ export function AccountTools(){
   <Back href="/settings" label={t('Quay lại tùy chọn','Back to settings')}/>
   <h1>{t('Hồ sơ của bạn','Your profile')}</h1>
   <ProfileSettings/>
+  <SessionHistory/>
   <h2>{t('Đăng nhập để học trên máy khác','Sign in to learn on another device')}</h2>
   <p>{t('Dùng tài khoản Google để mở cùng bài học trên nhiều thiết bị. Bạn vẫn học được khi không đăng nhập.','Use your Google account to open the same lessons on multiple devices. You can also study without signing in.')}</p>
   <OperationStatus busy={checking} title={t('Đang kiểm đăng nhập','Checking sign-in')}/>

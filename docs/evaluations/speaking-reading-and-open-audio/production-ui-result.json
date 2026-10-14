@@ -1,0 +1,67 @@
+{
+  "startedAt": "2026-10-14T14:55:15.922Z",
+  "sourceRoot": "/Users/trunglk/Documents/trung-github/VocabularyNotes",
+  "commit": "3853eca8567f83b4c65d55c977705dccc7266f83",
+  "fingerprint": "6b1df923f62924946ca67f5b6cef17f063332978e3b42f85b89fc531e7abfb4c",
+  "scope": "ui",
+  "mode": "production",
+  "specs": [
+    "pronunciation-audio.spec.ts",
+    "speaking-refresh.spec.ts"
+  ],
+  "node": "v24.14.1",
+  "provider": "fixture",
+  "commands": [
+    {
+      "label": "discovery",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--config",
+        "playwright.scoped.config.ts",
+        "--grep",
+        "word and Fox|unavailable recording|Microphone permission|Speech ends",
+        "--list",
+        "--reporter=list"
+      ],
+      "elapsedMs": 643,
+      "exitCode": 0,
+      "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-WlVvhc/discovery.log"
+    },
+    {
+      "label": "build",
+      "command": [
+        "pnpm",
+        "build",
+        "--webpack"
+      ],
+      "elapsedMs": 28410,
+      "exitCode": 0,
+      "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-WlVvhc/build.log"
+    },
+    {
+      "label": "browser",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--config",
+        "playwright.scoped.config.ts",
+        "--grep",
+        "word and Fox|unavailable recording|Microphone permission|Speech ends",
+        "--reporter=line"
+      ],
+      "elapsedMs": 24740,
+      "exitCode": 0,
+      "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-WlVvhc/browser.log"
+    }
+  ],
+  "tokens": "unavailable",
+  "discoveredTests": 8,
+  "snapshot": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-source-eSFPwU",
+  "status": "passed",
+  "finishedAt": "2026-10-14T14:56:11.301Z"
+}

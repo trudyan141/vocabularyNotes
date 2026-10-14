@@ -173,7 +173,7 @@ it('both picture games exclude absent and stale imported images from targets and
 });
 it('invalidates an existing picture game when a distractor loses its image without changing the target revision',async()=>{
  const r=repo();await seed(r,4);const practice=new PracticeRepository(r, async()=>true),session=await practice.start('word-picture');const target=session.questions[0].word,choice=session.questions[0].choices.find(word=>word.id!==target.id)!;
- await r.db.senses.update([r.scope.id,choice.id],{art:null});expect((await r.word(target.id))!.revision).toBe(target.revision);expect(await practice.pictureSessionCurrent(session)).toBe(false);expect((await practice.sessions()).some(row=>row.id===session.id)).toBe(false);await expect(practice.check(session.id,session.version,target.word)).rejects.toThrow('conflict');expect(await r.db.table('gameAttempts').count()).toBe(0);
+ await r.db.senses.update([r.scope.id,choice.id],{art:null});expect((await r.word(target.id))!.revision).toBe(target.revision);expect(await practice.pictureSessionCurrent(session)).toBe(false);expect((await practice.sessions()).some(row=>row.id===session.id)).toBe(false);await expect(practice.check(session.id,session.version,target.word)).rejects.toThrow('conflict');expect(await r.db.table('gameAttempts').count()).toBe(0);await expect(practice.replay(session.id)).rejects.toThrow('conflict');
 });
 
 it('checks actual image loading before both picture games, replacing missing sister/brother with pictured words',async()=>{
@@ -196,4 +196,14 @@ it('both picture games can target a ready word beyond the first 100 library reco
  }
  const practice=new PracticeRepository(r,async()=>true);
  for(const mode of ['picture-word','word-picture'] as const){const session=await practice.start(mode,{word:'picture-late-109'});expect(session.questions).toHaveLength(1);expect(session.questions[0].word.id).toBe('picture-late-109');expect(session.questions[0].choices).toHaveLength(3);}
+});
+
+it('picture choices prefer lesson and group peers, using global words only to fill missing options',async()=>{
+ const repository=repo();await seed(repository,8);const words=(await repository.search('',{approvedOnly:true})).words;const scoped=words.slice(0,3);
+ await repository.saveLesson({operationId:'peers',lessonId:'peers',title:'Same lesson',learnedOn:'2026-10-14',sourceType:'manual',items:scoped.map(w=>({...catalog.find(c=>c.word===w.word)!,id:w.id,approved:true}))});
+ const practice=new PracticeRepository(repository,async()=>true),ids=scoped.map(w=>w.id);
+ const round=await practice.start('word-picture',{lesson:'peers'});expect(round.questions).toHaveLength(3);expect(round.questions.every(q=>q.choices.every(c=>ids.includes(c.id)))).toBe(true);
+ const few=await practice.start('word-picture',{lesson:'peers',word:ids[0]});expect(few.questions[0].choices.every(c=>ids.includes(c.id))).toBe(true);
+ await repository.db.table('decks').put({scopeId:repository.scope.id,id:'tiny',version:1,createdAt:new Date().toISOString(),updatedAt:new Date().toISOString(),deletedAt:null,payload:{deck:{name:'Tiny',direction:'en-vi',senseIds:ids.slice(0,2),group:{wordIds:ids.slice(0,2),sentences:[],grammar:[]}}}});
+ const group=await practice.start('picture-word',{deck:'tiny'});expect(group.questions).toHaveLength(2);expect(group.questions.every(q=>q.choices.length===3&&q.choices.filter(c=>ids.slice(0,2).includes(c.id)).length===2)).toBe(true);
 });

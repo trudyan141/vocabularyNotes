@@ -173,3 +173,25 @@ it('adds a repeated-word lesson despite unavailable saved grammar and sentences 
  await expectFailure(saveStudyGroup(r,{id:first.row.id,version:next.row.version,name:'Family retained',members:{wordIds:[],sentences:[],grammar:[{senseId:'book',key:'invented'}]},preserveExisting:true}),'conflict');
  expect((await studyGroups(r))[0]).toEqual(next.row);
 });
+
+it('add-only reports duplicates only from incoming selections, not retained members',async()=>{
+ const r=repo();await seed(r);const first=await saveStudyGroup(r,{id:'new-only',version:null,name:'New only',members:{wordIds:['apple'],sentences:[]}});
+ const next=await saveStudyGroup(r,{id:first.row.id,version:first.row.version,name:'New only',members:{wordIds:['book'],sentences:[]},preserveExisting:true});expect(next.added).toBe(1);expect(next.duplicateItems).toEqual([]);
+ const retry=await saveStudyGroup(r,{id:first.row.id,version:next.row.version,name:'New only',members:{wordIds:[],sentences:[]},lessonIds:['repeat'],preserveExisting:true});expect(retry.duplicateItems).toEqual([{kind:'word',label:'apple'}]);
+});
+
+it('games and speaking in a group lesson use only that assigned set and preserve replay scope',async()=>{
+ const r=repo();await seed(r);const first=await saveStudyGroup(r,{id:'sets-scope',version:null,name:'Scoped lessons',members:{wordIds:[],sentences:[]},lessonIds:['first'],includeSentences:false});
+ const group=first.row;const sets=group.payload.deck.group.sets!;const set=sets[0];
+ // Create a subset that is smaller than the full group, without changing library content.
+ await r.db.table('decks').put({...group,payload:{deck:{...group.payload.deck,group:{...group.payload.deck.group,sets:[{...set,wordIds:['apple']},{...set,id:'book-set',wordIds:['book']}]}}}});
+ const p=new PracticeRepository(r),filter={deck:group.id,set:set.id};const session=await p.start('flashcard',filter);expect(session.questions.map(q=>q.word.id)).toEqual(['apple']);expect((await p.speakingWords(filter)).map(w=>w.id)).toEqual(['apple']);
+ const revealed=await p.reveal(session.id,session.version);const done=await p.answer(session.id,revealed.version,{rating:'Again'});expect((await p.replay(done.id,true)).filter).toEqual(filter);
+ await expect(p.start('flashcard',{deck:group.id,set:'missing'})).rejects.toThrow('not-ready');
+});
+
+it('legacy groups without sets keep old members assigned to their original lesson on an add-only save',async()=>{
+ const r=repo();await seed(r);const first=await saveStudyGroup(r,{id:'legacy-set',version:null,name:'Legacy set',members:{wordIds:['apple'],sentences:[]}});
+ const group={...first.row.payload.deck.group};delete group.sets;await r.db.table('decks').put({...first.row,payload:{deck:{...first.row.payload.deck,group}}});
+ const next=await saveStudyGroup(r,{id:first.row.id,version:first.row.version,name:'Legacy set',members:{wordIds:[],sentences:[]},lessonIds:['repeat'],preserveExisting:true,includeSentences:false});expect(next.row.payload.deck.group.sets?.find(set=>set.wordIds.includes('apple'))?.lessonId).toBe('first');
+});

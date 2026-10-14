@@ -1,3 +1,3 @@
-export type GrammarSnapshot={id:string;version:number;formula:string;example:string;exampleVi:string;exampleIpa?:string};
+export type GrammarSnapshot={id:string;version:number;formula:string;example:string;exampleVi:string;exampleIpa?:string;title?:string;conditions?:string;analysis?:string};
 export function sentenceTiles(example:string){return example.trim().split(/\s+/).filter(Boolean);}
 export function shuffledTiles(example:string,seed:string){const tokens=sentenceTiles(example).map((text,id)=>({text,id}));let value=[...seed].reduce((n,c)=>(n*31+c.charCodeAt(0))>>>0,17);for(let i=tokens.length-1;i>0;i--){value=(value*1664525+1013904223)>>>0;const j=value%(i+1);[tokens[i],tokens[j]]=[tokens[j],tokens[i]];}if(tokens.every((token,i)=>token.id===i))tokens.push(tokens.shift()!);return tokens;}

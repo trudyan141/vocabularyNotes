@@ -82,7 +82,6 @@ export function WordDetail({ id }: { id: string }) {
         <div>
           <WordSpeaking key={`${repository?.scope.id}:${entry.id}:${entry.revision}`} word={entry} embedded>
           <Badge variant="secondary">{entry.pos}</Badge>
-          {entry.pronunciations.map((p,i)=><div key={i}><p className="ipa" lang="en">{p.verified?p.ipa:null}</p>{p.readingHintVi&&<p className="reading-hint">{t("Cách đọc gần đúng: ", "Reading hint: ")}{p.readingHintVi}</p>}</div>)}
           </WordSpeaking>
         </div>
       </div>

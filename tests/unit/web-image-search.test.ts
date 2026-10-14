@@ -144,3 +144,11 @@ describe('searchFreeWebPictures', () => {
   });
 });
 
+it('keeps web queries and cache separate for geometric sides and side dishes',async()=>{
+ const {searchFreeWebPictures}=await import('@/server/media/web-search');
+ const queries:string[]=[];const fetcher=vi.fn(async(url:unknown)=>{queries.push(new URL(String(url)).searchParams.get('q')!);return new Response('');});
+ await searchFreeWebPictures('sides',fetcher as typeof fetch,'edges of a triangle');
+ await searchFreeWebPictures('sides',fetcher as typeof fetch,'small dishes with a meal');
+ expect(queries).toHaveLength(2);expect(queries[0]).toContain('edges of a triangle');expect(queries[1]).toContain('small dishes with a meal');
+ await searchFreeWebPictures('sides',fetcher as typeof fetch,'edges of a triangle');expect(fetcher).toHaveBeenCalledTimes(2);
+});

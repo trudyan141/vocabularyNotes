@@ -1,0 +1,112 @@
+[
+  {
+    "stage": "scan",
+    "http": 200,
+    "finish": "STOP",
+    "generated": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "value": "Let's count the number\nof sides..."
+        },
+        "warnings": {
+          "type": "array",
+          "value": []
+        },
+        "words": {
+          "type": "array",
+          "value": [
+            {
+              "literal": "sides",
+              "word": "sides"
+            }
+          ]
+        },
+        "truncated": {
+          "type": "boolean",
+          "value": false
+        }
+      }
+    }
+  },
+  {
+    "stage": "scan",
+    "http": 200,
+    "finish": "STOP",
+    "generated": {
+      "text": "Let's count the number\nof sides...",
+      "warnings": [],
+      "words": [
+        {
+          "literal": "sides",
+          "word": "sides"
+        }
+      ],
+      "truncated": false
+    }
+  },
+  {
+    "stage": "scan",
+    "http": 200,
+    "finish": "STOP",
+    "generated": {
+      "text": "It has three sides.",
+      "warnings": [],
+      "words": [
+        {
+          "literal": "sides",
+          "word": "sides"
+        }
+      ],
+      "truncated": false
+    }
+  },
+  {
+    "stage": "scan",
+    "http": 200,
+    "finish": "STOP",
+    "generated": {
+      "text": "Let's count!",
+      "warnings": [],
+      "words": [
+        {
+          "literal": "Let's count!",
+          "word": "Let's count"
+        }
+      ],
+      "truncated": false
+    }
+  },
+  {
+    "stage": "scan",
+    "http": 200,
+    "finish": "STOP",
+    "generated": {
+      "text": "Let's count!\n1\n2\n3",
+      "warnings": [],
+      "words": [
+        {
+          "literal": "Let's count!",
+          "word": "count"
+        },
+        {
+          "literal": "1",
+          "word": "1"
+        },
+        {
+          "literal": "2",
+          "word": "2"
+        },
+        {
+          "literal": "3",
+          "word": "3"
+        }
+      ],
+      "truncated": false
+    }
+  },
+  {
+    "error": "invalid-result"
+  }
+]

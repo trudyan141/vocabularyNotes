@@ -36,14 +36,14 @@ export function WordPictureSearch({word,onSaved,onPrepared,onBusyChange,autoSear
    const response=await fetch('/api/media/web-search',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({word:word.word}),
+    body:JSON.stringify({word:word.word,sense:word.en||word.sense}),
     signal:AbortSignal.any([worker.signal,AbortSignal.timeout(15000)])
    });
    const data=response.ok?await response.json():null;
    let onlineItems:WebImageItem[]=Array.isArray(data?.results)?data.results:[];
    const googleCfg=getGoogleSearchConfig();
    if(googleCfg){
-    const googleItems=await searchGoogleImages(word.word,googleCfg,worker.signal);
+    const googleItems=await searchGoogleImages(word.word,googleCfg,worker.signal,word.en||word.sense);
     onlineItems=[...onlineItems,...googleItems];
    }
    if(worker.signal.aborted)return;

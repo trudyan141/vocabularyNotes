@@ -6,6 +6,7 @@ export const dynamic = 'force-dynamic';
 
 const searchSchema = z.object({
   word: z.string().min(1).max(100),
+  sense: z.string().max(1000).optional(),
 });
 
 export async function POST(request: Request) {
@@ -13,8 +14,8 @@ export async function POST(request: Request) {
 
   try {
     const raw = await request.json();
-    const { word } = searchSchema.parse(raw);
-    const results = await searchFreeWebPictures(word);
+    const { word, sense } = searchSchema.parse(raw);
+    const results = await searchFreeWebPictures(word,fetch,sense);
 
     return Response.json({ results }, { headers: privateHeaders });
   } catch (error) {

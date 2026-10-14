@@ -37,7 +37,7 @@ export async function saveStudyGroup(repo:LocalRepository,input:{id:string;versi
   if((old?.version??null)!==input.version)throw new RepositoryError('conflict');
   const catalog=await groupCatalog(repo),approvedWords=new Map(catalog.words.map(word=>[word.id,word]));
   const retained=input.preserveExisting?(old?.payload.deck as Deck|undefined)?.group:undefined;
-  const wordIds=[...(retained?.wordIds??[]),...input.members.wordIds],sentences=[...(retained?.sentences??[]),...input.members.sentences],grammar=[...(retained?.grammar??[]),...(input.members.grammar??[])];
+  const wordIds=[...input.members.wordIds],sentences=[...input.members.sentences],grammar=[...(input.members.grammar??[])];
   const lessonIds=new Set(input.lessonIds??[]),preferred=new Map<string,string>();
   for(const day of input.days??[])for(const lesson of catalog.lessons)if(lesson.learnedOn===day)lessonIds.add(lesson.id);
   if([...lessonIds].some(id=>!catalog.lessons.some(lesson=>lesson.id===id)))throw new RepositoryError('invalid');
@@ -63,9 +63,10 @@ export async function saveStudyGroup(repo:LocalRepository,input:{id:string;versi
   }
   const mergedRefs=(saved:GroupMembers['sentences'],next:GroupMembers['sentences'])=>{const refs=new Map(saved.map(ref=>[ref.key,ref]));for(const ref of next)if(!refs.has(ref.key))refs.set(ref.key,ref);return [...refs.values()];};
   const group:GroupMembers={wordIds:[...new Set([...(retained?.wordIds??[]),...uniqueWords.values()])],sentences:mergedRefs(retained?.sentences??[],uniqueRefs(sentences,catalog.allSentences,sentenceKey,'sentence')),grammar:mergedRefs(retained?.grammar??[],uniqueRefs(grammar,catalog.allGrammar,grammarKey,'grammar'))};
-  group.sets=assignGroupSets(group,catalog.lessons,catalog.links,{sentences:catalog.allSentences,grammar:catalog.allGrammar},{sentence:sentenceKey,grammar:grammarKey},before?.sets,preferred);
+  const previousSets=before?.sets??(before?assignGroupSets(before,catalog.lessons,catalog.links,{sentences:catalog.allSentences,grammar:catalog.allGrammar},{sentence:sentenceKey,grammar:grammarKey},undefined,undefined,old!.createdAt.slice(0,10)):undefined);
+  group.sets=assignGroupSets(group,catalog.lessons,catalog.links,{sentences:catalog.allSentences,grammar:catalog.allGrammar},{sentence:sentenceKey,grammar:grammarKey},previousSets,preferred);
   const sameMembers=!!before&&JSON.stringify([group.wordIds.slice().sort(),group.sentences.map(ref=>ref.key).sort(),(group.grammar??[]).map(ref=>ref.key).sort()])===JSON.stringify([before.wordIds.slice().sort(),before.sentences.map(ref=>ref.key).sort(),(before.grammar??[]).map(ref=>ref.key).sort()]);
-  const unchanged=!!old&&sameMembers&&(old.payload.deck as Deck).name===input.name.trim();
+  const unchanged=!!old&&sameMembers&&JSON.stringify(group.sets)===JSON.stringify(before?.sets)&&(old.payload.deck as Deck).name===input.name.trim();
   const row=unchanged?old:await saveDeck(repo,input.id,input.version,{name:input.name.trim(),direction:'en-vi',senseIds:[...new Set([...group.wordIds,...group.sentences.map(ref=>ref.senseId),...(group.grammar??[]).map(ref=>ref.senseId)])],group});
   const added=group.wordIds.filter(id=>!before?.wordIds.includes(id)).length+group.sentences.filter(ref=>!before?.sentences.some(s=>s.key===ref.key)).length+(group.grammar??[]).filter(ref=>!before?.grammar?.some(s=>s.key===ref.key)).length;
   const addedItems=[...group.wordIds.filter(id=>!before?.wordIds.includes(id)).map(id=>({kind:'word',label:approvedWords.get(id)!.word})),...group.sentences.filter(ref=>!before?.sentences.some(s=>s.key===ref.key)).map(ref=>({kind:'sentence',label:catalog.allSentences.find(item=>item.senseId===ref.senseId&&sentenceKey(item)===ref.key)!.textEn})),...(group.grammar??[]).filter(ref=>!before?.grammar?.some(s=>s.key===ref.key)).map(ref=>({kind:'grammar',label:catalog.allGrammar.find(item=>item.senseId===ref.senseId&&grammarKey(item)===ref.key)!.title}))];

@@ -1,4 +1,5 @@
 import type { GoogleSearchConfig } from './google-search-config';
+import {pictureSearchQuery} from './picture-query';
 
 export interface WebImageItem {
   id: string;
@@ -63,7 +64,8 @@ const CALENDAR_WORDS: Record<string, string> = {
 export async function searchGoogleImages(
   word: string,
   config: GoogleSearchConfig | null,
-  signal?: AbortSignal
+  signal?: AbortSignal,
+  sense = ''
 ): Promise<WebImageItem[]> {
   // CRITICAL RULE: Không có key thì tuyệt đối không search Google
   if (!config || !config.apiKey.trim() || !config.cx.trim()) {
@@ -77,7 +79,7 @@ export async function searchGoogleImages(
     ? `number ${digit} illustration clipart cartoon`
     : calendarTerm
     ? `${normalized} day calendar illustration clipart cartoon`
-    : `${word} illustration clipart cartoon`;
+    : `${pictureSearchQuery(word,sense)} illustration clipart cartoon`;
 
   const url = `https://www.googleapis.com/customsearch/v1?key=${encodeURIComponent(
     config.apiKey.trim()

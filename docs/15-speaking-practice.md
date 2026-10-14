@@ -24,6 +24,16 @@ Gemini trả `words[{index,score,advice,phones[{expected,heard,status,advice}]}]
 
 Timeout30s, không retry tự động; quota/access/missing-key/network/invalid-response không tô màu/điểm giả, giữ replay và nút nói lại. Target unknown/ambiguous vẫn cho nghe/thu, không tự chế reference. Chỉ20target words/80phones mỗi từ tối đa; current game/detail chủ yếu một từ mỗi lượt. Không claim ELSA phoneme accuracy hoặc trẻ/iPhone calibration từ mock.
 
+## Nghe mẫu và cách đọc — ADR093, 14/10/2026
+
+Ngay dưới từ ở game và WordDetail có IPA đúng text/version cùng cách đọc chữ Việt gần đúng. Giữ IPA/hint đã duyệt; phần thiếu tra nguồn Wiktionary US hoặc CMUdict ghi Tham khảo, không ghi ngược vào thư viện. Chữ Việt chỉ là gợi nhớ, không tương đương các âm tiếng Anh; âm không map được không đoán. IPA đã lưu khác accent bản thu thì hiện thêm IPA US từ nguồn cho bản thu.
+
+AudioControl dùng bản thu US từ mục English/Pronunciation của Wiktionary, file exact `en-us-{headword}` trên Commons; không lấy audio ngôn ngữ khác, nhiều pronunciation sections hay US IPA đa cách đọc. Commons metadata bắt buộc creator, source, license/LicenseUrl phù hợp allowlist CC0/Public domain/CC BY/CC BY-SA3.0–4.0, không restriction. Ưu tiên MP3 derivative thực do API trả về; không đoán URL hay scrape Cambridge. Link Commons/tác giả/giấy phép ở mục Nguồn phát âm thu gọn mặc định dưới controls; link IPA ở mục Nguồn IPA thu gọn, không đặt inline cạnh phiên âm; playback chậm ghi thay đổi tốc độ60%. Bản thu cộng đồng có thể khác chất lượng; không claim Cambridge quality hay human verification.
+
+Hai nút Nghe1.0 và Nghe chậm0.6 có ở game lẫn detail; HTMLAudioElement giữ pitch, TTS fallback cùng rates (tốc độ thực TTS tùy engine). Thiếu bản phù hợp/mạng/lỗi playback thì giọng thiết bị, nhãn nguồn cập nhật đúng, không dùng provider trả phí. Câu ví dụ vẫn đọc toàn câu bằng thiết bị. Metadata fetch bounded500KB/200KB, timeout8s/request, server tối đa4inflight/128cache, client coalesces headword; không lưu audio vào IDB/cloud/backup. Mute, hide, stop, mic, unmount/text change dừng/abort playback, chặn response muộn; timeout start10s có fallback. Endpoint POST same-origin chỉ nhận headword≤80, private/no-store; không fetch URL do client cung cấp.
+
+Nguồn: [Cambridge licensing](https://dictionary.cambridge.org/license.html), [snowy IPA](https://en.wiktionary.org/wiki/snowy), [snowy audio/CC BY-SA3.0](https://commons.wikimedia.org/wiki/File:En-us-snowy.ogg), [Commons reuse](https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia), [preservesPitch](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/preservesPitch). [Evidence](evaluations/speaking-reading-and-open-audio.md).
+
 ## Bỏ bộ nhận âm cũ
 
 Đã bỏ nút tải/xóa pack, Worker và bước prepare-speaking; gỡ dependency Transformers/@noble, runtime/WASM không được copy vào public/build. Các source CTC/manifest/spike còn lại là lịch sử nghiên cứu, không được import runtime hay chạy trong dev/build/app. Xóa cache `wfk-speaking-model-*` khi vào app, và khi SW mới activate; chỉ prefix này, không bài học hay public cache khác. Không tự tải lại. Public Welcome/404 không init nhận âm.

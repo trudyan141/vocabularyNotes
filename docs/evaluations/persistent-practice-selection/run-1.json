@@ -1,0 +1,66 @@
+{
+  "startedAt": "2026-10-14T14:36:12.955Z",
+  "sourceRoot": "/Users/trunglk/Documents/trung-github/VocabularyNotes",
+  "commit": "3853eca8567f83b4c65d55c977705dccc7266f83",
+  "fingerprint": "880b5419857593d75d685fbdaea31ec6fe6945dd4f6c4ed111919bddcf616aed",
+  "scope": "ui",
+  "mode": "dev",
+  "specs": [
+    "game-scope-replay.spec.ts"
+  ],
+  "node": "v24.14.1",
+  "provider": "fixture",
+  "commands": [
+    {
+      "label": "discovery",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--config",
+        "playwright.scoped.config.ts",
+        "--grep",
+        "selected lesson survives|simple hub keeps|group auto review",
+        "--list",
+        "--reporter=list"
+      ],
+      "elapsedMs": 1058,
+      "exitCode": 0,
+      "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-sW3kny/discovery.log"
+    },
+    {
+      "label": "prepare",
+      "command": [
+        "pnpm",
+        "run",
+        "predev"
+      ],
+      "elapsedMs": 7985,
+      "exitCode": 0,
+      "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-sW3kny/prepare.log"
+    },
+    {
+      "label": "browser",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--config",
+        "playwright.scoped.config.ts",
+        "--grep",
+        "selected lesson survives|simple hub keeps|group auto review",
+        "--reporter=line"
+      ],
+      "elapsedMs": 71069,
+      "exitCode": 0,
+      "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-sW3kny/browser.log"
+    }
+  ],
+  "tokens": "unavailable",
+  "discoveredTests": 6,
+  "snapshot": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-source-ErrKwR",
+  "status": "passed",
+  "finishedAt": "2026-10-14T14:37:36.574Z"
+}

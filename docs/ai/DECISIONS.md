@@ -640,3 +640,50 @@ Founder yêu cầu game nhận đủ từ/ngữ pháp mới thêm và random m�
 Founder thấy Gõ cả từ quá khó và yêu cầu thêm game như worksheet baby với1–3ký tự cần điền. Thêm mode `missing-letters` / Tìm ký tự thiếu riêng; giữ các game hiện có. Full approved aggregate pool, round≤10; eligible ít nhất2chữ ASCII và tổng≤80ký tự để vẫn có context nhìn thấy. Hidden positions random/unique/sorted,1–3và ít hơn số chữ; không giấu space/punctuation. Inline touch-size inputs cộng bank chứa chữ thiếu đã shuffled (có chữ lặp), gõ hoặc chạm; typing auto-next/backspace/paste, IME Enter guard. Tapping bank không tự mở bàn phím. Nghĩa và hình sẵn có; audio chỉ đọc từ gốc.
 
 `Question.missingIndices` optional cho backward compatibility; session mode mới phải có mask hợp lệ, archive/cloud validator kiểm không giấu hết hoặc duplicate/out-of-range. Repository check nhận đúng chuỗi chữ thiếu, không chấm cả từ; durable position/snapshot/version checks và one-attempt/CAS giữ. Không rating/SRS/memory claim. Offline dùng helper transpiled chung, manifest/cache version gồm module mới. SQL0009 chỉ mở rộng check mode, giữ rows/RLS/account boundaries; đã apply/verify hosted và kiểm rollback temp fixture six old modes/new mode/invalid. UI chưa deploy. [Evidence](../evaluations/missing-letters-game.md).
+
+
+## ADR088 — 14/10/2026: phạm vi game rõ ràng, replay đúng lượt, ôn ngữ pháp nhẹ
+
+Founder yêu cầu thấy đang chơi theo bài/nhóm/tất cả, có reset về tất cả, chơi lại chính game với các từ vừa ôn và giữ phạm vi khi thoát. URL là lựa chọn hiện tại; session lưu optional filter IDs/flags, tên đọc từ dữ liệu hiện tại theo scope. Hub/session/result đều hiện phạm vi. Đổi bài hoặc nhóm bỏ lựa chọn bài/nhóm/từ trước, các flags từ đến hạn/cần luyện vẫn hiện rõ. Ôn tất cả bỏ toàn bộ filters, không xóa session/SRS/content. Hiển thị lượt sau khi URL canonical đổi xong để reload tức thì không mở nhầm lượt cũ. Replay copy chính snapshot câu hỏi, shuffle thứ tự, tạo IDs mới/reset progress; toàn bộ words/grammar/media phải còn hợp lệ. Lượt cũ thiếu filter không tự suy tên bài.
+
+`grammar-card` bổ sung trước thử thách Xếp câu. Ôn câu đã duyệt có exact sentence IPA/audio, mở nghĩa/điều kiện/phân tích Việt và GrammarSteps finite/manual/reduced-motion; thiếu giải thích có fallback rõ thay vì AI bịa. Reveal là điều kiện trước self assessment Con hiểu rồi/Cần xem lại; CAS/one attempt và supporting-word revision vẫn giữ. GameAttempts có optional understood; weak-word filter bỏ self assessment grammar để không biến từ thành cần luyện spelling. Không review event/rating/SRS/memory claim. Archive/cloud validator bảo toàn scope/giải thích/new mode, từ chối grammar-card thiếu grammar snapshot. SQL0010 chỉ mở rộng mode constraint; hosted rollback fixture+constraint verified. Offline fallback chỉ resume modes nó hỗ trợ. Speaking dùng cùng word eligibility/filter, replay giữ queue. [Evidence](../evaluations/game-scope-and-grammar-cards.md).
+
+
+## ADR089 — 14/10/2026: quản lý lượt dở, xem lại giữ tiến độ, lịch sử trong Hồ sơ
+
+Founder phản ánh không xóa được lượt dở, Cần xem lại tăng progress và lịch sử chiếm nhiều chỗ. Mỗi lượt dở có Xóa lượt với pending/error tại dòng, tombstone theo scope/version và giữ learning data. Cần xem lại lưu checkedCorrect=false trong session, giữ position/revealed và không append gameAttempt; khi Con hiểu rồi mới append immutable attempt và tiến câu. Giữ invariant answers.length=position và không đổi archive/cloud schema. Lịch sử đã hoàn thành nằm trong details đóng mặc định ở Hồ sơ, mở lại kết quả/replay qua canonical session URL. [Evidence](../evaluations/session-controls-and-review-progress.md).
+
+
+## ADR090 — 14/10/2026: xem lại chuyển câu và luyện lại, bài nhóm, lịch sử 10/trang
+
+Founder làm rõ ý trước: Cần xem lại phải tăng tiến độ **và chuyển câu**, cuối lượt gom câu muốn xem lại để làm lại riêng. Thay phần giữ câu của ADR089; lưu immutable attempt một lần/answer rồi tiến position, retry lấy subset questionIds đánh dấu sai/tự muốn xem lại từ lượt gốc, reset IDs/state và giữ filter. Không đổi word SRS vì self assessment grammar.
+
+Bỏ Tùy chọn chơi gây khó hiểu; chọn phạm vi qua bài/nhóm, reset Ôn tất cả. `filter.set` optional trong group URL/session giữ chính GroupSet wordIds/grammarKeys, gồm cả fallback day set, dùng chung game/Speaking. Tên đọc scoped live; mất set báo không khả dụng. Không suy group+lesson intersection bằng mọi từ của lesson vì có thể kéo mục thuộc set khác.
+
+Ảnh bài nhóm/editor dùng artWord sở hữu media, không dùng title hay empty string và không nới approval/license/revision. Save add-only giữ members cũ ở merge riêng, xử lý và thống kê duplicate chỉ input additions/lesson/day vừa chọn. Xóa lượt nằm trong card với hai sibling controls, tránh nested button. Lịch sử Profile10/page theo IndexedDBv5 additive index scope+createdAt, default closed chỉ count; mở/page mới limit10, không giữ toàn bộ snapshots trong React. [Evidence](../evaluations/review-retry-group-lessons-and-history.md).
+
+
+## ADR091 — 14/10/2026: chỉ lượt đã làm mới đang dở, tên phạm vi và chia game
+
+Founder không muốn mở nhầm rồi thoát tạo card0/10. Snapshot tạm giữ reload trong lượt; resume chỉ khi answers/position>0 hoặc checkedAnswer đã có (giữ feedback trước Next). Reveal/hint không tính. Explicit exit dùng transaction đọc latest scope và discard chỉ snapshot chưa làm; không cleanup React unmount vì StrictMode/concurrent tab có thể làm mất lượt. Snapshot chưa làm cũ/thoát qua route khác bị ẩn khỏi resume; không tự xóa learning, events hoặc lượt thật.
+
+Card giữ cấu trúc: game là heading, tên nhóm/bài/group-set/từ trong copy column, wrap tên dài; scoped live lookup, không tự đoán nguồn lượt cũ. Hub chia Words gồm Speaking và games từ, Grammar gồm Nghe & hiểu/Xếp câu; giữ tiles/font/nav/filter. [Evidence](../evaluations/started-rounds-and-game-sections.md).
+
+
+## ADR092 — 14/10/2026: giữ lựa chọn ôn khi rời route
+
+Founder yêu cầu quay lại Chơi & học vẫn đúng bài đang lọc; Ôn tất cả là thao tác bỏ filter. Lưu `PracticeFilter` đã validate trong IndexedDB metadata `practice-selection:v1:<scopeId>`, riêng từng library, không sync/backup hay lưu session/progress vào selection. URL filter mới và snapshot khi mở session thay lựa chọn; route hub/Speaking thiếu filter khôi phục trước render/game start, không tự mở due round khi restore. URL session cụ thể vẫn ưu tiên. Reset await ghi `{}` rồi đổi URL; lỗi storage giữ lựa chọn và cho retry, không báo thành công giả. Nội dung và lịch sử học giữ nguyên. [Evidence](../evaluations/persistent-practice-selection.md).
+
+
+## ADR092 — 14/10/2026: đáp án trong bài trước, giọng đọc tự phát cho game Words
+
+Founder yêu cầu snowy chọn cùng sunny/rainy, chỉ bổ sung từ kho khi thiếu3lựa chọn. Target pool vẫn đúng filter; distractor priority dùng bài/nhóm/group-set (không giới hạn một target hay due/weak), sau đó fallback approved/loadable distinct word/art/meaning trong kho. Không đổi user content/SRS/media boundaries.
+
+Founder cho phép Words có nút Nghe tự đọc câu mới. AudioControl autoPlay opt-in cho word controls/Speaking game, voice preference vẫn tắt bền, route/hide/stop abort pending voice và cleanup timer; ngoài game/Grammar manual, reverse card không đọc đáp án English trước reveal. Listen button giữ replay/recovery nếu browser/voice chưa cho tự đọc. Không claim physical-device universal autoplay. Copy Settings thay câu no-autoplay cũ. [Evidence](../evaluations/started-rounds-and-game-sections.md).
+
+
+## ADR093 — 14/10/2026: IPA/hint ngay dưới từ, bản thu mở và nghe chậm rõ
+
+Founder yêu cầu IPA+cách đọc chữ Việt dưới từ trong Nói cùng Cáo, nút nghe chậm như WordDetail và tìm nguồn sound chuẩn/free, có hỏi Cambridge. Cambridge hiện yêu cầu cấp phép audio cho ứng dụng; chưa có quyền dùng miễn phí nên không scrape/hotlink bản thu Cambridge. Chọn exact US pronunciation từ Wiktionary→Commons với metadata tác giả/giấy phép mở, attribution/source visible; không xem free API hay nghe được trên web là license. Thiếu nguồn/mạng/phát lỗi giữ device voice, nhãn thật; không paid provider. Nghe1.0/chậm0.6, bản thu giữ pitch; TTS có cùng rates nhưng device timing cần kiểm riêng. IPA/hint giữ content/version, chưa có dùng nguồn/CMU tham khảo chỉ để hiển thị; không rewrite user data hay chấm pronunciation bằng bản thu này. [Spec15](../15-speaking-practice.md), [evidence](../evaluations/speaking-reading-and-open-audio.md).
+
+ADR093 follow-up14/10: founder yêu cầu che các link nguồn khỏi màn học. Audio credit/license/source và IPA provenance giữ trong native details mặc định đóng (Nguồn phát âm/Nguồn IPA), chỉ mở khi muốn xem; không xóa attribution hay metadata.

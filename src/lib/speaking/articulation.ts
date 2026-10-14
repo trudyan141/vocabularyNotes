@@ -45,5 +45,13 @@ const tips:Record<string,string>={
  'j':'Đưa lưỡi gần vị trí “i” rồi trượt nhanh sang âm kế tiếp.',
 };
 export function articulation(phone:string){return tips[phone]??'Nghe mẫu, tập âm này chậm rồi nối vào từ. Máy chưa có hướng dẫn riêng cho âm này.';}
-const hints:Record<string,string>={apple:'áp-pồ',cat:'két',book:'búc',cup:'cấp',dog:'đo-g',family:'fa-mờ-li',they:'đây',who:'huu'};
+const hints:Record<string,string>={apple:'áp-pồ',cat:'két',book:'búc',cup:'cấp',dog:'đo-g',family:'fa-mờ-li',they:'đây',who:'huu',snowy:'snâu-i',nut:'nất'};
 export function approximateReading(word:string,saved?:string){return saved?.trim()||hints[word.toLowerCase()]||null;}
+
+/** A bounded spelling aid, never a claim of Vietnamese/English sound equivalence. */
+export function approximateIpaReading(ipa:string){
+ const sounds:Record<string,string>={'tʃ':'ch','dʒ':'j','eɪ':'ây','aɪ':'ai','aʊ':'ao','oʊ':'âu','əʊ':'âu','ɔɪ':'oi','ɝ':'ơr','ɚ':'ờr','ɜ':'ơr','æ':'a-e','ə':'ờ','ʌ':'â','ɪ':'i','i':'i','ɛ':'e','e':'e','ʊ':'u','u':'u','ɒ':'o','ɔ':'o','ɑ':'a','θ':'th','ð':'đ','ʃ':'sh','ʒ':'zh','ŋ':'ng','ɹ':'r','ɡ':'g','j':'y'};
+ const cleaned=ipa.replace(/[\/ˈˌːˑ]/g,'').replace(/\./g,'-');let hint='';
+ for(let i=0;i<cleaned.length;){const pair=cleaned.slice(i,i+2),single=cleaned[i];if(sounds[pair]){hint+=sounds[pair];i+=2;}else if(sounds[single]){hint+=sounds[single];i++;}else if(/[a-z -]/.test(single)){hint+=single;i++;}else return null;}
+ return hint.trim()||null;
+}

@@ -2,8 +2,11 @@ import type {LocalRepository} from './repository';
 import type {ScopedDocument} from './types';
 
 export type AppNotification = {
- id: 'device-lessons' | 'sync-attention' | 'image-draft';
- kind: 'guest-copy' | 'sync' | 'capture';
+ id: string;
+ href?:string;
+ name?:string;
+ recipientId?:string;
+ kind: 'guest-copy' | 'sync' | 'capture' | 'library-invite' | 'device-invite';
  signature: string;
  unread: boolean;
  count?: number;
@@ -52,5 +55,5 @@ export async function declineDeviceCopy(repo: LocalRepository) {
 
 /** Dismiss only this version of the reminder; never remove its source or pending work. */
 export async function dismissNotification(repo: LocalRepository, item: AppNotification) {
- await repo.db.metadata.put({key: dismissedKey(repo, item.id), value: item.signature});
+ await repo.db.metadata.put({key:item.recipientId?`share-dismissed:${item.recipientId}:${item.id}`:dismissedKey(repo, item.id), value: item.signature});
 }

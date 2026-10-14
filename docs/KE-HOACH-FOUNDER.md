@@ -1,5 +1,20 @@
 # Words for Kids — kế hoạch sản phẩm dành cho founder
 
+## Lưu kho đang nhận thành nội dung của mình — 15/10/2026
+
+Cài đặt → **Sao lưu & dữ liệu** luôn hiện khi nhận share:
+
+1. **Tải nội dung kho đang nhận** tải file bài học, từ, ngữ pháp, nhóm, ghi chú và ảnh được chia sẻ; không có lịch sử học/lịch ôn của kho gốc.
+2. **Thêm vào kho riêng** mở xem trước: tên kho nhận, số nghĩa từ mới/đã có và số bài câu/ngữ pháp mới/bỏ qua. Đăng nhập thì kho nhận là tài khoản của người nhận; chưa đăng nhập thì là kho riêng trên trình duyệt này.
+3. **Xác nhận thêm nội dung** mới lưu. Kho đang nhận vẫn được chọn để học; chọn **Chọn thư viện** khi muốn chuyển sang kho riêng.
+4. Muốn dùng file trên máy khác: mở Cài đặt → Sao lưu & dữ liệu → **Nhập file nội dung**, chọn file rồi xem trước/xác nhận. Nội dung mới từ file cần duyệt trước khi học.
+
+Từ trùng chữ chuẩn hóa + cách phân biệt hoa/thường + loại từ + nhãn nghĩa dùng lại nghĩa trong kho riêng. Khác loại từ hoặc nghĩa giữ riêng. Nếu lời giải thích cùng nghĩa khác nhau, giữ kho riêng và báo trong xem trước; ghi chú/ngữ pháp gắn với nghĩa mâu thuẫn được bỏ qua. Ngữ pháp so toàn bộ nội dung giảng dạy, ví dụ/dịch, điều kiện, giải thích, lỗi/sửa lỗi và các dạng đi kèm; khác ID/IPA không tạo thêm bản trùng. Không gộp nghĩa bằng AI. Nhập lại bản cũ không tăng từ/ngữ pháp; nhập bản sau chỉ thêm phần mới.
+
+**Tiến độ kho riêng giữ riêng:** không mang SRS/lịch sử/lượt học/điểm kho gốc; không ghi đè tiến độ sẵn có. Bản sao độc lập, không tự nhận sửa đổi sau này từ kho gốc. Kho gốc vẫn chỉ đọc. Sao lưu/khôi phục đầy đủ kho riêng vẫn dùng sau khi chọn kho riêng; khôi phục archive đầy đủ vẫn cần kho trống.
+
+**15/10 — Chia sẻ A/B và manual follow-up:** người nhận tự cập nhật từ/ngữ pháp mới sau cloud sync, không share lại; dùng **tiến độ chung của kho được share**, không tạo/chọn nhiều bé. Một Google vẫn một own kho/tiến độ; kho riêng vợ giữ nguyên. Founder xác nhận bên nhận không login vẫn dùngQR/mã10chữ/số và lưu tiến độ chung trong phiên72giờ. Registered emails chỉ cần cho A/notification B; B trực tiếp không cần email. [Founder flow](CHIA-SE-THU-VIEN-FLOW-FOUNDER.md), [Codex implementation draft](ai/LIBRARY-SHARING-IMPLEMENTATION-PLAN.md), [so sánh](DE-XUAT-CHIA-SE-THU-VIEN.md). **A/B đã làm và deploy để manual test.** Cài đặt gom nhóm Thư viện và chia sẻ, Hiển thị & âm thanh, Công cụ thêm bài, Sao lưu & dữ liệu. Header chỉ hiện icon kho đang nhận, bấm mở trạng thái đầy đủ trong Cài đặt; màn học không còn bảng lớn. Hồ sơ local cũng đã gom tài khoản, thư viện/đồng bộ, thông tin cá nhân, hoạt động học và quản lý dữ liệu; phần ít dùng thu gọn. Mã chưa nhận15phút, phiên3ngày; bài mới kiểm mỗi15giây khi đang mở. [Checklist/kết quả](evaluations/library-sharing.md). Số ôn bài đã loại bản lặp được xác nhận, đếm từ và nghĩa riêng; không xóa dữ liệu/tiến độ. [Sửa count và gom Cài đặt](evaluations/review-count-and-settings.md).
+
 **13/10 — Game Tìm ký tự thiếu:** bé chỉ điền1–3chữ vào ô ngay trong từ bằng gõ hoặc chạm chữ gợi ý, có nghĩa/hình/nghe. Game riêng bên cạnh Gõ cả từ, random toàn kho phù hợp, tạm dừng/mở lại giữ ô thiếu; điểm không đổi lịch ôn. Có bản offline; cloud đã mở loại phiên mới bằng SQL0009. Code local và [bằng chứng](evaluations/missing-letters-game.md), chưa deploy giao diện.
 
 **13/10 — Chơi toàn kho và từ tổng/nhóm:** lượt mới random từ toàn bộ từ/ngữ pháp đủ điều kiện, vẫn giữ vòng ngắn; tên bộ custom có thể bỏ trống. Chỉ kho tổng loại trùng, cùng từ ở nhiều nhóm/bài vẫn giữ và hiển thị các nhóm/bài chứa từ. Cloud đã gắn liên kết tổng cho31nhóm được bạn duyệt:158bản nguồn →124mục nghĩa tổng (123headwords), giữ toàn bộ nội dung/liên kết/lịch sử. Code local và kiểm UI theo [bằng chứng](evaluations/game-pools-and-global-words.md); chưa deploy giao diện mới.

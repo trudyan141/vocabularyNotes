@@ -49,6 +49,7 @@ const limit=50_000_000;
 function encode(bytes:Uint8Array){let value='';for(let i=0;i<bytes.length;i+=8192)value+=String.fromCharCode(...bytes.subarray(i,i+8192));return btoa(value);}
 function decode(value:string){return Uint8Array.from(atob(value),c=>c.charCodeAt(0));}
 export async function exportArchive(repo:LocalRepository,options:{includeDrafts?:boolean}={}):Promise<Archive>{
+ repo.assertContentWritable();
  const data:Record<string,unknown[]>=await repo.db.transaction('r',names.map(n=>repo.db.table(n)),async()=>{const output:Record<string,unknown[]>={};for(const name of names)output[name]=options.includeDrafts===false&&['captureDrafts','localMedia','learningDrafts','drafts'].includes(name)?[]:await repo.db.table(name).where('[scopeId+id]').between([repo.scope.id,''],[repo.scope.id,'\uffff']).toArray();return output;});
  const images=data.localMedia as {blob:Blob;byteSize:number}[];if(images.reduce((total,row)=>total+row.byteSize,0)>30_000_000)throw new RepositoryError('invalid');
  data.localMedia=await Promise.all(images.map(async row=>{const {blob,...metadata}=row;return {...metadata,base64:encode(new Uint8Array(await blob.arrayBuffer()))};}));
@@ -78,6 +79,7 @@ export async function parseArchive(raw:string):Promise<Archive>{
  return archive;
 }
 export async function importArchive(repo:LocalRepository,archive:Archive){
+ repo.assertContentWritable();
  const checked=await parseArchive(stableJson(archive));const rows=checked.records;
  // Complete snapshot restore is for an empty local library. Existing content is never replaced.
  await repo.db.transaction('rw',repo.db.tables,async()=>{

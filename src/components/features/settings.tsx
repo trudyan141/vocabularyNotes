@@ -1,4 +1,6 @@
 "use client";
+import Link from "next/link";
+import {SharedStatusPanel} from "@/components/app/sharing-boundary";
 import {ParentAiSettings} from "./parent-ai";
 import {GoogleSearchSettings} from "./google-search-settings";
 import {ArchiveTools} from "@/components/features/archive-tools";
@@ -47,6 +49,8 @@ export function Settings() {
           </AlertDescription>
         </Alert>
       )}
+      <section className="settings-group page-flow" aria-labelledby="settings-libraries"><h2 id="settings-libraries">{t('Thư viện và chia sẻ','Libraries and sharing')}</h2><div className="row-wrap"><Button asChild variant="outline"><Link href="/share">{t('Chia sẻ thư viện','Share library')}</Link></Button><Button asChild variant="outline"><Link href="/connect">{t('Nhập mã kết nối','Enter connection code')}</Link></Button><Button asChild variant="outline"><Link href="/libraries">{t('Chọn thư viện','Choose library')}</Link></Button></div><SharedStatusPanel/></section>
+      <section className="settings-group page-flow" aria-labelledby="settings-display"><h2 id="settings-display">{t("Hiển thị & âm thanh","Display & sound")}</h2>
       <FieldGroup>
         <Field>
           <FieldLabel>
@@ -147,13 +151,13 @@ export function Settings() {
         </Field>
         <Field orientation="horizontal"><FieldContent><FieldLabel htmlFor="game-sound-setting">{t('Tiếng trò chơi','Game sounds')}</FieldLabel><FieldDescription>{t('Tiếng đúng, thử lại và hoàn thành trên máy này. Tắt tiếng này vẫn nghe bài được.','Correct, retry and completion sounds on this device. Turning these off still lets you listen.')}</FieldDescription></FieldContent><Switch id="game-sound-setting" disabled={!hydrated} checked={gameSound.enabled} onCheckedChange={gameSound.setEnabled}/></Field>
         {gameSound.error&&<p role="alert">{t('Chưa lưu được tiếng trò chơi.','Game sound settings could not be saved.')} <Button variant="outline" onClick={()=>gameSound.setEnabled(gameSound.enabled)}>{t('Thử lưu lại','Try saving again')}</Button></p>}
-      </FieldGroup>
-      <ParentAiSettings/><GoogleSearchSettings/><ArchiveTools/>
-      <section className="settings-author" aria-labelledby="settings-author-title">
-        <h2 id="settings-author-title">{t("Về ứng dụng", "About the app")}</h2>
+      </FieldGroup></section>
+      <section className="settings-group page-flow" aria-labelledby="settings-tools"><h2 id="settings-tools">{t('Công cụ thêm bài','Lesson tools')}</h2><p>{t('Thiết lập tùy chọn để đọc bài từ ảnh và tìm hình. Mở công cụ cần dùng để xem chi tiết.','Optional settings for reading photo lessons and finding images. Open a tool to see its options.')}</p><ParentAiSettings/><GoogleSearchSettings/></section>
+      <section className="settings-group page-flow" aria-labelledby="settings-data"><h2 id="settings-data">{t('Sao lưu & dữ liệu','Backup & data')}</h2><ArchiveTools/></section>
+      <details className="settings-author settings-group"><summary>{t("Về ứng dụng", "About the app")}</summary>
         <p><UserRound aria-hidden="true"/><span>{t("Tác giả", "Author")}: <strong>Ly Kien Trung</strong></span></p>
         <Button asChild variant="outline"><a href="mailto:trudyan141@gmail.com"><Mail aria-hidden="true"/>trudyan141@gmail.com</a></Button>
-      </section>
+      </details>
       <Back href="/today" label={t("Về Hôm nay", "Back to Today")}/>
     </div>
   );

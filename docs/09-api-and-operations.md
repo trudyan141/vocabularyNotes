@@ -1,5 +1,9 @@
 # API và vận hành
 
+**15/10 — ADR096 đã triển khai A/B:** Settings → Chia sẻ thư viện, Nhập mã và Chọn thư viện. A gửi lời mời vào chuông cho email Google đã đăng ký; B QR/mã10chữ-số nhận không login, phiên72giờ từ lúc nhận, mã chưa nhận15phút. Nội dung chỉ đọc, tiến độ chung kho gốc, kho riêng người nhận tách biệt. Nội dung cloud mới cập nhật khi foreground kiểm15s/focus/reconnect. SQL0011/0012 additive đã apply; owner RLS/learning IDs/uniques giữ nguyên. [Flow founder](CHIA-SE-THU-VIEN-FLOW-FOUNDER.md), [triển khai](ai/LIBRARY-SHARING-IMPLEMENTATION-PLAN.md), [bằng chứng](evaluations/library-sharing.md).
+
+Notifications A/B đã nối vào NotificationBell hiện có; optional B email tạo mã riêng cho mỗi recipient. Xem/đọc/ẩn thông báo không consume mã; detail đúng recipient có QR/mã để chuyển sang TV. Không gửi SMTP.
+
 ## Shared Gemini default — ADR-040
 
 Theo steering mới nhất: key dùng chung cụ thể do founder cho phép là public browser configuration, không auto lưu localStorage. Key riêng ưu tiên khi đã cấu hình; Xóa key tắt AI qua reload, restore explicit. Quota chung/consent mỗi ảnh/không retry hoặc rotate vẫn giữ. Đây là ngoại lệ scoped với cấm public AI key lịch sử; service-role/operator/private parent key vẫn không public. [Evidence](evaluations/ui-and-hosted-cloud-fixes.md).

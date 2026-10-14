@@ -1,5 +1,35 @@
 # Nhật ký bàn giao
 
+## 15/10/2026 — Share auto-update, bỏ multi-learner và xác nhận bên nhận khônglogin
+
+Founder muốn new words/grammar tự cập nhật, hỏi profile picker và non-login share. Clarification trả lời **bên nhận khôngcầnđăngnhập**. Cập nhật [flow](../CHIA-SE-THU-VIEN-FLOW-FOUNDER.md)/[Codex draft](LIBRARY-SHARING-IMPLEMENTATION-PLAN.md)/comparison/specs/ADR096: source-library content read-only, chung legacy progress, own library recipient giữriêng, B signed-out practice/progress/reopen/renew quaQR/code. Bỏ toàn bộ learner tables/fields/backfill/unique changes/default-picker/actor-specificprogress proposals cũ; giữ source library learning IDs/reducer/CAS/receipts. Thêm SH14/15, active content+progress-watermark15s proposed/focus-reconnect delta; cloudpending/offline không fakeinstant. Docs-only, chưa code/SQL/cloud/config hoặc kiểm account thật.
+
+Verification: scoped links/13docs, fences, không còn active learner fields/endpoints, one-next-action và `git diff --check` PASS. `python3 -B scripts/validate_docs.py` còn đúng3artifact links tạm cũ thiếu; không lỗi docs mới. Không test app/SQL/build hoặc claim auto-update/live signed-out flow đã hoạt động.
+
+## 15/10/2026 — Founder góp ý mã10ký tự và thông báo Share A/B
+
+Cập nhật [flow](../CHIA-SE-THU-VIEN-FLOW-FOUNDER.md), [Codex draft](LIBRARY-SHARING-IMPLEMENTATION-PLAN.md), [comparison](../DE-XUAT-CHIA-SE-THU-VIEN.md) và spec/ADR096/bootstrap. Registered-email-only A/B delivery,10char alphanumeric/display5-5, nút Nhập mã choTV, optional B email+per-recipient pairing, existing NotificationBell inbox/detail+authorized code/QR handoff; read/dismiss không consume hoặc start72h. Đã đối chiếu3existing notification kinds/scoped local receipts; inbox/cloud delivery là tính năng mới planned, không claim có sẵn. Thay old12char/60bit/future-user-pending proposal; encrypted short-lived delivery proposed, chưa code/SQL/keys/config hoặc gửi thông báo thật.
+
+Verification: scoped links/13docs, fences,10char example/alphabet và loại stale12char proposal PASS; `git diff --check` PASS. `python3 -B scripts/validate_docs.py` còn đúng3artifact links tạm cũ thiếu, không lỗi mới. Docs-only, không test app/SQL/build hoặc kiểm TV/account thật.
+
+## 15/10/2026 — Docs chi tiết A/B cho Codex và màn hình/flow để founder duyệt
+
+Theo yêu cầu khoan code, viết [implementation draft](LIBRARY-SHARING-IMPLEMENTATION-PLAN.md) và [founder flow](../CHIA-SE-THU-VIEN-FLOW-FOUNDER.md). Source map owner auth/scopes/cloud change stream và library-level SRS cho thấy phải partition learner, giữ primary compatibility/backfill và split readonly content/progress writer. Proposed B dùng capability session riêng qua hash/cookie/RPC, không cần owner JWT/service key/env mới; A verified Google membership. Flow đủ share/nhận/chọn kho/learner/QR72giờ/revoke/error/pending; defaults/architecture đánh dấu chờ duyệt. Cập nhật routing/spec/ADR096/current next action. Không code, migration/schema file, database/config/deploy hoặc inspect account founder.
+
+Verification: source commit7673714 +current docs diff;29scoped local links/13docs, fences/one-next-action và `git diff --check` PASS. `python3 -B scripts/validate_docs.py` vẫn FAIL đúng3artifact links tạm cũ ở body-part-photo-analysis-fix; không có lỗi docs mới. Skill UX query tạo bytecode local đã dọn đúng folder của task, skill inventory trở lại bình thường. Không chạy app tests/build/SQL hoặc report UI/live pass từ docs.
+
+## 15/10/2026 — Founder cập nhật plan Share: email nhiều người, QR3ngày, chỉ học
+
+Cập nhật [plan](../DE-XUAT-CHIA-SE-THU-VIEN.md): Settings Share email+QR, nhiều email, kho riêng/kho được chia sẻ chọn riêng, chủ quản lý/người nhận chỉ học; bỏ co-editor/co-manager. Giải thích QR một lần cấp một phiên máy, phiên học72giờ và đề xuất15phút để nhận mã; tiến độ theo hồ sơ được cấp không thay bài gốc. Ghi ADR096+spec06/đường dẫn founder/state/task, docs-only/not implemented. Không mở account/browser hoặc đổi code/SQL/cloud.
+
+Verification: scoped local links7docs + `git diff --check` PASS; docs validator vẫn FAIL đúng3link artifact tạm cũ ở body-part-photo-analysis-fix, không lỗi mới. Không chạy app tests/build cho docs-only.
+
+## 15/10/2026 — Plan founder: dùng thư viện trên máy vợ và máy khác
+
+Viết [plan dễ đọc](../DE-XUAT-CHIA-SE-THU-VIEN.md), nối từ founder plan. So sánh7phương án, đề xuất sharing qua Google riêng rồi QR pairing, quyền/hồ sơ/tiến độ/thu hồi/offline; nêu email reset có free SMTP quota nhưng form login không thay thế library sharing. Tra source auth/sync và nguồn chính thức Supabase/Resend. Docs-only/proposed, chưa duyệt kiến trúc, không sửa app/SQL/cloud hoặc inspect tài khoản thật. Giữ các diff Speaking có sẵn.
+
+Verification: scoped links/status5files và `git diff --check` PASS. `python3 scripts/validate_docs.py` FAIL đúng3link artifact tạm đã thiếu trong body-part-photo-analysis-fix (đã ghi ở checkpoint14/10); không phát sinh lỗi plan mới. Không chạy app tests/build cho docs-only.
+
 15/10 founder manual follow-up: Speaking “khá ổn”; bỏ ghi chú thường “Điểm lượt nói này…” cả VI/EN theo yêu cầu, cập nhật preview4344; giữ lý do tạm0 khi lỗi dịch vụ. Scoped lint/diff checks, không đổi scoring hoặc gọi provider. [Evidence](../evaluations/speaking-zero-and-latency.md).
 
 ## 15/10/2026 — ADR095: Speaking có điểm và bounded latency, sửa target bias/schema flow
@@ -626,3 +656,22 @@ Keep Noto/Twemoji/Fluent priority; Commons broad query now accepts relevant phot
 14/10/2026 — ADR093: IPA và gợi nhớ chữ Việt dưới target Speaking; Nghe1.0/Nghe chậm0.6 ở game/detail; nguồn US Wiktionary→Commons checkedlicense/creator/source +real MP3 derivative, devicefallback/cancellation. Không scrape Cambridge hay đổi storedcontent/Gemini/SRS.20unit/10productionUI/lint/types/build PASS, live snowy metadata PASS; chưa phone/human listening/deploy. [Evidence](../evaluations/speaking-reading-and-open-audio.md).
 
 14/10 follow-up: thu gọn link nguồn audio/IPA mặc định trong native details, giữ attribution truy cập khi cần. Lint/types/diff PASS; scoped UI verification ở evidence audio.
+
+
+## 15/10 — ADR096: triển khai A/B sau lệnh founder làm hết để manual test
+
+Settings Share/Connect/Choose, inbox registered Google A/B, manual10char+QR fragment, B signed-out HttpOnly72h independent session, read-only content/shared original progress. New words/grammar auto-update foreground15s/focus/reconnect. Separate cache/context generations, projection whitelist/private evidence exclusion, limited writer/CAS/receipts, pending same-source renew/quarantine download. SQL0011 private sharing+0012 account lifecycle applied hosted; owner learning schema/constraints preserved. No main push/env/browser founder.
+
+Scoped51unit/integration tests,16productionUI regression +8final raceUI, nativeSQL concurrent claim/roles/SRS/expiry/lifecycle, hosted rollback fixtures, lint/types/build pass. [Evidence/manual checklist](../evaluations/library-sharing.md). Final real hosted A/B auto-update/source SRS/inbox QR handoff/reopen/own-library switch/end/revoke PASS; both disposable accounts and share data cleaned. Real Google OAuth/physical camera/TV/PWA manual remains open.
+
+
+## 15/10 — founder manual follow-up: review count và grouped Settings
+
+Due display collapses explicit aggregate aliases and groups written words, shows additional meanings separately; dueIds/source data/SRS unchanged. Shared large panel removed from learning shell, Link icon→Settings full status/actions with attention indication. Settings groups libraries/share, display/sound, lesson tools, backup/data, collapsed about.29focused tests+12productionUI/lint/types/build/diff PASS; [evidence](../evaluations/review-count-and-settings.md). Initial20word demo expectation was stale (19written words/20senses); fixture corrected. Production deployed/aliased; manual review pending.
+
+
+## 15/10 — Profile gom nhóm theo founder
+
+AccountTools groups identity/auth, libraries/sync/storage, personal editor, history and account data. Collapse less-used controls, auto-open cloud-storage error; shared current-library copy/link đúng read-only scope.8devUI desktop/mobile+lint/types/diff PASS; local4317 reflects changes, no deploy/data/SQL/auth rewrite. [Evidence](../evaluations/profile-groups.md).
+
+15/10 — shared backup/content copy: Settings retains Backup & data while receiving. Download visible content-only file, explicitly preview/confirm independent own copy or import file; progress untouched. Deterministic dedup covers source legacy and target identities/grammar, conflicts keep own content; FK/ID remapping, licensed media, deleted-lesson retention, CAS and idempotent receipt.52data+12productionUI/build/lint/types/diff PASS. Local4317/manual pending; no deploy. [Evidence](../evaluations/shared-content-copy.md).

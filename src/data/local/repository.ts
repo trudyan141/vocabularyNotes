@@ -1,4 +1,5 @@
 import {validateMedia,saveMedia} from './media';
+import {remoteTransactions as sharedHydrations} from '@/data/cloud/notifications';
 import type {MediaAsset} from '@/lib/media/contracts';
 import {contentSchema,saveContent,type LearningContent} from './content';
 import {safeArt} from '@/lib/media/catalog';
@@ -115,11 +116,37 @@ function base(scopeId: string, id = crypto.randomUUID()): Base {
   };
 }
 export class LocalRepository {
+  accessValid=true;
+  private leaseDeadline=Infinity;
+  get readOnly(){return this.scope.kind==='shared';}
+  get remainingLeaseMs(){return Math.max(0,this.leaseDeadline-performance.now());}
+  get canPractice(){return this.accessValid&&performance.now()<this.leaseDeadline;}
+  assertContentWritable(){if(this.readOnly)throw new RepositoryError('scope');}
   constructor(
     public readonly db: LibraryDatabase,
     public readonly scope: Scope,
   ) {
     scopeCheck(scope);
+    if(scope.kind==='shared'){
+      if(scope.id!==`shared:${scope.access.id}:${scope.libraryId}`||scope.ownerId!==scope.access.ownerId||scope.libraryId!==scope.access.libraryId)throw new RepositoryError('scope');
+      if(scope.access.expiresAt)this.leaseDeadline=performance.now()+Math.max(0,Date.parse(scope.access.expiresAt)-Date.parse(scope.access.serverTime));
+      this.installSharedGuards();
+    }
+  }
+  private installSharedGuards(){
+    const content=new Set(['entries','senses','examples','lessons','lessonItems','evidence','notes','decks','sentences','mediaAssets','surfaceForms','patterns','grammarItems','sourceAssets','deckItems','captureDrafts','localMedia','learningDrafts','drafts','receipts']);
+    const learning=new Set(['practiceSessions','reviewEvents','gameAttempts','reviewStates']);
+    for(const table of this.db.tables){
+      if(!content.has(table.name)&&!learning.has(table.name))continue;
+      const check=(row:{scopeId?:string},tx:import('dexie').Transaction)=>{
+        if(row.scopeId!==this.scope.id||sharedHydrations.has(tx))return;
+        if(content.has(table.name))this.assertContentWritable();
+        else if(!this.canPractice)throw new RepositoryError('not-ready');
+      };
+      table.hook('creating',(_key,row,tx)=>check(row,tx));
+      table.hook('updating',(_changes,_key,row,tx)=>check(row,tx));
+      table.hook('deleting',(_key,row,tx)=>check(row,tx));
+    }
   }
   private async journal(
     entity: string,

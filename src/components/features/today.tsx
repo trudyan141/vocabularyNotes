@@ -15,8 +15,9 @@ import { Artwork } from "@/components/app/shared";
 export function Today() {
   const { t, entries, repository,databaseStatus } = useApp();
   const lessons=useLiveQuery(async()=>{if(!repository)return null;const rows=await repository.db.lessons.where("[scopeId+learnedOn]").between([repository.scope.id,""],[repository.scope.id,"\uffff"]).reverse().toArray();const values=[];for(const lesson of rows.filter(l=>!l.deletedAt).sort((a,b)=>b.learnedOn.localeCompare(a.learnedOn)||b.updatedAt.localeCompare(a.updatedAt))){const result=await repository.search("",{lesson:lesson.id,approvedOnly:true,limit:1});if(result.total){values.push({lesson,total:result.total,art:result.words[0]?.art??null,word:result.words[0]?.word??lesson.title});break;}}return {scope:repository.scope.id,values};},[repository]);
-  const due=useLiveQuery(async()=>{if(!repository)return null;try{return {scope:repository.scope.id,count:(await new PracticeRepository(repository).dueIds()).length,error:false};}catch{return {scope:repository.scope.id,count:0,error:true};}},[repository]);
-  const dueCount=due&&due.scope===repository?.scope.id?due.count:0;
+  const due=useLiveQuery(async()=>{if(!repository)return null;try{return {scope:repository.scope.id,...await new PracticeRepository(repository).dueSummary(),error:false};}catch{return {scope:repository.scope.id,words:0,senses:0,error:true};}},[repository]);
+  const dueCount=due&&due.scope===repository?.scope.id?due.words:0;
+  const dueSenses=due&&due.scope===repository?.scope.id?due.senses:0;
   if(databaseStatus==='loading')return <FoxLoading label={t('Đang tải…','Loading…')}/>;
   const hasLessons=entries.length>0;
   return (
@@ -65,7 +66,7 @@ export function Today() {
         />
       </section>
       <section className="today-section page-flow" aria-labelledby="today-review"><h2 id="today-review">{t("Ôn bài","Review")}</h2><div className="today-section-actions">
-        <ActionLink href="/practice?review=due"><Button variant="feature" aria-label={t("Ôn bài hôm nay","Today's review")}><FeatureAction image="/illustrations/notebook.svg" title={t("Ôn bài hôm nay","Today's review")} description={dueCount?t(`${dueCount} từ đến hạn · tất cả nhóm`,`${dueCount} due words · all groups`):t("Hôm nay chưa có từ đến hạn","No words due today")}/></Button></ActionLink>
+        <ActionLink href="/practice?review=due"><Button variant="feature" aria-label={t("Ôn bài hôm nay","Today's review")}><FeatureAction image="/illustrations/notebook.svg" title={t("Ôn bài hôm nay","Today's review")} description={dueCount?t(`${dueCount} từ đến hạn${dueSenses>dueCount?` (${dueSenses} nghĩa)`:""} · tất cả nhóm`,`${dueCount} due words${dueSenses>dueCount?` (${dueSenses} meanings)`:""} · all groups`):t("Hôm nay chưa có từ đến hạn","No words due today")}/></Button></ActionLink>
         <ActionLink href="/practice/groups"><Button variant="feature"><FeatureAction image="/illustrations/bag.svg" title={t("Ôn bài theo nhóm","Review by group")} description={t("Chọn nhóm con muốn ôn","Choose a group to review")}/></Button></ActionLink>
       </div>{due&&due.scope===repository?.scope.id&&due.error&&<p role="alert">{t("Chưa đọc được lịch ôn. Thử tải lại nhé.","Could not read review dates. Please reload.")}</p>}</section>
       <section className="today-section page-flow" aria-labelledby="today-add"><h2 id="today-add">{t("Thêm từ","Add words")}</h2><div className="today-section-actions">

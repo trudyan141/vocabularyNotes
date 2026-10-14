@@ -2,6 +2,8 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import {SharedBackground} from "./shared-background";
+import {SharedStatusLink,SharingBoundary} from "./sharing-boundary";
 import {MainNavigation} from "./navigation";
 import {NotificationBell} from './notifications';
 import { ProfileLink } from "@/components/features/profile";
@@ -16,7 +18,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const showNav = true;
   return (
     <div className={cn("app-shell", showNav && "with-nav", pathname === "/welcome" && "welcome-shell")}>
-      <PullToRefresh />
+      <PullToRefresh /><SharedBackground />
       <a className="skip-link" href="#main">
         {t("Đến nội dung chính", "Skip to main content")}
       </a>
@@ -35,16 +37,17 @@ export function AppShell({ children }: { children: ReactNode }) {
           />
           <span>Words for Kids</span>
         </Link>
-        <div className="header-actions"><NotificationBell/><ProfileLink /></div>
+        <div className="header-actions"><SharedStatusLink/><NotificationBell/><ProfileLink /></div>
       </header>
       <MainNavigation labels={[t('Hôm nay','Today'),t('Từ của con','My words'),t('Chơi & học','Play & learn'),t('Cài đặt','Settings')]} label={t('Điều hướng chính','Main navigation')}/>
       <div className="app-content">
         <main id="main" tabIndex={-1}>
-          {["/welcome", "/settings"].includes(pathname) ? (
+          <SharingBoundary path={pathname}>
+          {["/welcome", "/settings", "/share", "/share/receive", "/connect", "/libraries", "/profile", "/account"].includes(pathname) ? (
             children
           ) : (
             <DatabaseBoundary progressive={showNav}>{children}</DatabaseBoundary>
-          )}
+          )}</SharingBoundary>
         </main>
       </div>
     </div>

@@ -1,6 +1,6 @@
 export type AccountProfile={id:string;email:string|null;name:string|null;avatarUrl:string|null};
 export type CloudOverview={state:'ready'|'empty'|'unavailable';words:number;lessons:number;error?:string};
-export type AccountStatus={configured:boolean;user:AccountProfile|null;cloud?:CloudOverview;error?:string};
+export type AccountStatus={configured:boolean;hasSharedDevice?:boolean;user:AccountProfile|null;cloud?:CloudOverview;error?:string};
 export function profileFor(user:{id:string;email?:string;user_metadata?:Record<string,unknown>}):AccountProfile{
  const meta=user.user_metadata??{};
  const name=[meta.full_name,meta.name].find(value=>typeof value==='string'&&value.trim());

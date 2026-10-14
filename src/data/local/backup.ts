@@ -14,6 +14,7 @@ const backupSchema=z.object({formatVersion:z.literal("words-for-kids.text.v1"),e
   checksum:z.string().regex(/^[a-f0-9]{64}$/)}).strict();
 export type Backup=z.infer<typeof backupSchema>;
 export async function exportBackup(repo:LocalRepository):Promise<Backup>{
+ repo.assertContentWritable();
   const data=await repo.db.transaction("r",repo.db.tables,async()=>{
     const senses=await repo.db.senses.where("[scopeId+entryId]").between([repo.scope.id,""],[repo.scope.id,"\uffff"]).toArray();
     const words=(await repo.words(senses.filter(s=>!s.deletedAt).map(s=>s.id))).map(withoutWordMemberships);
@@ -31,6 +32,7 @@ export async function parseBackup(raw:string):Promise<Backup>{
   return backup;
 }
 export async function importBackup(repo:LocalRepository,backup:Backup){
+ repo.assertContentWritable();
   const validated=await parseBackup(stableJson(backup));
   // Decode/checksum before opening a transaction. Merge preserves existing edits.
   const lessonId=`backup-${validated.checksum.slice(0,24)}`,operationId=`import-${validated.checksum}`;

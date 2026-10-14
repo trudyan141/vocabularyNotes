@@ -1,11 +1,13 @@
+import {cookies} from 'next/headers';
 import {authenticated,cloudConfig,privateHeaders} from '@/server/cloud/auth';
 import {profileFor,databaseFailure,type CloudOverview} from '@/lib/account-profile';
 export const dynamic='force-dynamic';
 export async function GET(request:Request){
  if(!cloudConfig())return Response.json({configured:false,user:null},{headers:privateHeaders});
  try{
+  const hasSharedDevice=/^[a-f0-9]{64}$/.test((await cookies()).get("wfk_share_device")?.value??"");
   const session=await authenticated();
-  if(!session)return Response.json({configured:true,user:null},{headers:privateHeaders});
+  if(!session)return Response.json({configured:true,user:null,...(hasSharedDevice?{hasSharedDevice:true}:{})},{headers:privateHeaders});
   const user=profileFor(session.user);let cloud:CloudOverview|undefined;
   // Routine session checks stay cheap; account overview is an explicit read-only query.
   if(new URL(request.url).searchParams.get('profile')==='1'){
@@ -21,6 +23,6 @@ export async function GET(request:Request){
     cloud=error?{state:'unavailable',words:0,lessons:0,error:databaseFailure(error.code)}:{state:'ready',words:counts[0].count??0,lessons:counts[1].count??0};
    }
   }
-  return Response.json({configured:true,user,...(cloud?{cloud}:{})},{headers:privateHeaders});
+  return Response.json({configured:true,user,...(hasSharedDevice?{hasSharedDevice:true}:{}),...(cloud?{cloud}:{})},{headers:privateHeaders});
  }catch{return Response.json({configured:true,user:null,error:'unavailable'},{status:503,headers:privateHeaders});}
 }

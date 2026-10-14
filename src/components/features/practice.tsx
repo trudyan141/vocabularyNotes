@@ -140,7 +140,7 @@ function QuestionView({session,busy,action,onPictureUnavailable}:{session:Sessio
 
 function PendingSession({session,practice,open,busy}:{session:Session;practice:PracticeRepository;open:()=>void;busy:boolean}){
  const {t}=useApp();const [pending,setPending]=useState(false),[error,setError]=useState('');const lock=useRef(false);
- return <div className="session-history-card pending-session"><SessionCard className="session-history-open" session={session} open={open}/><Button variant="ghost" disabled={busy||pending} aria-label={t('Xóa buổi học đang dở','Delete unfinished session')} onClick={async()=>{
+ return <div className="session-history-card pending-session"><SessionCard className="session-history-open" session={session} open={open}/><Button variant="ghost" hidden={practice.repository.readOnly} disabled={busy||pending} aria-label={t('Xóa buổi học đang dở','Delete unfinished session')} onClick={async()=>{
   if(lock.current)return;lock.current=true;setPending(true);setError('');
   try{await practice.remove(session.id,session.version);}catch{setError(t('Chưa xóa được lượt này. Lượt có thể đã đổi; thử lại từ danh sách mới nhé.','Could not delete this round. It may have changed; retry from the updated list.'));}finally{lock.current=false;setPending(false);}
  }}><Trash2 aria-hidden="true"/><span className="sr-only">{pending?t('Đang xóa…','Deleting…'):t('Xóa lượt','Delete round')}</span></Button>{error&&<p role="alert">{error}</p>}</div>;

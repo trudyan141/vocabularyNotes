@@ -2053,3 +2053,15 @@ details.group-save-result { display:block; padding:1rem; }
 .audio-source summary:focus-visible,.pronunciation-source summary:focus-visible { outline:2px solid var(--ring); outline-offset:4px; }
 .audio-source[open] > small,.pronunciation-source[open] > a { display:block; margin-top:8px; }
 .pronunciation-source { font-size:.75rem; overflow-wrap:anywhere; }
+
+/* Library sharing uses the existing reading-page and Theme C controls. */
+.share-section,.shared-banner{padding:var(--space-4,1rem);border:1px solid var(--border);border-radius:1rem;background:var(--card);}
+.shared-banner{margin-bottom:1rem;font-size:.95rem}.shared-banner p{margin:0}.share-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}.share-row span{overflow-wrap:anywhere;min-width:0}.share-row small{display:block}.share-emails{width:100%;border:1px solid var(--border);border-radius:.5rem;padding:.75rem;resize:vertical;font:inherit}.connection-code{font-size:clamp(1.4rem,6vw,2rem);font-weight:800;letter-spacing:.12em;user-select:all}.share-code img{max-width:100%;height:auto}.share-code{align-items:start}
+
+#shared-library{scroll-margin-top:6rem}.shared-status-link{position:relative;flex-shrink:0}.shared-status-dot{position:absolute;right:.4rem;top:.4rem;width:.45rem;height:.45rem;border-radius:50%;background:var(--primary)}
+
+.settings-group{padding-block:1.25rem;border-top:1px solid var(--border)}.settings-group>h2{margin:0}.settings-group>p{margin-top:0}.settings-author>summary{font-weight:800;cursor:pointer}.settings-author[open]>summary{margin-bottom:1rem}
+
+.profile-group{border-top:1px solid var(--border);padding-block:1.25rem}.profile-group>h2{margin:0}.profile-group>summary,.profile-subgroup>summary{font-weight:800;cursor:pointer}.profile-group>summary{font-size:1.25rem}.profile-group[open]>summary,.profile-subgroup[open]>summary{margin-bottom:1rem}.profile-account-intro{font-weight:700}.profile-subgroup{padding-top:.5rem}.profile-group .account-identity{align-items:center}
+
+.profile-storage>summary{font-weight:700;cursor:pointer}.profile-storage[open]>summary{margin-bottom:1rem}

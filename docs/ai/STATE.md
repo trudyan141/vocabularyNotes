@@ -1,7 +1,6 @@
 # Trạng thái hiện tại — Words for Kids
 
-Updated:15/10/2026. Current task: **ADR095 — sửa Speaking không có điểm và chờ lâu, implemented_local/scoped verified; acoustic quality_pending**. V3 schema-enforced heard phones, không gửi đáp án sang Gemini; client alignment/score. Mọi lượt đã thu có điểm, unclear0/âmunknown0credit; serviceerror tạm0 kèm nguyên nhân. Sửa short voice bị chờ10s; endpoint550ms silence, no-voice2.5s; request6s.55unit+9tool+20productionUI/lint/types/build PASS; final màu0neutral +4productionUI/build PASS.15engineering requests (synthetic only), live isolated browser apple100/2.364s mic-stop→score; cap→cat67 khi bỏ target. [Evidence](../evaluations/speaking-zero-and-latency.md), [manual](../evaluations/speaking-assessment-v2-manual-test.md). Chưa có100human/child hợp lệ, chưa deploy.
-
+Updated:15/10/2026. Current task: **Shared content copy — implemented_local / scoped verified; ready_for_manual_test**. Backup & data visible while receiving; download content + preview/confirm add-to-own or import content file. Exact dedup handles target/source legacy words and grammar; independent own progress, read-only source, CAS, file review preserved.52data tests +12productionUI/build/lint/types/diff PASS; local4317/settings HTTP200. [Evidence](../evaluations/shared-content-copy.md). No deployment for this follow-up; previous online sharing remains.
 
 ## Baseline / current steering
 
@@ -15,10 +14,13 @@ Updated:15/10/2026. Current task: **ADR095 — sửa Speaking không có điểm
 
 ## Work / verification / gaps
 
+ADR096 scoped evidence: native PostgreSQL15 roles/progress/concurrent claim/expiry/cleanup PASS; hosted rollback fixtures/grants/legacy constraints PASS.51unit/integration tests PASS;16productionUI cases desktop/mobile +build/lint/types PASS. Production https://words-for-kids.vercel.app deployed. Final hosted headless flow PASS: A/inbox, B signed-out/cookie/QR handoff, new words+grammar auto-update, original source SRS, separate own library switch, reopen/end/revoke; both sample accounts/share data cleaned. Real Google OAuth and physical camera/TV/PWA manual remain founder acceptance.
+
+
 Working tree đầu task phạm vi game sạch; workflow baseline bên dưới thuộc lượt trước. WF1 archive lossless trước rewrite; WF2 runner/shared config có7guard tests+dev/productionUI/no-demo PASS, lint/types/final snapshotbuild PASS; cloud smoke chưa chạy qua initdb SHMALL. Source identity = commit + content fingerprint, không SHA đơn lẻ.
 
 External acceptance vẫn mở: child/provider eligibility/quality/cost benchmark, human UX, physical camera/clipboard/audio/PWA/install, field/performance trên final release; xem TASKS. Fixture/mock không chứng minh live quality. Token/time của chat trước unavailable; chỉ đo bootstrap bytes/setup/test metadata có thật.
 
-**Next action:** founder reload port4344 và manual test đọc đúng/thiếu/thừa/không rõ, thời gian từ dừng mic đến điểm; đối chiếu actual0 với tạm0service theo checklist.
+**Next action:** founder refresh local4317/settings while receiving, test download/add/import and repeat copy against own library/progress.
 
 Lịch sử/checkpoints: [STATE history](STATE.history-2026-10-12.md), [CHANGELOG](CHANGELOG.md). Không append history vào current state.

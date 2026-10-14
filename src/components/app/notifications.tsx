@@ -6,21 +6,26 @@ import {Bell, ChevronRight, CloudUpload, FileImage, RefreshCw, Trash2, X} from '
 import Link from 'next/link';
 import {usePathname} from 'next/navigation';
 import {useApp} from './provider';
+import {useAuthStatus} from '@/lib/auth-state';
+import {shareCall} from '@/data/cloud/sharing';
+import {shareNotificationSchema,type ShareNotification} from '@/lib/sharing';
 import {Button} from '@/components/ui/button';
 import {SubmitButton, type SubmitState} from '@/components/ui/submit-button';
 import {EmptyState} from './shared';
 import {dismissNotification, listNotifications, type AppNotification} from '@/data/local/notifications';
 
 export function useNotifications() {
- const {repository} = useApp();
+ const {repository} = useApp();const user=useAuthStatus()?.user;const [remote,setRemote]=useState<{uid:string;items:ShareNotification[]} | null>(null);
+ useEffect(()=>{let active=true;const load=async()=>{if(!user||document.hidden||!navigator.onLine)return;try{const value=await shareCall<{items:unknown[]}>({action:'inbox'});const items=value.items.map(item=>shareNotificationSchema.parse(item));if(active)setRemote({uid:user.id,items});}catch{}};void load();const poll=setInterval(()=>void load(),60000);window.addEventListener('focus',load);window.addEventListener('wfk-share-updated',load);return()=>{active=false;clearInterval(poll);window.removeEventListener('focus',load);window.removeEventListener('wfk-share-updated',load);};},[user]);
  const result = useLiveQuery(async () => {
   if (!repository) return null;
-  try { return {scope: repository.scope.id, items: await listNotifications(repository), error: false}; }
+  try {const items=await listNotifications(repository);if(remote&&remote.uid===user?.id){for(const item of remote.items){const signature=String(item.generation);if((await repository.db.metadata.get(`share-dismissed:${remote.uid}:${item.id}`))?.value===signature)continue;items.unshift({id:item.id,kind:item.kind,name:item.name,recipientId:remote.uid,signature,unread:(await repository.db.metadata.get(`share-read:${remote.uid}:${item.id}`))?.value!==signature,href:`/share/receive?id=${item.id}`});}}return {scope: repository.scope.id, items, error: false}; }
   catch { return {scope: repository.scope.id, items: [] as AppNotification[], error: true}; }
- }, [repository]);
+ }, [repository,remote,user]);
  return result?.scope === repository?.scope.id ? result : undefined;
 }
 export function notificationText(item: AppNotification, t: (vi: string, en: string) => string) {
+ if(item.kind==='library-invite'||item.kind==='device-invite')return {title:t(item.kind==='library-invite'?'Được mời học thư viện':'Có mã kết nối máy',item.kind==='library-invite'?'Library invitation':'Device connection code'),summary:item.name??''};
  if (item.kind === 'capture') return {title:t('Tiếp tục bài từ ảnh', 'Continue your photo lesson'),summary:item.draftTitle?.trim() || t('Bạn còn một bài đang chuẩn bị.', 'You have an unfinished lesson.')};
  return item.kind === 'guest-copy'
   ? {title: t('Mang bài học sang tài khoản', 'Copy lessons to your account'), summary: t(`${item.count} từ trên máy đang chờ bạn chọn.`, `${item.count} device words await your choice.`)}
@@ -47,7 +52,7 @@ export function NotificationBell() {
    <div className="notification-popup-header"><h2>{t('Thông báo', 'Notifications')}</h2><Popover.Close asChild><Button variant="ghost" size="icon" ref={closeButton} aria-label={t('Đóng thông báo', 'Close notifications')}><X aria-hidden="true"/></Button></Popover.Close></div>
    {!view ? <p role="status">{t('Đang xem thông báo…', 'Loading notifications…')}</p> : view.error ? <p role="alert">{t('Chưa đọc được thông báo. Đóng rồi mở lại nhé.', 'Could not load notifications. Close and reopen to try again.')}</p> : view.items.length ? <ul className="notification-list">{view.items.map(item => {
     const text = notificationText(item, t); const Icon = item.kind === 'capture' ? FileImage : item.kind === 'guest-copy' ? CloudUpload : RefreshCw;
-    return <li key={item.id} className="notification-row"><Popover.Close asChild><Link prefetch={false} href={`/notifications/${item.id}`} className="notification-item"><span className="notification-symbol"><Icon aria-hidden="true"/></span><span><strong>{text.title}</strong><span>{text.summary}</span>{item.unread && <small>{t('Chưa đọc', 'Unread')}</small>}</span><ChevronRight aria-hidden="true"/></Link></Popover.Close><DismissNotification key={`${repository?.scope.id}:${item.id}:${item.signature}`} item={item} onDismiss={() => closeButton.current?.focus()}/></li>;
+    return <li key={item.id} className="notification-row"><Popover.Close asChild><Link prefetch={false} href={item.href??`/notifications/${item.id}`} className="notification-item"><span className="notification-symbol"><Icon aria-hidden="true"/></span><span><strong>{text.title}</strong><span>{text.summary}</span>{item.unread && <small>{t('Chưa đọc', 'Unread')}</small>}</span><ChevronRight aria-hidden="true"/></Link></Popover.Close><DismissNotification key={`${repository?.scope.id}:${item.id}:${item.signature}`} item={item} onDismiss={() => closeButton.current?.focus()}/></li>;
    })}</ul> : <EmptyState title={t('Chưa có thông báo', 'No notifications yet')} description={t('Có tin mới, chuông sẽ báo cho bạn nhé.', 'The bell will let you know when there is news.')}/>}
    <Popover.Arrow className="notification-arrow"/>
   </Popover.Content></Popover.Portal>

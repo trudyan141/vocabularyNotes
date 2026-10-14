@@ -1,6 +1,6 @@
 import {practiceFilterSchema,type PracticeFilter} from '@/lib/learning/practice-filter';
 import {eligibleMissingLetters,missingLetterPositions,missingLetters,validMissingPositions} from '@/lib/learning/missing-letters';
-import {uniqueAggregateWords,withoutWordMemberships} from '@/lib/learning/library-search';
+import {uniqueAggregateWords,groupLibraryWords,withoutWordMemberships} from '@/lib/learning/library-search';
 import {shuffled} from '@/lib/learning/random';
 import {loadPicture} from '@/lib/media/load-picture';
 import {approvedMedia} from './media';
@@ -71,6 +71,7 @@ export class PracticeRepository{
   }
   async get(id:string){const row=await this.table.get([this.repository.scope.id,id]);return row&&!row.deletedAt?row.payload.session as Session:undefined;}
   async remove(id:string,version:number){
+    this.repository.assertContentWritable();
     return this.repository.db.transaction('rw',this.table,async()=>{
       const row=await this.table.get([this.repository.scope.id,id]);
       if(!row||row.deletedAt)throw new RepositoryError('missing');
@@ -87,6 +88,10 @@ export class PracticeRepository{
     ]);
     const map=new Map(states.filter(row=>!row.deletedAt).map(row=>[row.id,row.payload.state as ReviewState]));
     const now=Date.now();return index.filter(row=>row.approval&&(!map.has(row.id)||Date.parse(map.get(row.id)!.dueAt)<=now)).map(row=>row.id);
+  }
+  async dueSummary(){
+    const words=(await this.repository.words(await this.dueIds())).filter(word=>word.approved);
+    return {words:groupLibraryWords(words,true).length,senses:uniqueAggregateWords(words).length};
   }
   private async candidates(filter:PracticeFilter){
     const scope=this.repository.scope.id;

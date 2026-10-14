@@ -2,7 +2,8 @@ import type { CaseMode } from "@/domain/identity";
 import type { Candidate, DemoEntry } from "@/lib/demo/model";
 export type Scope =
   | { id: string; kind: "guest" | "demo" }
-  | { id: string; kind: "account"; ownerId: string; libraryId: string };
+  | { id: string; kind: "account"; ownerId: string; libraryId: string }
+  | { id: string; kind: "shared"; ownerId: string; libraryId: string; access: import('@/lib/sharing').ShareContext };
 export type Base = {
   scopeId: string;
   id: string;

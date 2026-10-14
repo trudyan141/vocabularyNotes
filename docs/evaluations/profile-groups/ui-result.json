@@ -1,0 +1,67 @@
+{
+  "startedAt": "2026-10-14T22:43:15.624Z",
+  "sourceRoot": "/Users/trunglk/Documents/trung-github/VocabularyNotes",
+  "commit": "7673714609f550508e25e382fa0a33436b1015aa",
+  "fingerprint": "7731bf3542ea042ddc18704350ae0cb2ee723e6043fe16a9453eba5a7b692c0d",
+  "scope": "ui",
+  "mode": "dev",
+  "specs": [
+    "profile-groups.spec.ts",
+    "account.spec.ts"
+  ],
+  "node": "v24.14.1",
+  "provider": "fixture",
+  "commands": [
+    {
+      "label": "discovery",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--config",
+        "playwright.scoped.config.ts",
+        "--grep",
+        "guest profile|account profile separates|Google avatar displays|Google sign-in has",
+        "--list",
+        "--reporter=list"
+      ],
+      "elapsedMs": 896,
+      "exitCode": 0,
+      "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-aZy4gW/discovery.log"
+    },
+    {
+      "label": "prepare",
+      "command": [
+        "pnpm",
+        "run",
+        "predev"
+      ],
+      "elapsedMs": 6073,
+      "exitCode": 0,
+      "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-aZy4gW/prepare.log"
+    },
+    {
+      "label": "browser",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--config",
+        "playwright.scoped.config.ts",
+        "--grep",
+        "guest profile|account profile separates|Google avatar displays|Google sign-in has",
+        "--reporter=line"
+      ],
+      "elapsedMs": 29062,
+      "exitCode": 0,
+      "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-aZy4gW/browser.log"
+    }
+  ],
+  "tokens": "unavailable",
+  "discoveredTests": 8,
+  "snapshot": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-source-HhujYC",
+  "status": "passed",
+  "finishedAt": "2026-10-14T22:43:53.782Z"
+}

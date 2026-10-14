@@ -1,6 +1,7 @@
 "use client";
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useRef,
@@ -67,7 +68,10 @@ function updatePreferences(patch: Partial<Preferences>) {
   listeners.forEach((l) => l());
 }
 import {openAccountRepository,requestCloudLibrary,type AccountLibrary} from "@/data/cloud/account";
+import {activeShareKey,selectedShare,openSharedRepository,shareCall} from "@/data/cloud/sharing";
+import {shareContextSchema,type ShareSelection} from "@/lib/sharing";
 type AppState = {
+  selectSharedLibrary:(selection:ShareSelection)=>Promise<void>;
   demo: boolean;
   selectLocalLibrary: (demo:boolean)=>Promise<void>;
   selectCloudLibrary:(expectedOwner?:string)=>Promise<void>;
@@ -109,6 +113,8 @@ export function AppProvider({
     error: boolean;
   }>({ repository: null, error: false });
   const [selection,setSelection]=useState<boolean|AccountLibrary|null>(null);
+  const contextGeneration=useRef(0);
+  const identityId=useRef<string|null|undefined>(undefined);
   const [attempt, setAttempt] = useState(0);
   const [draftError, setDraftError] = useState(false);
   const draftWrites = useRef<Promise<unknown>>(Promise.resolve());
@@ -120,21 +126,25 @@ export function AppProvider({
   const demo=repository?repository.scope.kind==="demo":typeof selection==="boolean"?selection:selection===null?initialDemo:false;
   useEffect(() => {
     const db = new LibraryDatabase();
-    let active = true;
+    let active = true;const generation=contextGeneration.current;const isCurrent=()=>active&&generation===contextGeneration.current;
     const unavailable = () => {
-      if (active) setConnection({ repository: null, error: true });
+      if (isCurrent()) setConnection({ repository: null, error: true });
     };
     db.on("blocked", unavailable);
     db.on("versionchange", unavailable);
     (async()=>{await db.open();const preference=await db.metadata.get("chosen-local-library");
       // Verify identity before choosing a writable scope, even when a guest choice was saved.
       let status;try{status=await readAuth();}catch(error){const known=await db.metadata.get('last-auth-kind');if(!navigator.onLine&&known?.value==='guest')return openLocalRepository(db,preference?.value==='demo'?true:false);throw error;}
+      if(!isCurrent())throw new Error('context-changed');
+      identityId.current=status.user?.id??null;
+      const shared=await selectedShare(db);if(shared)return openSharedRepository(db,shared,isCurrent);
+      if(status.hasSharedDevice&&!await db.metadata.get('share-choice-reset')){const context=shareContextSchema.parse(await shareCall({action:'context',kind:'device'}));return openSharedRepository(db,context,isCurrent);}
       const last=await db.metadata.get('last-auth-kind');if(status.user&&last?.value!=='account')await db.metadata.put({key:'guest-display-preferences',value:JSON.stringify(snapshot.preferences)});if(!status.user&&last?.value==='account'){const guest=await db.metadata.get('guest-display-preferences');updatePreferences(readPreferences(guest?.value??null));}await db.metadata.put({key:'last-auth-kind',value:status.user?'account':'guest'});
       if(status.user){const account=await requestCloudLibrary();if(account.ownerId!==status.user.id)throw new Error('account-changed');const repo=await openAccountRepository(db,account);updatePreferences((await accountPreferences(repo))??defaultPreferences);return repo;}
       return openLocalRepository(db,typeof selection==='boolean'?selection:preference?.value==='guest'||preference?.value==='cloud'?false:preference?.value==='demo'?true:initialDemo);
     })()
       .then((repo) => {
-        if (active) setConnection({ repository: repo, error: false });
+        if (isCurrent()) setConnection({ repository: repo, error: false });
         else db.close();
       })
       .catch(unavailable);
@@ -149,7 +159,7 @@ export function AppProvider({
     const channel='BroadcastChannel' in window?new BroadcastChannel('wfk-auth'):null;
     if(channel)channel.onmessage=changed;
     let checking=false;
-    const check=async()=>{if(checking||!navigator.onLine||document.hidden)return;checking=true;try{const status=await readAuth();const owner=repository?.scope.kind==='account'?repository.scope.ownerId:null;if(repository&&status.user?.id!==owner&&(status.user||owner))changed();}catch{}finally{checking=false;}};
+    const check=async()=>{if(checking||!navigator.onLine||document.hidden)return;checking=true;try{const status=await readAuth();if(identityId.current!==undefined&&(status.user?.id??null)!==identityId.current)changed();}catch{}finally{checking=false;}};
     const timer=setInterval(()=>void check(),60000);window.addEventListener('focus',check);window.addEventListener('online',check);
     return()=>{clearInterval(timer);channel?.close();window.removeEventListener('wfk-auth-changed',changed);window.removeEventListener('focus',check);window.removeEventListener('online',check);};
   },[repository]);
@@ -249,12 +259,14 @@ export function AppProvider({
       saving.current = false;
     }
   }
+  const t=useCallback((vi:string,en:string)=>settings.preferences.locale === "vi" ? vi : en,[settings.preferences.locale]);
   return (
     <Context.Provider
       value={{
         demo,
-        selectLocalLibrary:async(next)=>{if((await readAuth()).user)throw new Error('account-active');if(!repository)throw new Error("library-unavailable");await repository.db.metadata.put({key:"chosen-local-library",value:next?"demo":"guest"});window.dispatchEvent(new Event("wfk-audio-stop"));setConnection({repository:null,error:false});setSelection(next);},
-        selectCloudLibrary:async(expectedOwner)=>{const status=await readAuth();if(!status.user||expectedOwner&&status.user.id!==expectedOwner)throw new Error('account-changed');await draftWrites.current;setConnection({repository:null,error:false});setSelection(null);setAttempt(value=>value+1);},
+        selectSharedLibrary:async(choice)=>{const generation=++contextGeneration.current;const db=repository?.db??new LibraryDatabase();await db.open();await openSharedRepository(db,choice,()=>generation===contextGeneration.current);window.dispatchEvent(new Event("wfk-audio-stop"));setConnection({repository:null,error:false});setAttempt(value=>value+1);},
+        selectLocalLibrary:async(next)=>{contextGeneration.current++;if((await readAuth()).user)throw new Error('account-active');const db=repository?.db??new LibraryDatabase();await db.open();await db.metadata.delete(activeShareKey);await db.metadata.put({key:'share-choice-reset',value:'1'});await db.metadata.put({key:"chosen-local-library",value:next?"demo":"guest"});if(!repository)db.close();window.dispatchEvent(new Event("wfk-audio-stop"));setConnection({repository:null,error:false});setSelection(next);},
+        selectCloudLibrary:async(expectedOwner)=>{contextGeneration.current++;const status=await readAuth();if(!status.user||expectedOwner&&status.user.id!==expectedOwner)throw new Error('account-changed');const db=repository?.db??new LibraryDatabase();await db.open();await db.metadata.delete(activeShareKey);await db.metadata.put({key:'share-choice-reset',value:'1'});if(!repository)db.close();await draftWrites.current;setConnection({repository:null,error:false});setSelection(null);setAttempt(value=>value+1);},
         entries,
         candidates,
         receipt,
@@ -268,7 +280,7 @@ export function AppProvider({
         },
         ...settings,
         setPreferences: async patch=>{updatePreferences(patch);if(repository?.scope.kind==='account')await queuePreferences(repository,patch).catch(()=>{snapshot={...snapshot,storageError:true};listeners.forEach(fn=>fn());});else if(repository?.scope.kind==='guest')await repository.db.metadata.put({key:'guest-display-preferences',value:JSON.stringify(snapshot.preferences)}).catch(()=>{snapshot={...snapshot,storageError:true};listeners.forEach(fn=>fn());});return !snapshot.storageError;},
-        t: (vi, en) => (settings.preferences.locale === "vi" ? vi : en),
+        t,
         setCandidates,
         savePreview,
         editPreview: async (id, revision, patch) => {

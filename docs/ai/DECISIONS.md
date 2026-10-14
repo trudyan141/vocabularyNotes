@@ -709,3 +709,29 @@ V2 JSON MIME-only+provider expected/heard/status/reference exact matching dễ t
 Short voice dưới180ms nhưng voicedMs>0 bị kẹt10s ở endpoint cũ. Nay voice≥100ms + silence550ms, no sustainedspeech2.5s; request6s (trước30s), reference3s, minimal thinking/compact payload, không retry tự động. Endpoint và request caps khác end-to-end latency. Pilot metrics phải không tính numeric0unclear hoặc error là acoustic coverage.
 
 Founder-directed engineering revision dùng thêm6request (5CLI+1isolated browser), tổng15; template offset15/còn285. Không tự tuyên bố đạt100human/child hoặc Google child eligibility. [Spec15](../15-speaking-practice.md), [evidence](../evaluations/speaking-zero-and-latency.md).
+
+## ADR096 — 15/10/2026: Share A/B, nội dung chỉ đọc và chung tiến độ thư viện
+
+**Founder15/10 đã giao làm toàn bộ để manual test; đã triển khai.** Scope hiện hành ở [flow tiếng Việt](../CHIA-SE-THU-VIEN-FLOW-FOUNDER.md), [implementation](LIBRARY-SHARING-IMPLEMENTATION-PLAN.md), [evidence](../evaluations/library-sharing.md).
+
+- Settings Share A cho một/nhiều email đã đăng ký app; Google xác thực nhận lời mời trong NotificationBell. B tạo QR/mã10chữ/số nhập tay cho TV/máy không camera; optional email đưa kết nối vào notification, mỗi recipient một pairing riêng. Không SMTP. Open/read/dismiss chưa nhận quyền hoặc consume mã.
+- Người nhận chỉ đọc/học nội dung, không sửa/xóa/reshare; owner soạn/quản lý. Owner thêm từ/ngữ pháp đủ điều kiện rồi commit cloud, active A/B tự catch-up, không share lại. Offline nhận khi reconnect; không claim tức thì0ms hoặc app đóng vẫn sync.
+- **Một Google account một own library/progress, không multi-learner/Bé An/Bé Na/picker.** A/B cùng dùng content+progress của source library. Học ghi events/SRS/sessions chung; người học thử cũng ảnh hưởng tiến độ chung. Own library recipient riêng, không auto-merge/copy/rehome learning. Bỏ learner_id/backfill/unique-change proposals cũ, giữ legacy IDs/constraints/reducer.
+- Founder trả lời clarification: **bên nhận không cần đăng nhập**. B nhận mã/QR để đọc/học/ghi progress/reopen/renew, không Google/signup/email bắt buộc hoặc Auth anonymous user. Chủ share cloud vẫn cần Google xác thực; recipient không quản lý hoặc share tiếp.
+- B phiên72giờ từ successful claim, ngắt sớm được; mã one-use cấp một browser-session, không giới hạn số lượt học. Renew cùng library giữ tiến độ cũ. Revoke/expiry không xóa learning đã nhận. Không claim xóa từ xa nội dung đã download/offline.
+
+Mặc định triển khai theo lệnh làm tiếp: A-until-revoke, QR chưa nhận TTL15min, một B context/browser, verify shared online khi mở lại; foreground content/progress-watermark polling15s +focus/reconnect; HttpOnly capability/private hash/scoped RPC +short-lived encrypted B notification delivery bằng credentials publishable hiện có. Không owner JWT/service key hoặc Vercel env mới. SQL0011/0012 additive và scoped RPC đã apply/verify hosted. Client watermark15s khi foreground; watermark đổi thì tải snapshot được materialize/chia trang, chưa dùng delta stream riêng. Xung đột giữ packet/local records, có tải riêng; renew cùng source giữ operation IDs. Không thay learning partition/reducer. Variants cũ lưu trong CHANGELOG, không dùng làm current requirements.
+
+
+### ADR096 follow-up15/10 — trạng thái shared ở Settings, đếm ôn không trùng
+
+Founder manual yêu cầu bỏ panel trạng thái shared khỏi màn học; icon liên kết trên header mở `/settings#shared-library`. Panel đầy đủ chỉ ở Settings; error/pending được nhắc bằng icon, quyền server/lease/expiry guard giữ. Settings group theo mục đích, không thêm tab nav: libraries/share, display/sound, lesson tools, backup/data, about collapsed.
+
+Review display đếm written words qua cùng canonical/case grouping của library và explicit approved aliases; nếu nhiều nghĩa thì hiển thị số nghĩa kèm số từ. `dueIds` giữ mọi source ID cho group/lesson filters; `dueSummary` chỉ projection, practice đã dùng uniqueAggregateWords. Không semantic merge, không đổi SRS/history/learning IDs hoặc xóa source duplicates.
+
+
+15/10 profile follow-up: founder yêu cầu gom `/profile` giống Settings. AccountTools (cả alias`/account`) nhóm account identity/sign-in/refresh; libraries/current scope/storage +collapsed sync/transfer; collapsed personal editor; learning history; collapsed account-data management. Cloud storage error auto-opens storage detail. Signed-out/sample/owner/shared messaging giữ đúng scope; shared không hiện nút sample như own guest. Không đổi auth/cloud/data/profile persistence semantics.
+
+### ADR096 follow-up — content-only copy, explicit founder approval15/10
+
+Supersedes earlier no shared→own transfer restriction **only for explicit content copy**. New strict `words-for-kids.content.v1` whitelist omits learning, evidence/raw drafts, credentials, grants, inbox and transfer metadata. Normalize export scope by source library; immutable snapshot checksum/limits/FKs/media bytes validated before writes. Source lease/server access is verified for direct export/copy; owner destination UID is independently verified. Signed-out destination is own guest, never demo/source. Account target sync precedes preview; transaction uses content CAS, new IDs/version1, exact identity reuse, graph remapping, deterministic grammar/content dedup and a snapshot receipt independent of export time. Conflicting meanings keep target and skip attached notes/grammar. All content inserts and receipt commit atomically; learning tables remain untouched. Post-save cloud failure reports local saved/pending rather than failed copy. File import marks new senses/media pending review; direct explicit confirmation accepts source approved content. Original full-archive empty-library/owner guard remains.

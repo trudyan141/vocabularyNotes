@@ -1,6 +1,6 @@
 import {test,expect,type Page} from '@playwright/test';
 test.beforeEach(async({page})=>{
- await page.route('**/api/auth/status*',route=>route.fulfill({json:{configured:false,user:null}}));await page.route('https://**',route=>route.abort());
+ await page.route('**/api/auth/status*',route=>route.fulfill({json:{configured:false,user:null}}));await page.route('**/api/audio/word',route=>route.fulfill({json:{word:route.request().postDataJSON().word,sample:null}}));await page.route('https://**',route=>route.abort());
  await page.addInitScript(()=>{
   const state=window as typeof window&{fixtureSpoken:string[]};state.fixtureSpoken=[];
   Object.defineProperty(window,'SpeechSynthesisUtterance',{configurable:true,value:class {text:string;constructor(text:string){this.text=text;}}});

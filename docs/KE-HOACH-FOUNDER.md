@@ -1053,11 +1053,19 @@ Checkpoint ADR040/041: source30129b7 nativeGit production READY dpl_6P6SXrqLUuPY
 
 <a id="speaking-review"></a>
 
-## 17. Tập phát âm — hướng chốt12/10
+## 17. Tập phát âm — nâng cấp đã duyệt14/10, chuẩn bị docs trước code
+
+**Tình trạng15/10 — đã sửa tiếp theo manual test của bạn:** lượt thu xong luôn có điểm; không nghe rõ được0, lỗi dịch vụ có tạm0 và ghi rõ nguyên nhân. Gemini nghe audio độc lập, không còn nhận đáp án để tránh đoán theo từ mẫu; app tự so âm/chấm. Sửa short-word mic chờ10s, chờ im lặng giảm900→550ms, request chấm tối đa6s thay30s. Thử live qua browser kiểm riêng với apple tổng hợp:100, khoảng2.36s từ dừng mic đến hiện điểm. Đây là một phép đo local, không cam kết mọi lượt/mạng đều nhanh hoặc chấm đúng; human/child pilot chưa đạt. [Báo cáo](evaluations/speaking-zero-and-latency.md), [manual checklist](evaluations/speaking-assessment-v2-manual-test.md). Chưa đưa lên website. Giữ Gemini/key hiện có, không thuê server, tải model hoặc mua dịch vụ.
+
+Bản nâng cấp để Gemini nhận âm, còn app tự tính điểm từ số âm đúng/thay gần/thiếu/thừa. Ví dụ cat đủ âm100, thiếu t67, đủ âm nhưng thêm “ờ”75; chưa nghe rõ thì không có điểm. Mỗi lượt chọn một mẹo tiếng Việt dễ luyện, bảng chi tiết vẫn giữ mọi lỗi; không ép trẻ bật hơi mạnh hay suy vị trí lưỡi chỉ từ audio. Bản nghe lại là đúng bản được gửi chấm, IPA/Nghe chậm và nguồn bản thu giữ.
+
+Nghiệm thu hai mốc riêng: **A** code/UI đúng qua test cô lập; **B** pilot100bản thu có nguồn/nhãn hợp lệ, tách người chỉnh và người đánh giá, đo riêng trẻ5–8. Mục tiêu pilot: lỗi báo ra đúng≥90%, chấm oan≤5%, bắt lỗi rõ≥80%, chấm được audio rõ≥90%, p95≤8giây; chi tiết và ngưỡng tầng trẻ ở plan đã duyệt. Tối đa hai prompt ứng viên/300request trong quota được phép; không fallback ngầm hoặc hạ chuẩn sau khi xem kết quả. Thiếu giọng trẻ/người duyệt thì vẫn hoàn tất A và báo B đang chờ, không gọi mock là đã chấm chuẩn. [Plan đầy đủ](ai/SPEAKING-ASSESSMENT-UPGRADE-PLAN.md), [hướng dẫn Codex](ai/SPEAKING-ASSESSMENT-IMPLEMENTATION.md).
+
+**Phần đã có trước nâng cấp, giữ từ12/10:**
 
 Bạn đã đồng ý gửi bản thu để Gemini chấm và yêu cầu bỏ bộ tải355MB. App chỉ dùng **Gemini3.5 Flash-Lite với key hiện có**, không cần tải bộ nhận âm. Key/project Free Tier không billing đã được bạn xác nhận; hết lượt miễn phí thì báo thử sau, không mua thêm hoặc chuyển sang dịch vụ trả phí.
 
-Bé bấm **Nói**, nghe tiếng báo rồi đọc; app tự nhận khi nói xong và báo kết thúc. Gemini nghe bản thu, trả điểm%, tô nhóm chữ xanh/cam/đỏ và hướng dẫn cách sửa từng âm bằng tiếng Việt. Bấm từ có màu để xem chi tiết; icon người để nghe lại. Bấm Nói là mở mic và tự chấm, không thêm popup xác nhận. Tập nói ngay trong trang từ, vẫn có nghĩa/IPA/ví dụ. **Nói cùng Cáo** ở Chơi & học cho một vòng≤5từ đã học.
+Bé bấm **Nói**, nghe tiếng báo rồi đọc; app tự nhận khi nói xong và báo kết thúc. Trước nâng cấp điểm%/nhận xét lấy từ Gemini; bản local hiện tính điểm và chọn hướng dẫn trong app theo ADR094. Bấm từ có màu để xem chi tiết; icon người để nghe lại. Bấm Nói là mở mic và tự chấm, không thêm popup xác nhận. Tập nói ngay trong trang từ, vẫn có nghĩa/IPA/ví dụ. **Nói cùng Cáo** ở Chơi & học cho một vòng≤5từ đã học.
 
 Phần tải355MB đã bỏ cả UI/runtime/dependency; bộ cũ được dọn khi app cập nhật, bài học giữ nguyên. Không có mạng/hết quota vẫn nghe mẫu, thu và nghe lại được; phần chấm cần Gemini. Bản thu/điểm không lưu thành lịch sử hoặc đồng bộ tài khoản.
 
@@ -1067,7 +1075,7 @@ Mở app có Cáo + **Đang tải…** trong lúc mở thư viện, kèm ảnh k
 
 Đã thêm ở bản code local: dưới câu ví dụ tiếng Anh có IPA của cả câu và nút Nghe đọc chính câu đó, rồi mới đến nghĩa tiếng Việt. Áp dụng cả thẻ ôn, ví dụ bổ sung, mẫu hỏi–đáp, từng bước ngữ pháp và câu lỗi/câu sửa; offline cũng có Nghe câu. Khi AI tạo bài, yêu cầu phiên âm cho từng câu đầy đủ. Sửa câu thì phiên âm cũ bị bỏ để kiểm lại. Nếu chưa có IPA chắc chắn, app nói rõ và vẫn cho nghe; không lấy phiên âm của riêng từ để thế vào.
 
-Kiểm tra local mobile/desktop, dữ liệu lưu/backup/xóa và generation bằng fixture đã qua; chưa kiểm giọng thật trên điện thoại hoặc gọi AI thật. [Bằng chứng và ảnh](evaluations/sentence-ipa-and-listening.md). Mục17 đã cập nhật Speaking local: có thu/nghe lại, bộ tải/xóa và nhận xét thử nghiệm; điểm chuẩn/giọng trẻ chưa nghiệm thu.
+Kiểm tra local mobile/desktop, dữ liệu lưu/backup/xóa và generation bằng fixture đã qua; chưa kiểm giọng thật trên điện thoại hoặc gọi AI thật. [Bằng chứng và ảnh](evaluations/sentence-ipa-and-listening.md). Mục17 giữ Speaking Gemini không bộ tải/xóa model; ADR094 nâng cấp nhận xét đã code/kiểm local, điểm chuẩn/giọng trẻ chưa nghiệm thu.
 
 
 ## 19. Sửa thư viện tài khoản, ảnh trùng và thêm bài vào nhóm — 11/10

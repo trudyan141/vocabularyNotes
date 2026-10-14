@@ -45,6 +45,14 @@ const tips:Record<string,string>={
  'j':'Đưa lưỡi gần vị trí “i” rồi trượt nhanh sang âm kế tiếp.',
 };
 export function articulation(phone:string){return tips[phone]??'Nghe mẫu, tập âm này chậm rồi nối vào từ. Máy chưa có hướng dẫn riêng cho âm này.';}
+export const insertionAdvice='Con nghe mẫu rồi nối các âm trong từ, không thêm tiếng “ờ” hay tiếng khác trước hoặc sau âm nhé.';
+export function practiceTip(phone:string,index:number,reference:string[],kind:'retry'|'incorrect'|'missing',heard:string|null){
+ const final=index===reference.length-1;
+ const stops:Record<string,string>={p:'Khép hai môi',b:'Khép hai môi',t:'Chạm đầu lưỡi vào nướu sau răng trên',d:'Chạm đầu lưỡi vào nướu sau răng trên',k:'Nâng phần sau lưỡi chạm vòm miệng',g:'Nâng phần sau lưỡi chạm vòm miệng'};
+ const normalized=phone==='ɡ'?'g':phone;
+ const tip=final&&stops[normalized]?`${stops[normalized]} để kết thúc âm. Không cần bật mạnh và đừng thêm “ờ”.`:stops[normalized]&&reference[index-1]==='s'?`${stops[normalized]} rồi nối nhẹ sang âm sau; không cần cố bật hơi mạnh.`:articulation(phone);
+ return `${kind==='missing'?'Con thử thêm âm này vào đúng chỗ. ':heard?`Con đang luyện chuyển từ /${heard}/ sang /${phone}/. `:''}${tip}`;
+}
 const hints:Record<string,string>={apple:'áp-pồ',cat:'két',book:'búc',cup:'cấp',dog:'đo-g',family:'fa-mờ-li',they:'đây',who:'huu',snowy:'snâu-i',nut:'nất'};
 export function approximateReading(word:string,saved?:string){return saved?.trim()||hints[word.toLowerCase()]||null;}
 

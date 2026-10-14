@@ -1,0 +1,142 @@
+{
+  "dateLocal": "2026-10-15",
+  "model": "gemini-3.5-flash-lite",
+  "totalRequests": 8,
+  "humanPilotPassed": false,
+  "candidate2PromptSha256": "0c2f8c35e3ac00c4ace89dff65a8378ed090bd0d7a36085bb9b9c7f3d2486ab4",
+  "controls": [
+    {
+      "id": "candidate1-correct-cat",
+      "scope": "Live schema/transport control, app prompt/validator/trim; local Samantha synthetic cat, NOT human/child quality benchmark",
+      "synthetic": true,
+      "model": "gemini-3.5-flash-lite",
+      "requests": 1,
+      "status": "valid_v2_response",
+      "qualityPilotPassed": false,
+      "score": 100,
+      "sounds": [
+        {
+          "expected": "k",
+          "heard": "k",
+          "status": "match"
+        },
+        {
+          "expected": "æ",
+          "heard": "æ",
+          "status": "match"
+        },
+        {
+          "expected": "t",
+          "heard": "t",
+          "status": "match"
+        }
+      ],
+      "insertions": [],
+      "http": 200,
+      "latencyMs": 1850,
+      "wavBytes": 13468
+    },
+    {
+      "id": "candidate1-cap-target-cat-invalid",
+      "scope": "Live synthetic contrast: Samantha cap against target cat; engineering control, NOT human/child quality benchmark",
+      "synthetic": true,
+      "model": "gemini-3.5-flash-lite",
+      "qualityPilotPassed": false,
+      "status": "control_failed",
+      "reason": "evidence",
+      "http": 200,
+      "requests": 1,
+      "latencyMs": 2220,
+      "wavBytes": 13468
+    },
+    {
+      "id": "candidate1-cap-target-cat-repeat",
+      "scope": "Repeated engineering diagnostic on the same synthetic control, not a separate sample",
+      "requests": 1,
+      "http": 200,
+      "status": "valid_v2_response",
+      "score": 100,
+      "qualityPilotPassed": false
+    },
+    {
+      "id": "audio-only-cap",
+      "scope": "Audio-only engineering probe on synthetic cap; no child-quality claim",
+      "http": 200,
+      "requests": 1,
+      "latencyMs": 1539,
+      "observed": {
+        "heardWord": "cap",
+        "heardPhones": [
+          "k",
+          "æ",
+          "p"
+        ]
+      }
+    },
+    {
+      "id": "response-schema-config-text",
+      "http": 400,
+      "requests": 1,
+      "scope": "Structured-output configuration diagnostic, text only",
+      "error": "Request contains an invalid argument."
+    },
+    {
+      "id": "response-schema-config-audio",
+      "spoken": "cap",
+      "target": "cat",
+      "candidate": 2,
+      "synthetic": true,
+      "qualityPilotPassed": false,
+      "requests": 1,
+      "http": 400,
+      "status": "control_failed",
+      "reason": "provider",
+      "latencyMs": 1067
+    },
+    {
+      "id": "candidate2-json-cap",
+      "spoken": "cap",
+      "target": "cat",
+      "candidate": 2,
+      "synthetic": true,
+      "qualityPilotPassed": false,
+      "requests": 1,
+      "http": 200,
+      "status": "control_failed",
+      "reason": "network_or_parse",
+      "latencyMs": 1668
+    },
+    {
+      "id": "candidate2-json-cat",
+      "spoken": "cat",
+      "target": "cat",
+      "candidate": 2,
+      "synthetic": true,
+      "qualityPilotPassed": false,
+      "requests": 1,
+      "http": 200,
+      "status": "valid_v2_response",
+      "score": 100,
+      "sounds": [
+        {
+          "expected": "k",
+          "heard": "k",
+          "status": "match"
+        },
+        {
+          "expected": "æ",
+          "heard": "æ",
+          "status": "match"
+        },
+        {
+          "expected": "t",
+          "heard": "t",
+          "status": "match"
+        }
+      ],
+      "insertions": [],
+      "latencyMs": 1202
+    }
+  ],
+  "conclusion": "Engineering controls only. Original prompt showed target-conditioned false match; audio-only heard cap. Second candidate still failed a negative control with non-parseable output. Provider responseSchema configuration returned400 and was not enabled in the app. Do not claim phoneme/child quality solved. Count these8requests from the pilot probe reserve."
+}

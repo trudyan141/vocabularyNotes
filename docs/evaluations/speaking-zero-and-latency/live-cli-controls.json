@@ -1,0 +1,51 @@
+{
+  "model": "gemini-3.5-flash-lite",
+  "requests": 5,
+  "priorRequests": 9,
+  "plusBrowserRequests": 1,
+  "totalEngineeringRequests": 15,
+  "synthetic": true,
+  "humanPilotPassed": false,
+  "controls": [
+    {
+      "id": "v2-apple-baseline",
+      "http": 200,
+      "providerMs": 1691,
+      "inputTokens": 718,
+      "outputTokens": 78,
+      "score": 100
+    },
+    {
+      "id": "compact-with-target-apple",
+      "http": 200,
+      "providerMs": 1630,
+      "inputTokens": 191,
+      "outputTokens": 67,
+      "score": 75
+    },
+    {
+      "id": "compact-with-target-cap-as-cat",
+      "http": 200,
+      "providerMs": 1634,
+      "inputTokens": 189,
+      "outputTokens": 77,
+      "score": 100
+    },
+    {
+      "id": "unprompted-apple",
+      "http": 200,
+      "providerMs": 2035,
+      "inputTokens": 201,
+      "outputTokens": 26,
+      "score": 75
+    },
+    {
+      "id": "unprompted-cap-as-cat",
+      "http": 200,
+      "providerMs": 1913,
+      "inputTokens": 201,
+      "outputTokens": 68,
+      "score": 67
+    }
+  ]
+}

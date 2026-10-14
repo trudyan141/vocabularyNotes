@@ -1,0 +1,17 @@
+{
+  "scope": "isolated headless Chromium, synthetic Samantha apple through actual MediaRecorder/decode/trim/app/Gemini, not founder or child audio",
+  "requests": 1,
+  "http": 200,
+  "clickToScoreMs": 4168,
+  "micStopToScoreMs": 2364,
+  "requestToScoreMs": 2107,
+  "score": "100%",
+  "feedback": "Giống mẫu\n\nCác âm máy nghe được giống mẫu. Giỏi lắm!\n\nChạm vào từ có màu để xem từng âm.",
+  "requestSafe": {
+    "schema": true,
+    "containsTarget": false,
+    "thinking": {
+      "thinkingLevel": "minimal"
+    }
+  }
+}

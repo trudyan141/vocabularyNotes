@@ -16,7 +16,7 @@
 | Capture/AI/review/IPA | 06/07, contracts; PROJECT-RULES IPA/ADR082; merged-photo evidence | worksheet-extraction + bilingual-learning-content |
 | Local save/dedup/backup/groups | 05/06/09; transaction/CAS tests liên quan | vocabulary-delivery; React khi query UI |
 | Auth/cloud/SQL | 05/06/09/10; migrations/evidence liên quan | supabase-postgres-best-practices trước sửa SQL/schema/RLS |
-| Speaking | 15/08; **ADR066** và mobile-speaking-startup (không ADR058 local engine) | bilingual-learning-content; React; motion khi đổi animation |
+| Speaking | [spec15](../15-speaking-practice.md); **ADR095** (current0score/contract/latency), ADR094 + [hướng dẫn nâng cấp](SPEAKING-ASSESSMENT-IMPLEMENTATION.md), plan đã duyệt; ADR066 giữ audio/model baseline, không ADR058 local engine | bilingual-learning-content; React; motion khi đổi animation |
 | Media/game pictures | 08/14; ADR081 và free-picture-sources-and-games | node cho bounded I/O; UI skills khi cần |
 | Bug/test failure | Spec/evidence đúng lỗi + WORKFLOW-SKILL-REVIEW | systematic-debugging; domain skill đúng boundary |
 | Handoff/context dài | HANDOFF-TEMPLATE; STATE current | filesystem-context/context-compression |

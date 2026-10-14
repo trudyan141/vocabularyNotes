@@ -1,8 +1,30 @@
 # Speaking — đặc tả hiện hành cho AI
 
-## Quyết định12/10/2026 — ADR066
+## ADR095 —15/10/2026: mọi lượt đã thu có điểm, nhận âm độc lập, chờ có giới hạn
 
-Founder đồng ý **gửi bản thu qua Gemini Free Tier để chấm**, rồi yêu cầu **bỏ luôn phần tải355MB**. Đây là hướng hiện hành, supersede engine local/không gửi audio của ADR058–065. Không hỏi founder review lại hướng đã đồng ý. Dùng key đang có, project Free Tier/no billing đã được founder xác nhận. Agent chỉ code và kiểm local fixture theo ADR049/050; không dùng key thật, triển khai hay thay billing.
+Founder yêu cầu sửa SP-SCHEMA, luôn có điểm kể cả0 và giảm thời gian. **Phần này supersede contract v2/uncertain→null/giới hạn tuning cũ ở ADR094** theo yêu cầu trực tiếp mới; các gate acoustic-quality chưa đạt vẫn giữ.
+
+- Runtime request schema v3 `{schemaVersion:3,words:[{index,audibility,heard:string[]}]}` dùng `responseJsonSchema` thực và inventory enum. Gemini chỉ nghe audio, **không gửi target text/IPA/reference**; text part chỉ wordCount. Client chọn một whole reference variant bằng edit-distance, tự xác định thiếu/thay/thừa và tính điểm. Không còn bắt model chép expected hay tự gán status/variantIndex, tránh các trường tự mâu thuẫn làm cả response bị loại. Validator v2 giữ cho baseline/tests, không runtime fallback v1/v2.
+- Một lượt thu xong luôn ra0–100: âm uncertain được0credit; whole unclear/no usable speech→0; lỗi network/quota/schema/timeout/reference/decode→**tạm0 vì lỗi chấm**, hiển thị rõ nguyên nhân và không kết luận trẻ đọc sai. Mic bị từ chối/hủy trước khi có bản thu không tạo điểm. Skip chưa làm không được tự nhận là đã chấm. Không lưu score/audio/SRS.
+- Replay vẫn đúng WAV gửi. Lỗi không làm kẹt Next/Finish; vòng tính cả lượt0. Tách lời hướng dẫn phát âm khỏi lỗi hệ thống; không fake phones cho service failure.
+- EndOfSpeech đủ100ms tiếng và550ms im lặng; dưới ngưỡng/no speech thoát sau2.5s, continuous sound tối đa10s. Guard cũ180ms+voiced nonzero gây short utterance chờ10s đã sửa. Reference request tối đa3s, Gemini request tối đa6s, minimal thinking, prompt/output compact; không retry/fallback/provider swap.6s là cap request sau chuẩn bị audio, không cam kết mọi mạng end-to-end≤6s.
+- Structured output và timing đã có live controls nhưng chưa có human/child100clip; schema không chứng minh model nghe đúng. Quality metrics phân biệt0unclear/tạm0system với kết quả âm học đủ chắc chắn, không dùng0để làm đẹp coverage.
+
+[Evidence hiện hành](evaluations/speaking-zero-and-latency.md). Các đoạn ADR094 bên dưới là checkpoint trước steering mới.
+
+## Hướng nâng cấp đã duyệt14/10/2026 — ADR094
+
+**15/10: v2 implemented_local, A scoped verified; B quality_pending, chưa pilot100human/child.** [Evidence](evaluations/speaking-assessment-v2.md) ghi48unit+8tool+14productionUI và8live engineering probes, gồm ca đọc sai được100/invalid output. Không claim acoustic accuracy đã đạt. Founder đã duyệt [plan nâng cấp](ai/SPEAKING-ASSESSMENT-UPGRADE-PLAN.md); Codex triển khai theo [execution guide](ai/SPEAKING-ASSESSMENT-IMPLEMENTATION.md). Gate chất lượng vẫn là yêu cầu chưa nghiệm thu; logic/UI đã có bằng chứng local riêng.
+
+ADR094 thay phần contract/điểm/lời khuyên của ADR066: provider v2 chỉ trả schemaVersion/index/variantIndex/audibility/phones/insertions, không score/advice; client chuẩn hóa substitution thành retry hoặc incorrect, tự tính điểm theo plan mục3–4. Missing chỉ thiếu âm và heardnull; insertion bắt buộc biểu diễn riêng; uncertain làm từ không có điểm. Bất kỳ lỗi nào không thể được100 kể cả do rounding. Màu/nhãn/gợi ý/chi tiết/tổng điểm suy từ cùng kết quả; điểm vòng chỉ khi mọi từ có điểm. Replay đúng WAV đã gửi, VI tips theo loại lỗi/vị trí; một lỗi chính, chi tiết đầy đủ.
+
+Giữ model/key, một request tối đa/lượt, không local pack/backend/fallback/auto retry, không lưu audio/điểm bền. Nghe1.0/chậm0.6, IPA/hint và source/license của ADR093 giữ. Không biến hướng dẫn release/closure/formant thành phép đo Gemini đã chứng minh hoặc buộc trẻ bật hơi mạnh.
+
+Nghiệm thu tách **A logic/UI scoped** và **B pilot âm học**. Contract, allowlist, công thức, dataset100clip, budget≤300request, ngưỡng precision/chấm oan/recall/coverage/latency và tầng trẻ lấy nguyên từ plan mục3–7; không tự hạ gate sau khi thấy output. Thiếu nguồn/nhãn/quota hợp lệ vẫn làm hết A, ghi B pending; không bịa evidence từ fixture/TTS. Live benchmark chỉ khi có đầu vào được phép và task triển khai được giao; 8engineering probes đã gọi bằng key hiện có, không dùng làm human pilot.
+
+## Phần giữ từ12/10/2026 — ADR066
+
+Founder đồng ý **gửi bản thu qua Gemini Free Tier để chấm**, rồi yêu cầu **bỏ luôn phần tải355MB**. Đây là hướng hiện hành, supersede engine local/không gửi audio của ADR058–065. Không hỏi founder review lại hướng đã đồng ý. Dùng key đang có, project Free Tier/no billing đã được founder xác nhận. Kiểm scoped theo ADR050; live pilot được ADR094 cho phép có điều kiện nguồn/nhãn/key/quota khi được giao triển khai, không tự thay billing hoặc suy quyền deploy từ tài liệu này.
 
 - Chỉ Gemini `gemini-3.5-flash-lite:generateContent` qua browser; không Worker/Wav2Vec2/Transformers/ONNX, tải model hoặc lựa chọn chấm offline.
 - Một request/lượt bấm Nói; WAV mono16kHz, tối đa10giây,320044bytes. Không tools, grounding, Files API, cache provider, tự retry, đổi model hoặc dịch vụ trả phí. Key ở header, không URL/log. Không tự thay config/key của tính năng khác.
@@ -20,7 +42,9 @@ WordDetail có nghe/nói/nghe lại dạng icon, giữ nghĩa/POS/IPA và câu v
 
 Mic chỉ từ thao tác người dùng: unlock AudioContext ngay trong tap, xin permission, báo hai nốt đi lên rồi mới bắt đầu thu. Sustained voice180ms và silence900ms tự kết thúc; silence6s/hard10s. Khi bản thu đóng và tracks dừng, báo hai nốt đi xuống; không đưa tiếng báo vào clip chấm. Hủy/rời trang/ẩn tab/logout/scope/revision đổi: dừng mic/playback, abort request, bỏ response muộn; late permission phải stop tracks. Recording guard≤5MB; resample mono16k, kiểm silence/clipping/finite/duration trước gửi, trim silence giữ120ms hai đầu. Không ghi âm khi vào trang, không phát cue khi trang ẩn.
 
-Gemini trả `words[{index,score,advice,phones[{expected,heard,status,advice}]}]`. Kiểm JSON≤50KB, output STOP, index đủ/không trùng, chọn nguyên một reference variant đã cung cấp, đủ từng phone đúng thứ tự, score integer0–100 hoặc null; không HTML/URLs. `match` phải heard=expected; `retry` âm gần; `missing` âm sai/thiếu; `uncertain` bắt buộc null score. Không đoán phone từ transcription hoặc reference khi audio không rõ. Hiển thị % từ Gemini, không ghi nhãn “điểm tham khảo”. Màu xanh/cam/đỏ trên nhóm chữ tương ứng; unclear không tạo điểm. Bấm từ mở sheet: score, nghe mẫu/nghe lại, cách đọc gần chữ Việt đã lưu, bảng âm mẫu/âm nghe được và hướng dẫn môi/lưỡi bằng VI. `apple`: a/pp/le, không bỏ e hoặc tạo âm /e/ độc lập. Nhận xét AI dạng text, không chạy HTML/model code.
+**Baseline v1 chỉ để tái hiện, không phải contract cho code mới:** Gemini trước nâng cấp trả `words[{index,score,advice,phones[{expected,heard,status,advice}]}]`; parser nhận score provider, missing gộp sai/thiếu và advice AI. ADR094 thay phần này bằng v2 strict theo plan; không giữ nhánh ưu tiên score/advice v1 trong runtime mới. JSON≤50KB, STOP, đúng target/reference/order, bounded output và không HTML/URLs vẫn bắt buộc.
+
+Bấm từ mở sheet có điểm nếu đủ bằng chứng, nghe mẫu/nghe lại, gợi nhớ Việt, bảng âm mẫu/âm nghe được và hướng dẫn VI. `apple`: a/pp/le, không bỏ e hoặc tạo âm /e/ độc lập. Màu/nhãn theo kết quả client; unclear không điểm. Không chạy nội dung AI thành HTML/model code.
 
 Timeout30s, không retry tự động; quota/access/missing-key/network/invalid-response không tô màu/điểm giả, giữ replay và nút nói lại. Target unknown/ambiguous vẫn cho nghe/thu, không tự chế reference. Chỉ20target words/80phones mỗi từ tối đa; current game/detail chủ yếu một từ mỗi lượt. Không claim ELSA phoneme accuracy hoặc trẻ/iPhone calibration từ mock.
 

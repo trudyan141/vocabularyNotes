@@ -1,5 +1,25 @@
 # Nhật ký bàn giao
 
+15/10 founder manual follow-up: Speaking “khá ổn”; bỏ ghi chú thường “Điểm lượt nói này…” cả VI/EN theo yêu cầu, cập nhật preview4344; giữ lý do tạm0 khi lỗi dịch vụ. Scoped lint/diff checks, không đổi scoring hoặc gọi provider. [Evidence](../evaluations/speaking-zero-and-latency.md).
+
+## 15/10/2026 — ADR095: Speaking có điểm và bounded latency, sửa target bias/schema flow
+
+Founder báo SP-SCHEMA, yêu cầu luôn có điểm và bớt chờ. Chuyển model sang heard-only v3 schema-enforced, không gửi đáp án; client align whole variants và chấm. Unclear0/unknown0credit, serviceerror tạm0 có lý do, replay/Next hoạt động. Sửa short voice kẹt10s; silence550ms/no-voice2.5s; API6s/minimal/compact.55unit+9tool+20productionUI/lint/types/build PASS, final màu0neutral +4productionUI/build PASS. Live15engineering total: target-conditioned cap100→unprompted67, browserapple100/stop→score2.364s; CLIapple từng75, nên không claim chất lượng đã đạt. [Evidence](../evaluations/speaking-zero-and-latency.md). Không deploy/push/new Vercel env/founder-browser/audio persistence.
+
+## 15/10/2026 — Manual Speaking: tách lỗi bị che bởi thông báo chung
+
+Founder thu được nhưng không có điểm, ảnh chỉ hiện generic message. Điều tra cho thấy catch gộp parse/schema/cutoff/network;1live apple TTS request cùng prompt/model trả valid100, không tái hiện lỗi gốc từ bản thu founder. Thêm typed failure và thông báo SP-* rõ, không lộ raw/key/audio, lỗi đưa từ thành unscored và vẫn replay. Không chỉnh prompt lần3; tổng9engineering requests, manifest offset9. [Evidence](../evaluations/speaking-grading-errors.md).
+
+## 15/10/2026 — ADR094: v2 local, logic/UI verified; chất lượng còn pending
+
+Triển khai strict provider contract, client score, missing/gross/near/insertion/uncertain, mẹo VI, exact replay/cancel và CMU stress reference; thêm benchmark runner/metrics với nguồn/nhãn/split/budget guards.48unit+8tool+14productionUI/lint/types/build PASS.8live probes bằng key hiện có: cap→cat false100 ở candidate1; candidate2 negative control invalid, responseSchema config400 nên không bật. Dừng sau2prompt; chưa có100human/child, không claim B pass. Bản local riêng port4344 cho founder manual test, không deploy/push/thêm env Vercel. [Evidence và giới hạn](../evaluations/speaking-assessment-v2.md), [manual checklist](../evaluations/speaking-assessment-v2-manual-test.md).
+
+## 14/10/2026 — ADR094: docs trước code cho nâng cấp chấm phát âm
+
+Founder duyệt plan cuối và yêu cầu chuẩn bị docs cho Codex. Chốt [plan](SPEAKING-ASSESSMENT-UPGRADE-PLAN.md), thêm [execution guide](SPEAKING-ASSESSMENT-IMPLEMENTATION.md), đồng bộ spec15/đường đọc START/STATE/TASKS và founder mục17. Tách runtime v1 khỏi yêu cầu v2, A logic/UI khỏi B chất lượng; không tạo ledger thứ hai hoặc ghi PASS trước khi kiểm. Chỉ docs; không sửa app, gọi live AI, thu giọng, deploy hoặc thay cấu hình provider. Kiểm tài liệu/diff ở lượt này không chứng minh mốc A/B đã đạt.
+
+Verification docs-only: scoped11Markdown/local links, trạng thái approved, ADR094 duy nhất và `git diff --check` PASS. `python3 scripts/validate_docs.py` vẫn FAIL đúng3link artifact `/var/folders/.../result.json` cũ trong [body-part evidence](../evaluations/body-part-photo-analysis-fix.md), đã có trước lượt này; không đổi evidence ngoài scope để làm xanh validator. Không chạy app tests/build vì không đổi app.
+
 ## 14/10/2026 — Giữ bài đang ôn khi rời trang
 
 Tái hiện mất filter khi bấm thư viện rồi quay lại chơi trên mobile/desktop. Persist selection local theo scope, restore trước hub/Speaking, giữ explicit URL/session; reset await save, storage errors giữ filter và retry.4scoped tests+10devUI/lint/types PASS; rộng ngoài ý định có1deletion fixture failure không liên quan selection. [Evidence](../evaluations/persistent-practice-selection.md). Chưa deploy/device.

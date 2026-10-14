@@ -26,6 +26,10 @@ it('explains each expected apple sound, preserves alternate phones and abstains 
 
 
 describe('pronunciation percentage',()=>{
+ it('never trusts a provider score when an expected sound is missing',()=>{
+  const row=assessPhones([{text:'cat',variants:[['k','æ','t']]}],phones(['k','æ']))[0];
+  expect(pronunciationScore([{...row,score:100}])).toBe(67);
+ });
  it('uses phone agreement, including omissions and additions, rather than acoustic confidence',()=>{
   const words=[{text:'apple',variants:[['æ','p','ə','l']]}];
   const phones=(values:string[])=>values.map((phone,i)=>({phone,confidence:.9,startMs:i*50,endMs:(i+1)*50}));
@@ -33,7 +37,7 @@ describe('pronunciation percentage',()=>{
   expect(pronunciationScore(assessPhones(words,phones(['ɛ','p','ə','l'])))).toBe(88);
   expect(pronunciationScore(assessPhones(words,phones(['æ','p','l'])))).toBe(75);
   expect(pronunciationScore(assessPhones(words,phones(['æ','p','ə','l','s'])))).toBeLessThan(100);
-  expect(pronunciationScore(assessPhones(words,[]))).toBeNull();
-  const different=assessPhones(words,phones(['s','t','k','f']));expect(pronunciationScore(different)).toBe(0);expect(different[0].phones?.every(phone=>phone.status==='missing')).toBe(true);
+  expect(pronunciationScore(assessPhones(words,[]))).toBe(0);
+  const different=assessPhones(words,phones(['s','t','k','f']));expect(pronunciationScore(different)).toBe(0);expect(different[0].phones?.every(phone=>phone.status==='incorrect')).toBe(true);
  });
 });

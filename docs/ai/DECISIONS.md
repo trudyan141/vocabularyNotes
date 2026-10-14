@@ -687,3 +687,25 @@ Founder cho phép Words có nút Nghe tự đọc câu mới. AudioControl autoP
 Founder yêu cầu IPA+cách đọc chữ Việt dưới từ trong Nói cùng Cáo, nút nghe chậm như WordDetail và tìm nguồn sound chuẩn/free, có hỏi Cambridge. Cambridge hiện yêu cầu cấp phép audio cho ứng dụng; chưa có quyền dùng miễn phí nên không scrape/hotlink bản thu Cambridge. Chọn exact US pronunciation từ Wiktionary→Commons với metadata tác giả/giấy phép mở, attribution/source visible; không xem free API hay nghe được trên web là license. Thiếu nguồn/mạng/phát lỗi giữ device voice, nhãn thật; không paid provider. Nghe1.0/chậm0.6, bản thu giữ pitch; TTS có cùng rates nhưng device timing cần kiểm riêng. IPA/hint giữ content/version, chưa có dùng nguồn/CMU tham khảo chỉ để hiển thị; không rewrite user data hay chấm pronunciation bằng bản thu này. [Spec15](../15-speaking-practice.md), [evidence](../evaluations/speaking-reading-and-open-audio.md).
 
 ADR093 follow-up14/10: founder yêu cầu che các link nguồn khỏi màn học. Audio credit/license/source và IPA provenance giữ trong native details mặc định đóng (Nguồn phát âm/Nguồn IPA), chỉ mở khi muốn xem; không xóa attribution hay metadata.
+
+## ADR094 — 14/10/2026: chấm phát âm v2 do client tính, tách logic và pilot chất lượng
+
+**Accepted14/10; follow-up15/10: A implemented_local/scoped verified, B quality_pending.** Founder duyệt [plan cuối](SPEAKING-ASSESSMENT-UPGRADE-PLAN.md) và yêu cầu viết [hướng dẫn Codex](SPEAKING-ASSESSMENT-IMPLEMENTATION.md) trước khi code. Chỉ thay contract/score/coaching và quy trình kiểm chất lượng Speaking; không thay engine/provider/model/key/audio-source, không parent gate hoặc tải local355MB.
+
+V1 có lỗi tính nhất quán đã probe: provider score100 vẫn được ưu tiên dù phones có missing. Nguyên nhân model nghe sai thành match chưa được chứng minh. V2 provider chỉ trả audibility/variant/phones/insertions; client validate strict, chuẩn hóa substitution gần/xa, tự tính `(M+0.5R)/(N+I)×100`, uncertain→null và có lỗi→tối đa99. Client chọn một mẹo VI đã rà theo loại lỗi/vị trí; bảng giữ đủ chi tiết, insertion không được che bằng toàn chữ xanh, replay đúng WAV gửi chấm. Không gộp các phoneme khác nhau để biến thành match.
+
+Mốc A là code/UI scoped verified; mốc B là pilot100clip split theo người, nhãn hợp lệ, tối đa300request, gate định lượng tổng+tầng trẻ tại plan mục7. Thiếu dữ liệu/quota không chặn A, không được báo B pass từ fixture. Khi task triển khai được giao, live pilot có điều kiện dùng nguồn/nhãn/key được phép trong budget đã chốt; không cần xin lại các lựa chọn đã duyệt, không tự thu dữ liệu riêng tư/mua dịch vụ/thay billing. Hạ gate sau khi xem held-out, fallback ngầm hoặc chỉnh prompt vô hạn đều không thuộc plan.
+
+ADR094 supersede phần điểm provider/advice tự sinh và giới hạn fixture-only cũ của ADR066 cho pilot có điều kiện; giữ một request tối đa/lượt, không auto retry, bounded I/O, no persistence/SRS và cancel/ownership/license boundaries. ADR093 nghe mẫu/IPA/hint/nguồn thu gọn giữ. Nếu fail nhận âm chỉ so sánh engine trên bằng chứng trước quyết định kiến trúc khác; fail quota/latency không tự kết luận engine sai. [Spec15](../15-speaking-practice.md).
+
+Follow-up15/10: đã triển khai strict v2/client score/VI/replay và benchmark tooling; sửa CMU stress AH1/2→ʌ, AH0→ə, ER0→ɚ chỉ reference runtime.48unit+8tool+14productionUI/lint/types/build PASS.8live engineering probes gồm false match cap→cat và invalid output;2prompt candidates đã dùng, dừng tuning, không hạ gate. B cần100clip human/child có nhãn/nguồn hợp lệ; không báo chất lượng đạt. [Evidence](../evaluations/speaking-assessment-v2.md).
+
+## ADR095 —15/10/2026: luôn có điểm cho lượt đã thu, nhận âm không đáp án và bounded latency
+
+Founder báo SP-SCHEMA và thời gian chờ không chấp nhận, trực tiếp yêu cầu điểm kể cả0. Supersede ADR094 ở contract/runtime null/tuning restrictions; không đổi engine/model/key, no paid fallback/persistence/SRS.
+
+V2 JSON MIME-only+provider expected/heard/status/reference exact matching dễ tự mâu thuẫn; đổi sang v3 schema-enforced heard stream. Không gửi đáp án/targetphones sang Gemini sau live control cap→cat100 khi có target; client chọn whole variant/align rồi chấm. Không loại các âm thừa; uncertain0credit, wholeunclear0. Lỗi hệ thống tạm0 kèm nhãn thật, không tạo fake diagnosis. Giữ mic cancel/no attempt và skipped riêng.
+
+Short voice dưới180ms nhưng voicedMs>0 bị kẹt10s ở endpoint cũ. Nay voice≥100ms + silence550ms, no sustainedspeech2.5s; request6s (trước30s), reference3s, minimal thinking/compact payload, không retry tự động. Endpoint và request caps khác end-to-end latency. Pilot metrics phải không tính numeric0unclear hoặc error là acoustic coverage.
+
+Founder-directed engineering revision dùng thêm6request (5CLI+1isolated browser), tổng15; template offset15/còn285. Không tự tuyên bố đạt100human/child hoặc Google child eligibility. [Spec15](../15-speaking-practice.md), [evidence](../evaluations/speaking-zero-and-latency.md).

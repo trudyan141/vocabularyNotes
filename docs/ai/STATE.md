@@ -1,12 +1,13 @@
 # Trạng thái hiện tại — Words for Kids
 
-Updated:14/10/2026. Current task: **IPA/hint và sound mở cho Nói cùng Cáo**. Có IPA+cách đọc chữ Việt ngay dưới từ, Nghe1.0/Nghe chậm0.6, exact US Wiktionary→Commons có license/source/creator và MP3; thiếu/lỗi dùng device voice, chặn late playback, không đổi dữ liệu học. Follow-up: link audio/IPA mặc định thu gọn trong mục nguồn. [Evidence](../evaluations/speaking-reading-and-open-audio.md):20unit/10productionUI/lint/types/build PASS; live snowy metadata PASS, phone/live listening/deploy chưa kiểm. Diff task trước giữ.
+Updated:15/10/2026. Current task: **ADR095 — sửa Speaking không có điểm và chờ lâu, implemented_local/scoped verified; acoustic quality_pending**. V3 schema-enforced heard phones, không gửi đáp án sang Gemini; client alignment/score. Mọi lượt đã thu có điểm, unclear0/âmunknown0credit; serviceerror tạm0 kèm nguyên nhân. Sửa short voice bị chờ10s; endpoint550ms silence, no-voice2.5s; request6s.55unit+9tool+20productionUI/lint/types/build PASS; final màu0neutral +4productionUI/build PASS.15engineering requests (synthetic only), live isolated browser apple100/2.364s mic-stop→score; cap→cat67 khi bỏ target. [Evidence](../evaluations/speaking-zero-and-latency.md), [manual](../evaluations/speaking-assessment-v2-manual-test.md). Chưa có100human/child hợp lệ, chưa deploy.
+
 
 ## Baseline / current steering
 
 - Next/PWA, Theme C/Nunito/Cáo; trẻ5–8 tự thêm/sửa/học, không parent gate. Từ+Ngữ pháp; examples/whole-sentence IPA giữ trong items. Chi tiết/bất biến ở AGENTS và [PROJECT-RULES](PROJECT-RULES.md).
 - Nhiều ảnh **một bài**: scan tất cả trước enrichment, global deterministic dedup giữ sense/POS/source sentences, checkpoint/CAS, một review/save; ADR082. [Merged photos](../evaluations/merged-photo-lesson.md): local61tests/14UI/lint/types/build PASS; chưa liveAI/phone/hostedsync/deploy của thay đổi này.
-- Speaking hiện **Gemini audio direct**, endpoint/cue/percent+colors; không local355MB pack/consent dialog, ADR066. [Speaking](../evaluations/mobile-speaking-startup.md): local only; live audio/physical phone/calibration chưa chứng minh.
+- Speaking runtime **v3 Gemini audio direct**, chỉ quan sát audio không có target, app align/tính điểm;0unclear/tạm0service theo ADR095. Chất lượng nhận âm còn pending. Không local355MB pack/consent dialog. ADR093 IPA/hint/Nghe1.0/chậm0.6 và nguồn thu gọn đã scoped verified: [audio](../evaluations/speaking-reading-and-open-audio.md). Live audio/physical phone/calibration chưa chứng minh.
 - Nút Google/copy giữ theo founder chốt khi tích hợp cần API/phí; shared image intake có paste/upload. [Ba nguồn](../evaluations/three-picture-sources.md).
 - Media tìm mới Noto→Twemoji→Fluent, rồi Google link/copy; legacy OpenMoji/Commons đã lưu giữ; ảnh user từ web paste/upload, source tùy chọn/User supplied; ready+approved đúng sense và metadata nguồn thật. [Fallback](../evaluations/simple-word-cards-and-media-fallback.md), [prepare](../evaluations/prepare-list-dedup.md); prepare build bị lock ở lượt cũ, không claim production pass. Notifications dismiss giữ data/queue: [notifications](../evaluations/notifications.md).
 - Account automatic sync/owner boundaries; **SQL0007 đã apply**,0008 hosted verified trong task cũ. [Cloud evidence](../evaluations/simple-lessons-and-live-cloud.md), [grammar/cloud](../evaluations/review-grammar-and-dictionary.md). Không còn chờ founder apply0007. Không suy hosted evidence cũ chứng minh mọi feature local mới.
@@ -18,6 +19,6 @@ Working tree đầu task phạm vi game sạch; workflow baseline bên dưới t
 
 External acceptance vẫn mở: child/provider eligibility/quality/cost benchmark, human UX, physical camera/clipboard/audio/PWA/install, field/performance trên final release; xem TASKS. Fixture/mock không chứng minh live quality. Token/time của chat trước unavailable; chỉ đo bootstrap bytes/setup/test metadata có thật.
 
-**Next action:** refresh bản local thử một bài thời tiết: nghe tự động, chọn từ cùng bài, làm một câu rồi thoát/tiếp tục.
+**Next action:** founder reload port4344 và manual test đọc đúng/thiếu/thừa/không rõ, thời gian từ dừng mic đến điểm; đối chiếu actual0 với tạm0service theo checklist.
 
 Lịch sử/checkpoints: [STATE history](STATE.history-2026-10-12.md), [CHANGELOG](CHANGELOG.md). Không append history vào current state.

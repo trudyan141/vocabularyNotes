@@ -9,8 +9,8 @@ Ngày chuẩn bị: **09/10/2026**, múi giờ người dùng Asia/Ho_Chi_Minh.
 ## Đọc theo vai trò
 
 | Mục đích | Tài liệu |
-| Speaking: chạy tại máy/0đ, SP1 đang triển khai local | [15-speaking-practice.md](15-speaking-practice.md) |
 |---|---|
+| Speaking ADR095: v3/zero score/latency local verified; quality pending | [15-speaking-practice.md](15-speaking-practice.md), [Codex execution](ai/SPEAKING-ASSESSMENT-IMPLEMENTATION.md), [plan](ai/SPEAKING-ASSESSMENT-UPGRADE-PLAN.md) |
 | Tìm ảnh mở, duyệt asset, animation và concurrency | [14-media-and-concurrency.md](14-media-and-concurrency.md) |
 | Hiểu sản phẩm và phạm vi | [00-product-brief.md](00-product-brief.md), [01-requirements.md](01-requirements.md) |
 | Hiểu hành trình người dùng | [02-user-flows.md](02-user-flows.md) |

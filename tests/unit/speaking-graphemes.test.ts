@@ -4,7 +4,7 @@ import {soundGroups} from '@/lib/speaking/graphemes';
 const heard=(phones:string[])=>phones.map((phone,i)=>({phone,confidence:.9,startMs:i*40,endMs:(i+1)*40}));
 it('covers every apple letter, groups pp and le, and colours only the affected group',()=>{
  const row=assessPhones([{text:'apple',variants:[['æ','p','ə','l']]}],heard(['æ','b','ɑ','l']))[0],groups=soundGroups(row);
- expect(groups.map(g=>g.letters)).toEqual(['a','pp','le']);expect(groups.map(g=>g.status)).toEqual(['match','retry','retry']);expect(groups[2].phones.map(p=>p.expected)).toEqual(['ə','l']);expect(groups.map(g=>g.letters).join('')).toBe('apple');
+ expect(groups.map(g=>g.letters)).toEqual(['a','pp','le']);expect(groups.map(g=>g.status)).toEqual(['match','retry','incorrect']);expect(groups[2].phones.map(p=>p.expected)).toEqual(['ə','l']);expect(groups.map(g=>g.letters).join('')).toBe('apple');
 });
 it('handles doubled/digraph consonants, missing sounds and silent final e without inventing a phone',()=>{
  const cat=assessPhones([{text:'cat',variants:[['k','æ','t']]}],heard(['k','æ']))[0];expect(soundGroups(cat).map(g=>g.status)).toEqual(['match','match','missing']);

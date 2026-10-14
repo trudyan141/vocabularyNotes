@@ -1,18 +1,19 @@
 import type {PhoneFeedback,WordFeedback} from './assessment';
+import {canonicalPhone,feedbackStatus} from './feedback';
 export type SoundGroup={letters:string;phones:PhoneFeedback[];status:WordFeedback['status'];silentTail?:string};
 // Spelling-to-sound correspondences used only when they cover the entire exact reference.
 // One sound may have two letters (pp), several sounds may have two letters (le).
 const spellings:Record<string,string[][]>={
- a:[['æ'],['eɪ'],['ɑ'],['ɔ'],['ə']],e:[['ɛ'],['i'],['ə'],['ɪ']],i:[['ɪ'],['aɪ'],['i'],['ə']],o:[['ɑ'],['ɔ'],['oʊ'],['ə']],u:[['ə'],['u'],['ʊ'],['j','u']],y:[['j'],['i'],['aɪ'],['ɪ']],
+ a:[['æ'],['eɪ'],['ɑ'],['ɔ'],['ə']],e:[['ɛ'],['i'],['ə'],['ɪ']],i:[['ɪ'],['aɪ'],['i'],['ə']],o:[['ɑ'],['ɔ'],['oʊ'],['ə'],['ʌ']],u:[['ʌ'],['ə'],['u'],['ʊ'],['j','u']],y:[['j'],['i'],['aɪ'],['ɪ']],
  b:[['b']],c:[['k'],['s']],d:[['d']],f:[['f']],g:[['g'],['dʒ']],h:[['h']],j:[['dʒ']],k:[['k']],l:[['l']],m:[['m']],n:[['n']],p:[['p']],q:[['k']],r:[['r']],s:[['s'],['z']],t:[['t']],v:[['v']],w:[['w']],x:[['k','s'],['g','z']],z:[['z']],
  pp:[['p']],bb:[['b']],tt:[['t']],dd:[['d']],gg:[['g']],ff:[['f']],ll:[['l']],mm:[['m']],nn:[['n']],ss:[['s']],zz:[['z']],ck:[['k']],ch:[['tʃ'],['k']],sh:[['ʃ']],th:[['θ'],['ð']],ph:[['f']],ng:[['ŋ']],qu:[['k','w']],wh:[['w'],['h']],wr:[['r']],kn:[['n']],
  le:[['ə','l'],['l']],tion:[['ʃ','ə','n']],dge:[['dʒ']],tch:[['tʃ']],
- oo:[['ʊ'],['u']],ee:[['i']],ea:[['i'],['ɛ']],ai:[['eɪ']],ay:[['eɪ']],oa:[['oʊ']],oe:[['oʊ']],ow:[['oʊ'],['aʊ']],ou:[['aʊ'],['ə'],['u']],oi:[['ɔɪ']],oy:[['ɔɪ']],au:[['ɔ']],aw:[['ɔ']],er:[['ɝ'],['ə','r']],ir:[['ɝ']],ur:[['ɝ']],ar:[['ɑ','r']],or:[['ɔ','r']],igh:[['aɪ']],
+ oo:[['ʊ'],['u']],ee:[['i']],ea:[['i'],['ɛ']],ai:[['eɪ']],ay:[['eɪ']],oa:[['oʊ']],oe:[['oʊ']],ow:[['oʊ'],['aʊ']],ou:[['aʊ'],['ə'],['ʌ'],['u']],oi:[['ɔɪ']],oy:[['ɔɪ']],au:[['ɔ']],aw:[['ɔ']],er:[['ɝ'],['ɚ'],['ə','r']],ir:[['ɝ']],ur:[['ɝ']],ar:[['ɑ','r']],or:[['ɔ','r']],igh:[['aɪ']],
 };
-const normal=(p:string)=>p.replace('ɡ','g').replace('ɹ','r').replace('ʌ','ə').replace('ɚ','ɝ');
+const normal=canonicalPhone;
 export function groupStatus(phones:PhoneFeedback[],fallback:WordFeedback['status']):WordFeedback['status']{
  if(!phones.length)return fallback;
- return phones.some(p=>p.status==='uncertain')?'uncertain':phones.every(p=>p.status==='match')?'match':phones.some(p=>p.status==='missing')?'missing':'retry';
+ return feedbackStatus(phones,[],fallback==='uncertain');
 }
 export function soundGroups(word:WordFeedback):SoundGroup[]{
  const details=word.phones??word.expected.map(expected=>({expected,heard:null,status:word.status,advice:''}));

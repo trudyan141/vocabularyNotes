@@ -1,0 +1,20 @@
+{
+  "scope": "deterministic simulated 50ms energy samples, not physical mic or provider benchmark",
+  "rows": [
+    {
+      "syntheticVoiceMs": 50,
+      "beforeEndMs": 10000,
+      "afterEndMs": 2500
+    },
+    {
+      "syntheticVoiceMs": 100,
+      "beforeEndMs": 10000,
+      "afterEndMs": 650
+    },
+    {
+      "syntheticVoiceMs": 400,
+      "beforeEndMs": 1300,
+      "afterEndMs": 950
+    }
+  ]
+}

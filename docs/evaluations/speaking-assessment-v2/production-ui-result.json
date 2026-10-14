@@ -1,0 +1,67 @@
+{
+  "startedAt": "2026-10-14T17:14:25.589Z",
+  "sourceRoot": "/Users/trunglk/Documents/trung-github/VocabularyNotes",
+  "commit": "e3ecf94783e496b71ac989942d99966301b6bc20",
+  "fingerprint": "63b20b37371078b2de0c4694907f2d1b0eb0ea81f6e2733ca8af316476355f7d",
+  "scope": "ui",
+  "mode": "production",
+  "specs": [
+    "speaking-refresh.spec.ts",
+    "speaking-assessment.spec.ts"
+  ],
+  "node": "v24.14.1",
+  "provider": "fixture",
+  "commands": [
+    {
+      "label": "discovery",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--config",
+        "playwright.scoped.config.ts",
+        "--grep",
+        "Microphone|Speech ends|Quota failure|v2",
+        "--list",
+        "--reporter=list"
+      ],
+      "elapsedMs": 595,
+      "exitCode": 0,
+      "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-mAO34h/discovery.log"
+    },
+    {
+      "label": "build",
+      "command": [
+        "pnpm",
+        "build",
+        "--webpack"
+      ],
+      "elapsedMs": 26394,
+      "exitCode": 0,
+      "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-mAO34h/build.log"
+    },
+    {
+      "label": "browser",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--config",
+        "playwright.scoped.config.ts",
+        "--grep",
+        "Microphone|Speech ends|Quota failure|v2",
+        "--reporter=line"
+      ],
+      "elapsedMs": 41927,
+      "exitCode": 0,
+      "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-mAO34h/browser.log"
+    }
+  ],
+  "tokens": "unavailable",
+  "discoveredTests": 14,
+  "snapshot": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-source-YLIwDm",
+  "status": "passed",
+  "finishedAt": "2026-10-14T17:15:35.888Z"
+}

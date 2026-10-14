@@ -53,7 +53,12 @@ export async function saveStudyGroup(repo:LocalRepository,input:{id:string;versi
   for(const id of wordIds){const word=approvedWords.get(id);if(!word)throw new RepositoryError('invalid');const identity=JSON.stringify([canonicalKey(word.word,word.caseMode),word.caseMode,exactSenseKey(word.pos,word.sense)]);if(uniqueWords.has(identity)||before?.wordIds.includes(id))duplicateItems.push({kind:"word",label:word.word});if(!uniqueWords.has(identity))uniqueWords.set(identity,id);}
   function uniqueRefs(refs:GroupMembers['sentences'],items:LearningItem[],key:(item:LearningItem)=>string,kind:'sentence'|'grammar'){
    const available=new Map(items.map(item=>[JSON.stringify([item.senseId,key(item)]),item])),result=new Map<string,typeof refs[number]>();
-   for(const ref of refs){const item=available.get(JSON.stringify([ref.senseId,ref.key]));if(!item)throw new RepositoryError('conflict');const identity=kind==='grammar'?(item.family??ref.key):ref.key;const existed=(kind==='grammar'?before?.grammar:before?.sentences)?.some(old=>old.key===ref.key);if(result.has(identity)||existed)duplicateItems.push({kind,label:item.example||item.textEn});if(!result.has(identity))result.set(identity,ref);}
+   for(const ref of refs){const item=available.get(JSON.stringify([ref.senseId,ref.key]));if(!item){
+    // Add-only saves keep unavailable saved refs; only new selections need current approval.
+    const saved=kind==='grammar'?retained?.grammar:retained?.sentences;
+    if(saved?.some(old=>old.senseId===ref.senseId&&old.key===ref.key))continue;
+    throw new RepositoryError('conflict');
+   }const identity=kind==='grammar'?(item.family??ref.key):ref.key;const existed=(kind==='grammar'?before?.grammar:before?.sentences)?.some(old=>old.key===ref.key);if(result.has(identity)||existed)duplicateItems.push({kind,label:item.example||item.textEn});if(!result.has(identity))result.set(identity,ref);}
    return [...result.values()];
   }
   const mergedRefs=(saved:GroupMembers['sentences'],next:GroupMembers['sentences'])=>{const refs=new Map(saved.map(ref=>[ref.key,ref]));for(const ref of next)if(!refs.has(ref.key))refs.set(ref.key,ref);return [...refs.values()];};

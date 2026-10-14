@@ -4,6 +4,8 @@ Direct user task ưu tiên ready task. Status chỉ done khi có evidence, mock/
 
 UX review direct task **UXR01: implemented_local / scoped verified**. [Founder proposal](../DE-XUAT-UX-UI.md), [AI execution guide](UX-UI-IMPLEMENTATION-PLAN.md), [evidence](../evaluations/ux-review-2026-10-12.md).100captures/50states mobile+desktop, source-only/live/device gaps explicit; mute reset reproduced. Founder đã giao cả4đợt + group bulk chỉ mục mới và lọc headword không lặp. [Implementation evidence](../evaluations/ux-ui-implementation.md). Acceptance:46unit/integration+66productionUI/lint/types/build PASS,2live-media skips,74screenshots; follow-up group search highlight2devUI+4unit/lint/types PASS; founder/human/device review pending; product task totals unchanged.
 
+Direct bugfix **14/10 — thêm bài vào nhóm bị conflict: implemented_local / scoped verified**. Giữ refs cũ không khả dụng trong add-only save, bỏ qua mục trùng, lưu additions; CAS/new invalid refs vẫn reject.17unit/integration +4devUI/lint/types PASS; [evidence](../evaluations/group-save-retained-members.md). Chưa deploy/device/account verification.
+
 | ID | Phase | Công việc | Dependencies | Status | Acceptance / evidence còn lại |
 |---|---|---|---|---|---|
 | T00 | P0 | Provider eligibility/benchmark | None | pending_external | Live quality/cost/account/child eligibility +human GT; ai-benchmark |

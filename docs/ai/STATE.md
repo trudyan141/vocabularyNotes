@@ -1,6 +1,6 @@
 # Trạng thái hiện tại — Words for Kids
 
-Updated: 13/10/2026. Current task: **Sửa ảnh đã lưu bị mất trong ba game điền/gõ chữ**. Root cause: game truyền tên từ rỗng làm approved media lookup thất bại; truyền đúng tên và giấu fallback answer riêng. [Evidence](../evaluations/typing-game-saved-images.md):12media tests/10productionUI/lint/types/build PASS. Giữ toàn bộ diff game/random/aggregate/missing-letters trước; SQL0009 hosted verified, UI chưa deploy.
+Updated: 14/10/2026. Current task: **Sửa thêm bài vào nhóm bị chặn lưu khi có mục cũ không còn khả dụng**. Root cause: add-only save kiểm lại refs ngữ pháp/câu đã lưu theo catalog hiện tại, báo conflict trước khi lưu bài mới. Giữ refs cũ khớp senseId+key, vẫn validate additions và CAS. [Evidence](../evaluations/group-save-retained-members.md):17unit/integration +4devUI mobile/desktop +lint/types PASS. Chưa deploy/kiểm iPhone hoặc dữ liệu tài khoản thật.
 
 ## Baseline / current steering
 
@@ -18,6 +18,6 @@ Working tree đầu task game hình sạch; workflow baseline bên dưới thu�
 
 External acceptance vẫn mở: child/provider eligibility/quality/cost benchmark, human UX, physical camera/clipboard/audio/PWA/install, field/performance trên final release; xem TASKS. Fixture/mock không chứng minh live quality. Token/time của chat trước unavailable; chỉ đo bootstrap bytes/setup/test metadata có thật.
 
-**Next action:** founder refresh bản local và mở game điền/gõ chữ với từ có ảnh đã lưu.
+**Next action:** refresh bản local và thêm lại bài vào nhóm để xác nhận trên dữ liệu thực tế.
 
 Lịch sử/checkpoints: [STATE history](STATE.history-2026-10-12.md), [CHANGELOG](CHANGELOG.md). Không append history vào current state.

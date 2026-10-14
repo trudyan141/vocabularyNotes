@@ -152,3 +152,24 @@ it('add-only transaction never deduplicates away existing legacy sense IDs',asyn
  expect(next.row.payload.deck.group.wordIds).toEqual(['apple','legacy-apple','book']);
  expect(await r.db.senses.count()).toBe(3);
 });
+
+it('adds a repeated-word lesson despite unavailable saved grammar and sentences without losing old refs',async()=>{
+ const r=repo(),c=await seed(r);await addGrammar(r,'saved-guide');
+ const {grammarKey}=await import('@/data/local/groups'),withGrammar=await groupCatalog(r);
+ const sentence={senseId:'apple',key:sentenceKey(c.sentences.find(item=>item.senseId==='apple')!)};
+ const first=await saveStudyGroup(r,{id:'stale-members',version:null,name:'Family retained',members:{wordIds:['apple'],sentences:[sentence],grammar:withGrammar.grammar.map(item=>({senseId:item.senseId,key:grammarKey(item)}))}});
+ const word=(await r.word('apple'))!;
+ await r.reviewWord('apple',word.revision,{...catalog.find(item=>item.word==='apple')!,id:'apple',approved:true,example:'A fresh apple.',exampleVi:'Một quả táo tươi.'});
+ await r.saveLesson({operationId:'new-family',lessonId:'new-family',title:'New Family',learnedOn:'2026-10-14',sourceType:'image',items:['apple','book'].map(id=>({...catalog.find(word=>word.word===id)!,id,approved:true}))});
+ expect((await groupCatalog(r)).allGrammar).toHaveLength(0);
+ const next=await saveStudyGroup(r,{id:first.row.id,version:first.row.version,name:'Family retained',members:first.row.payload.deck.group,lessonIds:['new-family'],includeSentences:false,preserveExisting:true});
+ expect(next.added).toBe(1);expect(next.duplicateItems).toContainEqual({kind:'word',label:'apple'});
+ expect(next.row.payload.deck.group.wordIds).toEqual(['apple','book']);
+ expect(next.row.payload.deck.group.sentences).toEqual(first.row.payload.deck.group.sentences);
+ expect(next.row.payload.deck.group.grammar).toEqual(first.row.payload.deck.group.grammar);
+ expect(next.row.payload.deck.group.sets?.find(set=>set.grammarKeys.length)).toEqual(first.row.payload.deck.group.sets?.find(set=>set.grammarKeys.length));
+ const repeat=await saveStudyGroup(r,{id:first.row.id,version:next.row.version,name:'Family retained',members:{wordIds:[],sentences:[]},lessonIds:['new-family'],includeSentences:false,preserveExisting:true});
+ expect(repeat.unchanged).toBe(true);expect(repeat.added).toBe(0);expect(repeat.row.version).toBe(next.row.version);
+ await expectFailure(saveStudyGroup(r,{id:first.row.id,version:next.row.version,name:'Family retained',members:{wordIds:[],sentences:[],grammar:[{senseId:'book',key:'invented'}]},preserveExisting:true}),'conflict');
+ expect((await studyGroups(r))[0]).toEqual(next.row);
+});

@@ -1,5 +1,9 @@
 # Nhật ký bàn giao
 
+## 14/10/2026 — Thêm bài vào nhóm có refs cũ không khả dụng
+
+Tái hiện conflict khi nhóm giữ ngữ pháp đã invalidated do sửa từ. Add-only transaction giữ refs cũ khớp cả senseId+key, không dùng catalog availability để chặn các mục mới hợp lệ. Exact dedup, nguồn/ngày cũ, approval cho additions và CAS giữ nguyên.17unit/integration +4devUI/lint/types PASS; [evidence](../evaluations/group-save-retained-members.md). Chưa deploy/device/account verification.
+
 ## 13/10/2026 — Ảnh đã lưu trong game điền/gõ chữ
 
 Sửa shared stage của letters/spelling/missing-letters: lookup dùng tên thật để approved media nhận đúng ảnh, fallback giấu đáp án bằng hideWord riêng. Giữ approval/scope/sense/revision validation, không sửa dữ liệu cloud. Regression lưu upload qua Edit→Library→ba game và fallback không lộ đáp án; giữ regressions hai picture games. [Evidence](../evaluations/typing-game-saved-images.md). Chưa deploy.

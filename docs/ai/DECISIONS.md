@@ -1,5 +1,7 @@
 # Quyết định và giả định
 
+15/10/2026 — Founder bổ sung ADR087: cả hai game điền chữ phải khuyết2–3chữ ở lượt mới, chỉ1khi từ2chữ cần giữ cue. Sau Kiểm tra hiện nguyên từ đúng ở trên, lời nhắc sai tô đậm riêng từ đáp án. Giữ snapshot cũ và attempts/SRS boundaries. [Spec](../08-learning-and-games.md), [evidence](../evaluations/missing-letter-corrections.md).
+
 ## ADR-084 —12/10/2026: Ba nguồn hình và Google copy fallback
 
 Founder báo OpenMoji/Commons trả hình sai cho “rulers”, yêu cầu bỏ hai nguồn và dùng Google. Sau khi biết Google trong app cần dịch vụ/API, founder chốt giữ mở link và tự copy nếu phải trả phí. Tìm mới chỉ Noto/Twemoji/Fluent; không Google API, scraping hay env Vercel mới. Shared picture picker cho thủ công/worksheet/prepare/edit; từ mới tự preview hình đầu có sẵn, không auto-save. Staged media ghi trong lesson transaction, giữ exact-sense identities/CAS/retry và ảnh đã có khi thêm trùng. Legacy media/import và metadata nguồn/giấy phép giữ. [Spec](../14-media-and-concurrency.md), [evidence](../evaluations/three-picture-sources.md).

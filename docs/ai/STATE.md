@@ -1,6 +1,6 @@
 # Trạng thái hiện tại — Words for Kids
 
-Updated:15/10/2026. Current task: **Shared content copy — implemented_local / scoped verified; ready_for_manual_test**. Backup & data visible while receiving; download content + preview/confirm add-to-own or import content file. Exact dedup handles target/source legacy words and grammar; independent own progress, read-only source, CAS, file review preserved.52data tests +12productionUI/build/lint/types/diff PASS; local4317/settings HTTP200. [Evidence](../evaluations/shared-content-copy.md). No deployment for this follow-up; previous online sharing remains.
+Updated:15/10/2026. Current task: **Game điền chữ — implemented_local / scoped verified**. Cả hai mode tạo2–3ô khuyết (từ2chữ giữ1cue); chấm xong hiện nguyên từ đúng phía trên, lời nhắc sai tô đậm đáp án.35scoped tests +10productionUI/build/lint/types PASS. Lượt cũ giữ snapshot. No deployment; physical/mobile text-entry tap manual pending. [Evidence](../evaluations/missing-letter-corrections.md).
 
 ## Baseline / current steering
 
@@ -21,6 +21,6 @@ Working tree đầu task phạm vi game sạch; workflow baseline bên dưới t
 
 External acceptance vẫn mở: child/provider eligibility/quality/cost benchmark, human UX, physical camera/clipboard/audio/PWA/install, field/performance trên final release; xem TASKS. Fixture/mock không chứng minh live quality. Token/time của chat trước unavailable; chỉ đo bootstrap bytes/setup/test metadata có thật.
 
-**Next action:** founder refresh local4317/settings while receiving, test download/add/import and repeat copy against own library/progress.
+**Next action:** founder test a new round of both missing-letter games, especially text-entry Check by touch on the phone.
 
 Lịch sử/checkpoints: [STATE history](STATE.history-2026-10-12.md), [CHANGELOG](CHANGELOG.md). Không append history vào current state.

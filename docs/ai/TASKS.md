@@ -1,5 +1,7 @@
 # Task ledger — current acceptance
 
+Direct bugfix15/10 — game điền chữ: implemented_local / scoped verified. Cả2mode tạo2–3ô khuyết khi đủ chữ, giữ cue và snapshot cũ; chấm xong hiện nguyên từ đúng, nhắc sai tô đậm riêng đáp án.35scoped +10productionUI/build/lint/types PASS; no deployment, physical/mobile text-entry tap manual pending. [Evidence](../evaluations/missing-letter-corrections.md).
+
 Direct backup/share follow-up15/10: implemented_local / ready_for_manual_test. Content-only download/add/import preview; source+destination deterministic word/grammar dedup, conflicts preserve own edits, progress independent, file review +CAS/readonly guards.52data+12productionUI/build/lint/types/diff PASS; local4317, no deployment/live copy acceptance. [Evidence](../evaluations/shared-content-copy.md).
 
 

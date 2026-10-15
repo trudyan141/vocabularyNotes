@@ -18,6 +18,7 @@ export function MissingLettersQuestion({word,positions,busy,checked,submittedAns
   if(letters.length){const target=Math.min(positions.length-1,index+letters.length);active.current=target;if(moveFocus)inputs.current[target]?.focus();}
  }
  function pick(letter:string){fill(active.current,letter,false);}
+ if(checked)return <p className="missing-letter-word" lang="en">{word}</p>;
  return <form className="missing-letters-form" onSubmit={event=>{event.preventDefault();if(complete&&!disabled)onCheck(values.join(''));}}>
   <p id="missing-letters-help">{t(`Điền ${positions.length} chữ còn thiếu. Con có thể gõ hoặc chạm chữ bên dưới.`,`Fill ${positions.length} missing letters. Type or tap the letters below.`)}</p>
   <div className="missing-letter-word" aria-label={t('Từ có chữ còn thiếu','Word with missing letters')} lang="en">{[...word].map((letter,index)=>{

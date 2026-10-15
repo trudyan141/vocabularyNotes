@@ -136,7 +136,7 @@ export class PracticeRepository{
       const candidates=[...preferred,...shuffled(eligible.filter(other=>!choiceScope.has(other.id))).slice(0,2-preferred.length)];
       const choices=shuffled([word,...candidates]);
       if((mode==='picture-word'||mode==='word-picture')&&choices.length<3)continue;
-      const missingIndices=mode==='missing-letters'?missingLetterPositions(word.word):undefined;
+      const missingIndices=(mode==='missing-letters'||mode==='letters')?missingLetterPositions(word.word):undefined;
       questions.push({id:crypto.randomUUID(),word:withoutWordMemberships(word),choices:choices.map(withoutWordMemberships),missingIndex:missingIndices?.[0]??Math.max(0,Math.floor(word.word.length/2)),...(missingIndices?{missingIndices}:{})});
       if(questions.length===10)break;
     }

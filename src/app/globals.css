@@ -1258,7 +1258,8 @@ html[data-motion="reduced"] [data-slot="button"] { transition:none; transform:no
 .game-board .game-answers button:disabled[data-result="idle"] { opacity:.6; }
 .game-board .row-wrap { justify-content:center; }
 .game-board .game-feedback { display:flex; align-items:center; gap:12px; text-align:left; background:var(--mint); padding:12px; }
-.game-feedback p { flex:1; margin:0; }
+.game-feedback p { flex:1; margin:0; font-weight:600; }
+.game-feedback strong { font-weight:900; }
 .try-again .game-feedback { background:#fff0c4; }
 .feedback-stars { display:flex; gap:2px; }
 .feedback-stars svg { width:18px; fill:#f4c747; color:#765500; }

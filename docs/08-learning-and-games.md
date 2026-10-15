@@ -1,5 +1,7 @@
 # Ôn tập, flashcard và minigame
 
+15/10 founder follow-up ADR087: lượt mới của cả **Điền chữ thiếu** và **Tìm ký tự thiếu** giấu ngẫu nhiên2–3chữ khi có ít nhất3chữ cái; từ2chữ chỉ giấu1để còn cue. Sau Kiểm tra hiện nguyên từ đúng phía trên, đúng/sai đều vậy; lời nhắc sai tô đậm riêng đáp án. Online/offline cùng luật; snapshot lượt cũ giữ nguyên, không sửa lịch sử/content/SRS. [Evidence](evaluations/missing-letter-corrections.md).
+
 15/10 ADR095: mọi lượt Speaking đã thu có điểm0–100; không rõ→0, lỗi dịch vụ→tạm0 kèm lý do, không fake lỗi phát âm. Nhận âm Gemini không gửi đáp án, schema v3; app đối chiếu/tính điểm. Endpoint/request đã rút giới hạn chờ; [spec15](15-speaking-practice.md), [evidence](evaluations/speaking-zero-and-latency.md). Acoustic quality vẫn pending.
 
 Checkpoint15/10 ADR094 — **Speaking v2 implemented_local, A scoped verified; B quality_pending**: Gemini trả nhận âm theo contract strict; client tính điểm/màu, phân biệt thiếu/thay/thừa/uncertain, chọn VI tips và replay đúng WAV đã gửi.48unit+8tool+14productionUI/lint/types/build PASS;8live probes có adverse controls, chưa có pilot100human/child. Scope≤5từ, nghe mẫu/IPA/hint/nguồn ADR093 và SRS/data boundaries giữ. [Evidence](evaluations/speaking-assessment-v2.md), [plan/gates](ai/SPEAKING-ASSESSMENT-UPGRADE-PLAN.md), [spec15](15-speaking-practice.md). Các checkpoint local cũ dưới đây là lịch sử, không khôi phục pack355MB.

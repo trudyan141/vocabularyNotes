@@ -27,3 +27,11 @@ it('cloud and backup reject a missing-letter session that hides the whole word o
  for(const indices of [[0,1,2,3],[1,1],[],[99]]){const bad=structuredClone(row);bad.payload.session.questions[0].missingIndices=indices;expect(()=>parseCloudRow('practiceSessions',bad)).toThrow();}
  await expect(practice.start('missing-letters',{word:'one'})).rejects.toThrow('not-ready');
 });
+it('text-entry letters mode persists two or three blanks and keeps its whole-word answer contract',async()=>{
+ const {repo,practice}=await setup();vi.spyOn(Math,'random').mockReturnValue(0);
+ const session=await practice.start('letters',{word:'baby'}),q=session.questions[0];expect(q.missingIndices).toHaveLength(2);expect(validMissingPositions(q.word.word,q.missingIndices!)).toBe(true);
+ expect((await practice.get(session.id))?.questions[0].missingIndices).toEqual(q.missingIndices);
+ const checked=await practice.check(session.id,session.version,q.word.word);expect(checked.checkedCorrect).toBe(true);
+ const archive=await parseArchive(JSON.stringify(await exportArchive(repo)));expect(parseCloudRow('practiceSessions',archive.records.practiceSessions[0])).toBeTruthy();
+ expect(await repo.db.table('gameAttempts').count()).toBe(1);expect(await repo.db.table('reviewStates').count()).toBe(0);
+});

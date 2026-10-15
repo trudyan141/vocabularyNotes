@@ -1,5 +1,9 @@
 # Nhật ký bàn giao
 
+## 15/10/2026 — Số chữ khuyết và phản hồi game
+
+Founder xác nhận lỗi điền chữ chỉ khuyết1. Cả2mode nay tạo2–3chữ khi còn cue, old session giữ snapshot; Check hiện nguyên từ đúng và lời nhắc sai tô đậm riêng đáp án, online/offline.35scoped +10productionUI/build/lint/types PASS. No deployment; mobile text-entry tap còn manual. [Evidence](../evaluations/missing-letter-corrections.md).
+
 ## 15/10/2026 — Share auto-update, bỏ multi-learner và xác nhận bên nhận khônglogin
 
 Founder muốn new words/grammar tự cập nhật, hỏi profile picker và non-login share. Clarification trả lời **bên nhận khôngcầnđăngnhập**. Cập nhật [flow](../CHIA-SE-THU-VIEN-FLOW-FOUNDER.md)/[Codex draft](LIBRARY-SHARING-IMPLEMENTATION-PLAN.md)/comparison/specs/ADR096: source-library content read-only, chung legacy progress, own library recipient giữriêng, B signed-out practice/progress/reopen/renew quaQR/code. Bỏ toàn bộ learner tables/fields/backfill/unique changes/default-picker/actor-specificprogress proposals cũ; giữ source library learning IDs/reducer/CAS/receipts. Thêm SH14/15, active content+progress-watermark15s proposed/focus-reconnect delta; cloudpending/offline không fakeinstant. Docs-only, chưa code/SQL/cloud/config hoặc kiểm account thật.

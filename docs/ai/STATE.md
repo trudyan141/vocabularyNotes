@@ -1,6 +1,6 @@
 # Trạng thái hiện tại — Words for Kids
 
-Updated:16/10/2026. Current task: **LG TV — Edge TTS fallback implemented_local / scoped verified**. Browser speech missing/empty/error/no-start uses Emma Multilingual female MP3 via bounded Node endpoint, same source/stop/slow controls.15scoped tests/lint/types/build PASS;14unique productionUI verified across13/14run +isolated1/1timing-test rerun. Actual production endpoint returned12240byte MP3. Physical LG/listening/deploy unverified. [Evidence](../evaluations/lg-tv-edge-tts.md).
+Updated:16/10/2026. Current task: **4317reload — Turbopack restored / scoped verified; initiating trigger unconfirmed**. Old liveHMR loop68navigations/15s; same source +disk cache works after process restart. Default dev reverted to Turbo,4317running via pnpmdev. Fresh +actual4317probes1document/12s,0restart/errors;4realTurboUI PASS, sourceHMR/typegen probes stable. [Evidence](../evaluations/dev-reload-loop.md).
 
 ## Baseline / current steering
 
@@ -21,6 +21,6 @@ Working tree đầu task phạm vi game sạch; workflow baseline bên dưới t
 
 External acceptance vẫn mở: child/provider eligibility/quality/cost benchmark, human UX, physical camera/clipboard/audio/PWA/install, field/performance trên final release; xem TASKS. Fixture/mock không chứng minh live quality. Token/time của chat trước unavailable; chỉ đo bootstrap bytes/setup/test metadata có thật.
 
-**Next action:** deploy the audio fallback when requested, then verify listening/remote playback on physical LG TV.
+**Next action:** founder reopen http://127.0.0.1:4317/today and continue normal use.
 
 Lịch sử/checkpoints: [STATE history](STATE.history-2026-10-12.md), [CHANGELOG](CHANGELOG.md). Không append history vào current state.

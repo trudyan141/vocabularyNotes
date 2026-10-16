@@ -19,6 +19,8 @@ cp .env.example .env.local
 npx --yes pnpm@11.25.0 dev --port 4317
 ```
 
+Dev mặc định dùng Turbopack. Nếu một phiên dev cũ lặp HMR reload sau thay đổi dependency/config, dừng và chạy lại `pnpm dev --port 4317` trước khi thay bundler; không cần xóa dữ liệu trình duyệt. Xem [điều tra reload](docs/evaluations/dev-reload-loop.md).
+
 Mở [app local](http://127.0.0.1:4317/today). Không cần key để học local. Demo/guest/account tách thư viện; giữ cùng hostname trình duyệt.
 
 - [SETUP-PROJECT.md](SETUP-PROJECT.md): giới thiệu, install/run, từng biến môi trường và nơi lấy, Supabase/Google, Vercel, tests và xử lý lỗi.

@@ -1,5 +1,7 @@
 # Task ledger — current acceptance
 
+Direct bugfix16/10 — local4317reload: Turbopack restored / scoped verified; exact initiating trigger unconfirmed. Original liveHMR loop68nav/15s; process restart retaining cache yields1document/12s,0restart/errors.4realTurbo desktop/mobile +sourceHMR/typegen probes PASS; previous4devWebpack+4production/build/lint/types/8scoped tests remain recorded. Founder manual pending. [Evidence](../evaluations/dev-reload-loop.md).
+
 Direct task16/10 — LG TV Edge TTS fallback: implemented_local / scoped verified. Commons/device then Emma Multilingual female MP3 when browser speech unavailable/fails/silent.15scoped tests/lint/types/build PASS;14unique productionUI verified across13/14run +isolated1/1timing-test rerun. Actual production endpoint MP3 PASS; physical LG/deploy pending. [Evidence](../evaluations/lg-tv-edge-tts.md).
 
 Direct bugfix15/10 — game điền chữ: implemented_local / scoped verified. Cả2mode tạo2–3ô khuyết khi đủ chữ, giữ cue và snapshot cũ; chấm xong hiện nguyên từ đúng, nhắc sai tô đậm riêng đáp án.35scoped +10productionUI/build/lint/types PASS; no deployment, physical/mobile text-entry tap manual pending. [Evidence](../evaluations/missing-letter-corrections.md).

@@ -4,7 +4,7 @@ export function eligibleMissingLetters(text) { return [...text].length <= 80 && 
 export function missingLetterPositions(text, random = Math.random) {
     if (!eligibleMissingLetters(text))
         return [];
-    const pool = letterPositions(text), count = 1 + Math.floor(random() * Math.min(3, pool.length - 1)), positions = [];
+    const pool = letterPositions(text), max = Math.min(3, pool.length - 1), min = Math.min(2, max), count = min + Math.floor(random() * (max - min + 1)), positions = [];
     for (let i = 0; i < count; i++)
         positions.push(pool.splice(Math.floor(random() * pool.length), 1)[0]);
     return positions.sort((a, b) => a - b);

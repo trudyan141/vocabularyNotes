@@ -1,5 +1,9 @@
 # Nhật ký bàn giao
 
+## 16/10/2026 — local4317 reload loop
+
+Reproduced Turbopack entry HMR restart loop68navigations/15s. Initial Webpack workaround superseded after founder requested investigation: default dev restored to Turbo. Same source +original diskcache stable after process restart, exactURL1document/12s.4realTurboUI +sourceHMR/typegen probes PASS; initiating trigger unconfirmed. 4devUI+4productionUI/build/lint/types/8scoped tests PASS. Added desktop/mobile idle-navigation regression; preserved Edge TTS external package and data. [Evidence](../evaluations/dev-reload-loop.md).
+
 ## 16/10/2026 — LG TV browser speech fallback
 
 Added Edge TTS Emma Multilingual female MP3 when browser speech unavailable/empty/error/no-start; bounded same-origin Node endpoint, no API key/env/paid fallback, source/slow/cancel/error handling.15scoped tests/lint/types/build PASS;14unique productionUI verified across13/14+isolated1/1timing-test rerun; real production endpoint MP3 PASS after ws bundling fix. [Evidence](../evaluations/lg-tv-edge-tts.md), ADR097/spec15. Physical LG/deploy pending.

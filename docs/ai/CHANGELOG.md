@@ -1,5 +1,9 @@
 # Nhật ký bàn giao
 
+## 16/10/2026 — LG TV browser speech fallback
+
+Added Edge TTS Emma Multilingual female MP3 when browser speech unavailable/empty/error/no-start; bounded same-origin Node endpoint, no API key/env/paid fallback, source/slow/cancel/error handling.15scoped tests/lint/types/build PASS;14unique productionUI verified across13/14+isolated1/1timing-test rerun; real production endpoint MP3 PASS after ws bundling fix. [Evidence](../evaluations/lg-tv-edge-tts.md), ADR097/spec15. Physical LG/deploy pending.
+
 ## 15/10/2026 — Số chữ khuyết và phản hồi game
 
 Founder xác nhận lỗi điền chữ chỉ khuyết1. Cả2mode nay tạo2–3chữ khi còn cue, old session giữ snapshot; Check hiện nguyên từ đúng và lời nhắc sai tô đậm riêng đáp án, online/offline.35scoped +10productionUI/build/lint/types PASS. No deployment; mobile text-entry tap còn manual. [Evidence](../evaluations/missing-letter-corrections.md).

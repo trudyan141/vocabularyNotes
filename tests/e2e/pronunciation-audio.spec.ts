@@ -29,3 +29,31 @@ test('unavailable recording falls back at a distinct slow rate and pending stop 
  await page.reload();let release!:()=>void;const gate=new Promise<void>(resolve=>{release=resolve;});await page.route('**/api/audio/word',async route=>{await gate;await route.fulfill({json:{word:'apple',sample}});});
  await page.goto('/library/words/apple');await page.getByRole('button',{name:'Nghe: apple',exact:true}).click();await expect(page.getByRole('button',{name:'Dừng đọc: apple',exact:true})).toBeVisible();await page.getByRole('button',{name:'Dừng đọc: apple',exact:true}).click();release();await expect(page.getByRole('button',{name:'Nghe: apple',exact:true})).toBeVisible();expect((await state(page)).spoken).toHaveLength(0);expect((await state(page)).plays).toHaveLength(0);
 });
+
+for (const mode of ['missing','empty','error','silent'] as const) test(`Edge fallback plays MP3 when browser speech is ${mode}`,async({page},info)=>{
+ await fixture(page);
+ await page.addInitScript(mode=>{
+  const synth=window.speechSynthesis;
+  if(mode==='missing')Object.defineProperty(window,'speechSynthesis',{configurable:true,value:undefined});
+  else if(mode==='empty')synth.getVoices=()=>[];
+  else synth.speak=u=>{if(mode==='error')queueMicrotask(()=>u.onerror?.({error:'synthesis-failed'} as SpeechSynthesisErrorEvent));};
+ },mode);
+ await page.route('**/api/audio/word',route=>route.fulfill({json:{word:'apple',sample:null}}));
+ let requests=0;
+ await page.route('**/api/audio/tts',route=>{requests++;expect(route.request().postDataJSON()).toEqual({text:'apple'});return route.fulfill({body:wav(),contentType:'audio/mpeg'});});
+ await page.goto('/library/words/apple');await page.getByRole('button',{name:'Nghe chậm: apple',exact:true}).click();
+ await expect.poll(async()=>(await state(page)).plays[0]?.ended,{timeout:15000}).toBeGreaterThan(0);
+ expect(requests).toBe(1);expect((await state(page)).plays[0].rate).toBe(.6);
+ const hero=page.locator('.word-detail-hero');await hero.locator('.audio-source summary').click();await expect(hero.getByText(/Microsoft Edge · Emma/)).toBeVisible();
+ await page.screenshot({path:info.outputPath(`edge-${mode}.png`),fullPage:true});
+});
+
+test('Edge failure allows retry and stopped request cannot play late',async({page})=>{
+ await fixture(page);await page.addInitScript(()=>{Object.defineProperty(window,'speechSynthesis',{configurable:true,value:undefined});});
+ await page.route('**/api/audio/word',route=>route.fulfill({json:{word:'apple',sample:null}}));
+ await page.route('**/api/audio/tts',route=>route.fulfill({status:503,json:{error:'unavailable'}}));
+ await page.goto('/library/words/apple');const button=page.getByRole('button',{name:'Nghe: apple',exact:true});await button.click();await expect(page.getByText('Chưa tải được giọng đọc online. Kiểm tra mạng rồi thử lại.',{exact:true})).toBeVisible();
+ let release!:()=>void;const gate=new Promise<void>(resolve=>{release=resolve;});let requested=false;
+ await page.route('**/api/audio/tts',async route=>{requested=true;await gate;await route.fulfill({body:wav(),contentType:'audio/mpeg'}).catch(()=>{});});
+ await button.click();await expect.poll(()=>requested).toBe(true);await page.getByRole('button',{name:'Dừng đọc: apple',exact:true}).click();release();await expect(button).toBeVisible();expect((await state(page)).plays).toHaveLength(0);
+});

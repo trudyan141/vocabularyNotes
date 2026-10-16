@@ -1,6 +1,6 @@
 # Trạng thái hiện tại — Words for Kids
 
-Updated:15/10/2026. Current task: **Game điền chữ — implemented_local / scoped verified**. Cả hai mode tạo2–3ô khuyết (từ2chữ giữ1cue); chấm xong hiện nguyên từ đúng phía trên, lời nhắc sai tô đậm đáp án.35scoped tests +10productionUI/build/lint/types PASS. Lượt cũ giữ snapshot. No deployment; physical/mobile text-entry tap manual pending. [Evidence](../evaluations/missing-letter-corrections.md).
+Updated:16/10/2026. Current task: **LG TV — Edge TTS fallback implemented_local / scoped verified**. Browser speech missing/empty/error/no-start uses Emma Multilingual female MP3 via bounded Node endpoint, same source/stop/slow controls.15scoped tests/lint/types/build PASS;14unique productionUI verified across13/14run +isolated1/1timing-test rerun. Actual production endpoint returned12240byte MP3. Physical LG/listening/deploy unverified. [Evidence](../evaluations/lg-tv-edge-tts.md).
 
 ## Baseline / current steering
 
@@ -21,6 +21,6 @@ Working tree đầu task phạm vi game sạch; workflow baseline bên dưới t
 
 External acceptance vẫn mở: child/provider eligibility/quality/cost benchmark, human UX, physical camera/clipboard/audio/PWA/install, field/performance trên final release; xem TASKS. Fixture/mock không chứng minh live quality. Token/time của chat trước unavailable; chỉ đo bootstrap bytes/setup/test metadata có thật.
 
-**Next action:** founder test a new round of both missing-letter games, especially text-entry Check by touch on the phone.
+**Next action:** deploy the audio fallback when requested, then verify listening/remote playback on physical LG TV.
 
 Lịch sử/checkpoints: [STATE history](STATE.history-2026-10-12.md), [CHANGELOG](CHANGELOG.md). Không append history vào current state.

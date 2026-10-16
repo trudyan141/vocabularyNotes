@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
   async redirects(){return [{source:'/',destination:'/welcome',permanent:false}];},
   agentRules: false,
   poweredByHeader: false,
+  // Preserve ws optional-native resolution; bundling can turn its mask helper into a stub.
+  serverExternalPackages: ["msedge-tts"],
   reactStrictMode: true,
 };
 

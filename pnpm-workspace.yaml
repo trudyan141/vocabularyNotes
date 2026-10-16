@@ -1,6 +1,7 @@
 # Root app only. Native resolver optional packages are already prebuilt.
 # Disable its postinstall fallback explicitly; do not allow all dependency scripts.
 allowBuilds:
+  msedge-tts: false # Published dist is ready; preinstall only enforces pnpm.
   onnxruntime-node: false
   protobufjs: false
   sharp: false

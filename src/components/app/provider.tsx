@@ -233,7 +233,7 @@ export function AppProvider({
   useEffect(() => {
     const stop = () => {
       window.dispatchEvent(new Event("wfk-audio-stop"));
-      if ("speechSynthesis" in window) speechSynthesis.cancel();
+      if (window.speechSynthesis) speechSynthesis.cancel();
     };
     stop();
     const hidden = () => {

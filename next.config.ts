@@ -12,6 +12,14 @@ const nextConfig: NextConfig = {
   // Preserve ws optional-native resolution; bundling can turn its mask helper into a stub.
   serverExternalPackages: ["msedge-tts"],
   reactStrictMode: true,
+  outputFileTracingExcludes: {
+    '*': [
+      './docs/**/*',
+      './tests/**/*',
+      './scripts/**/*',
+      './.local/**/*',
+    ],
+  },
 };
 
 export default nextConfig;

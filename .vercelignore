@@ -12,6 +12,7 @@ supabase
 .venv-docs
 node_modules
 .next
+.local
 coverage
 public/speaking
 public/startup

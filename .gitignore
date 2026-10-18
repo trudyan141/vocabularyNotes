@@ -57,3 +57,6 @@ next-env.d.ts
 
 # Generated original iOS launch images
 /public/startup/
+
+# Owned local benchmarks, traces and deployment staging (never learner backups).
+/.local/

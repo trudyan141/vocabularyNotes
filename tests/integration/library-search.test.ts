@@ -1,15 +1,42 @@
 import 'fake-indexeddb/auto';
-import {afterEach,it,expect} from 'vitest';
-import {Dexie} from 'dexie';
+import {afterEach,it,expect,vi} from 'vitest';
+import {Dexie,liveQuery} from 'dexie';
 import {LibraryDatabase} from '@/data/local/database';
 import {LocalRepository} from '@/data/local/repository';
 import {demoEntries} from '@/lib/demo/model';
 import type {WordInput} from '@/data/local/types';
+import type {LibrarySearchProjection} from '@/data/local/repository';
 const opened:LibraryDatabase[]=[];
 function setup(scope='guest:search',db=new LibraryDatabase(`search-${crypto.randomUUID()}`)){if(!opened.includes(db))opened.push(db);return new LocalRepository(db,{kind:'guest',id:scope});}
 function word(word:string,overrides:Partial<WordInput>={}):WordInput{return {...demoEntries[0],id:crypto.randomUUID(),word,vi:'nghĩa khác',en:'People are learning.',example:'They are here.',lesson:'manual',origin:'user',approved:true,...overrides};}
 function save(repo:LocalRepository,items:WordInput[]){return repo.saveLesson({operationId:crypto.randomUUID(),title:'Words are fun',learnedOn:'2026-10-12',sourceType:'manual',items});}
 afterEach(async()=>{for(const db of opened.splice(0)){db.close();await Dexie.delete(db.name);}});
+it('observes library projection changes independently of query text and never reuses another scope',async()=>{
+ const repo=setup();await save(repo,[word('apple',{vi:'quả táo'})]);
+ const projections:LibrarySearchProjection[]=[];const subscription=liveQuery(()=>repo.librarySearchProjection()).subscribe(value=>projections.push(value));
+ try{
+  await vi.waitFor(()=>expect(projections).toHaveLength(1));
+  expect((await repo.search('tao',{libraryOnly:true},projections[0])).words[0].word).toBe('apple');
+  const other=setup('guest:other',repo.db);expect((await other.search('tao',{libraryOnly:true},projections[0])).total).toBe(0);
+  await save(repo,[word('book',{vi:'quyển sách'})]);
+  await vi.waitFor(()=>expect(projections.at(-1)?.rows).toHaveLength(2));
+  expect((await repo.search('quyen sach',{libraryOnly:true},projections.at(-1))).words[0].word).toBe('book');
+  expect(await repo.db.senses.count()).toBe(2);
+ }finally{subscription.unsubscribe();}
+});
+it('keeps its projection live off-route and disposes it when the repository is released',async()=>{
+ const repo=setup();await save(repo,[word('apple')]);const store=repo.librarySearchStore();
+ const listener=vi.fn(),unsubscribe=store.subscribe(listener);
+ try{
+  await vi.waitFor(()=>expect(store.getSnapshot()?.value?.rows).toHaveLength(1));
+  unsubscribe();await save(repo,[word('book')]);
+  await vi.waitFor(()=>expect(store.getSnapshot()?.value?.rows).toHaveLength(2));
+  const resume=store.subscribe(listener);expect(store.getSnapshot()?.value?.rows).toHaveLength(2);resume();
+  repo.releaseLibrarySearch();expect(store.getSnapshot()).toBeUndefined();
+  const resubscribe=repo.librarySearchStore().subscribe(listener);
+  await vi.waitFor(()=>expect(repo.librarySearchStore().getSnapshot()?.value?.rows).toHaveLength(2));resubscribe();
+ }finally{repo.releaseLibrarySearch();}
+});
 it('library search only matches the visible word or Vietnamese meaning, not lessons or examples',async()=>{
  const repo=setup();await save(repo,[word('are',{vi:'là'}),word('care'),word('share'),word('book',{vi:'quyển sách'})]);
  expect((await repo.search('are',{libraryOnly:true})).words.map(row=>row.word)).toEqual(['are']);

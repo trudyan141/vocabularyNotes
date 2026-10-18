@@ -1,0 +1,122 @@
+[
+  {
+    "run": 0,
+    "length": 5,
+    "status": 200,
+    "ms": 858,
+    "bytes": 11232,
+    "timing": "edge_connect;dur=458, edge_first_audio;dur=614, edge_complete;dur=665"
+  },
+  {
+    "run": 0,
+    "length": 28,
+    "status": 200,
+    "ms": 827,
+    "bytes": 12096,
+    "timing": "edge_connect;dur=402, edge_first_audio;dur=660, edge_complete;dur=821"
+  },
+  {
+    "run": 0,
+    "length": 81,
+    "status": 200,
+    "ms": 994,
+    "bytes": 29952,
+    "timing": "edge_connect;dur=619, edge_first_audio;dur=909, edge_complete;dur=988"
+  },
+  {
+    "run": 1,
+    "length": 5,
+    "status": 200,
+    "ms": 652,
+    "bytes": 11232,
+    "timing": "edge_connect;dur=393, edge_first_audio;dur=532, edge_complete;dur=645"
+  },
+  {
+    "run": 1,
+    "length": 28,
+    "status": 200,
+    "ms": 645,
+    "bytes": 12096,
+    "timing": "edge_connect;dur=429, edge_first_audio;dur=585, edge_complete;dur=637"
+  },
+  {
+    "run": 1,
+    "length": 81,
+    "status": 200,
+    "ms": 779,
+    "bytes": 29952,
+    "timing": "edge_connect;dur=398, edge_first_audio;dur=682, edge_complete;dur=775"
+  },
+  {
+    "run": 2,
+    "length": 5,
+    "status": 200,
+    "ms": 719,
+    "bytes": 11232,
+    "timing": "edge_connect;dur=403, edge_first_audio;dur=524, edge_complete;dur=711"
+  },
+  {
+    "run": 2,
+    "length": 28,
+    "status": 200,
+    "ms": 864,
+    "bytes": 12096,
+    "timing": "edge_connect;dur=418, edge_first_audio;dur=692, edge_complete;dur=857"
+  },
+  {
+    "run": 2,
+    "length": 81,
+    "status": 200,
+    "ms": 726,
+    "bytes": 29952,
+    "timing": "edge_connect;dur=393, edge_first_audio;dur=643, edge_complete;dur=720"
+  },
+  {
+    "run": 3,
+    "length": 5,
+    "status": 200,
+    "ms": 580,
+    "bytes": 11232,
+    "timing": "edge_connect;dur=396, edge_first_audio;dur=522, edge_complete;dur=572"
+  },
+  {
+    "run": 3,
+    "length": 28,
+    "status": 200,
+    "ms": 613,
+    "bytes": 12096,
+    "timing": "edge_connect;dur=394, edge_first_audio;dur=539, edge_complete;dur=606"
+  },
+  {
+    "run": 3,
+    "length": 81,
+    "status": 200,
+    "ms": 822,
+    "bytes": 29952,
+    "timing": "edge_connect;dur=383, edge_first_audio;dur=542, edge_complete;dur=817"
+  },
+  {
+    "run": 4,
+    "length": 5,
+    "status": 200,
+    "ms": 633,
+    "bytes": 11232,
+    "timing": "edge_connect;dur=398, edge_first_audio;dur=516, edge_complete;dur=629"
+  },
+  {
+    "run": 4,
+    "length": 28,
+    "status": 200,
+    "ms": 666,
+    "bytes": 12096,
+    "timing": "edge_connect;dur=466, edge_first_audio;dur=607, edge_complete;dur=661"
+  },
+  {
+    "run": 4,
+    "length": 81,
+    "status": 200,
+    "ms": 707,
+    "bytes": 29952,
+    "timing": "edge_connect;dur=387, edge_first_audio;dur=624, edge_complete;dur=700"
+  }
+]

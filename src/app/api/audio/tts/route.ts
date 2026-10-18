@@ -16,8 +16,10 @@ export async function POST(request: NextRequest) {
     if (!text) throw new Error('invalid');
   } catch { return NextResponse.json({error:'invalid'}, {status:400, headers}); }
   try {
-    const audio = await synthesizeEdge(text, request.signal);
-    return new NextResponse(new Uint8Array(audio), {headers:{...headers,'Content-Type':'audio/mpeg','X-Content-Type-Options':'nosniff'}});
+    const timings:{connectMs?:number;firstAudioMs?:number;totalMs?:number}={};
+    const audio = await synthesizeEdge(text, request.signal,timings);
+    const timing=`edge_connect;dur=${timings.connectMs??0}, edge_first_audio;dur=${timings.firstAudioMs??0}, edge_complete;dur=${timings.totalMs??0}`;
+    return new NextResponse(new Uint8Array(audio), {headers:{...headers,'Content-Type':'audio/mpeg','X-Content-Type-Options':'nosniff','Server-Timing':timing}});
   } catch {
     return NextResponse.json({error:'unavailable'}, {status:503, headers});
   }

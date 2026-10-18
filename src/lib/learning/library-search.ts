@@ -12,7 +12,15 @@ export function searchRanges(text:string, query:string):[number,number][] {
  const pattern=new RegExp(`(?<![\\p{L}\\p{N}])${escaped}`,'gu');
  return [...normalized.matchAll(pattern)].map(match=>[starts[match.index],ends[match.index+match[0].length-1]]);
 }
-export function matchesLibraryWord(word:Pick<LibraryWord,'word'|'vi'>,query:string){return !query.trim()||searchRanges(word.word,query).length>0||searchRanges(word.vi,query).length>0;}
+/** Boolean lookup does not need the per-character offsets used by highlights. */
+export function libraryWordMatcher(query:string){
+ const needle=searchTerms(query);
+ if(!needle)return ()=>true;
+ const escaped=needle.split(/\s+/).map(word=>word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('\\s+');
+ const pattern=new RegExp(`(?<![\\p{L}\\p{N}])${escaped}`,'u');
+ return (word:Pick<LibraryWord,'word'|'vi'>)=>pattern.test(searchTerms(word.word))||pattern.test(searchTerms(word.vi));
+}
+export function matchesLibraryWord(word:Pick<LibraryWord,'word'|'vi'>,query:string){return libraryWordMatcher(query)(word);}
 /** Read projection only. Every sense remains reachable; nothing is merged or deleted. */
 export function groupLibraryWords(words:LibraryWord[],aggregate=false):LibraryWord[]{
  if(aggregate)words=uniqueAggregateWords(words);

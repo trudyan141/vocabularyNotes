@@ -1,0 +1,92 @@
+✓ Lockfile passes supply-chain policies (verified 1d ago)
+Lockfile is up to date, resolution step is skipped
+Already up to date
+
+Done in 630ms using pnpm v11.25.0
+
+Running 12 tests using 2 workers
+
+[1/12] [desktop-chromium] › tests/e2e/learning.spec.ts:170:5 › child game feedback has static meaning, sound toggle persists and reduced motion disables animations
+[2/12] [desktop-chromium] › tests/e2e/learning.spec.ts:217:5 › audio first tap waits for delayed voices and pending stop prevents late playback online and offline
+[3/12] [desktop-chromium] › tests/e2e/learning.spec.ts:243:5 › sentence listening reads the exact example from IPA row and revealed flashcard
+[4/12] [desktop-chromium] › tests/e2e/scaffold.spec.ts:180:5 › locale, mode, motion and sound preferences apply and persist independently of sample lessons
+[5/12] [desktop-chromium] › tests/e2e/scaffold.spec.ts:246:5 › unavailable English voice gives a readable fallback without autoplay
+[6/12] [desktop-chromium] › tests/e2e/scaffold.spec.ts:316:5 › speech controls stop each other and navigation cancels active reading
+[7/12] [mobile-chromium] › tests/e2e/learning.spec.ts:170:5 › child game feedback has static meaning, sound toggle persists and reduced motion disables animations
+  1) [desktop-chromium] › tests/e2e/scaffold.spec.ts:180:5 › locale, mode, motion and sound preferences apply and persist independently of sample lessons 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('link', { name: 'Play for 5 minutes' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('link', { name: 'Play for 5 minutes' }) with timeout 5000ms
+      - waiting for getByRole('link', { name: 'Play for 5 minutes' })
+
+
+      199 |   await expect(
+      200 |     page.getByRole("link", { name: "Play for 5 minutes" }),
+    > 201 |   ).toBeVisible();
+          |     ^
+      202 |   await page
+      203 |     .getByRole("navigation")
+      204 |     .getByRole("link", { name: "My words" })
+        at /Users/trunglk/Documents/trung-github/VocabularyNotes/tests/e2e/scaffold.spec.ts:201:5
+
+    Error Context: ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-sOCf2H/test-results/scaffold-locale-mode-motio-ea23d-pendently-of-sample-lessons-desktop-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-sOCf2H/test-results/scaffold-locale-mode-motio-ea23d-pendently-of-sample-lessons-desktop-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-sOCf2H/test-results/scaffold-locale-mode-motio-ea23d-pendently-of-sample-lessons-desktop-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[8/12] [mobile-chromium] › tests/e2e/learning.spec.ts:243:5 › sentence listening reads the exact example from IPA row and revealed flashcard
+[9/12] [mobile-chromium] › tests/e2e/learning.spec.ts:217:5 › audio first tap waits for delayed voices and pending stop prevents late playback online and offline
+[10/12] [mobile-chromium] › tests/e2e/scaffold.spec.ts:180:5 › locale, mode, motion and sound preferences apply and persist independently of sample lessons
+[11/12] [mobile-chromium] › tests/e2e/scaffold.spec.ts:246:5 › unavailable English voice gives a readable fallback without autoplay
+[12/12] [mobile-chromium] › tests/e2e/scaffold.spec.ts:316:5 › speech controls stop each other and navigation cancels active reading
+  2) [mobile-chromium] › tests/e2e/scaffold.spec.ts:180:5 › locale, mode, motion and sound preferences apply and persist independently of sample lessons 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('link', { name: 'Play for 5 minutes' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('link', { name: 'Play for 5 minutes' }) with timeout 5000ms
+      - waiting for getByRole('link', { name: 'Play for 5 minutes' })
+
+
+      199 |   await expect(
+      200 |     page.getByRole("link", { name: "Play for 5 minutes" }),
+    > 201 |   ).toBeVisible();
+          |     ^
+      202 |   await page
+      203 |     .getByRole("navigation")
+      204 |     .getByRole("link", { name: "My words" })
+        at /Users/trunglk/Documents/trung-github/VocabularyNotes/tests/e2e/scaffold.spec.ts:201:5
+
+    Error Context: ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-sOCf2H/test-results/scaffold-locale-mode-motio-ea23d-pendently-of-sample-lessons-mobile-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-sOCf2H/test-results/scaffold-locale-mode-motio-ea23d-pendently-of-sample-lessons-mobile-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../../../../var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-sOCf2H/test-results/scaffold-locale-mode-motio-ea23d-pendently-of-sample-lessons-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  2 failed
+    [desktop-chromium] › tests/e2e/scaffold.spec.ts:180:5 › locale, mode, motion and sound preferences apply and persist independently of sample lessons 
+    [mobile-chromium] › tests/e2e/scaffold.spec.ts:180:5 › locale, mode, motion and sound preferences apply and persist independently of sample lessons 
+  10 passed (18.6s)

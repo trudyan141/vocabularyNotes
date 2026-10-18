@@ -1,5 +1,11 @@
 # Words for Kids — kế hoạch sản phẩm dành cho founder
 
+## Mobile iPhone/PWA và Emma — founder duyệt18/10/2026
+
+Đã triển khai và deploy theo [hướng dẫn đã duyệt](ai/MOBILE-PERFORMANCE-AND-EMMA-PLAN.md): đo production/mobile, sửa chuyển trang và đọc thư viện lớn theo trace, đưa Emma US Natural vào nút Nghe chung, kiểm trước/sau rồi deploy để founder test lại. Chỉ prefetch nav chính, không làm mất nghĩa từ hoặc tiến độ. Emma online được gọi ngay, phát lại từ cache RAM theo thư viện; offline/lỗi dùng giọng máy nếu có. Không thêm key/env/phí provider; không đưa text/audio vào IDB/cloud/backup. Gemini chấm nói giữ riêng.
+
+Mục tiêu nav warm median≤500ms/p95≤1s, phản hồi≤100ms; Emma lần đầu median≤1,5s và replay p95≤200ms. Các target cold/CWV/search/JS hiện có giữ nguyên. Số đo lab và iPhone12/PWA thật báo riêng; chỉ hoàn tất device acceptance sau founder nghe và test trên domain. [Kết quả cuối](evaluations/mobile-performance.md): Thư viện5000 median2436→331ms; search p951821→99ms; Emma cache median49ms. Cold Today/Practice~3,5s, initial JS còn vượt budget; field/iPhone thật chờ founder test.
+
 ## Lưu kho đang nhận thành nội dung của mình — 15/10/2026
 
 Cài đặt → **Sao lưu & dữ liệu** luôn hiện khi nhận share:

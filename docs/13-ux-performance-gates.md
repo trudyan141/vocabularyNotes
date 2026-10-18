@@ -74,6 +74,10 @@ T02 bắt đầu baseline với fixture; T07/T09/T12 đo lại phần tương t�
 
 Nguồn đo: [web.dev Core Web Vitals](https://web.dev/articles/vitals); skill performance/core-web-vitals/accessibility trong repo. Dùng UI/UX Pro Max + Impeccable shape/operate cho interaction, `frontend-design` cho art direction, LottieFiles `motion-design` + Impeccable animate cho motion/implementation; không nạp cả bundle khi chỉ sửa một control.
 
+### Đợt mobile/PWA18/10 — target bổ sung đã duyệt
+
+Founder iPhone12/PWA/domain chốt [plan](ai/MOBILE-PERFORMANCE-AND-EMMA-PLAN.md): nav warm/prefetch median≤500ms/p95≤1s đến nội dung dùng được; bottleneck vượt target hướng tới giảm≥50%; Emma từ/câu ngắn cache trống median≤1,5s/p95≤3s khi đủ mẫu, replay RAM p95≤200ms. Đây là target, không thay budgets cold/CWV/search/JS phía trên. Đo ≥30 journeys/cohort cho p95, cold≥5runs/route, query→paint≥50; lỗi/timeouts giữ trong tổng mẫu. Tách backend MP3, browser playing và nghe tiếng trên iPhone thật; không đổi tên Chromium emulation thành iOS/device pass. Field INP vẫn cần field samples.
+
 T18 artifacts và browser evidence ở [self-review](design/prototype/SELF-REVIEW.md), kịch bản riêng ở [QA25](design/prototype/QA25-HUMAN-STUDY.md). Targets production/CWV/device/human vẫn chưa measured; không suy pass từ kích thước WOFF2 hoặc browser demo.
 
 ## T04 capture lab bổ sung

@@ -1,0 +1,4487 @@
+{
+  "startedAt": "2026-10-18T14:51:44.428Z",
+  "base": "https://words-for-kids.vercel.app",
+  "node": "v24.14.1",
+  "harnessHash": "9e556e2cc54f21402a7300cf1ebe272e0d51baaf8943022294149e8e1870282b",
+  "profile": {
+    "browser": "Chromium headless, iPhone12 viewport emulation; not iOS",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "cpu": 4,
+    "network": {
+      "downloadBps": 200000,
+      "uploadBps": 93750,
+      "rttMs": 150
+    },
+    "server": "warm after health probe, function cold unknown",
+    "field": false
+  },
+  "loads": [
+    {
+      "route": "/today",
+      "run": 0,
+      "status": 200,
+      "elapsedMs": 6148,
+      "lcp": 5700,
+      "cls": 0,
+      "longtasks": [
+        {
+          "start": 3760.099999964237,
+          "duration": 204
+        },
+        {
+          "start": 4052.199999988079,
+          "duration": 135
+        },
+        {
+          "start": 4298.599999964237,
+          "duration": 67
+        }
+      ],
+      "tap": 0,
+      "feedback": 0,
+      "readyAt": 6122.899999976158,
+      "resources": [
+        {
+          "name": "/_next/static/immutable/media/nunito_variable-s.p.11tswt6ktrd6q.woff2",
+          "encoded": 101028,
+          "transfer": 101328,
+          "duration": 2726.899999976158
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0n5rjyqg1z7k_.css",
+          "encoded": 27531,
+          "transfer": 27831,
+          "duration": 1446
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3_cyo_0027gz2.js",
+          "encoded": 2125,
+          "transfer": 2425,
+          "duration": 221.89999997615814
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2-9h6h2pmij0r.js",
+          "encoded": 9182,
+          "transfer": 9482,
+          "duration": 371.10000002384186
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2vjdbms7u2h93.js",
+          "encoded": 3644,
+          "transfer": 3944,
+          "duration": 701
+        },
+        {
+          "name": "/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+          "encoded": 4603,
+          "transfer": 4903,
+          "duration": 791.3999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1aiugsssx7rua.js",
+          "encoded": 45942,
+          "transfer": 46242,
+          "duration": 2232.399999976158
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3nvymzlb1hmb2.js",
+          "encoded": 73398,
+          "transfer": 73698,
+          "duration": 2481.399999976158
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2rkk3g3_ix1-y.js",
+          "encoded": 1446,
+          "transfer": 1746,
+          "duration": 679.3000000119209
+        },
+        {
+          "name": "/_next/static/immutable/chunks/39qabr0gfdrwa.js",
+          "encoded": 7501,
+          "transfer": 7801,
+          "duration": 1137
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1g0w23eyam7ga.js",
+          "encoded": 18491,
+          "transfer": 18791,
+          "duration": 1631.2000000476837
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1f58zyb_6ypb-.js",
+          "encoded": 8299,
+          "transfer": 8599,
+          "duration": 1084.300000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0q47ri_ggp1da.js",
+          "encoded": 8059,
+          "transfer": 8359,
+          "duration": 1091.699999988079
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1xq7g5uh4ndwo.js",
+          "encoded": 10259,
+          "transfer": 10559,
+          "duration": 1219.199999988079
+        },
+        {
+          "name": "/_next/static/immutable/chunks/174wlp5-6o-eh.js",
+          "encoded": 10772,
+          "transfer": 11072,
+          "duration": 1331.699999988079
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3-z7_58a6t2kr.js",
+          "encoded": 15809,
+          "transfer": 16109,
+          "duration": 1519.3999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3brnvlv0qf-o9.js",
+          "encoded": 16253,
+          "transfer": 16553,
+          "duration": 1585.800000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0-i75lv1foqm2.js",
+          "encoded": 33098,
+          "transfer": 33398,
+          "duration": 2006.1000000238419
+        },
+        {
+          "name": "/_next/static/immutable/chunks/115zityec1pag.js",
+          "encoded": 91312,
+          "transfer": 91612,
+          "duration": 2756
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1wdhg94-c6p-6.js",
+          "encoded": 12270,
+          "transfer": 12570,
+          "duration": 1353.4000000357628
+        },
+        {
+          "name": "/illustrations/wordmark.svg",
+          "encoded": 529,
+          "transfer": 829,
+          "duration": 1074
+        },
+        {
+          "name": "/api/auth/status",
+          "encoded": 37,
+          "transfer": 337,
+          "duration": 829.8999999761581
+        },
+        {
+          "name": "/illustrations/fox.svg",
+          "encoded": 648,
+          "transfer": 948,
+          "duration": 358.69999998807907
+        },
+        {
+          "name": "/illustrations/notebook.svg",
+          "encoded": 458,
+          "transfer": 758,
+          "duration": 322.60000002384186
+        },
+        {
+          "name": "/illustrations/bag.svg",
+          "encoded": 970,
+          "transfer": 1270,
+          "duration": 337.5
+        },
+        {
+          "name": "/illustrations/pencil.svg",
+          "encoded": 584,
+          "transfer": 884,
+          "duration": 306.80000001192093
+        },
+        {
+          "name": "/illustrations/book.svg",
+          "encoded": 493,
+          "transfer": 793,
+          "duration": 331.19999998807907
+        }
+      ],
+      "navigation": {
+        "name": "https://words-for-kids.vercel.app/today",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 4050.899999976158,
+        "navigationId": 3517,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "h2",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "br",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0.09999996423721313,
+        "domainLookupStart": 1.800000011920929,
+        "domainLookupEnd": 57.80000001192093,
+        "connectStart": 57.80000001192093,
+        "secureConnectionStart": 83.39999997615814,
+        "connectEnd": 273.80000001192093,
+        "requestStart": 274.30000001192093,
+        "responseStart": 327.19999998807907,
+        "firstInterimResponseStart": 327.19999998807907,
+        "finalResponseHeadersStart": 1241.5999999642372,
+        "responseEnd": 1286.5999999642372,
+        "transferSize": 8280,
+        "encodedBodySize": 7980,
+        "decodedBodySize": 46750,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 2858.300000011921,
+        "domContentLoadedEventStart": 2858.399999976158,
+        "domContentLoadedEventEnd": 2858.5,
+        "domComplete": 4050.899999976158,
+        "loadEventStart": 4050.899999976158,
+        "loadEventEnd": 4050.899999976158,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "high"
+        }
+      }
+    },
+    {
+      "route": "/today",
+      "run": 1,
+      "status": 200,
+      "elapsedMs": 4704,
+      "lcp": 4432,
+      "cls": 0,
+      "longtasks": [
+        {
+          "start": 3390.2000000476837,
+          "duration": 139
+        },
+        {
+          "start": 3712.7000000476837,
+          "duration": 127
+        },
+        {
+          "start": 3908.5,
+          "duration": 54
+        }
+      ],
+      "tap": 0,
+      "feedback": 0,
+      "readyAt": 4688.300000011921,
+      "resources": [
+        {
+          "name": "/_next/static/immutable/media/nunito_variable-s.p.11tswt6ktrd6q.woff2",
+          "encoded": 101028,
+          "transfer": 101328,
+          "duration": 874.7999999523163
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0n5rjyqg1z7k_.css",
+          "encoded": 27531,
+          "transfer": 27831,
+          "duration": 929.3999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3_cyo_0027gz2.js",
+          "encoded": 2125,
+          "transfer": 2425,
+          "duration": 562.6999999880791
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2-9h6h2pmij0r.js",
+          "encoded": 9182,
+          "transfer": 9482,
+          "duration": 688.9000000357628
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2vjdbms7u2h93.js",
+          "encoded": 3644,
+          "transfer": 3944,
+          "duration": 1116.1000000238419
+        },
+        {
+          "name": "/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+          "encoded": 4603,
+          "transfer": 4903,
+          "duration": 1161.4000000357628
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1aiugsssx7rua.js",
+          "encoded": 45942,
+          "transfer": 46242,
+          "duration": 2150.600000023842
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3nvymzlb1hmb2.js",
+          "encoded": 73398,
+          "transfer": 73698,
+          "duration": 2427.2000000476837
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2rkk3g3_ix1-y.js",
+          "encoded": 1446,
+          "transfer": 1746,
+          "duration": 1085.1000000238419
+        },
+        {
+          "name": "/_next/static/immutable/chunks/39qabr0gfdrwa.js",
+          "encoded": 7501,
+          "transfer": 7801,
+          "duration": 1354.699999988079
+        },
+        {
+          "name": "/_next/static/immutable/chunks/174wlp5-6o-eh.js",
+          "encoded": 10772,
+          "transfer": 11072,
+          "duration": 1438.1000000238419
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1g0w23eyam7ga.js",
+          "encoded": 18491,
+          "transfer": 18791,
+          "duration": 1678.3999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1f58zyb_6ypb-.js",
+          "encoded": 8299,
+          "transfer": 8599,
+          "duration": 1526.9000000357628
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1xq7g5uh4ndwo.js",
+          "encoded": 10259,
+          "transfer": 10559,
+          "duration": 1609.699999988079
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0q47ri_ggp1da.js",
+          "encoded": 8059,
+          "transfer": 8359,
+          "duration": 1669.300000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0-i75lv1foqm2.js",
+          "encoded": 33098,
+          "transfer": 33398,
+          "duration": 2436.099999964237
+        },
+        {
+          "name": "/_next/static/immutable/chunks/115zityec1pag.js",
+          "encoded": 91312,
+          "transfer": 91612,
+          "duration": 2742.5
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3-z7_58a6t2kr.js",
+          "encoded": 15809,
+          "transfer": 16109,
+          "duration": 2201
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3brnvlv0qf-o9.js",
+          "encoded": 16253,
+          "transfer": 16553,
+          "duration": 2295.399999976158
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1wdhg94-c6p-6.js",
+          "encoded": 12270,
+          "transfer": 12570,
+          "duration": 2276.800000011921
+        },
+        {
+          "name": "/illustrations/wordmark.svg",
+          "encoded": 529,
+          "transfer": 829,
+          "duration": 902.0999999642372
+        },
+        {
+          "name": "/api/auth/status",
+          "encoded": 37,
+          "transfer": 337,
+          "duration": 159.80000001192093
+        },
+        {
+          "name": "/illustrations/fox.svg",
+          "encoded": 648,
+          "transfer": 948,
+          "duration": 157.9000000357628
+        },
+        {
+          "name": "/illustrations/notebook.svg",
+          "encoded": 458,
+          "transfer": 758,
+          "duration": 159.39999997615814
+        },
+        {
+          "name": "/illustrations/bag.svg",
+          "encoded": 970,
+          "transfer": 1270,
+          "duration": 166.60000002384186
+        },
+        {
+          "name": "/illustrations/pencil.svg",
+          "encoded": 584,
+          "transfer": 884,
+          "duration": 174.79999995231628
+        },
+        {
+          "name": "/illustrations/book.svg",
+          "encoded": 493,
+          "transfer": 793,
+          "duration": 182.19999998807907
+        }
+      ],
+      "navigation": {
+        "name": "https://words-for-kids.vercel.app/today",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 3846.600000023842,
+        "navigationId": 544,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "h2",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "br",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0.20000004768371582,
+        "domainLookupStart": 2.300000011920929,
+        "domainLookupEnd": 9.700000047683716,
+        "connectStart": 9.700000047683716,
+        "secureConnectionStart": 343.2000000476837,
+        "connectEnd": 748.4000000357628,
+        "requestStart": 748.6000000238419,
+        "responseStart": 847.6000000238419,
+        "firstInterimResponseStart": 847.6000000238419,
+        "finalResponseHeadersStart": 932.2000000476837,
+        "responseEnd": 974.5,
+        "transferSize": 8280,
+        "encodedBodySize": 7980,
+        "decodedBodySize": 46750,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 1953.2000000476837,
+        "domContentLoadedEventStart": 1953.2000000476837,
+        "domContentLoadedEventEnd": 1953.2000000476837,
+        "domComplete": 3846.100000023842,
+        "loadEventStart": 3846.600000023842,
+        "loadEventEnd": 3846.600000023842,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "low"
+        }
+      }
+    },
+    {
+      "route": "/today",
+      "run": 2,
+      "status": 200,
+      "elapsedMs": 4096,
+      "lcp": 3824,
+      "cls": 0,
+      "longtasks": [
+        {
+          "start": 2858.800000011921,
+          "duration": 125
+        },
+        {
+          "start": 3138.5,
+          "duration": 126
+        }
+      ],
+      "tap": 0,
+      "feedback": 0,
+      "readyAt": 4085.899999976158,
+      "resources": [
+        {
+          "name": "/_next/static/immutable/media/nunito_variable-s.p.11tswt6ktrd6q.woff2",
+          "encoded": 101028,
+          "transfer": 101328,
+          "duration": 2758.600000023842
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0n5rjyqg1z7k_.css",
+          "encoded": 27531,
+          "transfer": 27831,
+          "duration": 1577
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3_cyo_0027gz2.js",
+          "encoded": 2125,
+          "transfer": 2425,
+          "duration": 294.39999997615814
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2-9h6h2pmij0r.js",
+          "encoded": 9182,
+          "transfer": 9482,
+          "duration": 803.1999999880791
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1aiugsssx7rua.js",
+          "encoded": 45942,
+          "transfer": 46242,
+          "duration": 2071.900000035763
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3nvymzlb1hmb2.js",
+          "encoded": 73398,
+          "transfer": 73698,
+          "duration": 2498.2000000476837
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2rkk3g3_ix1-y.js",
+          "encoded": 1446,
+          "transfer": 1746,
+          "duration": 337.69999998807907
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2vjdbms7u2h93.js",
+          "encoded": 3644,
+          "transfer": 3944,
+          "duration": 436.19999998807907
+        },
+        {
+          "name": "/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+          "encoded": 4603,
+          "transfer": 4903,
+          "duration": 525.1000000238419
+        },
+        {
+          "name": "/_next/static/immutable/chunks/39qabr0gfdrwa.js",
+          "encoded": 7501,
+          "transfer": 7801,
+          "duration": 736
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1g0w23eyam7ga.js",
+          "encoded": 18491,
+          "transfer": 18791,
+          "duration": 1289.300000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1f58zyb_6ypb-.js",
+          "encoded": 8299,
+          "transfer": 8599,
+          "duration": 749.2999999523163
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1xq7g5uh4ndwo.js",
+          "encoded": 10259,
+          "transfer": 10559,
+          "duration": 862.3999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/174wlp5-6o-eh.js",
+          "encoded": 10772,
+          "transfer": 11072,
+          "duration": 945.0999999642372
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0q47ri_ggp1da.js",
+          "encoded": 8059,
+          "transfer": 8359,
+          "duration": 778.7000000476837
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0-i75lv1foqm2.js",
+          "encoded": 33098,
+          "transfer": 33398,
+          "duration": 1987.1000000238419
+        },
+        {
+          "name": "/_next/static/immutable/chunks/115zityec1pag.js",
+          "encoded": 91312,
+          "transfer": 91612,
+          "duration": 2745.2000000476837
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1wdhg94-c6p-6.js",
+          "encoded": 12270,
+          "transfer": 12570,
+          "duration": 1363.6000000238419
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3brnvlv0qf-o9.js",
+          "encoded": 16253,
+          "transfer": 16553,
+          "duration": 1491
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3-z7_58a6t2kr.js",
+          "encoded": 15809,
+          "transfer": 16109,
+          "duration": 1500.300000011921
+        },
+        {
+          "name": "/illustrations/wordmark.svg",
+          "encoded": 529,
+          "transfer": 829,
+          "duration": 194
+        },
+        {
+          "name": "/api/auth/status",
+          "encoded": 37,
+          "transfer": 337,
+          "duration": 157.60000002384186
+        },
+        {
+          "name": "/illustrations/fox.svg",
+          "encoded": 648,
+          "transfer": 948,
+          "duration": 156.30000001192093
+        },
+        {
+          "name": "/illustrations/bag.svg",
+          "encoded": 970,
+          "transfer": 1270,
+          "duration": 163.19999998807907
+        },
+        {
+          "name": "/illustrations/notebook.svg",
+          "encoded": 458,
+          "transfer": 758,
+          "duration": 173.19999998807907
+        },
+        {
+          "name": "/illustrations/pencil.svg",
+          "encoded": 584,
+          "transfer": 884,
+          "duration": 178.39999997615814
+        },
+        {
+          "name": "/illustrations/book.svg",
+          "encoded": 493,
+          "transfer": 793,
+          "duration": 186
+        }
+      ],
+      "navigation": {
+        "name": "https://words-for-kids.vercel.app/today",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 3273.899999976158,
+        "navigationId": 1164,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "h2",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "br",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0.10000002384185791,
+        "domainLookupStart": 0.800000011920929,
+        "domainLookupEnd": 4.800000011920929,
+        "connectStart": 4.800000011920929,
+        "secureConnectionStart": 32.10000002384186,
+        "connectEnd": 121.39999997615814,
+        "requestStart": 121.60000002384186,
+        "responseStart": 176.5,
+        "firstInterimResponseStart": 176.5,
+        "finalResponseHeadersStart": 325,
+        "responseEnd": 365.39999997615814,
+        "transferSize": 8280,
+        "encodedBodySize": 7980,
+        "decodedBodySize": 46750,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 1989.8999999761581,
+        "domContentLoadedEventStart": 1989.8999999761581,
+        "domContentLoadedEventEnd": 1990.6000000238419,
+        "domComplete": 3273.800000011921,
+        "loadEventStart": 3273.899999976158,
+        "loadEventEnd": 3273.899999976158,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "low"
+        }
+      }
+    },
+    {
+      "route": "/today",
+      "run": 3,
+      "status": 200,
+      "elapsedMs": 4289,
+      "lcp": 4040,
+      "cls": 0,
+      "longtasks": [
+        {
+          "start": 3196.899999976158,
+          "duration": 115
+        },
+        {
+          "start": 3377.300000011921,
+          "duration": 99
+        },
+        {
+          "start": 3574.599999964237,
+          "duration": 51
+        }
+      ],
+      "tap": 0,
+      "feedback": 0,
+      "readyAt": 4280.699999988079,
+      "resources": [
+        {
+          "name": "/_next/static/immutable/media/nunito_variable-s.p.11tswt6ktrd6q.woff2",
+          "encoded": 101028,
+          "transfer": 101328,
+          "duration": 2764.899999976158
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0n5rjyqg1z7k_.css",
+          "encoded": 27531,
+          "transfer": 27831,
+          "duration": 1671.4000000357628
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3_cyo_0027gz2.js",
+          "encoded": 2125,
+          "transfer": 2425,
+          "duration": 254.89999997615814
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2-9h6h2pmij0r.js",
+          "encoded": 9182,
+          "transfer": 9482,
+          "duration": 1070.5
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2vjdbms7u2h93.js",
+          "encoded": 3644,
+          "transfer": 3944,
+          "duration": 486.19999998807907
+        },
+        {
+          "name": "/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+          "encoded": 4603,
+          "transfer": 4903,
+          "duration": 733.6999999880791
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1aiugsssx7rua.js",
+          "encoded": 45942,
+          "transfer": 46242,
+          "duration": 2127.600000023842
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3nvymzlb1hmb2.js",
+          "encoded": 73398,
+          "transfer": 73698,
+          "duration": 2541.199999988079
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2rkk3g3_ix1-y.js",
+          "encoded": 1446,
+          "transfer": 1746,
+          "duration": 350
+        },
+        {
+          "name": "/_next/static/immutable/chunks/39qabr0gfdrwa.js",
+          "encoded": 7501,
+          "transfer": 7801,
+          "duration": 973.5999999642372
+        },
+        {
+          "name": "/_next/static/immutable/chunks/174wlp5-6o-eh.js",
+          "encoded": 10772,
+          "transfer": 11072,
+          "duration": 1152.5
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1g0w23eyam7ga.js",
+          "encoded": 18491,
+          "transfer": 18791,
+          "duration": 1430.8999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0q47ri_ggp1da.js",
+          "encoded": 8059,
+          "transfer": 8359,
+          "duration": 874.2000000476837
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1f58zyb_6ypb-.js",
+          "encoded": 8299,
+          "transfer": 8599,
+          "duration": 920.4000000357628
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1xq7g5uh4ndwo.js",
+          "encoded": 10259,
+          "transfer": 10559,
+          "duration": 1055.1000000238419
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3-z7_58a6t2kr.js",
+          "encoded": 15809,
+          "transfer": 16109,
+          "duration": 1333.1000000238419
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0-i75lv1foqm2.js",
+          "encoded": 33098,
+          "transfer": 33398,
+          "duration": 1857.5
+        },
+        {
+          "name": "/_next/static/immutable/chunks/115zityec1pag.js",
+          "encoded": 91312,
+          "transfer": 91612,
+          "duration": 2720.5
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1wdhg94-c6p-6.js",
+          "encoded": 12270,
+          "transfer": 12570,
+          "duration": 1234.8999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3brnvlv0qf-o9.js",
+          "encoded": 16253,
+          "transfer": 16553,
+          "duration": 1361.699999988079
+        },
+        {
+          "name": "/illustrations/wordmark.svg",
+          "encoded": 529,
+          "transfer": 829,
+          "duration": 186.5
+        },
+        {
+          "name": "/api/auth/status",
+          "encoded": 37,
+          "transfer": 337,
+          "duration": 155.69999998807907
+        },
+        {
+          "name": "/illustrations/fox.svg",
+          "encoded": 648,
+          "transfer": 948,
+          "duration": 158.9000000357628
+        },
+        {
+          "name": "/illustrations/bag.svg",
+          "encoded": 970,
+          "transfer": 1270,
+          "duration": 176.10000002384186
+        },
+        {
+          "name": "/illustrations/notebook.svg",
+          "encoded": 458,
+          "transfer": 758,
+          "duration": 184.30000001192093
+        },
+        {
+          "name": "/illustrations/pencil.svg",
+          "encoded": 584,
+          "transfer": 884,
+          "duration": 160.30000001192093
+        },
+        {
+          "name": "/illustrations/book.svg",
+          "encoded": 493,
+          "transfer": 793,
+          "duration": 167.89999997615814
+        }
+      ],
+      "navigation": {
+        "name": "https://words-for-kids.vercel.app/today",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 3479.099999964237,
+        "navigationId": 8995,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "h2",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "br",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0,
+        "domainLookupStart": 0.699999988079071,
+        "domainLookupEnd": 4.399999976158142,
+        "connectStart": 4.399999976158142,
+        "secureConnectionStart": 30.69999998807907,
+        "connectEnd": 121,
+        "requestStart": 121.09999996423721,
+        "responseStart": 474.19999998807907,
+        "firstInterimResponseStart": 474.19999998807907,
+        "finalResponseHeadersStart": 622.0999999642372,
+        "responseEnd": 665.8000000119209,
+        "transferSize": 8280,
+        "encodedBodySize": 7980,
+        "decodedBodySize": 46750,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 2399.300000011921,
+        "domContentLoadedEventStart": 2399.300000011921,
+        "domContentLoadedEventEnd": 2399.399999976158,
+        "domComplete": 3479.099999964237,
+        "loadEventStart": 3479.099999964237,
+        "loadEventEnd": 3479.099999964237,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "high"
+        }
+      }
+    },
+    {
+      "route": "/today",
+      "run": 4,
+      "status": 200,
+      "elapsedMs": 4910,
+      "lcp": 4200,
+      "cls": 0,
+      "longtasks": [
+        {
+          "start": 3376.699999988079,
+          "duration": 123
+        },
+        {
+          "start": 3595.300000011921,
+          "duration": 97
+        }
+      ],
+      "tap": 0,
+      "feedback": 0,
+      "readyAt": 4902.300000011921,
+      "resources": [
+        {
+          "name": "/_next/static/immutable/media/nunito_variable-s.p.11tswt6ktrd6q.woff2",
+          "encoded": 101028,
+          "transfer": 101328,
+          "duration": 2701.699999988079
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0n5rjyqg1z7k_.css",
+          "encoded": 27531,
+          "transfer": 27831,
+          "duration": 1011.1000000238419
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3_cyo_0027gz2.js",
+          "encoded": 2125,
+          "transfer": 2425,
+          "duration": 207.69999998807907
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2-9h6h2pmij0r.js",
+          "encoded": 9182,
+          "transfer": 9482,
+          "duration": 327.4000000357628
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3nvymzlb1hmb2.js",
+          "encoded": 73398,
+          "transfer": 73698,
+          "duration": 2637.300000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+          "encoded": 4603,
+          "transfer": 4903,
+          "duration": 935.1000000238419
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1aiugsssx7rua.js",
+          "encoded": 45942,
+          "transfer": 46242,
+          "duration": 2201.699999988079
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2rkk3g3_ix1-y.js",
+          "encoded": 1446,
+          "transfer": 1746,
+          "duration": 506.89999997615814
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2vjdbms7u2h93.js",
+          "encoded": 3644,
+          "transfer": 3944,
+          "duration": 665.8000000119209
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1g0w23eyam7ga.js",
+          "encoded": 18491,
+          "transfer": 18791,
+          "duration": 1617.3999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/39qabr0gfdrwa.js",
+          "encoded": 7501,
+          "transfer": 7801,
+          "duration": 1032.300000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1f58zyb_6ypb-.js",
+          "encoded": 8299,
+          "transfer": 8599,
+          "duration": 1167.800000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/174wlp5-6o-eh.js",
+          "encoded": 10772,
+          "transfer": 11072,
+          "duration": 1317.7000000476837
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1xq7g5uh4ndwo.js",
+          "encoded": 10259,
+          "transfer": 10559,
+          "duration": 1332.6000000238419
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0q47ri_ggp1da.js",
+          "encoded": 8059,
+          "transfer": 8359,
+          "duration": 1023.1999999880791
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0-i75lv1foqm2.js",
+          "encoded": 33098,
+          "transfer": 33398,
+          "duration": 1968.5999999642372
+        },
+        {
+          "name": "/_next/static/immutable/chunks/115zityec1pag.js",
+          "encoded": 91312,
+          "transfer": 91612,
+          "duration": 2749.099999964237
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1wdhg94-c6p-6.js",
+          "encoded": 12270,
+          "transfer": 12570,
+          "duration": 1384.1000000238419
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3brnvlv0qf-o9.js",
+          "encoded": 16253,
+          "transfer": 16553,
+          "duration": 1450.9000000357628
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3-z7_58a6t2kr.js",
+          "encoded": 15809,
+          "transfer": 16109,
+          "duration": 1525.800000011921
+        },
+        {
+          "name": "/illustrations/wordmark.svg",
+          "encoded": 529,
+          "transfer": 829,
+          "duration": 241.89999997615814
+        },
+        {
+          "name": "/api/auth/status",
+          "encoded": 37,
+          "transfer": 337,
+          "duration": 161.39999997615814
+        },
+        {
+          "name": "/illustrations/fox.svg",
+          "encoded": 648,
+          "transfer": 948,
+          "duration": 155.39999997615814
+        },
+        {
+          "name": "/illustrations/notebook.svg",
+          "encoded": 458,
+          "transfer": 758,
+          "duration": 162.0999999642372
+        },
+        {
+          "name": "/illustrations/pencil.svg",
+          "encoded": 584,
+          "transfer": 884,
+          "duration": 176.89999997615814
+        },
+        {
+          "name": "/illustrations/bag.svg",
+          "encoded": 970,
+          "transfer": 1270,
+          "duration": 185.0999999642372
+        },
+        {
+          "name": "/illustrations/book.svg",
+          "encoded": 493,
+          "transfer": 793,
+          "duration": 170.30000001192093
+        }
+      ],
+      "navigation": {
+        "name": "https://words-for-kids.vercel.app/today",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 3539.199999988079,
+        "navigationId": 2453,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "h2",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "br",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0,
+        "domainLookupStart": 0.5,
+        "domainLookupEnd": 2.699999988079071,
+        "connectStart": 2.699999988079071,
+        "secureConnectionStart": 32,
+        "connectEnd": 409.5,
+        "requestStart": 409.69999998807907,
+        "responseStart": 624.6999999880791,
+        "firstInterimResponseStart": 624.6999999880791,
+        "finalResponseHeadersStart": 701.6999999880791,
+        "responseEnd": 741.3999999761581,
+        "transferSize": 8280,
+        "encodedBodySize": 7980,
+        "decodedBodySize": 46750,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 1805.3999999761581,
+        "domContentLoadedEventStart": 1805.3999999761581,
+        "domContentLoadedEventEnd": 1805.3999999761581,
+        "domComplete": 3539.199999988079,
+        "loadEventStart": 3539.199999988079,
+        "loadEventEnd": 3539.199999988079,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "high"
+        }
+      }
+    },
+    {
+      "route": "/library",
+      "run": 0,
+      "status": 200,
+      "elapsedMs": 4602,
+      "lcp": 3436,
+      "cls": 0,
+      "longtasks": [
+        {
+          "start": 3841.900000035763,
+          "duration": 100
+        },
+        {
+          "start": 4005.100000023842,
+          "duration": 91
+        },
+        {
+          "start": 4142.900000035763,
+          "duration": 72
+        }
+      ],
+      "tap": 0,
+      "feedback": 0,
+      "readyAt": 4594.300000011921,
+      "resources": [
+        {
+          "name": "/_next/static/immutable/media/nunito_variable-s.p.11tswt6ktrd6q.woff2",
+          "encoded": 101028,
+          "transfer": 101328,
+          "duration": 2417.699999988079
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0n5rjyqg1z7k_.css",
+          "encoded": 27531,
+          "transfer": 27831,
+          "duration": 1915
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3_cyo_0027gz2.js",
+          "encoded": 2125,
+          "transfer": 2425,
+          "duration": 452
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2rkk3g3_ix1-y.js",
+          "encoded": 1446,
+          "transfer": 1746,
+          "duration": 609.3000000119209
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2vjdbms7u2h93.js",
+          "encoded": 3644,
+          "transfer": 3944,
+          "duration": 721.8999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2-9h6h2pmij0r.js",
+          "encoded": 9182,
+          "transfer": 9482,
+          "duration": 1201.800000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+          "encoded": 4603,
+          "transfer": 4903,
+          "duration": 1232.300000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1aiugsssx7rua.js",
+          "encoded": 45942,
+          "transfer": 46242,
+          "duration": 2364.300000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3nvymzlb1hmb2.js",
+          "encoded": 73398,
+          "transfer": 73698,
+          "duration": 2657
+        },
+        {
+          "name": "/_next/static/immutable/chunks/39qabr0gfdrwa.js",
+          "encoded": 7501,
+          "transfer": 7801,
+          "duration": 1141.2999999523163
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1g0w23eyam7ga.js",
+          "encoded": 18491,
+          "transfer": 18791,
+          "duration": 1628.3999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/174wlp5-6o-eh.js",
+          "encoded": 10772,
+          "transfer": 11072,
+          "duration": 1185.300000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0q47ri_ggp1da.js",
+          "encoded": 8059,
+          "transfer": 8359,
+          "duration": 1072.800000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1f58zyb_6ypb-.js",
+          "encoded": 8299,
+          "transfer": 8599,
+          "duration": 1088.7000000476837
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1xq7g5uh4ndwo.js",
+          "encoded": 10259,
+          "transfer": 10559,
+          "duration": 1163.5
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0-i75lv1foqm2.js",
+          "encoded": 33098,
+          "transfer": 33398,
+          "duration": 2116.300000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/115zityec1pag.js",
+          "encoded": 91312,
+          "transfer": 91612,
+          "duration": 2767.100000023842
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1nfb84o9yoerb.js",
+          "encoded": 225,
+          "transfer": 525,
+          "duration": 555.8999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3-z7_58a6t2kr.js",
+          "encoded": 15809,
+          "transfer": 16109,
+          "duration": 1514.7999999523163
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3brnvlv0qf-o9.js",
+          "encoded": 16253,
+          "transfer": 16553,
+          "duration": 1636.199999988079
+        },
+        {
+          "name": "/_next/static/immutable/chunks/11ns75kj6iizn.js",
+          "encoded": 15763,
+          "transfer": 16063,
+          "duration": 1724.5999999642372
+        },
+        {
+          "name": "/illustrations/wordmark.svg",
+          "encoded": 529,
+          "transfer": 829,
+          "duration": 249.9000000357628
+        },
+        {
+          "name": "/api/auth/status",
+          "encoded": 37,
+          "transfer": 337,
+          "duration": 159.60000002384186
+        }
+      ],
+      "navigation": {
+        "name": "https://words-for-kids.vercel.app/library",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 3972.199999988079,
+        "navigationId": 4878,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "h2",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "br",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0,
+        "domainLookupStart": 0.5,
+        "domainLookupEnd": 2.300000011920929,
+        "connectStart": 2.300000011920929,
+        "secureConnectionStart": 585.9000000357628,
+        "connectEnd": 945.3000000119209,
+        "requestStart": 945.4000000357628,
+        "responseStart": 1022.6000000238419,
+        "firstInterimResponseStart": 1022.6000000238419,
+        "finalResponseHeadersStart": 1136,
+        "responseEnd": 1192.300000011921,
+        "transferSize": 10844,
+        "encodedBodySize": 10544,
+        "decodedBodySize": 63106,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 3154.699999988079,
+        "domContentLoadedEventStart": 3154.699999988079,
+        "domContentLoadedEventEnd": 3154.699999988079,
+        "domComplete": 3972.199999988079,
+        "loadEventStart": 3972.199999988079,
+        "loadEventEnd": 3972.199999988079,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "low"
+        }
+      }
+    },
+    {
+      "route": "/library",
+      "run": 1,
+      "status": 200,
+      "elapsedMs": 3933,
+      "lcp": 2324,
+      "cls": 0.0002275894297765669,
+      "longtasks": [
+        {
+          "start": 3105.600000023842,
+          "duration": 102
+        },
+        {
+          "start": 3280.2000000476837,
+          "duration": 89
+        },
+        {
+          "start": 3473.400000035763,
+          "duration": 70
+        }
+      ],
+      "tap": 0,
+      "feedback": 0,
+      "readyAt": 3925.900000035763,
+      "resources": [
+        {
+          "name": "/_next/static/immutable/media/nunito_variable-s.p.11tswt6ktrd6q.woff2",
+          "encoded": 101028,
+          "transfer": 101328,
+          "duration": 2781.800000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0n5rjyqg1z7k_.css",
+          "encoded": 27531,
+          "transfer": 27831,
+          "duration": 1709
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3_cyo_0027gz2.js",
+          "encoded": 2125,
+          "transfer": 2425,
+          "duration": 337.10000002384186
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2-9h6h2pmij0r.js",
+          "encoded": 9182,
+          "transfer": 9482,
+          "duration": 988.1999999880791
+        },
+        {
+          "name": "/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+          "encoded": 4603,
+          "transfer": 4903,
+          "duration": 644.3000000119209
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1aiugsssx7rua.js",
+          "encoded": 45942,
+          "transfer": 46242,
+          "duration": 2136.300000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3nvymzlb1hmb2.js",
+          "encoded": 73398,
+          "transfer": 73698,
+          "duration": 2562.599999964237
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2rkk3g3_ix1-y.js",
+          "encoded": 1446,
+          "transfer": 1746,
+          "duration": 381
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2vjdbms7u2h93.js",
+          "encoded": 3644,
+          "transfer": 3944,
+          "duration": 515.8999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1g0w23eyam7ga.js",
+          "encoded": 18491,
+          "transfer": 18791,
+          "duration": 1461.3999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/39qabr0gfdrwa.js",
+          "encoded": 7501,
+          "transfer": 7801,
+          "duration": 898.3000000119209
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1f58zyb_6ypb-.js",
+          "encoded": 8299,
+          "transfer": 8599,
+          "duration": 912.9000000357628
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0q47ri_ggp1da.js",
+          "encoded": 8059,
+          "transfer": 8359,
+          "duration": 927.6999999880791
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1xq7g5uh4ndwo.js",
+          "encoded": 10259,
+          "transfer": 10559,
+          "duration": 1026
+        },
+        {
+          "name": "/_next/static/immutable/chunks/174wlp5-6o-eh.js",
+          "encoded": 10772,
+          "transfer": 11072,
+          "duration": 1107.9000000357628
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3-z7_58a6t2kr.js",
+          "encoded": 15809,
+          "transfer": 16109,
+          "duration": 1356.300000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0-i75lv1foqm2.js",
+          "encoded": 33098,
+          "transfer": 33398,
+          "duration": 1888.0999999642372
+        },
+        {
+          "name": "/_next/static/immutable/chunks/115zityec1pag.js",
+          "encoded": 91312,
+          "transfer": 91612,
+          "duration": 2736.399999976158
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1nfb84o9yoerb.js",
+          "encoded": 225,
+          "transfer": 525,
+          "duration": 304.69999998807907
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3brnvlv0qf-o9.js",
+          "encoded": 16253,
+          "transfer": 16553,
+          "duration": 1363
+        },
+        {
+          "name": "/_next/static/immutable/chunks/11ns75kj6iizn.js",
+          "encoded": 15763,
+          "transfer": 16063,
+          "duration": 1370.199999988079
+        },
+        {
+          "name": "/illustrations/wordmark.svg",
+          "encoded": 529,
+          "transfer": 829,
+          "duration": 183.39999997615814
+        }
+      ],
+      "navigation": {
+        "name": "https://words-for-kids.vercel.app/library",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 3371.5,
+        "navigationId": 3083,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "h2",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "br",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0,
+        "domainLookupStart": 0.5,
+        "domainLookupEnd": 2.100000023841858,
+        "connectStart": 2.100000023841858,
+        "secureConnectionStart": 283,
+        "connectEnd": 370.4000000357628,
+        "requestStart": 370.5,
+        "responseStart": 423.7000000476837,
+        "firstInterimResponseStart": 423.7000000476837,
+        "finalResponseHeadersStart": 502,
+        "responseEnd": 576.5,
+        "transferSize": 10844,
+        "encodedBodySize": 10544,
+        "decodedBodySize": 63106,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 2302.5,
+        "domContentLoadedEventStart": 2302.5,
+        "domContentLoadedEventEnd": 2302.600000023842,
+        "domComplete": 3371.400000035763,
+        "loadEventStart": 3371.5,
+        "loadEventEnd": 3371.5,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "high"
+        }
+      }
+    },
+    {
+      "route": "/library",
+      "run": 2,
+      "status": 200,
+      "elapsedMs": 4735,
+      "lcp": 3736,
+      "cls": 0,
+      "longtasks": [
+        {
+          "start": 4073.399999976158,
+          "duration": 105
+        },
+        {
+          "start": 4248.599999964237,
+          "duration": 89
+        },
+        {
+          "start": 4376.299999952316,
+          "duration": 68
+        }
+      ],
+      "tap": 0,
+      "feedback": 0,
+      "readyAt": 4729.199999988079,
+      "resources": [
+        {
+          "name": "/_next/static/immutable/media/nunito_variable-s.p.11tswt6ktrd6q.woff2",
+          "encoded": 101028,
+          "transfer": 101328,
+          "duration": 2360.699999988079
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0n5rjyqg1z7k_.css",
+          "encoded": 27531,
+          "transfer": 27831,
+          "duration": 1678.800000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3_cyo_0027gz2.js",
+          "encoded": 2125,
+          "transfer": 2425,
+          "duration": 351.60000002384186
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2-9h6h2pmij0r.js",
+          "encoded": 9182,
+          "transfer": 9482,
+          "duration": 965.5
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3nvymzlb1hmb2.js",
+          "encoded": 73398,
+          "transfer": 73698,
+          "duration": 2390.5
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2vjdbms7u2h93.js",
+          "encoded": 3644,
+          "transfer": 3944,
+          "duration": 486.4000000357628
+        },
+        {
+          "name": "/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+          "encoded": 4603,
+          "transfer": 4903,
+          "duration": 605.8000000119209
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1aiugsssx7rua.js",
+          "encoded": 45942,
+          "transfer": 46242,
+          "duration": 2105.5
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2rkk3g3_ix1-y.js",
+          "encoded": 1446,
+          "transfer": 1746,
+          "duration": 364.9000000357628
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1g0w23eyam7ga.js",
+          "encoded": 18491,
+          "transfer": 18791,
+          "duration": 1452.300000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/39qabr0gfdrwa.js",
+          "encoded": 7501,
+          "transfer": 7801,
+          "duration": 875.8000000119209
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1f58zyb_6ypb-.js",
+          "encoded": 8299,
+          "transfer": 8599,
+          "duration": 891.0999999642372
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0q47ri_ggp1da.js",
+          "encoded": 8059,
+          "transfer": 8359,
+          "duration": 905.8999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1xq7g5uh4ndwo.js",
+          "encoded": 10259,
+          "transfer": 10559,
+          "duration": 1002.3000000119209
+        },
+        {
+          "name": "/_next/static/immutable/chunks/174wlp5-6o-eh.js",
+          "encoded": 10772,
+          "transfer": 11072,
+          "duration": 1085.5999999642372
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3-z7_58a6t2kr.js",
+          "encoded": 15809,
+          "transfer": 16109,
+          "duration": 1347.300000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0-i75lv1foqm2.js",
+          "encoded": 33098,
+          "transfer": 33398,
+          "duration": 1887.6000000238419
+        },
+        {
+          "name": "/_next/static/immutable/chunks/115zityec1pag.js",
+          "encoded": 91312,
+          "transfer": 91612,
+          "duration": 2480.800000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1nfb84o9yoerb.js",
+          "encoded": 225,
+          "transfer": 525,
+          "duration": 559.5
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3brnvlv0qf-o9.js",
+          "encoded": 16253,
+          "transfer": 16553,
+          "duration": 1474.6000000238419
+        },
+        {
+          "name": "/_next/static/immutable/chunks/11ns75kj6iizn.js",
+          "encoded": 15763,
+          "transfer": 16063,
+          "duration": 1483
+        },
+        {
+          "name": "/illustrations/wordmark.svg",
+          "encoded": 529,
+          "transfer": 829,
+          "duration": 193
+        }
+      ],
+      "navigation": {
+        "name": "https://words-for-kids.vercel.app/library",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 4194.899999976158,
+        "navigationId": 1592,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "h2",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "br",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0,
+        "domainLookupStart": 0.7999999523162842,
+        "domainLookupEnd": 4.299999952316284,
+        "connectStart": 4.299999952316284,
+        "secureConnectionStart": 1033.0999999642372,
+        "connectEnd": 1121,
+        "requestStart": 1121.0999999642372,
+        "responseStart": 1227.699999988079,
+        "firstInterimResponseStart": 1227.699999988079,
+        "finalResponseHeadersStart": 1305,
+        "responseEnd": 1769.0999999642372,
+        "transferSize": 10844,
+        "encodedBodySize": 10544,
+        "decodedBodySize": 63106,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 3419.599999964237,
+        "domContentLoadedEventStart": 3419.599999964237,
+        "domContentLoadedEventEnd": 3419.599999964237,
+        "domComplete": 4194.899999976158,
+        "loadEventStart": 4194.899999976158,
+        "loadEventEnd": 4194.899999976158,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "high"
+        }
+      }
+    },
+    {
+      "route": "/library",
+      "run": 3,
+      "status": 200,
+      "elapsedMs": 3937,
+      "lcp": 2640,
+      "cls": 0.0002275894297765669,
+      "longtasks": [
+        {
+          "start": 3092.100000023842,
+          "duration": 99
+        },
+        {
+          "start": 3272.600000023842,
+          "duration": 85
+        },
+        {
+          "start": 3466,
+          "duration": 71
+        }
+      ],
+      "tap": 0,
+      "feedback": 0,
+      "readyAt": 3930.5,
+      "resources": [
+        {
+          "name": "/_next/static/immutable/media/nunito_variable-s.p.11tswt6ktrd6q.woff2",
+          "encoded": 101028,
+          "transfer": 101328,
+          "duration": 3021.899999976158
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0n5rjyqg1z7k_.css",
+          "encoded": 27531,
+          "transfer": 27831,
+          "duration": 2002
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3_cyo_0027gz2.js",
+          "encoded": 2125,
+          "transfer": 2425,
+          "duration": 591
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2-9h6h2pmij0r.js",
+          "encoded": 9182,
+          "transfer": 9482,
+          "duration": 951.8999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1aiugsssx7rua.js",
+          "encoded": 45942,
+          "transfer": 46242,
+          "duration": 2287.5
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3nvymzlb1hmb2.js",
+          "encoded": 73398,
+          "transfer": 73698,
+          "duration": 2789.300000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2vjdbms7u2h93.js",
+          "encoded": 3644,
+          "transfer": 3944,
+          "duration": 741.4000000357628
+        },
+        {
+          "name": "/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+          "encoded": 4603,
+          "transfer": 4903,
+          "duration": 862.2000000476837
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2rkk3g3_ix1-y.js",
+          "encoded": 1446,
+          "transfer": 1746,
+          "duration": 711.8000000119209
+        },
+        {
+          "name": "/_next/static/immutable/chunks/174wlp5-6o-eh.js",
+          "encoded": 10772,
+          "transfer": 11072,
+          "duration": 1101.3999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0q47ri_ggp1da.js",
+          "encoded": 8059,
+          "transfer": 8359,
+          "duration": 1131.8999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1f58zyb_6ypb-.js",
+          "encoded": 8299,
+          "transfer": 8599,
+          "duration": 1138.300000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/39qabr0gfdrwa.js",
+          "encoded": 7501,
+          "transfer": 7801,
+          "duration": 1160.8999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1xq7g5uh4ndwo.js",
+          "encoded": 10259,
+          "transfer": 10559,
+          "duration": 1244
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1g0w23eyam7ga.js",
+          "encoded": 18491,
+          "transfer": 18791,
+          "duration": 1716.3999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0-i75lv1foqm2.js",
+          "encoded": 33098,
+          "transfer": 33398,
+          "duration": 2121
+        },
+        {
+          "name": "/_next/static/immutable/chunks/115zityec1pag.js",
+          "encoded": 91312,
+          "transfer": 91612,
+          "duration": 2968.7999999523163
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1nfb84o9yoerb.js",
+          "encoded": 225,
+          "transfer": 525,
+          "duration": 958.6999999880791
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3brnvlv0qf-o9.js",
+          "encoded": 16253,
+          "transfer": 16553,
+          "duration": 1482.3999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3-z7_58a6t2kr.js",
+          "encoded": 15809,
+          "transfer": 16109,
+          "duration": 1594.699999988079
+        },
+        {
+          "name": "/_next/static/immutable/chunks/11ns75kj6iizn.js",
+          "encoded": 15763,
+          "transfer": 16063,
+          "duration": 1753.300000011921
+        },
+        {
+          "name": "/illustrations/wordmark.svg",
+          "encoded": 529,
+          "transfer": 829,
+          "duration": 257.80000001192093
+        },
+        {
+          "name": "/api/auth/status",
+          "encoded": 37,
+          "transfer": 337,
+          "duration": 284.0999999642372
+        }
+      ],
+      "navigation": {
+        "name": "https://words-for-kids.vercel.app/library",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 3360,
+        "navigationId": 2868,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "h2",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "br",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0,
+        "domainLookupStart": 0.40000003576278687,
+        "domainLookupEnd": 1.699999988079071,
+        "connectStart": 1.699999988079071,
+        "secureConnectionStart": 29.100000023841858,
+        "connectEnd": 118.40000003576279,
+        "requestStart": 118.5,
+        "responseStart": 172,
+        "firstInterimResponseStart": 172,
+        "finalResponseHeadersStart": 260.5,
+        "responseEnd": 345.5,
+        "transferSize": 10844,
+        "encodedBodySize": 10544,
+        "decodedBodySize": 63106,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 2357.100000023842,
+        "domContentLoadedEventStart": 2357.100000023842,
+        "domContentLoadedEventEnd": 2357.100000023842,
+        "domComplete": 3360,
+        "loadEventStart": 3360,
+        "loadEventEnd": 3360,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "high"
+        }
+      }
+    },
+    {
+      "route": "/library",
+      "run": 4,
+      "status": 200,
+      "elapsedMs": 4715,
+      "lcp": 3308,
+      "cls": 0.0002275894297765669,
+      "longtasks": [
+        {
+          "start": 3819.5,
+          "duration": 100
+        },
+        {
+          "start": 4052.800000011921,
+          "duration": 90
+        },
+        {
+          "start": 4245.800000011921,
+          "duration": 67
+        }
+      ],
+      "tap": 0,
+      "feedback": 0,
+      "readyAt": 4709.700000047684,
+      "resources": [
+        {
+          "name": "/_next/static/immutable/media/nunito_variable-s.p.11tswt6ktrd6q.woff2",
+          "encoded": 101028,
+          "transfer": 101328,
+          "duration": 2787.800000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3_cyo_0027gz2.js",
+          "encoded": 2125,
+          "transfer": 2425,
+          "duration": 258.19999998807907
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0n5rjyqg1z7k_.css",
+          "encoded": 27531,
+          "transfer": 27831,
+          "duration": 1660.800000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2-9h6h2pmij0r.js",
+          "encoded": 9182,
+          "transfer": 9482,
+          "duration": 781.6999999880791
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2rkk3g3_ix1-y.js",
+          "encoded": 1446,
+          "transfer": 1746,
+          "duration": 280.19999998807907
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2vjdbms7u2h93.js",
+          "encoded": 3644,
+          "transfer": 3944,
+          "duration": 369.0999999642372
+        },
+        {
+          "name": "/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+          "encoded": 4603,
+          "transfer": 4903,
+          "duration": 421.39999997615814
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1aiugsssx7rua.js",
+          "encoded": 45942,
+          "transfer": 46242,
+          "duration": 2110.199999988079
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3nvymzlb1hmb2.js",
+          "encoded": 73398,
+          "transfer": 73698,
+          "duration": 2537.599999964237
+        },
+        {
+          "name": "/_next/static/immutable/chunks/39qabr0gfdrwa.js",
+          "encoded": 7501,
+          "transfer": 7801,
+          "duration": 751.1000000238419
+        },
+        {
+          "name": "/_next/static/immutable/chunks/174wlp5-6o-eh.js",
+          "encoded": 10772,
+          "transfer": 11072,
+          "duration": 1209.5
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1g0w23eyam7ga.js",
+          "encoded": 18491,
+          "transfer": 18791,
+          "duration": 1396.1000000238419
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1f58zyb_6ypb-.js",
+          "encoded": 8299,
+          "transfer": 8599,
+          "duration": 1014.3999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0q47ri_ggp1da.js",
+          "encoded": 8059,
+          "transfer": 8359,
+          "duration": 1037.199999988079
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1xq7g5uh4ndwo.js",
+          "encoded": 10259,
+          "transfer": 10559,
+          "duration": 1119.8999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0-i75lv1foqm2.js",
+          "encoded": 33098,
+          "transfer": 33398,
+          "duration": 1959
+        },
+        {
+          "name": "/_next/static/immutable/chunks/115zityec1pag.js",
+          "encoded": 91312,
+          "transfer": 91612,
+          "duration": 2769.600000023842
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3-z7_58a6t2kr.js",
+          "encoded": 15809,
+          "transfer": 16109,
+          "duration": 1455.4000000357628
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1nfb84o9yoerb.js",
+          "encoded": 225,
+          "transfer": 525,
+          "duration": 518.6999999880791
+        },
+        {
+          "name": "/_next/static/immutable/chunks/11ns75kj6iizn.js",
+          "encoded": 15763,
+          "transfer": 16063,
+          "duration": 1464.300000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3brnvlv0qf-o9.js",
+          "encoded": 16253,
+          "transfer": 16553,
+          "duration": 1477.6000000238419
+        },
+        {
+          "name": "/illustrations/wordmark.svg",
+          "encoded": 529,
+          "transfer": 829,
+          "duration": 194.20000004768372
+        },
+        {
+          "name": "/api/auth/status",
+          "encoded": 37,
+          "transfer": 337,
+          "duration": 158.80000001192093
+        }
+      ],
+      "navigation": {
+        "name": "https://words-for-kids.vercel.app/library",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 4144.900000035763,
+        "navigationId": 4738,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "h2",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "br",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0.10000002384185791,
+        "domainLookupStart": 0.40000003576278687,
+        "domainLookupEnd": 1.800000011920929,
+        "connectStart": 1.800000011920929,
+        "secureConnectionStart": 27.700000047683716,
+        "connectEnd": 764.6000000238419,
+        "requestStart": 764.7000000476837,
+        "responseStart": 1172.2000000476837,
+        "firstInterimResponseStart": 1172.2000000476837,
+        "finalResponseHeadersStart": 1258.1000000238419,
+        "responseEnd": 1312.2000000476837,
+        "transferSize": 10844,
+        "encodedBodySize": 10544,
+        "decodedBodySize": 63106,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 2998.800000011921,
+        "domContentLoadedEventStart": 2999.100000023842,
+        "domContentLoadedEventEnd": 2999.100000023842,
+        "domComplete": 4144.900000035763,
+        "loadEventStart": 4144.900000035763,
+        "loadEventEnd": 4144.900000035763,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "low"
+        }
+      }
+    },
+    {
+      "route": "/practice",
+      "run": 0,
+      "status": 200,
+      "elapsedMs": 4300,
+      "lcp": 3856,
+      "cls": 0,
+      "longtasks": [
+        {
+          "start": 3064.100000023842,
+          "duration": 120
+        },
+        {
+          "start": 3264,
+          "duration": 102
+        },
+        {
+          "start": 3418.300000011921,
+          "duration": 74
+        }
+      ],
+      "tap": 0,
+      "feedback": 0,
+      "readyAt": 4290.400000035763,
+      "resources": [
+        {
+          "name": "/_next/static/immutable/media/nunito_variable-s.p.11tswt6ktrd6q.woff2",
+          "encoded": 101028,
+          "transfer": 101328,
+          "duration": 2549
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0n5rjyqg1z7k_.css",
+          "encoded": 27531,
+          "transfer": 27831,
+          "duration": 1946.800000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3_cyo_0027gz2.js",
+          "encoded": 2125,
+          "transfer": 2425,
+          "duration": 439.7000000476837
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2vjdbms7u2h93.js",
+          "encoded": 3644,
+          "transfer": 3944,
+          "duration": 589.1000000238419
+        },
+        {
+          "name": "/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+          "encoded": 4603,
+          "transfer": 4903,
+          "duration": 783.6999999880791
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2-9h6h2pmij0r.js",
+          "encoded": 9182,
+          "transfer": 9482,
+          "duration": 1143.6000000238419
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1aiugsssx7rua.js",
+          "encoded": 45942,
+          "transfer": 46242,
+          "duration": 2419.199999988079
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3nvymzlb1hmb2.js",
+          "encoded": 73398,
+          "transfer": 73698,
+          "duration": 2749.800000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2rkk3g3_ix1-y.js",
+          "encoded": 1446,
+          "transfer": 1746,
+          "duration": 491.19999998807907
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1g0w23eyam7ga.js",
+          "encoded": 18491,
+          "transfer": 18791,
+          "duration": 1677
+        },
+        {
+          "name": "/_next/static/immutable/chunks/39qabr0gfdrwa.js",
+          "encoded": 7501,
+          "transfer": 7801,
+          "duration": 1098.5
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1f58zyb_6ypb-.js",
+          "encoded": 8299,
+          "transfer": 8599,
+          "duration": 1150.4000000357628
+        },
+        {
+          "name": "/_next/static/immutable/chunks/174wlp5-6o-eh.js",
+          "encoded": 10772,
+          "transfer": 11072,
+          "duration": 1293.9000000357628
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1xq7g5uh4ndwo.js",
+          "encoded": 10259,
+          "transfer": 10559,
+          "duration": 1232.8999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0q47ri_ggp1da.js",
+          "encoded": 8059,
+          "transfer": 8359,
+          "duration": 1076
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0-i75lv1foqm2.js",
+          "encoded": 33098,
+          "transfer": 33398,
+          "duration": 2171.300000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/115zityec1pag.js",
+          "encoded": 91312,
+          "transfer": 91612,
+          "duration": 2837.800000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3brnvlv0qf-o9.js",
+          "encoded": 16253,
+          "transfer": 16553,
+          "duration": 1532.5999999642372
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3-z7_58a6t2kr.js",
+          "encoded": 15809,
+          "transfer": 16109,
+          "duration": 1570.300000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3mfl2bm_h7uzd.js",
+          "encoded": 29179,
+          "transfer": 29479,
+          "duration": 2058.599999964237
+        },
+        {
+          "name": "/illustrations/wordmark.svg",
+          "encoded": 529,
+          "transfer": 829,
+          "duration": 195.9000000357628
+        },
+        {
+          "name": "/api/auth/status",
+          "encoded": 37,
+          "transfer": 337,
+          "duration": 167
+        },
+        {
+          "name": "/illustrations/fox.svg",
+          "encoded": 648,
+          "transfer": 948,
+          "duration": 161.80000001192093
+        },
+        {
+          "name": "/illustrations/book.svg",
+          "encoded": 493,
+          "transfer": 793,
+          "duration": 386.30000001192093
+        },
+        {
+          "name": "/illustrations/pencil.svg",
+          "encoded": 584,
+          "transfer": 884,
+          "duration": 398.5
+        },
+        {
+          "name": "/illustrations/bag.svg",
+          "encoded": 970,
+          "transfer": 1270,
+          "duration": 378.10000002384186
+        },
+        {
+          "name": "/illustrations/notebook.svg",
+          "encoded": 458,
+          "transfer": 758,
+          "duration": 400.4000000357628
+        }
+      ],
+      "navigation": {
+        "name": "https://words-for-kids.vercel.app/practice",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 3202.2000000476837,
+        "navigationId": 475,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "h2",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "br",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0,
+        "domainLookupStart": 0.6000000238418579,
+        "domainLookupEnd": 2.5,
+        "connectStart": 2.5,
+        "secureConnectionStart": 28.30000001192093,
+        "connectEnd": 137.70000004768372,
+        "requestStart": 137.80000001192093,
+        "responseStart": 190.4000000357628,
+        "firstInterimResponseStart": 190.4000000357628,
+        "finalResponseHeadersStart": 283.5,
+        "responseEnd": 329.80000001192093,
+        "transferSize": 8243,
+        "encodedBodySize": 7943,
+        "decodedBodySize": 46785,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 2307.600000023842,
+        "domContentLoadedEventStart": 2307.600000023842,
+        "domContentLoadedEventEnd": 2308,
+        "domComplete": 3202.2000000476837,
+        "loadEventStart": 3202.2000000476837,
+        "loadEventEnd": 3202.2000000476837,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "high"
+        }
+      }
+    },
+    {
+      "route": "/practice",
+      "run": 1,
+      "status": 200,
+      "elapsedMs": 7090,
+      "lcp": 6672,
+      "cls": 0,
+      "longtasks": [
+        {
+          "start": 5784.699999988079,
+          "duration": 122
+        },
+        {
+          "start": 6145.800000011921,
+          "duration": 101
+        },
+        {
+          "start": 6327.800000011921,
+          "duration": 56
+        }
+      ],
+      "tap": 0,
+      "feedback": 0,
+      "readyAt": 7074.600000023842,
+      "resources": [
+        {
+          "name": "/_next/static/immutable/media/nunito_variable-s.p.11tswt6ktrd6q.woff2",
+          "encoded": 101028,
+          "transfer": 101328,
+          "duration": 872.0999999642372
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0n5rjyqg1z7k_.css",
+          "encoded": 27531,
+          "transfer": 27831,
+          "duration": 730.1999999880791
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3_cyo_0027gz2.js",
+          "encoded": 2125,
+          "transfer": 2425,
+          "duration": 414.0999999642372
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2-9h6h2pmij0r.js",
+          "encoded": 9182,
+          "transfer": 9482,
+          "duration": 609.5999999642372
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3nvymzlb1hmb2.js",
+          "encoded": 73398,
+          "transfer": 73698,
+          "duration": 4914
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2vjdbms7u2h93.js",
+          "encoded": 3644,
+          "transfer": 3944,
+          "duration": 3443.199999988079
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2rkk3g3_ix1-y.js",
+          "encoded": 1446,
+          "transfer": 1746,
+          "duration": 3518.099999964237
+        },
+        {
+          "name": "/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+          "encoded": 4603,
+          "transfer": 4903,
+          "duration": 3593.199999988079
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1g0w23eyam7ga.js",
+          "encoded": 18491,
+          "transfer": 18791,
+          "duration": 4028.099999964237
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1aiugsssx7rua.js",
+          "encoded": 45942,
+          "transfer": 46242,
+          "duration": 4868.099999964237
+        },
+        {
+          "name": "/_next/static/immutable/chunks/39qabr0gfdrwa.js",
+          "encoded": 7501,
+          "transfer": 7801,
+          "duration": 3683.300000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/174wlp5-6o-eh.js",
+          "encoded": 10772,
+          "transfer": 11072,
+          "duration": 3871.7000000476837
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1f58zyb_6ypb-.js",
+          "encoded": 8299,
+          "transfer": 8599,
+          "duration": 4014.199999988079
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0q47ri_ggp1da.js",
+          "encoded": 8059,
+          "transfer": 8359,
+          "duration": 4059.399999976158
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1xq7g5uh4ndwo.js",
+          "encoded": 10259,
+          "transfer": 10559,
+          "duration": 4066.800000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3-z7_58a6t2kr.js",
+          "encoded": 15809,
+          "transfer": 16109,
+          "duration": 4717.299999952316
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3brnvlv0qf-o9.js",
+          "encoded": 16253,
+          "transfer": 16553,
+          "duration": 4741.299999952316
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0-i75lv1foqm2.js",
+          "encoded": 33098,
+          "transfer": 33398,
+          "duration": 4927.799999952316
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3mfl2bm_h7uzd.js",
+          "encoded": 29179,
+          "transfer": 29479,
+          "duration": 5002.799999952316
+        },
+        {
+          "name": "/_next/static/immutable/chunks/115zityec1pag.js",
+          "encoded": 91312,
+          "transfer": 91612,
+          "duration": 5273.5
+        },
+        {
+          "name": "/illustrations/wordmark.svg",
+          "encoded": 529,
+          "transfer": 829,
+          "duration": 2784.199999988079
+        },
+        {
+          "name": "/api/auth/status",
+          "encoded": 37,
+          "transfer": 337,
+          "duration": 158.5
+        },
+        {
+          "name": "/illustrations/fox.svg",
+          "encoded": 648,
+          "transfer": 948,
+          "duration": 157.10000002384186
+        }
+      ],
+      "navigation": {
+        "name": "https://words-for-kids.vercel.app/practice",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 6253.699999988079,
+        "navigationId": 4799,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "h2",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "br",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0.10000002384185791,
+        "domainLookupStart": 0.5,
+        "domainLookupEnd": 2.400000035762787,
+        "connectStart": 2.400000035762787,
+        "secureConnectionStart": 265.10000002384186,
+        "connectEnd": 352.9000000357628,
+        "requestStart": 353,
+        "responseStart": 766,
+        "firstInterimResponseStart": 766,
+        "finalResponseHeadersStart": 835.6999999880791,
+        "responseEnd": 877.1999999880791,
+        "transferSize": 8243,
+        "encodedBodySize": 7943,
+        "decodedBodySize": 46785,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 1651,
+        "domContentLoadedEventStart": 1651,
+        "domContentLoadedEventEnd": 1651,
+        "domComplete": 6253.400000035763,
+        "loadEventStart": 6253.699999988079,
+        "loadEventEnd": 6253.699999988079,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "high"
+        }
+      }
+    },
+    {
+      "route": "/practice",
+      "run": 2,
+      "status": 200,
+      "elapsedMs": 4586,
+      "lcp": 3968,
+      "cls": 0,
+      "longtasks": [
+        {
+          "start": 2808.099999964237,
+          "duration": 112
+        },
+        {
+          "start": 3459.5,
+          "duration": 107
+        },
+        {
+          "start": 3641.300000011921,
+          "duration": 51
+        }
+      ],
+      "tap": 0,
+      "feedback": 0,
+      "readyAt": 4547.699999988079,
+      "resources": [
+        {
+          "name": "/_next/static/immutable/media/nunito_variable-s.p.11tswt6ktrd6q.woff2",
+          "encoded": 101028,
+          "transfer": 101328,
+          "duration": 2419.399999976158
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0n5rjyqg1z7k_.css",
+          "encoded": 27531,
+          "transfer": 27831,
+          "duration": 304.60000002384186
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3_cyo_0027gz2.js",
+          "encoded": 2125,
+          "transfer": 2425,
+          "duration": 363.0999999642372
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2-9h6h2pmij0r.js",
+          "encoded": 9182,
+          "transfer": 9482,
+          "duration": 543.7999999523163
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3nvymzlb1hmb2.js",
+          "encoded": 73398,
+          "transfer": 73698,
+          "duration": 2215.300000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+          "encoded": 4603,
+          "transfer": 4903,
+          "duration": 611
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2vjdbms7u2h93.js",
+          "encoded": 3644,
+          "transfer": 3944,
+          "duration": 625.1999999880791
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2rkk3g3_ix1-y.js",
+          "encoded": 1446,
+          "transfer": 1746,
+          "duration": 767.8000000119209
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1aiugsssx7rua.js",
+          "encoded": 45942,
+          "transfer": 46242,
+          "duration": 1511.0999999642372
+        },
+        {
+          "name": "/_next/static/immutable/chunks/39qabr0gfdrwa.js",
+          "encoded": 7501,
+          "transfer": 7801,
+          "duration": 1001.3000000119209
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1g0w23eyam7ga.js",
+          "encoded": 18491,
+          "transfer": 18791,
+          "duration": 1271
+        },
+        {
+          "name": "/_next/static/immutable/chunks/174wlp5-6o-eh.js",
+          "encoded": 10772,
+          "transfer": 11072,
+          "duration": 1307.9000000357628
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1f58zyb_6ypb-.js",
+          "encoded": 8299,
+          "transfer": 8599,
+          "duration": 1382.2000000476837
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1xq7g5uh4ndwo.js",
+          "encoded": 10259,
+          "transfer": 10559,
+          "duration": 1659.6000000238419
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0q47ri_ggp1da.js",
+          "encoded": 8059,
+          "transfer": 8359,
+          "duration": 1691
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0-i75lv1foqm2.js",
+          "encoded": 33098,
+          "transfer": 33398,
+          "duration": 2386.199999988079
+        },
+        {
+          "name": "/_next/static/immutable/chunks/115zityec1pag.js",
+          "encoded": 91312,
+          "transfer": 91612,
+          "duration": 2866.399999976158
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3-z7_58a6t2kr.js",
+          "encoded": 15809,
+          "transfer": 16109,
+          "duration": 2258.900000035763
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3brnvlv0qf-o9.js",
+          "encoded": 16253,
+          "transfer": 16553,
+          "duration": 2357.800000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3mfl2bm_h7uzd.js",
+          "encoded": 29179,
+          "transfer": 29479,
+          "duration": 2693.699999988079
+        },
+        {
+          "name": "/illustrations/wordmark.svg",
+          "encoded": 529,
+          "transfer": 829,
+          "duration": 2052
+        },
+        {
+          "name": "/api/auth/status",
+          "encoded": 37,
+          "transfer": 337,
+          "duration": 160.0999999642372
+        },
+        {
+          "name": "/illustrations/fox.svg",
+          "encoded": 648,
+          "transfer": 948,
+          "duration": 160.80000001192093
+        },
+        {
+          "name": "/illustrations/book.svg",
+          "encoded": 493,
+          "transfer": 793,
+          "duration": 168
+        },
+        {
+          "name": "/illustrations/apple.svg",
+          "encoded": 595,
+          "transfer": 895,
+          "duration": 176.39999997615814
+        },
+        {
+          "name": "/illustrations/bag.svg",
+          "encoded": 970,
+          "transfer": 1270,
+          "duration": 183.39999997615814
+        },
+        {
+          "name": "/illustrations/cat.svg",
+          "encoded": 766,
+          "transfer": 1066,
+          "duration": 197.89999997615814
+        },
+        {
+          "name": "/illustrations/pencil.svg",
+          "encoded": 584,
+          "transfer": 884,
+          "duration": 207.19999998807907
+        },
+        {
+          "name": "/illustrations/notebook.svg",
+          "encoded": 458,
+          "transfer": 758,
+          "duration": 191.80000001192093
+        }
+      ],
+      "navigation": {
+        "name": "https://words-for-kids.vercel.app/practice",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 3572.899999976158,
+        "navigationId": 1126,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "h2",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "br",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0,
+        "domainLookupStart": 0.3999999761581421,
+        "domainLookupEnd": 2.399999976158142,
+        "connectStart": 2.399999976158142,
+        "secureConnectionStart": 29.69999998807907,
+        "connectEnd": 147.5999999642372,
+        "requestStart": 147.80000001192093,
+        "responseStart": 491.69999998807907,
+        "firstInterimResponseStart": 491.69999998807907,
+        "finalResponseHeadersStart": 566.0999999642372,
+        "responseEnd": 607.5,
+        "transferSize": 8243,
+        "encodedBodySize": 7943,
+        "decodedBodySize": 46785,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 901.5999999642372,
+        "domContentLoadedEventStart": 901.5999999642372,
+        "domContentLoadedEventEnd": 901.5999999642372,
+        "domComplete": 3572.899999976158,
+        "loadEventStart": 3572.899999976158,
+        "loadEventEnd": 3572.899999976158,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "high"
+        }
+      }
+    },
+    {
+      "route": "/practice",
+      "run": 3,
+      "status": 200,
+      "elapsedMs": 8940,
+      "lcp": 8508,
+      "cls": 0,
+      "longtasks": [
+        {
+          "start": 7651.400000035763,
+          "duration": 116
+        },
+        {
+          "start": 7832.699999988079,
+          "duration": 130
+        },
+        {
+          "start": 8109.900000035763,
+          "duration": 70
+        }
+      ],
+      "tap": 0,
+      "feedback": 0,
+      "readyAt": 8925.800000011921,
+      "resources": [
+        {
+          "name": "/_next/static/immutable/media/nunito_variable-s.p.11tswt6ktrd6q.woff2",
+          "encoded": 101028,
+          "transfer": 101328,
+          "duration": 3405.399999976158
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0n5rjyqg1z7k_.css",
+          "encoded": 27531,
+          "transfer": 27831,
+          "duration": 2356.7000000476837
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3_cyo_0027gz2.js",
+          "encoded": 2125,
+          "transfer": 2425,
+          "duration": 781.3000000119209
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2vjdbms7u2h93.js",
+          "encoded": 3644,
+          "transfer": 3944,
+          "duration": 922.9000000357628
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2rkk3g3_ix1-y.js",
+          "encoded": 1446,
+          "transfer": 1746,
+          "duration": 960.1000000238419
+        },
+        {
+          "name": "/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+          "encoded": 4603,
+          "transfer": 4903,
+          "duration": 1118.2000000476837
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2-9h6h2pmij0r.js",
+          "encoded": 9182,
+          "transfer": 9482,
+          "duration": 1561.1000000238419
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1aiugsssx7rua.js",
+          "encoded": 45942,
+          "transfer": 46242,
+          "duration": 2767.7000000476837
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3nvymzlb1hmb2.js",
+          "encoded": 73398,
+          "transfer": 73698,
+          "duration": 3195.2000000476837
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1f58zyb_6ypb-.js",
+          "encoded": 8299,
+          "transfer": 8599,
+          "duration": 1364.7999999523163
+        },
+        {
+          "name": "/_next/static/immutable/chunks/39qabr0gfdrwa.js",
+          "encoded": 7501,
+          "transfer": 7801,
+          "duration": 1469.0999999642372
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1xq7g5uh4ndwo.js",
+          "encoded": 10259,
+          "transfer": 10559,
+          "duration": 1649.5999999642372
+        },
+        {
+          "name": "/_next/static/immutable/chunks/174wlp5-6o-eh.js",
+          "encoded": 10772,
+          "transfer": 11072,
+          "duration": 1657.199999988079
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1g0w23eyam7ga.js",
+          "encoded": 18491,
+          "transfer": 18791,
+          "duration": 1972.5999999642372
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0q47ri_ggp1da.js",
+          "encoded": 8059,
+          "transfer": 8359,
+          "duration": 1492
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0-i75lv1foqm2.js",
+          "encoded": 33098,
+          "transfer": 33398,
+          "duration": 2526.400000035763
+        },
+        {
+          "name": "/_next/static/immutable/chunks/115zityec1pag.js",
+          "encoded": 91312,
+          "transfer": 91612,
+          "duration": 3374.300000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3-z7_58a6t2kr.js",
+          "encoded": 15809,
+          "transfer": 16109,
+          "duration": 1926.5
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3brnvlv0qf-o9.js",
+          "encoded": 16253,
+          "transfer": 16553,
+          "duration": 1948.5
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3mfl2bm_h7uzd.js",
+          "encoded": 29179,
+          "transfer": 29479,
+          "duration": 2421.599999964237
+        },
+        {
+          "name": "/illustrations/wordmark.svg",
+          "encoded": 529,
+          "transfer": 829,
+          "duration": 238.39999997615814
+        },
+        {
+          "name": "/api/auth/status",
+          "encoded": 37,
+          "transfer": 337,
+          "duration": 159.4000000357628
+        },
+        {
+          "name": "/illustrations/fox.svg",
+          "encoded": 648,
+          "transfer": 948,
+          "duration": 157.9000000357628
+        },
+        {
+          "name": "/illustrations/cat.svg",
+          "encoded": 766,
+          "transfer": 1066,
+          "duration": 167.20000004768372
+        },
+        {
+          "name": "/illustrations/apple.svg",
+          "encoded": 595,
+          "transfer": 895,
+          "duration": 174
+        },
+        {
+          "name": "/illustrations/book.svg",
+          "encoded": 493,
+          "transfer": 793,
+          "duration": 182.20000004768372
+        },
+        {
+          "name": "/illustrations/pencil.svg",
+          "encoded": 584,
+          "transfer": 884,
+          "duration": 189.89999997615814
+        },
+        {
+          "name": "/illustrations/bag.svg",
+          "encoded": 970,
+          "transfer": 1270,
+          "duration": 412.80000001192093
+        }
+      ],
+      "navigation": {
+        "name": "https://words-for-kids.vercel.app/practice",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 7967.199999988079,
+        "navigationId": 5808,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "h2",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "br",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0.10000002384185791,
+        "domainLookupStart": 0.6000000238418579,
+        "domainLookupEnd": 1.9000000357627869,
+        "connectStart": 1.9000000357627869,
+        "secureConnectionStart": 29.400000035762787,
+        "connectEnd": 117.90000003576279,
+        "requestStart": 118,
+        "responseStart": 4352.300000011921,
+        "firstInterimResponseStart": 4352.300000011921,
+        "finalResponseHeadersStart": 4422.800000011921,
+        "responseEnd": 4464.100000023842,
+        "transferSize": 8243,
+        "encodedBodySize": 7943,
+        "decodedBodySize": 46785,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 6866.800000011921,
+        "domContentLoadedEventStart": 6866.800000011921,
+        "domContentLoadedEventEnd": 6866.800000011921,
+        "domComplete": 7967.199999988079,
+        "loadEventStart": 7967.199999988079,
+        "loadEventEnd": 7967.199999988079,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "high"
+        }
+      }
+    },
+    {
+      "route": "/practice",
+      "run": 4,
+      "status": 200,
+      "elapsedMs": 5400,
+      "lcp": 4724,
+      "cls": 0,
+      "longtasks": [
+        {
+          "start": 2391.699999988079,
+          "duration": 127
+        },
+        {
+          "start": 3386.399999976158,
+          "duration": 156
+        },
+        {
+          "start": 3629.600000023842,
+          "duration": 58
+        }
+      ],
+      "tap": 0,
+      "feedback": 0,
+      "readyAt": 5367.800000011921,
+      "resources": [
+        {
+          "name": "/_next/static/immutable/media/nunito_variable-s.p.11tswt6ktrd6q.woff2",
+          "encoded": 101028,
+          "transfer": 101328,
+          "duration": 664.5999999642372
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3_cyo_0027gz2.js",
+          "encoded": 2125,
+          "transfer": 2425,
+          "duration": 1180.4000000357628
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0n5rjyqg1z7k_.css",
+          "encoded": 27531,
+          "transfer": 27831,
+          "duration": 1323.300000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1aiugsssx7rua.js",
+          "encoded": 45942,
+          "transfer": 46242,
+          "duration": 1057
+        },
+        {
+          "name": "/_next/static/immutable/chunks/turbopack-1byz1flvc-bu1.js",
+          "encoded": 4603,
+          "transfer": 4903,
+          "duration": 1241.199999988079
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2vjdbms7u2h93.js",
+          "encoded": 3644,
+          "transfer": 3944,
+          "duration": 1315.699999988079
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2-9h6h2pmij0r.js",
+          "encoded": 9182,
+          "transfer": 9482,
+          "duration": 1331.5999999642372
+        },
+        {
+          "name": "/_next/static/immutable/chunks/2rkk3g3_ix1-y.js",
+          "encoded": 1446,
+          "transfer": 1746,
+          "duration": 1676.3999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3nvymzlb1hmb2.js",
+          "encoded": 73398,
+          "transfer": 73698,
+          "duration": 1968.5
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1g0w23eyam7ga.js",
+          "encoded": 18491,
+          "transfer": 18791,
+          "duration": 2065.900000035763
+        },
+        {
+          "name": "/_next/static/immutable/chunks/39qabr0gfdrwa.js",
+          "encoded": 7501,
+          "transfer": 7801,
+          "duration": 1899.9000000357628
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1f58zyb_6ypb-.js",
+          "encoded": 8299,
+          "transfer": 8599,
+          "duration": 1952.3999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/1xq7g5uh4ndwo.js",
+          "encoded": 10259,
+          "transfer": 10559,
+          "duration": 1974.800000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/174wlp5-6o-eh.js",
+          "encoded": 10772,
+          "transfer": 11072,
+          "duration": 1996.3999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0q47ri_ggp1da.js",
+          "encoded": 8059,
+          "transfer": 8359,
+          "duration": 1921.8999999761581
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3-z7_58a6t2kr.js",
+          "encoded": 15809,
+          "transfer": 16109,
+          "duration": 2453.899999976158
+        },
+        {
+          "name": "/_next/static/immutable/chunks/0-i75lv1foqm2.js",
+          "encoded": 33098,
+          "transfer": 33398,
+          "duration": 2573.300000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/115zityec1pag.js",
+          "encoded": 91312,
+          "transfer": 91612,
+          "duration": 2963.800000011921
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3brnvlv0qf-o9.js",
+          "encoded": 16253,
+          "transfer": 16553,
+          "duration": 2506
+        },
+        {
+          "name": "/_next/static/immutable/chunks/3mfl2bm_h7uzd.js",
+          "encoded": 29179,
+          "transfer": 29479,
+          "duration": 2679.600000023842
+        },
+        {
+          "name": "/illustrations/wordmark.svg",
+          "encoded": 529,
+          "transfer": 829,
+          "duration": 543.4000000357628
+        },
+        {
+          "name": "/api/auth/status",
+          "encoded": 37,
+          "transfer": 337,
+          "duration": 880.4000000357628
+        },
+        {
+          "name": "/illustrations/fox.svg",
+          "encoded": 648,
+          "transfer": 948,
+          "duration": 173.39999997615814
+        },
+        {
+          "name": "/illustrations/book.svg",
+          "encoded": 493,
+          "transfer": 793,
+          "duration": 188.5
+        },
+        {
+          "name": "/illustrations/apple.svg",
+          "encoded": 595,
+          "transfer": 895,
+          "duration": 157.69999998807907
+        },
+        {
+          "name": "/illustrations/cat.svg",
+          "encoded": 766,
+          "transfer": 1066,
+          "duration": 166.69999998807907
+        },
+        {
+          "name": "/illustrations/pencil.svg",
+          "encoded": 584,
+          "transfer": 884,
+          "duration": 180.80000001192093
+        },
+        {
+          "name": "/illustrations/bag.svg",
+          "encoded": 970,
+          "transfer": 1270,
+          "duration": 196.0999999642372
+        },
+        {
+          "name": "/illustrations/notebook.svg",
+          "encoded": 458,
+          "transfer": 758,
+          "duration": 413
+        }
+      ],
+      "navigation": {
+        "name": "https://words-for-kids.vercel.app/practice",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 3549.899999976158,
+        "navigationId": 4294,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "h2",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "br",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0.10000002384185791,
+        "domainLookupStart": 1,
+        "domainLookupEnd": 4.899999976158142,
+        "connectStart": 4.899999976158142,
+        "secureConnectionStart": 33.89999997615814,
+        "connectEnd": 118.30000001192093,
+        "requestStart": 118.5,
+        "responseStart": 322.80000001192093,
+        "firstInterimResponseStart": 322.80000001192093,
+        "finalResponseHeadersStart": 387.80000001192093,
+        "responseEnd": 428.69999998807907,
+        "transferSize": 8243,
+        "encodedBodySize": 7943,
+        "decodedBodySize": 46785,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 2046.5,
+        "domContentLoadedEventStart": 2046.5,
+        "domContentLoadedEventEnd": 2046.6000000238419,
+        "domComplete": 3549.800000011921,
+        "loadEventStart": 3549.899999976158,
+        "loadEventEnd": 3549.899999976158,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "high"
+        }
+      }
+    }
+  ],
+  "journeys": [
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 0,
+      "readyMs": 962,
+      "rsc": 1,
+      "feedback": 585.8000000119209
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 0,
+      "readyMs": 415,
+      "rsc": 1,
+      "feedback": 349.80000001192093
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 0,
+      "readyMs": 1396,
+      "rsc": 1,
+      "feedback": 566.8000000119209
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 0,
+      "readyMs": 1169,
+      "rsc": 7,
+      "feedback": 328.69999998807907
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 1,
+      "readyMs": 414,
+      "rsc": 1,
+      "feedback": 347.89999997615814
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 1,
+      "readyMs": 281,
+      "rsc": 1,
+      "feedback": 204.60000002384186
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 1,
+      "readyMs": 278,
+      "rsc": 1,
+      "feedback": 201.5
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 1,
+      "readyMs": 266,
+      "rsc": 1,
+      "feedback": 201.30000001192093
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 2,
+      "readyMs": 265,
+      "rsc": 1,
+      "feedback": 205.19999998807907
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 2,
+      "readyMs": 266,
+      "rsc": 1,
+      "feedback": 199
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 2,
+      "readyMs": 267,
+      "rsc": 1,
+      "feedback": 201.9000000357628
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 2,
+      "readyMs": 262,
+      "rsc": 1,
+      "feedback": 209.19999998807907
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 3,
+      "readyMs": 629,
+      "rsc": 1,
+      "feedback": 566.1999999880791
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 3,
+      "readyMs": 383,
+      "rsc": 1,
+      "feedback": 316.39999997615814
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 3,
+      "readyMs": 266,
+      "rsc": 1,
+      "feedback": 203
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 3,
+      "readyMs": 381,
+      "rsc": 1,
+      "feedback": 315.80000001192093
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 4,
+      "readyMs": 267,
+      "rsc": 1,
+      "feedback": 198.19999998807907
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 4,
+      "readyMs": 615,
+      "rsc": 1,
+      "feedback": 548.6999999880791
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 4,
+      "readyMs": 285,
+      "rsc": 1,
+      "feedback": 205.69999998807907
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 4,
+      "readyMs": 376,
+      "rsc": 1,
+      "feedback": 317.9000000357628
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 5,
+      "readyMs": 267,
+      "rsc": 1,
+      "feedback": 200.20000004768372
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 5,
+      "readyMs": 379,
+      "rsc": 1,
+      "feedback": 310.7000000476837
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 5,
+      "readyMs": 616,
+      "rsc": 1,
+      "feedback": 543.6000000238419
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 5,
+      "readyMs": 265,
+      "rsc": 1,
+      "feedback": 202.29999995231628
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 6,
+      "readyMs": 598,
+      "rsc": 1,
+      "feedback": 531.1999999880791
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 6,
+      "readyMs": 265,
+      "rsc": 1,
+      "feedback": 198.60000002384186
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 6,
+      "readyMs": 266,
+      "rsc": 1,
+      "feedback": 202.30000001192093
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 6,
+      "readyMs": 266,
+      "rsc": 1,
+      "feedback": 198.19999998807907
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 7,
+      "readyMs": 267,
+      "rsc": 1,
+      "feedback": 200.19999998807907
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 7,
+      "readyMs": 261,
+      "rsc": 1,
+      "feedback": 200.19999998807907
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 7,
+      "readyMs": 1669,
+      "rsc": 1,
+      "feedback": 1573.5
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 7,
+      "readyMs": 368,
+      "rsc": 1,
+      "feedback": 313.10000002384186
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 8,
+      "readyMs": 266,
+      "rsc": 1,
+      "feedback": 196.60000002384186
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 8,
+      "readyMs": 268,
+      "rsc": 1,
+      "feedback": 198.39999997615814
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 8,
+      "readyMs": 264,
+      "rsc": 1,
+      "feedback": 205.19999998807907
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 8,
+      "readyMs": 915,
+      "rsc": 1,
+      "feedback": 854
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 9,
+      "readyMs": 265,
+      "rsc": 1,
+      "feedback": 198.5
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 9,
+      "readyMs": 260,
+      "rsc": 1,
+      "feedback": 197.80000001192093
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 9,
+      "readyMs": 267,
+      "rsc": 1,
+      "feedback": 203.60000002384186
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 9,
+      "readyMs": 265,
+      "rsc": 1,
+      "feedback": 199.29999995231628
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 10,
+      "readyMs": 267,
+      "rsc": 1,
+      "feedback": 196.5
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 10,
+      "readyMs": 281,
+      "rsc": 1,
+      "feedback": 208
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 10,
+      "readyMs": 282,
+      "rsc": 1,
+      "feedback": 201.9000000357628
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 10,
+      "readyMs": 291,
+      "rsc": 1,
+      "feedback": 210.10000002384186
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 11,
+      "readyMs": 249,
+      "rsc": 1,
+      "feedback": 207.39999997615814
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 11,
+      "readyMs": 666,
+      "rsc": 1,
+      "feedback": 586.1000000238419
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 11,
+      "readyMs": 486,
+      "rsc": 1,
+      "feedback": 312.89999997615814
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 11,
+      "readyMs": 305,
+      "rsc": 1,
+      "feedback": 217
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 12,
+      "readyMs": 265,
+      "rsc": 1,
+      "feedback": 202.60000002384186
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 12,
+      "readyMs": 264,
+      "rsc": 1,
+      "feedback": 208.39999997615814
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 12,
+      "readyMs": 262,
+      "rsc": 1,
+      "feedback": 204.80000001192093
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 12,
+      "readyMs": 319,
+      "rsc": 1,
+      "feedback": 230.69999998807907
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 13,
+      "readyMs": 422,
+      "rsc": 1,
+      "feedback": 208.89999997615814
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 13,
+      "readyMs": 281,
+      "rsc": 1,
+      "feedback": 211.60000002384186
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 13,
+      "readyMs": 279,
+      "rsc": 1,
+      "feedback": 204.69999998807907
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 13,
+      "readyMs": 278,
+      "rsc": 1,
+      "feedback": 212.19999998807907
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 14,
+      "readyMs": 263,
+      "rsc": 1,
+      "feedback": 211.69999998807907
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 14,
+      "readyMs": 275,
+      "rsc": 1,
+      "feedback": 204.39999997615814
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 14,
+      "readyMs": 271,
+      "rsc": 1,
+      "feedback": 219.5
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 14,
+      "readyMs": 411,
+      "rsc": 1,
+      "feedback": 311.5
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 15,
+      "readyMs": 321,
+      "rsc": 1,
+      "feedback": 204.69999998807907
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 15,
+      "readyMs": 613,
+      "rsc": 1,
+      "feedback": 201.60000002384186
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 15,
+      "readyMs": 394,
+      "rsc": 1,
+      "feedback": 213.39999997615814
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 15,
+      "readyMs": 284,
+      "rsc": 1,
+      "feedback": 204.80000001192093
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 16,
+      "readyMs": 2452,
+      "rsc": 1,
+      "feedback": 2397.2999999523163
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 16,
+      "readyMs": 1349,
+      "rsc": 1,
+      "feedback": 1296.2000000476837
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 16,
+      "readyMs": 308,
+      "rsc": 1,
+      "feedback": 205.5
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 16,
+      "readyMs": 282,
+      "rsc": 1,
+      "feedback": 212.80000001192093
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 17,
+      "readyMs": 258,
+      "rsc": 1,
+      "feedback": 200.39999997615814
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 17,
+      "readyMs": 266,
+      "rsc": 1,
+      "feedback": 195.80000001192093
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 17,
+      "readyMs": 265,
+      "rsc": 1,
+      "feedback": 203.30000001192093
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 17,
+      "readyMs": 263,
+      "rsc": 1,
+      "feedback": 208.89999997615814
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 18,
+      "readyMs": 403,
+      "rsc": 1,
+      "feedback": 324.5999999642372
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 18,
+      "readyMs": 375,
+      "rsc": 1,
+      "feedback": 321.0999999642372
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 18,
+      "readyMs": 402,
+      "rsc": 1,
+      "feedback": 209.10000002384186
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 18,
+      "readyMs": 376,
+      "rsc": 1,
+      "feedback": 325
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 19,
+      "readyMs": 615,
+      "rsc": 1,
+      "feedback": 548.3000000119209
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 19,
+      "readyMs": 1234,
+      "rsc": 1,
+      "feedback": 1164.6000000238419
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 19,
+      "readyMs": 262,
+      "rsc": 1,
+      "feedback": 201
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 19,
+      "readyMs": 266,
+      "rsc": 1,
+      "feedback": 200
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 20,
+      "readyMs": 614,
+      "rsc": 1,
+      "feedback": 550
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 20,
+      "readyMs": 264,
+      "rsc": 1,
+      "feedback": 196.69999998807907
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 20,
+      "readyMs": 284,
+      "rsc": 1,
+      "feedback": 200.5
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 20,
+      "readyMs": 265,
+      "rsc": 1,
+      "feedback": 201.19999998807907
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 21,
+      "readyMs": 260,
+      "rsc": 1,
+      "feedback": 194.30000001192093
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 21,
+      "readyMs": 266,
+      "rsc": 1,
+      "feedback": 201.19999998807907
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 21,
+      "readyMs": 277,
+      "rsc": 1,
+      "feedback": 200.5
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 21,
+      "readyMs": 265,
+      "rsc": 1,
+      "feedback": 204.89999997615814
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 22,
+      "readyMs": 2316,
+      "rsc": 1,
+      "feedback": 2261.399999976158
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 22,
+      "readyMs": 380,
+      "rsc": 1,
+      "feedback": 315.19999998807907
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 22,
+      "readyMs": 314,
+      "rsc": 1,
+      "feedback": 244.0999999642372
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 22,
+      "readyMs": 266,
+      "rsc": 1,
+      "feedback": 207.29999995231628
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 23,
+      "readyMs": 379,
+      "rsc": 1,
+      "feedback": 314.69999998807907
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 23,
+      "readyMs": 371,
+      "rsc": 1,
+      "feedback": 309.80000001192093
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 23,
+      "readyMs": 260,
+      "rsc": 1,
+      "feedback": 200
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 23,
+      "readyMs": 261,
+      "rsc": 1,
+      "feedback": 205.10000002384186
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 24,
+      "readyMs": 382,
+      "rsc": 1,
+      "feedback": 319.80000001192093
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 24,
+      "readyMs": 1338,
+      "rsc": 1,
+      "feedback": 1187
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 24,
+      "readyMs": 270,
+      "rsc": 1,
+      "feedback": 203.60000002384186
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 24,
+      "readyMs": 693,
+      "rsc": 1,
+      "feedback": 582.3999999761581
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 25,
+      "readyMs": 259,
+      "rsc": 1,
+      "feedback": 201.30000001192093
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 25,
+      "readyMs": 481,
+      "rsc": 1,
+      "feedback": 414.39999997615814
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 25,
+      "readyMs": 264,
+      "rsc": 1,
+      "feedback": 201.5
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 25,
+      "readyMs": 895,
+      "rsc": 1,
+      "feedback": 829
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 26,
+      "readyMs": 2781,
+      "rsc": 1,
+      "feedback": 2715.800000011921
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 26,
+      "readyMs": 248,
+      "rsc": 1,
+      "feedback": 190.39999997615814
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 26,
+      "readyMs": 263,
+      "rsc": 1,
+      "feedback": 203.80000001192093
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 26,
+      "readyMs": 272,
+      "rsc": 1,
+      "feedback": 204.69999998807907
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 27,
+      "readyMs": 341,
+      "rsc": 1,
+      "feedback": 282
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 27,
+      "readyMs": 263,
+      "rsc": 1,
+      "feedback": 211.69999998807907
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 27,
+      "readyMs": 608,
+      "rsc": 1,
+      "feedback": 536.5
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 27,
+      "readyMs": 382,
+      "rsc": 1,
+      "feedback": 314.5999999642372
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 28,
+      "readyMs": 265,
+      "rsc": 1,
+      "feedback": 196.5
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 28,
+      "readyMs": 364,
+      "rsc": 1,
+      "feedback": 303.89999997615814
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 28,
+      "readyMs": 283,
+      "rsc": 1,
+      "feedback": 211
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 28,
+      "readyMs": 595,
+      "rsc": 1,
+      "feedback": 545.9000000357628
+    },
+    {
+      "total": 0,
+      "route": "/today",
+      "round": 29,
+      "readyMs": 867,
+      "rsc": 1,
+      "feedback": 803.1000000238419
+    },
+    {
+      "total": 0,
+      "route": "/library",
+      "round": 29,
+      "readyMs": 314,
+      "rsc": 1,
+      "feedback": 248.19999998807907
+    },
+    {
+      "total": 0,
+      "route": "/practice",
+      "round": 29,
+      "readyMs": 265,
+      "rsc": 1,
+      "feedback": 200.30000001192093
+    },
+    {
+      "total": 0,
+      "route": "/settings",
+      "round": 29,
+      "readyMs": 298,
+      "rsc": 1,
+      "feedback": 234.30000001192093
+    }
+  ],
+  "search": [],
+  "errors": [],
+  "requests": [],
+  "browser": "156.0.8078.4",
+  "finishedAt": "2026-10-18T14:54:01.924Z",
+  "status": "measured"
+}

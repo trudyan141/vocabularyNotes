@@ -296,6 +296,11 @@
 .main-nav a:hover {
   background: var(--muted);
 }
+.main-nav a:has([data-pending="true"]) {
+  background: var(--primary-soft);
+  color: var(--primary);
+  box-shadow: inset 0 -3px var(--primary);
+}
 main {
   min-width: 0;
 }

@@ -1,0 +1,122 @@
+[
+  {
+    "count": 20,
+    "run": 0,
+    "route": "word-detail",
+    "ms": 1376
+  },
+  {
+    "count": 20,
+    "run": 0,
+    "route": "speaking",
+    "ms": 857
+  },
+  {
+    "count": 20,
+    "run": 1,
+    "route": "word-detail",
+    "ms": 324
+  },
+  {
+    "count": 20,
+    "run": 1,
+    "route": "speaking",
+    "ms": 340
+  },
+  {
+    "count": 20,
+    "run": 2,
+    "route": "word-detail",
+    "ms": 329
+  },
+  {
+    "count": 20,
+    "run": 2,
+    "route": "speaking",
+    "ms": 340
+  },
+  {
+    "count": 20,
+    "run": 3,
+    "route": "word-detail",
+    "ms": 329
+  },
+  {
+    "count": 20,
+    "run": 3,
+    "route": "speaking",
+    "ms": 344
+  },
+  {
+    "count": 20,
+    "run": 4,
+    "route": "word-detail",
+    "ms": 329
+  },
+  {
+    "count": 20,
+    "run": 4,
+    "route": "speaking",
+    "ms": 341
+  },
+  {
+    "count": 5000,
+    "run": 0,
+    "route": "word-detail",
+    "ms": 1405
+  },
+  {
+    "count": 5000,
+    "run": 0,
+    "route": "speaking",
+    "ms": 1343
+  },
+  {
+    "count": 5000,
+    "run": 1,
+    "route": "word-detail",
+    "ms": 842
+  },
+  {
+    "count": 5000,
+    "run": 1,
+    "route": "speaking",
+    "ms": 854
+  },
+  {
+    "count": 5000,
+    "run": 2,
+    "route": "word-detail",
+    "ms": 811
+  },
+  {
+    "count": 5000,
+    "run": 2,
+    "route": "speaking",
+    "ms": 874
+  },
+  {
+    "count": 5000,
+    "run": 3,
+    "route": "word-detail",
+    "ms": 334
+  },
+  {
+    "count": 5000,
+    "run": 3,
+    "route": "speaking",
+    "ms": 845
+  },
+  {
+    "count": 5000,
+    "run": 4,
+    "route": "word-detail",
+    "ms": 324
+  },
+  {
+    "count": 5000,
+    "run": 4,
+    "route": "speaking",
+    "ms": 840
+  }
+]

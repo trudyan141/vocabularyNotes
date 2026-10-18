@@ -5,21 +5,11 @@ import {LibraryDatabase,rebuildSearch} from '@/data/local/database';
 import type {ScopedDocument} from '@/data/local/types';
 import {cloudTables,parseCloudRow,type PullTable} from '@/lib/cloud/contracts';
 import {contentHash} from '@/domain/identity';
-import {reScope,shareCommandSchema,shareContextSchema,sharedScopeId,SharingError,type ShareCommand,type ShareContext,type ShareSelection} from '@/lib/sharing';
+import {reScope,shareContextSchema,sharedScopeId,SharingError,type ShareContext,type ShareSelection} from '@/lib/sharing';
 import {remoteTransactions} from './notifications';
 
-export async function shareCall<T=unknown>(command:ShareCommand,signal?:AbortSignal):Promise<T>{
- const response=await fetch('/api/share',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(shareCommandSchema.parse(command)),cache:'no-store',signal:signal??AbortSignal.timeout(20000)});
- const body=await response.json().catch(()=>({}));
- if(!response.ok)throw new SharingError(body.error??'sharing-unavailable',response.status);
- return body as T;
-}
-export const activeShareKey='active-shared-library';
-export async function selectedShare(db:LibraryDatabase):Promise<ShareSelection|null>{
- const row=await db.metadata.get(activeShareKey);
- if(!row)return null;
- try{return z.object({kind:z.enum(['email','device']),id:z.uuid()}).strict().parse(JSON.parse(row.value));}catch{throw new SharingError('invalid-context');}
-}
+import {shareCall,activeShareKey} from './share-api';
+export {shareCall,activeShareKey,selectedShare} from './share-api';
 export async function openSharedRepository(db:LibraryDatabase,selection:ShareSelection,isCurrent=()=>true){
  const context=shareContextSchema.parse(await shareCall({action:'context',kind:selection.kind,id:selection.id}));
  if(!isCurrent())throw new SharingError('context-changed');

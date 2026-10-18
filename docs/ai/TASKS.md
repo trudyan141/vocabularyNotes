@@ -1,5 +1,7 @@
 # Task ledger — current acceptance
 
+Direct task18/10 — **mobile performance + Emma TTS: implemented/deployed / founder device acceptance pending**. [Guide](MOBILE-PERFORMANCE-AND-EMMA-PLAN.md), [final evidence](../evaluations/mobile-performance.md). MP1–5 execution complete;90logic+100unique productionUI scoped PASS/lint/types/build; main nav/search/replay lab targets met. Cold LCP/initial JS still exceed budget; field/iPhone12 installed PWA acceptance remains open. Current shared Nghe priority supersedes older Commons→device→Edge ordering below.
+
 Direct bugfix16/10 — local4317reload: Turbopack restored / scoped verified; exact initiating trigger unconfirmed. Original liveHMR loop68nav/15s; process restart retaining cache yields1document/12s,0restart/errors.4realTurbo desktop/mobile +sourceHMR/typegen probes PASS; previous4devWebpack+4production/build/lint/types/8scoped tests remain recorded. Founder manual pending. [Evidence](../evaluations/dev-reload-loop.md).
 
 Direct task16/10 — LG TV Edge TTS fallback: implemented_local / scoped verified. Commons/device then Emma Multilingual female MP3 when browser speech unavailable/fails/silent.15scoped tests/lint/types/build PASS;14unique productionUI verified across13/14run +isolated1/1timing-test rerun. Actual production endpoint MP3 PASS; physical LG/deploy pending. [Evidence](../evaluations/lg-tv-edge-tts.md).

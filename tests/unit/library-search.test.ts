@@ -1,5 +1,5 @@
 import {describe,it,expect} from 'vitest';
-import {searchRanges,visibleSenseChoices} from '@/lib/learning/library-search';
+import {searchRanges,visibleSenseChoices,libraryWordMatcher} from '@/lib/learning/library-search';
 import type {LibraryWord} from '@/data/local/types';
 describe('word search and highlight ranges',()=>{
  it('matches are at word starts, never inside care, share or scare',()=>{
@@ -16,6 +16,14 @@ describe('word search and highlight ranges',()=>{
   expect(searchRanges('a+b','a+')).toEqual([[0,2]]);
   expect(searchRanges('apple',' ')).toEqual([]);
  });
+});
+it('boolean lookup preserves word boundaries, Vietnamese, whitespace and literal punctuation without display-offset work',()=>{
+ expect(libraryWordMatcher('are')({word:'care share scare',vi:'cẩn thận'})).toBe(false);
+ expect(libraryWordMatcher('qua tao')({word:'apple',vi:'Quả táo đỏ'})).toBe(true);
+ expect(libraryWordMatcher('teddy be')({word:'Teddy   bears',vi:''})).toBe(true);
+ expect(libraryWordMatcher('a+')({word:'a+b',vi:''})).toBe(true);
+ expect(libraryWordMatcher('.*')({word:'apple',vi:''})).toBe(false);
+ expect(libraryWordMatcher('đẹp')({word:'pretty',vi:'đẹp trai'})).toBe(true);
 });
 it('hides repeated sense labels in detail while retaining current ID and distinct meanings',()=>{
  const words=[{id:'one',pos:'noun',vi:'ông'},{id:'two',pos:'noun',vi:'ÔNG'},{id:'three',pos:'noun',vi:'người già'}] as LibraryWord[];

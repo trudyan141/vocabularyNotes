@@ -1,0 +1,23 @@
+{
+  "http": 200,
+  "id": "dpl_2tEnCiCUDN2JM1ibcBQQCKraNs6H",
+  "url": "words-for-kids-csx2h6iw5-trudyan141s-projects.vercel.app",
+  "readyState": "READY",
+  "readySubstate": "PROMOTED",
+  "status": "READY",
+  "createdAt": 1792338541268,
+  "buildingAt": 1792338542160,
+  "ready": 1792338592001,
+  "target": "production",
+  "isInConcurrentBuildsQueue": false,
+  "isInSystemBuildsQueue": false,
+  "builds": [],
+  "alias": [
+    "words-for-kids-trudyan141s-projects.vercel.app"
+  ],
+  "diagnosticKeys": [
+    "aliasError"
+  ],
+  "appSource": "409c5688c92853d534dae14d4390c7d69d0495228d137c107d25dc7c40e34586",
+  "task": "mobile-performance-emma"
+}

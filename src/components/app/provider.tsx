@@ -31,6 +31,7 @@ import {
 
 import {queuePreferences,accountPreferences} from '@/data/cloud/preferences';
 import {readAuth,invalidateAuth} from '@/lib/auth-state';
+import {clearEdgeAudio} from '@/lib/audio/edge-audio-client';
 const defaultSnapshot = {
   preferences: defaultPreferences,
   storageError: false,
@@ -68,7 +69,8 @@ function updatePreferences(patch: Partial<Preferences>) {
   listeners.forEach((l) => l());
 }
 import {openAccountRepository,requestCloudLibrary,type AccountLibrary} from "@/data/cloud/account";
-import {activeShareKey,selectedShare,openSharedRepository,shareCall} from "@/data/cloud/sharing";
+import {activeShareKey,selectedShare,shareCall} from "@/data/cloud/share-api";
+async function openSharedRepository(db:LibraryDatabase,selection:ShareSelection,isCurrent?:()=>boolean){const shared=await import("@/data/cloud/sharing");return shared.openSharedRepository(db,selection,isCurrent);}
 import {shareContextSchema,type ShareSelection} from "@/lib/sharing";
 type AppState = {
   selectSharedLibrary:(selection:ShareSelection)=>Promise<void>;
@@ -123,6 +125,7 @@ export function AppProvider({
     candidates: Candidate[];
   } | null>(null);
   const repository = connection.repository;
+  useEffect(()=>{clearEdgeAudio();return()=>{clearEdgeAudio();repository?.releaseLibrarySearch();};},[repository]);
   const demo=repository?repository.scope.kind==="demo":typeof selection==="boolean"?selection:selection===null?initialDemo:false;
   useEffect(() => {
     const db = new LibraryDatabase();

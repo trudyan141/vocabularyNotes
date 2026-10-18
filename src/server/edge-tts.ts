@@ -1,7 +1,7 @@
 import 'server-only';
 import {MsEdgeTTS, OUTPUT_FORMAT} from 'msedge-tts';
 
-export const edgeVoice = 'en-US-EmmaMultilingualNeural';
+export const edgeVoice = 'en-US-EmmaNeural';
 export const maxTtsText = 600;
 let inFlight = 0;
 
@@ -15,11 +15,12 @@ function escapeXml(text: string) {
 }
 
 /** One bounded online request; no files, persistent cache, keys or paid provider. */
-export async function synthesizeEdge(text: string, signal: AbortSignal): Promise<Uint8Array> {
+export async function synthesizeEdge(text: string, signal: AbortSignal, timings?:{connectMs?:number;firstAudioMs?:number;totalMs?:number}): Promise<Uint8Array> {
   if (!ttsText(text)) throw new Error('invalid');
   signal.throwIfAborted();
   if (inFlight >= 4) throw new Error('busy');
   inFlight++;
+  const started=performance.now();
   const tts = new MsEdgeTTS({connectionTimeoutMs: 5000, synthesisTimeoutMs: 8000});
   const deadline = AbortSignal.timeout(12000);
   const stop = AbortSignal.any([signal, deadline]);
@@ -27,6 +28,7 @@ export async function synthesizeEdge(text: string, signal: AbortSignal): Promise
   stop.addEventListener('abort', close, {once: true});
   try {
     await tts.setMetadata(edgeVoice, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
+    if(timings)timings.connectMs=Math.round(performance.now()-started);
     stop.throwIfAborted();
     const {audioStream} = tts.toStream(escapeXml(text));
     const abortStream = () => audioStream.destroy(new Error('aborted'));
@@ -37,11 +39,13 @@ export async function synthesizeEdge(text: string, signal: AbortSignal): Promise
       for await (const chunk of audioStream) {
         stop.throwIfAborted();
         size += chunk.length;
+        if(timings&&timings.firstAudioMs===undefined&&chunk.length)timings.firstAudioMs=Math.round(performance.now()-started);
         if (size > 1024 * 1024) throw new Error('too-large');
         chunks.push(Buffer.from(chunk));
       }
       stop.throwIfAborted();
       if (!size) throw new Error('empty');
+      if(timings)timings.totalMs=Math.round(performance.now()-started);
       return new Uint8Array(Buffer.concat(chunks));
     } finally {
       stop.removeEventListener('abort', abortStream);

@@ -3,8 +3,8 @@ import { useEffect, useEffectEvent, useRef, useState } from "react";
 import { Volume2, Square } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useApp, useHydrated } from "./provider";
-import { wordAudio } from "@/lib/audio/word-audio-client";
-import { audioWord, normalRate, slowRate, type WordAudio } from "@/lib/audio/word-audio";
+import {edgeAudio} from "@/lib/audio/edge-audio-client";
+import { normalRate, slowRate, type WordAudio } from "@/lib/audio/word-audio";
 import { englishVoice, waitForEnglishVoice } from "@/lib/audio/voices";
 export function AudioControl({
   text,
@@ -19,7 +19,7 @@ export function AudioControl({
   showSource?: boolean;
   onSource?: (sample:WordAudio|null,slow:boolean,edge?:boolean)=>void;
 }) {
-  const { t, preferences } = useApp();
+  const { t, preferences, repository } = useApp();
   const hydrated = useHydrated();
   const [speaking, setSpeaking] = useState(false);
   const [message, setMessage] = useState("");
@@ -55,6 +55,7 @@ export function AudioControl({
     document.addEventListener("visibilitychange", hidden);
     return () => {
       counter.current++;
+      setSpeaking(false);setMessage("");
       if(autoTimer.current!==null){clearTimeout(autoTimer.current);autoTimer.current=null;}
       request.current?.abort();
       request.current = null;
@@ -68,7 +69,7 @@ export function AudioControl({
     };
   }, [text, preferences.sound]);
   function play() {
-    if (!hydrated || !preferences.sound) return;
+    if (!hydrated || !preferences.sound || !repository) return;
     const wasSpeaking = speaking;
     window.dispatchEvent(new Event("wfk-audio-stop"));
     if (wasSpeaking) return;
@@ -76,114 +77,58 @@ export function AudioControl({
     const controller = new AbortController();
     pending.current = controller;
     const active = () => !controller.signal.aborted && generation.current === current;
-    const online = async () => {
-      if (!active()) return;
-      setSource({text,sample:null});
-      setEdgeSource(true);
-      onSource?.(null,slow,true);
-      setSpeaking(true);
-      setMessage(t("Đang tải giọng đọc online…", "Loading the online voice…"));
-      const failed = () => {
-        if (!active()) return;
-        if(loadTimer.current!==null){clearTimeout(loadTimer.current);loadTimer.current=null;}
-        recording.current?.pause();recording.current=null;
-        if(objectUrl.current){URL.revokeObjectURL(objectUrl.current);objectUrl.current=null;}
-        setSpeaking(false);
-        setMessage(t("Chưa tải được giọng đọc online. Kiểm tra mạng rồi thử lại.", "Could not load the online voice. Check your connection and try again."));
-      };
-      if(loadTimer.current!==null)clearTimeout(loadTimer.current);
-      loadTimer.current=setTimeout(()=>{failed();controller.abort();},18000);
-      try {
-        if (!navigator.onLine) throw new Error('offline');
-        const response = await fetch('/api/audio/tts', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({text}), cache:'no-store', signal:controller.signal});
-        if (!response.ok || !response.headers.get('content-type')?.startsWith('audio/')) throw new Error('unavailable');
-        const blob = await response.blob();
-        if (!active()) return;
-        if (!blob.size || blob.size > 1024*1024) throw new Error('invalid-audio');
-        const url=URL.createObjectURL(blob);
-        objectUrl.current=url;
-        const audio=new Audio(url);
-        recording.current=audio;
-        audio.playbackRate=slow?slowRate:normalRate;
-        audio.preservesPitch=true;
-        audio.onplaying=()=>{if(!active())return;setMessage("");if(loadTimer.current!==null){clearTimeout(loadTimer.current);loadTimer.current=null;}};
-        audio.onended=()=>{if(!active())return;setSpeaking(false);recording.current=null;URL.revokeObjectURL(url);objectUrl.current=null;};
-        audio.onerror=failed;
-        await audio.play();
-      } catch { failed(); }
+    const rate=slow?slowRate:normalRate;
+    const clearTimer=()=>{if(loadTimer.current!==null){clearTimeout(loadTimer.current);loadTimer.current=null;}};
+    const release=()=>{
+      clearTimer();recording.current?.pause();recording.current=null;
+      if(objectUrl.current){URL.revokeObjectURL(objectUrl.current);objectUrl.current=null;}
     };
-    const device = () => {
-      if (!active()) return;
-      setSource({text,sample:null});
-      setEdgeSource(false);
-      onSource?.(null,slow);
-      if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) {
-        void online();
-        return;
-      }
-      const read = (voice: SpeechSynthesisVoice | null) => {
-        if (controller.signal.aborted || generation.current !== current) return;
-        if (!voice) { void online(); return; }
+    const failed=()=>{if(!active())return;release();setSpeaking(false);setMessage(t("Chưa phát được giọng đọc. Bấm Nghe để thử lại.","Could not play the voice. Tap Listen to retry."));};
+    const device=()=>{
+      if(!active())return;
+      release();setEdgeSource(false);
+      if(!window.speechSynthesis||!window.SpeechSynthesisUtterance){failed();return;}
+      const read=(voice:SpeechSynthesisVoice|null)=>{
+        if(!active())return;
+        if(!voice){failed();return;}
         let settled=false;
-        const failed = () => {
-          if (!active() || settled) return;
-          settled=true;
-          if(loadTimer.current!==null){clearTimeout(loadTimer.current);loadTimer.current=null;}
-          speechSynthesis.cancel();
-          void online();
-        };
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = voice.lang;
-        utterance.voice = voice;
-        utterance.rate = slow ? slowRate : normalRate;
-        utterance.onstart = () => {if(!active() || settled)return;if(loadTimer.current!==null){clearTimeout(loadTimer.current);loadTimer.current=null;}};
-        utterance.onend = () => { if (!settled && active()) {settled=true;if(loadTimer.current!==null){clearTimeout(loadTimer.current);loadTimer.current=null;}setSpeaking(false);} };
-        utterance.onerror = failed;
-        setMessage("");
-        setSpeaking(true);
-        try {
-          if (speechSynthesis.paused) speechSynthesis.resume();
-          loadTimer.current=setTimeout(failed,4000);
-          speechSynthesis.speak(utterance);
-        } catch { failed(); }
+        const utterance=new SpeechSynthesisUtterance(text);
+        utterance.lang=voice.lang;utterance.voice=voice;utterance.rate=rate;
+        const error=()=>{if(!active()||settled)return;settled=true;speechSynthesis.cancel();failed();};
+        utterance.onstart=()=>{if(!active()||settled)return;clearTimer();setSource({text,sample:null});onSource?.(null,slow,false);setMessage(navigator.onLine?t("Đang dùng giọng của máy.","Using the device voice."):t("Đang ngoại tuyến · giọng của máy.","Offline · device voice."));};
+        utterance.onend=()=>{if(!active()||settled)return;settled=true;clearTimer();setSpeaking(false);};
+        utterance.onerror=error;
+        try{if(speechSynthesis.paused)speechSynthesis.resume();loadTimer.current=setTimeout(error,4000);speechSynthesis.speak(utterance);}catch{error();}
       };
-      let voice: SpeechSynthesisVoice | null;
-      try { voice = englishVoice(speechSynthesis); } catch { void online(); return; }
-      if (voice) read(voice);
-      else {
-        setSpeaking(true);
-        setMessage(t("Đang chuẩn bị giọng đọc…", "Getting the voice ready…"));
-        void waitForEnglishVoice(speechSynthesis, {signal: controller.signal}).then(read).catch(()=>{if(active())void online();});
+      try{const voice=englishVoice(speechSynthesis);if(voice)read(voice);else{setMessage(t("Đang chuẩn bị giọng của máy…","Getting the device voice ready…"));void waitForEnglishVoice(speechSynthesis,{signal:controller.signal}).then(read).catch(failed);}}catch{failed();}
+    };
+    setSource(null);setSpeaking(true);setMessage(t("Đang tải giọng Emma…","Loading Emma’s voice…"));
+    if(!navigator.onLine){device();return;}
+    // Prime this same media element inside the tap. WebKit grants playback per
+    // element; the subsequent network result must not create a different player.
+    // Automatic playback still respects OS policy and exposes a manual retry.
+    let audio:HTMLAudioElement;
+    try{audio=new Audio('data:audio/wav;base64,UklGRiYAAABXQVZFZm10IBAAAAABAAEAgD4AAAB9AAACABAAZGF0YQIAAAAAAA==');}catch{device();return;}
+    recording.current=audio;
+    const primed=audio.play().then(()=>{if(!audio.src.startsWith('blob:'))audio.pause();}).catch(()=>{});
+    loadTimer.current=setTimeout(()=>{if(active()){failed();controller.abort();}},16000);
+    void (async()=>{
+      try{
+        const blob=await edgeAudio(repository.scope.id,text,controller.signal);
+        await primed;
+        if(!active())return;
+        const url=URL.createObjectURL(blob);objectUrl.current=url;
+        audio.src=url;audio.playbackRate=rate;audio.preservesPitch=true;
+        audio.onplaying=()=>{if(!active()||audio.src!==url)return;clearTimer();setSource({text,sample:null});setEdgeSource(true);onSource?.(null,slow,true);setMessage("");};
+        audio.onended=()=>{if(!active()||audio.src!==url)return;release();setSpeaking(false);};
+        audio.onerror=()=>{if(active())device();};
+        await audio.play();
+      }catch(error){
+        if(!active())return;
+        if(error instanceof Error&&error.name==='NotAllowedError'){release();setSpeaking(false);setMessage(t("Bấm Nghe để bắt đầu phát giọng Emma.","Tap Listen to start Emma’s voice."));}
+        else device();
       }
-    };
-    const playSample = async (value:WordAudio|null) => {
-      if (!active()) return;
-      if (!value) { device(); return; }
-      setEdgeSource(false);
-      setSource({text,sample:value});
-      onSource?.(value,slow);
-      const audio = new Audio(value.audioUrl);
-      recording.current = audio;
-      audio.playbackRate = slow ? slowRate : normalRate;
-      audio.preservesPitch = true;
-      const fallback = () => {
-        if (!active() || recording.current !== audio) return;
-        if(loadTimer.current!==null){clearTimeout(loadTimer.current);loadTimer.current=null;}
-        audio.pause();recording.current = null;
-        device();
-        if(window.speechSynthesis && englishVoice(speechSynthesis)) setMessage(t("Bản thu chưa phát được; đang dùng giọng của máy.", "The recording is unavailable; using the device voice."));
-      };
-      audio.onplaying = () => {if(loadTimer.current!==null){clearTimeout(loadTimer.current);loadTimer.current=null;}};
-      loadTimer.current=setTimeout(fallback,10000);
-      audio.onended = () => { if (active()) {setSpeaking(false);recording.current=null;} };
-      audio.onerror = fallback;
-      setSpeaking(true);setMessage("");
-      try { await audio.play(); } catch { fallback(); }
-    };
-    if (!audioWord(text) || !navigator.onLine) {device();return;}
-    setSpeaking(true);
-    setMessage(t("Đang tìm âm mẫu…", "Finding the recording…"));
-    void wordAudio(text).then(playSample);
+    })();
   }
   const automaticPlay=useEffectEvent(()=>play());
   useEffect(()=>{
@@ -197,7 +142,7 @@ export function AudioControl({
       {hydrated&&!preferences.sound&&<a className="muted-audio-help" href="/settings">{t("Bật giọng đọc trong Cài đặt","Enable voice in Settings")}</a>}
       <Button
         variant="secondary"
-        disabled={!hydrated || !preferences.sound}
+        disabled={!hydrated || !preferences.sound || !repository}
         aria-label={`${speaking ? t("Dừng đọc", "Stop reading") : slow ? t("Nghe chậm", "Listen slowly") : t("Nghe", "Listen")}: ${text}`}
         onClick={play}
       >
@@ -215,7 +160,7 @@ export function AudioControl({
       {!preferences.sound && (
         <small>{t("Âm thanh đang tắt", "Sound is off")}</small>
       )}
-      {showSource && <AudioSource sample={selected} slow={slow} edge={edgeSource && source?.text===text}/>}
+      {showSource && source?.text===text && <AudioSource sample={selected} slow={slow} edge={edgeSource && source?.text===text}/>}
       <p role="status" className="audio-status">
         {message}
       </p>
@@ -225,5 +170,5 @@ export function AudioControl({
 
 export function AudioSource({sample,slow=false,edge=false}:{sample:WordAudio|null;slow?:boolean;edge?:boolean}){
  const {t}=useApp();
- return <details className="audio-source"><summary>{t("Nguồn phát âm","Pronunciation source")}</summary><small>{sample?<><a href={sample.sourceUrl} target="_blank" rel="noreferrer">Wikimedia Commons · US · {sample.creator}</a>{" · "}<a href={sample.licenseUrl} target="_blank" rel="noreferrer">{sample.license}</a>{slow&&` · ${t("Phát chậm 60%","Playback at 60%")}`}</>:edge?`Microsoft Edge · Emma Multilingual · ${t("Giọng nữ online","Online female voice")}${slow?` · ${t("Phát chậm 60%","Playback at 60%")}`:""}`:t("Giọng đọc của thiết bị","Device voice")}</small></details>;
+ return <details className="audio-source"><summary>{t("Nguồn phát âm","Pronunciation source")}</summary><small>{sample?<><a href={sample.sourceUrl} target="_blank" rel="noreferrer">Wikimedia Commons · US · {sample.creator}</a>{" · "}<a href={sample.licenseUrl} target="_blank" rel="noreferrer">{sample.license}</a>{slow&&` · ${t("Phát chậm 60%","Playback at 60%")}`}</>:edge?`Microsoft Edge · Emma US Natural · ${t("Giọng nữ online","Online female voice")}${slow?` · ${t("Phát chậm 60%","Playback at 60%")}`:""}`:t("Giọng đọc của thiết bị","Device voice")}</small></details>;
 }

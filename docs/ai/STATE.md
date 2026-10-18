@@ -1,6 +1,6 @@
 # Trạng thái hiện tại — Words for Kids
 
-Updated:16/10/2026. Current task: **4317reload — Turbopack restored / scoped verified; initiating trigger unconfirmed**. Old liveHMR loop68navigations/15s; same source +disk cache works after process restart. Default dev reverted to Turbo,4317running via pnpmdev. Fresh +actual4317probes1document/12s,0restart/errors;4realTurboUI PASS, sourceHMR/typegen probes stable. [Evidence](../evaluations/dev-reload-loop.md).
+Updated:18/10/2026. Current task: **mobile performance + Emma TTS — implemented/deployed, ready for founder iPhone12/PWA test**. MP1–5 đã đo/sửa/kiểm/deploy domain; library5000 median2436→331ms, search p951821→99ms, Emma cached replay median49ms.90scoped logic tests +100unique productionUI cases PASS, lint/types/build PASS. Cold Today/Practice~3,5s và JS339–356KiB vẫn vượt budget; field/iOS thật chưa xác nhận. [Guide](MOBILE-PERFORMANCE-AND-EMMA-PLAN.md), [evidence/limits](../evaluations/mobile-performance.md).
 
 ## Baseline / current steering
 
@@ -21,6 +21,6 @@ Working tree đầu task phạm vi game sạch; workflow baseline bên dưới t
 
 External acceptance vẫn mở: child/provider eligibility/quality/cost benchmark, human UX, physical camera/clipboard/audio/PWA/install, field/performance trên final release; xem TASKS. Fixture/mock không chứng minh live quality. Token/time của chat trước unavailable; chỉ đo bootstrap bytes/setup/test metadata có thật.
 
-**Next action:** founder reopen http://127.0.0.1:4317/today and continue normal use.
+**Next action:** founder đóng hết cửa sổ PWA rồi mở lại domain, test nav/back, Nghe/chậm/replay và Nói cùng Cáo trên iPhone12; không xóa app hoặc dữ liệu.
 
 Lịch sử/checkpoints: [STATE history](STATE.history-2026-10-12.md), [CHANGELOG](CHANGELOG.md). Không append history vào current state.

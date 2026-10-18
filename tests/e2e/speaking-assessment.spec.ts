@@ -1,4 +1,6 @@
 import {test,expect,type Page} from '@playwright/test';
+// Ordinary UI checks must never synthesize speech against the live provider.
+test.beforeEach(async({page})=>{await page.route('**/api/audio/tts',route=>route.fulfill({status:503,json:{error:'fixture-no-live-tts'}}));});
 
 function microphoneFixture(){
  Object.defineProperty(navigator,'mediaDevices',{value:{getUserMedia:async()=>{

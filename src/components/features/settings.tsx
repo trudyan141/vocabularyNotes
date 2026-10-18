@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import {SharedStatusPanel} from "@/components/app/sharing-boundary";
+import {SharedStatusPanel} from "@/components/app/shared-status-panel";
 import {ParentAiSettings} from "./parent-ai";
 import {GoogleSearchSettings} from "./google-search-settings";
 import {ArchiveTools} from "@/components/features/archive-tools";

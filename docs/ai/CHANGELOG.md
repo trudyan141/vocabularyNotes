@@ -1,5 +1,10 @@
 # Nhật ký bàn giao
 
+## 18/10/2026 — Mobile performance và Emma US Natural
+
+Triển khai plan founder duyệt: scoped live search projection/visible hydration, count-only Today, nav prefetch/pending, defer sync bundle và Emma-first bounded RAM cache. Cùng profile lab5000items: Library median2436→331ms, search p951821→99ms; Emma real MP3 cold median685ms/cache49ms.90scoped logic+100unique productionUI/lint/types/production build PASS. Domain production đã deploy với artifact hash verified; hosted MP3/navigation/PWA smoke ghi trong [evidence](../evaluations/mobile-performance.md). Cold LCP~3,5s và JS339–356KiB còn vượt budget;2full-suite fixture failures tái hiện baseline; field/iPhone/human audio vẫn pending. Không push main/thêm env/đụng browser founder.
+
+
 ## 16/10/2026 — local4317 reload loop
 
 Reproduced Turbopack entry HMR restart loop68navigations/15s. Initial Webpack workaround superseded after founder requested investigation: default dev restored to Turbo. Same source +original diskcache stable after process restart, exactURL1document/12s.4realTurboUI +sourceHMR/typegen probes PASS; initiating trigger unconfirmed. 4devUI+4productionUI/build/lint/types/8scoped tests PASS. Added desktop/mobile idle-navigation regression; preserved Edge TTS external package and data. [Evidence](../evaluations/dev-reload-loop.md).

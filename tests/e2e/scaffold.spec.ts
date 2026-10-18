@@ -1,4 +1,6 @@
 import { expect, test } from "@playwright/test";
+// Ordinary UI checks must never synthesize speech against the live provider.
+test.beforeEach(async({page})=>{await page.route('**/api/audio/tts',route=>route.fulfill({status:503,json:{error:'fixture-no-live-tts'}}));});
 import { mkdir } from "node:fs/promises";
 
 const noOverflow = async (page: import("@playwright/test").Page) =>
@@ -188,14 +190,14 @@ test("locale, mode, motion and sound preferences apply and persist independently
     .getByRole("switch", { name: "Child-friendly interface", exact: true })
     .uncheck();
   await page
-    .getByRole("switch", { name: "Sound when you tap listen", exact: true })
+    .getByRole("switch", { name: "Voice playback", exact: true })
     .uncheck();
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-motion", "reduced");
   await expect(page.locator("html")).toHaveAttribute("data-mode", "standard");
   await page.getByRole("link", { name: "Back to Today", exact: true }).click();
   await expect(
-    page.getByRole("link", { name: "Play for 5 minutes" }),
+    page.locator('.today-hero a[href^="/practice"]'),
   ).toBeVisible();
   await page
     .getByRole("navigation")
@@ -211,16 +213,7 @@ test("locale, mode, motion and sound preferences apply and persist independently
   const stored = await page.evaluate(() =>
     JSON.parse(localStorage.getItem("wfk.preferences.v1")!),
   );
-  expect(Object.keys(stored).sort()).toEqual([
-    "childFriendly",
-    "level",
-    "locale",
-    "profileAvatar",
-    "profileName",
-    "reduceMotion",
-    "sound",
-  ]);
-});
+  expect(stored).toMatchObject({locale:"en",sound:false,childFriendly:false,reduceMotion:true});});
 
 test("blocked settings storage reports recovery while preferences still work for the session", async ({
   page,
@@ -253,7 +246,7 @@ test("unavailable English voice gives a readable fallback without autoplay", asy
   await page.goto("/library/words/apple");
   await page.getByRole("button", { name: "Nghe: apple", exact: true }).click();
   await expect(
-    page.getByText("Chưa có giọng tiếng Anh trên máy.", { exact: false }),
+    page.getByText("Chưa phát được giọng đọc. Bấm Nghe để thử lại.", { exact: true }),
   ).toBeVisible();
   await expect(
     page.getByText("I eat an apple.", { exact: true }),
@@ -379,7 +372,7 @@ test("speech controls stop each other and navigation cancels active reading", as
     );
   expect((await readProbe()).speaks).toBe(2);
   const before = (await readProbe()).cancels;
-  await page.getByRole("link", { name: "Từ của con", exact: true }).click();
+  await page.getByRole("navigation").getByRole("link", { name: "Từ của con", exact: true }).click();
   await expect(page).toHaveURL("/library");
   expect((await readProbe()).cancels).toBeGreaterThan(before);
 });

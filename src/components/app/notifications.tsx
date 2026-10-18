@@ -7,7 +7,7 @@ import Link from 'next/link';
 import {usePathname} from 'next/navigation';
 import {useApp} from './provider';
 import {useAuthStatus} from '@/lib/auth-state';
-import {shareCall} from '@/data/cloud/sharing';
+import {shareCall} from '@/data/cloud/share-api';
 import {shareNotificationSchema,type ShareNotification} from '@/lib/sharing';
 import {Button} from '@/components/ui/button';
 import {SubmitButton, type SubmitState} from '@/components/ui/submit-button';

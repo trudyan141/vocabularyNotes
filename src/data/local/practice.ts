@@ -1,6 +1,7 @@
 import {practiceFilterSchema,type PracticeFilter} from '@/lib/learning/practice-filter';
 import {eligibleMissingLetters,missingLetterPositions,missingLetters,validMissingPositions} from '@/lib/learning/missing-letters';
-import {uniqueAggregateWords,groupLibraryWords,withoutWordMemberships} from '@/lib/learning/library-search';
+import {uniqueAggregateWords,aggregateWordId,withoutWordMemberships} from '@/lib/learning/library-search';
+import {canonicalKey} from '@/domain/identity';
 import {shuffled} from '@/lib/learning/random';
 import {loadPicture} from '@/lib/media/load-picture';
 import {approvedMedia} from './media';
@@ -90,8 +91,23 @@ export class PracticeRepository{
     const now=Date.now();return index.filter(row=>row.approval&&(!map.has(row.id)||Date.parse(map.get(row.id)!.dueAt)<=now)).map(row=>row.id);
   }
   async dueSummary(){
-    const words=(await this.repository.words(await this.dueIds())).filter(word=>word.approved);
-    return {words:groupLibraryWords(words,true).length,senses:uniqueAggregateWords(words).length};
+    const scope=this.repository.scope.id;
+    return this.repository.db.transaction('r',[this.repository.db.searchIndex,this.repository.db.table('reviewStates'),this.repository.db.senses,this.repository.db.entries],async()=>{
+      const [due,senses,entries]=await Promise.all([
+        this.dueIds(),
+        this.repository.db.senses.where('[scopeId+id]').between([scope,''],[scope,'\uffff']).toArray(),
+        this.repository.db.entries.where('[scopeId+id]').between([scope,''],[scope,'\uffff']).toArray(),
+      ]);
+      const ids=new Set(due),lexemes=new Map(entries.filter(entry=>!entry.deletedAt).map(entry=>[entry.id,entry]));
+      const words=new Set<string>(),meanings=new Set<string>();
+      for(const sense of senses){
+        if(!ids.has(sense.id)||sense.deletedAt||sense.learningApprovalStatus!=='approved'||sense.approvedContentVersion!==sense.contentVersion)continue;
+        const entry=lexemes.get(sense.entryId);if(!entry)continue;
+        const written=[canonicalKey(entry.displayText,entry.caseMode),entry.caseMode];
+        words.add(JSON.stringify(written));meanings.add(JSON.stringify([...written,sense.pos,aggregateWordId(sense)]));
+      }
+      return {words:words.size,senses:meanings.size};
+    });
   }
   private async candidates(filter:PracticeFilter){
     const scope=this.repository.scope.id;

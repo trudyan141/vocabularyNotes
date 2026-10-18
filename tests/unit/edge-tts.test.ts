@@ -7,7 +7,7 @@ vi.mock('msedge-tts',()=>({MsEdgeTTS:class{setMetadata=fixture.metadata;toStream
 import {synthesizeEdge,ttsText,edgeVoice} from '@/server/edge-tts';
 import {POST} from '@/app/api/audio/tts/route';
 beforeEach(()=>{fixture.metadata.mockReset().mockResolvedValue(undefined);fixture.stream.mockReset().mockImplementation(()=>({audioStream:Readable.from([Buffer.from('mp3')])}));fixture.close.mockClear();});
-it('uses the fixed multilingual voice and escapes user text as XML data',async()=>{
+it('uses the fixed Emma voice and escapes user text as XML data',async()=>{
  expect(Buffer.from(await synthesizeEdge('Hi <voice> & "x"',new AbortController().signal)).toString()).toBe('mp3');
  expect(fixture.metadata).toHaveBeenCalledWith(edgeVoice,'mp3');expect(fixture.stream).toHaveBeenCalledWith('Hi &lt;voice&gt; &amp; &quot;x&quot;');expect(fixture.close).toHaveBeenCalled();
 });

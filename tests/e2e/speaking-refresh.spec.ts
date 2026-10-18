@@ -1,4 +1,6 @@
 import {test,expect} from '@playwright/test';
+// Ordinary UI checks must never synthesize speech against the live provider.
+test.beforeEach(async({page})=>{await page.route('**/api/audio/tts',route=>route.fulfill({status:503,json:{error:'fixture-no-live-tts'}}));});
 const owner='60000000-0000-4000-8000-000000000006',library='70000000-0000-4000-8000-000000000007';
 test.beforeEach(async({page})=>{await page.route('**/api/audio/word',route=>route.fulfill({json:{word:route.request().postDataJSON().word,sample:null}}));await page.addInitScript(()=>{Math.random=()=>0.999;localStorage.setItem('wfk-parent-ai-v1',JSON.stringify({key:'AIza-speaking-fixture-key-only-123',model:'gemini-3.5-flash-lite'}));});await page.route('**/api/auth/status*',route=>route.fulfill({json:{configured:false,user:null}}));await page.route('https://generativelanguage.googleapis.com/**',route=>route.abort());});
 test('Microphone permission failure recovers without a model pack or confirmation popup',async({page})=>{
@@ -41,11 +43,14 @@ test('Quota failure keeps replay, retries only on another tap, and retired pack 
  await page.getByRole('button',{name:'Nói',exact:true}).click();await expect(page.getByText('Hết lượt chấm miễn phí. Con nghe lại và thử sau nhé.',{exact:true})).toBeVisible({timeout:15000});expect(requests).toBe(1);await expect(page.locator('.speaking-score')).toHaveText('0%');await expect(page.getByRole('button',{name:'Nghe lại giọng của con',exact:true})).toBeEnabled();await page.getByRole('button',{name:'Nói',exact:true}).click();await expect.poll(()=>requests,{timeout:15000}).toBe(2);await expect(page.getByRole('button',{name:'Nói',exact:true})).toBeEnabled();
 });
 
-test('Speaking rounds draw randomly from the full library while retaining distinct meanings',async({page})=>{
+test('Speaking draws from the full library and replay retains the same selected words',async({page})=>{
+ await page.addInitScript(()=>{Math.random=()=>0.5;});
  await page.goto('/practice/speaking');const first:string[]=[];
  for(let i=0;i<5;i++){await expect(page.locator('.game-progress > span')).toHaveText(`${i+1} / 5`);first.push((await page.locator('.speaking-target').innerText()).trim());await page.getByRole('button',{name:'Bỏ qua',exact:true}).click();}
  await expect(page.getByRole('heading',{name:'Con đã hoàn thành!',exact:true})).toBeVisible();
+ expect(first.some(word=>!['apple','banana','grapes','orange','milk'].includes(word))).toBe(true);
  await page.evaluate(()=>{Math.random=()=>0.5;});await page.getByRole('button',{name:'Chơi lại',exact:true}).click();const second:string[]=[];
  for(let i=0;i<5;i++){await expect(page.locator('.game-progress > span')).toHaveText(`${i+1} / 5`);second.push((await page.locator('.speaking-target').innerText()).trim());await page.getByRole('button',{name:'Bỏ qua',exact:true}).click();}
- expect(second).not.toEqual(first);expect(second.some(word=>!first.includes(word))).toBe(true);
+ // ADR088 explicitly keeps Speaking replay on the same selected list.
+ expect(second).toEqual(first);
 });

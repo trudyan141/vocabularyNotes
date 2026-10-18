@@ -41,4 +41,6 @@ SQL/E2E cloud cần PostgreSQL; chi tiết setup ở hướng dẫn. `vercel.jso
 
 ## Kiểm gọn cho coding task (ADR083)
 
+Các bài audio và mở game chạy thêm WebKit (Safari engine): khi máy chưa có runtime, chạy `pnpm exec playwright install chromium webkit`; CI cài cả hai. WebKit giả lập không thay nghiệm thu iPhone/PWA thật.
+
 `pnpm test:ui -- --list <file.spec.ts>` rồi `pnpm test:ui -- <file.spec.ts> --grep '<behavior>'`. Mặc định dev snapshot không .env, port/output riêng và kiểm source identity; `--mode production` build snapshot cuối khi cần. `--scope no-demo|cloud|release` chọn fixture; cloud cần PostgreSQL local, live media opt-in. [Lệnh và giới hạn runner](docs/ai/WORKFLOW.md). `pnpm test:workflow` kiểm guards; `pnpm test:e2e` vẫn full release inventory và gates CI giữ nguyên.

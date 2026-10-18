@@ -1,0 +1,139 @@
+{
+  "base": "https://words-for-kids.vercel.app",
+  "at": "2026-10-18T17:16:49.280Z",
+  "samples": [
+    {
+      "engine": "chromium",
+      "mode": "flashcard",
+      "ms": 115,
+      "sessionId": "b3e9662c-adb9-4864-9afe-04d037dd5c61",
+      "controller": true,
+      "sessionRsc": 0
+    },
+    {
+      "engine": "chromium",
+      "mode": "picture-word",
+      "ms": 141,
+      "sessionId": "72b40697-c724-4b3b-815e-6193cde0b512",
+      "controller": true,
+      "sessionRsc": 0
+    },
+    {
+      "engine": "chromium",
+      "mode": "word-picture",
+      "ms": 139,
+      "sessionId": "8f20ac48-123b-42b5-98d6-23f9af8ff2ee",
+      "controller": true,
+      "sessionRsc": 0
+    },
+    {
+      "engine": "chromium",
+      "mode": "letters",
+      "ms": 89,
+      "sessionId": "21c635bf-3896-4254-8c75-715c513d1ee4",
+      "controller": true,
+      "sessionRsc": 0
+    },
+    {
+      "engine": "chromium",
+      "mode": "spelling",
+      "ms": 72,
+      "sessionId": "33a35c83-008d-4d4a-9d0c-08e103e9588c",
+      "controller": true,
+      "sessionRsc": 0
+    },
+    {
+      "engine": "chromium",
+      "mode": "missing-letters",
+      "ms": 73,
+      "sessionId": "b4ff8d98-c04d-441e-8375-8a814b4fb217",
+      "controller": true,
+      "sessionRsc": 0,
+      "reload": true
+    },
+    {
+      "engine": "chromium",
+      "mode": "grammar-card",
+      "ms": 87,
+      "sessionId": "842126d6-5f4e-4638-b8b0-a0aec2b96c8e",
+      "controller": true,
+      "sessionRsc": 0
+    },
+    {
+      "engine": "chromium",
+      "mode": "grammar",
+      "ms": 72,
+      "sessionId": "fd4aa08f-9fc8-4d8c-8a2f-dc1232271e07",
+      "controller": true,
+      "sessionRsc": 0
+    },
+    {
+      "engine": "webkit",
+      "mode": "flashcard",
+      "ms": 117,
+      "sessionId": "29fac83a-d82a-4de9-9f0f-93a9ee93b2a2",
+      "controller": true,
+      "sessionRsc": 0
+    },
+    {
+      "engine": "webkit",
+      "mode": "picture-word",
+      "ms": 152,
+      "sessionId": "f25c6699-9da6-4846-ba8a-976fb811c06f",
+      "controller": true,
+      "sessionRsc": 0
+    },
+    {
+      "engine": "webkit",
+      "mode": "word-picture",
+      "ms": 146,
+      "sessionId": "5d2e2500-b051-4390-a6be-fc70fd3c50d5",
+      "controller": true,
+      "sessionRsc": 0
+    },
+    {
+      "engine": "webkit",
+      "mode": "letters",
+      "ms": 70,
+      "sessionId": "6d46386c-e9ab-454f-91d8-4a6633eb93f7",
+      "controller": true,
+      "sessionRsc": 0
+    },
+    {
+      "engine": "webkit",
+      "mode": "spelling",
+      "ms": 88,
+      "sessionId": "42df7cb8-755e-40ec-aff3-8f3405e3c6b4",
+      "controller": true,
+      "sessionRsc": 0
+    },
+    {
+      "engine": "webkit",
+      "mode": "missing-letters",
+      "ms": 89,
+      "sessionId": "f9e7c95c-f3f9-4e93-8a30-62f2cfea19ef",
+      "controller": true,
+      "sessionRsc": 0,
+      "reload": true
+    },
+    {
+      "engine": "webkit",
+      "mode": "grammar-card",
+      "ms": 82,
+      "sessionId": "128c1e39-2e44-493e-8cb4-03ed22ba7dd3",
+      "controller": true,
+      "sessionRsc": 0
+    },
+    {
+      "engine": "webkit",
+      "mode": "grammar",
+      "ms": 88,
+      "sessionId": "1ac6a5e1-89c1-4e08-b0b1-d45ef6c2bb78",
+      "controller": true,
+      "sessionRsc": 0
+    }
+  ],
+  "errors": [],
+  "profile": "isolated guest synthetic data, unthrottled Chromium/WebKit; not physical iPhone",
+  "status": "passed"
+}

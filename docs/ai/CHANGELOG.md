@@ -1,5 +1,20 @@
 # Nhật ký bàn giao
 
+## 19/10/2026 — Bỏ text chờ phát audio gây nhảy UI
+
+Theo founder: bỏ các dòng chuẩn bị/bắt đầu phát dưới nút loa; dùng trạng thái nút Dừng, giữ lỗi/retry thật. Không đổi backend, cache hoặc player.3productionUI native playback/slow/replay Chromium+WebKit, lint/types/build PASS. [Evidence](../evaluations/emma-mobile-playback.md).
+
+
+## 19/10/2026 — Mở game không đợi server và toàn kho ảnh
+
+Founder báo3–4s chuẩn bị game. Trace/baseline tìm session RSC+selection remount/all-history validation, full image-pool decode và hydrate cả kho trước draw10từ. Same-route native history, prepared snapshot/targeted resume, round-only picture decode2inflight, bounded16-word hydration từ toàn source group; giữ filter/progress/CAS/media/replay.54logic+39productionUI/lint/types/build PASS. Cùng throttled lab5000: flashcard1016→321ms, typing1039→361ms, photo2445→1436ms; cold photo~1,4s còn thực. Deploy domain +16actual-mode smoke Chromium/WebKit với SWcontroller70–152ms PASS (unthrottled, separate cohort). [Evidence](../evaluations/game-start.md); physical iPhone retest pending. Không push main/env/SQL hoặc đụng learner data.
+
+
+## 18/10/2026 — Sửa Emma kẹt chuẩn bị audio trên iPhone/PWA
+
+Founder reopen WordDetail/apple Nghe chờ~20s rồi lỗi. Tái hiện native WebKit: WAV mồi1sample decode lỗi, promise play pending được await trước MP3 thật. Đổi PCM40ms, không await prime, cache retry đồng bộ trong tap, detach player callbacks khi release; copy phân biệt chuẩn bị audio/bắt đầu phát, không tải bộ giọng.11logic+33productionUI Chromium/WebKit/lint/types/build PASS. Deploy domain và hosted WebKit actual MP3 với SWcontroller normal/slow/replay PASS;1upstream503 riêng giữ trong [evidence](../evaluations/emma-mobile-playback.md). CI cài thêm WebKit; không claim remoteCI hoặc physical iPhone đã pass. Không push main/env/data changes.
+
+
 ## 18/10/2026 — Mobile performance và Emma US Natural
 
 Triển khai plan founder duyệt: scoped live search projection/visible hydration, count-only Today, nav prefetch/pending, defer sync bundle và Emma-first bounded RAM cache. Cùng profile lab5000items: Library median2436→331ms, search p951821→99ms; Emma real MP3 cold median685ms/cache49ms.90scoped logic+100unique productionUI/lint/types/production build PASS. Domain production đã deploy với artifact hash verified; hosted MP3/navigation/PWA smoke ghi trong [evidence](../evaluations/mobile-performance.md). Cold LCP~3,5s và JS339–356KiB còn vượt budget;2full-suite fixture failures tái hiện baseline; field/iPhone/human audio vẫn pending. Không push main/thêm env/đụng browser founder.

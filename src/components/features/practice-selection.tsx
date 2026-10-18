@@ -10,7 +10,9 @@ import {readPracticeSelection,savePracticeSelection} from '@/data/local/practice
 // Resolve the current library's selection before games can open an unfiltered round.
 export function PracticeSelection({children}:{children:ReactNode}){
  const {repository,t}=useApp(),params=useSearchParams(),pathname=usePathname(),router=useRouter();
- const query=params.toString(),identity=`${repository?.scope.id}:${pathname}:${query}`;
+ const query=params.toString(),savedSession=params.get('session');
+ // Only selection changes gate the child. A new local session must not remount it.
+ const identity=`${repository?.scope.id}:${pathname}:${JSON.stringify(practiceFilter(params))}`;
  const [result,setResult]=useState<{identity:string;error:boolean}|null>(null),[retry,setRetry]=useState(0);
  useEffect(()=>{
   if(!repository)return;
@@ -19,7 +21,7 @@ export function PracticeSelection({children}:{children:ReactNode}){
    try{
     const search=new URLSearchParams(query),filter=practiceFilter(search);
     if(Object.keys(filter).length)await savePracticeSelection(repository,filter);
-    else if(!search.has('session')){
+    else if(!savedSession){
      const saved=await readPracticeSelection(repository);
      if(!active)return;
      if(Object.keys(saved).length){
@@ -33,7 +35,7 @@ export function PracticeSelection({children}:{children:ReactNode}){
    }catch{if(active)setResult({identity,error:true});}
   })();
   return()=>{active=false;};
- },[repository,query,pathname,router,identity,retry]);
+ },[repository,query,pathname,router,identity,retry,savedSession]);
  if(result?.identity!==identity)return <DatabaseLoading/>;
  if(result.error)return <div className="page-flow"><p role="alert">{t('Chưa mở được phạm vi đang ôn. Thử lại nhé.','Could not open your practice selection. Please retry.')}</p><Button onClick={()=>{setResult(null);setRetry(n=>n+1);}}>{t('Thử lại','Retry')}</Button></div>;
  return children;

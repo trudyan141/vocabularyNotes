@@ -1,0 +1,116 @@
+
+Running 4 tests using 2 workers
+
+(node:22813) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:22812) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [baseline-desktop] › tests/e2e/ready-picture-games.spec.ts:5:5 › both picture games use only ready images; missing selected word shows a recovery message (7.2s)
+  ✘  1 [baseline-mobile] › tests/e2e/ready-picture-games.spec.ts:5:5 › both picture games use only ready images; missing selected word shows a recovery message (7.2s)
+(node:22871) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:22872) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  3 [baseline-desktop] › tests/e2e/ready-picture-games.spec.ts:37:5 › saved word images render in all typing games and revoked images do not reveal the answer (15.0s)
+  ✘  4 [baseline-mobile] › tests/e2e/ready-picture-games.spec.ts:37:5 › saved word images render in all typing games and revoked images do not reveal the answer (15.0s)
+
+
+  1) [baseline-desktop] › tests/e2e/ready-picture-games.spec.ts:5:5 › both picture games use only ready images; missing selected word shows a recovery message 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('main [role=alert]')
+    Expected substring: "chỉ dùng từ đã có hình"
+    Received string:    "Chưa đủ từ phù hợp cho kiểu học này. Thêm/duyệt từ hoặc chọn Thẻ ôn; game hình cần 3 hình khác nhau."
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" locator('main [role=alert]') with timeout 5000ms
+      - waiting for locator('main [role=alert]')
+        14 × locator resolved to <p role="alert">Chưa đủ từ phù hợp cho kiểu học này. Thêm/duyệt t…</p>
+           - unexpected value "Chưa đủ từ phù hợp cho kiểu học này. Thêm/duyệt từ hoặc chọn Thẻ ôn; game hình cần 3 hình khác nhau."
+
+
+       6 |  await page.goto('/library');await expect(page.getByRole('link').filter({hasText:/apple/}).first()).toBeVisible();await page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('words-for-kids.local');r.onsuccess=()=>resolve(r.result);});await new Promise<void>((resolve,reject)=>{const tx=db.transaction(['senses','searchIndex'],'readwrite');for(const name of ['senses','searchIndex']){const store=tx.objectStore(name),r=store.getAll();r.onsuccess=()=>{for(const row of r.result)if(!['apple','banana','grapes'].includes(row.id))store.put({...row,art:row.id==='book'?'media-00000000-0000-4000-8000-000000000099':null});};}tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);});db.close();});
+       7 |  for(const name of ['Nhìn hình chọn từ','Nghe từ chọn hình']){await page.goto('/practice');await page.getByRole('button',{name,exact:true}).click();await expect(page.locator('.game-answers button')).toHaveCount(3);await expect(page.locator('.missing-art')).toHaveCount(0);const snapshots=await page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('words-for-kids.local');r.onsuccess=()=>resolve(r.result);});const rows=await new Promise<{payload:{session:{questions:{word:{id:string;art:string|null};choices:{id:string;art:string|null}[]}[]}}}[]>(resolve=>{const r=db.transaction('practiceSessions').objectStore('practiceSessions').getAll();r.onsuccess=()=>resolve(r.result);});db.close();return rows.flatMap(row=>row.payload.session.questions.flatMap(q=>[q.word,...q.choices]));});expect(snapshots.every(word=>!!word.art&&['apple','banana','grapes'].includes(word.id))).toBe(true);await page.screenshot({path:info.outputPath(`${name==='Nhìn hình chọn từ'?'picture-word':'word-picture'}.png`)});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);}
+    >  8 |  await page.goto('/practice?word=book');await page.getByRole('button',{name:'Nhìn hình chọn từ',exact:true}).click();await expect(page.locator('main [role=alert]')).toContainText('chỉ dùng từ đã có hình');await expect(page.locator('.game-answers')).toHaveCount(0);
+         |                                                                                                                                                                      ^
+       9 | });
+      10 | test('removing a distractor picture closes the active game and prevents old image reuse',async({page,context})=>{
+      11 |  await page.goto('/practice');await page.getByRole('button',{name:'Nghe từ chọn hình',exact:true}).click();await expect(page.locator('.game-answers button')).toHaveCount(3);
+        at /Users/trunglk/Documents/trung-github/VocabularyNotes/tests/e2e/ready-picture-games.spec.ts:8:166
+
+    Error Context: .local/game-start/baseline-test-results/ready-picture-games-both-p-de82f-rd-shows-a-recovery-message-baseline-desktop/error-context.md
+
+  2) [baseline-desktop] › tests/e2e/ready-picture-games.spec.ts:37:5 › saved word images render in all typing games and revoked images do not reveal the answer 
+
+    Test timeout of 15000ms exceeded.
+
+    Error: locator.click: Test timeout of 15000ms exceeded.
+    Call log:
+      - waiting for locator('.session-history-card').filter({ hasText: 'Tìm ký tự thiếu' })
+
+
+      46 |  await page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('words-for-kids.local');r.onsuccess=()=>resolve(r.result);});await new Promise<void>(resolve=>{const tx=db.transaction('mediaAssets','readwrite'),store=tx.objectStore('mediaAssets'),r=store.getAll();r.onsuccess=()=>{for(const row of r.result)if(row.payload.asset.word==='apple')store.put({...row,payload:{asset:{...row.payload.asset,approved:false,status:'revoked'}}});};tx.oncomplete=()=>resolve();});db.close();});
+      47 |  // Native IndexedDB writes bypass Dexie's mutation notifications; reopen to re-read the asset.
+    > 48 |  await page.reload();await page.locator('.session-history-card').filter({hasText:'Tìm ký tự thiếu'}).click();
+         |                                                                                                      ^
+      49 |  const stage=page.locator('.game-picture-small');await expect(stage.locator('.missing-art')).toBeVisible();await expect(stage).not.toContainText('apple');expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+      50 | });
+      51 |
+        at /Users/trunglk/Documents/trung-github/VocabularyNotes/tests/e2e/ready-picture-games.spec.ts:48:102
+
+    Error Context: .local/game-start/baseline-test-results/ready-picture-games-saved--b5c95-es-do-not-reveal-the-answer-baseline-desktop/error-context.md
+
+  3) [baseline-mobile] › tests/e2e/ready-picture-games.spec.ts:5:5 › both picture games use only ready images; missing selected word shows a recovery message 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('main [role=alert]')
+    Expected substring: "chỉ dùng từ đã có hình"
+    Received string:    "Chưa đủ từ phù hợp cho kiểu học này. Thêm/duyệt từ hoặc chọn Thẻ ôn; game hình cần 3 hình khác nhau."
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" locator('main [role=alert]') with timeout 5000ms
+      - waiting for locator('main [role=alert]')
+        14 × locator resolved to <p role="alert">Chưa đủ từ phù hợp cho kiểu học này. Thêm/duyệt t…</p>
+           - unexpected value "Chưa đủ từ phù hợp cho kiểu học này. Thêm/duyệt từ hoặc chọn Thẻ ôn; game hình cần 3 hình khác nhau."
+
+
+       6 |  await page.goto('/library');await expect(page.getByRole('link').filter({hasText:/apple/}).first()).toBeVisible();await page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('words-for-kids.local');r.onsuccess=()=>resolve(r.result);});await new Promise<void>((resolve,reject)=>{const tx=db.transaction(['senses','searchIndex'],'readwrite');for(const name of ['senses','searchIndex']){const store=tx.objectStore(name),r=store.getAll();r.onsuccess=()=>{for(const row of r.result)if(!['apple','banana','grapes'].includes(row.id))store.put({...row,art:row.id==='book'?'media-00000000-0000-4000-8000-000000000099':null});};}tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);});db.close();});
+       7 |  for(const name of ['Nhìn hình chọn từ','Nghe từ chọn hình']){await page.goto('/practice');await page.getByRole('button',{name,exact:true}).click();await expect(page.locator('.game-answers button')).toHaveCount(3);await expect(page.locator('.missing-art')).toHaveCount(0);const snapshots=await page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('words-for-kids.local');r.onsuccess=()=>resolve(r.result);});const rows=await new Promise<{payload:{session:{questions:{word:{id:string;art:string|null};choices:{id:string;art:string|null}[]}[]}}}[]>(resolve=>{const r=db.transaction('practiceSessions').objectStore('practiceSessions').getAll();r.onsuccess=()=>resolve(r.result);});db.close();return rows.flatMap(row=>row.payload.session.questions.flatMap(q=>[q.word,...q.choices]));});expect(snapshots.every(word=>!!word.art&&['apple','banana','grapes'].includes(word.id))).toBe(true);await page.screenshot({path:info.outputPath(`${name==='Nhìn hình chọn từ'?'picture-word':'word-picture'}.png`)});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);}
+    >  8 |  await page.goto('/practice?word=book');await page.getByRole('button',{name:'Nhìn hình chọn từ',exact:true}).click();await expect(page.locator('main [role=alert]')).toContainText('chỉ dùng từ đã có hình');await expect(page.locator('.game-answers')).toHaveCount(0);
+         |                                                                                                                                                                      ^
+       9 | });
+      10 | test('removing a distractor picture closes the active game and prevents old image reuse',async({page,context})=>{
+      11 |  await page.goto('/practice');await page.getByRole('button',{name:'Nghe từ chọn hình',exact:true}).click();await expect(page.locator('.game-answers button')).toHaveCount(3);
+        at /Users/trunglk/Documents/trung-github/VocabularyNotes/tests/e2e/ready-picture-games.spec.ts:8:166
+
+    Error Context: .local/game-start/baseline-test-results/ready-picture-games-both-p-de82f-rd-shows-a-recovery-message-baseline-mobile/error-context.md
+
+  4) [baseline-mobile] › tests/e2e/ready-picture-games.spec.ts:37:5 › saved word images render in all typing games and revoked images do not reveal the answer 
+
+    Test timeout of 15000ms exceeded.
+
+    Error: locator.click: Test timeout of 15000ms exceeded.
+    Call log:
+      - waiting for locator('.session-history-card').filter({ hasText: 'Tìm ký tự thiếu' })
+
+
+      46 |  await page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('words-for-kids.local');r.onsuccess=()=>resolve(r.result);});await new Promise<void>(resolve=>{const tx=db.transaction('mediaAssets','readwrite'),store=tx.objectStore('mediaAssets'),r=store.getAll();r.onsuccess=()=>{for(const row of r.result)if(row.payload.asset.word==='apple')store.put({...row,payload:{asset:{...row.payload.asset,approved:false,status:'revoked'}}});};tx.oncomplete=()=>resolve();});db.close();});
+      47 |  // Native IndexedDB writes bypass Dexie's mutation notifications; reopen to re-read the asset.
+    > 48 |  await page.reload();await page.locator('.session-history-card').filter({hasText:'Tìm ký tự thiếu'}).click();
+         |                                                                                                      ^
+      49 |  const stage=page.locator('.game-picture-small');await expect(stage.locator('.missing-art')).toBeVisible();await expect(stage).not.toContainText('apple');expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+      50 | });
+      51 |
+        at /Users/trunglk/Documents/trung-github/VocabularyNotes/tests/e2e/ready-picture-games.spec.ts:48:102
+
+    Error Context: .local/game-start/baseline-test-results/ready-picture-games-saved--b5c95-es-do-not-reveal-the-answer-baseline-mobile/error-context.md
+
+  4 failed
+    [baseline-desktop] › tests/e2e/ready-picture-games.spec.ts:5:5 › both picture games use only ready images; missing selected word shows a recovery message 
+    [baseline-desktop] › tests/e2e/ready-picture-games.spec.ts:37:5 › saved word images render in all typing games and revoked images do not reveal the answer 
+    [baseline-mobile] › tests/e2e/ready-picture-games.spec.ts:5:5 › both picture games use only ready images; missing selected word shows a recovery message 
+    [baseline-mobile] › tests/e2e/ready-picture-games.spec.ts:37:5 › saved word images render in all typing games and revoked images do not reveal the answer 

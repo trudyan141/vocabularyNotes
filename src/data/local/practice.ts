@@ -13,7 +13,7 @@ import { z } from "zod";
 import {safeArt} from "@/lib/media/catalog";
 import type { LocalRepository } from "./repository";
 import { RepositoryError } from "./repository";
-import type { LibraryWord, ScopedDocument } from "./types";
+import type { LibraryWord, ScopedDocument, SearchRow } from "./types";
 import { answerKey, schedule, type Rating, type ReviewState } from "@/lib/learning/srs";
 export type Mode="flashcard"|"picture-word"|"word-picture"|"letters"|"spelling"|"missing-letters"|"grammar"|"grammar-card";
 export type Question={id:string;word:LibraryWord;choices:LibraryWord[];missingIndex:number;missingIndices?:number[];grammar?:GrammarSnapshot};
@@ -35,10 +35,10 @@ export class PracticeRepository{
     if(!this.pictures.has(key))this.pictures.set(key,this.imageLoads(src).catch(()=>false));
     return this.pictures.get(key)!;
   }
-  private async picturedWords(words:LibraryWord[]){
+  private async picturedWords(words:LibraryWord[],limit=Number.POSITIVE_INFINITY){
     const result:LibraryWord[]=[];
     // Bound online downloads; missing images never become default game artwork.
-    for(let i=0;i<words.length;i+=2){const chunk=words.slice(i,i+2),ready=await Promise.all(chunk.map(word=>this.pictureLoads(word)));result.push(...chunk.filter((_,i)=>ready[i]));}
+    for(let i=0;i<words.length&&result.length<limit;){const chunk=words.slice(i,i+Math.min(2,limit-result.length)),ready=await Promise.all(chunk.map(word=>this.pictureLoads(word)));result.push(...chunk.filter((_,i)=>ready[i]));i+=chunk.length;}
     return result;
   }
   async pictureSessionLoaded(session:Session){
@@ -48,12 +48,20 @@ export class PracticeRepository{
     return (await this.picturedWords(words)).length===words.length;
   }
   private get table(){return this.repository.db.table<ScopedDocument>("practiceSessions");}
-  async sessions(){
-    const rows=await this.table.where("[scopeId+id]").between([this.repository.scope.id,""],[this.repository.scope.id,"\uffff"]).toArray();
-    const sessions=rows.filter(row=>!row.deletedAt).map(row=>row.payload.session as Session).filter(Boolean).sort((a,b)=>b.createdAt.localeCompare(a.createdAt));const visible:Session[]=[];
-    for(const session of sessions){if(session.completedAt){visible.push(session);continue;}const current=await this.repository.words(session.questions.map(q=>q.word.id));if(session.questions.every(q=>current.some(w=>w.id===q.word.id&&w.approved&&w.revision===q.word.revision))&&await this.pictureSessionLoaded(session)&& (await Promise.all(session.questions.map(q=>this.grammarCurrent(q)))).every(Boolean))visible.push(session);}return visible;
+  private async sessionCurrent(session:Session){
+    if(session.completedAt)return true;
+    const current=await this.repository.words(session.questions.map(q=>q.word.id));
+    return session.questions.every(q=>current.some(w=>w.id===q.word.id&&w.approved&&w.revision===q.word.revision))&&await this.pictureSessionLoaded(session)&&(await Promise.all(session.questions.map(q=>this.grammarCurrent(q)))).every(Boolean);
   }
-  async resumableSessions(){return (await this.sessions()).filter(session=>!session.completedAt&&sessionStarted(session));}
+  /** Load this URL's session only; unrelated saved rounds must not block it. */
+  async loadSession(id:string){const session=await this.get(id);return session&&await this.sessionCurrent(session)?session:undefined;}
+  private async visibleSessions(resumable=false){
+    const rows=await this.table.where('[scopeId+id]').between([this.repository.scope.id,''],[this.repository.scope.id,'\uffff']).toArray();
+    const sessions=rows.filter(row=>!row.deletedAt).map(row=>row.payload.session as Session).filter(session=>session&&(!resumable||!session.completedAt&&sessionStarted(session))).sort((a,b)=>b.createdAt.localeCompare(a.createdAt));
+    const visible:Session[]=[];for(const session of sessions)if(await this.sessionCurrent(session))visible.push(session);return visible;
+  }
+  async sessions(){return this.visibleSessions();}
+  async resumableSessions(){return this.visibleSessions(true);}
   async discardUnstarted(id:string){
     return this.repository.db.transaction('rw',this.table,async()=>{
       const row=await this.table.get([this.repository.scope.id,id]);const session=row?.payload.session as Session|undefined;
@@ -109,9 +117,9 @@ export class PracticeRepository{
       return {words:words.size,senses:meanings.size};
     });
   }
-  private async candidates(filter:PracticeFilter){
+  private async candidates(filter:PracticeFilter,existingIndex?:SearchRow[]){
     const scope=this.repository.scope.id;
-    const index=await this.repository.db.searchIndex.where('[scopeId+ordinal]').between([scope,''],[scope,'\uffff']).toArray();
+    const index=existingIndex??await this.repository.db.searchIndex.where('[scopeId+ordinal]').between([scope,''],[scope,'\uffff']).toArray();
     let candidates=index.filter(row=>row.approval&&(!filter.lesson||row.lessonIds.includes(filter.lesson)));
     if(filter.deck){const row=await this.repository.db.table<ScopedDocument>("decks").get([scope,filter.deck]);if(!row||row.deletedAt)throw new RepositoryError("not-ready");const deck=row.payload.deck as {senseIds:string[];group?:{wordIds:string[]}};const set=filter.set?(await groupContents(this.repository,row as StudyGroup)).sets.find(set=>set.id===filter.set):null;if(filter.set&&!set)throw new RepositoryError('not-ready');const ids=set?.wordIds??deck.group?.wordIds??deck.senseIds;candidates=candidates.filter(row=>ids.includes(row.id));}
     if(filter.word)candidates=candidates.filter(row=>row.id===filter.word);
@@ -122,39 +130,73 @@ export class PracticeRepository{
   async speakingWords(filter:PracticeFilter){
     return uniqueAggregateWords((await this.repository.words((await this.candidates(filter)).map(row=>row.id))).filter(word=>word.approved));
   }
+  private async roundWords(rows:SearchRow[],mode:Mode){
+    const scope=this.repository.scope.id,selected=new Set(rows.map(row=>row.id));
+    // Group explicit source aliases before the draw, retaining their primary ID.
+    const senses=await this.repository.db.senses.where('[scopeId+id]').between([scope,''],[scope,'\uffff']).toArray();
+    const groups=new Map<string,string>();
+    for(const sense of senses){
+      if(!selected.has(sense.id)||sense.deletedAt||sense.learningApprovalStatus!=='approved'||sense.approvedContentVersion!==sense.contentVersion)continue;
+      const aggregate=aggregateWordId(sense),key=JSON.stringify([sense.entryId,sense.pos,aggregate]);
+      if(!groups.has(key)||sense.id===aggregate)groups.set(key,sense.id);
+    }
+    const ids=shuffled([...groups.values()]),words:LibraryWord[]=[];
+    for(let i=0;i<ids.length&&words.length<10;i+=16){
+      const batch=await this.repository.words(ids.slice(i,i+16));
+      for(const word of batch){
+        if(!word.approved||!word.vi.trim()||!word.en.trim())continue;
+        if(mode==='letters'&&!/^[a-z]{2,30}$/i.test(word.word))continue;
+        if(mode==='missing-letters'&&!eligibleMissingLetters(word.word))continue;
+        words.push(word);if(words.length===10)break;
+      }
+    }
+    return words;
+  }
   async start(mode:Mode,filter:PracticeFilter={}):Promise<Session>{
     modes.parse(mode);practiceFilterSchema.parse(filter);
     this.pictures.clear();this.failedPictures.clear();
     if(mode==="grammar"||mode==="grammar-card")return this.startGrammar(mode,filter);
-    const selected=new Set((await this.candidates(filter)).map(row=>row.id));
-    const choiceScope=new Set((await this.candidates({...filter,word:undefined,due:false,weak:false})).map(row=>row.id));
     const scope=this.repository.scope.id;
-    const index=await this.repository.db.searchIndex.where("[scopeId+ordinal]").between([scope,""],[scope,"\uffff"]).toArray();
+    const index=await this.repository.db.searchIndex.where('[scopeId+ordinal]').between([scope,''],[scope,'\uffff']).toArray();
+    const pictureGame=mode==='picture-word'||mode==='word-picture';
+    const selectedRows=await this.candidates(filter,index),selected=new Set(selectedRows.map(row=>row.id));
+    const choiceScope=pictureGame?new Set((await this.candidates({...filter,word:undefined,due:false,weak:false},index)).map(row=>row.id)):new Set<string>();
     let candidates=index.filter(row=>row.approval);
     if(mode==="picture-word"||mode==="word-picture")candidates=candidates.filter(row=>!!safeArt(row.art));
     const picture=(word:LibraryWord)=>!!safeArt(word.art)&&word.approved&&!(["intelligent","smart","clever"].includes(word.word.toLowerCase())&&word.pos==="adjective");
-    let distractorWords=mode==="picture-word"||mode==="word-picture"?(await this.repository.words(candidates.map(row=>row.id))).filter(picture):[];
-    if(mode==='picture-word'||mode==='word-picture')distractorWords=await this.picturedWords(distractorWords);
+    const distractorWords=mode==="picture-word"||mode==="word-picture"?(await this.repository.words(candidates.map(row=>row.id))).filter(picture):[];
     candidates=candidates.filter(row=>selected.has(row.id));
-    let words=(await this.repository.words(candidates.map(row=>row.id))).filter(word=>word.vi.trim()&&word.en.trim());
+    let words=pictureGame?(await this.repository.words(candidates.map(row=>row.id))).filter(word=>word.vi.trim()&&word.en.trim()):await this.roundWords(selectedRows,mode);
     if(mode==="picture-word"||mode==="word-picture")words=words.filter(word=>picture(word)&&distractorWords.some(ready=>ready.id===word.id&&ready.revision===word.revision&&ready.art===word.art));
     if(mode==="letters")words=words.filter(word=>/^[a-z]{2,30}$/i.test(word.word));
     if(mode==="missing-letters")words=words.filter(word=>eligibleMissingLetters(word.word));
     const unique=distractorWords.filter((word,i)=>distractorWords.findIndex(other=>answerKey(other.word,other.caseMode)===answerKey(word.word,word.caseMode))===i);
-    const distractorPool=mode==="picture-word"||mode==="word-picture"?unique:words;
+    const distractorPool=pictureGame?unique:[];
     if((mode==="picture-word"||mode==="word-picture")&&unique.length<3)throw new RepositoryError("not-ready");
     if(!words.length)throw new RepositoryError("not-ready");
     const id=crypto.randomUUID(),at=new Date().toISOString();
-    const questions:Question[]=[];
-    for(const word of shuffled(uniqueAggregateWords(words))){
-      const eligible=distractorPool.filter(other=>answerKey(other.word,other.caseMode)!==answerKey(word.word,word.caseMode)&&other.vi!==word.vi&&other.art!==word.art);
-      const preferred=shuffled(eligible.filter(other=>choiceScope.has(other.id))).slice(0,2);
-      const candidates=[...preferred,...shuffled(eligible.filter(other=>!choiceScope.has(other.id))).slice(0,2-preferred.length)];
-      const choices=shuffled([word,...candidates]);
-      if((mode==='picture-word'||mode==='word-picture')&&choices.length<3)continue;
-      const missingIndices=(mode==='missing-letters'||mode==='letters')?missingLetterPositions(word.word):undefined;
-      questions.push({id:crypto.randomUUID(),word:withoutWordMemberships(word),choices:choices.map(withoutWordMemberships),missingIndex:missingIndices?.[0]??Math.max(0,Math.floor(word.word.length/2)),...(missingIndices?{missingIndices}:{})});
-      if(questions.length===10)break;
+    const questions:Question[]=[],targets=shuffled(uniqueAggregateWords(words)),decoded=new Set<string>();
+    // Draw from the full pool, but decode only this round's targets and choices.
+    // Continue past unavailable candidates without limiting eligibility to a prefix.
+    for(let offset=0;offset<targets.length&&questions.length<10;offset+=10){
+      const batch=targets.slice(offset,offset+10),ready=pictureGame?await this.picturedWords(batch):batch;
+      for(const word of ready)decoded.add(word.id);
+      for(const word of ready){
+        const eligible=distractorPool.filter(other=>answerKey(other.word,other.caseMode)!==answerKey(word.word,word.caseMode)&&other.vi!==word.vi&&other.art!==word.art);
+        const peers=shuffled(eligible.filter(other=>choiceScope.has(other.id)));
+        // Reuse decoded choices within the same lesson/group before fetching more.
+        if(pictureGame)peers.sort((a,b)=>Number(decoded.has(b.id))-Number(decoded.has(a.id)));
+        const preferred=pictureGame?await this.picturedWords(peers,2):peers.slice(0,2);
+        const outside=shuffled(eligible.filter(other=>!choiceScope.has(other.id)));
+        if(pictureGame)outside.sort((a,b)=>Number(decoded.has(b.id))-Number(decoded.has(a.id)));
+        const fallback=pictureGame?await this.picturedWords(outside,2-preferred.length):outside.slice(0,2-preferred.length);
+        for(const choice of [...preferred,...fallback])decoded.add(choice.id);
+        const choices=shuffled([word,...preferred,...fallback]);
+        if(pictureGame&&choices.length<3)continue;
+        const missingIndices=(mode==='missing-letters'||mode==='letters')?missingLetterPositions(word.word):undefined;
+        questions.push({id:crypto.randomUUID(),word:withoutWordMemberships(word),choices:choices.map(withoutWordMemberships),missingIndex:missingIndices?.[0]??Math.max(0,Math.floor(word.word.length/2)),...(missingIndices?{missingIndices}:{})});
+        if(questions.length===10)break;
+      }
     }
     if(!questions.length)throw new RepositoryError("not-ready");
     const session:Session={id,scopeId:this.repository.scope.id,mode,filter,direction:filter.direction??"en-vi",questions,position:0,revealed:false,hint:false,checkedAnswer:null,checkedCorrect:null,answers:[],completedAt:null,version:1,createdAt:at};

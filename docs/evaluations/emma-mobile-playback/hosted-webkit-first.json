@@ -1,0 +1,37 @@
+{
+  "base": "https://words-for-kids.vercel.app",
+  "at": "2026-10-18T16:51:59.664Z",
+  "device": "isolated WebKit27.2 iPhone12 viewport; not physical iOS",
+  "errors": [],
+  "checks": [
+    "actual hosted MP3 playing and Emma source",
+    "slow 0.6/pitch and replay single synthesis",
+    "route leave and return"
+  ],
+  "engine": "27.2",
+  "api": {
+    "status": 200,
+    "type": "audio/mpeg",
+    "cache": "private, no-store",
+    "timing": "edge_connect;dur=209, edge_first_audio;dur=343, edge_complete;dur=565"
+  },
+  "playing": [
+    {
+      "rate": 1,
+      "pitch": true,
+      "at": 3502
+    },
+    {
+      "rate": 0.6,
+      "pitch": true,
+      "at": 3685
+    }
+  ],
+  "ttsRequests": 1,
+  "pwa": {
+    "controller": false,
+    "registrations": 1,
+    "manifest": true
+  },
+  "status": "passed"
+}

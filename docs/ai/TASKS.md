@@ -1,5 +1,14 @@
 # Task ledger — current acceptance
 
+Direct UI follow-up19/10 — **quiet audio pending status: deployed / ready for founder retest**. Removed preparing/starting text under speaker, keeping Stop/error/retry;3native productionUI Chromium/WebKit/lint/types/build PASS. [Evidence](../evaluations/emma-mobile-playback.md). No new test for literal copy.
+
+
+Direct bugfix19/10 — **game start preparation: fixed/deployed / ready for founder retest**.54logic+39productionUI incl WebKit/lint/types/build PASS; hosted16/16modes with SWcontroller PASS; selection/progress/reload/back/replay/media invalidation retained. New local session avoids server navigation, target-only revalidation, round-only picture decoding. [Evidence](../evaluations/game-start.md); physical iPhone acceptance pending.
+
+
+Direct bugfix18/10 — **Emma WordDetail on iPhone12/PWA: fixed/deployed / ready for founder retest**. Founder sees preparing then timeout. Root repro on native WebKit: decode-failed primer promise awaited before actual MP3. Scoped fix+gesture-bound cache retry+cleanup;11logic/33productionUI across3browser profiles/lint/types/build PASS. [Evidence](../evaluations/emma-mobile-playback.md). Hosted WebKit native MP3 normal/slow/replay with active SW controller PASS; physical PWA retest remains founder acceptance. Previous Chromium smoke did not prove iOS playback.
+
+
 Direct task18/10 — **mobile performance + Emma TTS: implemented/deployed / founder device acceptance pending**. [Guide](MOBILE-PERFORMANCE-AND-EMMA-PLAN.md), [final evidence](../evaluations/mobile-performance.md). MP1–5 execution complete;90logic+100unique productionUI scoped PASS/lint/types/build; main nav/search/replay lab targets met. Cold LCP/initial JS still exceed budget; field/iPhone12 installed PWA acceptance remains open. Current shared Nghe priority supersedes older Commons→device→Edge ordering below.
 
 Direct bugfix16/10 — local4317reload: Turbopack restored / scoped verified; exact initiating trigger unconfirmed. Original liveHMR loop68nav/15s; process restart retaining cache yields1document/12s,0restart/errors.4realTurbo desktop/mobile +sourceHMR/typegen probes PASS; previous4devWebpack+4production/build/lint/types/8scoped tests remain recorded. Founder manual pending. [Evidence](../evaluations/dev-reload-loop.md).

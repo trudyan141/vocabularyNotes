@@ -16,8 +16,11 @@ export function workflowConfig(scope: Scope): PlaywrightTestConfig {
   const app = (appPort: number, demo: boolean) => ({ command: `${next} ${appPort}`, cwd: workspace, url: `http://127.0.0.1:${appPort}/api/health`, reuseExistingServer: false,
     env: { APP_DEMO_MODE: String(demo), AI_PROVIDER: 'none', OPENAI_API_KEY: 'server-boundary-canary', MEDIA_IMPORT_SIGNING_SECRET: 'test-only-media-receipt-key-32-characters' }, timeout: dev ? 90_000 : 30_000 });
   const cloud = { command: 'node scripts/cloud-test-server.mjs --test', cwd: workspace, url: 'http://127.0.0.1:4328/api/health', reuseExistingServer: false, timeout: 60_000 };
-  const ui = ['desktop-chromium', 'mobile-chromium'].map(name => ({ name, testMatch: selected ?? '*.spec.ts', testIgnore: [...cloudSpecs, ...noDemoSpecs],
+  const ui: NonNullable<PlaywrightTestConfig['projects']> = ['desktop-chromium', 'mobile-chromium'].map(name => ({ name, testMatch: selected ?? '*.spec.ts', testIgnore: [...cloudSpecs, ...noDemoSpecs],
     use: { ...(name === 'desktop-chromium' ? devices['Desktop Chrome'] : devices['Pixel 7']), viewport: name === 'desktop-chromium' ? { width: 1280, height: 1000 } : { width: 360, height: 800 }, baseURL: `http://127.0.0.1:${port}` } }));
+  const webkitAudioSpecs=['emma-mobile.spec.ts','pronunciation-audio.spec.ts','game-start.spec.ts'];
+  const selectedWebkit=selected?.filter(file=>webkitAudioSpecs.includes(file))??webkitAudioSpecs;
+  if(selectedWebkit.length)ui.push({name:'mobile-webkit',testMatch:selectedWebkit,use:{...devices['iPhone 12'],baseURL:`http://127.0.0.1:${port}`}});
   const projects = scope === 'ui' ? ui : scope === 'no-demo' ? [{ name: 'demo-disabled', testMatch: selected ?? noDemoSpecs, use: { ...devices['Desktop Chrome'], baseURL: `http://127.0.0.1:${port}` } }]
     : scope === 'cloud' ? [{ name: 'cloud-integration', testMatch: selected ?? cloudSpecs, use: { ...devices['Desktop Chrome'], baseURL: 'http://127.0.0.1:4328' } }]
       : [...ui, { name: 'cloud-integration', testMatch: cloudSpecs, use: { ...devices['Desktop Chrome'], baseURL: 'http://127.0.0.1:4328' } }, { name: 'demo-disabled', testMatch: noDemoSpecs, use: { ...devices['Desktop Chrome'], baseURL: 'http://127.0.0.1:4322' } }];

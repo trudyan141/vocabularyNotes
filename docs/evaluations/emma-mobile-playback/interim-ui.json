@@ -1,0 +1,63 @@
+{
+  "startedAt": "2026-10-18T16:46:41.990Z",
+  "sourceRoot": "/Users/trunglk/Documents/trung-github/VocabularyNotes",
+  "commit": "557228bd78fad6e8f982d331bc8529c11e8c3208",
+  "fingerprint": "4bb0713ab4168e8180bde094d75d7ca27a916b77cb1eb58cb9aa3bd26178c8e0",
+  "scope": "ui",
+  "mode": "production",
+  "specs": [
+    "emma-mobile.spec.ts",
+    "pronunciation-audio.spec.ts"
+  ],
+  "node": "v24.14.1",
+  "provider": "fixture",
+  "commands": [
+    {
+      "label": "discovery",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--config",
+        "playwright.scoped.config.ts",
+        "--list",
+        "--reporter=list"
+      ],
+      "elapsedMs": 766,
+      "exitCode": 0,
+      "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-sY42iN/discovery.log"
+    },
+    {
+      "label": "build",
+      "command": [
+        "pnpm",
+        "build",
+        "--webpack"
+      ],
+      "elapsedMs": 30563,
+      "exitCode": 0,
+      "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-sY42iN/build.log"
+    },
+    {
+      "label": "browser",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--config",
+        "playwright.scoped.config.ts",
+        "--reporter=line"
+      ],
+      "elapsedMs": 70353,
+      "exitCode": 1,
+      "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-sY42iN/browser.log"
+    }
+  ],
+  "tokens": "unavailable",
+  "discoveredTests": 33,
+  "snapshot": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-source-NFgN5t",
+  "status": "failed",
+  "finishedAt": "2026-10-18T16:48:24.886Z"
+}

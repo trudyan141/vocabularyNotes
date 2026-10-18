@@ -1,4 +1,5 @@
 import {test,expect,type Page} from '@playwright/test';
+test.use({serviceWorkers:'block'});
 const sample={word:'apple',accent:'US',ipa:'/ˈæpəl/',audioUrl:'https://upload.wikimedia.org/wikipedia/commons/test/en-us-apple.mp3',sourceUrl:'https://commons.wikimedia.org/wiki/File:En-us-apple.ogg',dictionaryUrl:'https://en.wiktionary.org/wiki/apple',creator:'Fixture speaker',license:'CC BY-SA 3.0',licenseUrl:'https://creativecommons.org/licenses/by-sa/3.0/'};
 function wav(){const length=16000,bytes=Buffer.alloc(44+length*2);bytes.write('RIFF');bytes.writeUInt32LE(bytes.length-8,4);bytes.write('WAVEfmt ',8);bytes.writeUInt32LE(16,16);bytes.writeUInt16LE(1,20);bytes.writeUInt16LE(1,22);bytes.writeUInt32LE(16000,24);bytes.writeUInt32LE(32000,28);bytes.writeUInt16LE(2,32);bytes.writeUInt16LE(16,34);bytes.write('data',36);bytes.writeUInt32LE(length*2,40);for(let i=0;i<length;i++)bytes.writeInt16LE(Math.round(Math.sin(i*2*Math.PI*220/16000)*2000),44+i*2);return bytes;}
 async function fixture(page:Page){

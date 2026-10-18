@@ -6,6 +6,14 @@ type Pending={controller:AbortController;promise:Promise<Blob>;users:number};
 const clips=new Map<string,Clip>(),pending=new Map<string,Pending>();
 let bytes=0,generation=0;
 const aborted=()=>new DOMException('Audio cancelled','AbortError');
+const clipKey=(scope:string,text:string)=>JSON.stringify([scope,text,edgeVoice,1,'mp3']);
+/** Synchronous cache reads keep a retry/replay inside the user's playback gesture. */
+export function cachedEdgeAudio(scope:string,text:string):Blob|undefined{
+ const key=clipKey(scope,text),clip=clips.get(key);
+ if(!clip)return;
+ if(clip.expires<=Date.now()){remove(key);return;}
+ clips.delete(key);clips.set(key,clip);return clip.blob;
+}
 function remove(key:string){const clip=clips.get(key);if(clip){bytes-=clip.blob.size;clips.delete(key);}}
 export function clearEdgeAudio(){
  generation++;
@@ -16,10 +24,10 @@ export function edgeAudio(scope:string,text:string,signal:AbortSignal):Promise<B
  if(signal.aborted)return Promise.reject(aborted());
  if(!scope||!text.trim()||text.length>600)return Promise.reject(new Error('invalid-text'));
  // Synthesis is always rate 1; normal/slow are pitch-preserving playback rates.
- const key=JSON.stringify([scope,text,edgeVoice,1,'mp3']);
+ const key=clipKey(scope,text);
  for(const [id,clip] of clips)if(clip.expires<=Date.now())remove(id);
- const cached=clips.get(key);
- if(cached){clips.delete(key);clips.set(key,cached);return Promise.resolve(cached.blob);}
+ const cached=cachedEdgeAudio(scope,text);
+ if(cached)return Promise.resolve(cached);
  let item=pending.get(key);
  if(!item){
   const controller=new AbortController(),ticket=generation;

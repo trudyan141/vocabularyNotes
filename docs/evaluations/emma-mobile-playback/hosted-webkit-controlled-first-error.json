@@ -1,0 +1,15 @@
+{
+  "base": "https://words-for-kids.vercel.app",
+  "at": "2026-10-18T16:52:38.450Z",
+  "device": "isolated WebKit27.2 iPhone12 viewport; not physical iOS",
+  "errors": [],
+  "checks": [],
+  "engine": "27.2",
+  "api": {
+    "status": 503,
+    "type": "application/json",
+    "cache": "private, no-store"
+  },
+  "status": "failed",
+  "error": "page.waitForFunction: Timeout 20000ms exceeded."
+}

@@ -1,5 +1,10 @@
 # Words for Kids — kế hoạch sản phẩm dành cho founder
 
+## Mở game trên mobile — follow-up19/10/2026
+
+Đã sửa và deploy: chọn game không đợi server để đổi URL session; lượt mới dùng bản vừa lưu trên máy, resume/reload kiểm đúng lượt; chỉ kiểm ảnh cần cho tối đa10câu, vẫn random toàn phạm vi bài/nhóm và giữ ảnh đã duyệt/tiến độ. Không giảm số câu hoặc mất nghĩa từ để làm nhanh. Lab5000từ: Thẻ ôn1016→321ms, Gõ từ1039→361ms; game hình lần tải ảnh đầu còn~1,4s ở mạng chậm. Smoke domain với cache/SW70–152ms trên Chromium/WebKit là mẫu giả lập, không phải iPhone thật.54logic/39UI+16hosted-mode checks PASS. [Báo cáo/giới hạn](evaluations/game-start.md). Founder đóng/mở PWA rồi test game, phạm vi bài/nhóm, reload/tiếp tục/chơi lại; không xóa app hoặc dữ liệu.
+
+
 ## Mobile iPhone/PWA và Emma — founder duyệt18/10/2026
 
 Đã triển khai và deploy theo [hướng dẫn đã duyệt](ai/MOBILE-PERFORMANCE-AND-EMMA-PLAN.md): đo production/mobile, sửa chuyển trang và đọc thư viện lớn theo trace, đưa Emma US Natural vào nút Nghe chung, kiểm trước/sau rồi deploy để founder test lại. Chỉ prefetch nav chính, không làm mất nghĩa từ hoặc tiến độ. Emma online được gọi ngay, phát lại từ cache RAM theo thư viện; offline/lỗi dùng giọng máy nếu có. Không thêm key/env/phí provider; không đưa text/audio vào IDB/cloud/backup. Gemini chấm nói giữ riêng.

@@ -1,5 +1,8 @@
 # Ôn tập, flashcard và minigame
 
+Game-start performance follow-up: chọn một lượt đã lưu tại `/practice?...session=id` là state local cùng route, cập nhật URL bằng native history để không đợi server/RSC. Lượt mới hiện từ snapshot vừa lưu; reload/resume kiểm đúng ID trong scope, giữ approval/revision/media/CAS/replay/progress. Gate lựa chọn chỉ reset theo scope/path/bộ lọc thật. Game hình random từ toàn pool, chỉ decode targets/choices cần cho tối đa10câu, concurrency2 và ưu tiên distractor đã decode trong cùng bài/nhóm trước global fallback; vẫn loại ảnh hỏng và kiểm mọi ảnh trong session trước lưu. Game không có lựa chọn hình rút từ toàn bộ nhóm source đã duyệt rồi chỉ hydrate16từ mỗi batch đến đủ10từ hợp lệ; không tạo distractor không dùng. Resume cards không hydrate/đọc ảnh của lượt chưa bắt đầu hoặc đã xong. [Evidence](evaluations/game-start.md).
+
+
 15/10 founder follow-up ADR087: lượt mới của cả **Điền chữ thiếu** và **Tìm ký tự thiếu** giấu ngẫu nhiên2–3chữ khi có ít nhất3chữ cái; từ2chữ chỉ giấu1để còn cue. Sau Kiểm tra hiện nguyên từ đúng phía trên, đúng/sai đều vậy; lời nhắc sai tô đậm riêng đáp án. Online/offline cùng luật; snapshot lượt cũ giữ nguyên, không sửa lịch sử/content/SRS. [Evidence](evaluations/missing-letter-corrections.md).
 
 15/10 ADR095: mọi lượt Speaking đã thu có điểm0–100; không rõ→0, lỗi dịch vụ→tạm0 kèm lý do, không fake lỗi phát âm. Nhận âm Gemini không gửi đáp án, schema v3; app đối chiếu/tính điểm. Endpoint/request đã rút giới hạn chờ; [spec15](15-speaking-practice.md), [evidence](evaluations/speaking-zero-and-latency.md). Acoustic quality vẫn pending.

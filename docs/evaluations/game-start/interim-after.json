@@ -1,0 +1,2703 @@
+{
+  "base": "http://127.0.0.1:4387",
+  "at": "2026-10-18T17:07:03.748Z",
+  "profile": {
+    "engine": "Chromium iPhone12 emulation; not physical iOS",
+    "cpu": 4,
+    "network": {
+      "rtt": 150,
+      "downBps": 200000,
+      "upBps": 93750
+    },
+    "serviceWorkers": "blocked",
+    "runs": 3,
+    "cache": "new context per first launch; regular browser cache"
+  },
+  "samples": [
+    {
+      "count": 20,
+      "mode": "flashcard",
+      "run": 0,
+      "ms": 281,
+      "requests": [],
+      "tx": [
+        {
+          "start": 4119.300000011921,
+          "ms": 60.5,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4176.099999964237,
+          "ms": 5.700000047683716,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4179.699999988079,
+          "ms": 4.899999976158142,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4180.699999988079,
+          "ms": 35.19999998807907,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 4218.699999988079,
+          "ms": 12,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4222.300000011921,
+          "ms": 23.799999952316284,
+          "stores": [
+            "practiceSessions"
+          ]
+        }
+      ],
+      "pictures": [],
+      "started": 4115.699999988079
+    },
+    {
+      "count": 20,
+      "mode": "flashcard",
+      "run": 1,
+      "ms": 327,
+      "requests": [],
+      "tx": [
+        {
+          "start": 3436,
+          "ms": 16.900000035762787,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 3479.800000011921,
+          "ms": 59.19999998807907,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3536.800000011921,
+          "ms": 2.900000035762787,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3537.900000035763,
+          "ms": 5.699999988079071,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3366.400000035763,
+          "ms": 238.5999999642372,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "searchIndex",
+            "senses"
+          ]
+        },
+        {
+          "start": 3539.900000035763,
+          "ms": 87.39999997615814,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 3629.800000011921,
+          "ms": 7.699999988079071,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 3632.400000035763,
+          "ms": 16.30000001192093,
+          "stores": [
+            "practiceSessions"
+          ]
+        }
+      ],
+      "pictures": [],
+      "started": 3476.300000011921
+    },
+    {
+      "count": 20,
+      "mode": "flashcard",
+      "run": 2,
+      "ms": 239,
+      "requests": [],
+      "tx": [
+        {
+          "start": 3917.5,
+          "ms": 56.59999996423721,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3971.099999964237,
+          "ms": 8.600000023841858,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3973.399999976158,
+          "ms": 7.199999988079071,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3976.800000011921,
+          "ms": 21.299999952316284,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 4000.599999964237,
+          "ms": 10.700000047683716,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4006,
+          "ms": 15.599999964237213,
+          "stores": [
+            "practiceSessions"
+          ]
+        }
+      ],
+      "pictures": [],
+      "started": 3914.899999976158
+    },
+    {
+      "count": 20,
+      "mode": "spelling",
+      "run": 0,
+      "ms": 201,
+      "requests": [
+        {
+          "at": 1792343240715,
+          "path": "/profile"
+        }
+      ],
+      "tx": [
+        {
+          "start": 3926.399999976158,
+          "ms": 58.90000003576279,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3977.600000023842,
+          "ms": 17,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3986.100000023842,
+          "ms": 9.799999952316284,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3989.100000023842,
+          "ms": 23.799999952316284,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 4015.399999976158,
+          "ms": 9.300000011920929,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4019.5,
+          "ms": 18.30000001192093,
+          "stores": [
+            "practiceSessions"
+          ]
+        }
+      ],
+      "pictures": [],
+      "started": 3922.800000011921
+    },
+    {
+      "count": 20,
+      "mode": "spelling",
+      "run": 1,
+      "ms": 260,
+      "requests": [
+        {
+          "at": 1792343244452,
+          "path": "/profile"
+        }
+      ],
+      "tx": [
+        {
+          "start": 3432.599999964237,
+          "ms": 14.300000011920929,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 3366.599999964237,
+          "ms": 123.10000002384186,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "searchIndex",
+            "senses"
+          ]
+        },
+        {
+          "start": 3508.300000011921,
+          "ms": 82.69999998807907,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3566.300000011921,
+          "ms": 30.69999998807907,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3582.300000011921,
+          "ms": 16.19999998807907,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3596.199999988079,
+          "ms": 31.399999976158142,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 3630.699999988079,
+          "ms": 7.600000023841858,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 3632.599999964237,
+          "ms": 16.400000035762787,
+          "stores": [
+            "practiceSessions"
+          ]
+        }
+      ],
+      "pictures": [],
+      "started": 3504.899999976158
+    },
+    {
+      "count": 20,
+      "mode": "spelling",
+      "run": 2,
+      "ms": 333,
+      "requests": [
+        {
+          "at": 1792343248163,
+          "path": "/profile"
+        }
+      ],
+      "tx": [
+        {
+          "start": 3422.099999964237,
+          "ms": 11,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 3464.5,
+          "ms": 58.799999952316284,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3523.199999988079,
+          "ms": 0.800000011920929,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3523.899999976158,
+          "ms": 2.199999988079071,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3361,
+          "ms": 219.79999995231628,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "searchIndex",
+            "senses"
+          ]
+        },
+        {
+          "start": 3524.899999976158,
+          "ms": 91.5,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 3618.899999976158,
+          "ms": 8.800000011920929,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 3623.199999988079,
+          "ms": 17.30000001192093,
+          "stores": [
+            "practiceSessions"
+          ]
+        }
+      ],
+      "pictures": [],
+      "started": 3461.899999976158
+    },
+    {
+      "count": 20,
+      "mode": "picture-word",
+      "run": 0,
+      "ms": 1408,
+      "requests": [],
+      "tx": [
+        {
+          "start": 3514.399999976158,
+          "ms": 60.19999998807907,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3560.899999976158,
+          "ms": 16.30000001192093,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3570.699999988079,
+          "ms": 10.099999964237213,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3576.5,
+          "ms": 48,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 3624.7999999523163,
+          "ms": 17.30000001192093,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 4484.399999976158,
+          "ms": 6.800000011920929,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4487.099999964237,
+          "ms": 13.800000011920929,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4507.5,
+          "ms": 21.19999998807907,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        }
+      ],
+      "pictures": [
+        {
+          "src": "http://127.0.0.1:4387/illustrations/apple.svg",
+          "ms": 0.5
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/fish.svg",
+          "ms": 161
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/book.svg",
+          "ms": 0.9000000357627869
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/pen.svg",
+          "ms": 164.30000001192093
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/sun.svg",
+          "ms": 165.39999997615814
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/banana.svg",
+          "ms": 172.39999997615814
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/grapes.svg",
+          "ms": 166.5
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/egg.svg",
+          "ms": 172.10000002384186
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/bag.svg",
+          "ms": 1.199999988079071
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/orange.svg",
+          "ms": 164.80000001192093
+        }
+      ],
+      "started": 3511.5
+    },
+    {
+      "count": 20,
+      "mode": "picture-word",
+      "run": 1,
+      "ms": 1399,
+      "requests": [],
+      "tx": [
+        {
+          "start": 3430.899999976158,
+          "ms": 11.399999976158142,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 3473.199999988079,
+          "ms": 49.59999996423721,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3521.899999976158,
+          "ms": 7.199999988079071,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3523.5,
+          "ms": 6.399999976158142,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3372.2999999523163,
+          "ms": 187.80000001192093,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "searchIndex",
+            "senses"
+          ]
+        },
+        {
+          "start": 3528.699999988079,
+          "ms": 60.09999996423721,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 3589.199999988079,
+          "ms": 31.899999976158142,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 4438.199999988079,
+          "ms": 8,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4441.299999952316,
+          "ms": 15.300000011920929,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4462.599999964237,
+          "ms": 20.30000001192093,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        }
+      ],
+      "pictures": [
+        {
+          "src": "http://127.0.0.1:4387/illustrations/apple.svg",
+          "ms": 4.400000035762787
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/fish.svg",
+          "ms": 159.5
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/book.svg",
+          "ms": 0.7999999523162842
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/pen.svg",
+          "ms": 164.60000002384186
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/banana.svg",
+          "ms": 157.10000002384186
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/sun.svg",
+          "ms": 163.60000002384186
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/grapes.svg",
+          "ms": 158.30000001192093
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/egg.svg",
+          "ms": 166.19999998807907
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/bag.svg",
+          "ms": 0.19999998807907104
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/orange.svg",
+          "ms": 157.30000001192093
+        }
+      ],
+      "started": 3470.2999999523163
+    },
+    {
+      "count": 20,
+      "mode": "picture-word",
+      "run": 2,
+      "ms": 1402,
+      "requests": [],
+      "tx": [
+        {
+          "start": 3424.699999988079,
+          "ms": 15,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 3467.199999988079,
+          "ms": 54.80000001192093,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3519.899999976158,
+          "ms": 2.800000011920929,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3521.800000011921,
+          "ms": 3.699999988079071,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3358.599999964237,
+          "ms": 202.10000002384186,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "searchIndex",
+            "senses"
+          ]
+        },
+        {
+          "start": 3523.5,
+          "ms": 83.30000001192093,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 3607.800000011921,
+          "ms": 22.099999964237213,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 4451.899999976158,
+          "ms": 6.800000011920929,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4454,
+          "ms": 13.5,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4474.599999964237,
+          "ms": 20,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        }
+      ],
+      "pictures": [
+        {
+          "src": "http://127.0.0.1:4387/illustrations/apple.svg",
+          "ms": 0.6000000238418579
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/fish.svg",
+          "ms": 164.9000000357628
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/book.svg",
+          "ms": 0.699999988079071
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/pen.svg",
+          "ms": 157.5999999642372
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/sun.svg",
+          "ms": 157.60000002384186
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/banana.svg",
+          "ms": 164.80000001192093
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/egg.svg",
+          "ms": 164.70000004768372
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/grapes.svg",
+          "ms": 171.9000000357628
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/bag.svg",
+          "ms": 0.800000011920929
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/orange.svg",
+          "ms": 156.70000004768372
+        }
+      ],
+      "started": 3463.5
+    },
+    {
+      "count": 20,
+      "mode": "word-picture",
+      "run": 0,
+      "ms": 1381,
+      "requests": [
+        {
+          "at": 1792343268266,
+          "path": "/today"
+        },
+        {
+          "at": 1792343268266,
+          "path": "/library"
+        },
+        {
+          "at": 1792343268266,
+          "path": "/settings"
+        },
+        {
+          "at": 1792343268430,
+          "path": "/today"
+        },
+        {
+          "at": 1792343268433,
+          "path": "/library"
+        },
+        {
+          "at": 1792343268441,
+          "path": "/settings"
+        }
+      ],
+      "tx": [
+        {
+          "start": 3914.899999976158,
+          "ms": 49.89999997615814,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3961.7999999523163,
+          "ms": 10.300000011920929,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3964.199999988079,
+          "ms": 8.399999976158142,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3969.2999999523163,
+          "ms": 22.80000001192093,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 3992.199999988079,
+          "ms": 19.899999976158142,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 4858.599999964237,
+          "ms": 5.100000023841858,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4861.699999988079,
+          "ms": 10.199999988079071,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4877.899999976158,
+          "ms": 20.80000001192093,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        }
+      ],
+      "pictures": [
+        {
+          "src": "http://127.0.0.1:4387/illustrations/apple.svg",
+          "ms": 0.699999988079071
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/fish.svg",
+          "ms": 167.20000004768372
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/book.svg",
+          "ms": 0.8999999761581421
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/pen.svg",
+          "ms": 164.10000002384186
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/banana.svg",
+          "ms": 165.9000000357628
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/sun.svg",
+          "ms": 173.5
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/egg.svg",
+          "ms": 163.5
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/grapes.svg",
+          "ms": 170.79999995231628
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/bag.svg",
+          "ms": 0.800000011920929
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/orange.svg",
+          "ms": 166.89999997615814
+        }
+      ],
+      "started": 3912
+    },
+    {
+      "count": 20,
+      "mode": "word-picture",
+      "run": 1,
+      "ms": 1376,
+      "requests": [
+        {
+          "at": 1792343273561,
+          "path": "/today"
+        },
+        {
+          "at": 1792343273561,
+          "path": "/library"
+        },
+        {
+          "at": 1792343273561,
+          "path": "/settings"
+        },
+        {
+          "at": 1792343273721,
+          "path": "/today"
+        },
+        {
+          "at": 1792343273725,
+          "path": "/library"
+        },
+        {
+          "at": 1792343273731,
+          "path": "/settings"
+        }
+      ],
+      "tx": [
+        {
+          "start": 3895.900000035763,
+          "ms": 46.59999996423721,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3941.300000011921,
+          "ms": 3.400000035762787,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3943.2000000476837,
+          "ms": 5.5,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3947.100000023842,
+          "ms": 18.399999976158142,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 3966,
+          "ms": 16.400000035762787,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 4813.700000047684,
+          "ms": 6.599999964237213,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4816.400000035763,
+          "ms": 12.099999964237213,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4834.200000047684,
+          "ms": 19.099999964237213,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        }
+      ],
+      "pictures": [
+        {
+          "src": "http://127.0.0.1:4387/illustrations/apple.svg",
+          "ms": 1.899999976158142
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/fish.svg",
+          "ms": 158.30000001192093
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/book.svg",
+          "ms": 0.800000011920929
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/pen.svg",
+          "ms": 164.70000004768372
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/sun.svg",
+          "ms": 157.10000002384186
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/banana.svg",
+          "ms": 164.69999998807907
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/grapes.svg",
+          "ms": 166.70000004768372
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/egg.svg",
+          "ms": 172.9000000357628
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/bag.svg",
+          "ms": 0.5
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/orange.svg",
+          "ms": 165.5
+        }
+      ],
+      "started": 3893.7000000476837
+    },
+    {
+      "count": 20,
+      "mode": "word-picture",
+      "run": 2,
+      "ms": 1382,
+      "requests": [
+        {
+          "at": 1792343278859,
+          "path": "/today"
+        },
+        {
+          "at": 1792343278859,
+          "path": "/library"
+        },
+        {
+          "at": 1792343278859,
+          "path": "/settings"
+        },
+        {
+          "at": 1792343279020,
+          "path": "/today"
+        },
+        {
+          "at": 1792343279026,
+          "path": "/library"
+        },
+        {
+          "at": 1792343279032,
+          "path": "/settings"
+        }
+      ],
+      "tx": [
+        {
+          "start": 3915.300000011921,
+          "ms": 54.80000001192093,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3966.300000011921,
+          "ms": 6.100000023841858,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3969.900000035763,
+          "ms": 6,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 3974.900000035763,
+          "ms": 23.099999964237213,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 3998.5,
+          "ms": 22,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 4842,
+          "ms": 8.5,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4845.100000023842,
+          "ms": 14.5,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4865.300000011921,
+          "ms": 23.400000035762787,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        }
+      ],
+      "pictures": [
+        {
+          "src": "http://127.0.0.1:4387/illustrations/apple.svg",
+          "ms": 0.5999999642372131
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/fish.svg",
+          "ms": 158.19999998807907
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/book.svg",
+          "ms": 0.6000000238418579
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/pen.svg",
+          "ms": 164.19999998807907
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/banana.svg",
+          "ms": 164
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/sun.svg",
+          "ms": 172.20000004768372
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/grapes.svg",
+          "ms": 156.79999995231628
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/egg.svg",
+          "ms": 164.89999997615814
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/bag.svg",
+          "ms": 0.699999988079071
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/orange.svg",
+          "ms": 155.89999997615814
+        }
+      ],
+      "started": 3912.600000023842
+    },
+    {
+      "count": 5000,
+      "mode": "flashcard",
+      "run": 0,
+      "ms": 1072,
+      "requests": [],
+      "tx": [
+        {
+          "start": 4353.5,
+          "ms": 112.80000001192093,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4302.100000023842,
+          "ms": 191.10000002384186,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "searchIndex",
+            "senses"
+          ]
+        },
+        {
+          "start": 4506.100000023842,
+          "ms": 97.89999997615814,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4599.5,
+          "ms": 44.10000002384186,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4640.5,
+          "ms": 116.80000001192093,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4682.5,
+          "ms": 199.9000000357628,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 5017.300000011921,
+          "ms": 10.100000023841858,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 5022.300000011921,
+          "ms": 26.80000001192093,
+          "stores": [
+            "practiceSessions"
+          ]
+        }
+      ],
+      "pictures": [],
+      "started": 4502.900000035763
+    },
+    {
+      "count": 5000,
+      "mode": "flashcard",
+      "run": 1,
+      "ms": 1031,
+      "requests": [],
+      "tx": [
+        {
+          "start": 4316.300000011921,
+          "ms": 107.69999998807907,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4450.900000035763,
+          "ms": 105.80000001192093,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4551.800000011921,
+          "ms": 43.69999998807907,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4591.800000011921,
+          "ms": 107.30000001192093,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4270.300000011921,
+          "ms": 475.69999998807907,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "searchIndex",
+            "senses"
+          ]
+        },
+        {
+          "start": 4633.200000047684,
+          "ms": 183.39999997615814,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 4932.800000011921,
+          "ms": 8.400000035762787,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4937,
+          "ms": 23.900000035762787,
+          "stores": [
+            "practiceSessions"
+          ]
+        }
+      ],
+      "pictures": [],
+      "started": 4447.700000047684
+    },
+    {
+      "count": 5000,
+      "mode": "flashcard",
+      "run": 2,
+      "ms": 1031,
+      "requests": [],
+      "tx": [
+        {
+          "start": 4346.699999988079,
+          "ms": 114.89999997615814,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4493.199999988079,
+          "ms": 139.5,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4589,
+          "ms": 84.29999995231628,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4630.099999964237,
+          "ms": 105.80000001192093,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4293.5,
+          "ms": 486.69999998807907,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "searchIndex",
+            "senses"
+          ]
+        },
+        {
+          "start": 4671,
+          "ms": 181.89999997615814,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 4979.099999964237,
+          "ms": 9.199999988079071,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4983.399999976158,
+          "ms": 26.899999976158142,
+          "stores": [
+            "practiceSessions"
+          ]
+        }
+      ],
+      "pictures": [],
+      "started": 4489.699999988079
+    },
+    {
+      "count": 5000,
+      "mode": "spelling",
+      "run": 0,
+      "ms": 1044,
+      "requests": [
+        {
+          "at": 1792343318580,
+          "path": "/profile"
+        },
+        {
+          "at": 1792343318771,
+          "path": "/profile"
+        }
+      ],
+      "tx": [
+        {
+          "start": 4320,
+          "ms": 107,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4272.200000047684,
+          "ms": 177.5,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "searchIndex",
+            "senses"
+          ]
+        },
+        {
+          "start": 4467.800000011921,
+          "ms": 100.80000001192093,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4565,
+          "ms": 86.5,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4606,
+          "ms": 112.60000002384186,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4648.800000011921,
+          "ms": 180.9000000357628,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 4947.800000011921,
+          "ms": 12.699999988079071,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4953.300000011921,
+          "ms": 29,
+          "stores": [
+            "practiceSessions"
+          ]
+        }
+      ],
+      "pictures": [],
+      "started": 4465
+    },
+    {
+      "count": 5000,
+      "mode": "spelling",
+      "run": 1,
+      "ms": 1050,
+      "requests": [
+        {
+          "at": 1792343328798,
+          "path": "/profile"
+        },
+        {
+          "at": 1792343328978,
+          "path": "/profile"
+        }
+      ],
+      "tx": [
+        {
+          "start": 4354.100000023842,
+          "ms": 114.19999998807907,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4304.199999988079,
+          "ms": 187.19999998807907,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "searchIndex",
+            "senses"
+          ]
+        },
+        {
+          "start": 4514.5,
+          "ms": 139,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4612.5,
+          "ms": 41,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4650.399999976158,
+          "ms": 107,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4688.699999988079,
+          "ms": 178.60000002384186,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 4994.899999976158,
+          "ms": 13.800000011920929,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 5000.300000011921,
+          "ms": 32.80000001192093,
+          "stores": [
+            "practiceSessions"
+          ]
+        }
+      ],
+      "pictures": [],
+      "started": 4510.600000023842
+    },
+    {
+      "count": 5000,
+      "mode": "spelling",
+      "run": 2,
+      "ms": 1052,
+      "requests": [
+        {
+          "at": 1792343338911,
+          "path": "/profile"
+        },
+        {
+          "at": 1792343339105,
+          "path": "/profile"
+        }
+      ],
+      "tx": [
+        {
+          "start": 4311.700000047684,
+          "ms": 110.59999996423721,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4455.100000023842,
+          "ms": 140.89999997615814,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4553.200000047684,
+          "ms": 44.59999996423721,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4595.900000035763,
+          "ms": 112.80000001192093,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4256.5,
+          "ms": 490.2000000476837,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "searchIndex",
+            "senses"
+          ]
+        },
+        {
+          "start": 4638,
+          "ms": 192.9000000357628,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 4957.300000011921,
+          "ms": 13.600000023841858,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4963,
+          "ms": 31.700000047683716,
+          "stores": [
+            "practiceSessions"
+          ]
+        }
+      ],
+      "pictures": [],
+      "started": 4452.100000023842
+    },
+    {
+      "count": 5000,
+      "mode": "picture-word",
+      "run": 0,
+      "ms": 1458,
+      "requests": [],
+      "tx": [
+        {
+          "start": 4259.199999988079,
+          "ms": 181.60000002384186,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "searchIndex",
+            "senses"
+          ]
+        },
+        {
+          "start": 4461.699999988079,
+          "ms": 101.60000002384186,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4558.600000023842,
+          "ms": 81.69999998807907,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4599.600000023842,
+          "ms": 44.5,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4639.5,
+          "ms": 22.5,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 4662.900000035763,
+          "ms": 16.599999964237213,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 5512.800000011921,
+          "ms": 8,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 5515.600000023842,
+          "ms": 11.899999976158142,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 5536.300000011921,
+          "ms": 19,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        }
+      ],
+      "pictures": [
+        {
+          "src": "http://127.0.0.1:4387/illustrations/apple.svg",
+          "ms": 0.6000000238418579
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/fish.svg",
+          "ms": 162
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/book.svg",
+          "ms": 0.3999999761581421
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/pen.svg",
+          "ms": 162.79999995231628
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/sun.svg",
+          "ms": 158
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/banana.svg",
+          "ms": 165.89999997615814
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/grapes.svg",
+          "ms": 164
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/egg.svg",
+          "ms": 170
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/bag.svg",
+          "ms": 1
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/orange.svg",
+          "ms": 166.5
+        }
+      ],
+      "started": 4458.100000023842
+    },
+    {
+      "count": 5000,
+      "mode": "picture-word",
+      "run": 1,
+      "ms": 1443,
+      "requests": [],
+      "tx": [
+        {
+          "start": 4472.599999964237,
+          "ms": 130.20000004768372,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4559,
+          "ms": 94.30000001192093,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4599.099999964237,
+          "ms": 59,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4283.599999964237,
+          "ms": 414.60000002384186,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "searchIndex",
+            "senses"
+          ]
+        },
+        {
+          "start": 4647,
+          "ms": 61.39999997615814,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 4709.199999988079,
+          "ms": 16.5,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 5567.199999988079,
+          "ms": 7.300000011920929,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 5570,
+          "ms": 9.599999964237213,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 5588.699999988079,
+          "ms": 18.5,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        }
+      ],
+      "pictures": [
+        {
+          "src": "http://127.0.0.1:4387/illustrations/apple.svg",
+          "ms": 0.5999999642372131
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/fish.svg",
+          "ms": 162.5
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/book.svg",
+          "ms": 1
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/pen.svg",
+          "ms": 165.5
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/sun.svg",
+          "ms": 164.80000001192093
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/banana.svg",
+          "ms": 173.39999997615814
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/grapes.svg",
+          "ms": 163.19999998807907
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/egg.svg",
+          "ms": 171.19999998807907
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/bag.svg",
+          "ms": 0.699999988079071
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/orange.svg",
+          "ms": 164.0999999642372
+        }
+      ],
+      "started": 4469.300000011921
+    },
+    {
+      "count": 5000,
+      "mode": "picture-word",
+      "run": 2,
+      "ms": 1432,
+      "requests": [],
+      "tx": [
+        {
+          "start": 4463.400000035763,
+          "ms": 128.89999997615814,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4551.800000011921,
+          "ms": 81.5,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4592,
+          "ms": 45,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4271.200000047684,
+          "ms": 371.39999997615814,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "searchIndex",
+            "senses"
+          ]
+        },
+        {
+          "start": 4629.800000011921,
+          "ms": 32.40000003576279,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 4662.300000011921,
+          "ms": 17.100000023841858,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 5510.600000023842,
+          "ms": 7.300000011920929,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 5513.700000047684,
+          "ms": 9.5,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 5532.100000023842,
+          "ms": 20.399999976158142,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        }
+      ],
+      "pictures": [
+        {
+          "src": "http://127.0.0.1:4387/illustrations/apple.svg",
+          "ms": 1.0999999642372131
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/fish.svg",
+          "ms": 159.0999999642372
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/book.svg",
+          "ms": 0.699999988079071
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/pen.svg",
+          "ms": 156.30000001192093
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/banana.svg",
+          "ms": 166.10000002384186
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/sun.svg",
+          "ms": 173.5
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/grapes.svg",
+          "ms": 165.60000002384186
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/egg.svg",
+          "ms": 172.19999998807907
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/bag.svg",
+          "ms": 0.5
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/orange.svg",
+          "ms": 164.4000000357628
+        }
+      ],
+      "started": 4460.100000023842
+    },
+    {
+      "count": 5000,
+      "mode": "word-picture",
+      "run": 0,
+      "ms": 1445,
+      "requests": [
+        {
+          "at": 1792343381640,
+          "path": "/today"
+        },
+        {
+          "at": 1792343381640,
+          "path": "/library"
+        },
+        {
+          "at": 1792343381640,
+          "path": "/settings"
+        },
+        {
+          "at": 1792343381806,
+          "path": "/today"
+        },
+        {
+          "at": 1792343381810,
+          "path": "/library"
+        },
+        {
+          "at": 1792343381819,
+          "path": "/settings"
+        }
+      ],
+      "tx": [
+        {
+          "start": 4852.199999988079,
+          "ms": 80.30000001192093,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4929.5,
+          "ms": 41.39999997615814,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4968.099999964237,
+          "ms": 38.90000003576279,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 5005,
+          "ms": 20.5,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 5025.699999988079,
+          "ms": 16.80000001192093,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 5869.5,
+          "ms": 4.099999964237213,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 5872.099999964237,
+          "ms": 7,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 5886.399999976158,
+          "ms": 18.399999976158142,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        }
+      ],
+      "pictures": [
+        {
+          "src": "http://127.0.0.1:4387/illustrations/apple.svg",
+          "ms": 1.0999999642372131
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/fish.svg",
+          "ms": 163.0999999642372
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/book.svg",
+          "ms": 0.9000000357627869
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/pen.svg",
+          "ms": 156.5
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/sun.svg",
+          "ms": 157.89999997615814
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/banana.svg",
+          "ms": 163.5999999642372
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/grapes.svg",
+          "ms": 166.5
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/egg.svg",
+          "ms": 174
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/bag.svg",
+          "ms": 0.8999999761581421
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/orange.svg",
+          "ms": 164.89999997615814
+        }
+      ],
+      "started": 4849.099999964237
+    },
+    {
+      "count": 5000,
+      "mode": "word-picture",
+      "run": 1,
+      "ms": 1462,
+      "requests": [],
+      "tx": [
+        {
+          "start": 4325.900000035763,
+          "ms": 106.89999997615814,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4458.600000023842,
+          "ms": 103,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4556.400000035763,
+          "ms": 42.89999997615814,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4596.5,
+          "ms": 47.5,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4278.100000023842,
+          "ms": 410.30000001192093,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "searchIndex",
+            "senses"
+          ]
+        },
+        {
+          "start": 4636,
+          "ms": 63.60000002384186,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 4700,
+          "ms": 13.5,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 5553.800000011921,
+          "ms": 7.600000023841858,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 5556.200000047684,
+          "ms": 14.599999964237213,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 5577.400000035763,
+          "ms": 20.899999976158142,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        }
+      ],
+      "pictures": [
+        {
+          "src": "http://127.0.0.1:4387/illustrations/apple.svg",
+          "ms": 0.8999999761581421
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/fish.svg",
+          "ms": 168.0999999642372
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/book.svg",
+          "ms": 0.5999999642372131
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/pen.svg",
+          "ms": 162.5
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/banana.svg",
+          "ms": 158
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/sun.svg",
+          "ms": 165.9000000357628
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/grapes.svg",
+          "ms": 166
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/egg.svg",
+          "ms": 172.80000001192093
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/bag.svg",
+          "ms": 0.3999999761581421
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/orange.svg",
+          "ms": 164.60000002384186
+        }
+      ],
+      "started": 4454.5
+    },
+    {
+      "count": 5000,
+      "mode": "word-picture",
+      "run": 2,
+      "ms": 1475,
+      "requests": [],
+      "tx": [
+        {
+          "start": 4350.800000011921,
+          "ms": 114.30000001192093,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 4505.600000023842,
+          "ms": 142,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4605.400000035763,
+          "ms": 42.39999997615814,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4644.800000011921,
+          "ms": 38.80000001192093,
+          "stores": [
+            "searchIndex"
+          ]
+        },
+        {
+          "start": 4300.900000035763,
+          "ms": 387.39999997615814,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "searchIndex",
+            "senses"
+          ]
+        },
+        {
+          "start": 4680.800000011921,
+          "ms": 25.30000001192093,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 4706.199999988079,
+          "ms": 14.700000047683716,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        },
+        {
+          "start": 5553.400000035763,
+          "ms": 6.699999988079071,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 5556.5,
+          "ms": 9.900000035762787,
+          "stores": [
+            "practiceSessions"
+          ]
+        },
+        {
+          "start": 5574.100000023842,
+          "ms": 19.19999998807907,
+          "stores": [
+            "decks",
+            "entries",
+            "examples",
+            "lessonItems",
+            "lessons",
+            "mediaAssets",
+            "senses"
+          ]
+        }
+      ],
+      "pictures": [
+        {
+          "src": "http://127.0.0.1:4387/illustrations/apple.svg",
+          "ms": 0.5
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/fish.svg",
+          "ms": 161.10000002384186
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/book.svg",
+          "ms": 1
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/pen.svg",
+          "ms": 164.5
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/banana.svg",
+          "ms": 164.10000002384186
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/sun.svg",
+          "ms": 173
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/grapes.svg",
+          "ms": 164.10000002384186
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/egg.svg",
+          "ms": 171
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/bag.svg",
+          "ms": 1.199999988079071
+        },
+        {
+          "src": "http://127.0.0.1:4387/illustrations/orange.svg",
+          "ms": 157.30000001192093
+        }
+      ],
+      "started": 4502.699999988079
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "src/components/features/practice.tsx": "c9b43f642d9eb622c9c25ba8825b113c4e86d3df2b81fadde861ab1c77daa476",
+    "src/data/local/practice.ts": "ba39bb78625df8a2653e1897df55d2699a536f1437a39410bdd6fb35a277432e",
+    "src/components/features/practice-selection.tsx": "e6754d6cc73f39ab00e4f8bad428e46a2c11ddd740bb4cf658f3adbf71224fec"
+  },
+  "browser": "156.0.8078.4",
+  "finished": "2026-10-18T17:10:02.704Z"
+}

@@ -1,5 +1,5 @@
 import {afterEach,beforeEach,expect,it,vi} from 'vitest';
-import {edgeAudio,clearEdgeAudio} from '@/lib/audio/edge-audio-client';
+import {edgeAudio,clearEdgeAudio,cachedEdgeAudio} from '@/lib/audio/edge-audio-client';
 const response=()=>new Response(new Uint8Array([1,2,3]),{headers:{'Content-Type':'audio/mpeg'}});
 beforeEach(()=>clearEdgeAudio());
 afterEach(()=>{clearEdgeAudio();vi.unstubAllGlobals();vi.useRealTimers();});
@@ -51,4 +51,13 @@ it('bounds bytes before buffering the complete upstream response and rejects emp
  await expect(edgeAudio('a','apple',signal)).rejects.toThrow('empty-audio');
  for(const text of ['', 'a'.repeat(601)])await expect(edgeAudio('a',text,signal)).rejects.toThrow('invalid-text');
  expect(fetcher).toHaveBeenCalledTimes(2);
+});
+
+it('exposes only a valid current-scope clip synchronously for gesture-bound playback',async()=>{
+ vi.useFakeTimers();vi.stubGlobal('fetch',vi.fn(async()=>response()));
+ expect(cachedEdgeAudio('a','apple')).toBeUndefined();
+ const clip=await edgeAudio('a','apple',new AbortController().signal);
+ expect(cachedEdgeAudio('a','apple')).toBe(clip);expect(cachedEdgeAudio('b','apple')).toBeUndefined();
+ vi.advanceTimersByTime(10*60*1000+1);expect(cachedEdgeAudio('a','apple')).toBeUndefined();
+ await edgeAudio('a','apple',new AbortController().signal);clearEdgeAudio();expect(cachedEdgeAudio('a','apple')).toBeUndefined();
 });

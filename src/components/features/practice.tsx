@@ -40,10 +40,15 @@ function PracticeGame(){
   const [busy,setBusy]=useState(false);const [error,setError]=useState("");const lock=useRef(false);
   const filter=practiceFilter(params);
   function hubHref(next:PracticeFilter){const href=practiceHref(next);return next.due?`${href}&hub=1`:href;}
-  function openSession(next:Session){window.dispatchEvent(new Event("wfk-audio-stop"));setError("");opened.current="";router.replace(practiceHref(next.filter??{},next.id),{scroll:false});}
+  function openSession(next:Session,prepared=false){
+    window.dispatchEvent(new Event("wfk-audio-stop"));setError("");
+    if(prepared){setSession(next);opened.current=`${next.scopeId}:${next.id}`;}else{setSession(null);opened.current="";}
+    // A persisted IndexedDB session is client state on this same route.
+    window.history.replaceState(null,'',practiceHref(next.filter??{},next.id));
+  }
   async function leave(){
     if(lock.current)return;lock.current=true;setBusy(true);window.dispatchEvent(new Event("wfk-audio-stop"));setError("");
-    try{if(practice&&session)await practice.discardUnstarted(session.id);opened.current="";router.replace(hubHref(session?.filter??filter),{scroll:false});}
+    try{if(practice&&session)await practice.discardUnstarted(session.id);opened.current="";setSession(null);window.history.replaceState(null,'',hubHref(session?.filter??filter));}
     catch{setError(t('Chưa đóng được lượt học. Thử lại nhé.','Could not close this round. Please retry.'));}
     finally{lock.current=false;setBusy(false);}
   }
@@ -62,17 +67,17 @@ function PracticeGame(){
     void Promise.resolve().then(async()=>{
       if(!active||opened.current===key)return;opened.current=key;lock.current=true;setBusy(true);setError("");
       try{
-        const next=savedSession?(await practice.sessions()).find(s=>s.id===savedSession):await practice.start(params.get('mode')==='grammar'?'grammar-card':'flashcard',practiceFilter(params));
+        const next=savedSession?await practice.loadSession(savedSession):await practice.start(params.get('mode')==='grammar'?'grammar-card':'flashcard',practiceFilter(params));
         if(!next)throw new Error('missing');
         if(active&&next.filter)await savePracticeSelection(practice.repository,next.filter);
-        if(active){if(savedSession){setSession(next);opened.current=`${next.scopeId}:${next.id}`;}else{opened.current="";router.replace(practiceHref(next.filter??{},next.id),{scroll:false});}}
+        if(active){if(savedSession){setSession(next);opened.current=`${next.scopeId}:${next.id}`;}else openSession(next,true);}
       }catch{if(active)setError(reviewText('Chưa mở được buổi ôn. Chọn lại bài hoặc nhóm rồi thử lại nhé.','Could not open this session. Choose a lesson or group and retry.'));}
       finally{lock.current=false;if(active)setBusy(false);}
     });return()=>{active=false;};
   },[practice,review,savedSession,router,reviewText,params]);
   async function start(mode:Mode,replay?:Session,reviewOnly=false){
     if(!practice||lock.current)return;window.dispatchEvent(new Event('wfk-audio-stop'));lock.current=true;setBusy(true);setError('');
-    try{openSession(replay?await practice.replay(replay.id,reviewOnly):await practice.start(mode,filter));}
+    try{openSession(replay?await practice.replay(replay.id,reviewOnly):await practice.start(mode,filter),true);}
     catch{setError(replay?t('Nội dung lượt cũ đã đổi hoặc chưa mở được. Con chọn trò chơi để bắt đầu lượt mới nhé.','The old round changed or could not be opened. Choose a game to start a new round.'):mode==='grammar'||mode==='grammar-card'?t('Phần đang chọn chưa có ngữ pháp đã duyệt. Thêm bài có ngữ pháp hoặc chọn nhóm khác nhé.','No approved grammar in this selection. Add grammar or choose another group.'):t('Chưa đủ từ phù hợp cho kiểu học này. Thêm/duyệt từ hoặc chọn Thẻ ôn; game hình cần 3 hình khác nhau.','Not enough eligible words. Add approved words or choose flashcards; picture games need three distinct pictures.'));}
     finally{lock.current=false;setBusy(false);}
   }

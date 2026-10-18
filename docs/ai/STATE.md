@@ -1,6 +1,6 @@
 # Trạng thái hiện tại — Words for Kids
 
-Updated:18/10/2026. Current task: **mobile performance + Emma TTS — implemented/deployed, ready for founder iPhone12/PWA test**. MP1–5 đã đo/sửa/kiểm/deploy domain; library5000 median2436→331ms, search p951821→99ms, Emma cached replay median49ms.90scoped logic tests +100unique productionUI cases PASS, lint/types/build PASS. Cold Today/Practice~3,5s và JS339–356KiB vẫn vượt budget; field/iOS thật chưa xác nhận. [Guide](MOBILE-PERFORMANCE-AND-EMMA-PLAN.md), [evidence/limits](../evaluations/mobile-performance.md).
+Updated:19/10/2026. Current task: **quiet audio status — deployed / ready for founder retest**. Founder requested removing transient preparing/starting text under the speaker to avoid layout jumps. Text removed; Stop button supplies pending/playing state, errors/retry retained.3native playback/slow/replay productionUI Chromium+WebKit/lint/types/build PASS. [Evidence](../evaluations/emma-mobile-playback.md). [Game performance](../evaluations/game-start.md) and Emma WebKit fix remain included; physical PWA retest pending.
 
 ## Baseline / current steering
 
@@ -21,6 +21,6 @@ Working tree đầu task phạm vi game sạch; workflow baseline bên dưới t
 
 External acceptance vẫn mở: child/provider eligibility/quality/cost benchmark, human UX, physical camera/clipboard/audio/PWA/install, field/performance trên final release; xem TASKS. Fixture/mock không chứng minh live quality. Token/time của chat trước unavailable; chỉ đo bootstrap bytes/setup/test metadata có thật.
 
-**Next action:** founder đóng hết cửa sổ PWA rồi mở lại domain, test nav/back, Nghe/chậm/replay và Nói cùng Cáo trên iPhone12; không xóa app hoặc dữ liệu.
+**Next action:** founder reopen installed PWA and check Listen/Slow controls stay in place during playback.
 
 Lịch sử/checkpoints: [STATE history](STATE.history-2026-10-12.md), [CHANGELOG](CHANGELOG.md). Không append history vào current state.

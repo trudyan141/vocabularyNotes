@@ -1,0 +1,38 @@
+[
+  {
+    "pending": false,
+    "message": [
+      "Đang tải giọng Emma…",
+      ""
+    ],
+    "events": [
+      {
+        "name": "loadstart",
+        "src": "data:audio/wav;"
+      },
+      {
+        "name": "error",
+        "src": "data:audio/wav;",
+        "error": 3
+      }
+    ]
+  },
+  {
+    "pending": true,
+    "message": [
+      "Đang tải giọng Emma…",
+      ""
+    ],
+    "events": [
+      {
+        "name": "loadstart",
+        "src": "data:audio/wav;"
+      },
+      {
+        "name": "error",
+        "src": "data:audio/wav;",
+        "error": 3
+      }
+    ]
+  }
+]

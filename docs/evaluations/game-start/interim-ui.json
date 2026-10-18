@@ -1,0 +1,64 @@
+{
+  "startedAt": "2026-10-18T17:01:55.664Z",
+  "sourceRoot": "/Users/trunglk/Documents/trung-github/VocabularyNotes",
+  "commit": "557228bd78fad6e8f982d331bc8529c11e8c3208",
+  "fingerprint": "dff562634e8c1085050c97eae2e36ec09b214fd6e66d16069ab930f856e7ee13",
+  "scope": "ui",
+  "mode": "production",
+  "specs": [
+    "game-start.spec.ts",
+    "game-scope-replay.spec.ts",
+    "ready-picture-games.spec.ts"
+  ],
+  "node": "v24.14.1",
+  "provider": "fixture",
+  "commands": [
+    {
+      "label": "discovery",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--config",
+        "playwright.scoped.config.ts",
+        "--list",
+        "--reporter=list"
+      ],
+      "elapsedMs": 862,
+      "exitCode": 0,
+      "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-4yGYLO/discovery.log"
+    },
+    {
+      "label": "build",
+      "command": [
+        "pnpm",
+        "build",
+        "--webpack"
+      ],
+      "elapsedMs": 34571,
+      "exitCode": 0,
+      "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-4yGYLO/build.log"
+    },
+    {
+      "label": "browser",
+      "command": [
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--config",
+        "playwright.scoped.config.ts",
+        "--reporter=line"
+      ],
+      "elapsedMs": 85625,
+      "exitCode": 1,
+      "log": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-4yGYLO/browser.log"
+    }
+  ],
+  "tokens": "unavailable",
+  "discoveredTests": 39,
+  "snapshot": "/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-source-1k1bo5",
+  "status": "failed",
+  "finishedAt": "2026-10-18T17:03:58.580Z"
+}

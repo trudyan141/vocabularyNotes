@@ -1,0 +1,37 @@
+
+Running 33 tests using 2 workers
+
+[1/33] [desktop-chromium] › tests/e2e/emma-mobile.spec.ts:4:74 › Emma mobile playback: pending-prime
+[2/33] [desktop-chromium] › tests/e2e/emma-mobile.spec.ts:4:74 › Emma mobile playback: native
+[3/33] [desktop-chromium] › tests/e2e/emma-mobile.spec.ts:4:74 › Emma mobile playback: blocked-once
+[4/33] [desktop-chromium] › tests/e2e/pronunciation-audio.spec.ts:17:5 › word and Fox show reading aids and Emma source; audio lasts longer at 60% with pitch preserved
+[5/33] [desktop-chromium] › tests/e2e/pronunciation-audio.spec.ts:29:5 › Emma starts without waiting for a stalled dictionary lookup and leaving the route stops it
+[6/33] [desktop-chromium] › tests/e2e/pronunciation-audio.spec.ts:39:5 › Edge unavailable falls back at a distinct slow rate and pending stop blocks late playback
+[7/33] [desktop-chromium] › tests/e2e/pronunciation-audio.spec.ts:47:71 › Emma plays MP3 immediately when browser speech is missing
+[8/33] [desktop-chromium] › tests/e2e/pronunciation-audio.spec.ts:47:71 › Emma plays MP3 immediately when browser speech is empty
+[9/33] [desktop-chromium] › tests/e2e/pronunciation-audio.spec.ts:47:71 › Emma plays MP3 immediately when browser speech is error
+[10/33] [desktop-chromium] › tests/e2e/pronunciation-audio.spec.ts:47:71 › Emma plays MP3 immediately when browser speech is silent
+[11/33] [desktop-chromium] › tests/e2e/pronunciation-audio.spec.ts:65:5 › Edge failure allows retry and stopped request cannot play late
+[12/33] [mobile-chromium] › tests/e2e/emma-mobile.spec.ts:4:74 › Emma mobile playback: native
+[13/33] [mobile-chromium] › tests/e2e/emma-mobile.spec.ts:4:74 › Emma mobile playback: pending-prime
+[14/33] [mobile-chromium] › tests/e2e/emma-mobile.spec.ts:4:74 › Emma mobile playback: blocked-once
+[15/33] [mobile-chromium] › tests/e2e/pronunciation-audio.spec.ts:17:5 › word and Fox show reading aids and Emma source; audio lasts longer at 60% with pitch preserved
+[16/33] [mobile-chromium] › tests/e2e/pronunciation-audio.spec.ts:29:5 › Emma starts without waiting for a stalled dictionary lookup and leaving the route stops it
+[17/33] [mobile-chromium] › tests/e2e/pronunciation-audio.spec.ts:39:5 › Edge unavailable falls back at a distinct slow rate and pending stop blocks late playback
+[18/33] [mobile-chromium] › tests/e2e/pronunciation-audio.spec.ts:47:71 › Emma plays MP3 immediately when browser speech is missing
+[19/33] [mobile-chromium] › tests/e2e/pronunciation-audio.spec.ts:47:71 › Emma plays MP3 immediately when browser speech is empty
+[20/33] [mobile-chromium] › tests/e2e/pronunciation-audio.spec.ts:47:71 › Emma plays MP3 immediately when browser speech is error
+[21/33] [mobile-chromium] › tests/e2e/pronunciation-audio.spec.ts:47:71 › Emma plays MP3 immediately when browser speech is silent
+[22/33] [mobile-chromium] › tests/e2e/pronunciation-audio.spec.ts:65:5 › Edge failure allows retry and stopped request cannot play late
+[23/33] [mobile-webkit] › tests/e2e/emma-mobile.spec.ts:4:74 › Emma mobile playback: native
+[24/33] [mobile-webkit] › tests/e2e/emma-mobile.spec.ts:4:74 › Emma mobile playback: pending-prime
+[25/33] [mobile-webkit] › tests/e2e/emma-mobile.spec.ts:4:74 › Emma mobile playback: blocked-once
+[26/33] [mobile-webkit] › tests/e2e/pronunciation-audio.spec.ts:17:5 › word and Fox show reading aids and Emma source; audio lasts longer at 60% with pitch preserved
+[27/33] [mobile-webkit] › tests/e2e/pronunciation-audio.spec.ts:29:5 › Emma starts without waiting for a stalled dictionary lookup and leaving the route stops it
+[28/33] [mobile-webkit] › tests/e2e/pronunciation-audio.spec.ts:39:5 › Edge unavailable falls back at a distinct slow rate and pending stop blocks late playback
+[29/33] [mobile-webkit] › tests/e2e/pronunciation-audio.spec.ts:47:71 › Emma plays MP3 immediately when browser speech is missing
+[30/33] [mobile-webkit] › tests/e2e/pronunciation-audio.spec.ts:47:71 › Emma plays MP3 immediately when browser speech is empty
+[31/33] [mobile-webkit] › tests/e2e/pronunciation-audio.spec.ts:47:71 › Emma plays MP3 immediately when browser speech is error
+[32/33] [mobile-webkit] › tests/e2e/pronunciation-audio.spec.ts:47:71 › Emma plays MP3 immediately when browser speech is silent
+[33/33] [mobile-webkit] › tests/e2e/pronunciation-audio.spec.ts:65:5 › Edge failure allows retry and stopped request cannot play late
+  33 passed (49.5s)

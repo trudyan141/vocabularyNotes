@@ -1,0 +1,43 @@
+
+Running 39 tests using 2 workers
+
+[1/39] [desktop-chromium] › tests/e2e/game-scope-replay.spec.ts:31:5 › ten-word lesson survives finish, exact replay, reload, game switch and reset
+[2/39] [desktop-chromium] › tests/e2e/game-scope-replay.spec.ts:41:5 › group auto review keeps its scope on exit and speaking uses the same group
+[3/39] [desktop-chromium] › tests/e2e/game-scope-replay.spec.ts:48:5 › grammar cards support one saved construction, exact audio, explanation, reduced motion and replay
+[4/39] [desktop-chromium] › tests/e2e/game-scope-replay.spec.ts:57:5 › grammar-only group is selectable, empty scopes explain recovery and stale replay stays on results
+[5/39] [desktop-chromium] › tests/e2e/game-scope-replay.spec.ts:67:5 › simple hub keeps the selected scope and reset clears every filter
+[6/39] [desktop-chromium] › tests/e2e/game-scope-replay.spec.ts:72:5 › unfinished sessions can be deleted and completed history lives collapsed in Profile
+[7/39] [desktop-chromium] › tests/e2e/game-scope-replay.spec.ts:86:5 › review advances to a different sentence and retry contains only marked questions
+[8/39] [desktop-chromium] › tests/e2e/game-scope-replay.spec.ts:93:5 › Profile history loads ten rounds per page and pending cards contain their delete controls
+[9/39] [desktop-chromium] › tests/e2e/game-scope-replay.spec.ts:100:5 › group lesson cards show saved media, launch their own scope and save reports only incoming duplicates
+[10/39] [desktop-chromium] › tests/e2e/game-scope-replay.spec.ts:115:5 › unanswered rounds are discarded, started rounds resume with named scope and games are split by content
+[11/39] [desktop-chromium] › tests/e2e/game-scope-replay.spec.ts:125:5 › picture choices stay in the lesson and word audio plays on each new question but respects mute
+[12/39] [desktop-chromium] › tests/e2e/game-scope-replay.spec.ts:136:5 › selected lesson survives leaving practice and only reset clears it
+[13/39] [desktop-chromium] › tests/e2e/game-scope-replay.spec.ts:154:5 › failed scope reset keeps the lesson and allows retry
+[14/39] [desktop-chromium] › tests/e2e/game-start.spec.ts:3:5 › local game starts without a server route request, preserves its URL and reloads the selected session only
+[15/39] [desktop-chromium] › tests/e2e/ready-picture-games.spec.ts:5:5 › both picture games use only ready images; missing selected word shows a recovery message
+[16/39] [desktop-chromium] › tests/e2e/ready-picture-games.spec.ts:10:5 › removing a distractor picture closes the active game and prevents old image reuse
+[17/39] [desktop-chromium] › tests/e2e/ready-picture-games.spec.ts:16:5 › broken image files are replaced before both picture games; image failure during play stops answers
+[18/39] [desktop-chromium] › tests/e2e/ready-picture-games.spec.ts:30:5 › approved imported image is rendered in both picture games without default artwork
+[19/39] [desktop-chromium] › tests/e2e/ready-picture-games.spec.ts:37:5 › saved word images render in all typing games and revoked images do not reveal the answer
+[20/39] [mobile-chromium] › tests/e2e/game-scope-replay.spec.ts:31:5 › ten-word lesson survives finish, exact replay, reload, game switch and reset
+[21/39] [mobile-chromium] › tests/e2e/game-scope-replay.spec.ts:41:5 › group auto review keeps its scope on exit and speaking uses the same group
+[22/39] [mobile-chromium] › tests/e2e/game-scope-replay.spec.ts:48:5 › grammar cards support one saved construction, exact audio, explanation, reduced motion and replay
+[23/39] [mobile-chromium] › tests/e2e/game-scope-replay.spec.ts:57:5 › grammar-only group is selectable, empty scopes explain recovery and stale replay stays on results
+[24/39] [mobile-chromium] › tests/e2e/game-scope-replay.spec.ts:67:5 › simple hub keeps the selected scope and reset clears every filter
+[25/39] [mobile-chromium] › tests/e2e/game-scope-replay.spec.ts:72:5 › unfinished sessions can be deleted and completed history lives collapsed in Profile
+[26/39] [mobile-chromium] › tests/e2e/game-scope-replay.spec.ts:86:5 › review advances to a different sentence and retry contains only marked questions
+[27/39] [mobile-chromium] › tests/e2e/game-scope-replay.spec.ts:93:5 › Profile history loads ten rounds per page and pending cards contain their delete controls
+[28/39] [mobile-chromium] › tests/e2e/game-scope-replay.spec.ts:100:5 › group lesson cards show saved media, launch their own scope and save reports only incoming duplicates
+[29/39] [mobile-chromium] › tests/e2e/game-scope-replay.spec.ts:115:5 › unanswered rounds are discarded, started rounds resume with named scope and games are split by content
+[30/39] [mobile-chromium] › tests/e2e/game-scope-replay.spec.ts:125:5 › picture choices stay in the lesson and word audio plays on each new question but respects mute
+[31/39] [mobile-chromium] › tests/e2e/game-scope-replay.spec.ts:136:5 › selected lesson survives leaving practice and only reset clears it
+[32/39] [mobile-chromium] › tests/e2e/game-scope-replay.spec.ts:154:5 › failed scope reset keeps the lesson and allows retry
+[33/39] [mobile-chromium] › tests/e2e/game-start.spec.ts:3:5 › local game starts without a server route request, preserves its URL and reloads the selected session only
+[34/39] [mobile-chromium] › tests/e2e/ready-picture-games.spec.ts:5:5 › both picture games use only ready images; missing selected word shows a recovery message
+[35/39] [mobile-chromium] › tests/e2e/ready-picture-games.spec.ts:10:5 › removing a distractor picture closes the active game and prevents old image reuse
+[36/39] [mobile-chromium] › tests/e2e/ready-picture-games.spec.ts:16:5 › broken image files are replaced before both picture games; image failure during play stops answers
+[37/39] [mobile-chromium] › tests/e2e/ready-picture-games.spec.ts:30:5 › approved imported image is rendered in both picture games without default artwork
+[38/39] [mobile-chromium] › tests/e2e/ready-picture-games.spec.ts:37:5 › saved word images render in all typing games and revoked images do not reveal the answer
+[39/39] [mobile-webkit] › tests/e2e/game-start.spec.ts:3:5 › local game starts without a server route request, preserves its URL and reloads the selected session only
+  39 passed (48.7s)

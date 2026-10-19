@@ -1,5 +1,10 @@
 # Nhật ký bàn giao
 
+## 19/10/2026 — ADR100: vòng phủ bộ và tiến độ qua lượt10câu
+
+Founder chọn hướng2, giữ selection phạm vi hiện có. Immutable cycle +session≤10, tiếp từ mới không tự trùng trước khi hết, skip để sau/replay không cộng đôi, tombstone giữ coverage, day/timezone/resume. Localv6/archive/cloud/shared/SQL0013/offline parity; sửa mobile input-blur làm dịch nút submit bằng stable typing state.101logic+45productionUI/build/lint/types và hosted SQL rollback fixtures PASS; frontend deployed READY. [Evidence](../evaluations/game-coverage.md). Human/device pending; Speaking5từ và strict simultaneous offline devices ngoài bảo đảm mới.
+
+
 ## 19/10/2026 — Bỏ text chờ phát audio gây nhảy UI
 
 Theo founder: bỏ các dòng chuẩn bị/bắt đầu phát dưới nút loa; dùng trạng thái nút Dừng, giữ lỗi/retry thật. Không đổi backend, cache hoặc player.3productionUI native playback/slow/replay Chromium+WebKit, lint/types/build PASS. [Evidence](../evaluations/emma-mobile-playback.md).

@@ -1,5 +1,8 @@
 # Ôn tập, flashcard và minigame
 
+**19/10 — ADR100, implemented / scoped verified:** dùng selection phạm vi ôn hiện tại; vòng phủ bộ riêng theo library/mode/filter/direction, pool snapshot cố định, mỗi lượt≤10câu và không cấp lại target đã làm cho đến hết vòng. Chu kỳ không reset theo ngày; ngày chỉ thống kê hoạt động. Sai tính đã làm, skip hoãn về cuối; replay/retry chủ động không cộng coverage. Giữ SRS/CAS/media approval/source identity. Có tiến độ cả bộ +lượt, Tiếp từ mới và vòng mới chủ động. Grammar đếm từng form/câu; Speaking giữ luồng5từ riêng, chưa nhận bảo đảm coverage. Cùng máy chống trùng qua transaction; nhiều máy offline không bảo đảm không trùng trước sync. [Plan](ai/GAME-COVERAGE-PLAN.md).
+
+
 Game-start performance follow-up: chọn một lượt đã lưu tại `/practice?...session=id` là state local cùng route, cập nhật URL bằng native history để không đợi server/RSC. Lượt mới hiện từ snapshot vừa lưu; reload/resume kiểm đúng ID trong scope, giữ approval/revision/media/CAS/replay/progress. Gate lựa chọn chỉ reset theo scope/path/bộ lọc thật. Game hình random từ toàn pool, chỉ decode targets/choices cần cho tối đa10câu, concurrency2 và ưu tiên distractor đã decode trong cùng bài/nhóm trước global fallback; vẫn loại ảnh hỏng và kiểm mọi ảnh trong session trước lưu. Game không có lựa chọn hình rút từ toàn bộ nhóm source đã duyệt rồi chỉ hydrate16từ mỗi batch đến đủ10từ hợp lệ; không tạo distractor không dùng. Resume cards không hydrate/đọc ảnh của lượt chưa bắt đầu hoặc đã xong. [Evidence](evaluations/game-start.md).
 
 

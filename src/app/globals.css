@@ -1992,7 +1992,7 @@ details.group-save-result { display:block; padding:1rem; }
  .desktop-copy { display:none; }
  .mobile-copy { display:inline; }
  .capture-dropzone { padding:24px 16px; }
- .practice-question:has(#practice-answer:focus) > .game-picture-stage { display:none; }
+ .practice-question.is-typing > .game-picture-stage { display:none; }
 }
 @media (prefers-reduced-motion:no-preference) {
  html:not([data-motion="reduced"]) .review-item,html:not([data-motion="reduced"]) .group-option-list label { transition:background-color 160ms ease-out; }
@@ -2071,3 +2071,12 @@ details.group-save-result { display:block; padding:1rem; }
 .profile-group{border-top:1px solid var(--border);padding-block:1.25rem}.profile-group>h2{margin:0}.profile-group>summary,.profile-subgroup>summary{font-weight:800;cursor:pointer}.profile-group>summary{font-size:1.25rem}.profile-group[open]>summary,.profile-subgroup[open]>summary{margin-bottom:1rem}.profile-account-intro{font-weight:700}.profile-subgroup{padding-top:.5rem}.profile-group .account-identity{align-items:center}
 
 .profile-storage>summary{font-weight:700;cursor:pointer}.profile-storage[open]>summary{margin-bottom:1rem}
+
+.cycle-progress-copy { display: block; overflow-wrap: anywhere; font-size: 1rem; line-height: 1.5; }
+.cycle-progress-line { display: block; }
+.cycle-progress-copy small { display: block; }
+
+.practice-scope-with-progress { text-align:left; }
+.practice-scope-progress { margin-top:12px; padding-top:12px; border-top:1px solid var(--border); }
+.practice-scope-progress .cycle-progress-line { font-weight:700; }
+.practice-scope-progress small { margin-top:4px; }

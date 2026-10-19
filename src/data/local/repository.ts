@@ -89,7 +89,7 @@ export const candidateSchema = inputSchema
   });
 export class RepositoryError extends Error {
   constructor(
-    public code: "conflict" | "invalid" | "missing" | "scope" | "not-ready",
+    public code: "conflict" | "invalid" | "missing" | "scope" | "not-ready" | "complete",
   ) {
     super(code);
   }
@@ -142,7 +142,7 @@ export class LocalRepository {
   }
   private installSharedGuards(){
     const content=new Set(['entries','senses','examples','lessons','lessonItems','evidence','notes','decks','sentences','mediaAssets','surfaceForms','patterns','grammarItems','sourceAssets','deckItems','captureDrafts','localMedia','learningDrafts','drafts','receipts']);
-    const learning=new Set(['practiceSessions','reviewEvents','gameAttempts','reviewStates']);
+    const learning=new Set(['practiceCycles','practiceSessions','reviewEvents','gameAttempts','reviewStates']);
     for(const table of this.db.tables){
       if(!content.has(table.name)&&!learning.has(table.name))continue;
       const check=(row:{scopeId?:string},tx:import('dexie').Transaction)=>{

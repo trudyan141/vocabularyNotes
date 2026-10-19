@@ -1,6 +1,7 @@
 # Trạng thái hiện tại — Words for Kids
 
-Updated:19/10/2026. Current task: **quiet audio status — deployed / ready for founder retest**. Founder requested removing transient preparing/starting text under the speaker to avoid layout jumps. Text removed; Stop button supplies pending/playing state, errors/retry retained.3native playback/slow/replay productionUI Chromium+WebKit/lint/types/build PASS. [Evidence](../evaluations/emma-mobile-playback.md). [Game performance](../evaluations/game-start.md) and Emma WebKit fix remain included; physical PWA retest pending.
+Updated:19/10/2026. Current task: **practice scope/progress card — implemented_local / manual preview**. Founder yêu cầu gom phạm vi/số câu/coverage-day vào cùng card và không chạy tests. Trong lượt và kết quả dùng progress slot của PracticeScope, spacing/divider/căn trái chung; local4317/practice đã mở để manual review. Không tests/lint/types/build hoặc deploy follow-up này. ADR100 engine/SQL/frontend release trước vẫn giữ: [evidence](../evaluations/game-coverage.md).
+
 
 ## Baseline / current steering
 
@@ -21,6 +22,6 @@ Working tree đầu task phạm vi game sạch; workflow baseline bên dưới t
 
 External acceptance vẫn mở: child/provider eligibility/quality/cost benchmark, human UX, physical camera/clipboard/audio/PWA/install, field/performance trên final release; xem TASKS. Fixture/mock không chứng minh live quality. Token/time của chat trước unavailable; chỉ đo bootstrap bytes/setup/test metadata có thật.
 
-**Next action:** founder reopen installed PWA and check Listen/Slow controls stay in place during playback.
+**Next action:** founder xem card phạm vi +tiến độ chung trên màn game/kết quả ở local4317.
 
 Lịch sử/checkpoints: [STATE history](STATE.history-2026-10-12.md), [CHANGELOG](CHANGELOG.md). Không append history vào current state.

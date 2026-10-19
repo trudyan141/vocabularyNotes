@@ -1,5 +1,9 @@
 # Task ledger — current acceptance
 
+Direct UI follow-up19/10 — **practice scope/progress card: implemented_local / manual preview**. Phạm vi, số câu trong lượt và tiến độ cả bộ/ngày gom chung một card ở trong game và kết quả. Founder yêu cầu không chạy tests/checks/build; mở local4317/practice để xem thủ công, chưa deploy follow-up này.
+
+Direct task19/10 — **game coverage ADR100: implemented/deployed / founder device acceptance pending**. [Plan](GAME-COVERAGE-PLAN.md), [evidence](../evaluations/game-coverage.md). Existing scope selection; successive≤10-question rounds exhaust stable pool, whole-set/day/resume progress; skip/replay/tombstone/backup/offline/account/shared boundaries.101logic+45productionUI/build/lint/types PASS; SQL0013 hosted applied/rollback fixture PASS. Physical PWA/human acceptance pending; Speaking separate5words, no strict multi-device offline claim.
+
 Direct UI follow-up19/10 — **quiet audio pending status: deployed / ready for founder retest**. Removed preparing/starting text under speaker, keeping Stop/error/retry;3native productionUI Chromium/WebKit/lint/types/build PASS. [Evidence](../evaluations/emma-mobile-playback.md). No new test for literal copy.
 
 

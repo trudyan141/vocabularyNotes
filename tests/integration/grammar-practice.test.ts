@@ -22,7 +22,7 @@ it('samples the complete grammar pool before limiting a round',async()=>{
  const base=(await repo.db.table('sentences').get([repo.scope.id,'structure']))!;
  for(let i=0;i<25;i++)await saveContent(repo,`extra-${i}`,null,{...(base.payload.content as import('@/data/local/content').LearningContent),senseId:word.id,example:`I see item ${i}.`,exampleVi:`Con thấy mục ${i}.`,pattern:`I see item ${i}.`});
  const random=vi.spyOn(Math,'random').mockReturnValue(0.5);
- try{const session=await practice.start('grammar');expect(session.questions).toHaveLength(10);random.mockReturnValue(0.999);const next=await practice.start('grammar');expect(session.questions.map(q=>q.grammar?.id)).not.toEqual(next.questions.map(q=>q.grammar?.id));}finally{random.mockRestore();}
+ try{const session=await practice.start('grammar');expect(session.questions).toHaveLength(10);random.mockReturnValue(0.999);const next=await practice.start('grammar');expect(next.id).toBe(session.id);expect((await practice.progress(session.cycleId!))?.total).toBe(26);}finally{random.mockRestore();}
 });
 
 it('replays exactly the stored round, preserving its filter and clearing progress',async()=>{
@@ -73,7 +73,7 @@ it('grammar self assessment does not turn its supporting word into a weak spelli
 it('deletes only the selected session with CAS, retaining learning and other scopes',async()=>{
  const {repo,practice}=await setup();const first=await practice.start('flashcard');
  const revealed=await practice.reveal(first.id,first.version);const done=await practice.answer(first.id,revealed.version,{rating:'Good'});
- const pending=await practice.start('flashcard');const other=new LocalRepository(repo.db,{kind:'guest',id:'guest:other'});
+ const pending=await practice.start('flashcard',{},true);const other=new LocalRepository(repo.db,{kind:'guest',id:'guest:other'});
  await expect(new PracticeRepository(other).remove(pending.id,pending.version)).rejects.toThrow('missing');
  await expect(practice.remove(pending.id,pending.version+1)).rejects.toThrow('conflict');
  await practice.remove(pending.id,pending.version);
@@ -86,7 +86,7 @@ it('deletes only the selected session with CAS, retaining learning and other sco
 
 it('history retrieves ten completed sessions per page, newest first and scope isolated',async()=>{
  const {repo,practice}=await setup();
- for(let i=0;i<23;i++){let s=await practice.start('grammar-card');s=await practice.reveal(s.id,s.version);await practice.answer(s.id,s.version,{understood:true});}
+ for(let i=0;i<23;i++){let s=await practice.start('grammar-card',{},i>0);s=await practice.reveal(s.id,s.version);await practice.answer(s.id,s.version,{understood:true});}
  await practice.start('flashcard');const first=await practice.historyPage(0);const second=await practice.historyPage(1);const last=await practice.historyPage(2);
  expect(first.total).toBe(23);expect(first.sessions).toHaveLength(10);expect(second.sessions).toHaveLength(10);expect(last.sessions).toHaveLength(3);expect(new Set([...first.sessions,...second.sessions,...last.sessions].map(s=>s.id)).size).toBe(23);
  const foreign=new PracticeRepository(new LocalRepository(repo.db,{kind:'guest',id:'guest:foreign'}));expect((await foreign.historyPage(0)).total).toBe(0);
@@ -96,6 +96,6 @@ it('only started rounds are resumable, while unopened snapshots stay reloadable'
  const {repo,practice}=await setup();await repo.saveLesson({operationId:'more-words',title:'More',learnedOn:'2026-10-14',sourceType:'manual',items:catalog.slice(1,4).map(w=>({...w,approved:true}))});
  const first=await practice.start('flashcard');expect(await practice.resumableSessions()).toEqual([]);const revealed=await practice.reveal(first.id,first.version);expect(await practice.resumableSessions()).toEqual([]);
  const started=await practice.answer(first.id,revealed.version,{rating:'Good'});expect((await practice.resumableSessions()).map(s=>s.id)).toEqual([first.id]);expect(started.position).toBe(1);
- const opened=await practice.start('flashcard');await practice.discardUnstarted(opened.id);expect(await practice.get(opened.id)).toBeUndefined();await practice.discardUnstarted(started.id);expect((await practice.get(started.id))?.position).toBe(1);
+ const resumed=await practice.start('flashcard');expect(resumed.id).toBe(started.id);const opened=await practice.start('flashcard',{direction:'vi-en'});await practice.discardUnstarted(opened.id);expect(await practice.get(opened.id)).toBeUndefined();await practice.discardUnstarted(started.id);expect((await practice.get(started.id))?.position).toBe(1);
  const checked=await practice.start('spelling');await practice.check(checked.id,checked.version,checked.questions[0].word.word);expect((await practice.resumableSessions()).map(s=>s.id)).toContain(checked.id);
 });

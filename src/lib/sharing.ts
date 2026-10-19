@@ -28,7 +28,7 @@ export const shareCommandSchema=z.discriminatedUnion('action',[
  z.object({action:z.literal('page'),...selection,snapshotId:z.uuid(),page:z.number().int().nonnegative()}).strict(),
  z.object({action:z.literal('preview'),...proof}).strict(),
  z.object({action:z.literal('claim'),...proof,label:z.string().trim().min(1).max(60)}).strict(),
- z.object({action:z.literal('progress'),...selection,operationId:z.uuid(),items:z.array(z.object({entity:z.enum(['practiceSessions','reviewEvents','gameAttempts']),baseVersion:z.number().int().nonnegative(),row:z.unknown()}).strict()).min(1).max(100)}).strict(),
+ z.object({action:z.literal('progress'),...selection,operationId:z.uuid(),items:z.array(z.object({entity:z.enum(['practiceCycles','practiceSessions','reviewEvents','gameAttempts']),baseVersion:z.number().int().nonnegative(),row:z.unknown()}).strict()).min(1).max(100)}).strict(),
 ]);
 export type ShareCommand=z.infer<typeof shareCommandSchema>;
 export class SharingError extends Error {constructor(public readonly code:string,public readonly status=503){super(code);}}

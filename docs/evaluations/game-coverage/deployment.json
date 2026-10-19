@@ -1,0 +1,15 @@
+{
+  "id": "dpl_8k3YKJh2kzpBPeVkobnR3GSq54tm",
+  "target": "production",
+  "status": "READY",
+  "url": "https://words-for-kids-l0wnhk80a-trudyan141s-projects.vercel.app",
+  "aliases": [
+    "https://words-for-kids.vercel.app"
+  ],
+  "appSource": "779a7ff75085ecf6558d4aa03e5dd08ad3546d5f71eacdea95a47b5bfdaa5e5e",
+  "allowlistedAppBuildFiles": 546,
+  "configurationFiles": 1,
+  "mainPushed": false,
+  "vercelEnvAdded": false,
+  "sqlMigration": "202610190013_practice_coverage"
+}

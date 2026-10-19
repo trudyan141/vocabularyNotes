@@ -1,5 +1,12 @@
 # Words for Kids — kế hoạch sản phẩm dành cho founder
 
+## Chơi hết bộ qua các lượt10câu — founder duyệt19/10/2026
+
+Đã triển khai theo hướng2, dùng phạm vi nhóm/bài đang chọn: mỗi lượt tối đa10câu; hoàn thành bấm **Tiếp từ mới**, hết phần hợp lệ mới **Bắt đầu vòng mới**. Bộ47từ là10+10+10+10+7. Tiến độ cả bộ/hôm nay và vị trí đang dở lưu qua reload/ngày mới; Chơi lại/Làm lại câu sai không cộng đôi độ phủ. Sai tính đã làm, bỏ qua để lại cuối vòng. Từ mới thêm thuộc vòng sau; nội dung đổi/xóa thống kê riêng. Ngữ pháp tính từng câu/form; Speaking giữ vòng5từ riêng.
+
+Đã deploy trên [Words for Kids](https://words-for-kids.vercel.app). Local, offline, backup, account/shared sync đã được nối; SQL0013 đã apply/kiểm rollback.101logic +45productionUI/build/lint/types PASS. Hai máy cùng offline chưa bảo đảm không trùng trước sync; điện thoại/PWA thật và human UX còn founder test. [Hướng dẫn/giới hạn](evaluations/game-coverage.md), [plan đã chọn](ai/GAME-COVERAGE-PLAN.md).
+
+
 ## Mở game trên mobile — follow-up19/10/2026
 
 Đã sửa và deploy: chọn game không đợi server để đổi URL session; lượt mới dùng bản vừa lưu trên máy, resume/reload kiểm đúng lượt; chỉ kiểm ảnh cần cho tối đa10câu, vẫn random toàn phạm vi bài/nhóm và giữ ảnh đã duyệt/tiến độ. Không giảm số câu hoặc mất nghĩa từ để làm nhanh. Lab5000từ: Thẻ ôn1016→321ms, Gõ từ1039→361ms; game hình lần tải ảnh đầu còn~1,4s ở mạng chậm. Smoke domain với cache/SW70–152ms trên Chromium/WebKit là mẫu giả lập, không phải iPhone thật.54logic/39UI+16hosted-mode checks PASS. [Báo cáo/giới hạn](evaluations/game-start.md). Founder đóng/mở PWA rồi test game, phạm vi bài/nhóm, reload/tiếp tục/chơi lại; không xóa app hoặc dữ liệu.

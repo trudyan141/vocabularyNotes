@@ -1,0 +1,16 @@
+[
+  {
+    "name": "desktop-chromium",
+    "status": "PASS",
+    "uniqueTargets": 11,
+    "controller": false,
+    "errors": []
+  },
+  {
+    "name": "mobile-webkit",
+    "status": "PASS",
+    "uniqueTargets": 11,
+    "controller": false,
+    "errors": []
+  }
+]

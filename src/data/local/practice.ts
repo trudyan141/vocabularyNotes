@@ -1,3 +1,5 @@
+import {cycleState,cycleProgress,cycleRows,cycleSessions,latestCycle,practiceCycleSchema} from './practice-cycle';
+import {activityDay,itemIdentity,questionIdentity,coverageState,cycleSelection,type PracticeCycle,type CycleItem} from '@/lib/learning/coverage';
 import {practiceFilterSchema,type PracticeFilter} from '@/lib/learning/practice-filter';
 import {eligibleMissingLetters,missingLetterPositions,missingLetters,validMissingPositions} from '@/lib/learning/missing-letters';
 import {uniqueAggregateWords,aggregateWordId,withoutWordMemberships} from '@/lib/learning/library-search';
@@ -16,10 +18,10 @@ import { RepositoryError } from "./repository";
 import type { LibraryWord, ScopedDocument, SearchRow } from "./types";
 import { answerKey, schedule, type Rating, type ReviewState } from "@/lib/learning/srs";
 export type Mode="flashcard"|"picture-word"|"word-picture"|"letters"|"spelling"|"missing-letters"|"grammar"|"grammar-card";
-export type Question={id:string;word:LibraryWord;choices:LibraryWord[];missingIndex:number;missingIndices?:number[];grammar?:GrammarSnapshot};
-export type Session={id:string;scopeId:string;mode:Mode;filter?:PracticeFilter;direction?:"en-vi"|"vi-en";questions:Question[];position:number;revealed:boolean;hint:boolean;
+export type Question={id:string;cycleKey?:string;word:LibraryWord;choices:LibraryWord[];missingIndex:number;missingIndices?:number[];grammar?:GrammarSnapshot};
+export type Session={id:string;cycleId?:string;scopeId:string;mode:Mode;filter?:PracticeFilter;direction?:"en-vi"|"vi-en";questions:Question[];position:number;revealed:boolean;hint:boolean;
   checkedAnswer:string|null;checkedCorrect:boolean|null;
-  answers:{questionId:string;correct:boolean;skipped:boolean;hint:boolean;rating:Rating|null}[];completedAt:string|null;version:number;createdAt:string};
+  answers:{questionId:string;correct:boolean;skipped:boolean;hint:boolean;rating:Rating|null;answeredAt?:string;day?:string;timezone?:string}[];completedAt:string|null;version:number;createdAt:string};
 export const sessionStarted=(session:Session)=>session.position>0||session.answers.length>0||session.checkedAnswer!==null;
 const modes=z.enum(["flashcard","picture-word","word-picture","letters","spelling","missing-letters","grammar","grammar-card"]);
 export class PracticeRepository{
@@ -130,7 +132,7 @@ export class PracticeRepository{
   async speakingWords(filter:PracticeFilter){
     return uniqueAggregateWords((await this.repository.words((await this.candidates(filter)).map(row=>row.id))).filter(word=>word.approved));
   }
-  private async roundWords(rows:SearchRow[],mode:Mode){
+  private async roundWords(rows:SearchRow[],mode:Mode,limit=10,orderedIds?:string[]){
     const scope=this.repository.scope.id,selected=new Set(rows.map(row=>row.id));
     // Group explicit source aliases before the draw, retaining their primary ID.
     const senses=await this.repository.db.senses.where('[scopeId+id]').between([scope,''],[scope,'\uffff']).toArray();
@@ -140,33 +142,107 @@ export class PracticeRepository{
       const aggregate=aggregateWordId(sense),key=JSON.stringify([sense.entryId,sense.pos,aggregate]);
       if(!groups.has(key)||sense.id===aggregate)groups.set(key,sense.id);
     }
-    const ids=shuffled([...groups.values()]),words:LibraryWord[]=[];
-    for(let i=0;i<ids.length&&words.length<10;i+=16){
+    const ids=orderedIds??shuffled([...groups.values()]),words:LibraryWord[]=[];
+    for(let i=0;i<ids.length&&words.length<limit;i+=16){
       const batch=await this.repository.words(ids.slice(i,i+16));
       for(const word of batch){
         if(!word.approved||!word.vi.trim()||!word.en.trim())continue;
         if(mode==='letters'&&!/^[a-z]{2,30}$/i.test(word.word))continue;
         if(mode==='missing-letters'&&!eligibleMissingLetters(word.word))continue;
-        words.push(word);if(words.length===10)break;
+        words.push(word);if(words.length===limit)break;
       }
     }
     return words;
   }
-  async start(mode:Mode,filter:PracticeFilter={}):Promise<Session>{
+  private async wordCycleItems(mode:Mode,filter:PracticeFilter):Promise<CycleItem[]>{
+    const rows=await this.candidates(filter),selected=new Set(rows.map(row=>row.id)),scope=this.repository.scope.id;
+    const [senses,entries]=await Promise.all([
+      this.repository.db.senses.where('[scopeId+id]').between([scope,''],[scope,'\uffff']).toArray(),
+      this.repository.db.entries.where('[scopeId+id]').between([scope,''],[scope,'\uffff']).toArray(),
+    ]);
+    const lexemes=new Map(entries.filter(e=>!e.deletedAt).map(e=>[e.id,e])),groups=new Map<string,CycleItem>();
+    for(const sense of senses){
+      const entry=lexemes.get(sense.entryId);
+      if(!selected.has(sense.id)||!entry||sense.deletedAt||sense.learningApprovalStatus!=='approved'||sense.approvedContentVersion!==sense.contentVersion||!sense.meaningVi.trim()||!sense.definitionEn.trim())continue;
+      if(mode==='letters'&&!/^[a-z]{2,30}$/i.test(entry.displayText)||mode==='missing-letters'&&!eligibleMissingLetters(entry.displayText))continue;
+      const aggregate=aggregateWordId(sense),key=JSON.stringify([entry.id,sense.pos,aggregate]);
+      if(!groups.has(key)||sense.id===aggregate)groups.set(key,{key:crypto.randomUUID(),senseId:sense.id,revision:`${entry.version}:${sense.version}`});
+    }
+    return shuffled([...groups.values()]);
+  }
+  async progress(cycleId:string){
+    const row=await this.repository.db.table<ScopedDocument>('practiceCycles').get([this.repository.scope.id,cycleId]);
+    return row&&!row.deletedAt?cycleProgress(this.repository,row.payload.cycle as PracticeCycle):null;
+  }
+  async progressForSelection(filter:PracticeFilter){
+    const rows=await cycleRows(this.repository),latest=new Map<string,PracticeCycle>();
+    for(const row of rows.filter(row=>!row.deletedAt).sort((a,b)=>a.createdAt.localeCompare(b.createdAt)||a.id.localeCompare(b.id))){
+      const cycle=row.payload.cycle as PracticeCycle;
+      if(cycleSelection(cycle.mode,cycle.filter)===cycleSelection(cycle.mode,filter))latest.set(cycle.mode,cycle);
+    }
+    const sessions=await cycleSessions(this.repository);
+    return Promise.all([...latest.values()].map(cycle=>cycleProgress(this.repository,cycle,sessions)));
+  }
+  async start(mode:Mode,filter:PracticeFilter={},newCycle=false):Promise<Session>{
     modes.parse(mode);practiceFilterSchema.parse(filter);
+    if(!this.repository.canPractice)throw new RepositoryError('not-ready');
     this.pictures.clear();this.failedPictures.clear();
-    if(mode==="grammar"||mode==="grammar-card")return this.startGrammar(mode,filter);
+    const repo=this.repository,previous=await latestCycle(repo,mode,filter);
+    let cycle=previous;
+    const oldState=cycle?await cycleState(repo,cycle):null;
+    if(oldState?.active.length){
+      for(const active of oldState.active)if(await this.sessionCurrent(active))return active;
+    }
+    if(newCycle&&cycle&&oldState&&oldState.done.size+oldState.unavailable.size!==cycle.items.length)throw new RepositoryError('conflict');
+    if(!cycle||newCycle){
+      const picture=mode==='picture-word'||mode==='word-picture',grammar=mode==='grammar'||mode==='grammar-card';
+      const items=grammar||picture?(await (grammar?this.grammarQuestions(mode as 'grammar'|'grammar-card',filter):this.wordQuestions(mode,filter,undefined,true))).map(q=>({key:crypto.randomUUID(),senseId:q.word.id,revision:q.word.revision,...(q.grammar?{grammar:{id:q.grammar.id,version:q.grammar.version,formula:q.grammar.formula,example:q.grammar.example}}:{})})):await this.wordCycleItems(mode,filter);
+      if(!items.length)throw new RepositoryError('not-ready');
+      cycle=practiceCycleSchema.parse({id:crypto.randomUUID(),scopeId:repo.scope.id,mode,filter,createdAt:new Date(Math.max(Date.now(),previous?Date.parse(previous.createdAt)+1:0)).toISOString(),items});
+    }
+    const state=await cycleState(repo,cycle);
+    if(state.done.size+state.unavailable.size===cycle.items.length)throw new RepositoryError('complete');
+    const remaining=cycle.items.filter(item=>!state.done.has(item.key)&&!state.unavailable.has(item.key));
+    remaining.sort((a,b)=>Number(state.deferred.has(a.key))-Number(state.deferred.has(b.key)));
+    const allowed=new Set(remaining.map(itemIdentity)),byIdentity=new Map(remaining.map(item=>[itemIdentity(item),item.key]));
+    const all=mode==='grammar'||mode==='grammar-card'?(await this.grammarQuestions(mode,filter,cycle)).filter(q=>allowed.has(questionIdentity(q))):await this.wordQuestions(mode,filter,remaining.map(item=>item.senseId));
+    const positions=new Map(remaining.map((item,i)=>[itemIdentity(item),i]));
+    const questions=all.filter(q=>allowed.has(questionIdentity(q))).sort((a,b)=>positions.get(questionIdentity(a))!-positions.get(questionIdentity(b))!).slice(0,10).map(q=>({...q,cycleKey:byIdentity.get(questionIdentity(q))!}));
+    if(!questions.length)throw new RepositoryError('not-ready');
+    const at=new Date().toISOString(),session:Session={id:crypto.randomUUID(),scopeId:repo.scope.id,mode,filter,direction:filter.direction??'en-vi',cycleId:cycle.id,questions,position:0,revealed:false,hint:false,checkedAnswer:null,checkedCorrect:null,answers:[],completedAt:null,version:1,createdAt:at};
+    const prepared=cycle;
+    return repo.db.transaction('rw',repo.db.tables,async()=>{
+      const currentCycle=await latestCycle(repo,mode,filter);
+      if(currentCycle?.id!==previous?.id){
+        if(currentCycle){const current=coverageState(currentCycle,await cycleSessions(repo)).active[0];if(current)return current;}
+        throw new RepositoryError('conflict');
+      }
+      const current=await cycleState(repo,prepared);
+      if(state.lastPlayedAt!==current.lastPlayedAt||state.active.length!==current.active.length||state.active.some(s=>!current.active.some(c=>c.id===s.id&&c.version===s.version)))throw new RepositoryError('conflict');
+      if(questions.some(q=>current.done.has(q.cycleKey!)||current.unavailable.has(q.cycleKey!)))throw new RepositoryError('conflict');
+      const words=await repo.words(questions.map(q=>q.word.id));
+      if(questions.some(q=>!words.some(w=>w.id===q.word.id&&w.approved&&w.revision===q.word.revision))||!await this.pictureSessionCurrent(session)||(await Promise.all(questions.map(q=>this.grammarCurrent(q)))).some(ok=>!ok))throw new RepositoryError('conflict');
+      // Stale rounds keep their answered prefix for coverage/history; only unused
+      // reservations are released when the user explicitly continues this set.
+      for(const active of current.active){const row=await this.table.get([repo.scope.id,active.id]);if(row)await this.table.put({...row,deletedAt:at,updatedAt:at,version:row.version+1});}
+      if(prepared.id!==previous?.id)await repo.db.table<ScopedDocument>('practiceCycles').add({scopeId:repo.scope.id,id:prepared.id,version:1,createdAt:prepared.createdAt,updatedAt:prepared.createdAt,deletedAt:null,payload:{cycle:prepared}});
+      await this.table.add({scopeId:repo.scope.id,id:session.id,createdAt:at,updatedAt:at,version:1,deletedAt:null,payload:{session}});
+      return session;
+    });
+  }
+  private async wordQuestions(mode:Mode,filter:PracticeFilter,orderedIds?:string[],poolOnly=false):Promise<Question[]>{
     const scope=this.repository.scope.id;
     const index=await this.repository.db.searchIndex.where('[scopeId+ordinal]').between([scope,''],[scope,'\uffff']).toArray();
     const pictureGame=mode==='picture-word'||mode==='word-picture';
-    const selectedRows=await this.candidates(filter,index),selected=new Set(selectedRows.map(row=>row.id));
+    const orderedSet=new Set(orderedIds);
+    const selectedRows=orderedIds?index.filter(row=>orderedSet.has(row.id)&&row.approval):await this.candidates(filter,index),selected=new Set(selectedRows.map(row=>row.id));
     const choiceScope=pictureGame?new Set((await this.candidates({...filter,word:undefined,due:false,weak:false},index)).map(row=>row.id)):new Set<string>();
     let candidates=index.filter(row=>row.approval);
     if(mode==="picture-word"||mode==="word-picture")candidates=candidates.filter(row=>!!safeArt(row.art));
     const picture=(word:LibraryWord)=>!!safeArt(word.art)&&word.approved&&!(["intelligent","smart","clever"].includes(word.word.toLowerCase())&&word.pos==="adjective");
     const distractorWords=mode==="picture-word"||mode==="word-picture"?(await this.repository.words(candidates.map(row=>row.id))).filter(picture):[];
     candidates=candidates.filter(row=>selected.has(row.id));
-    let words=pictureGame?(await this.repository.words(candidates.map(row=>row.id))).filter(word=>word.vi.trim()&&word.en.trim()):await this.roundWords(selectedRows,mode);
+    let words=pictureGame?(await this.repository.words(candidates.map(row=>row.id))).filter(word=>word.vi.trim()&&word.en.trim()):await this.roundWords(selectedRows,mode,poolOnly?Number.POSITIVE_INFINITY:10,orderedIds);
     if(mode==="picture-word"||mode==="word-picture")words=words.filter(word=>picture(word)&&distractorWords.some(ready=>ready.id===word.id&&ready.revision===word.revision&&ready.art===word.art));
     if(mode==="letters")words=words.filter(word=>/^[a-z]{2,30}$/i.test(word.word));
     if(mode==="missing-letters")words=words.filter(word=>eligibleMissingLetters(word.word));
@@ -174,8 +250,9 @@ export class PracticeRepository{
     const distractorPool=pictureGame?unique:[];
     if((mode==="picture-word"||mode==="word-picture")&&unique.length<3)throw new RepositoryError("not-ready");
     if(!words.length)throw new RepositoryError("not-ready");
-    const id=crypto.randomUUID(),at=new Date().toISOString();
-    const questions:Question[]=[],targets=shuffled(uniqueAggregateWords(words)),decoded=new Set<string>();
+    if(poolOnly)return shuffled(uniqueAggregateWords(words)).filter(word=>!pictureGame||distractorPool.filter(other=>answerKey(other.word,other.caseMode)!==answerKey(word.word,word.caseMode)&&other.vi!==word.vi&&other.art!==word.art).length>=2).map(word=>({id:crypto.randomUUID(),word:withoutWordMemberships(word),choices:[],missingIndex:0}));
+    const order=new Map(orderedIds?.map((id,i)=>[id,i]));
+    const questions:Question[]=[],targets=orderedIds?uniqueAggregateWords(words).sort((a,b)=>(order.get(a.id)??0)-(order.get(b.id)??0)):shuffled(uniqueAggregateWords(words)),decoded=new Set<string>();
     // Draw from the full pool, but decode only this round's targets and choices.
     // Continue past unavailable candidates without limiting eligibility to a prefix.
     for(let offset=0;offset<targets.length&&questions.length<10;offset+=10){
@@ -199,24 +276,22 @@ export class PracticeRepository{
       }
     }
     if(!questions.length)throw new RepositoryError("not-ready");
-    const session:Session={id,scopeId:this.repository.scope.id,mode,filter,direction:filter.direction??"en-vi",questions,position:0,revealed:false,hint:false,checkedAnswer:null,checkedCorrect:null,answers:[],completedAt:null,version:1,createdAt:at};
-    await this.table.add({scopeId:session.scopeId,id,createdAt:at,updatedAt:at,version:1,deletedAt:null,payload:{session}});return session;
+    return questions;
   }
-  private async startGrammar(mode:"grammar"|"grammar-card",filter:PracticeFilter):Promise<Session>{
-    const items=(await learningItems(this.repository,'grammar','',filter.lesson??null,0,Number.MAX_SAFE_INTEGER)).items;
-    const deck=filter.deck?(await this.repository.db.table<ScopedDocument>('decks').get([this.repository.scope.id,filter.deck])):null;
-    if(filter.deck&&(!deck||deck.deletedAt))throw new RepositoryError('not-ready');
+  private async grammarQuestions(mode:"grammar"|"grammar-card",filter:PracticeFilter,cycle?:PracticeCycle):Promise<Question[]>{
+    const items=(await learningItems(this.repository,'grammar','',cycle?null:filter.lesson??null,0,Number.MAX_SAFE_INTEGER)).items;
+    const deck=!cycle&&filter.deck?(await this.repository.db.table<ScopedDocument>('decks').get([this.repository.scope.id,filter.deck])):null;
+    if(!cycle&&filter.deck&&(!deck||deck.deletedAt))throw new RepositoryError('not-ready');
     const group=(deck?.payload.deck as import('./decks').Deck|undefined)?.group;
     const set=filter.set&&deck?(await groupContents(this.repository,deck as StudyGroup)).sets.find(set=>set.id===filter.set):null;
-    if(filter.set&&!set)throw new RepositoryError('not-ready');
-    const families=items.filter(item=>(!set||set.grammarKeys.includes(grammarKey(item))||item.related?.some(child=>set.grammarKeys.includes(grammarKey(child))))&&(!filter.word||item.senseId===filter.word)&&(!filter.deck||!!group?.grammar?.some(ref=>ref.senseId===item.senseId&&ref.key===grammarKey(item)||item.related?.some(child=>ref.senseId===child.senseId&&ref.key===grammarKey(child)))));
+    if(!cycle&&filter.set&&!set)throw new RepositoryError('not-ready');
+    const families=items.filter(item=>cycle||(!set||set.grammarKeys.includes(grammarKey(item))||item.related?.some(child=>set.grammarKeys.includes(grammarKey(child))))&&(!filter.word||item.senseId===filter.word)&&(!filter.deck||!!group?.grammar?.some(ref=>ref.senseId===item.senseId&&ref.key===grammarKey(item)||item.related?.some(child=>ref.senseId===child.senseId&&ref.key===grammarKey(child)))));
     const expanded=families.flatMap(item=>[item,...(item.related??[]),...(item.variants??[]).map(variant=>({...item,related:undefined,variants:undefined,textEn:variant.formula,example:variant.example,exampleVi:variant.exampleVi,exampleIpa:variant.exampleIpa,analysis:variant.analysis}))]);
     const seen=new Set<string>();const eligible=expanded.filter(item=>{const identity=JSON.stringify([item.example,item.exampleVi,item.textEn]);if(seen.has(identity))return false;seen.add(identity);return true;}).filter(item=>item.table==='sentences'&&item.example&&item.exampleVi&&item.example.length<=200&&sentenceTiles(item.example).length>=2&&sentenceTiles(item.example).length<=12);
     const words=await this.repository.words([...new Set(eligible.map(item=>item.senseId))]);
-    const questions:Question[]=shuffled(eligible).flatMap(item=>{const word=words.find(word=>word.id===item.senseId&&word.approved);return word?[{id:crypto.randomUUID(),word:withoutWordMemberships(word),choices:[],missingIndex:0,grammar:{id:item.id,version:item.version,formula:item.textEn,title:item.title,conditions:item.conditions||item.textVi,analysis:item.analysis||undefined,example:item.example!,exampleVi:item.exampleVi!,...(item.exampleIpa?{exampleIpa:item.exampleIpa}:{})}}]:[];}).slice(0,10);
+    const questions:Question[]=shuffled(eligible).flatMap(item=>{const word=words.find(word=>word.id===item.senseId&&word.approved);return word?[{id:crypto.randomUUID(),word:withoutWordMemberships(word),choices:[],missingIndex:0,grammar:{id:item.id,version:item.version,formula:item.textEn,title:item.title,conditions:item.conditions||item.textVi,analysis:item.analysis||undefined,example:item.example!,exampleVi:item.exampleVi!,...(item.exampleIpa?{exampleIpa:item.exampleIpa}:{})}}]:[];});
     if(!questions.length)throw new RepositoryError('not-ready');
-    const at=new Date().toISOString(),session:Session={id:crypto.randomUUID(),scopeId:this.repository.scope.id,mode,filter,questions,position:0,revealed:false,hint:false,checkedAnswer:null,checkedCorrect:null,answers:[],completedAt:null,version:1,createdAt:at};
-    await this.table.add({scopeId:session.scopeId,id:session.id,createdAt:at,updatedAt:at,version:1,deletedAt:null,payload:{session}});return session;
+    return questions;
   }
   async replay(id:string,reviewOnly=false):Promise<Session>{
     const original=await this.get(id);if(!original)throw new RepositoryError('missing');
@@ -228,7 +303,7 @@ export class PracticeRepository{
       const current=await this.repository.words(questions.map(q=>q.word.id));
       if(!questions.length||!questions.every(q=>current.some(w=>w.id===q.word.id&&w.approved&&w.revision===q.word.revision))||!await this.pictureSessionCurrent(saved)||(await Promise.all(questions.map(q=>this.grammarCurrent(q)))).some(valid=>!valid))throw new RepositoryError('conflict');
       const at=new Date().toISOString();
-      const next:Session={...saved,id:crypto.randomUUID(),questions:shuffled(questions).map(q=>({...q,id:crypto.randomUUID()})),position:0,revealed:false,hint:false,checkedAnswer:null,checkedCorrect:null,answers:[],completedAt:null,version:1,createdAt:at};
+      const next:Session={...saved,cycleId:undefined,id:crypto.randomUUID(),questions:shuffled(questions).map(q=>({...q,id:crypto.randomUUID()})),position:0,revealed:false,hint:false,checkedAnswer:null,checkedCorrect:null,answers:[],completedAt:null,version:1,createdAt:at};
       await this.table.add({scopeId:next.scopeId,id:next.id,createdAt:at,updatedAt:at,version:1,deletedAt:null,payload:{session:next}});return next;
     });
   }
@@ -295,7 +370,7 @@ export class PracticeRepository{
       }
       const position=session.position+1;
       const next:Session={...session,position,version:version+1,revealed:false,hint:false,
-        checkedAnswer:null,checkedCorrect:null,completedAt:position===session.questions.length?at:null,answers:[...session.answers,{questionId:question.id,correct,skipped:!!input.skipped,hint:session.hint,rating:input.rating??null}]};
+        checkedAnswer:null,checkedCorrect:null,completedAt:position===session.questions.length?at:null,answers:[...session.answers,{questionId:question.id,correct,skipped:!!input.skipped,hint:session.hint,rating:input.rating??null,answeredAt:at,day:activityDay(new Date(at)),timezone:Intl.DateTimeFormat().resolvedOptions().timeZone}]};
       await this.put(next);return next;
     });
   }

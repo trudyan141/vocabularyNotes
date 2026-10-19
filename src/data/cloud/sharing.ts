@@ -47,7 +47,7 @@ export async function openSharedRepository(db:LibraryDatabase,selection:ShareSel
  try{await sharedEngine(repo).synchronize();}catch(error){if(!(error instanceof SharingError)||!['progress-conflict','content-changed'].includes(error.code))throw error;}
  return repo;
 }
-export const learningTables=['practiceSessions','reviewEvents','gameAttempts'] as const;
+export const learningTables=['practiceCycles','practiceSessions','reviewEvents','gameAttempts'] as const;
 type LearningTable=typeof learningTables[number];
 type Pending={operationId:string;items:{entity:LearningTable;baseVersion:number;row:Record<string,unknown>}[]};
 const snapshotSchema=z.object({context:shareContextSchema,snapshotId:z.uuid(),watermark:z.number().int().nonnegative(),page:z.number().int().nonnegative(),pages:z.number().int().positive(),items:z.array(z.object({entity:z.enum([...cloudTables,'reviewStates']),id:z.string().max(200),version:z.number().int().positive(),row:z.unknown()}).strict()).max(100)}).strict();
@@ -104,7 +104,7 @@ export class SharedSync {
   const pending=await repo.db.outbox.get([scope,'share-pending']);if(!pending)return;
   const packet=pending.payload as unknown as Pending;
   const result=await shareCall<{accepted:{entity:string;id:string;version:number}[]}>({action:'progress',...this.selection(),...packet});
-  const names={practiceSessions:'practice_sessions',reviewEvents:'review_events',gameAttempts:'game_attempts'};
+  const names={practiceCycles:'practice_cycles',practiceSessions:'practice_sessions',reviewEvents:'review_events',gameAttempts:'game_attempts'};
   if(result.accepted.length!==packet.items.length)throw new SharingError('invalid-receipt');
   await repo.db.transaction('rw',repo.db.outbox,repo.db.table<ScopedDocument>('transferCheckpoints'),async()=>{
    for(const item of packet.items){

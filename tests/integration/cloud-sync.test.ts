@@ -8,6 +8,7 @@ import {cloudEntities,type SyncRequest,type Pull,type PullTable} from '@/lib/clo
 import {catalog} from '@/lib/learning/catalog';
 import {stableJson} from '@/domain/identity';
 import {prepareTransfer,commitTransfer} from '@/data/cloud/transfer';
+import {PracticeRepository} from '@/data/local/practice';
 const owner='50000000-0000-4000-8000-000000000005',library='51000000-0000-4000-8000-000000000005';const databases:LibraryDatabase[]=[];
 function account(name=`cloud-${crypto.randomUUID()}`){const db=new LibraryDatabase(name);databases.push(db);return new LocalRepository(db,{kind:'account',id:`account:${owner}:${library}`,ownerId:owner,libraryId:library});}
 async function seed(repo:LocalRepository){await repo.db.open();return repo.saveLesson({operationId:crypto.randomUUID(),title:'My fruit',learnedOn:'2026-10-10',sourceType:'manual',items:[{...catalog[0],id:'apple',approved:true}]});}
@@ -40,3 +41,22 @@ describe('cloud sync with deterministic local transport fixtures',()=>{
 it('keeps both conflicting notes and makes combined meanings pending without changing review history',async()=>{const a=account(),b=account(),remote=new FakeCloud();await seed(a);await a.saveNote({id:'note',targetId:'apple',targetType:'sense',text:'bản gốc',expectedVersion:null});const first=new CloudSync(a,remote),second=new CloudSync(b,remote);await first.synchronize();await b.db.open();await second.synchronize();await a.saveNote({id:'note',targetId:'apple',targetType:'sense',text:'máy A',expectedVersion:1});await first.synchronize();await b.saveNote({id:'note',targetId:'apple',targetType:'sense',text:'máy B',expectedVersion:1});await expect(second.synchronize()).rejects.toThrow('conflict');await second.resolve((await second.conflicts())[0],'both');await second.synchronize();await first.synchronize();expect((await b.db.notes.toArray()).map(n=>n.text).sort()).toEqual(['máy A','máy B'].sort());const originalA=(await a.word('apple'))!,originalB=(await b.word('apple'))!;await a.editWord('apple',originalA.revision,{word:'apple',vi:'nghĩa A',en:'Definition A.'});await first.synchronize();await b.editWord('apple',originalB.revision,{word:'apple',vi:'nghĩa B',en:'Definition B.'});await expect(second.synchronize()).rejects.toThrow('conflict');await second.resolve((await second.conflicts())[0],'merged',{meaningVi:'local',definitionEn:'remote'});expect((await b.word('apple'))?.vi).toBe('nghĩa B');expect((await b.word('apple'))?.en).toBe('Definition A.');expect((await b.word('apple'))?.approved).toBe(false);expect(await b.db.reviewEvents.count()).toBe(0);});
 
 it('keeps the last successful sync time after a later connection failure',async()=>{const repo=account();await repo.db.open();await saveCloudStatus(repo,'saved');const saved=await repo.db.table('transferCheckpoints').get([repo.scope.id,'cloud-status']);await saveCloudStatus(repo,'unavailable');const failed=await repo.db.table('transferCheckpoints').get([repo.scope.id,'cloud-status']);expect(failed?.payload.status).toBe('unavailable');expect(failed?.payload.lastSyncedAt).toBe(saved?.payload.lastSyncedAt);});
+
+it('continues the same coverage cycle on a second synced device without repeating the first ten targets',async()=>{
+ const a=account(),b=account(),remote=new FakeCloud();await a.db.open();await b.db.open();
+ await a.saveLesson({operationId:crypto.randomUUID(),title:'Coverage',learnedOn:'2026-10-19',sourceType:'manual',items:catalog.slice(0,13).map((w,i)=>({...w,id:`coverage-${i}`,approved:true}))});
+ const practice=new PracticeRepository(a),first=await practice.start('spelling');let s=first;
+ for(let i=0;i<10;i++){s=await practice.check(s.id,s.version,s.questions[s.position].word.word);s=await practice.answer(s.id,s.version,{});}
+ await new CloudSync(a,remote).synchronize();const syncB=new CloudSync(b,remote);await syncB.synchronize();
+ const next=await new PracticeRepository(b).start('spelling');expect(next.cycleId).toBe(first.cycleId);expect(next.questions).toHaveLength(3);expect(next.questions.every(q=>first.questions.every(p=>p.word.id!==q.word.id))).toBe(true);
+ await syncB.synchronize();expect((await new PracticeRepository(b).progress(first.cycleId!))?.done).toBe(10);
+});
+
+it('transfers immutable coverage and answered prefixes once, preserving source progress',async()=>{
+ const target=account(),source=new LocalRepository(target.db,{kind:'guest',id:'guest:coverage-transfer'});await seed(source);
+ const practice=new PracticeRepository(source);let s=await practice.start('flashcard');s=await practice.reveal(s.id,s.version);s=await practice.answer(s.id,s.version,{rating:'Good'});
+ await commitTransfer(target,await prepareTransfer(source,target));
+ expect(await new PracticeRepository(target).progress(s.cycleId!)).toMatchObject({done:1,total:1});
+ await commitTransfer(target,await prepareTransfer(source,target));expect(await target.db.table('practiceCycles').where('[scopeId+id]').between([target.scope.id,''],[target.scope.id,'\uffff']).count()).toBe(1);
+ expect(await practice.progress(s.cycleId!)).toMatchObject({done:1,total:1});
+});

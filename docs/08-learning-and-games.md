@@ -1,5 +1,7 @@
 # Ôn tập, flashcard và minigame
 
+24/10 founder follow-up ADR087/093: **Tìm ký tự thiếu** dùng ô nút thay input. Chạm bank điền ô trống đầu tiên; chạm ô đã điền trả đúng tile về bank, kể cả chữ trùng; đủ ô mới Kiểm tra, không bật bàn phím mobile. Offline shell giữ cùng thao tác. **Nhìn hình chọn từ** thêm loa, tự đọc đúng target mỗi câu theo cài đặt âm thanh, nghe lại và IPA qua WordPronunciation; thiếu IPA dùng trạng thái/fallback hiện có, không tự gán verified. Giữ snapshot/check/attempts/SRS.
+
 **19/10 — ADR100, implemented / scoped verified:** dùng selection phạm vi ôn hiện tại; vòng phủ bộ riêng theo library/mode/filter/direction, pool snapshot cố định, mỗi lượt≤10câu và không cấp lại target đã làm cho đến hết vòng. Chu kỳ không reset theo ngày; ngày chỉ thống kê hoạt động. Sai tính đã làm, skip hoãn về cuối; replay/retry chủ động không cộng coverage. Giữ SRS/CAS/media approval/source identity. Có tiến độ cả bộ +lượt, Tiếp từ mới và vòng mới chủ động. Grammar đếm từng form/câu; Speaking giữ luồng5từ riêng, chưa nhận bảo đảm coverage. Cùng máy chống trùng qua transaction; nhiều máy offline không bảo đảm không trùng trước sync. [Plan](ai/GAME-COVERAGE-PLAN.md).
 
 

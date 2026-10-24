@@ -1,5 +1,7 @@
 # Quyết định và giả định
 
+24/10/2026 — Founder follow-up ADR087/093: thay input của Tìm ký tự thiếu bằng chọn/trả tile qua chạm để tránh bàn phím mobile; thêm loa/tự đọc/IPA cho Nhìn hình chọn từ. Dùng audio và pronunciation hiện có, tôn trọng mute, không đổi dữ liệu hoặc cách chấm. [Spec](../08-learning-and-games.md), [evidence](../evaluations/game-touch-and-picture-audio.md).
+
 15/10/2026 — Founder bổ sung ADR087: cả hai game điền chữ phải khuyết2–3chữ ở lượt mới, chỉ1khi từ2chữ cần giữ cue. Sau Kiểm tra hiện nguyên từ đúng ở trên, lời nhắc sai tô đậm riêng từ đáp án. Giữ snapshot cũ và attempts/SRS boundaries. [Spec](../08-learning-and-games.md), [evidence](../evaluations/missing-letter-corrections.md).
 
 ## ADR-084 —12/10/2026: Ba nguồn hình và Google copy fallback

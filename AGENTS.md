@@ -14,6 +14,10 @@ Yêu cầu trực tiếp mới nhất ưu tiên spec/skill. Founder chỉ chốt
 6. [Workflow runner](docs/ai/WORKFLOW.md): discovery trước run, 0test không pass, snapshot/output riêng, source fingerprint+commit; stale/collision không patch app. Báo lệnh/result/limits thật; mock/local không đồng nghĩa live/device/remoteCI.
 7. STATE chỉ current+one next action; TASKS status/acceptance/link; CHANGELOG/evaluation lịch sử. Quyết định sản phẩm/kiến trúc mới cập nhật spec+DECISIONS; founder plan khi milestone đổi. Không paste bàn giao dài vào ba file bootstrap.
 
+## Feedback game phải giữ khi làm tiếp — founder25/10/2026
+
+Đọc [quy tắc game đã chốt](docs/ai/PROJECT-RULES.md#feedback-game-25102026) trước sửa/thêm game. Dữ liệu chính theo words+grammar đã chọn; thiếu câu phù hợp vẫn mở mẫu để chơi ngay. UI bé chỉ thấy nhiệm vụ/hình/thao tác; metadata thu gọn. Tái dùng Fox loading. Chạm chọn/chạm trả, không ép keyboard/kéo thả; Lật thẻ ít nhất2cặp, sai tự úp/đúng chơi tiếp. Tạo hình mới khi cần, không nhân bản game trùng cơ chế hoặc hardcode bộ câu làm dữ liệu chính.
+
 ## Bất biến cần luôn giữ
 
 Words for Kids, trẻ5–8 tự thêm/sửa/học; Next.js/PWA, Theme C/Nunito/mascot Cáo, không parent gate. Khách IndexedDB; localStorage chỉ settings nhỏ/private BYOK opt-in. AI network và cloud riêng; image result qua review trước save. Deterministic dedup+unique constraint giữ khác nghĩa/POS; không AI semantic merge, không tự đổi user content. Auth/ownership server/database; không private/operator/service key vào source public.

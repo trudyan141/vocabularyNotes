@@ -1,8 +1,8 @@
 import {microphoneCue} from './microphone-cues';
 import {EndOfSpeech} from './end-of-speech';
 /** Keep the utterance and 120ms margins, not the endpoint's trailing silence. */
-export function trimRecording(samples:Float32Array){
- if(!samples.length||samples.length>160000||samples.some(n=>!Number.isFinite(n)))throw new Error('samples');
+export function trimRecording(samples:Float32Array,maxSamples=160000){
+ if(!samples.length||samples.length>maxSamples||maxSamples>320000||maxSamples<4000||samples.some(n=>!Number.isFinite(n)))throw new Error('samples');
  const frame=320,pad=1920;let first=-1,last=0;
  for(let start=0;start<samples.length;start+=frame){let energy=0;const end=Math.min(start+frame,samples.length);for(let i=start;i<end;i++)energy+=samples[i]*samples[i];if(Math.sqrt(energy/(end-start))>.006){if(first<0)first=start;last=end;}}
  if(first<0)return samples;
@@ -10,6 +10,7 @@ export function trimRecording(samples:Float32Array){
  return start===0&&end===samples.length?samples:samples.slice(start,end);
 }
 export class VoiceRecorder{
+ constructor(private readonly profile:'word'|'sentence'='word'){}
  private context:AudioContext|null=null;private meter:ReturnType<typeof setInterval>|undefined;
  private stream:MediaStream|null=null;private recorder:MediaRecorder|null=null;private invalid=false;private timer:ReturnType<typeof setTimeout>|undefined;
  async start(done:(blob:Blob)=>void,failed:()=>void=()=>{}){
@@ -24,7 +25,7 @@ export class VoiceRecorder{
    await microphoneCue(context,'start');
    if(this.invalid){stream.getTracks().forEach(t=>t.stop());throw new Error('cancelled');}
    const analyser=context.createAnalyser();analyser.fftSize=1024;context.createMediaStreamSource(stream).connect(analyser);
-   const frames=new Float32Array(analyser.fftSize),endpoint=new EndOfSpeech(performance.now());
+   const frames=new Float32Array(analyser.fftSize),endpoint=new EndOfSpeech(performance.now(),this.profile);
    const mime=['audio/webm;codecs=opus','audio/mp4','audio/webm'].find(v=>MediaRecorder.isTypeSupported(v));
    const recorder=new MediaRecorder(stream,mime?{mimeType:mime}:undefined);this.recorder=recorder;
    const chunks:Blob[]=[];let size=0;
@@ -38,7 +39,7 @@ export class VoiceRecorder{
    };
    recorder.onerror=()=>{this.cancel();failed();};recorder.start();
    this.meter=setInterval(()=>{analyser.getFloatTimeDomainData(frames);let energy=0;for(const n of frames)energy+=n*n;if(endpoint.sample(Math.sqrt(energy/frames.length),performance.now()))this.stop();},50);
-   this.timer=setTimeout(()=>this.stop(),10000);
+   this.timer=setTimeout(()=>this.stop(),this.profile==='sentence'?15000:10000);
   }catch(error){this.cancel();throw error;}
  }
  stop(){clearTimeout(this.timer);clearInterval(this.meter);if(this.recorder?.state==='recording')this.recorder.stop();}

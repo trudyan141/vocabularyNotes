@@ -1,4 +1,5 @@
 "use client";
+import {gameRegistry,expansionModes} from '@/lib/learning/game-registry';
 import {SavedCycleProgress} from './practice-progress';
 import Link from 'next/link';
 import {ArrowRight,Trophy,ChevronLeft,ChevronRight} from 'lucide-react';
@@ -13,8 +14,8 @@ import type {Deck} from '@/data/local/decks';
 import type {ScopedDocument} from '@/data/local/types';
 import {lessonTitle} from '@/lib/learning/lesson-presentation';
 import {practiceHref} from '@/lib/learning/practice-filter';
-export const modes:[Mode,string,string][]=[["flashcard","Thẻ ôn","Flashcards"],["picture-word","Nhìn hình chọn từ","Picture to word"],["word-picture","Nghe từ chọn hình","Word to picture"],["letters","Điền chữ thiếu","Missing letters"],["spelling","Gõ cả từ","Spell the word"],["missing-letters","Tìm ký tự thiếu","Find missing letters"],["grammar-card","Nghe & hiểu ngữ pháp","Listen & understand grammar"],["grammar","Xếp câu","Build sentences"]];
-export const modeArt={flashcard:"book","picture-word":"apple","word-picture":"cat",letters:"pencil",spelling:"bag","missing-letters":"pencil",grammar:"notebook","grammar-card":"notebook"};
+export const modes:[Mode,string,string][]=[["flashcard","Thẻ ôn","Flashcards"],["picture-word","Nhìn hình chọn từ","Picture to word"],["word-picture","Nghe từ chọn hình","Word to picture"],["letters","Điền chữ thiếu","Missing letters"],["spelling","Gõ cả từ","Spell the word"],["missing-letters","Tìm ký tự thiếu","Find missing letters"],["grammar-card","Nghe & hiểu ngữ pháp","Listen & understand grammar"],["grammar","Xếp câu","Build sentences"],...expansionModes.map(mode=>[mode,gameRegistry[mode].vi,gameRegistry[mode].en] as [Mode,string,string])];
+export const modeArt:Record<Mode,string>={"match-pairs":"apple","memory-pairs":"cat","word-builder":"pencil","grammar-cloze":"notebook","grammar-repair":"book","grammar-dialogue":"cat",flashcard:"book","picture-word":"apple","word-picture":"cat",letters:"pencil",spelling:"bag","missing-letters":"pencil",grammar:"notebook","grammar-card":"notebook"};
 export function SessionCard({session,open,href,className="session-history-card"}:{session:Session;open?:()=>void;href?:string;className?:string}){const {t,repository}=useApp();const filter=session.filter;
  const names=useLiveQuery(async()=>{
   if(!repository)return null;const [lesson,deck,word]=await Promise.all([filter?.lesson?repository.db.lessons.get([repository.scope.id,filter.lesson]):null,filter?.deck?repository.db.table<ScopedDocument>('decks').get([repository.scope.id,filter.deck]):null,filter?.word?repository.word(filter.word):null]);

@@ -1,0 +1,12 @@
+# Hub bỏ lọc và xóa tiến độ —25/10/2026
+
+Founder yêu cầu bỏ Tất cả game/Game mới, icon xóa bên phải Tiếp tục trên progress cards. Remove filter state/controls/conditional legacy visibility; all7adventures+legacy always visible. ProgressCard contains resume+named trash button with pending/disabled/error and scope read-only boundary.
+
+Reset current progress via scoped transactional tombstone practiceCycle and unfinished sessions for exact cycle. Validate target is latest; completed sessions, gameAttempts, reviewStates, words/content and other mode/selection unchanged. Latest deleted cycle acts as reset barrier in latestCycle and progressForSelection so old rounds never resurface. New game creates fresh cycle. No migration or cloud contract changes; existing tombstone transport.
+
+Verification ledger pending final. Integration covers older completed cycle→new active cycle→delete→no prior resurrection, retained content/attempts/SRS/history/other mode, repeated delete/missing, fresh cycle0. UI covers completed10/11card→trash right of Continue→reload gone→new0/11; default hub no filters/all games visible. First typecheck/build exposed narrow SessionRow read-projection missing Base version; fixed use full scoped documents in mutation, no casts. CFXTaV failed build is not a UI pass.
+
+
+Final local: lint/typecheckPASS; `pnpm exec vitest run tests/integration/practice-coverage.test.ts`13/13PASS. `pnpm test:ui -- --mode production adventure-games.spec.ts practice-coverage.spec.ts --grep 'progress delete beside|new games are discoverable' --port 4369`: discovery4/build30.1s/browser13.2sPASS,4/4mobile360/desktop1280. Source47821ff0ecec/HEAD8f70821+dirty; result `/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-ui-result-wRuC38/result.json`, snapshot`wfk-ui-source-m1N1Mh`. Reviewed mobile progress card screenshot; icon right of Continue and no horizontal overflow. No cloud sync/physical-device claim; existing tombstones retained.
+
+Production `vercel deploy --prod --yes`: pc53q5xkb/alias updated, build31sPASS. `node /tmp/wfk-progress-delete.mjs`:2/2hosted360/1280PASS, complete10items→hub→trash right of Continue→reload gone→new0; filters absent. Evidence `/var/folders/lh/rrgp39n11030cwj71gfrld9mf331yr/T/wfk-progress-delete-eQMNK1/result.json`. Owned disposable headless sample contexts, SWblocked/audio mocked; no founder browser/account data. No new SQL/env/dependencies/main push.

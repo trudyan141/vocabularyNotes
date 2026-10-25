@@ -760,3 +760,61 @@ Founder báo chọn game đợi3–4s. Session đã persist IndexedDB nên `sess
 ## ADR100 —19/10/2026: vòng phủ bộ qua các lượt10câu
 
 Founder chọn hướng2 và giao triển khai, dùng selection phạm vi ôn sẵn có. Mỗi library/mode/filter/direction có pool snapshot, không reset theo ngày; câu đã làm (đúng/sai) không xuất hiện ở luồng tiếp từ mới trước khi hết vòng. Skip để cuối, replay/retry không cộng coverage; từng lượt giữ≤10câu, snapshot/media/CAS/attempt/SRS hiện hành. Grammar tính mỗi form/câu, Speaking5từ tách riêng. Pool lưu trong practiceCycles, session liên kết bằng cycleId/cycleKey; coverage là projection từ answered-prefix kể cả tombstone, tránh mất tiến độ khi xóa lượt. Ngày/timezone ghi tại câu đã lưu. Chu kỳ immutable chỉ sync lúc tạo; không viết lại toàn pool mỗi đáp án. Account/shared giữ owner/library và ADR096; không hứa không trùng khi hai máy offline đồng thời. Từ sửa/xóa/bỏ duyệt đánh dấu không còn khả dụng riêng, từ thêm sau dành vòng sau. [Plan](GAME-COVERAGE-PLAN.md). Local/schema/UI đã scoped verified; SQL0013 hosted applied/rollback-fixture verified. [Evidence](../evaluations/game-coverage.md); physical/device và multi-device offline guarantees vẫn chưa claim.
+
+
+## ADR101 —24/10/2026: Đợt0+1, game theo board và nội dung đã duyệt
+
+Founder duyệt nền tảng +6game từ [proposal](../DE-XUAT-MO-RONG-GAME.md). Registry dùng cùng scope/cycle; không thêm engine/dependency. Question snapshot optional activity/boardKeys, Session optional gameState qua CAS; Check chấm từ draft được kiểm, không tin chuỗi answer. Board một câu,1–3targets; attempt riêng từng target, Next ghi coveredKeys; skip/replay/tombstone theo ADR100, SRS giữ. Cuối pool cho phép board1–2mục sau pool mở đầu≥3ảnh phân biệt; không lấy ngoài scope để bù.
+
+Ngữ pháp lưu tối đa một GameActivity mỗi loại trong learning-content: prompt/solution/options/answer/translation/explanation, context bắt buộc cho dialogue, slot cho repair; schema/version và source signature làm invalid annotations cũ khi nội dung gốc đổi. Form ở chi tiết ngữ pháp có chọn mẫu, sửa và duyệt trước Save; không tự thêm nội dung mẫu. IPA đúng câu theo nguồn hiện có; không tự đọc câu sai/đáp án câu khuyết trước chấm.
+
+SQL0014 additive mode/projection/board validation, giữ owner/RLS và shared content read-only; draft progress được sync. Không mở thêm quyền từ skill. Prototype đặt đồ là thiết kế Đợt0, N3gameplay thuộc Đợt2. Offline standalone không hỗ trợ6renderer mới thì giữ session và giải thích cách mở practice; không chạy sai luật từ cũ. [Contract](../design/GAME-BOARDS-PHASE01.md), [spec08](../08-learning-and-games.md), [evidence](../evaluations/game-expansion-phase01.md).
+
+
+## ADR102 —24/10/2026: chơi liền, tự úp thẻ và bỏ game chữ trùng
+
+Founder yêu cầu bỏ xác nhận khi lật thẻ, hình riêng, bỏ Xưởng xếp chữ/gộp gợi ý vào Gõ cả từ và không bắt chuẩn bị grammar. Cặp sai chờ1giây rồi close bằng CAS; đúng clear open ngay, giữ matched. Hub ẩn word-builder nhưng contracts/history/replay cũ giữ. Gợi ý spelling là đầy đủ ký tự xáo trộn, giữ chữ lặp.
+
+Grammar mới ưu tiên session theo thư viện; chỉ not-ready/complete mới fallback bộ câu có sẵn do dự án soạn (12cloze/8repair/8dialogue). Không fallback khi lỗi CAS/storage/quyền. Bộ này ghi rõ nhãn/phạm vi và không tạo content giả, không gắn word/sense giả, không ghi attempts/coverage/SRS/cloud. Lượt trong màn hiện tại có điểm riêng, rời trang bắt đầu lại; không claim resume hay progress thư viện. Form author vẫn tùy chọn. Quyết định này thay yêu cầu chuẩn bị bắt buộc của ADR101; ownership và contract cloud giữ nguyên. [Contract](../design/GAME-BOARDS-PHASE01.md), [evidence](../evaluations/game-expansion-followup.md).
+
+## ADR103 —25/10/2026: khung thẻ cố định, lật không remount và mic trả lời
+
+Founder yêu cầu tạo artwork cho thẻ, đều kích thước, lật mượt và dùng code Speaking cho Trả lời Cáo. Dùng generated decorative two-face atlas với ảnh/từ đã duyệt overlay; cố định3:4, contain, mounted faces,200ms flip/reduced-motion. Picture live-query keyed by session ID; current-board validation/CAS giữ ownership/revision; optimistic visual move rollback khi commit lỗi, không optimistic score.
+
+Mic trả lời là optional ASR, không pronunciation assessment. Reuse recorder/WAV/model/key/deadline của Speaking, audio-only không gửi đáp án; unique exact full-choice matching có contraction/negation. Show heard text, select option then explicit Check. Không nộp khi unclear/unmatched/error, manual choice vẫn dùng được; stop/hide/unmount cancels và không lưu audio/transcript. Áp dụng cả library/built-in dialogue. [Evidence](../evaluations/memory-cards-and-dialogue-mic.md).
+
+25/10 follow-up ADR103: theo founder, Nối đôi reuse cùng illustrated front cho hai cột hình/từ, cùng3:4/contain/check badge; không đổi luật/ảnh/từ hay tạo asset mới.
+
+## ADR104 —25/10/2026: không board một cặp, nghe lại và nhận cả câu
+
+Founder yêu cầu tối thiểu2cặp và nghe lại bản thu do nhận câu thất bại. New boards2–3, balance4/7/10 và chọn9khi còn11. Legacy active singleton được khởi tạo lượt mới giữ answered prefix; remaining1được kèm done companion cùng cycle với key cũ, không inflate done; no companion→not-ready. Legacy replay regroup/same-scope companion, history không sửa. Contract read vẫn nhận snapshot1cặp cũ, không siết SQL làm hỏng history.
+
+Dialogue ASR vốn nhận câu, nhưng reused recorder/deadline quá ngắn. Thêm sentence profile1400ms pause/6000ms initial/15s cap và ASR15s/1024tokens; word default unchanged. Giữ raw/prepared clip trong RAM để nghe lại và retry nhận dạng explicit, replay đúng bytes đã gửi; revoke/cancel theo lifecycle. Không auto retry, không trả lời thay bé, không lưu audio/transcript. Hai synthetic live probes xác nhận model nhận cả câu; không suy độ chính xác với trẻ. [Evidence](../evaluations/minimum-pairs-and-sentence-replay.md).
+
+## ADR105 —25/10/2026: Trả lời Cáo theo hình và selection thật
+
+Founder chốt hiện1hình rồi Cáo hỏi; cấu trúc và từ phải lấy từ phần đang chọn. Trả lời Cáo mới ưu tiên scope-derived RAM rounds. Founder xác nhận giữ fallback ADR102: nếu selection chưa có câu phù hợp, mở samplepicture theo thứ tự ngẫu nhiên và ghi rõ nhãn, vẫn chơi liền. Chọn cấu trúc trong scope, dựng câu với approved/loadable picture nouns và article có trong approved example; không mở rộng ngoài lesson/group/set/word. Có compiler cho identity yes/no và naming constructions; construction không hỗ trợ/thiếu bằng chứng dùng sample có nhãn, không giả vờ mẫu là grammar đang chọn. Lỗi storage vẫn Retry. Không lưu activity generated vào library/score SRS hoặc đổi legacy history/schema. Cloze/repair giữ hành vi riêng. [Evidence](../evaluations/dialogue-context-clarity.md).
+
+## ADR106 —25/10/2026: metadata game thu gọn, reuse Fox loading
+
+Theo founder, cấu trúc/từ/điều kiện tham gia/fallback không nằm trong luồng chơi chính của bé. Scoped dialogue đặt phần này trong “Đổi bài chơi” sau game, mặc định đóng; selection/fallback giữ nguyên, không parent gate. Đổi cấu trúc trả focus/scroll về game. Chờ mở dùng DatabaseLoading/FoxLoading sẵn có, không delay giả. [Evidence](../evaluations/dialogue-quiet-ui.md).
+
+## ADR107 —25/10/2026: giữ feedback và hoàn tất gameplay Đợt2–3
+
+Founder giao viết rules và tiếp tục hết game còn thiếu, cho generate ảnh, dữ liệu không hard và UI gọn. AGENTS→PROJECT-RULES giữ feedback. Thêm8game situation bằng shared scope/fact compiler + approved artwork + sample fallback; không cài engine. New rounds RAM tương tự Trả lời Cáo, không claim persisted resume/sync/coverage; tránh giả dữ liệu học để ép vào legacy SQL session. Bản đầu Săn âm dùng full-word cue +same-onset theo IPA, không letter-name hay isolated sound giả. Scene/quantity/plural/category facts phải có bằng chứng; thiếu dùng mẫu. [Evidence](../evaluations/game-expansion-phase23.md).
+
+
+ADR107 follow-up: founder không tìm thấy game mới vì All giấu trong disclosure. Default All phải hiện đủ game; game mới đứng đầu từng nhóm. Chỉ metadata/cấu hình thu gọn, không giấu đường vào game. Regression kiểm default entry thay vì chỉ Game mới filter.
+
+
+## ADR108 —25/10/2026: chạm chấm ngay, rút truyện theo mẫu cố định
+
+Founder yêu cầu bỏ bước Kiểm tra cho chọn một đáp án, chạm sai tính sai; chỉ giữ Truyện ba tranh nếu thực sự tạo từ dữ liệu. Repro cho thấy story compiler chỉ gating theo grammar sequence rồi thế noun vào sees/picks/puts fixed plot. Rút toàn bộ story menu/compiler/renderer/scene asset/sample grammar, chưa giả là truyện source-derived. Các game chọn giỏ/hình/form/zone chấm theo snapshot ngay click; score lần đầu bất biến qua retry. Bingo sai ghi kết quả bảng false nhưng vẫn chơi tiếp để học; shop nhiều món giữ Giao hàng. [Evidence](../evaluations/game-expansion-phase23.md).
+
+
+ADR108 source-audit follow-up25/10: founder yêu cầu kiểm Thám tử/tất cả game mới theo selected data. Giữ Thám tử vì clue=approved definitionEN, options=same-scope sense pictures. Fix adventure dedup theo sense ID, không headword, trừ Bingo bare-word ambiguity; sound model phải khác word/art. Giữ sample fallback đã cho phép, phân biệt compiler/templates với AI sinh runtime. [Audit/evidence](../evaluations/game-source-audit.md).
+
+
+## ADR109 —25/10/2026: bỏ lọc game, xóa tiến độ tại card
+
+Founder bỏ hai filter buttons, yêu cầu icon delete bên phải Continue. Một hub đủ game. Reset tombstone latest cycle trong scope và unfinished sessions bound to it, transaction atomic +latest identity guard; không xóa completed sessions/attempts/SRS/library. Latest tombstone là barrier để tránh older cycle reappears; no schema migration. [Evidence](../evaluations/game-hub-progress-delete.md).

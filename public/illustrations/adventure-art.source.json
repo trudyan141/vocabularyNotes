@@ -1,0 +1,30 @@
+{
+  "origin": "Project-generated decorative and scene artwork",
+  "tool": "Built-in image_gen, 2026-10-25",
+  "review": "Inspected: blank object spaces, coherent fox identity, no text/answers or faces on objects. Vocabulary overlays resolve independently from selected approved words.",
+  "assets": [
+    {
+      "file": "adventure-menu.webp",
+      "source": "exec-28d52ae2-cedd-45f1-9c25-ec18d0c16579.png",
+      "layout": "4 columns x 2 rows, 1200x600",
+      "prompt": "One sprite atlas: eight isolated equal game emblems for sorting baskets, listening bingo, detective magnifier, sound-hunt ear, placement table/box, one versus many blocks, three story frames, fox shop. Flat2D dark plum outlines, warm cream, mint/lilac/apricot palette; no text, numbers or object faces."
+    },
+    {
+      "file": "adventure-room.webp",
+      "source": "exec-3974d224-a0ab-4d06-a0a8-b0212dcbeed1.png",
+      "layout": "1120x840",
+      "prompt": "Front-view empty playroom: clear wooden tabletop on left two thirds, empty under-table area, empty open box at right. No target objects, text or characters. Clean cream wall/mint floor, dark plum outlines. Declared on/under/in tap zones overlay the inspected scene."
+    }
+  ],
+  "processing": "Resize and WebP export only, sharp0.35.5; no semantic raster edits.",
+  "notes": "No generated image saved into a user library. Room/source pack and game rules define answers, never pixel inference. Menu cell6 reserved/unused after story removal.",
+  "retired": [
+    {
+      "file": "adventure-story.webp",
+      "source": "exec-1c7e9bbb-b256-4fe5-becb-c43d84bf837a.png",
+      "layout": "3 panels,1800x600",
+      "prompt": "Reusable three-panel fox story: notices empty mat, holds empty space before chest, puts object into empty basket. Same fox, no specific vocabulary object, labels or numbers. App overlays current approved noun art. Notice->pick up->put in basket.",
+      "reason": "Removed 2026-10-25 per founder: fixed plot with noun substitution does not constitute a source-derived story. Original remains in generated_images; WebP removed from public."
+    }
+  ]
+}

@@ -1,5 +1,62 @@
 # Nhật ký bàn giao
 
+## 25/10/2026 — ADR109: bỏ lọc game, xóa tiến độ tại card
+
+Remove filter controls/state; progress cards add named trash/pending/error next to Continue. Scoped atomic current cycle+unfinished session tombstones, latest tombstone reset barrier, completed history/attempts/SRS/library retained.13logic/lint/types+4productionUI/buildPASS; pc53q5xkb/alias +2hosted360/1280delete/reload/fresh0PASS. [Evidence](../evaluations/game-hub-progress-delete.md).
+
+## 25/10/2026 — Rà nguồn tất cả game mới, giữ Thám tử theo dữ liệu
+
+Traced scope→approved input→compiler/sample for7adventures and previous expansion games. Added non-fallback repo fixtures per7mode, edited-definition propagation and custom-definition browser proof. Detective uses stored definition, not separate clue bank. Found/fixed shared headword dedup losing bat senses; preserve sense IDs, Bingo bare audio still one headword, sound model excludes same word/art.53logic/lint/types+8productionUI/buildPASS; productionovc29cog6+4hosted selection/fallbackPASS360/1280. [Audit/evidence/limits](../evaluations/game-source-audit.md).
+
+
+## 25/10/2026 — ADR108: chạm chấm ngay, rút Truyện ba tranh
+
+Pass clicked state directly to grade for sort/detective/sound/quantity/place; remove Check, retain first wrong score through retries. Bingo wrong tap retains board while recording failed score; multi-item shop keeps Deliver. Story only substituted noun in fixed sees/picks/puts plot, so removed runtime/sample/scene and kept retired source provenance. Red2cases→23logic/22productionUI/lint/types/buildPASS; nckr5fw0e deployed,2hosted360/1280PASS. [Evidence](../evaluations/game-expansion-phase23.md#adr108-chạm-chấm-ngay-và-tháo-fixed-plot-story).
+
+## 25/10/2026 — ADR107 follow-up: hiện game mới ngay trong Tất cả game
+
+Founder không tìm thấy games even local. Repro8tilesDOM/0visible vì closed details; prior tests only entered via Game mới. Remove duplicated disclosure branch, one grid/category, adventures first with legacy modes retained. Default-entry→open/return→filter regression red2→green4productionUI; lint/types/buildPASS, local4317+2hosted360/1280PASS. Productiono2z8xzzfa/alias updated. Rules/spec now distinguish hiding metadata from hiding game entry. [Evidence](../evaluations/game-expansion-phase23.md#reopened-không-tìm-thấy-game-mới-trên-localwebsite).
+
+## 25/10/2026 — ADR107: feedback rules và8game còn lại
+
+Persist founder feedback in AGENTS/PROJECT-RULES. Eight React/CSS adventures use selected approved words/grammar with conservative fact compilers and explicit sample fallback; new generated menu/story/room art, touch remove/undo, compact details, shared loading and Retry. RAM rounds intentionally separate from persisted sessions, no library/SRS/coverage/cloud mutation; sound hunt uses model words+approved IPA onset rather than isolated phoneme audio. Final lint/types+45logic+24productionUI/build PASS, source29e6d606a571/HEAD8f70821+dirty. Vercel2kc330zq6 Ready +18hosted owned-headless cases PASS1280/360. No dependencies/SQL/env/main push. [Evidence](../evaluations/game-expansion-phase23.md).
+
+## 25/10/2026 — ADR106: gọn phần chơi và loading chuẩn
+
+Scope/grammar/word eligibility/fallback metadata in closed details after game; compact dialogue child surface, grammar change focus/scroll, choice preserved on toggle. DatabaseLoading replaces bare opening paragraph. Lint/types +6productionUI/build PASS, CSS-only summary confirmation2devUI PASS; Final7oesx8pi2deploy/build+4hosted metadata/sample/selection smokePASS1280/360. [Evidence](../evaluations/dialogue-quiet-ui.md).
+
+## 25/10/2026 — ADR105: dialogue nhìn hình, selection-first và giữ fallback
+
+Scope-derived identity/naming questions from approved grammar/words/pictures; grammar menu rebuilds rounds; no matching question opens shuffled labelled pictured samples per founder. RAM rounds, no library/SRS/cloud writes; legacy contracts untouched.27logic/lint/types+8productionUI/build PASS. Vercel c7srqsesb deploy/build +4hosted selection/fallback checks PASS1280/360. No SQL/env/main push. [Evidence](../evaluations/dialogue-context-clarity.md).
+
+## 25/10/2026 — ADR104: tối thiểu2cặp, nghe lại và nhận cả câu
+
+Balanced2–3pair boards, legacy singleton migration/replay with same-cycle companion/deduplicated coverage; two-pair grid2x2. Dialogue latest-clip RAM replay/exact WAV/manual retry, sentence-specific endpoint15s/deadline15s, error categories.54logic/lint/types+8productionUI+2layoutdevUI PASS; known synthetic8word live Gemini sentence recognized. Deployed gp5rblxli/production, Next16.4.3buildPASS;4hosted min2/replay smokePASS1280/360. Existing package/lock upgrade preserved. No SQL/env/main push. [Evidence](../evaluations/minimum-pairs-and-sentence-replay.md).
+
+## 25/10/2026 — Nối đôi dùng chung card mới
+
+Reuse generated front/contain/check với Lật thẻ, hai cột3:4đều nhau, giữ selected outline và rules. Lint/types+2scopedUI PASS; Vercel18a6oz9pzdeploy/build26sPASS +hosted1280/360sample-librarymatching smokePASS. Không đổi SQL/env/main. [Evidence](../evaluations/memory-cards-and-dialogue-mic.md).
+
+## 25/10/2026 — ADR103: thẻ đều/mượt, Trả lời Cáo có mic
+
+Generated two-face frame+fixed3:4/contained tall images, mounted flip/reduced motion, picture-query identity/current-board validation and optimistic visual CAS rollback. Dialogue reuses Speaking recorder/WAV/model/key/deadline for optional audio-only ASR; code uniquely matches full option preserving negation/contractions, child explicitly Check; no audio/transcript persistence.43logic/lint/types/buildPASS;14productionUI+2finaldev memory cases verified. Vercel [djev7p0i5](https://words-for-kids-djev7p0i5-trudyan141s-projects.vercel.app) deployed/aliased;10hosted guest UI/SWsmokePASS. No SQL/env/main push; real voice/device acceptance pending. [Evidence](../evaluations/memory-cards-and-dialogue-mic.md).
+
+## 25/10/2026 — game expansion/ADR102 deployed
+
+Hosted SQL0014 rollback fixture →apply →trigger/modes/unchanged legacy constraints/cleanupPASS. Vercel prod deploy [157hc242i](https://words-for-kids-157hc242i-trudyan141s-projects.vercel.app) aliased production.8hosted guest UI/SWsmokePASS1280/360; audio blocked, no physicaldevice/fullaccountsync claim. No pushmain/envchanges. [Evidence](../evaluations/game-expansion-followup.md).
+
+## 24/10/2026 — ADR102: chơi ngay, tự úp thẻ và hình riêng
+
+Thẻ sai tự úp1giây, đúng lật tiếp; ẩn word-builder khỏi hub, thêm spelling scrambled hint kể cả offline. Thiếu/hết grammar activities mở bộ28câu có sẵn có nhãn riêng, không đổi library/coverage/SRS/cloud. Atlas imagegen riêng từngmode, PNGsource/WebPruntime.26logic+10productionUI/lint/types/build PASS; art2devUI PASS. [Evidence](../evaluations/game-expansion-followup.md). Chưa deploy/physicaldevice.
+
+## 24/10/2026 — ADR101: Đợt0+1, sáu game và nền bài chơi
+
+Registry +6tap-first games; reviewed activity schema/per-activity sourceHash, grammar author form and sample suggestions, CAS drafts, per-member board attempts/coverage, backup/cloud contracts/transfer, SQL0014projection/validation.53logic+21productionUI/lint/types/build PASS; nativePG15migration/sharing/coverage fixtures PASS. [Evidence](../evaluations/game-expansion-phase01.md), [contract](../design/GAME-BOARDS-PHASE01.md). Local only; no hosted migration/deploy/physicaldevice claim.
+
+## 24/10/2026 — Nghiên cứu mở rộng game để founder review
+
+Khảo sát tài liệu chính thức8app/nền tảng, source game hiện có và7repo GitHub. Viết [proposal14game](../DE-XUAT-MO-RONG-GAME.md) (7từ/7ngữ pháp),6game ưu tiên, dữ liệu/đáp án/scene cần duyệt, skill và roadmap. Repository metadata/commit/license đã đối chiếu; không cài hoặc triển khai. Proposal chưa là quyết định sản phẩm được duyệt.
+
 ## 19/10/2026 — ADR100: vòng phủ bộ và tiến độ qua lượt10câu
 
 Founder chọn hướng2, giữ selection phạm vi hiện có. Immutable cycle +session≤10, tiếp từ mới không tự trùng trước khi hết, skip để sau/replay không cộng đôi, tombstone giữ coverage, day/timezone/resume. Localv6/archive/cloud/shared/SQL0013/offline parity; sửa mobile input-blur làm dịch nút submit bằng stable typing state.101logic+45productionUI/build/lint/types và hosted SQL rollback fixtures PASS; frontend deployed READY. [Evidence](../evaluations/game-coverage.md). Human/device pending; Speaking5từ và strict simultaneous offline devices ngoài bảo đảm mới.

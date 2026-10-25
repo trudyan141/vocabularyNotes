@@ -6,7 +6,7 @@ import type {PracticeFilter} from '@/lib/learning/practice-filter';
 import type {ScopedDocument} from '@/data/local/types';
 import {groupContents,type StudyGroup} from '@/data/local/groups';
 import type {Deck} from '@/data/local/decks';
-export function PracticeScope({filter,count,grammar=false,progress,children}:{filter?:PracticeFilter;count?:number;grammar?:boolean;progress?:React.ReactNode;children?:React.ReactNode}){
+export function PracticeScope({filter,count,grammar=false,boards=false,progress,children}:{filter?:PracticeFilter;count?:number;grammar?:boolean;boards?:boolean;progress?:React.ReactNode;children?:React.ReactNode}){
  const {repository,t}=useApp();
  const names=useLiveQuery(async()=>{
   if(!repository||!filter)return null;
@@ -23,5 +23,5 @@ export function PracticeScope({filter,count,grammar=false,progress,children}:{fi
   ...(!filter.lesson&&!filter.deck&&!filter.word?[t('Tất cả bài và nhóm học','All lessons and groups')]:[]),
   ...(!grammar&&filter.due?[t('Chỉ từ đến hạn ôn','Only words due for review')]:[]),...(!grammar&&filter.weak?[t('Chỉ từ cần luyện thêm','Only words needing practice')]:[]),
  ];
- return <section className={`practice-scope${progress?' practice-scope-with-progress':''}`} aria-label={t('Phạm vi đang ôn','Current practice scope')}><div><strong><BookOpen aria-hidden="true"/>{t('Đang ôn','Practising')}</strong><p>{labels.join(' · ')}</p>{count!==undefined&&<small>{t(`${count} ${grammar?'câu ngữ pháp':'từ'} trong lượt này`,`${count} ${grammar?'grammar sentences':'words'} in this round`)}</small>}{progress&&<div className="practice-scope-progress">{progress}</div>}</div>{children}</section>;
+ return <section className={`practice-scope${progress?' practice-scope-with-progress':''}`} aria-label={t('Phạm vi đang ôn','Current practice scope')}><div><strong><BookOpen aria-hidden="true"/>{t('Đang ôn','Practising')}</strong><p>{labels.join(' · ')}</p>{count!==undefined&&<small>{t(`${count} ${boards?'bảng':grammar?'câu ngữ pháp':'từ'} trong lượt này`,`${count} ${boards?'boards':grammar?'grammar sentences':'words'} in this round`)}</small>}{progress&&<div className="practice-scope-progress">{progress}</div>}</div>{children}</section>;
 }

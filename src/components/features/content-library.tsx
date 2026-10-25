@@ -9,6 +9,7 @@ import {Back} from '@/components/app/shared';
 import {SentencePronunciation} from '@/components/app/sentence-pronunciation';
 import {learningItems,type LearningItem} from '@/data/local/learning-library';
 import {GrammarSteps} from './grammar-steps';
+import {GameActivityEditor} from './game-activity-editor';
 import {DeleteControl} from './delete-control';
 
 export function LearningCard({item,mode='grammar'}:{item:LearningItem;mode?:'grammar';removable?:boolean}) {
@@ -29,7 +30,7 @@ export function LearningDetail({id,mode}:{id:string;mode:'grammar'}) {
  {row.mistake&&<div className="grammar-mistake"><strong>{t('Dễ nhầm','Watch out')}</strong><p lang="en">{row.mistake}</p><SentencePronunciation text={row.mistake} ipa={row.mistakeIpa}/></div>}
  {row.correction&&<div className="grammar-correction"><strong>{t('Câu đúng','Correct sentence')}</strong><p lang="en">{row.correction}</p><SentencePronunciation text={row.correction} ipa={row.correctionIpa}/></div>}
  </section>)}
- </div></details></article>;
+ </div></details>{[item,...(item.related??[])].filter(row=>row.table==='sentences').map(row=><GameActivityEditor key={row.id} id={row.id}/>)}</article>;
 }
 
 export function ContentLibrary({mode,query,lesson}:{mode:'grammar';query:string;lesson:string|null}) {

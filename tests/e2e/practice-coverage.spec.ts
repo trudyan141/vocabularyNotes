@@ -49,3 +49,10 @@ test('offline fallback continues the selected cycle and main app resumes its sav
  await page.getByRole('button',{name:'Tạm dừng',exact:true}).click();await expect(page.locator('#resume')).toContainText('Cả bộ 1/11');
  await page.goto('/practice?deck=coverage-group');await page.getByRole('button',{name:'Gõ cả từ',exact:true}).click();await expect(page.getByRole('progressbar')).toHaveAttribute('aria-valuenow','1');await expect(page.locator('main')).toContainText('Cả bộ: 1/11');await noOverflow(page);
 });
+
+test('progress delete beside Continue removes only that progress and stays removed after reload',async({page},info)=>{
+ await seed(page,11);for(let i=0;i<10;i++)await answer(page);await page.getByRole('button',{name:'Chọn trò chơi khác',exact:true}).click();
+ const card=page.locator('.progress-cycle').filter({hasText:'Gõ cả từ'});await expect(card).toBeVisible();await expect(card).toContainText('10/11');const next=card.getByRole('button',{name:'Tiếp tục',exact:true}),remove=card.getByRole('button',{name:'Xóa tiến độ Gõ cả từ',exact:true});await expect(remove).toBeVisible();const a=await next.boundingBox(),b=await remove.boundingBox();expect(b!.x).toBeGreaterThan(a!.x);await noOverflow(page);await page.screenshot({path:info.outputPath('progress-delete.png'),fullPage:true});
+ await remove.click();await expect(card).toHaveCount(0);await page.reload();await expect(page.locator('.progress-cycle').filter({hasText:'Gõ cả từ'})).toHaveCount(0);await expect(page.getByRole('button',{name:'Tất cả game',exact:true})).toHaveCount(0);await expect(page.getByRole('button',{name:'Game mới',exact:true})).toHaveCount(0);
+ await page.getByRole('button',{name:'Gõ cả từ',exact:true}).click();await expect(page.locator('main')).toContainText('Cả bộ: 0/11');await noOverflow(page);
+});

@@ -2,6 +2,32 @@
 
 Chỉ đọc phần liên quan task; quyền và flow agent hiện hành ở [AGENTS](../../AGENTS.md). Các checkpoint/counts lịch sử không thay STATE hiện tại. Nội dung steering dưới đây được giữ nguyên; không tự khôi phục ADR đã supersede.
 
+## Feedback game 25/10/2026
+
+- **Hub đơn giản:** bỏ hai nút Tất cả game/Game mới; hiện đầy đủ game theo nhóm. Tiến độ cả bộ có icon xóa bên phải Tiếp tục; chỉ reset vòng tương ứng, giữ words/grammar/SRS/attempts/lịch sử đã hoàn thành. Tombstone vòng mới nhất không làm vòng cũ xuất hiện lại.
+
+- **Rà nguồn trước giữ game:** primary phải dựng được từ approved words/senses/grammar trong selection, có test bằng nội dung riêng ngoài fallback bank. Phân biệt template luật/cảnh với kho đáp án cố định; công khai giới hạn trong docs, không nói AI runtime nếu chỉ compiler. Giữ fallback sample theo founder, không gọi mẫu là selected. Game nghĩa/hình không loại trùng theo headword làm mất sense; Bingo audio chỉ chọn1headword khi không thể phân biệt, không sửa dữ liệu thư viện. [Audit](../evaluations/game-source-audit.md).
+
+- **Chạm là chấm:** game chọn một đáp án/giỏ/vị trí chấm ngay khi chạm, không thêm nút Kiểm tra. Chạm sai ghi sai lần đầu; thử lại để học không đổi điểm lần đầu. Thao tác nhiều món vẫn có bước Giao hàng. Bingo chạm sai giữ bảng để chơi tiếp nhưng điểm bảng không đổi thành đúng hoàn hảo.
+- **Không truyện thay danh từ:** Truyện ba tranh đã tháo theo founder vì cốt truyện thấy→nhặt→bỏ giỏ cố định. Không coi thay noun theo scope hoặc chỉ có grammar First/Next/Finally là tạo truyện từ bộ dữ liệu. Chỉ đưa lại khi có các sự kiện/thứ tự và ảnh đúng nghĩa từ nội dung đã duyệt.
+
+- **Tìm thấy game:** Tất cả game phải hiện đủ các game, game mới lên đầu từng nhóm. Không giấu game sau disclosure để làm gọn UI; chỉ thu gọn metadata/cấu hình. Kiểm tra đường vào mặc định, không chỉ test sau khi bấm bộ lọc Game mới.
+
+Đây là yêu cầu trực tiếp founder đã thử app, áp dụng game hiện tại và mọi game làm tiếp:
+
+- **Dữ liệu:** câu hỏi/đáp án/ảnh chính lấy từ words, senses và construction/forms đã chọn trong bài/nhóm/phạm vi. Không hardcode bộ từ/câu làm đường chính; không ghép sai ngữ pháp/ý nghĩa chỉ để đủ game. Quy tắc ngôn ngữ, template scene và danh mục mẫu là tài nguyên được phép, phải bind dữ liệu thật và giữ provenance.
+- **Chơi ngay:** không bắt trẻ đi “chuẩn bị game” trước. Khi chưa có nội dung phù hợp thì tự dùng bộ mẫu thay thế, có thông tin nguồn mẫu trong mục thu gọn. Không bỏ fallback. Lỗi đọc/lưu/quyền/provider không được giả thành thiếu nội dung hoặc chấm bé sai.
+- **UI gọn:** bé chỉ cần tên trò, tiến độ, hình/câu hỏi và thao tác chơi. Scope/formula/word list/reason exclusions/data source/RAM note/diagnostics nằm trong “Đổi bài chơi” hoặc mục thu gọn sau game; không parent gate. Đổi bài đóng panel, đưa focus/scroll về nhiệm vụ; mở/đóng không làm mất lựa chọn.
+- **Loading:** dùng FoxLoading/DatabaseLoading hiện có; không dòng “đang mở…” trơ, màn trắng, delay giả hoặc reload/remount sau mỗi chạm. Asset/audio load có lỗi và đường chơi lại rõ.
+- **Touch trước:** chọn ký tự bằng chạm, chạm ô đã điền trả ký tự và làm trống; không tự bật keyboard mobile. Gợi ý Gõ cả từ hiện đủ ký tự xáo trộn, giữ chữ lặp độc lập. Không thêm lại Xưởng xếp chữ như trò riêng trùng chức năng.
+- **Nối/lật:** dùng bộ card mới đồng đều, cùng tỉ lệ, ảnh contain không co giãn chiều cao; Nối đôi dùng cùng khung. Lật thẻ ít nhất2cặp; đúng giữ mở/cho chơi tiếp ngay, sai tự úp sau nhịp xem ngắn; không nút tiếp tục thừa, không shuffle giữa lượt.
+- **Hình:** câu hỏi phải có hình/cảnh làm bằng chứng rõ. Không bắt bé giải nghĩa lời dẫn khó như “Cáo chỉ ... không phải ...” thay hình. Mỗi game có hình nhận diện riêng; có thể generate asset/cảnh mới theo quyền founder, inspect và ghi nguồn. Đồ vật không thêm mặt; không gán hình sai sense/quantity/relation để đủ bộ.
+- **Âm thanh:** loa nghe lại/IPA đúng text khi phù hợp; câu hỏi tự phát khi mở theo flow đã chốt, đáp án không bị đọc lộ trước. Mic câu reuse lifecycle Speaking nhưng nhận cả câu; nghe lại đúng bản thu, retry rõ, ngắt sạch khi đổi câu/scope; không lưu audio/transcript vào library/cloud/backup.
+- **Khác biệt cơ chế:** thêm game có nhiệm vụ học khác; không tăng số card bằng đổi tên cùng trò. Trẻ chạm là hiểu chơi, không phải đọc giải thích kỹ thuật.
+- **Chấm đúng:** scene/quantity/plural/category/phoneme phải có bằng chứng hoặc contract xác định; không suy bằng chữ đầu/tag/đoán pixel, không gọi AI lúc chấm. Điểm lượt không đồng nghĩa memory/SRS. Bản mẫu/gợi ý không ghi đè bài hay cộng coverage giả.
+- **Nghiệm thu:** giữ lời dẫn ngắn/Việt dễ hiểu, nút lớn/mobile+desktop, reduced motion/static và error paths; mechanical/browser mocks không thay bằng chứng trẻ/thiết bị thật. Preserve source/revision/scope/ownership/history/backup boundaries.
+
+
 # Words for Kids — hướng dẫn cho coding agent
 
 Steering trực tiếp10/10 tiếp theo (ADR040): founder cho phép một key Gemini cụ thể làm public shared default trong browser. Private parent override vẫn session/localStorage opt-in; Xóa key tắt AI bền qua reload, nút restore bật lại default. Không đưa private/operator/service-role key vào source public.

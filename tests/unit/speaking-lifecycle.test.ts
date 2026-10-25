@@ -25,3 +25,6 @@ it('does not make cues on a hidden page or suspended audio context',async()=>{
  const events:string[]=[],context=audioFixture(events);context.state='suspended';await microphoneCue(context as unknown as AudioContext,'start');expect(events).toEqual([]);
  context.state='running';vi.stubGlobal('document',{hidden:true});await microphoneCue(context as unknown as AudioContext,'stop');expect(events).toEqual([]);
 });
+it('allows a bounded fifteen-second sentence trim while keeping the default word cap',()=>{
+ const samples=new Float32Array(230000).fill(.1);expect(()=>trimRecording(samples)).toThrow('samples');expect(trimRecording(samples,240000)).toHaveLength(samples.length);expect(()=>trimRecording(new Float32Array(240001),240000)).toThrow('samples');
+});

@@ -1,6 +1,6 @@
 # Trạng thái hiện tại — Words for Kids
 
-Updated:24/10/2026. Current task: **game touch slots + picture audio/IPA — implemented_local / scoped verified**. Tìm ký tự thiếu chuyển sang chọn/trả tile, không input bàn phím; Nhìn hình chọn từ thêm loa/tự đọc mỗi câu và IPA theo nguồn hiện có. Offline shell cùng thao tác trả chữ. [Evidence](../evaluations/game-touch-and-picture-audio.md). 9logic+14productionUI/lint/types/build PASS; docs check còn3link tạm cũ hỏng ngoài diff. Chưa deploy/physical phone.
+Updated:25/10/2026. Current task: **ADR109 hub filters removed +progress delete — deployed / scoped verified**. One hub all games, trash right of Continue resets exact latest cycle+unfinished sessions, keeps history/attempts/SRS/content. Latest tombstone barrier stops older progress resurfacing. Lint/types+13coverage logic+4productionUI/buildPASS source47821ff0ecec/HEAD8f70821+dirty; pc53q5xkb/alias +2hosted360/1280PASS delete/reload/fresh0. [Evidence](../evaluations/game-hub-progress-delete.md). Existing shared read-only protected; no new SQL/env/dependencies/main push. Prior source audit/7adventures retained.
 
 
 ## Baseline / current steering
@@ -22,6 +22,6 @@ Working tree đầu task phạm vi game sạch; workflow baseline bên dưới t
 
 External acceptance vẫn mở: child/provider eligibility/quality/cost benchmark, human UX, physical camera/clipboard/audio/PWA/install, field/performance trên final release; xem TASKS. Fixture/mock không chứng minh live quality. Token/time của chat trước unavailable; chỉ đo bootstrap bytes/setup/test metadata có thật.
 
-**Next action:** founder thử chạm chọn/trả chữ và nghe lại trong game trên điện thoại.
+**Next action:** founder thử icon xóa tiến độ trên điện thoại thật.
 
 Lịch sử/checkpoints: [STATE history](STATE.history-2026-10-12.md), [CHANGELOG](CHANGELOG.md). Không append history vào current state.

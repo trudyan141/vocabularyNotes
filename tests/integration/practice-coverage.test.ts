@@ -104,3 +104,11 @@ it('covers distinct grammar forms rather than treating one source sense as one s
  expect(second.questions.every(q=>first.questions.every(p=>p.grammar?.example!==q.grammar?.example))).toBe(true);await finish(practice,second);
  expect(await practice.progress(first.cycleId!)).toMatchObject({done:13,total:13,complete:true});
 });
+
+it('deletes selected progress without reviving older cycles, keeps history, attempts, SRS and other selections',async()=>{
+ const {repo,practice}=await setup(11);let old=await practice.start('spelling');old=await finish(practice,old);old=await finish(practice,await practice.start('spelling'));const latest=await practice.start('spelling',{},true);
+ const other=await practice.start('picture-word');const before={words:await repo.db.senses.toArray(),attempts:await repo.db.table('gameAttempts').toArray(),states:await repo.db.table('reviewStates').toArray()};
+ await practice.removeProgress(latest.cycleId!);expect(await practice.get(latest.id)).toBeUndefined();expect(await practice.get(old.id)).toBeTruthy();expect(await practice.get(other.id)).toBeTruthy();expect((await practice.progressForSelection({})).some(p=>p.cycle.mode==='spelling')).toBe(false);
+ expect(await repo.db.senses.toArray()).toEqual(before.words);expect(await repo.db.table('gameAttempts').toArray()).toEqual(before.attempts);expect(await repo.db.table('reviewStates').toArray()).toEqual(before.states);
+ await expect(practice.removeProgress(latest.cycleId!)).rejects.toThrow('missing');const fresh=await practice.start('spelling');expect(fresh.cycleId).not.toBe(old.cycleId);expect(fresh.cycleId).not.toBe(latest.cycleId);expect((await practice.progress(fresh.cycleId!))!.done).toBe(0);
+});

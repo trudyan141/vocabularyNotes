@@ -1,4 +1,5 @@
 "use client";
+import {isGrammarGame} from '@/lib/learning/game-registry';
 import {useMemo} from 'react';
 import {useLiveQuery} from 'dexie-react-hooks';
 import {useApp} from '@/components/app/provider';
@@ -7,7 +8,7 @@ import type {CycleProgress} from '@/data/local/practice-cycle';
 
 export function CycleProgressText({progress}:{progress:CycleProgress|null|undefined}){
  const {t}=useApp();if(!progress)return null;
- const grammar=progress.cycle.mode==='grammar'||progress.cycle.mode==='grammar-card';
+ const grammar=isGrammarGame(progress.cycle.mode);
  const {done,total,unavailable,skipped,today}=progress;
  return <span className="cycle-progress-copy"><span className="cycle-progress-line">{t(`Cả bộ: ${done}/${total} ${grammar?'câu':'từ'} đã làm`,`Whole set: ${done}/${total} ${grammar?'sentences':'words'} practiced`)}</span>
   {(unavailable>0||skipped>0)&&<span className="cycle-progress-line">{[unavailable?t(`${unavailable} mục đã đổi hoặc không còn hợp lệ`,`${unavailable} items changed or unavailable`):'',skipped?t(`${skipped} mục đã bỏ qua, để làm sau`,`${skipped} skipped items to practice later`):''].filter(Boolean).join(' · ')}</span>}

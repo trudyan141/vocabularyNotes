@@ -28,10 +28,12 @@ export function coverageState(cycle:PracticeCycle,rows:SessionRow[],day=activity
   if(row.updatedAt>lastPlayedAt)lastPlayedAt=row.updatedAt;
   const questions=new Map(session.questions.map(q=>[q.id,q]));
   for(const answer of session.answers){
-   const key=questions.get(answer.questionId)?.cycleKey;if(!key||!keys.has(key))continue;
-   if(answer.skipped)deferred.add(key);else{done.add(key);if(answer.day===day)today.add(key);}
+   const question=questions.get(answer.questionId);const targets=question?.boardKeys??(question?.cycleKey?[question.cycleKey]:[]);
+   for(const key of targets){if(!keys.has(key))continue;
+    if(answer.skipped)deferred.add(key);else if(!question?.boardKeys||answer.coveredKeys?.includes(key)){done.add(key);if(answer.day===day)today.add(key);}
+   }
   }
-  if(!row.deletedAt&&!session.completedAt){active.push(session);for(const q of session.questions.slice(session.position))if(q.cycleKey&&keys.has(q.cycleKey))reserved.add(q.cycleKey);}
+  if(!row.deletedAt&&!session.completedAt){active.push(session);for(const q of session.questions.slice(session.position))for(const key of q.boardKeys??(q.cycleKey?[q.cycleKey]:[]))if(keys.has(key))reserved.add(key);}
  }
  for(const key of done)deferred.delete(key);
  return {done,deferred,reserved,today,lastPlayedAt,active:active.sort((a,b)=>b.createdAt.localeCompare(a.createdAt)||b.id.localeCompare(a.id))};

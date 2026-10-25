@@ -11,3 +11,8 @@ it('does not trap a short word or click until the ten-second recording limit',()
  const silent=new EndOfSpeech(0);expect(silent.sample(.001,2500)).toBe(true);
  const noisy=new EndOfSpeech(0);for(let t=50;t<10000;t+=50)expect(noisy.sample(.1,t)).toBe(false);expect(noisy.sample(.1,10000)).toBe(true);
 });
+it('sentence capture preserves pauses between words and waits longer before silence timeout',()=>{
+ const sentence=new EndOfSpeech(0,'sentence');for(let t=50;t<=300;t+=50)expect(sentence.sample(.1,t)).toBe(false);for(let t=350;t<=1300;t+=50)expect(sentence.sample(0,t)).toBe(false);for(let t=1350;t<=1650;t+=50)expect(sentence.sample(.1,t)).toBe(false);for(let t=1700;t<3050;t+=50)expect(sentence.sample(0,t)).toBe(false);expect(sentence.sample(0,3050)).toBe(true);
+ const silent=new EndOfSpeech(0,'sentence');expect(silent.sample(.001,2500)).toBe(false);expect(silent.sample(.001,6000)).toBe(true);
+ const bounded=new EndOfSpeech(0,'sentence');for(let t=50;t<15000;t+=50)expect(bounded.sample(.1,t)).toBe(false);expect(bounded.sample(.1,15000)).toBe(true);
+});

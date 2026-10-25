@@ -1,3 +1,4 @@
+import {modeSchema,isPairGame} from '@/lib/learning/game-registry';
 import {z} from 'zod';
 import {safeArt} from '@/lib/media/catalog';
 import type {LocalRepository} from './repository';
@@ -8,14 +9,15 @@ import {coverageState,cycleSelection,type PracticeCycle,type SessionRow} from '@
 
 const id=z.string().min(1).max(200);
 export const practiceCycleSchema=z.object({
- id,scopeId:id,mode:z.enum(['flashcard','picture-word','word-picture','letters','spelling','missing-letters','grammar','grammar-card']),filter:practiceFilterSchema,
+ id,scopeId:id,mode:modeSchema,filter:practiceFilterSchema,
  createdAt:z.iso.datetime(),items:z.array(z.object({key:id,senseId:id,revision:id,grammar:z.object({id,version:z.number().int().positive(),formula:z.string().max(10000),example:z.string().max(200)}).strict().optional()}).strict()).min(1).max(10000),
 }).strict().superRefine((cycle,ctx)=>{if(new Set(cycle.items.map(item=>item.key)).size!==cycle.items.length)ctx.addIssue({code:'custom',message:'duplicate-cycle-item'});});
 export type CycleProgress={cycle:PracticeCycle;done:number;total:number;unavailable:number;skipped:number;today:number;lastPlayedAt:string;complete:boolean;active?:Session};
 export async function cycleRows(repo:LocalRepository){return repo.db.table<ScopedDocument>('practiceCycles').where('[scopeId+id]').between([repo.scope.id,''],[repo.scope.id,'\uffff']).toArray();}
 export async function latestCycle(repo:LocalRepository,mode:Mode,filter:PracticeFilter){
  const key=cycleSelection(mode,filter);
- return (await cycleRows(repo)).filter(row=>!row.deletedAt).map(row=>row.payload.cycle as PracticeCycle).filter(cycle=>cycleSelection(cycle.mode,cycle.filter)===key).sort((a,b)=>b.createdAt.localeCompare(a.createdAt)||b.id.localeCompare(a.id))[0];
+ const row=(await cycleRows(repo)).filter(row=>{const cycle=row.payload.cycle as PracticeCycle;return cycleSelection(cycle.mode,cycle.filter)===key;}).sort((a,b)=>b.createdAt.localeCompare(a.createdAt)||b.id.localeCompare(a.id))[0];
+ return row&&!row.deletedAt?row.payload.cycle as PracticeCycle:undefined;
 }
 export async function cycleSessions(repo:LocalRepository){return await repo.db.table<ScopedDocument>('practiceSessions').where('[scopeId+id]').between([repo.scope.id,''],[repo.scope.id,'\uffff']).toArray() as unknown as SessionRow[];}
 export async function cycleState(repo:LocalRepository,cycle:PracticeCycle,rows?:SessionRow[]){
@@ -26,7 +28,7 @@ export async function cycleState(repo:LocalRepository,cycle:PracticeCycle,rows?:
  const words=new Map(senses.flatMap((s,i)=>s&&entries[i]?[ [s.id,{sense:s,entry:entries[i]!}] as const]:[]));
  const grammarIds=[...new Set(cycle.items.flatMap(item=>item.grammar?[item.grammar.id]:[]))];
  const grammar=new Map((await repo.db.table<ScopedDocument>('sentences').bulkGet(grammarIds.map(id=>[repo.scope.id,id]))).flatMap(row=>row?[[row.id,row] as const]:[]));
- const picture=cycle.mode==='picture-word'||cycle.mode==='word-picture';
+ const picture=cycle.mode==='picture-word'||cycle.mode==='word-picture'||isPairGame(cycle.mode);
  const unavailable=new Set(cycle.items.filter(item=>{
   if(state.done.has(item.key))return false;
   const word=words.get(item.senseId),g=item.grammar?grammar.get(item.grammar.id):null;

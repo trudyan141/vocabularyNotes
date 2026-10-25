@@ -2080,3 +2080,147 @@ details.group-save-result { display:block; padding:1rem; }
 .practice-scope-progress { margin-top:12px; padding-top:12px; border-top:1px solid var(--border); }
 .practice-scope-progress .cycle-progress-line { font-weight:700; }
 .practice-scope-progress small { margin-top:4px; }
+
+/* Tap-first game boards share the existing practice palette and controls. */
+.expansion-game { text-align:center; }
+.pair-columns { display:grid; grid-template-columns:1fr 1fr; gap:16px; width:100%; max-width:480px; margin-inline:auto; }
+.pair-column { display:grid; gap:12px; }
+.pair-tile { min-height:104px; width:100%; font-size:1.25rem; }
+.pair-tile[aria-pressed="true"],.sentence-tiles [aria-pressed="true"],.activity-option [aria-pressed="true"] { outline:3px solid var(--primary); outline-offset:3px; }
+.memory-board { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; max-width:480px; width:100%; margin-inline:auto; }
+.memory-tile { min-height:112px; padding:8px; overflow-wrap:anywhere; font-size:1.15rem; }
+.memory-tile:not(:disabled):active { transform:scale(.97); }
+.word-workshop-answer { display:flex; flex-wrap:wrap; gap:8px; align-items:center; justify-content:center; min-height:64px; width:100%; font-size:1.5rem; }
+.word-workshop-answer button { min-width:48px; }
+.activity-options { display:flex; flex-wrap:wrap; justify-content:center; gap:16px; }
+.activity-option { display:grid; gap:8px; justify-items:center; }
+.activity-option > button { min-width:88px; }
+.game-prepare { padding:16px; border-radius:16px; background:var(--card); }
+.game-prepare > summary { min-height:48px; cursor:pointer; font-weight:800; }
+.activity-author { margin-top:16px; }
+.activity-author label { display:grid; gap:8px; text-align:left; }
+.activity-author label.row-wrap { display:flex; }
+.matched-reading > div { padding:16px; }
+.play-tile-match-pairs,.play-tile-grammar-cloze { background:var(--secondary); }
+.play-tile-memory-pairs,.play-tile-grammar-dialogue { background:var(--accent); }
+.play-tile-word-builder,.play-tile-grammar-repair { background:var(--muted); }
+@media (prefers-reduced-motion:reduce) { .memory-tile:not(:disabled):active { transform:none; } }
+
+.memory-tile { flex-direction:column; gap:4px; }
+.memory-tile:disabled,.pair-tile:disabled { opacity:1; }
+
+/* Each game has its own illustration in the menu atlas. */
+.game-menu-art{display:block;width:100px;height:100px;background-image:url('/illustrations/game-menu-atlas.webp');background-size:400% 400%;background-repeat:no-repeat;flex-shrink:0}
+.spelling-letter-hint{display:grid;gap:12px}
+.spelling-hint-letter{display:inline-grid;place-items:center;min-width:44px;min-height:48px;padding:8px 12px;border-radius:14px;background:var(--lavender,#eee3fb);font-weight:800;font-size:1.5rem}
+
+/* Fixed card geometry keeps tall uploaded art and long words inside the same deck. */
+.memory-board{max-width:540px;gap:clamp(8px,2vw,16px);grid-auto-rows:1fr;align-items:stretch}
+.memory-tile{display:block;position:relative;width:100%;height:auto;min-height:0;aspect-ratio:3/4;padding:0;border:0;border-radius:16px;background:transparent!important;box-shadow:0 4px 10px #39233f14;perspective:900px;isolation:isolate;overflow:visible}
+.memory-tile:not(:disabled):active{transform:none}
+.memory-card-inner{display:block;position:absolute;inset:0;border-radius:inherit;transform-style:preserve-3d;transition:transform 200ms cubic-bezier(.22,1,.36,1)}
+.memory-tile[data-open="true"] .memory-card-inner{transform:rotateY(180deg)}
+.memory-card-back,.memory-card-front{position:absolute;inset:0;display:grid;place-items:center;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:inherit;background-image:url('/illustrations/memory-card-faces.webp');background-repeat:no-repeat;background-size:200% 100%;overflow:hidden}
+.memory-card-back{background-position:left center}
+.memory-card-front{background-position:right center;transform:rotateY(180deg)}
+.memory-card-content{position:absolute;inset:16% 12%;display:grid;place-items:center;min-width:0;min-height:0;font-size:clamp(15px,2.5vw,27px);font-weight:800;overflow-wrap:anywhere;line-height:1.25;color:var(--foreground)}
+.memory-card-content>.word-art{width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain}
+.memory-card-content>span{max-width:100%;max-height:100%;overflow:hidden}
+.memory-card-number{position:absolute;bottom:7%;left:0;right:0;font-size:clamp(12px,1.5vw,17px);color:#462b4b}
+.memory-card-match{position:absolute;right:9%;top:7%;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#d8efdf;color:#234b32}
+.memory-card-match svg{width:17px;height:17px}
+.memory-tile[data-matched="true"]{box-shadow:0 3px 9px #234b321a}
+.dialogue-microphone{align-items:center;text-align:center;padding-top:8px;gap:8px}
+.dialogue-microphone>p{margin:0;max-width:45ch}
+html[data-motion="reduced"] .memory-card-inner{transition:none}
+@media(prefers-reduced-motion:reduce){.memory-card-inner{transition:none}}
+.memory-card-content{overflow:hidden;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
+.memory-card-content>.word-art{min-width:0;min-height:0;align-self:stretch;justify-self:stretch}
+
+/* Matching uses the same illustrated fronts as memory cards. */
+.pair-columns{width:100%;max-width:360px;margin-inline:auto;gap:12px;align-items:start}
+.pair-column{gap:12px}
+.illustrated-pair-card{display:block;position:relative;min-height:0;height:auto;width:100%;aspect-ratio:3/4;padding:0;border:0;border-radius:16px;background:transparent!important;box-shadow:0 4px 10px #39233f14;isolation:isolate}
+.pair-card-face{transform:none}
+.memory-board[data-pairs="2"]{grid-template-columns:repeat(2,minmax(0,1fr));max-width:360px}
+
+/* Keep the scene distinct from Fox's spoken question. */
+.dialogue-prompt { display:grid; gap:20px; width:100%; min-width:0; }
+.dialogue-context { margin:0; font-size:1.15rem; font-weight:700; }
+.dialogue-question { display:grid; justify-items:center; gap:12px; }
+.dialogue-speaker,.dialogue-meaning,.dialogue-instruction { margin:0; }
+.dialogue-speaker { display:flex; align-items:center; gap:10px; font-weight:700; color:var(--primary); }
+.dialogue-meaning { color:var(--muted-foreground); }
+.dialogue-instruction { font-size:1rem; }
+.dialogue-scene { display:grid; place-items:center; justify-self:center; width:min(100%,220px); aspect-ratio:1; padding:20px; border-radius:24px; background:var(--sunshine,#fff1c4); }
+.dialogue-scene .word-art { width:100%; height:100%; object-fit:contain; }
+
+.dialogue-grammar-choice { display:grid; gap:8px; font-weight:700; }
+.dialogue-grammar-choice select { width:100%; min-width:0; min-height:48px; padding:10px; border:1px solid var(--border); border-radius:12px; background:var(--card); color:var(--foreground); font:inherit; }
+.dialogue-selected-words { overflow-wrap:anywhere; margin:0; }
+
+.dialogue-settings { width:min(100%,760px); justify-self:center; margin-inline:auto; color:var(--muted-foreground); }
+.dialogue-settings > summary { width:fit-content; min-height:44px; display:flex; align-items:center; gap:8px; padding:10px 0; font-weight:700; cursor:pointer; }
+.dialogue-settings > summary:focus-visible { outline:3px solid var(--primary); outline-offset:4px; border-radius:6px; }
+.dialogue-settings[open] > summary { margin-bottom:12px; }
+.dialogue-settings > .page-flow { padding-bottom:16px; }
+
+/* Shared scene games: one task, large tap targets, optional metadata below. */
+.adventure-menu-art { display:block; width:150px; height:150px; background-image:url('/illustrations/adventure-menu.webp'); background-repeat:no-repeat; background-size:400% 200%; }
+.adventure-game h1 { overflow-wrap:anywhere; }
+.adventure-board { align-items:center; text-align:center; }
+.adventure-help,.adventure-progress { margin:0; }
+.adventure-target { display:grid; place-items:center; width:180px; height:180px; border-radius:24px; background:var(--sunshine,#fff1c4); padding:16px; }
+.adventure-target .word-art { width:100%; height:100%; object-fit:contain; }
+.adventure-baskets { display:flex; justify-content:center; gap:12px; width:100%; }
+.adventure-basket { display:flex!important; flex:1; flex-direction:column; height:auto!important; white-space:normal!important; min-width:0; max-width:180px; padding:16px 8px!important; gap:8px; background:var(--mint,#def3e7)!important; }
+.adventure-basket:nth-child(2) { background:var(--lilac,#eee4fc)!important; }
+.adventure-basket:nth-child(3) { background:var(--peach,#fbe4d7)!important; }
+.adventure-basket>svg { width:28px; height:28px; }
+.adventure-basket small { font-size:.85rem; }
+.adventure-bingo { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; width:min(100%,480px); }
+.adventure-bingo[data-count="4"] { grid-template-columns:repeat(2,minmax(0,1fr)); max-width:340px; }
+.adventure-picture { position:relative; display:grid!important; place-items:center; width:100%; min-width:0; aspect-ratio:1; height:auto!important; padding:12px!important; border-radius:20px!important; background:var(--sunshine,#fff1c4)!important; overflow:hidden; }
+.adventure-picture .word-art { width:100%; height:100%; max-height:140px; object-fit:contain; }
+.adventure-picture[data-marked="true"] { background:var(--mint,#def3e7)!important; opacity:1; }
+.adventure-mark { position:absolute; right:6px; top:6px; background:var(--mint,#def3e7); border-radius:50%; width:30px; height:30px; padding:4px; }
+.adventure-choices { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; width:100%; }
+.adventure-choices:has(>.adventure-choice:nth-child(2):last-child) { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.adventure-choice { display:grid; min-width:0; gap:8px; justify-items:center; }
+.adventure-choice>div { max-width:100%; }
+.adventure-choice [data-slot="button"] { white-space:normal; }
+.adventure-clue { max-width:45ch; margin:0; font-weight:800; font-size:1.2rem; }
+.adventure-sound-anchor { display:flex; gap:12px; align-items:center; padding:12px 20px; border-radius:20px; background:var(--mint,#def3e7); flex-wrap:wrap; justify-content:center; }
+.adventure-place { position:relative; width:100%; aspect-ratio:4/3; background:url('/illustrations/adventure-room.webp') center/100% 100% no-repeat; border-radius:20px; overflow:hidden; }
+.adventure-zone { position:absolute; z-index:1; min-width:44px; min-height:44px; width:23%; height:22%; border:2px dashed var(--primary)!important; padding:4px!important; border-radius:16px!important; background:color-mix(in srgb,var(--card) 65%,transparent)!important; }
+.adventure-zone .word-art { width:100%; height:100%; object-fit:contain; }
+.zone-on { left:20%; top:17%; }
+.zone-under { left:20%; top:53%; }
+.zone-in { left:70%; top:39%; }
+.adventure-box-front { pointer-events:none; position:absolute; inset:0; z-index:2; background:url('/illustrations/adventure-room.webp') center/100% 100% no-repeat; clip-path:polygon(66% 60%,100% 59%,100% 100%,66% 100%); }
+.adventure-object-pick { height:auto!important; width:110px; padding:10px!important; }
+.adventure-quantity { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:12px; width:100%; padding:18px 10px; border-radius:24px; background:var(--sunshine,#fff1c4); }
+.adventure-quantity>span { width:clamp(64px,23vw,120px); aspect-ratio:1; }
+.adventure-quantity .word-art { width:100%; height:100%; object-fit:contain; }
+.adventure-shopkeeper { display:flex; align-items:center; gap:16px; width:100%; padding:12px 16px; background:var(--mint,#def3e7); border-radius:20px; }
+.adventure-shopkeeper>p { margin:0; font-size:1.15rem; font-weight:800; text-align:left; }
+.adventure-shopkeeper>img { flex:none; }
+.adventure-shop-shelf { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); width:100%; gap:10px; padding-bottom:12px; border-bottom:8px solid #bc875b; }
+.adventure-shop-shelf:has(>button:nth-child(2):last-child) { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.adventure-shop-shelf:has(>button:nth-child(3):last-child) { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.adventure-shop-tray { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:8px; width:100%; min-height:110px; padding:12px; border:2px dashed var(--border); border-radius:20px; background:var(--peach,#fbe4d7); }
+.adventure-shop-tray>p { margin:0; }
+.adventure-cart-item { width:68px; height:68px!important; padding:6px!important; }
+.adventure-cart-item .word-art { width:100%; height:100%; object-fit:contain; }
+.adventure-finish { justify-items:center; }
+.adventure-board .grammar-feedback { width:100%; }
+@media(max-width:420px){.adventure-bingo,.adventure-choices,.adventure-baskets { gap:8px; }.adventure-basket { font-size:.9rem; }.adventure-shopkeeper { gap:10px; padding:10px; }.adventure-shopkeeper>img { width:64px; height:72px; }.adventure-shopkeeper>p { font-size:1rem; }.adventure-shop-shelf { gap:8px; }.adventure-picture { padding:8px!important; }}
+.adventure-tile { background:var(--mint,#def3e7)!important; }
+.adventure-tile:nth-child(2n) { background:var(--lilac,#eee4fc)!important; }
+.adventure-tile:nth-child(3n) { background:var(--peach,#fbe4d7)!important; }
+.adventure-tile:nth-child(4n) { background:var(--sunshine,#fff1c4)!important; }
+.adventure-picture:disabled,.adventure-basket:disabled,.adventure-zone:disabled,.adventure-object-pick:disabled,.adventure-cart-item:disabled { opacity:1; }
+
+.progress-cycle { flex-wrap:wrap; }
+.progress-cycle-actions { flex-wrap:nowrap; margin-left:auto; }
+.progress-cycle>p[role="alert"] { flex-basis:100%; margin:0; }

@@ -1,4 +1,6 @@
 "use client";
+import {prepareLearningExtensions,lessonExtensionInputs} from '@/lib/ai/learning-extensions';
+import type {ExtensionDraft} from '@/lib/learning/extensions';
 import {completeWordExamples} from '@/lib/ai/word-examples';
 import {parentAi} from '@/lib/ai/byok';
 import {SubmitButton} from '@/components/ui/submit-button';
@@ -22,7 +24,7 @@ import {type DictionarySense,type WordSuggestion,readingHint} from "@/lib/learni
 import {artCredit} from "@/lib/media/dictionary-art";
 import {RepositoryError} from "@/data/local/repository";
 import type { ScopedDocument, WordInput } from "@/data/local/types";
-type Form = { learnedOn?:string; word: string; vi: string; en: string; pos: string; sense: string; example: string;
+type Form = { extensions?:ExtensionDraft[]; learnedOn?:string; word: string; vi: string; en: string; pos: string; sense: string; example: string;
   exampleVi: string; ipa: string; hint: string; exampleHint: string; exampleIpa?:string; secondExample?:string;secondExampleVi?:string;secondHint?:string;secondIpa?:string; art: string | null; source: string; evidence: string; ipaSource?:string|null; ipaVerified?:boolean;origin?:WordInput["origin"] };
 const empty: Form = { word:"",vi:"",en:"",pos:"noun",sense:"",example:"",exampleVi:"",ipa:"",hint:"",exampleHint:"",exampleIpa:"",art:null,source:"Người dùng nhập",evidence:"" };
 export function AddWord() {
@@ -135,8 +137,10 @@ function WordForm({initial,capture,initialVersion}:{initial:Form;capture:string|
         origin:form.origin??"user",approved:true,pronunciations:[p],examplePronunciations:form.example.trim()?[pronunciation(form.example,form.exampleHint.trim()||null,form.exampleIpa?.trim()||null)]:[],
         additionalExamples:form.secondExample?.trim()?[{textEn:form.secondExample.trim(),translationVi:form.secondExampleVi!.trim(),pronunciations:[pronunciation(form.secondExample.trim(),form.secondHint?.trim()||null,form.secondIpa?.trim()||null)]}]:[],
         ...(form.evidence.trim()?{sourceEvidenceText:form.evidence.trim()}:{})};
+      const extensionController=new AbortController();abort.current=extensionController;
+      const extensions=await prepareLearningExtensions(lessonExtensionInputs([item]),AbortSignal.any([extensionController.signal,AbortSignal.timeout(65000)]),(form.extensions??[]).map(d=>({...d,key:item.id})),async extensions=>{setForm(f=>({...f,extensions}));});
       const result=await repository.saveLesson({operationId:id,title:capture?"Bài chép từ ảnh":`Từ gõ tay · ${learnedOn}`,learnedOn,
-        sourceType:capture&&form.evidence.trim()?"image":"manual",items:[item],...(prepared?{picture:{wordId:item.id,asset:prepared}}:{}),lessonId:capture?`capture-${capture}`:`manual-day-${learnedOn}`});
+        sourceType:capture&&form.evidence.trim()?"image":"manual",items:[item],extensions,...(prepared?{picture:{wordId:item.id,asset:prepared}}:{}),lessonId:capture?`capture-${capture}`:`manual-day-${learnedOn}`});
       saved.current=true;setSaveState('success');await serial.current;await repository.db.transaction("rw",repository.db.table("learningDrafts"),async()=>{const table=repository.db.table("learningDrafts"),key=[repository.scope.id,capture??"manual"];const old=await table.get(key);if(old?.version===draftVersion.current)await table.delete(key);});
       const words=await repository.search(form.word,{lesson:result.lessonId});
       router.push(words.words[0]?`/library/words/${words.words[0].id}`:"/library");

@@ -166,5 +166,6 @@ export class LibraryDatabase extends Dexie {
     });
     this.version(5).stores({practiceSessions:'[scopeId+id], [scopeId+createdAt]'});
     this.version(6).stores({practiceCycles:'[scopeId+id], [scopeId+createdAt]'});
+    this.version(7).stores({learningExtensions:'[scopeId+id]'});
   }
 }

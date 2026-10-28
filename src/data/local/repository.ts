@@ -1,3 +1,5 @@
+import {saveExtensionProposal} from './extensions';
+import {extensionDraftSchema,type ExtensionDraft} from '@/lib/learning/extensions';
 import {validateMedia,saveMedia} from './media';
 import {remoteTransactions as sharedHydrations} from '@/data/cloud/notifications';
 import type {MediaAsset} from '@/lib/media/contracts';
@@ -141,7 +143,7 @@ export class LocalRepository {
     }
   }
   private installSharedGuards(){
-    const content=new Set(['entries','senses','examples','lessons','lessonItems','evidence','notes','decks','sentences','mediaAssets','surfaceForms','patterns','grammarItems','sourceAssets','deckItems','captureDrafts','localMedia','learningDrafts','drafts','receipts']);
+    const content=new Set(['entries','senses','examples','lessons','lessonItems','evidence','notes','decks','sentences','mediaAssets','surfaceForms','patterns','grammarItems','sourceAssets','deckItems','captureDrafts','localMedia','learningDrafts','drafts','receipts','learningExtensions']);
     const learning=new Set(['practiceCycles','practiceSessions','reviewEvents','gameAttempts','reviewStates']);
     for(const table of this.db.tables){
       if(!content.has(table.name)&&!learning.has(table.name))continue;
@@ -418,10 +420,12 @@ export class LocalRepository {
     pictures?:{wordId:string;asset:MediaAsset}[];
     sourceType: "demo" | "manual" | "image";
     items: WordInput[];
+    extensions?:ExtensionDraft[];
     draftId?: string;
     lessonId?: string;
     learning?:{key:string;wordId:string;content:Omit<LearningContent,"senseId"|"targetRevision">}[];
   }) {
+    if(input.extensions)z.array(extensionDraftSchema).max(300).parse(input.extensions);
     const items = z.array(inputSchema).min(1).max(10000).parse(input.items);
     text(100).parse(input.operationId);
     text(200).parse(input.title);
@@ -575,6 +579,7 @@ export class LocalRepository {
         changed.add(sense.id);
       }
       for (const item of input.learning??[]){const target=resolved.get(item.wordId)!;await saveContent(this,`lesson-content-${lessonId}-${item.key}`,null,{...item.content,senseId:target.id,targetRevision:target.revision,lessonId});}
+      for(const draft of input.extensions??[]){if(draft.source.kind==='sense'){const target=resolved.get(draft.key);if(target)await saveExtensionProposal(this,'sense',target.id,draft);}else{const item=input.learning?.find(i=>`grammar:${i.key}`===draft.key);if(item)await saveExtensionProposal(this,'grammar',`lesson-content-${lessonId}-${item.key}`,draft);}}
       for(const picture of pictures){const target=resolved.get(picture.wordId);const word=target?await this.word(target.id):null;if(!word)throw new RepositoryError('invalid');if(!word.art)await saveMedia(this,{...picture.asset,senseId:word.id,word:word.word,revision:word.revision});}
       for (const id of changed) await this.reindex(id);
       await this.db.receipts.add({

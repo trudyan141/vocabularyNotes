@@ -1,4 +1,5 @@
 "use client";
+import {ExtensionSettings} from './learning-extensions';
 import Link from "next/link";
 import {SharedStatusPanel} from "@/components/app/shared-status-panel";
 import {ParentAiSettings} from "./parent-ai";
@@ -51,6 +52,7 @@ export function Settings() {
       )}
       <section className="settings-group page-flow" aria-labelledby="settings-libraries"><h2 id="settings-libraries">{t('Thư viện và chia sẻ','Libraries and sharing')}</h2><div className="row-wrap"><Button asChild variant="outline"><Link href="/share">{t('Chia sẻ thư viện','Share library')}</Link></Button><Button asChild variant="outline"><Link href="/connect">{t('Nhập mã kết nối','Enter connection code')}</Link></Button><Button asChild variant="outline"><Link href="/libraries">{t('Chọn thư viện','Choose library')}</Link></Button></div><SharedStatusPanel/></section>
       <section className="settings-group page-flow" aria-labelledby="settings-display"><h2 id="settings-display">{t("Hiển thị & âm thanh","Display & sound")}</h2>
+      <ExtensionSettings/>
       <FieldGroup>
         <Field>
           <FieldLabel>

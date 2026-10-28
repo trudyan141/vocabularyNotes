@@ -1,0 +1,35 @@
+import {test,expect} from '@playwright/test';
+import {extensionFixture} from '../fixtures/learning-extensions';
+import type {ExtensionRow} from '../../src/data/local/extensions';
+test.beforeEach(async({page})=>{
+ await page.route(/^https:\/\//,route=>route.abort());
+ await page.route('**/api/auth/status*',route=>route.fulfill({json:{configured:false,user:null}}));
+ await page.route('**/api/dictionary?*',route=>route.fulfill({json:{results:[]}}));
+ await page.route('**/api/media/search',route=>route.fulfill({json:{candidates:[]}}));
+ await page.route('**/api/media/web-search',route=>route.fulfill({json:{results:[]}}));
+ await page.addInitScript(()=>{localStorage.removeItem('wfk-parent-ai-disabled-v1');localStorage.setItem('wfk-parent-ai-v1',JSON.stringify({key:'AIza-fixture-extensions-only-1234567',model:'gemini-3.5-flash-lite'}));});
+});
+test('hidden generation saves pending suggestions; enabling reveals collapsed content without another AI call',async({page},info)=>{
+ let calls=0;
+ await page.route('https://generativelanguage.googleapis.com/**',async route=>{calls++;const body=route.request().postDataJSON();const inputs=JSON.parse(body.contents[0].parts[0].text).inputs;await route.fulfill({json:{candidates:[{finishReason:'STOP',content:{parts:[{text:JSON.stringify({items:inputs.map((input:{key:string})=>({key:input.key,result:extensionFixture}))})}]}}]}});});
+ await page.goto('/add');await page.getByRole('combobox').fill('orchard');await page.getByLabel('Nghĩa tiếng Việt',{exact:true}).fill('vườn cây ăn quả');await page.getByLabel('Nghĩa tiếng Anh',{exact:true}).fill('Land planted with fruit trees.');await page.getByLabel('Câu ví dụ tiếng Anh',{exact:true}).fill('We visit the orchard.');await page.getByLabel('Nghĩa câu ví dụ',{exact:true}).fill('Chúng tôi đến vườn cây ăn quả.');await page.getByRole('button',{name:'Lưu từ',exact:true}).click();await expect(page).toHaveURL(/\/library\/words\//);const wordUrl=page.url();
+ expect(calls).toBe(1);await expect(page.getByText('Học thêm B1–B2',{exact:true})).toHaveCount(0);
+ const read=()=>page.evaluate(async()=>{const db=await new Promise<IDBDatabase>((resolve,reject)=>{const req=indexedDB.open('words-for-kids.local');req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});try{return await new Promise<ExtensionRow[]>((resolve,reject)=>{const req=db.transaction('learningExtensions').objectStore('learningExtensions').getAll();req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});}finally{db.close();}});
+ expect((await read())[0].payload.decisions).toEqual({});
+ await page.goto('/settings');await page.getByRole('switch',{name:'Hiện nội dung B1–B2',exact:true}).click();await page.goto(wordUrl);await expect(page.locator('.learning-extension-section')).toHaveCount(1);await expect(page.getByText('have an apple as a snack',{exact:true})).toBeHidden();
+ await page.getByText('Học thêm B1–B2',{exact:true}).click();await expect(page.getByText('have an apple as a snack',{exact:true}).first()).toBeVisible();await page.getByRole('button',{name:'Duyệt gợi ý',exact:true}).first().click();await page.getByRole('button',{name:'Lưu phần học thêm',exact:true}).click();await expect.poll(async()=>(await read())[0].payload.decisions['B1:0']).toBe('approved');expect(calls).toBe(1);
+ await page.screenshot({path:info.outputPath('extensions-expanded.png'),fullPage:true});await page.reload();await expect(page.getByText('Học thêm B1–B2',{exact:true})).toBeVisible();await expect(page.getByText('have an apple as a snack',{exact:true})).toBeHidden();
+ await page.goto('/settings');await page.getByRole('switch',{name:'Hiện nội dung B1–B2',exact:true}).click();await page.goto(wordUrl);await expect(page.getByText('Học thêm B1–B2',{exact:true})).toHaveCount(0);expect(calls).toBe(1);expect((await read())[0].payload.decisions['B1:0']).toBe('approved');expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+});
+test('provider failure preserves the original and records an extension retry without exposing B1/B2',async({page})=>{
+ let calls=0;await page.route('https://generativelanguage.googleapis.com/**',async route=>{calls++;await route.fulfill({status:429,json:{error:{status:'RESOURCE_EXHAUSTED'}}});});
+ await page.goto('/add');await page.getByRole('combobox').fill('orchard');await page.getByLabel('Nghĩa tiếng Việt',{exact:true}).fill('vườn cây ăn quả');await page.getByLabel('Nghĩa tiếng Anh',{exact:true}).fill('Land planted with fruit trees.');await page.getByRole('button',{name:'Lưu từ',exact:true}).click();await expect(page).toHaveURL(/\/library\/words\//);await expect(page.getByRole('heading',{name:'orchard',exact:true})).toBeVisible();await expect(page.getByText('Học thêm B1–B2',{exact:true})).toHaveCount(0);expect(calls).toBe(1);
+ await page.goto('/settings');await page.getByText('Bổ sung B1–B2 cho thư viện đã lưu',{exact:true}).click();await expect(page.getByText(/1 mục đã lưu · 1 mục cần thử lại/)).toBeVisible();
+});
+test('photo intake scans all sources before generating hidden word extensions',async({page})=>{
+ const stages:string[]=[];const pear={literal:'pear',word:'pear',vi:'quả lê',en:'A fruit.',pos:'noun',sense:'fruit',example:'I eat a pear.',exampleVi:'Tôi ăn một quả lê.',exampleIpa:null};
+ await page.route('https://generativelanguage.googleapis.com/**',async route=>{const body=route.request().postDataJSON();let value:unknown;
+ if(body.contents[0].parts.some((part:{inlineData?:unknown})=>part.inlineData)){stages.push('scan');value={text:'pear',warnings:[],words:[{literal:'pear',word:'pear'}],truncated:false};}else{const input=JSON.parse(body.contents[0].parts[0].text);if(input.inputs){stages.push('extensions');value={items:input.inputs.map((i:{key:string})=>({key:i.key,result:extensionFixture}))};}else if(input.words[0]?.literal){stages.push('meanings');value={words:[pear]};}else{stages.push('grammar');value={learning:[]};}}
+ await route.fulfill({json:{candidates:[{finishReason:'STOP',content:{parts:[{text:JSON.stringify(value)}]}}]}});});
+ const fs=await import('node:fs/promises');const image=await fs.readFile('docs/evaluations/t00/images/01-fruit.png');await page.goto('/capture');const upload=page.getByRole('tabpanel',{name:'Chọn ảnh',exact:true}).getByLabel('Chọn ảnh từ máy',{exact:true});await expect(upload).toBeEnabled();await upload.setInputFiles([{name:'one.png',mimeType:'image/png',buffer:image},{name:'two.png',mimeType:'image/png',buffer:image}]);await expect(page).toHaveURL(/\/capture\/batch\//);await page.getByRole('button',{name:'Phân tích 2 ảnh',exact:true}).click();await expect(page.getByRole('button',{name:'Đã phân tích · thử lại'})).toBeEnabled();expect(stages).toEqual(['scan','scan','meanings','grammar']);await expect(page.getByText('Học thêm B1–B2',{exact:true})).toHaveCount(0);await page.getByRole('button',{name:'Duyệt và lưu các từ đã chọn',exact:true}).click();await expect(page).toHaveURL(/\/library\?lesson=ocr-batch/);expect(stages).toEqual(['scan','scan','meanings','grammar','extensions']);await expect(page.getByText('Học thêm B1–B2',{exact:true})).toHaveCount(0);
+});

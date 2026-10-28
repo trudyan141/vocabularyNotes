@@ -1,4 +1,5 @@
 "use client";
+import {ExtensionSection} from './learning-extensions';
 import {SentencePronunciation} from "@/components/app/sentence-pronunciation";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
@@ -124,6 +125,7 @@ export function WordDetail({ id }: { id: string }) {
 
 
 
+      <ExtensionSection kind="sense" targetId={entry.id}/>
     </article>
   );
 }

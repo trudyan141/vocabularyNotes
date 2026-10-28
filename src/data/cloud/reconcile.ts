@@ -29,11 +29,12 @@ export async function reconcileIdentity(repo:LocalRepository,entity:PullTable,re
     if(name==='decks'&&payload){const deck=payload.deck as Deck;if(deck.senseIds.includes(oldId)){deck.senseIds=[...new Set(deck.senseIds.map(id=>id===oldId?newId:id))];if(deck.group){deck.group=remapGroup(deck.group,id=>id===oldId?newId:id);}changed=true;}}
     if(name==='mediaAssets'&&payload){const asset=payload.asset as {senseId:string};if(asset.senseId===oldId){asset.senseId=newId;changed=true;}}
     if(name==='sentences'&&payload){const content=payload.content as {senseId:string};if(content.senseId===oldId){content.senseId=newId;changed=true;}}
+    if(name==='learningExtensions'&&payload){if(payload.senseId===oldId){payload.senseId=newId;changed=true;}if(payload.kind==='sense'&&payload.targetId===oldId){payload.targetId=newId;changed=true;}}
     if(name==='gameAttempts'&&payload?.senseId===oldId){payload.senseId=newId;changed=true;}
     if(name==='practiceCycles'&&payload){const cycle=payload.cycle as PracticeCycle;for(const item of cycle.items)if(item.senseId===oldId){item.senseId=newId;changed=true;}if(cycle.filter.word===oldId){cycle.filter.word=newId;changed=true;}}
     if(name==='practiceSessions'&&payload){const session=payload.session as {questions:{word:{id:string};choices:{id:string}[]}[]};for(const question of session.questions)for(const word of [question.word,...question.choices])if(word.id===oldId){word.id=newId;changed=true;}}
    }
-   if(changed){if(await checkpoints.get([scope,`baseline:${name}:${original.id}`]))throw new SyncError('duplicate');if(name==='sentences'&&original.id===`extra-${oldId}`){row.id=`extra-${newId}`;await repo.db.table(name).delete([scope,String(original.id)]);}await repo.db.table(name).put(parseCloudRow(name,row));}
+   if(changed){if(name==='learningExtensions'){const p=row.payload as {kind:string;targetId:string};row.id=`extension-${p.kind}:${p.targetId}`;if(row.id!==original.id)await repo.db.table(name).delete([scope,String(original.id)]);}if(await checkpoints.get([scope,`baseline:${name}:${original.id}`]))throw new SyncError('duplicate');if(name==='sentences'&&original.id===`extra-${oldId}`){row.id=`extra-${newId}`;await repo.db.table(name).delete([scope,String(original.id)]);}await repo.db.table(name).put(parseCloudRow(name,row));}
   }
  }
  await table.delete([scope,oldId]);

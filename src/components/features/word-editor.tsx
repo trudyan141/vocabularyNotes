@@ -1,4 +1,7 @@
 "use client";
+import {prepareLearningExtensions} from '@/lib/ai/learning-extensions';
+import {saveExtensionProposal} from '@/data/local/extensions';
+import {grammarExtensionSource} from '@/lib/learning/extensions';
 import Image from 'next/image';
 import {Save,ImageOff} from 'lucide-react';
 import {Button} from '@/components/ui/button';
@@ -55,6 +58,8 @@ function EditorForm({entry,examples,contents}:{entry:LibraryWord;examples:Exampl
    const exactPronunciation=(text:string,ipa:string,hint:string,old:Example['pronunciations'])=>{const existing=old.find(p=>p.text===text&&p.ipa===(ipa||null)&&p.readingHintVi===(hint||null));return existing?{...existing}:pronunciation(text,hint||null,ipa||null);};
    const input:WordInput={id:entry.id,word:form.word.trim(),vi:form.vi.trim(),en:form.en.trim(),pos:form.pos.trim(),sense:form.sense.trim(),example:form.example.trim(),exampleVi:form.exampleVi.trim(),art,lesson:baseline.lesson,ready:true,source:baseline.source,origin:'user',caseMode:baseline.caseMode,approved:true,pronunciations:[pronunciation(form.word.trim(),form.hint||null,form.ipa||null,same?old?.sourceUrl??null:null,same&&!!old?.verified)],examplePronunciations:form.example.trim()?[exactPronunciation(form.example.trim(),form.exampleIpa,form.exampleHint,baseline.examplePronunciations)]:[],additionalExamples:form.secondExample.trim()?[{textEn:form.secondExample.trim(),translationVi:form.secondVi.trim(),pronunciations:[exactPronunciation(form.secondExample.trim(),form.secondIpa,form.secondHint,second?.pronunciations??[])]}]:[]};
    const result=await updateWord(repository,entry.id,baseline.revision,input,snapshots,hasExtra?extra:null,prepared);
+   const additions=result.rows.filter(row=>!snapshots.some(s=>s.id===row.id)).filter(row=>row.content.grammarTitle||row.content.pattern);
+   if(additions.length){const drafts=await prepareLearningExtensions(additions.map(row=>({key:row.id,source:grammarExtensionSource(result.word,row.content)})),AbortSignal.timeout(65000));for(const draft of drafts)await saveExtensionProposal(repository,'grammar',draft.key,draft);}
    setBaseline(result.word);setSnapshots(result.rows);setArt(result.word.art);setPrepared(null);setState('success');requestAnimationFrame(()=>document.getElementById('word-edit-submit')?.scrollIntoView({block:'center',behavior:'auto'}));
   }catch(cause){setState('error');setError(submitError(cause,t));}
  }

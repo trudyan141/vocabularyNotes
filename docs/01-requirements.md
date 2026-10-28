@@ -22,7 +22,7 @@
 | R16 | P1 | Lịch sử bài scan, ngày học, nguồn từng mục, đếm mới/trùng và ôn theo bài | S08–S09 | T06–T07 |
 | R17 | P1 | Chuyển guest→cloud có preview merge, retry, verify; export/import backup; delete riêng theo scope | S15–S16 | T11 |
 | R18 | P1 | PWA, responsive, offline cho nội dung đã lưu, pending sync; không cache dữ liệu chéo user | Toàn app | T13 |
-| R19 | P1 | Ưu tiên 5–8 tuổi, VI/Beginner/child-friendly mặc định; phụ huynh chuẩn bị bài; voice/icon cues cho trẻ chưa đọc; người lớn mở rộng sau | S01, S03, S16 | T02, T07 |
+| R19 | P1 | Ưu tiên 5–8 tuổi, VI/Beginner/child-friendly mặc định; phụ huynh chuẩn bị bài; voice/icon cues cho trẻ chưa đọc; founder29/10 yêu cầu kế hoạch học ké B1–B2 từ kho đã lưu và thêm tay/ảnh, giữ nội dung/SRS của bé; luôn tạo phần nâng cao, setting Ẩn/Hiện mặc định Ẩn, bật mới hiện section thu gọn/bấm bung mới thấy; [ADR110/plan, đã triển khai; toàn kho đã bổ sung, chờ review nội dung](KE-HOACH-MO-RONG-B1-B2.md) | S01, S03, S16 | T02, T07, T17 |
 | R20 | P1 | Quota server, consent upload, xử lý dữ liệu cá nhân trong ảnh, không lộ key | S05–S06, S16 | T05, T10, T14 |
 | R21 | P1 | Thống kê buổi ôn, từ yếu, tiếp tục phiên dang dở; không quảng cáo mastery giả | S03, S14 | T09, T12 |
 | R22 | P2 | OCR chạy máy tùy chọn; đọc text rồi sửa tay; không mặc định sinh nghĩa offline | S05–S07 | T16 |

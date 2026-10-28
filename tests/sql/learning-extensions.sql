@@ -1,0 +1,20 @@
+begin;
+insert into auth.users(id,email,email_confirmed_at) values('11000000-0000-4000-8000-000000000001','extensions-one@example.test',now()),('11000000-0000-4000-8000-000000000002','extensions-two@example.test',now());
+insert into auth.identities(user_id,provider) values('11000000-0000-4000-8000-000000000001','google'),('11000000-0000-4000-8000-000000000002','google');
+set local role authenticated;
+select set_config('request.jwt.claim.sub','11000000-0000-4000-8000-000000000001',true);
+insert into public.libraries(id,owner_id,name) values('12000000-0000-4000-8000-000000000001',auth.uid(),'Extension fixture');
+insert into public.vocabulary_entries(id,library_id,display_text,canonical_key,kind) values('13000000-0000-4000-8000-000000000001','12000000-0000-4000-8000-000000000001','watch','watch','word');
+insert into public.entry_senses(id,library_id,entry_id,pos,sense_label,identity_key,origin,client_id) values('14000000-0000-4000-8000-000000000001','12000000-0000-4000-8000-000000000001','13000000-0000-4000-8000-000000000001','noun','timepiece','noun:timepiece','user','watch');
+insert into public.learning_extensions(id,library_id,sense_id,client_id,content,client_payload) values('15000000-0000-4000-8000-000000000001','12000000-0000-4000-8000-000000000001','14000000-0000-4000-8000-000000000001','extension-sense:watch','{"kind":"sense","targetId":"watch","senseId":"watch","decisions":{}}','{"id":"extension-sense:watch","scopeId":"account:11000000-0000-4000-8000-000000000001:12000000-0000-4000-8000-000000000001","payload":{"kind":"sense","targetId":"watch","senseId":"watch","decisions":{}}}');
+do $$begin if (select count(*) from public.learning_extensions)<>1 then raise exception 'owner read';end if;end$$;
+select set_config('request.jwt.claim.sub','11000000-0000-4000-8000-000000000002',true);
+do $$begin if exists(select 1 from public.learning_extensions) then raise exception 'cross-owner read';end if;begin update public.learning_extensions set content='{}' where id='15000000-0000-4000-8000-000000000001';if found then raise exception 'cross-owner update';end if;end;end$$;
+reset role;
+do $$declare p jsonb;begin
+ p:=private.shared_extension('{"decisions":{"B1:1":"approved"},"result":{"levels":[{"level":"B1","status":"available","reasonVi":"","suggestions":[{"text":"private draft"},{"text":"approved"}]},{"level":"B2","status":"available","reasonVi":"","suggestions":[{"text":"private draft"}]}]},"jobId":"private-job"}'::jsonb);
+ if p::text like '%private%' or p->'result'->'levels'->0->'suggestions'->0->>'text'<>'approved' or p->'decisions'->>'B1:0'<>'approved' then raise exception 'share draft leak';end if;
+ if position('learning_extensions' in pg_get_functiondef('public.cloud_apply(uuid,uuid,jsonb)'::regprocedure))=0 then raise exception 'sync allowlist';end if;
+ if not exists(select 1 from private.cloud_changes where entity='learning_extensions') then raise exception 'missing extension change feed';end if;
+end$$;
+rollback;

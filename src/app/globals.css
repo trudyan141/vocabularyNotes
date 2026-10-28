@@ -2224,3 +2224,9 @@ html[data-motion="reduced"] .memory-card-inner{transition:none}
 .progress-cycle { flex-wrap:wrap; }
 .progress-cycle-actions { flex-wrap:nowrap; margin-left:auto; }
 .progress-cycle>p[role="alert"] { flex-basis:100%; margin:0; }
+
+/* Adult supplements stay behind the device preference and a native disclosure. */
+.settings-extension-toggle { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+.learning-extension-section > .page-flow { padding-block:1rem; }
+.extension-suggestion { border-top:1px solid var(--border); padding-block:1rem; }
+.extension-suggestion p { overflow-wrap:anywhere; }

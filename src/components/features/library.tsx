@@ -1,4 +1,5 @@
 "use client";
+import {ExtensionLibrary} from './learning-extensions';
 import {DeleteControl} from "./delete-control";
 import {SearchHighlight} from '@/components/ui/search-highlight';
 import dynamic from "next/dynamic";
@@ -68,6 +69,7 @@ export function Library() {
           </Button>
         </div>
       )}
+      <ExtensionLibrary lesson={lesson} query={query}/>
       <div className="content-modes content-modes-two" aria-label={t("Loại nội dung","Content type")}>{([["words","Từ","Words",BookOpen],["grammar","Ngữ pháp","Grammar",BookOpen]] as const).map(([value,vi,en,Icon])=><Button key={value} variant="segment" aria-pressed={mode===value} onClick={()=>{setMode(value);setOffset(0);}}><Icon aria-hidden="true"/>{t(vi,en)}</Button>)}</div>
       <section className="library-search-card">
       <FieldGroup>

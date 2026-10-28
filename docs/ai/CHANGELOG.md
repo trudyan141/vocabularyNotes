@@ -1,5 +1,21 @@
 # Nhật ký bàn giao
 
+## 29/10/2026 — ADR110 full-library backfill complete
+
+Founder accepted pilot and authorized full processing. Serial checkpointed job completed300/300parents (249senses+51grammar),596suggestions plus4explicit no_suggestion cells for Sam/a.0missing/errors;20pilot preserved, all300remain pending owner review. Read-only full-row hashes confirm11original content/learning tables unchanged including tombstones. No runtime/schema/deploy/env/main push this follow-up. [Final verification](../evaluations/learning-extensions-b1-b2.md#final-full-library-verification-29102026-0434-ict).
+
+## 29/10/2026 — ADR110: B1/B2 implemented/deployed, pilot20 pending
+
+Independent hidden-default setting and native disclosure, pending word/grammar extensions on manual/photo Save, review/edit/audio/list filters, local7/SQL0015 forced owner RLS+sync/share, archive/transfer/copy. Lint/types+38logic+24productionUI/buildPASS; hosted owner push/pull/foreign denial+1280/360 visibility/reloadPASS; fixtures cleaned. Deploy rghjw4yah/alias;20target-account pilot records saved pending after agent curation, no original/SRS writes. Full280remaining blocked by auto-review pending founder pilot acceptance, not claimed complete. [Evidence](../evaluations/learning-extensions-b1-b2.md).
+
+## 29/10/2026 — ADR110 follow-up: tách tạo B1/B2 khỏi Ẩn/Hiện
+
+Founder yêu cầu luôn tạo phần nâng cao khi thêm nội dung, chỉ hiện khi bật config và vẫn thu gọn cho đến khi bung. Updated plan/spec: hidden by default per browser/library; hidden generation persists pending drafts without automatic approval; toggle preserves data/jobs and never regenerates. Added acceptance cases for both intake paths, toggle/reload/scope boundaries. Docs only; no runtime/cloud change.
+
+## 29/10/2026 — ADR110: kế hoạch học ké B1–B2
+
+Read-only owner-scoped hosted inventory:185entries/249senses/251examples/71learning records,51with grammar/pattern (raw counts, not grouped/current UI totals). Wrote [plan](../KE-HOACH-MO-RONG-B1-B2.md) covering content/CEFR provenance, optional adult UI, proposed separate extensions across local/cloud/backup/share, manual and multi-photo paths,20-parent pilot and resumable reviewed backfill. Clarifies enjoy pleasure=A1 and idea expansion≠exact synonym. No provider generation, app/schema/data writes or deploy; checks are docs/diff only.
+
 ## 25/10/2026 — ADR109: bỏ lọc game, xóa tiến độ tại card
 
 Remove filter controls/state; progress cards add named trash/pending/error next to Continue. Scoped atomic current cycle+unfinished session tombstones, latest tombstone reset barrier, completed history/attempts/SRS/library retained.13logic/lint/types+4productionUI/buildPASS; pc53q5xkb/alias +2hosted360/1280delete/reload/fresh0PASS. [Evidence](../evaluations/game-hub-progress-delete.md).

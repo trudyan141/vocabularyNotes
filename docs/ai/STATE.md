@@ -1,10 +1,12 @@
 # Trạng thái hiện tại — Words for Kids
 
-Updated:25/10/2026. Current task: **ADR109 hub filters removed +progress delete — deployed / scoped verified**. One hub all games, trash right of Continue resets exact latest cycle+unfinished sessions, keeps history/attempts/SRS/content. Latest tombstone barrier stops older progress resurfacing. Lint/types+13coverage logic+4productionUI/buildPASS source47821ff0ecec/HEAD8f70821+dirty; pc53q5xkb/alias +2hosted360/1280PASS delete/reload/fresh0. [Evidence](../evaluations/game-hub-progress-delete.md). Existing shared read-only protected; no new SQL/env/dependencies/main push. Prior source audit/7adventures retained.
+Updated:29/10/2026. Current task: **ADR110 B1–B2 — implemented/deployed / full-library backfill complete, owner review pending**. [Plan](../KE-HOACH-MO-RONG-B1-B2.md), [evidence](../evaluations/learning-extensions-b1-b2.md). Founder accepted20pilot and authorized all remaining content. Hosted300/300parents (249senses+51grammar),596suggestions; B1+B2 status for every parent,4no_suggestion cells for Sam/a,0missing/0errors. All300remain pending review;20curated pilot records preserved. Hash comparison:11original content/learning tables unchanged from private backup. Hidden default/collapsed behavior retained, no new deploy/code/env/main push in this data-only follow-up. Prior local7/SQL0015/lint/types+38logic+24productionUI/build+hosted1280/360owner-boundary checks remain recorded; app deploy rghjw4yah/alias.
 
 
 ## Baseline / current steering
 
+- ADR109 game hub filters removed/progress delete remains deployed/scoped verified; [evidence](../evaluations/game-hub-progress-delete.md). Prior game audit/7adventures retained.
+- ADR110 follow-up29/10: B1/B2 generation independent of visibility; setting defaults hidden per browser/library scope. Enabled sections still collapsed until expanded. Hidden suggestions save as pending, no autoapproval; toggling never regenerates/deletes content. Implemented/deployed; founder/physical-device review remains.
 - Next/PWA, Theme C/Nunito/Cáo; trẻ5–8 tự thêm/sửa/học, không parent gate. Từ+Ngữ pháp; examples/whole-sentence IPA giữ trong items. Chi tiết/bất biến ở AGENTS và [PROJECT-RULES](PROJECT-RULES.md).
 - Nhiều ảnh **một bài**: scan tất cả trước enrichment, global deterministic dedup giữ sense/POS/source sentences, checkpoint/CAS, một review/save; ADR082. [Merged photos](../evaluations/merged-photo-lesson.md): local61tests/14UI/lint/types/build PASS; chưa liveAI/phone/hostedsync/deploy của thay đổi này.
 - Speaking runtime **v3 Gemini audio direct**, chỉ quan sát audio không có target, app align/tính điểm;0unclear/tạm0service theo ADR095. Chất lượng nhận âm còn pending. Không local355MB pack/consent dialog. ADR093 IPA/hint/Nghe1.0/chậm0.6 và nguồn thu gọn đã scoped verified: [audio](../evaluations/speaking-reading-and-open-audio.md). Live audio/physical phone/calibration chưa chứng minh.
@@ -22,6 +24,6 @@ Working tree đầu task phạm vi game sạch; workflow baseline bên dưới t
 
 External acceptance vẫn mở: child/provider eligibility/quality/cost benchmark, human UX, physical camera/clipboard/audio/PWA/install, field/performance trên final release; xem TASKS. Fixture/mock không chứng minh live quality. Token/time của chat trước unavailable; chỉ đo bootstrap bytes/setup/test metadata có thật.
 
-**Next action:** founder thử icon xóa tiến độ trên điện thoại thật.
+**Next action:** founder mở thư viện, bật Hiện nội dung B1–B2 trên máy muốn học rồi xem/sửa/duyệt các gợi ý trong kho đã bổ sung.
 
 Lịch sử/checkpoints: [STATE history](STATE.history-2026-10-12.md), [CHANGELOG](CHANGELOG.md). Không append history vào current state.

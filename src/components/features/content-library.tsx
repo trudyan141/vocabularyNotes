@@ -1,4 +1,5 @@
 'use client';
+import {ExtensionSection} from './learning-extensions';
 import {useState} from 'react';
 import {useLiveQuery} from 'dexie-react-hooks';
 import {useApp} from '@/components/app/provider';
@@ -30,7 +31,7 @@ export function LearningDetail({id,mode}:{id:string;mode:'grammar'}) {
  {row.mistake&&<div className="grammar-mistake"><strong>{t('Dễ nhầm','Watch out')}</strong><p lang="en">{row.mistake}</p><SentencePronunciation text={row.mistake} ipa={row.mistakeIpa}/></div>}
  {row.correction&&<div className="grammar-correction"><strong>{t('Câu đúng','Correct sentence')}</strong><p lang="en">{row.correction}</p><SentencePronunciation text={row.correction} ipa={row.correctionIpa}/></div>}
  </section>)}
- </div></details>{[item,...(item.related??[])].filter(row=>row.table==='sentences').map(row=><GameActivityEditor key={row.id} id={row.id}/>)}</article>;
+ </div></details><ExtensionSection kind="grammar" targetId={item.id}/>{[item,...(item.related??[])].filter(row=>row.table==='sentences').map(row=><GameActivityEditor key={row.id} id={row.id}/>)}</article>;
 }
 
 export function ContentLibrary({mode,query,lesson}:{mode:'grammar';query:string;lesson:string|null}) {

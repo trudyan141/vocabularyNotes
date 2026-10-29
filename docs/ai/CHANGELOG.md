@@ -1,5 +1,37 @@
 # Nhật ký bàn giao
 
+29/10 — Full prepared Shadowing recovery: read-only249family audit, actual214basic/428advanced/0missing; owner-only paged snapshot repairs unreviewed local bank independently of general cursor, automatic entry refresh/retrieve-all, preserved edits/decisions/tombstones/newer baseline.27logic/data+18UI/build/types/lint+hosted owner/foreign-library/1280/360PASS; deployc8tlt8avi Ready/alias, fixture cleaned, no founder data writes or duplicate generation. [Evidence](../evaluations/shadowing.md).
+
+29/10 — Fix actual Shadowing two-legs/missing-upgrade flow: prioritize prepared primary example over grammar fragments/additional examples; show exact pending candidate with explicit inline approve-and-play, explanation/audio, CAS and other decisions preserved.18logic/data+16productionUI/build/types/lint+hosted1280/360PASS; deploy40hlhumzs Ready/alias; fixture cleaned, founder data read-only. [Evidence](../evaluations/shadowing.md).
+
+29/10 — B1/B2 explanations: shared collapsed exact-text language cues, source additions and existing expression usage/differences across Shadowing and previous word/grammar extensions. Read-time legacy/edit/shared support, no AI call/data backfill or founder content/decision changes.24logic/data+20productionUI/build/types/lint+hosted1280/360PASS; deployaq2jfivef Ready/alias. [Evidence](../evaluations/level-explanations.md).
+
+29/10 — Shadowing correction: B1/B2 upgrade the exact active basic sentence via family+baseText/promptVersion2; preserve basic cursor and show missing-upgrade state instead of unrelated reading fallback. Review displays the base. Regenerated pending249bundles/747sentences;0missing/empty/unlinked,12original tables unchanged, no autoapproval.41logic/data+12productionUI/build/types/lint, hosted1280/360PASS; deploy4x5qoudlw Ready/alias. [Evidence](../evaluations/shadowing.md).
+
+## 29/10/2026 — Shadowing reference-anchored feedback fix
+
+Founder reported helps reference receiving advice to use helped. Removed unconstrained model prose from displayed feedback/criteria; deterministic alignment cues expected/heard tokens and only reference-supported suffixes, without grammar rewriting or phoneme certainty. Provider prompt preserves exact reference tense/person/negation.2red→7unit/types/lint+12productionUI/buildPASS; hosted1280/360adversarial providerPASS. Deploydy46cxsqc/alias; no content/schema/env/main push. [Evidence](../evaluations/shadowing.md).
+
+## 29/10/2026 — Shadowing full-library generation complete
+
+Founder tested and authorized full preparation. Hosted249/249sense bundles,780sentences across3levels,0missing/empty cells; allpending.12original tables hash-identical to private15MBbackup; source/CAS/checkpoint boundaries retained. No app/schema/env/deploy/main push. [Evidence](../evaluations/shadowing.md).
+
+## 29/10/2026 — Shadowing delivered/deployed
+
+Completed prepared reviewed bank/Save queue, IDB8/SQL0016 and cloud/archive/copy/share boundaries; real shadow capture, speaker solo-readback scoring, RAM round summary and existing B1/B2 gate.41logic/data/sync+10productionUI/lint/types/buildPASS; hosted rollback boundary fixturesPASS; synthetic provider transport verified. Production9ovqdkv9z/alias; human/device/calibration acceptance pending. [Evidence](../evaluations/shadowing.md).
+
+## 29/10/2026 — Shadowing implementation checkpoint
+
+Founder authorized implementation. Local route/hub, selected approved examples and gated B1/B2 approved extensions, sentence recording/replay and two-stage rubric added. Lint/types+4unit+4productionUI/build PASS. Generated bank/cloud/queue and simultaneous capture remain unfinished; no deployment/live quality claim. [Checkpoint](../evaluations/shadowing.md).
+
+## 29/10/2026 — Bổ sung Shadowing B1/B2 vào plan
+
+Founder requires advanced B1/B2 in the same Shadowing game behind the existing B1–B2 setting. Updated [plan](../KE-HOACH-SHADOWING.md), spec08 and ADR111: basic remains default, enabled advanced section stays collapsed, approved level-specific extension examples precede new generation, preparation independent of visibility, source/level snapshots and disable-during-capture guards. Added review/generation/scoring/QA scope for all3levels. Docs-only; no runtime/schema/data/provider/deploy changes.
+
+## 29/10/2026 — Kế hoạch Shadowing theo bài/từ selected
+
+Read local eng-vocabulary shadowing/capture/assessment code and tests at0a90803, compare Words for Kids source ate655267. [Founder plan](../KE-HOACH-SHADOWING.md) recommends existing approved examples + prepared/reviewed sentence bank, selection/sense/version preservation, two practice modes, bounded2-call scoring proposal with4equally weighted criteria/content guards, speaker readback and no persistent audio/score. Records current ADR095 differences, data/cloud/backup/share work and live/device quality gates. Research/plan only; no implementation/generation/cloud writes/deploy.
+
 ## 29/10/2026 — ADR110 full-library backfill complete
 
 Founder accepted pilot and authorized full processing. Serial checkpointed job completed300/300parents (249senses+51grammar),596suggestions plus4explicit no_suggestion cells for Sam/a.0missing/errors;20pilot preserved, all300remain pending owner review. Read-only full-row hashes confirm11original content/learning tables unchanged including tombstones. No runtime/schema/deploy/env/main push this follow-up. [Final verification](../evaluations/learning-extensions-b1-b2.md#final-full-library-verification-29102026-0434-ict).

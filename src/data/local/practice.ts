@@ -146,6 +146,7 @@ export class PracticeRepository{
   async speakingWords(filter:PracticeFilter){
     return uniqueAggregateWords((await this.repository.words((await this.candidates(filter)).map(row=>row.id))).filter(word=>word.approved));
   }
+  async shadowGrammar(filter:PracticeFilter){try{return (await this.grammarQuestions('grammar-card',filter)).map(q=>q.grammar!);}catch(error){if(error instanceof RepositoryError&&error.code==='not-ready')return [];throw error;}}
   async dialogueInputs(filter:PracticeFilter){return this.gameInputs(filter);}
   async gameInputs(filter:PracticeFilter){
     const selected=await this.speakingWords(filter);

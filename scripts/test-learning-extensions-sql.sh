@@ -13,4 +13,5 @@ for migration in supabase/migrations/*.sql; do
  run "$migration"
 done
 run tests/sql/learning-extensions.sql
+run tests/sql/shadowing.sql
 printf 'PASS learning extensions SQL; output: %s\n' "$TASK_EXT_PG_ROOT"

@@ -7,7 +7,7 @@ import {cachedEdgeAudio,edgeAudio} from "@/lib/audio/edge-audio-client";
 import { normalRate, slowRate, type WordAudio } from "@/lib/audio/word-audio";
 import { englishVoice, waitForEnglishVoice } from "@/lib/audio/voices";
 // A complete 40ms PCM clip: WebKit cannot decode the old one-sample WAV.
-function silentWave(){
+export function silentWave(){
  const bytes=new Uint8Array(44+1280),view=new DataView(bytes.buffer);
  for(const [offset,text] of [[0,'RIFF'],[8,'WAVEfmt '],[36,'data']] as const)for(let i=0;i<text.length;i++)bytes[offset+i]=text.charCodeAt(i);
  view.setUint32(4,bytes.length-8,true);view.setUint32(16,16,true);view.setUint16(20,1,true);view.setUint16(22,1,true);

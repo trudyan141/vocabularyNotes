@@ -1,3 +1,4 @@
+import {queueShadow} from './shadowing';
 import {saveExtensionProposal} from './extensions';
 import {extensionDraftSchema,type ExtensionDraft} from '@/lib/learning/extensions';
 import {validateMedia,saveMedia} from './media';
@@ -143,7 +144,7 @@ export class LocalRepository {
     }
   }
   private installSharedGuards(){
-    const content=new Set(['entries','senses','examples','lessons','lessonItems','evidence','notes','decks','sentences','mediaAssets','surfaceForms','patterns','grammarItems','sourceAssets','deckItems','captureDrafts','localMedia','learningDrafts','drafts','receipts','learningExtensions']);
+    const content=new Set(['entries','senses','examples','lessons','lessonItems','evidence','notes','decks','sentences','mediaAssets','surfaceForms','patterns','grammarItems','sourceAssets','deckItems','captureDrafts','localMedia','learningDrafts','drafts','receipts','learningExtensions','shadowingContent']);
     const learning=new Set(['practiceCycles','practiceSessions','reviewEvents','gameAttempts','reviewStates']);
     for(const table of this.db.tables){
       if(!content.has(table.name)&&!learning.has(table.name))continue;
@@ -581,7 +582,7 @@ export class LocalRepository {
       for (const item of input.learning??[]){const target=resolved.get(item.wordId)!;await saveContent(this,`lesson-content-${lessonId}-${item.key}`,null,{...item.content,senseId:target.id,targetRevision:target.revision,lessonId});}
       for(const draft of input.extensions??[]){if(draft.source.kind==='sense'){const target=resolved.get(draft.key);if(target)await saveExtensionProposal(this,'sense',target.id,draft);}else{const item=input.learning?.find(i=>`grammar:${i.key}`===draft.key);if(item)await saveExtensionProposal(this,'grammar',`lesson-content-${lessonId}-${item.key}`,draft);}}
       for(const picture of pictures){const target=resolved.get(picture.wordId);const word=target?await this.word(target.id):null;if(!word)throw new RepositoryError('invalid');if(!word.art)await saveMedia(this,{...picture.asset,senseId:word.id,word:word.word,revision:word.revision});}
-      for (const id of changed) await this.reindex(id);
+      for (const id of changed) {await this.reindex(id);await queueShadow(this,id);}
       await this.db.receipts.add({
         scopeId: this.scope.id,
         id: input.operationId,
@@ -683,7 +684,7 @@ export class LocalRepository {
         approvedContentVersion: approved ? contentVersion : null,
         pronunciations:s.pronunciations.filter(p=>p.text===e.displayText).map(p=>({...p,contentVersion,approvedContentVersion:approved?contentVersion:null})),
       });
-      await this.reindex(id);
+      await this.reindex(id);await queueShadow(this,id);
       await this.journal("sense", id, {
         baseVersion: s.version,
         version: s.version + 1,
@@ -712,7 +713,7 @@ export class LocalRepository {
       await this.db.examples.add({...base(this.scope.id),senseId:id,position:0,textEn:word.example,translationVi:word.exampleVi,origin:"user",pronunciations:(word.examplePronunciations??[]).filter(p=>p.text===word.example).map(p=>({...p,contentVersion,approvedContentVersion:contentVersion}))});
       for(const extra of word.additionalExamples??[])await this.db.examples.add({...base(this.scope.id),senseId:id,position:1,textEn:extra.textEn,translationVi:extra.translationVi,origin:'user',pronunciations:extra.pronunciations.map(p=>({...p,contentVersion,approvedContentVersion:contentVersion}))});
       const links=await this.db.lessonItems.where("[scopeId+senseId]").equals([this.scope.id,id]).toArray();for(const link of links)await this.db.lessonItems.update([this.scope.id,link.id],{entryId:entry.id});
-      await this.reindex(id);await this.journal("sense",id,{baseVersion:sense.version,version:sense.version+1});return this.word(id);
+      await this.reindex(id);await queueShadow(this,id);await this.journal("sense",id,{baseVersion:sense.version,version:sense.version+1});return this.word(id);
     });
   }
 

@@ -1,0 +1,7 @@
+import {z} from 'zod';
+import {extensionSourceSchema} from './extensions';
+export const shadowLevelSchema=z.enum(['basic','B1','B2']);
+export const shadowLineSchema=z.object({baseText:z.string().trim().min(2).max(220).optional(),text:z.string().trim().min(2).max(220),vi:z.string().trim().min(1).max(1000)}).strict();
+export const shadowPayloadSchema=z.object({kind:z.literal('sense'),targetId:z.string().min(1).max(200),senseId:z.string().min(1).max(200),source:extensionSourceSchema,sourceHash:z.string().regex(/^[a-f0-9]{64}$/),model:z.string().max(100),promptVersion:z.union([z.literal(1),z.literal(2)]),levels:z.array(z.object({level:shadowLevelSchema,sentences:z.array(shadowLineSchema).max(2),reason:z.string().max(400)}).strict()).length(3),decisions:z.record(z.string(),z.enum(['approved','rejected'])),edited:z.boolean(),status:z.enum(['queued','ready','error']),error:z.string().max(100).nullable()}).strict().superRefine((p,ctx)=>{if(new Set(p.levels.map(l=>l.level)).size!==3||p.targetId!==p.senseId)ctx.addIssue({code:'custom',message:'shadow-identity'});for(const l of p.levels)for(const s of l.sentences)if(!/^[^<>\[\]{}]+$/.test(s.text)||(s.text.match(/[a-z]+(?:['’][a-z]+)*/gi)??[]).length>24)ctx.addIssue({code:'custom',message:'shadow-sentence'});for(const key of Object.keys(p.decisions))if(!p.levels.some(l=>l.sentences.some((_,i)=>`${l.level}:${i}`===key)))ctx.addIssue({code:'custom',message:'shadow-decision'});});
+export type ShadowPayload=z.infer<typeof shadowPayloadSchema>;
+export const shadowContentId=(senseId:string)=>`shadow:${senseId}`;

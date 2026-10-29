@@ -1,0 +1,11 @@
+import 'fake-indexeddb/auto';
+import {it,expect,vi} from 'vitest';
+import {Dexie} from 'dexie';
+import {LibraryDatabase} from '@/data/local/database';
+import {LocalRepository} from '@/data/local/repository';
+import {catalog} from '@/lib/learning/catalog';
+import {processShadowQueue} from '@/lib/ai/shadowing';
+import {saveShadowResult,type ShadowRow} from '@/data/local/shadowing';
+const generate=vi.hoisted(()=>vi.fn(async()=>({levels:['basic','B1','B2'].map(level=>({level,sentences:[{baseText:'I eat an apple.',text:'I eat an apple.',vi:'Con thích quả táo này.'}],reason:''}))})));
+vi.mock('@/lib/ai/byok',()=>({parentAi:()=>({key:'fixture',model:'fixture'}),requestWorksheetJson:generate,ParentAiError:class extends Error{}}));
+it('processes queued saves independently of hidden setting and never autoapproves or regenerates ready content',async()=>{const db=new LibraryDatabase(`shadow-job-${crypto.randomUUID()}`),repo=new LocalRepository(db,{kind:'guest',id:'guest:job'});try{await repo.saveLesson({operationId:'job',title:'Job',learnedOn:'2026-10-29',sourceType:'manual',items:[{...catalog[0],id:'apple',approved:true}]});await processShadowQueue(repo,new AbortController().signal);const row=(await db.table<ShadowRow>('shadowingContent').get([repo.scope.id,'shadow:apple']))!;expect(row.payload.status).toBe('ready');expect(row.payload.decisions).toEqual({});expect(generate).toHaveBeenCalledTimes(1);await processShadowQueue(repo,new AbortController().signal);expect(generate).toHaveBeenCalledTimes(1);const shared=new LocalRepository(db,{kind:'shared',id:'shared:10000000-0000-4000-8000-000000000001:20000000-0000-4000-8000-000000000001',ownerId:'30000000-0000-4000-8000-000000000001',libraryId:'20000000-0000-4000-8000-000000000001',access:{id:'10000000-0000-4000-8000-000000000001',kind:'device',ownerId:'30000000-0000-4000-8000-000000000001',libraryId:'20000000-0000-4000-8000-000000000001',name:'Fixture',expiresAt:null,serverTime:new Date().toISOString()}});await expect(saveShadowResult(shared,row,row.payload)).rejects.toThrow();}finally{db.close();await Dexie.delete(db.name);}});

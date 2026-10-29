@@ -10,7 +10,7 @@ export function trimRecording(samples:Float32Array,maxSamples=160000){
  return start===0&&end===samples.length?samples:samples.slice(start,end);
 }
 export class VoiceRecorder{
- constructor(private readonly profile:'word'|'sentence'='word'){}
+ constructor(private readonly profile:'word'|'sentence'|'shadow'='word'){}
  private context:AudioContext|null=null;private meter:ReturnType<typeof setInterval>|undefined;
  private stream:MediaStream|null=null;private recorder:MediaRecorder|null=null;private invalid=false;private timer:ReturnType<typeof setTimeout>|undefined;
  async start(done:(blob:Blob)=>void,failed:()=>void=()=>{}){
@@ -25,7 +25,7 @@ export class VoiceRecorder{
    await microphoneCue(context,'start');
    if(this.invalid){stream.getTracks().forEach(t=>t.stop());throw new Error('cancelled');}
    const analyser=context.createAnalyser();analyser.fftSize=1024;context.createMediaStreamSource(stream).connect(analyser);
-   const frames=new Float32Array(analyser.fftSize),endpoint=new EndOfSpeech(performance.now(),this.profile);
+   const frames=new Float32Array(analyser.fftSize),endpoint=new EndOfSpeech(performance.now(),this.profile==='word'?'word':'sentence');
    const mime=['audio/webm;codecs=opus','audio/mp4','audio/webm'].find(v=>MediaRecorder.isTypeSupported(v));
    const recorder=new MediaRecorder(stream,mime?{mimeType:mime}:undefined);this.recorder=recorder;
    const chunks:Blob[]=[];let size=0;
@@ -38,8 +38,8 @@ export class VoiceRecorder{
     if(!this.invalid){if(chunks.length)done(new Blob(chunks,{type:recorder.mimeType}));else failed();}
    };
    recorder.onerror=()=>{this.cancel();failed();};recorder.start();
-   this.meter=setInterval(()=>{analyser.getFloatTimeDomainData(frames);let energy=0;for(const n of frames)energy+=n*n;if(endpoint.sample(Math.sqrt(energy/frames.length),performance.now()))this.stop();},50);
-   this.timer=setTimeout(()=>this.stop(),this.profile==='sentence'?15000:10000);
+   this.meter=setInterval(()=>{analyser.getFloatTimeDomainData(frames);let energy=0;for(const n of frames)energy+=n*n;if(this.profile!=='shadow'&&endpoint.sample(Math.sqrt(energy/frames.length),performance.now()))this.stop();},50);
+   this.timer=setTimeout(()=>this.stop(),this.profile!=='word'?15000:10000);
   }catch(error){this.cancel();throw error;}
  }
  stop(){clearTimeout(this.timer);clearInterval(this.meter);if(this.recorder?.state==='recording')this.recorder.stop();}

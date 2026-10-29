@@ -9,9 +9,9 @@ import {reScope} from '@/lib/sharing';
 import {remapGroup,type Deck} from './decks';
 import {parseCloudRow} from '@/lib/cloud/contracts';
 import type {ScopedDocument} from './types';
-export const contentTables=['entries','senses','lessons','examples','lessonItems','notes','decks','sentences','mediaAssets','learningExtensions'] as const;
+export const contentTables=['entries','senses','lessons','examples','lessonItems','notes','decks','sentences','mediaAssets','learningExtensions','shadowingContent'] as const;
 type Entity=typeof contentTables[number];
-const recordsSchema=archiveRecordsSchema.pick({entries:true,senses:true,lessons:true,examples:true,lessonItems:true,notes:true,decks:true,sentences:true,mediaAssets:true,learningExtensions:true});
+const recordsSchema=archiveRecordsSchema.pick({entries:true,senses:true,lessons:true,examples:true,lessonItems:true,notes:true,decks:true,sentences:true,mediaAssets:true,learningExtensions:true,shadowingContent:true});
 const copySchema=z.object({formatVersion:z.literal('words-for-kids.content.v1'),exportedAt:z.iso.datetime(),source:z.object({libraryId:z.uuid(),name:z.string().max(200)}).strict(),records:recordsSchema,checksum:z.string().regex(/^[a-f0-9]{64}$/)}).strict();
 export type ContentCopy=z.infer<typeof copySchema>;
 const tables=(repo:LocalRepository)=>contentTables.map(name=>repo.db.table(name));
@@ -25,6 +25,7 @@ export async function parseContentCopy(raw:string){
  const entries=new Map(r.entries.map(row=>[row.id,row])),senses=new Map(r.senses.map(row=>[row.id,row])),lessons=new Set(r.lessons.map(row=>row.id));
  for(const e of r.entries)if(e.canonicalKey!==canonicalKey(e.displayText,e.caseMode)||e.activeKey!==undefined&&e.activeKey!==e.canonicalKey)throw new RepositoryError('invalid');
  for(const s of r.senses)if(!entries.has(s.entryId)||s.identity!==exactSenseKey(s.pos,s.senseLabel)||s.pendingEdit||s.learningApprovalStatus!=='approved'||s.approvedContentVersion!==s.contentVersion)throw new RepositoryError('invalid');
+ for(const row of r.shadowingContent)if(!senses.has(row.payload.senseId))throw new RepositoryError('invalid');
  for(const row of r.learningExtensions)if(!senses.has(row.payload.senseId)||row.payload.kind==='grammar'&&!r.sentences.some(c=>c.id===row.payload.targetId))throw new RepositoryError('invalid');
  for(const row of r.examples)if(!senses.has(row.senseId))throw new RepositoryError('invalid');
  for(const row of r.lessonItems)if(!lessons.has(row.lessonId)||senses.get(row.senseId)?.entryId!==row.entryId||row.evidenceId!==null)throw new RepositoryError('invalid');
@@ -32,7 +33,7 @@ export async function parseContentCopy(raw:string){
  for(const row of r.decks)if(row.payload.deck.senseIds.some(id=>!senses.has(id))||row.payload.deck.group?.sets?.some(set=>set.lessonId&&!lessons.has(set.lessonId)))throw new RepositoryError('invalid');
  for(const row of r.sentences)if(!senses.has(row.payload.content.senseId)||row.payload.content.lessonId&&!lessons.has(row.payload.content.lessonId))throw new RepositoryError('invalid');
  for(const row of r.mediaAssets){const asset=await validateMedia(row.payload.asset);if(!senses.has(asset.senseId)||!asset.approved||asset.status!=='ready')throw new RepositoryError('invalid');}
- if(!input.records.learningExtensions){const {checksum:oldChecksum,...normalized}=copy;void oldChecksum;copy.checksum=await contentHash(normalized);}
+ if(!input.records.shadowingContent||!input.records.learningExtensions){const {checksum:oldChecksum,...normalized}=copy;void oldChecksum;copy.checksum=await contentHash(normalized);}
  return copy;
 }
 export async function exportSharedContent(repo:LocalRepository){
@@ -43,6 +44,7 @@ export async function exportSharedContent(repo:LocalRepository){
  r.examples=r.examples.filter(row=>ids.has(row.senseId));r.lessonItems=r.lessonItems.filter(row=>ids.has(row.senseId)&&r.lessons.some(lesson=>lesson.id===row.lessonId)).map(row=>({...row,evidenceId:null}));
  r.lessons=r.lessons.map(row=>({...row,sourceDigest:null}));r.notes=r.notes.filter(row=>row.targetType==='sense'?ids.has(row.targetId):r.lessons.some(lesson=>lesson.id===row.targetId));
  r.sentences=r.sentences.filter(row=>{const sense=r.senses.find(s=>s.id===row.payload.content.senseId),entry=r.entries.find(e=>e.id===sense?.entryId);return !!sense&&row.payload.content.targetRevision===`${entry?.version}:${sense.version}`;}).map(row=>{const {sourceEvidenceText,lessonId,...content}=row.payload.content;void sourceEvidenceText;return {...row,payload:{content:{...content,...(lessonId&&r.lessons.some(l=>l.id===lessonId)?{lessonId}:{}),...(content.grammarVariants?{grammarVariants:content.grammarVariants.map(variant=>{const {sourceEvidenceText,...form}=variant;void sourceEvidenceText;return form;})}:{})}}};});
+ r.shadowingContent=r.shadowingContent.filter(row=>ids.has(row.payload.senseId)).flatMap(row=>{const p=row.payload,levels=p.levels.map(l=>({...l,sentences:l.sentences.filter((_,i)=>p.decisions[`${l.level}:${i}`]==='approved')}));if(!levels.some(l=>l.sentences.length))return [];return [{...row,payload:{...p,levels,decisions:Object.fromEntries(levels.flatMap(l=>l.sentences.map((_,i)=>[`${l.level}:${i}`,'approved' as const]))),status:'ready' as const,error:null}}];});
  r.learningExtensions=r.learningExtensions.filter(row=>ids.has(row.payload.senseId)&&(row.payload.kind==='sense'||r.sentences.some(c=>c.id===row.payload.targetId))).flatMap(row=>{const p=row.payload;const levels=p.result?.levels.map(level=>({...level,suggestions:level.suggestions.filter((_,i)=>p.decisions[`${level.level}:${i}`]==='approved')}))??[];if(!levels.some(l=>l.suggestions.length))return [];return [{...row,payload:{...p,result:{levels},error:null,decisions:Object.fromEntries(levels.flatMap(l=>l.suggestions.map((_,i)=>[`${l.level}:${i}`,'approved' as const])))}}];});
  r.mediaAssets=r.mediaAssets.filter(row=>{const asset=row.payload.asset,sense=r.senses.find(s=>s.id===asset.senseId),entry=r.entries.find(e=>e.id===sense?.entryId);return !!sense&&sense.art===row.id&&asset.word===entry?.displayText&&asset.revision===`${entry?.version}:${sense.version}`&&asset.approved&&asset.status==='ready';});
  const media=new Set(r.mediaAssets.map(row=>row.id));r.senses=r.senses.map(row=>({...row,art:row.art?.startsWith('media-')&&!media.has(row.art)?null:row.art}));
@@ -86,6 +88,7 @@ export async function commitContentCopy(target:LocalRepository,plan:ContentCopyP
   if(entity==='lessonItems'){const link=original as ContentCopy['records']['lessonItems'][number];row.entryId=map('entries',link.entryId);row.senseId=map('senses',link.senseId);row.lessonId=map('lessons',link.lessonId);row.evidenceId=null;}
   if(entity==='notes'){const note=original as ContentCopy['records']['notes'][number];if(note.targetType==='sense'&&conflicted.has(note.targetId))continue;row.targetId=map(note.targetType==='sense'?'senses':'lessons',note.targetId);}
   if(entity==='sentences'){const content=(original as ContentCopy['records']['sentences'][number]).payload.content;if(conflicted.has(content.senseId))continue;row.payload={content:{...content,senseId:map('senses',content.senseId),targetRevision:revision(content.senseId),...(content.lessonId?{lessonId:map('lessons',content.lessonId)}:{})}};}
+  if(entity==='shadowingContent'){const p=(original as ContentCopy['records']['shadowingContent'][number]).payload;if(conflicted.has(p.senseId))continue;const senseId=map('senses',p.senseId);if(current.shadowingContent.some(e=>e.payload.senseId===senseId))continue;row.id=`shadow:${senseId}`;row.payload={...p,senseId,targetId:senseId,decisions:plan.reviewed?p.decisions:{}};}
   if(entity==='learningExtensions'){const p=(original as ContentCopy['records']['learningExtensions'][number]).payload;if(conflicted.has(p.senseId))continue;const targetId=map(p.kind==='sense'?'senses':'sentences',p.targetId);if(p.kind==='grammar'&&!current.sentences.some(c=>c.id===targetId))continue;if(current.learningExtensions.some(e=>!e.deletedAt&&e.payload.kind===p.kind&&e.payload.targetId===targetId))continue;row.id=`extension-${p.kind}:${targetId}`;row.payload={...p,senseId:map('senses',p.senseId),targetId,decisions:plan.reviewed?p.decisions:{}};}
   if(entity==='mediaAssets'){const asset=(original as ContentCopy['records']['mediaAssets'][number]).payload.asset;if(skip.has(`senses:${asset.senseId}`))continue;row.payload={asset:{...asset,senseId:map('senses',asset.senseId),revision:revision(asset.senseId),word:current.entries.find(e=>e.id===map('entries',source.senses.find(s=>s.id===asset.senseId)!.entryId))!.displayText,approved:plan.reviewed,status:plan.reviewed?'ready':'pending'}};}
   if(entity==='decks'){const d=(original as ContentCopy['records']['decks'][number]).payload.deck;row.payload={deck:{...d,senseIds:[...new Set(d.senseIds.map(id=>map('senses',id)))],...(d.group?{group:remapGroup(d.group,id=>map('senses',id),id=>map('lessons',id))}:{})} satisfies Deck};}

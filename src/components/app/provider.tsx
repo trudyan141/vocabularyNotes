@@ -1,4 +1,5 @@
 "use client";
+import {ShadowPreparation} from '@/components/features/shadowing-preparation';
 import {
   createContext,
   useCallback,
@@ -293,6 +294,7 @@ export function AppProvider({
         },
       }}
     >
+      <ShadowPreparation/>
       {children}
     </Context.Provider>
   );

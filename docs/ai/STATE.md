@@ -1,10 +1,13 @@
 # Trạng thái hiện tại — Words for Kids
 
-Updated:29/10/2026. Current task: **ADR110 B1–B2 — implemented/deployed / full-library backfill complete, owner review pending**. [Plan](../KE-HOACH-MO-RONG-B1-B2.md), [evidence](../evaluations/learning-extensions-b1-b2.md). Founder accepted20pilot and authorized all remaining content. Hosted300/300parents (249senses+51grammar),596suggestions; B1+B2 status for every parent,4no_suggestion cells for Sam/a,0missing/0errors. All300remain pending review;20curated pilot records preserved. Hash comparison:11original content/learning tables unchanged from private backup. Hidden default/collapsed behavior retained, no new deploy/code/env/main push in this data-only follow-up. Prior local7/SQL0015/lint/types+38logic+24productionUI/build+hosted1280/360owner-boundary checks remain recorded; app deploy rghjw4yah/alias.
+Updated:29/10/2026. Current task: **All prepared Shadowing availability recovery complete / deployed / scoped verified**. Read-only audit249ready families/all source+client anchors current; actual current game projection214basic/428linked/0missing. Added owner-only100row paged snapshot independent of general cursor, automatic game-entry refresh and retrieve-all action; preserve edits/decisions/tombstones/newer baselines, no duplicate generation or founder-data mutation.27logic/data+types/lint+18productionUI/buildPASS; deployc8tlt8avi Ready/alias, hosted owner/foreign-boundary+1280/360pending→approve→playPASS, fixture cleaned. Founder browser cache not accessed. [Evidence](../evaluations/shadowing.md).
+
+Next action: Founder reopens Shadowing to receive the full prepared bank and tests both sister levels; retrieve-all remains available if local state is missing.
 
 
 ## Baseline / current steering
 
+- ADR110 B1–B2 implemented/deployed; full-library backfill complete, owner review pending. [Plan](../KE-HOACH-MO-RONG-B1-B2.md), [evidence](../evaluations/learning-extensions-b1-b2.md). Founder accepted20pilot and authorized all remaining content. Hosted300/300parents (249senses+51grammar),596suggestions;4no_suggestion cells for Sam/a,0missing/errors. All300pending review;20pilot preserved;11original tables hash-identical to backup. Hidden default/collapsed behavior retained. Prior local7/SQL0015/lint/types+38logic+24productionUI/build+hosted1280/360owner-boundary checks remain recorded; app deploy rghjw4yah/alias.
 - ADR109 game hub filters removed/progress delete remains deployed/scoped verified; [evidence](../evaluations/game-hub-progress-delete.md). Prior game audit/7adventures retained.
 - ADR110 follow-up29/10: B1/B2 generation independent of visibility; setting defaults hidden per browser/library scope. Enabled sections still collapsed until expanded. Hidden suggestions save as pending, no autoapproval; toggling never regenerates/deletes content. Implemented/deployed; founder/physical-device review remains.
 - Next/PWA, Theme C/Nunito/Cáo; trẻ5–8 tự thêm/sửa/học, không parent gate. Từ+Ngữ pháp; examples/whole-sentence IPA giữ trong items. Chi tiết/bất biến ở AGENTS và [PROJECT-RULES](PROJECT-RULES.md).
@@ -24,6 +27,5 @@ Working tree đầu task phạm vi game sạch; workflow baseline bên dưới t
 
 External acceptance vẫn mở: child/provider eligibility/quality/cost benchmark, human UX, physical camera/clipboard/audio/PWA/install, field/performance trên final release; xem TASKS. Fixture/mock không chứng minh live quality. Token/time của chat trước unavailable; chỉ đo bootstrap bytes/setup/test metadata có thật.
 
-**Next action:** founder mở thư viện, bật Hiện nội dung B1–B2 trên máy muốn học rồi xem/sửa/duyệt các gợi ý trong kho đã bổ sung.
 
 Lịch sử/checkpoints: [STATE history](STATE.history-2026-10-12.md), [CHANGELOG](CHANGELOG.md). Không append history vào current state.

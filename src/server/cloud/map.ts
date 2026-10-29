@@ -14,6 +14,7 @@ export async function mapOperation(owner:string,library:string,item:SyncRequest[
  if(Array.isArray(row.pronunciations))row.pronunciations=row.pronunciations.map(p=>({...p,verified:!!p.verified&&catalog.some(w=>w.pronunciations?.some(known=>known.verified&&known.text===p.text&&known.ipa===p.ipa&&known.sourceUrl===p.sourceUrl))}));
  let fields:Record<string,unknown>={};const payload=row.payload as Record<string,unknown>|undefined;
  switch(item.entity){
+  case 'shadowingContent':{const e=payload as unknown as import('@/lib/learning/shadowing-content').ShadowPayload;fields={sense_id:await ref('senses',e.senseId),content:e};break;}
   case 'learningExtensions':{const e=(payload??{}) as unknown as import('@/lib/learning/extensions').ExtensionPayload;fields={sense_id:await ref('senses',e.senseId),learning_id:e.kind==='grammar'?await ref('sentences',e.targetId):null,content:e};break;}
   case 'lessons':fields={title:row.title,learned_on:row.learnedOn,source_type:row.sourceType,source_digest:row.sourceDigest};break;
   case 'entries':fields={display_text:row.displayText,canonical_key:row.canonicalKey,key_version:1,language:'en',case_mode:row.caseMode,kind:row.kind};break;

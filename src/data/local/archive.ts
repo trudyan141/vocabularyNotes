@@ -1,3 +1,4 @@
+import {shadowPayloadSchema} from '@/lib/learning/shadowing-content';
 import {extensionPayloadSchema,extensionDraftSchema} from '@/lib/learning/extensions';
 import {validExpansionSession} from '@/lib/learning/game-engine';
 import {isExpansion,isPairGame,modeSchema} from '@/lib/learning/game-registry';
@@ -27,6 +28,7 @@ const state=z.object({intervalDays:z.number().int().min(0).max(365),ease:z.numbe
 const form=z.object({extensions:z.array(extensionDraftSchema).max(300).optional(),word:z.string().max(200),vi:z.string().max(1000),en:z.string().max(1000),pos:z.string().max(60),sense:z.string().max(200),example:z.string().max(1000),exampleVi:z.string().max(1000),ipa:z.string().max(1000),hint:z.string().max(1000),exampleHint:z.string().max(1000),exampleIpa:z.string().max(2000).optional(),secondExample:z.string().max(2000).optional(),secondExampleVi:z.string().max(2000).optional(),secondHint:z.string().max(1000).optional(),secondIpa:z.string().max(2000).optional(),art:z.string().max(100).nullable(),source:z.string().max(2000),evidence:z.string().max(1000),ipaSource:z.string().max(2000).nullable().optional(),ipaVerified:z.boolean().optional(),origin:z.enum(["demo","user","source","ai_generated"]).optional()}).strict();
 const ocrItem=z.object({id,literal:z.string().max(200),word:z.string().max(200),vi:z.string().max(1000),en:z.string().max(1000),pos:z.string().max(60),sense:z.string().max(200),example:z.string().max(1000),exampleVi:z.string().max(1000),exampleIpa:z.string().max(2000).nullable().optional(),selected:z.boolean(),art:z.string().max(100).nullable(),origin:z.enum(['ai_generated','user','source']).optional()}).strict();
 export const archiveRecordsSchema=z.object({
+ shadowingContent:z.array(z.object({...base,payload:shadowPayloadSchema}).strict()).default([]),
  learningExtensions:z.array(z.object({...base,payload:extensionPayloadSchema}).strict()).default([]),
  mediaAssets:z.array(z.object({...base,payload:z.object({asset:mediaAsset}).strict()}).strict()).default([]),
  decks:z.array(z.object({...base,payload:z.object({deck:deckSchema}).strict()}).strict()),
@@ -74,6 +76,7 @@ export async function parseArchive(raw:string):Promise<Archive>{
  for(const row of r.sentences)if(!senses.has(row.payload.content.senseId))throw new RepositoryError('invalid');
  for(const e of r.examples)if(!senses.has(e.senseId))throw new RepositoryError('invalid');
  for(const link of r.lessonItems)if(!lessons.has(link.lessonId)||!senses.has(link.senseId)||senses.get(link.senseId)?.entryId!==link.entryId||link.evidenceId&&!evidence.has(link.evidenceId))throw new RepositoryError('invalid');
+ for(const row of r.shadowingContent)if(!senses.has(row.payload.senseId))throw new RepositoryError('invalid');
  for(const row of r.learningExtensions){if(!senses.has(row.payload.senseId)||row.payload.kind==='sense'&&row.payload.targetId!==row.payload.senseId||row.payload.kind==='grammar'&&!r.sentences.some(c=>c.id===row.payload.targetId&&c.payload.content.senseId===row.payload.senseId))throw new RepositoryError('invalid');}
  for(const e of r.evidence)if(!lessons.has(e.lessonId))throw new RepositoryError('invalid');
  for(const n of r.notes)if(!(n.targetType==='sense'?senses.has(n.targetId):lessons.has(n.targetId)))throw new RepositoryError('invalid');
@@ -85,7 +88,7 @@ export async function parseArchive(raw:string):Promise<Archive>{
  for(const row of r.practiceSessions){const s=row.payload.session;if(!isPairGame(s.mode)||!s.cycleId)continue;const cycle=r.practiceCycles.find(c=>c.id===s.cycleId)?.payload.cycle;if(!cycle||s.questions.some(q=>q.choices.some((word,i)=>!cycle.items.some(item=>item.key===q.boardKeys?.[i]&&item.senseId===word.id&&item.revision===word.revision))))throw new RepositoryError('invalid');}
  for(const m of r.localMedia){const bytes=decode(m.base64);if(bytes.length!==m.byteSize)throw new RepositoryError('invalid');const header=imageHeader(bytes);if(header.mime!=='image/jpeg')throw new RepositoryError('invalid');validateDimensions(header.width,header.height);}
  for(const d of r.captureDrafts)if(!media.has(d.sourceKey)||!media.has(d.preparedKey)||d.transform.crop.left>=d.transform.crop.right||d.transform.crop.top>=d.transform.crop.bottom)throw new RepositoryError('invalid');
- if(!value.records.learningExtensions||!value.records.mediaAssets||!value.records.practiceCycles){const {checksum:oldChecksum,...normalized}=archive;void oldChecksum;archive.checksum=await contentHash(normalized);}
+ if(!value.records.shadowingContent||!value.records.learningExtensions||!value.records.mediaAssets||!value.records.practiceCycles){const {checksum:oldChecksum,...normalized}=archive;void oldChecksum;archive.checksum=await contentHash(normalized);}
  return archive;
 }
 export async function importArchive(repo:LocalRepository,archive:Archive){
